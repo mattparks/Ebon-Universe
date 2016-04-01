@@ -2,7 +2,6 @@ import flounder.engine.*;
 import flounder.maths.matrices.*;
 import flounder.maths.vectors.*;
 import flounder.space.*;
-import flounder.toolbox.*;
 import flounder.visual.*;
 
 public class MainCamera implements ICamera {
@@ -24,8 +23,6 @@ public class MainCamera implements ICamera {
 	private final static float MAX_VERTICAL_CHANGE = 5;
 	private static final float NORMAL_ZOOM = 32f;
 
-	private IPointSearch pointSearch;
-
 	private Vector3f m_position;
 	private Vector3f m_rotation;
 	private Frustum m_frustum;
@@ -35,25 +32,10 @@ public class MainCamera implements ICamera {
 	private float m_pitch;
 	private float m_yaw;
 
-	private SmoothFloat m_aimDistance;
-	private MousePicker m_cameraAimer;
-
 	private float m_actualDistanceFromPoint;
 	private float m_targetZoom = m_actualDistanceFromPoint;
 
 	public MainCamera() {
-		pointSearch = new IPointSearch() {
-			@Override
-			public boolean inTerrain(float x, float z) {
-				return false;
-			}
-
-			@Override
-			public float getTerrainHeight(float x, float z) {
-				return 0;
-			}
-		};
-
 		m_position = new Vector3f(0, 0, 0);
 		m_rotation = new Vector3f(0, 0, 0);
 		m_frustum = new Frustum();
@@ -61,9 +43,6 @@ public class MainCamera implements ICamera {
 		m_gamePaused = true;
 		m_pitch = 0.0f;
 		m_yaw = 0.0f;
-
-		m_aimDistance = new SmoothFloat(1400.0f, 2.0f);
-		m_cameraAimer = new MousePicker(this, pointSearch, true);
 
 		m_actualDistanceFromPoint = NORMAL_ZOOM;
 		m_targetZoom = m_actualDistanceFromPoint;
@@ -96,9 +75,6 @@ public class MainCamera implements ICamera {
 		m_rotation.set(focusRotation);
 		m_gamePaused = gamePaused;
 		updateViewMatrix(m_viewMatrix, m_position, m_pitch, m_yaw);
-
-		m_cameraAimer.update();
-		updateAimDistance();
 	}
 
 	private void updateViewMatrix(Matrix4f viewMatrix, Vector3f position, float pitch, float yaw) {
@@ -109,18 +85,6 @@ public class MainCamera implements ICamera {
 		Matrix4f.translate(viewMatrix, cameraPos, viewMatrix);
 
 		m_frustum.recalculateFrustum(FlounderEngine.getProjectionMatrix(), viewMatrix);
-	}
-
-	private void updateAimDistance() {
-		Vector3f aimPoint = m_cameraAimer.getCurrentTerrainPoint();
-
-		if (aimPoint != null) {
-			m_aimDistance.set(Vector3f.subtract(aimPoint, m_position, null).length());
-		} else {
-			m_aimDistance.set(m_actualDistanceFromPoint);
-		}
-
-		m_aimDistance.update(FlounderEngine.getDelta());
 	}
 
 	@Override
@@ -167,6 +131,6 @@ public class MainCamera implements ICamera {
 
 	@Override
 	public float getAimDistance() {
-		return m_aimDistance.get();
+		return 0.0f;
 	}
 }

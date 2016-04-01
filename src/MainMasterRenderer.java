@@ -7,22 +7,18 @@ import flounder.resources.*;
 import flounder.textures.*;
 
 public class MainMasterRenderer extends IRendererMaster {
-	public MainMasterRenderer() {
-
-	}
-
 	private Matrix4f projectionMatrix;
 	private FontRenderer fontRenderer;
 	private GuiRenderer guiRenderer;
-	private GuiTexture guiTexture;
+
+	public MainMasterRenderer() {
+	}
 
 	@Override
 	public void init() {
 		projectionMatrix = new Matrix4f();
 		fontRenderer = new FontRenderer();
 		guiRenderer = new GuiRenderer();
-		guiTexture = new GuiTexture(Texture.newTexture(new MyFile(MyFile.RES_FOLDER, "icon.png")).create(), false);
-		// GuiManager.addComponent(guiTexture, 0.5f, 0.5f, 0.5f, 0.5f);
 	}
 
 	@Override

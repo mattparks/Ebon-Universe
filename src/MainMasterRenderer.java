@@ -1,15 +1,12 @@
 import flounder.devices.*;
 import flounder.engine.*;
 import flounder.fonts.*;
-import flounder.guis.*;
 import flounder.maths.matrices.*;
-import flounder.resources.*;
-import flounder.textures.*;
 
 public class MainMasterRenderer extends IRendererMaster {
 	private Matrix4f projectionMatrix;
 	private FontRenderer fontRenderer;
-	private GuiRenderer guiRenderer;
+	// private GuiRenderer guiRenderer;
 
 	public MainMasterRenderer() {
 	}
@@ -18,7 +15,7 @@ public class MainMasterRenderer extends IRendererMaster {
 	public void init() {
 		projectionMatrix = new Matrix4f();
 		fontRenderer = new FontRenderer();
-		guiRenderer = new GuiRenderer();
+		//	guiRenderer = new GuiRenderer();
 	}
 
 	@Override
@@ -29,7 +26,7 @@ public class MainMasterRenderer extends IRendererMaster {
 		OpenglUtils.goWireframe(false);
 
 		/* Scene independents. */
-		guiRenderer.render(null, null);
+		//	guiRenderer.render(null, null);
 		fontRenderer.render(null, null);
 		OpenglUtils.goWireframe(wireframe);
 	}
@@ -37,13 +34,13 @@ public class MainMasterRenderer extends IRendererMaster {
 	private void renderScene() {
 		OpenglUtils.prepareNewRenderParse(0.0f, 0.5f, 0.5f);
 		ICamera camera = FlounderEngine.getCamera();
-		Matrix4f.perspectiveMatrix(camera.getFOV(), ManagerDevices.getDisplay().getDisplayAspectRatio(), camera.getNearPlane(), camera.getFarPlane(), projectionMatrix);
+		Matrix4f.perspectiveMatrix(camera.getFOV(), ManagerDevices.getDisplay().getAspectRatio(), camera.getNearPlane(), camera.getFarPlane(), projectionMatrix);
 	}
 
 	@Override
 	public void dispose() {
 		fontRenderer.dispose();
-		guiRenderer.dispose();
+		//	guiRenderer.dispose();
 	}
 
 	@Override

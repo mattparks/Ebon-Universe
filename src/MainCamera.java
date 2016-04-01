@@ -2,7 +2,6 @@ import flounder.engine.*;
 import flounder.maths.matrices.*;
 import flounder.maths.vectors.*;
 import flounder.space.*;
-import flounder.visual.*;
 
 public class MainCamera implements ICamera {
 	private static final float ZOOM_AGILITY = 8f;

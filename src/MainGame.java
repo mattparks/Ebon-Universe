@@ -12,7 +12,8 @@ public class MainGame extends IGame {
 	public void init() {
 		Playlist playlist = new Playlist();
 		playlist.addMusic(Sound.loadSoundNow(new MyFile(DeviceSound.SOUND_FOLDER, "era-of-space.wav"), 0.5f));
-		ManagerDevices.getSound().getMusicPlayer().playMusicPlaylist(playlist, true);
+		playlist.addMusic(Sound.loadSoundNow(new MyFile(DeviceSound.SOUND_FOLDER, "spacey-ambient.wav"), 0.5f));
+		ManagerDevices.getSound().getMusicPlayer().playMusicPlaylist(playlist, true, 2.25f, 5.82f);
 	}
 
 	@Override

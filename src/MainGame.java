@@ -19,8 +19,8 @@ public class MainGame extends IGame {
 		skipMusic = new KeyButton(GLFW_KEY_LEFT, GLFW_KEY_RIGHT);
 
 		Playlist playlist = new Playlist();
-		playlist.addMusic(Sound.loadSoundNow(new MyFile(DeviceSound.SOUND_FOLDER, "era-of-space.wav"), 0.5f));
-		playlist.addMusic(Sound.loadSoundNow(new MyFile(DeviceSound.SOUND_FOLDER, "spacey-ambient.wav"), 0.5f));
+		playlist.addMusic(Sound.loadSoundInBackground(new MyFile(DeviceSound.SOUND_FOLDER, "era-of-space.wav"), 0.5f));
+		playlist.addMusic(Sound.loadSoundInBackground(new MyFile(DeviceSound.SOUND_FOLDER, "spacey-ambient.wav"), 0.5f));
 		ManagerDevices.getSound().getMusicPlayer().playMusicPlaylist(playlist, true, 2.25f, 5.82f);
 	}
 

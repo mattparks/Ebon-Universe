@@ -1,6 +1,5 @@
 package uis;
 
-import flounder.devices.*;
 import flounder.fonts.*;
 import flounder.guis.*;
 
@@ -28,6 +27,14 @@ public class MainMenu extends GuiComponent {
 		createButton("Play", listener, yPos);
 	}
 
+	private void createButton(final String textString, final Listener listener, final float yPos) {
+		Text text = Text.newText(textString).center().setFontSize(FONT_SIZE).create();
+		text.setColour(GameMenu.TEXT_COLOUR);
+		GuiTextButton button = new GuiTextButton(text);
+		button.addLeftListener(listener);
+		addComponent(button, BUTTONS_X_POS, yPos, BUTTONS_X_WIDTH, BUTTONS_Y_SIZE);
+	}
+
 	private void createOptionsButton(final float yPos) {
 		Listener listener = () -> gameMenu.setNewSecondaryScreen(new OptionScreen(gameMenu));
 		createButton("Options", listener, yPos);
@@ -36,14 +43,6 @@ public class MainMenu extends GuiComponent {
 	private void createQuitButton(final float yPos) {
 		Listener listener = () -> gameMenu.setNewSecondaryScreen(new QuitScreen(gameMenu));
 		createButton("Quit", listener, yPos);
-	}
-
-	private void createButton(final String textString, final Listener listener, final float yPos) {
-		Text text = Text.newText(textString).center().setFontSize(FONT_SIZE).create();
-		text.setColour(GameMenu.TEXT_COLOUR);
-		GuiTextButton button = new GuiTextButton(text);
-		button.addLeftListener(listener);
-		addComponent(button, BUTTONS_X_POS, yPos, BUTTONS_X_WIDTH, BUTTONS_Y_SIZE);
 	}
 
 	@Override

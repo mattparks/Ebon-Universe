@@ -8,9 +8,9 @@ import java.util.*;
 
 public class GameMenuBackground extends GuiComponent {
 	private static final float SLIDE_TIME = 0.7f;
+	private final GameMenu menu;
 	private ValueDriver slideDriver;
 	private float backgroundAlpha;
-	private final GameMenu menu;
 	private boolean displayed = true;
 
 	public GameMenuBackground() {

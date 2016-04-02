@@ -16,9 +16,9 @@ public class OptionScreen extends GuiComponent {
 	public static final float BUTTONS_X_RIGHT_POS = 0.55f;
 	public static final float BUTTONS_X_WIDTH = 0.4f;
 
-	public static final Sound VALUE_UP_SOUND = Sound.loadSoundNow(new MyFile(DeviceSound.SOUND_FOLDER, "button3.wav"), 0.8f);
-	public static final Sound VALUE_DOWN_SOUND = Sound.loadSoundNow(new MyFile(DeviceSound.SOUND_FOLDER, "button3.wav"), 0.8f);
-	public static final Sound VALUE_INVALID_SOUND = Sound.loadSoundNow(new MyFile(DeviceSound.SOUND_FOLDER, "button3.wav"), 0.8f);
+	public static final Sound VALUE_UP_SOUND = Sound.loadSoundInBackground(new MyFile(DeviceSound.SOUND_FOLDER, "button3.wav"), 0.8f);
+	public static final Sound VALUE_DOWN_SOUND = Sound.loadSoundInBackground(new MyFile(DeviceSound.SOUND_FOLDER, "button3.wav"), 0.8f);
+	public static final Sound VALUE_INVALID_SOUND = Sound.loadSoundInBackground(new MyFile(DeviceSound.SOUND_FOLDER, "button3.wav"), 0.8f);
 
 	private final GameMenu gameMenu;
 

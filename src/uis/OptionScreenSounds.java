@@ -23,7 +23,7 @@ public class OptionScreenSounds extends GuiComponent {
 		createBackOption(OptionScreen.BUTTONS_X_CENTER_POS, 0.9f);
 	}
 
-	private void createSoundOption(final float xPos,final  float yPos) {
+	private void createSoundOption(final float xPos, final float yPos) {
 		final String soundText = "Sound: ";
 		final Text text = Text.newText(soundText + (OptionsAudio.SOUND_VOLUME == 1.0f ? "On" : "Off")).center().setFontSize(OptionScreen.FONT_SIZE).create();
 		text.setColour(GameMenu.TEXT_COLOUR);

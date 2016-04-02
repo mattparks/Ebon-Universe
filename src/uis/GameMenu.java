@@ -15,14 +15,11 @@ public class GameMenu extends GuiComponent {
 	private static final float MAIN_MENU_Y_SIZE = 0.6f;
 
 	private static final float SLIDE_TIME = 0.7f;
-
+	private final MainMenu mainMenu;
 	private ValueDriver secondaryDriver = new ConstantDriver(0);
 	private ValueDriver mainDriver = new ConstantDriver(0);
-
 	private boolean displayed = true;
 	private boolean closeSecondary = false;
-
-	private final MainMenu mainMenu;
 	private GuiComponent secondaryScreen;
 
 	public GameMenu(final GameMenuBackground superMenu) {

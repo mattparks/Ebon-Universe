@@ -22,7 +22,7 @@ public class ParticleRenderer extends IRenderer {
 
 	private ParticleShader shader;
 	private int pointer;
-	private List<Particle> viewableParticles;
+	private List<List<Particle>> viewableParticles;
 
 	public ParticleRenderer() {
 		shader = new ParticleShader();
@@ -40,20 +40,22 @@ public class ParticleRenderer extends IRenderer {
 	@Override
 	public void renderObjects(Vector4f clipPlane, ICamera camera) {
 		prepareRendering(clipPlane, camera);
-
-		pointer = 0;
 		ParticleManager.getParticles(viewableParticles, camera);
-		float[] vboData = new float[viewableParticles.size() * INSTANCE_DATA_LENGTH];
 
-		for (Particle p : viewableParticles) {
-			prepareTexturedModel(p.getParticleType());
-			prepareInstance(p, camera, vboData);
+		for (List<Particle> list : viewableParticles) {
+			pointer = 0;
+			float[] vboData = new float[list.size() * INSTANCE_DATA_LENGTH];
+
+			for (Particle p : list) {
+				prepareTexturedModel(p.getParticleType());
+				prepareInstance(p, camera, vboData);
+			}
+
+			Loader.updateVBO(VBO, vboData, BUFFER);
+			GL31.glDrawArraysInstanced(GL11.GL_TRIANGLE_STRIP, 0, VERTICES.length, list.size());
+			unbindTexturedModel();
 		}
 
-		Loader.updateVBO(VBO, vboData, BUFFER);
-		GL31.glDrawArraysInstanced(GL11.GL_TRIANGLE_STRIP, 0, VERTICES.length, viewableParticles.size());
-
-		unbindTexturedModel();
 		shader.stop();
 	}
 

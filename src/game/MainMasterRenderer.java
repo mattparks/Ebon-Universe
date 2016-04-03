@@ -76,7 +76,7 @@ public class MainMasterRenderer extends IRendererMaster {
 
 	private void renderScene(final Vector4f clipPlane, final ICamera camera) {
 		// exampleRenderer.render(null, camera);
-		skyboxRenderer.render(clipPlane, camera);
+		// skyboxRenderer.render(clipPlane, camera);
 		particleRenderer.render(clipPlane, camera);
 	}
 

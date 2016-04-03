@@ -15,7 +15,7 @@ import static org.lwjgl.glfw.GLFW.*;
 public class ParticleManager {
 	public static final MyFile PARTICLES_LOC = new MyFile(MyFile.RES_FOLDER, "particles");
 
-	public static List<Particle> particles;
+	public static List<List<Particle>> particles;
 	private static AABB reusableAABB;
 	private static ProfileTab profileTab;
 
@@ -27,40 +27,67 @@ public class ParticleManager {
 	}
 
 	public static void update() {
-		final Iterator<Particle> iterator = particles.iterator();
+		int totalParticles = 0;
 
-		while (iterator.hasNext()) {
-			final Particle particle = iterator.next();
-			particle.update(!ManagerDevices.getKeyboard().getKey(GLFW_KEY_Y));
+		for (List<Particle> list : particles) {
+			final Iterator<Particle> iterator = list.iterator();
 
-			if (!particle.isAlive()) {
-				iterator.remove();
+			while (iterator.hasNext()) {
+				final Particle particle = iterator.next();
+				particle.update(!ManagerDevices.getKeyboard().getKey(GLFW_KEY_Y));
+
+				if (!particle.isAlive()) {
+					iterator.remove();
+
+					if (list.isEmpty()) {
+						particles.remove(list);
+					}
+				} else {
+					totalParticles++;
+				}
 			}
 		}
 
-		profileTab.addLabel("Total", particles.size());
+		profileTab.addLabel("Types", particles.size());
+		profileTab.addLabel("Particles", totalParticles);
 	}
 
-	public static List<Particle> getParticles(List<Particle> viewableParticles, final ICamera camera) {
+	public static List<List<Particle>> getParticles(List<List<Particle>> viewableParticles, final ICamera camera) {
 		viewableParticles.clear();
 
-		for (final Particle particle : particles) {
-			float SIZE = 0.5f * particle.getParticleType().getScale();
-			reusableAABB.getMinExtents().set(particle.getPosition().getX() - SIZE, particle.getPosition().getY() - SIZE, particle.getPosition().getZ() - SIZE);
-			reusableAABB.getMaxExtents().set(particle.getPosition().getX() + SIZE, particle.getPosition().getY() + SIZE, particle.getPosition().getZ() + SIZE);
+		for (List<Particle> particleList : particles) {
+			List<Particle> viewableParticleList = new ArrayList<>();
 
-			if (camera.getViewFrustum().aabbInFrustum(reusableAABB)) {
-				viewableParticles.add(particle);
+			for (final Particle particle : particleList) {
+				float SIZE = 0.5f * particle.getParticleType().getScale();
+				reusableAABB.getMinExtents().set(particle.getPosition().getX() - SIZE, particle.getPosition().getY() - SIZE, particle.getPosition().getZ() - SIZE);
+				reusableAABB.getMaxExtents().set(particle.getPosition().getX() + SIZE, particle.getPosition().getY() + SIZE, particle.getPosition().getZ() + SIZE);
+
+				if (camera.getViewFrustum().aabbInFrustum(reusableAABB)) {
+					viewableParticleList.add(particle);
+				}
 			}
+
+			// Added to engine.particles first -> last, so no initial reverse needed.
+			viewableParticleList = SortingAlgorithms.insertionSort(viewableParticleList);
+			Collections.reverse(viewableParticles); // Reverse as the sorted list should be close(small) -> far(big).
+
+			viewableParticles.add(viewableParticleList);
 		}
 
-		// Added to engine.particles first -> last, so no initial reverse needed.
-		viewableParticles = SortingAlgorithms.insertionSort(viewableParticles);
-		Collections.reverse(viewableParticles); // Reverse as the sorted list should be close(small) -> far(big).
 		return viewableParticles;
 	}
 
 	public static void addParticle(final Particle particle) {
-		particles.add(particle);
+		for (List<Particle> list : particles) {
+			if (list.get(0).getParticleType().equals(particle.getParticleType())) {
+				list.add(particle);
+				return;
+			}
+		}
+
+		List<Particle> list = new ArrayList<>();
+		list.add(particle);
+		particles.add(list);
 	}
 }

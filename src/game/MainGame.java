@@ -52,13 +52,13 @@ public class MainGame extends IGame {
 		fireTexture.setNumberOfRows(8);
 
 		List<Pair<ParticleType, Float>> particleTypes = new ArrayList<>();
-		particleTypes.add(new Pair(new ParticleType(smokeTexture, 0.1f, 3.2f, 0, 5.8f), 1));
-		particleTypes.add(new Pair(new ParticleType(fireTexture, 0.1f, 3.2f, 0, 5.8f), 0.25f));
+		particleTypes.add(new Pair(new ParticleType(smokeTexture, 0.1f, 4.0f, 0, 6.0f), 1.0f));
+		particleTypes.add(new Pair(new ParticleType(fireTexture, 0.1f, 1.0f, 0, 4.0f), 0.25f));
 
 		SystemSimple particleSystem = new SystemSimple(75, 10.0f, particleTypes);
 		particleSystem.setSpeedError(0.1f);
 		particleSystem.setDirection(new Vector3f(0, -1.0f, 0), 0.125f);
-		particleSystem.setSystemCenter(playerPosition);
+		particleSystem.setSystemCenter(new Vector3f(playerPosition.x, playerPosition.y + 10, playerPosition.z));
 		particleSystems.add(particleSystem);
 
 		Environment.init(new Fog(new Colour(0.15f, 0.16f, 0.18f), 0.001f, 2.0f, 0.0f, 500.0f));

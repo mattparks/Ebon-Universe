@@ -44,9 +44,13 @@ public class MainGame extends IGame {
 		playlist.addMusic(Sound.loadSoundInBackground(new MyFile(DeviceSound.SOUND_FOLDER, "spacey-ambient.wav"), 0.5f));
 		ManagerDevices.getSound().getMusicPlayer().playMusicPlaylist(playlist, true, 2.25f, 5.82f);
 
-		Texture particleSystemTexture = Texture.newTexture(new MyFile(ParticleManager.PARTICLES_LOC, "coins.png")).create();
-		particleSystemTexture.setNumberOfRows(3);
-		SystemPlayer particleSystem = new SystemPlayer(particleSystemTexture, 40, 7.36f, 0.0986f, 3.2f, 1.8f);
+		Texture coinsTexture = Texture.newTexture(new MyFile(ParticleManager.PARTICLES_LOC, "coins.png")).create();
+		coinsTexture.setNumberOfRows(3);
+
+		List<ParticleType> particleTypes = new ArrayList<>();
+		particleTypes.add(new ParticleType(coinsTexture, 0.0986f, 3.2f, 0, 1.8f));
+
+		SystemPlayer particleSystem = new SystemPlayer(40, 7.36f, particleTypes);
 		particleSystem.setSpeedError(0.25f);
 		particleSystem.randomizeRotation();
 		particleSystem.setDirection(new Vector3f(0, 0.1f, 0), 0.5f);
@@ -85,7 +89,7 @@ public class MainGame extends IGame {
 
 		if (!MainGuis.isMenuOpen()) {
 			particleSystems.forEach(IParticleSystem::update);
-			ParticleManager.update(FlounderEngine.getCamera());
+			ParticleManager.update();
 		}
 	}
 

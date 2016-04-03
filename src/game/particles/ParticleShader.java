@@ -7,11 +7,11 @@ public class ParticleShader extends ShaderProgram {
 	private static final MyFile VERTEX_SHADER = new MyFile("game/particles", "particleVertex.glsl");
 	private static final MyFile FRAGMENT_SHADER = new MyFile("game/particles", "particleFragment.glsl");
 
-	protected UniformMat4 viewMatrix = new UniformMat4("viewMatrix");
-	protected UniformMat4 projectionMatrix = new UniformMat4("projectionMatrix");
-	protected UniformVec4 clipPlane = new UniformVec4("clipPlane");
-	protected UniformFloat numberOfRows = new UniformFloat("numberOfRows");
-	// protected UniformFloat transparency = new UniformFloat("transparency");
+	protected final UniformMat4 viewMatrix = new UniformMat4("viewMatrix");
+	protected final UniformMat4 projectionMatrix = new UniformMat4("projectionMatrix");
+	protected final UniformVec4 clipPlane = new UniformVec4("clipPlane");
+	protected final UniformFloat numberOfRows = new UniformFloat("numberOfRows");
+	// protected final UniformFloat transparency = new UniformFloat("transparency");
 
 	protected ParticleShader() {
 		super("particle", VERTEX_SHADER, FRAGMENT_SHADER);

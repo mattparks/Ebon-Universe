@@ -22,9 +22,11 @@ public class ParticleRenderer extends IRenderer {
 	private ParticleShader shader;
 	private ParticleType currentType;
 	private int pointer;
+	private List<Particle> viewableParticles;
 
 	public ParticleRenderer() {
 		shader = new ParticleShader();
+		viewableParticles = new ArrayList<>();
 
 		Loader.addInstancedAttribute(VAO, VBO, 1, 4, INSTANCE_DATA_LENGTH, 0);
 		Loader.addInstancedAttribute(VAO, VBO, 2, 4, INSTANCE_DATA_LENGTH, 4);
@@ -41,17 +43,17 @@ public class ParticleRenderer extends IRenderer {
 		prepareRendering(clipPlane, camera);
 
 		pointer = 0;
-		List<Particle> particleList = ParticleManager.getParticles(camera);
-		float[] vboData = new float[particleList.size() * INSTANCE_DATA_LENGTH];
+		ParticleManager.getParticles(viewableParticles, camera);
+		float[] vboData = new float[viewableParticles.size() * INSTANCE_DATA_LENGTH];
 
-		for (Particle p : particleList) {
+		for (Particle p : viewableParticles) {
 			prepareTexturedModel(p.getParticleType());
 			prepareInstance(p, camera, vboData);
 			// GL11.glDrawArrays(GL11.GL_TRIANGLE_STRIP, 0, VERTICES.length); // Draws the particle instance.
 		}
 
 		Loader.updateVBO(VBO, vboData, BUFFER);
-		GL31.glDrawArraysInstanced(GL11.GL_TRIANGLE_STRIP, 0, VERTICES.length, particleList.size());
+		GL31.glDrawArraysInstanced(GL11.GL_TRIANGLE_STRIP, 0, VERTICES.length, viewableParticles.size());
 
 		unbindTexturedModel();
 		shader.stop();

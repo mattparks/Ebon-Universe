@@ -1,7 +1,7 @@
 package game.particles;
 
 /**
- * Represents a particle system that emits engine.particles.
+ * Represents a particle system that emits {@link Particle}.
  */
 public interface IParticleSystem {
 	/**

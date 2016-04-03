@@ -9,7 +9,7 @@ public class ParticleType {
 	private float rotation;
 	private float scale;
 
-	public ParticleType(Texture texture, float gravityEffect, float lifeLength, float rotation, float scale) {
+	public ParticleType(final Texture texture, final float gravityEffect, final float lifeLength, final float rotation, final float scale) {
 		this.texture = texture;
 		this.gravityEffect = gravityEffect;
 		this.lifeLength = lifeLength;

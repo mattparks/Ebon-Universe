@@ -95,7 +95,7 @@ public class MainCamera implements ICamera {
 		targetPosition.set(focusPosition);
 		targetRotation.set(focusRotation);
 
-		// updateActualZoom();
+		updateActualZoom();
 		updateHorizontalAngle();
 		updatePitchAngle();
 		calculateDistances();
@@ -163,7 +163,7 @@ public class MainCamera implements ICamera {
 	}
 
 	private void calculateZoom(boolean gamePaused) {
-		float zoomLevel = gamePaused ? 0 : (float) (ManagerDevices.getMouse().getDeltaWheel() / INFLUENCE_OF_MOUSE_WHEEL);
+		float zoomLevel = gamePaused ? 0.0f : (ManagerDevices.getMouse().getDeltaWheel() / INFLUENCE_OF_MOUSE_WHEEL);
 		// float zoomLevel = 0;
 
 		if (zoomLevel != 0) {

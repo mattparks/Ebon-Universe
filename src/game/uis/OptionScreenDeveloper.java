@@ -19,13 +19,13 @@ public class OptionScreenDeveloper extends GuiComponent {
 
 	private void createProfilerToggleOption(final float xPos, final float yPos) {
 		final String profilerText = "Engine Profiler: ";
-		final Text text = Text.newText(profilerText + (EngineProfiler.isOpen() ? "Enabled" : "Disabled")).center().setFontSize(OptionScreen.FONT_SIZE).create();
+		final Text text = Text.newText(profilerText + (FlounderProfiler.isOpen() ? "Enabled" : "Disabled")).center().setFontSize(OptionScreen.FONT_SIZE).create();
 		text.setColour(GameMenu.TEXT_COLOUR);
 		final GuiTextButton button = new GuiTextButton(text);
 
 		final Listener listener = () -> {
-			EngineProfiler.toggle(!EngineProfiler.isOpen());
-			text.setText(profilerText + (EngineProfiler.isOpen() ? "Enabled" : "Disabled"));
+			FlounderProfiler.toggle(!FlounderProfiler.isOpen());
+			text.setText(profilerText + (FlounderProfiler.isOpen() ? "Enabled" : "Disabled"));
 		};
 
 		button.addLeftListener(listener);

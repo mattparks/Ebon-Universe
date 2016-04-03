@@ -15,8 +15,16 @@ import static org.lwjgl.glfw.GLFW.*;
 public class ParticleManager {
 	public static final MyFile PARTICLES_LOC = new MyFile(MyFile.RES_FOLDER, "particles");
 
-	public static final Map<ParticleType, List<Particle>> particles = new HashMap<>();
-	private static final AABB reusableAABB = new AABB(new Vector3f(), new Vector3f());
+	public static Map<ParticleType, List<Particle>> particles;
+	private static AABB reusableAABB;
+	private static ProfileTab profileTab;
+
+	public static void init() {
+		particles = new HashMap<>();
+		reusableAABB = new AABB(new Vector3f(), new Vector3f());
+		profileTab = new ProfileTab("Particles");
+		FlounderProfiler.addTab(profileTab);
+	}
 
 	public static void update() {
 		for (ParticleType p : particles.keySet()) {
@@ -37,12 +45,12 @@ public class ParticleManager {
 		}
 
 		int particlesTotal = 0;
-		for(ParticleType t : particles.keySet()) {
+		for (ParticleType t : particles.keySet()) {
 			for (Particle p : particles.get(t)) {
 				particlesTotal++;
 			}
 		}
-		EngineProfiler.addLabel("Particles=", particlesTotal);
+		profileTab.addLabel("Total Particles", "" + particlesTotal);
 	}
 
 	public static List<Particle> getParticles(List<Particle> viewableParticles, final ICamera camera) {

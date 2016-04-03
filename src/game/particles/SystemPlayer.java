@@ -5,7 +5,6 @@ import flounder.engine.*;
 import flounder.maths.*;
 import flounder.maths.matrices.*;
 import flounder.maths.vectors.*;
-import flounder.textures.*;
 
 import java.util.*;
 
@@ -13,12 +12,11 @@ import static org.lwjgl.glfw.GLFW.*;
 
 public class SystemPlayer implements IParticleSystem {
 	private final List<ParticleType> types;
-
+	private final Vector3f direction;
+	private final Vector3f systemCenter;
 	private float pps, averageSpeed;
 	private float speedError;
 	private boolean randomRotation;
-	private final Vector3f direction;
-	private final Vector3f systemCenter;
 	private float directionDeviation;
 
 	public SystemPlayer(final float pps, final float speed, List<ParticleType> types) {

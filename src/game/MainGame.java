@@ -59,6 +59,7 @@ public class MainGame extends IGame {
 
 		Environment.init(new Fog(new Colour(0.15f, 0.16f, 0.18f), 0.001f, 2.0f, 0.0f, 500.0f));
 		MainGuis.init();
+		ParticleManager.init();
 	}
 
 	@Override

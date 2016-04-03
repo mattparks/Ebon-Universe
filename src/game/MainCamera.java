@@ -48,6 +48,7 @@ public class MainCamera implements ICamera {
 	private float angleOfElevation;
 	private float targetRotationAngle;
 	private float angleAroundPlayer;
+	private ProfileTab profileTab;
 
 	public MainCamera() {
 		toggleMouseMoveKey = GLFW_MOUSE_BUTTON_LEFT;
@@ -62,6 +63,8 @@ public class MainCamera implements ICamera {
 		angleOfElevation = targetElevation;
 		targetRotationAngle = 0;
 		angleAroundPlayer = targetRotationAngle;
+		profileTab = new ProfileTab("Camera");
+		FlounderProfiler.addTab(profileTab);
 
 		calculateDistances();
 	}
@@ -134,7 +137,7 @@ public class MainCamera implements ICamera {
 			targetRotationAngle += Maths.DEGREES_IN_CIRCLE;
 		}
 
-		EngineProfiler.addLabel("Camera targetRotationAngle=", targetRotationAngle);
+		profileTab.addLabel("Target Rotation Angle", "" + targetRotationAngle);
 	}
 
 	private void calculateVerticalAngle(boolean gamePaused) {
@@ -142,7 +145,7 @@ public class MainCamera implements ICamera {
 		float angleChange = 0;
 
 		if (ManagerDevices.getMouse().getMouse(toggleMouseMoveKey) && !gamePaused) { // && !DeviceMouse.isActiveInGUI()
-			angleChange = -(float) ManagerDevices.getMouse().getDeltaY() * INFLUENCE_OF_MOUSEDY;
+			angleChange = -ManagerDevices.getMouse().getDeltaY() * INFLUENCE_OF_MOUSEDY;
 		}
 
 		if (angleChange > MAX_VERTICAL_CHANGE * delta) {
@@ -159,7 +162,7 @@ public class MainCamera implements ICamera {
 		//	targetElevation = 0;
 		//}
 
-		EngineProfiler.addLabel("Camera targetElevation=", targetElevation);
+		profileTab.addLabel("Target Elevation", "" + targetElevation);
 	}
 
 	private void calculateZoom(boolean gamePaused) {
@@ -176,7 +179,7 @@ public class MainCamera implements ICamera {
 			//}
 		}
 
-		EngineProfiler.addLabel("Camera targetZoom=", targetZoom);
+		profileTab.addLabel("Target Zoom", "" + targetZoom);
 	}
 
 	private void updateActualZoom() {
@@ -184,7 +187,7 @@ public class MainCamera implements ICamera {
 		float change = offset * FlounderEngine.getDelta() * ZOOM_AGILITY;
 		actualDistanceFromPoint += change;
 
-		EngineProfiler.addLabel("Camera actualDistanceFromPoint=", actualDistanceFromPoint);
+		profileTab.addLabel("Actual Distance From Point", "" + actualDistanceFromPoint);
 	}
 
 	private void updateHorizontalAngle() {
@@ -207,7 +210,7 @@ public class MainCamera implements ICamera {
 			angleAroundPlayer += Maths.DEGREES_IN_CIRCLE;
 		}
 
-		EngineProfiler.addLabel("Camera angleAroundPlayer=", angleAroundPlayer);
+		profileTab.addLabel("Angle Around Player", "" + angleAroundPlayer);
 	}
 
 	private void updatePitchAngle() {
@@ -215,7 +218,7 @@ public class MainCamera implements ICamera {
 		float change = offset * FlounderEngine.getDelta() * PITCH_AGILITY;
 		angleOfElevation += change;
 
-		EngineProfiler.addLabel("Camera angleOfElevation=", angleOfElevation);
+		profileTab.addLabel("Angle Of Elevation", "" + angleOfElevation);
 	}
 
 	private void calculatePosition() {
@@ -227,8 +230,8 @@ public class MainCamera implements ICamera {
 		yaw = targetRotation.y + Maths.DEGREES_IN_HALF_CIRCLE + angleAroundPlayer;
 		pitch = (float) Math.toDegrees(angleOfElevation) - PITCH_OFFSET;
 
-		EngineProfiler.addLabel("Camera yaw=", yaw);
-		EngineProfiler.addLabel("Camera pitch=", pitch);
+		profileTab.addLabel("Yaw", "" + yaw);
+		profileTab.addLabel("Pitch", "" + pitch);
 	}
 
 	@Override

@@ -9,11 +9,10 @@ public class Particle implements Comparable<Particle> {
 	private final Vector3f position;
 	private final Vector3f velocity;
 	private final Vector3f reusableChange;
-
-	private float elapsedTime;
-	private float transparency;
 	private final Vector2f textureOffset1;
 	private final Vector2f textureOffset2;
+	private float elapsedTime;
+	private float transparency;
 	private float textureBlendFactor;
 	private float distanceToCamera;
 

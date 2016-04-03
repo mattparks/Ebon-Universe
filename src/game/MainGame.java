@@ -7,11 +7,19 @@ import flounder.maths.*;
 import flounder.maths.vectors.*;
 import flounder.resources.*;
 import flounder.sounds.*;
+import flounder.textures.*;
+import game.particles.*;
+
+import java.util.*;
 
 import static org.lwjgl.glfw.GLFW.*;
 
 public class MainGame extends IGame {
+	private static List<IParticleSystem> particleSystems = new ArrayList<>();
+
 	private KeyButton screenshot;
+	private KeyButton fullscreen;
+	private KeyButton polygons;
 	private KeyButton pauseMusic;
 	private KeyButton skipMusic;
 
@@ -23,7 +31,9 @@ public class MainGame extends IGame {
 
 	@Override
 	public void init() {
-		screenshot = new KeyButton(GLFW_KEY_F10);
+		screenshot = new KeyButton(GLFW_KEY_F2);
+		fullscreen = new KeyButton(GLFW_KEY_F11);
+		polygons = new KeyButton(GLFW_KEY_P);
 		pauseMusic = new KeyButton(GLFW_KEY_DOWN);
 		skipMusic = new KeyButton(GLFW_KEY_LEFT, GLFW_KEY_RIGHT);
 		playerPosition = new Vector3f();
@@ -33,6 +43,15 @@ public class MainGame extends IGame {
 		playlist.addMusic(Sound.loadSoundInBackground(new MyFile(DeviceSound.SOUND_FOLDER, "era-of-space.wav"), 0.5f));
 		playlist.addMusic(Sound.loadSoundInBackground(new MyFile(DeviceSound.SOUND_FOLDER, "spacey-ambient.wav"), 0.5f));
 		ManagerDevices.getSound().getMusicPlayer().playMusicPlaylist(playlist, true, 2.25f, 5.82f);
+
+		Texture particleSystemTexture = Texture.newTexture(new MyFile(ParticleManager.PARTICLES_LOC, "coins.png")).create();
+		particleSystemTexture.setNumberOfRows(3);
+		SystemPlayer particleSystem = new SystemPlayer(particleSystemTexture, 40, 7.36f, 0.0986f, 3.2f, 1.8f);
+		particleSystem.setSpeedError(0.25f);
+		particleSystem.randomizeRotation();
+		particleSystem.setDirection(new Vector3f(0, 0.1f, 0), 0.5f);
+		particleSystem.setSystemCenter(playerPosition);
+		particleSystems.add(particleSystem);
 
 		Environment.init(new Fog(new Colour(0.15f, 0.16f, 0.18f), 0.001f, 2.0f, 0.0f, 500.0f));
 		MainGuis.init();
@@ -46,6 +65,14 @@ public class MainGame extends IGame {
 			ManagerDevices.getDisplay().screenshot();
 		}
 
+		if (fullscreen.wasDown()) {
+			ManagerDevices.getDisplay().setFullscreen(!ManagerDevices.getDisplay().isFullscreen());
+		}
+
+		if (polygons.wasDown()) {
+			OpenglUtils.goWireframe(!OpenglUtils.isInWireframe());
+		}
+
 		if (pauseMusic.wasDown()) {
 			ManagerDevices.getSound().getMusicPlayer().pauseTrack();
 		}
@@ -55,6 +82,11 @@ public class MainGame extends IGame {
 		}
 
 		super.updateGame(playerPosition, playerRotation, MainGuis.isMenuOpen(), MainGuis.getBlurFactor());
+
+		if (!MainGuis.isMenuOpen()) {
+			particleSystems.forEach(IParticleSystem::update);
+			ParticleManager.update(FlounderEngine.getCamera());
+		}
 	}
 
 	@Override

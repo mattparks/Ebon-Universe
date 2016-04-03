@@ -17,7 +17,7 @@ public class MainCamera implements ICamera {
 	private static final float FIELD_OF_VIEW = 70f;
 	private static final float NEAR_PLANE = 0.1f;
 	private static final float FAR_PLANE = 3200f;
-	private final static float CAMERA_AIM_OFFSET = 10.0f;
+	private final static float CAMERA_AIM_OFFSET = 0.0f; // 10.0f;
 	private final static float INFLUENCE_OF_MOUSEDY = -1000.0f;
 	private final static float INFLUENCE_OF_MOUSEDX = INFLUENCE_OF_MOUSEDY * 92.0f;
 	private final static float INFLUENCE_OF_MOUSE_WHEEL = 12.5f;
@@ -95,7 +95,7 @@ public class MainCamera implements ICamera {
 		targetPosition.set(focusPosition);
 		targetRotation.set(focusRotation);
 
-		updateActualZoom();
+		// updateActualZoom();
 		updateHorizontalAngle();
 		updatePitchAngle();
 		calculateDistances();

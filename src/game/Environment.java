@@ -1,6 +1,8 @@
 package game;
 
 public class Environment {
+	public static final float GRAVITY = -50;
+
 	private static Fog fog;
 
 	/**

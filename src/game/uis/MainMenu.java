@@ -1,4 +1,4 @@
-package uis;
+package game.uis;
 
 import flounder.fonts.*;
 import flounder.guis.*;

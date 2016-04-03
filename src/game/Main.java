@@ -1,3 +1,5 @@
+package game;
+
 import flounder.engine.*;
 
 public class Main {

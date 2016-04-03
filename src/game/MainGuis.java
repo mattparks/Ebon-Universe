@@ -1,6 +1,8 @@
+package game;
+
 import flounder.guis.*;
 import flounder.inputs.*;
-import uis.*;
+import game.uis.*;
 
 import static org.lwjgl.glfw.GLFW.*;
 

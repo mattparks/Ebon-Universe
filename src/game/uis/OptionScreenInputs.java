@@ -1,9 +1,12 @@
-package uis;
+package game.uis;
 
 import flounder.fonts.*;
 import flounder.guis.*;
+import game.*;
 
 import java.util.*;
+
+import static org.lwjgl.glfw.GLFW.*;
 
 public class OptionScreenInputs extends GuiComponent {
 	private GameMenu gameMenu;
@@ -17,23 +20,23 @@ public class OptionScreenInputs extends GuiComponent {
 	}
 
 	private void createMouseMoveOption(final float xPos, final float yPos) {
-	/*	final String mouseText = "Mouse Move: ";
-		final Text text = Text.newText(mouseText + (Camera3D.toggleMouseMoveKey == DeviceMouse.MOUSE_BUTTON_LEFT ? "Left Key" : Camera3D.toggleMouseMoveKey == DeviceMouse.MOUSE_BUTTON_RIGHT ? "Right Key" : "Center Key")).center().setFontSize(OptionScreen.FONT_SIZE).create();
+		final String mouseText = "Mouse Move: ";
+		final Text text = Text.newText(mouseText + (MainCamera.toggleMouseMoveKey == GLFW_MOUSE_BUTTON_LEFT ? "Left Key" : MainCamera.toggleMouseMoveKey == GLFW_MOUSE_BUTTON_RIGHT ? "Right Key" : "Center Key")).center().setFontSize(OptionScreen.FONT_SIZE).create();
 		text.setColour(GameMenu.TEXT_COLOUR);
-		GuiTextButton button = new GuiTextButton(text);
+		final GuiTextButton button = new GuiTextButton(text);
 
-		Listener listener = () -> {
-			Camera3D.toggleMouseMoveKey++;
+		final Listener listener = () -> {
+			MainCamera.toggleMouseMoveKey++;
 
-			if (Camera3D.toggleMouseMoveKey > DeviceMouse.MOUSE_BUTTON_MIDDLE) {
-				Camera3D.toggleMouseMoveKey = DeviceMouse.MOUSE_BUTTON_LEFT;
+			if (MainCamera.toggleMouseMoveKey > GLFW_MOUSE_BUTTON_MIDDLE) {
+				MainCamera.toggleMouseMoveKey = GLFW_MOUSE_BUTTON_LEFT;
 			}
 
-			text.setText(mouseText + (Camera3D.toggleMouseMoveKey == DeviceMouse.MOUSE_BUTTON_LEFT ? "Left Key" : Camera3D.toggleMouseMoveKey == DeviceMouse.MOUSE_BUTTON_RIGHT ? "Right Key" : "Center Key"));
+			text.setText(mouseText + (MainCamera.toggleMouseMoveKey == GLFW_MOUSE_BUTTON_LEFT ? "Left Key" : MainCamera.toggleMouseMoveKey == GLFW_MOUSE_BUTTON_RIGHT ? "Right Key" : "Center Key"));
 		};
 
 		button.addLeftListener(listener);
-		addComponent(button, xPos, yPos, OptionScreen.BUTTONS_X_WIDTH, OptionScreen.BUTTONS_Y_SIZE);*/
+		addComponent(button, xPos, yPos, OptionScreen.BUTTONS_X_WIDTH, OptionScreen.BUTTONS_Y_SIZE);
 	}
 
 	private void createBackOption(final float xPos, final float yPos) {

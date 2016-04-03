@@ -19,8 +19,8 @@ public class ParticleRenderer extends IRenderer {
 	private static final int VAO = Loader.createInterleavedVAO(VERTICES, 2);
 	private static final FloatBuffer BUFFER = BufferUtils.createFloatBuffer(MAX_INSTANCES * INSTANCE_DATA_LENGTH);
 	private int VBO = Loader.createEmptyVBO(INSTANCE_DATA_LENGTH * MAX_INSTANCES);
+
 	private ParticleShader shader;
-	private ParticleType currentType;
 	private int pointer;
 	private List<Particle> viewableParticles;
 
@@ -39,7 +39,6 @@ public class ParticleRenderer extends IRenderer {
 
 	@Override
 	public void renderObjects(Vector4f clipPlane, ICamera camera) {
-		currentType = null;
 		prepareRendering(clipPlane, camera);
 
 		pointer = 0;
@@ -49,7 +48,6 @@ public class ParticleRenderer extends IRenderer {
 		for (Particle p : viewableParticles) {
 			prepareTexturedModel(p.getParticleType());
 			prepareInstance(p, camera, vboData);
-			// GL11.glDrawArrays(GL11.GL_TRIANGLE_STRIP, 0, VERTICES.length); // Draws the particle instance.
 		}
 
 		Loader.updateVBO(VBO, vboData, BUFFER);
@@ -66,21 +64,18 @@ public class ParticleRenderer extends IRenderer {
 		shader.clipPlane.loadVec4(clipPlane);
 	}
 
-	private void prepareTexturedModel(ParticleType particleType) {
-		if (currentType != particleType) {
-			unbindTexturedModel();
+	private void prepareTexturedModel(final ParticleType particleType) {
+		unbindTexturedModel();
 
-			OpenglUtils.bindVAO(VAO, 0, 1, 2, 3, 4, 5, 6, 7);
-			OpenglUtils.antialias(ManagerDevices.getDisplay().isAntialiasing());
-			OpenglUtils.cullBackFaces(true);
-			OpenglUtils.enableDepthTesting();
-			OpenglUtils.enableAlphaBlending();
-			GL11.glDepthMask(false); // Stops engine.particles from being rendered to the depth BUFFER.
+		OpenglUtils.bindVAO(VAO, 0, 1, 2, 3, 4, 5, 6, 7);
+		OpenglUtils.antialias(ManagerDevices.getDisplay().isAntialiasing());
+		OpenglUtils.cullBackFaces(true);
+		OpenglUtils.enableDepthTesting();
+		OpenglUtils.enableAlphaBlending();
+		GL11.glDepthMask(false); // Stops engine.particles from being rendered to the depth BUFFER.
 
-			shader.numberOfRows.loadFloat(particleType.getTexture().getNumberOfRows());
-			OpenglUtils.bindTextureToBank(particleType.getTexture().getTextureID(), 0);
-			currentType = particleType;
-		}
+		shader.numberOfRows.loadFloat(particleType.getTexture().getNumberOfRows());
+		OpenglUtils.bindTextureToBank(particleType.getTexture().getTextureID(), 0);
 	}
 
 	private void unbindTexturedModel() {

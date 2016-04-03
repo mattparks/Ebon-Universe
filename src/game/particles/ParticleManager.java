@@ -15,57 +15,42 @@ import static org.lwjgl.glfw.GLFW.*;
 public class ParticleManager {
 	public static final MyFile PARTICLES_LOC = new MyFile(MyFile.RES_FOLDER, "particles");
 
-	public static Map<ParticleType, List<Particle>> particles;
+	public static List<Particle> particles;
 	private static AABB reusableAABB;
 	private static ProfileTab profileTab;
 
 	public static void init() {
-		particles = new HashMap<>();
+		particles = new ArrayList<>();
 		reusableAABB = new AABB(new Vector3f(), new Vector3f());
 		profileTab = new ProfileTab("Particles");
 		FlounderProfiler.addTab(profileTab);
 	}
 
 	public static void update() {
-		for (ParticleType p : particles.keySet()) {
-			final Iterator<Particle> iterator = particles.get(p).iterator();
+		final Iterator<Particle> iterator = particles.iterator();
 
-			while (iterator.hasNext()) {
-				final Particle particle = iterator.next();
-				particle.update(!ManagerDevices.getKeyboard().getKey(GLFW_KEY_Y));
+		while (iterator.hasNext()) {
+			final Particle particle = iterator.next();
+			particle.update(!ManagerDevices.getKeyboard().getKey(GLFW_KEY_Y));
 
-				if (!particle.isAlive()) {
-					iterator.remove();
-
-					if (particles.get(particle.getParticleType()).isEmpty()) {
-						particles.remove(particle.getParticleType());
-					}
-				}
+			if (!particle.isAlive()) {
+				iterator.remove();
 			}
 		}
 
-		int particlesTotal = 0;
-		for (ParticleType t : particles.keySet()) {
-			for (Particle p : particles.get(t)) {
-				particlesTotal++;
-			}
-		}
-		profileTab.addLabel("Total Particles", "" + particlesTotal);
+		profileTab.addLabel("Total", particles.size());
 	}
 
 	public static List<Particle> getParticles(List<Particle> viewableParticles, final ICamera camera) {
 		viewableParticles.clear();
 
-		for (final ParticleType p : particles.keySet()) {
-			for (final Particle i : particles.get(p)) {
-				float SIZE = 0.5f * p.getScale();
+		for (final Particle particle : particles) {
+			float SIZE = 0.5f * particle.getParticleType().getScale();
+			reusableAABB.getMinExtents().set(particle.getPosition().getX() - SIZE, particle.getPosition().getY() - SIZE, particle.getPosition().getZ() - SIZE);
+			reusableAABB.getMaxExtents().set(particle.getPosition().getX() + SIZE, particle.getPosition().getY() + SIZE, particle.getPosition().getZ() + SIZE);
 
-				reusableAABB.getMinExtents().set(i.getPosition().getX() - SIZE, i.getPosition().getY() - SIZE, i.getPosition().getZ() - SIZE);
-				reusableAABB.getMaxExtents().set(i.getPosition().getX() + SIZE, i.getPosition().getY() + SIZE, i.getPosition().getZ() + SIZE);
-
-				if (camera.getViewFrustum().aabbInFrustum(reusableAABB)) {
-					viewableParticles.add(i);
-				}
+			if (camera.getViewFrustum().aabbInFrustum(reusableAABB)) {
+				viewableParticles.add(particle);
 			}
 		}
 
@@ -76,15 +61,6 @@ public class ParticleManager {
 	}
 
 	public static void addParticle(final Particle particle) {
-		final ParticleType type = particle.getParticleType();
-		final List<Particle> batch = particles.get(type);
-
-		if (batch != null) {
-			batch.add(particle);
-		} else {
-			final List<Particle> newBatch = new ArrayList<>();
-			newBatch.add(particle);
-			particles.put(type, newBatch);
-		}
+		particles.add(particle);
 	}
 }

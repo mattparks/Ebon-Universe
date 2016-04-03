@@ -5,13 +5,14 @@ import flounder.engine.*;
 import flounder.maths.*;
 import flounder.maths.matrices.*;
 import flounder.maths.vectors.*;
+import javafx.util.*;
 
 import java.util.*;
 
 import static org.lwjgl.glfw.GLFW.*;
 
-public class SystemPlayer implements IParticleSystem {
-	private final List<ParticleType> types;
+public class SystemSimple implements IParticleSystem {
+	private final List<Pair<ParticleType, Float>> types;
 	private final Vector3f direction;
 	private final Vector3f systemCenter;
 	private float pps, averageSpeed;
@@ -19,7 +20,7 @@ public class SystemPlayer implements IParticleSystem {
 	private boolean randomRotation;
 	private float directionDeviation;
 
-	public SystemPlayer(final float pps, final float speed, List<ParticleType> types) {
+	public SystemSimple(final float pps, final float speed, List<Pair<ParticleType, Float>> types) {
 		this.pps = pps;
 		averageSpeed = speed;
 		this.types = types;
@@ -87,7 +88,7 @@ public class SystemPlayer implements IParticleSystem {
 		}
 
 		velocity.normalize().scale(generateValue(averageSpeed, speedError));
-		new Particle(types.get((int) Math.floor(Maths.randomInRange(0, types.size()))), new Vector3f(systemCenter), velocity);
+		new Particle(types.get((int) Math.floor(Maths.randomInRange(0, types.size()))).getKey(), new Vector3f(systemCenter), velocity); // TODO: Use second value in pair for chance!
 	}
 
 	private static Vector3f generateRandomUnitVectorWithinCone(final Vector3f coneDirection, final float angle) {

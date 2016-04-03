@@ -9,6 +9,7 @@ import flounder.resources.*;
 import flounder.sounds.*;
 import flounder.textures.*;
 import game.particles.*;
+import javafx.util.*;
 
 import java.util.*;
 
@@ -44,16 +45,19 @@ public class MainGame extends IGame {
 		playlist.addMusic(Sound.loadSoundInBackground(new MyFile(DeviceSound.SOUND_FOLDER, "spacey-ambient.wav"), 0.5f));
 		ManagerDevices.getSound().getMusicPlayer().playMusicPlaylist(playlist, true, 2.25f, 5.82f);
 
-		Texture coinsTexture = Texture.newTexture(new MyFile(ParticleManager.PARTICLES_LOC, "coins.png")).create();
-		coinsTexture.setNumberOfRows(3);
+		Texture smokeTexture = Texture.newTexture(new MyFile(ParticleManager.PARTICLES_LOC, "smoke.png")).create();
+		smokeTexture.setNumberOfRows(8);
 
-		List<ParticleType> particleTypes = new ArrayList<>();
-		particleTypes.add(new ParticleType(coinsTexture, 0.0986f, 3.2f, 0, 1.8f));
+		Texture fireTexture = Texture.newTexture(new MyFile(ParticleManager.PARTICLES_LOC, "fire.png")).create();
+		fireTexture.setNumberOfRows(8);
 
-		SystemPlayer particleSystem = new SystemPlayer(40, 7.36f, particleTypes);
-		particleSystem.setSpeedError(0.25f);
-		particleSystem.randomizeRotation();
-		particleSystem.setDirection(new Vector3f(0, 0.1f, 0), 0.5f);
+		List<Pair<ParticleType, Float>> particleTypes = new ArrayList<>();
+		particleTypes.add(new Pair(new ParticleType(smokeTexture, 0.1f, 3.2f, 0, 5.8f), 1));
+		particleTypes.add(new Pair(new ParticleType(fireTexture, 0.1f, 3.2f, 0, 5.8f), 0.25f));
+
+		SystemSimple particleSystem = new SystemSimple(75, 10.0f, particleTypes);
+		particleSystem.setSpeedError(0.1f);
+		particleSystem.setDirection(new Vector3f(0, -1.0f, 0), 0.125f);
 		particleSystem.setSystemCenter(playerPosition);
 		particleSystems.add(particleSystem);
 

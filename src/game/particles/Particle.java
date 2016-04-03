@@ -6,11 +6,14 @@ import game.*;
 
 public class Particle implements Comparable<Particle> {
 	private final ParticleType particleType;
+
 	private final Vector3f position;
 	private final Vector3f velocity;
 	private final Vector3f reusableChange;
+
 	private final Vector2f textureOffset1;
 	private final Vector2f textureOffset2;
+
 	private float elapsedTime;
 	private float transparency;
 	private float textureBlendFactor;
@@ -22,10 +25,11 @@ public class Particle implements Comparable<Particle> {
 		this.velocity = velocity;
 		reusableChange = new Vector3f();
 
-		elapsedTime = 0.0f;
-		transparency = 0.0f;
 		textureOffset1 = new Vector2f();
 		textureOffset2 = new Vector2f();
+
+		elapsedTime = 0.0f;
+		transparency = 0.0f;
 		textureBlendFactor = 0.0f;
 		distanceToCamera = 0.0f;
 		ParticleManager.addParticle(this);
@@ -37,11 +41,10 @@ public class Particle implements Comparable<Particle> {
 			reusableChange.set(velocity);
 			reusableChange.scale(FlounderEngine.getDelta());
 
-			//float groundHeight = World.getTerrainHeight(position.getX() + change.getX(), position.getZ() + change.getZ()) + 1;
-
-			//if (position.getY() + change.getY() < groundHeight) {
+			// float groundHeight = World.getTerrainHeight(position.getX() + change.getX(), position.getZ() + change.getZ()) + 1;
+			// if (position.getY() + change.getY() < groundHeight) {
 			//	change.y = groundHeight - position.getY(); // Move back too the surface.
-			//}
+			// }
 
 			Vector3f.add(reusableChange, position, position);
 			elapsedTime += FlounderEngine.getDelta();
@@ -51,7 +54,7 @@ public class Particle implements Comparable<Particle> {
 			}
 		}
 
-		distanceToCamera = Vector3f.subtract(FlounderEngine.getCamera().getPosition(), position, null).lengthSquared(); // FIXME: Could be improved!
+		distanceToCamera = Vector3f.subtract(FlounderEngine.getCamera().getPosition(), position, null).lengthSquared();
 
 		float lifeFactor = elapsedTime / particleType.getLifeLength();
 		int stageCount = (int) Math.pow(particleType.getTexture().getNumberOfRows(), 2);

@@ -52,12 +52,12 @@ public class MainGame extends IGame {
 		// Creates a new smoke particle type.
 		Texture smokeTexture = Texture.newTexture(new MyFile(ParticleManager.PARTICLES_LOC, "smoke.png")).createInBackground();
 		smokeTexture.setNumberOfRows(8);
-		ParticleType smokeParticleType = new ParticleType(smokeTexture, 0.1f, 4.0f, 0, 6.0f);
+		ParticleType smokeParticleType = new ParticleType(smokeTexture, 0.1f, 6.0f, 0, 6.0f);
 
 		// Creates a new fire particle type.
 		Texture fireTexture = Texture.newTexture(new MyFile(ParticleManager.PARTICLES_LOC, "fire.png")).createInBackground();
 		fireTexture.setNumberOfRows(8);
-		ParticleType fireParticleType = new ParticleType(fireTexture, 0.1f, 1.0f, 0, 4.0f);
+		ParticleType fireParticleType = new ParticleType(fireTexture, 0.1f, 1.5f, 0, 4.0f);
 
 		// Creates a list of usable particles for the system..
 		List<ParticleType> particleTypes = new ArrayList<>();

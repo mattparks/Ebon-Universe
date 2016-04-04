@@ -42,10 +42,15 @@ public class ParticleRenderer extends IRenderer {
 		for (final List<Particle> list : ParticleManager.getParticles()) {
 			pointer = 0;
 			final float[] vboData = new float[list.size() * INSTANCE_DATA_LENGTH];
+			boolean textureBound = false;
 
 			for (final Particle particle : list) {
 				if (particle.isVisable()) {
-					prepareTexturedModel(particle.getParticleType());
+					if (!textureBound) {
+						prepareTexturedModel(particle.getParticleType());
+						textureBound = true;
+					}
+
 					prepareInstance(particle, camera, vboData);
 				}
 			}

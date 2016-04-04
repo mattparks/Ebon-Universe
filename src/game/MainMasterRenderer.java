@@ -9,9 +9,9 @@ import flounder.maths.matrices.*;
 import flounder.maths.vectors.*;
 import flounder.post.piplines.*;
 import flounder.textures.fbos.*;
-import game.example.*;
 import game.particles.*;
 import game.skyboxes.*;
+import game.world.*;
 
 public class MainMasterRenderer extends IRendererMaster {
 	private static final Vector4f POSITIVE_INFINITY = new Vector4f(0, 1, 0, Float.POSITIVE_INFINITY);
@@ -24,7 +24,6 @@ public class MainMasterRenderer extends IRendererMaster {
 	private PipelineDepthOfField pipelineDepthOfField;
 
 	private Matrix4f projectionMatrix;
-	private ExampleRenderer exampleRenderer;
 	private SkyboxRenderer skyboxRenderer;
 	private ParticleRenderer particleRenderer;
 	private FontRenderer fontRenderer;
@@ -45,7 +44,6 @@ public class MainMasterRenderer extends IRendererMaster {
 		pipelineDepthOfField = new PipelineDepthOfField();
 
 		projectionMatrix = new Matrix4f();
-		exampleRenderer = new ExampleRenderer();
 		skyboxRenderer = new SkyboxRenderer();
 		particleRenderer = new ParticleRenderer();
 		fontRenderer = new FontRenderer();
@@ -95,7 +93,6 @@ public class MainMasterRenderer extends IRendererMaster {
 		pipelineGaussian2.dispose();
 		pipelineDepthOfField.dispose();
 
-		exampleRenderer.dispose();
 		skyboxRenderer.dispose();
 		particleRenderer.dispose();
 		fontRenderer.dispose();

@@ -18,15 +18,13 @@ public class ParticleRenderer extends IRenderer {
 
 	private static final int VAO = Loader.createInterleavedVAO(VERTICES, 2);
 	private static final FloatBuffer BUFFER = BufferUtils.createFloatBuffer(MAX_INSTANCES * INSTANCE_DATA_LENGTH);
-	private int VBO = Loader.createEmptyVBO(INSTANCE_DATA_LENGTH * MAX_INSTANCES);
+	private static final int VBO = Loader.createEmptyVBO(INSTANCE_DATA_LENGTH * MAX_INSTANCES);
 
-	private ParticleShader shader;
+	private final ParticleShader shader;
 	private int pointer;
-	private List<List<Particle>> viewableParticles;
 
 	public ParticleRenderer() {
 		shader = new ParticleShader();
-		viewableParticles = new ArrayList<>();
 
 		Loader.addInstancedAttribute(VAO, VBO, 1, 4, INSTANCE_DATA_LENGTH, 0);
 		Loader.addInstancedAttribute(VAO, VBO, 2, 4, INSTANCE_DATA_LENGTH, 4);
@@ -38,17 +36,18 @@ public class ParticleRenderer extends IRenderer {
 	}
 
 	@Override
-	public void renderObjects(Vector4f clipPlane, ICamera camera) {
+	public void renderObjects(final Vector4f clipPlane, final ICamera camera) {
 		prepareRendering(clipPlane, camera);
-		ParticleManager.getParticles(viewableParticles, camera);
 
-		for (List<Particle> list : viewableParticles) {
+		for (final List<Particle> list : ParticleManager.getParticles()) {
 			pointer = 0;
-			float[] vboData = new float[list.size() * INSTANCE_DATA_LENGTH];
+			final float[] vboData = new float[list.size() * INSTANCE_DATA_LENGTH];
 
-			for (Particle p : list) {
-				prepareTexturedModel(p.getParticleType());
-				prepareInstance(p, camera, vboData);
+			for (final Particle particle : list) {
+				if (particle.isVisable()) {
+					prepareTexturedModel(particle.getParticleType());
+					prepareInstance(particle, camera, vboData);
+				}
 			}
 
 			Loader.updateVBO(VBO, vboData, BUFFER);
@@ -59,7 +58,7 @@ public class ParticleRenderer extends IRenderer {
 		shader.stop();
 	}
 
-	public void prepareRendering(Vector4f clipPlane, ICamera camera) {
+	public void prepareRendering(final Vector4f clipPlane, final ICamera camera) {
 		shader.start();
 		shader.projectionMatrix.loadMat4(FlounderEngine.getProjectionMatrix());
 		shader.viewMatrix.loadMat4(camera.getViewMatrix());
@@ -86,7 +85,7 @@ public class ParticleRenderer extends IRenderer {
 		OpenglUtils.unbindVAO(0, 1, 2, 3, 4, 5, 6, 7);
 	}
 
-	private void prepareInstance(Particle particle, ICamera camera, float[] vboData) {
+	private void prepareInstance(final Particle particle, final ICamera camera, final float[] vboData) {
 		ParticleType particleType = particle.getParticleType();
 		Matrix4f viewMatrix = camera.getViewMatrix();
 		Matrix4f modelMatrix = new Matrix4f();
@@ -103,11 +102,6 @@ public class ParticleRenderer extends IRenderer {
 		modelMatrix.m22 = viewMatrix.m22;
 		Matrix4f.rotate(modelMatrix, new Vector3f(0, 0, 1), (float) Math.toRadians(particleType.getRotation()), modelMatrix);
 		Matrix4f.scale(modelMatrix, new Vector3f(particleType.getScale(), particleType.getScale(), particleType.getScale()), modelMatrix);
-		//shader.modelMatrix.loadMat4(modelMatrix);
-		//shader.transparency.loadFloat(particle.getTransparency());
-		//shader.textureOffset1.loadVec2(particle.getTextureOffset1());
-		//shader.textureOffset2.loadVec2(particle.getTextureOffset2());
-		//shader.textureCoordInfo.loadVec2(particle.getParticleType().getTexture().getNumberOfRows(), particle.getTextureBlendFactor());
 
 		vboData[pointer++] = modelMatrix.m00;
 		vboData[pointer++] = modelMatrix.m01;

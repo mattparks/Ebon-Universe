@@ -1,4 +1,4 @@
-package game;
+package game.world;
 
 public class Environment {
 	public static final float GRAVITY = -50;

@@ -2,7 +2,7 @@ package game.particles;
 
 import flounder.engine.*;
 import flounder.maths.vectors.*;
-import game.*;
+import game.world.*;
 
 public class Particle implements Comparable<Particle> {
 	private final ParticleType particleType;
@@ -13,6 +13,8 @@ public class Particle implements Comparable<Particle> {
 
 	private final Vector2f textureOffset1;
 	private final Vector2f textureOffset2;
+
+	private boolean visable;
 
 	private float elapsedTime;
 	private float transparency;
@@ -27,6 +29,8 @@ public class Particle implements Comparable<Particle> {
 
 		textureOffset1 = new Vector2f();
 		textureOffset2 = new Vector2f();
+
+		visable = true;
 
 		elapsedTime = 0.0f;
 		transparency = 0.0f;
@@ -98,6 +102,14 @@ public class Particle implements Comparable<Particle> {
 
 	public Vector2f getTextureOffset2() {
 		return textureOffset2;
+	}
+
+	public boolean isVisable() {
+		return visable;
+	}
+
+	public void setVisable(final boolean visable) {
+		this.visable = visable;
 	}
 
 	public float getTextureBlendFactor() {

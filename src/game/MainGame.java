@@ -9,15 +9,13 @@ import flounder.resources.*;
 import flounder.sounds.*;
 import flounder.textures.*;
 import game.particles.*;
-import javafx.util.*;
+import game.world.*;
 
 import java.util.*;
 
 import static org.lwjgl.glfw.GLFW.*;
 
 public class MainGame extends IGame {
-	private static List<IParticleSystem> particleSystems = new ArrayList<>();
-
 	private KeyButton screenshot;
 	private KeyButton fullscreen;
 	private KeyButton polygons;
@@ -40,30 +38,39 @@ public class MainGame extends IGame {
 		playerPosition = new Vector3f();
 		playerRotation = new Vector3f();
 
-		Playlist playlist = new Playlist();
-		playlist.addMusic(Sound.loadSoundInBackground(new MyFile(DeviceSound.SOUND_FOLDER, "era-of-space.wav"), 0.5f));
-		playlist.addMusic(Sound.loadSoundInBackground(new MyFile(DeviceSound.SOUND_FOLDER, "spacey-ambient.wav"), 0.5f));
-		ManagerDevices.getSound().getMusicPlayer().playMusicPlaylist(playlist, true, 2.25f, 5.82f);
-
-		Texture smokeTexture = Texture.newTexture(new MyFile(ParticleManager.PARTICLES_LOC, "smoke.png")).create();
-		smokeTexture.setNumberOfRows(8);
-
-		Texture fireTexture = Texture.newTexture(new MyFile(ParticleManager.PARTICLES_LOC, "fire.png")).create();
-		fireTexture.setNumberOfRows(8);
-
-		List<Pair<ParticleType, Float>> particleTypes = new ArrayList<>();
-		particleTypes.add(new Pair(new ParticleType(smokeTexture, 0.1f, 4.0f, 0, 6.0f), 1.0f));
-		particleTypes.add(new Pair(new ParticleType(fireTexture, 0.1f, 1.0f, 0, 4.0f), 0.25f));
-
-		SystemSimple particleSystem = new SystemSimple(75, 10.0f, particleTypes);
-		particleSystem.setSpeedError(0.1f);
-		particleSystem.setDirection(new Vector3f(0, -1.0f, 0), 0.125f);
-		particleSystem.setSystemCenter(new Vector3f(playerPosition.x, playerPosition.y + 10, playerPosition.z));
-		particleSystems.add(particleSystem);
-
+		// Initializes 3D game objects.
 		Environment.init(new Fog(new Colour(0.15f, 0.16f, 0.18f), 0.001f, 2.0f, 0.0f, 500.0f));
 		MainGuis.init();
 		ParticleManager.init();
+
+		// Creates a new music playlist and then plays it!
+		Playlist playlist = new Playlist();
+		playlist.addMusic(Sound.loadSoundInBackground(new MyFile(DeviceSound.SOUND_FOLDER, "era-of-space.wav"), 0.5f));
+		playlist.addMusic(Sound.loadSoundInBackground(new MyFile(DeviceSound.SOUND_FOLDER, "spacey-ambient.wav"), 0.5f));
+		ManagerDevices.getSound().getMusicPlayer().playMusicPlaylist(playlist, true, 3.2f, 7.2f);
+
+		// Creates a new smoke particle type.
+		Texture smokeTexture = Texture.newTexture(new MyFile(ParticleManager.PARTICLES_LOC, "smoke.png")).createInBackground();
+		smokeTexture.setNumberOfRows(8);
+		ParticleType smokeParticleType = new ParticleType(smokeTexture, 0.1f, 4.0f, 0, 6.0f);
+
+		// Creates a new fire particle type.
+		Texture fireTexture = Texture.newTexture(new MyFile(ParticleManager.PARTICLES_LOC, "fire.png")).createInBackground();
+		fireTexture.setNumberOfRows(8);
+		ParticleType fireParticleType = new ParticleType(fireTexture, 0.1f, 1.0f, 0, 4.0f);
+
+		// Creates a list of usable particles for the system..
+		List<ParticleType> particleTypes = new ArrayList<>();
+		particleTypes.add(smokeParticleType);
+		particleTypes.add(fireParticleType);
+
+		// Creates a new simple particle emitter system.
+		SystemSimple particleSystem = new SystemSimple(92, 10.0f, particleTypes);
+		particleSystem.setSpeedError(0.3f);
+		particleSystem.randomizeRotation();
+		particleSystem.setDirection(new Vector3f(0, -1.0f, 0), 0.075f);
+		particleSystem.setSystemCenter(new Vector3f(playerPosition.x, playerPosition.y + 10, playerPosition.z));
+		ParticleManager.addSystem(particleSystem);
 	}
 
 	@Override
@@ -93,7 +100,6 @@ public class MainGame extends IGame {
 		super.updateGame(playerPosition, playerRotation, MainGuis.isMenuOpen(), MainGuis.getBlurFactor());
 
 		if (!MainGuis.isMenuOpen()) {
-			particleSystems.forEach(IParticleSystem::update);
 			ParticleManager.update();
 		}
 	}

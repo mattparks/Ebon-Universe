@@ -7,7 +7,7 @@ import flounder.maths.matrices.*;
 import flounder.maths.vectors.*;
 import flounder.resources.*;
 import flounder.textures.*;
-import game.*;
+import game.world.*;
 import org.lwjgl.opengl.*;
 
 public class SkyboxRenderer extends IRenderer {

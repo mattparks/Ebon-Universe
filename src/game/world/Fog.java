@@ -1,4 +1,4 @@
-package game;
+package game.world;
 
 import flounder.maths.*;
 
@@ -15,14 +15,14 @@ public class Fog {
 	/**
 	 * Creates a new fog.
 	 *
-	 * @param colour The colour of the fog.
+	 * @param fogColour The colour of the fog.
 	 * @param fogDensity How dense the fog will be.
 	 * @param fogGradient The gradient of the fog.
 	 * @param skyLowerLimit At what height will the skybox fog begin to appear.
 	 * @param skyUpperLimit At what height will there be skybox no fog.
 	 */
-	public Fog(final Colour colour, final float fogDensity, final float fogGradient, final float skyLowerLimit, final float skyUpperLimit) {
-		fogColour = colour;
+	public Fog(final Colour fogColour, final float fogDensity, final float fogGradient, final float skyLowerLimit, final float skyUpperLimit) {
+		this.fogColour = fogColour;
 		this.fogDensity = fogDensity;
 		this.fogGradient = fogGradient;
 		this.skyLowerLimit = skyLowerLimit;

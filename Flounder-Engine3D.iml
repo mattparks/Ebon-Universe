@@ -10,6 +10,6 @@
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="module" module-name="Flounder-Core" />
     <orderEntry type="module" module-name="Flounder-Maths" />
-    <orderEntry type="library" name="LWJGL" level="project" />
+    <orderEntry type="library" name="lwjgl" level="project" />
   </component>
 </module>

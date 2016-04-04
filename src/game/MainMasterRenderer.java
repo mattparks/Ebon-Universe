@@ -52,27 +52,28 @@ public class MainMasterRenderer extends IRendererMaster {
 
 	@Override
 	public void render() {
+		/* Scene rendering. */
+		bindRelevantFBO();
+		renderScene(POSITIVE_INFINITY);
+
+		/* Post rendering. */
+		boolean wireframe = OpenglUtils.isInWireframe();
+		OpenglUtils.goWireframe(false);
+		renderPost(FlounderEngine.isGamePaused(), FlounderEngine.getScreenBlur());
+
+		/* Scene independents. */
+		guiRenderer.render(POSITIVE_INFINITY, null);
+		fontRenderer.render(POSITIVE_INFINITY, null);
+		OpenglUtils.goWireframe(wireframe);
+	}
+
+	private void renderScene(final Vector4f clipPlane) {
 		/* Clear and update. */
 		OpenglUtils.prepareNewRenderParse(Environment.getFog().getFogColour());
 		ICamera camera = FlounderEngine.getCamera();
 		Matrix4f.perspectiveMatrix(camera.getFOV(), ManagerDevices.getDisplay().getAspectRatio(), camera.getNearPlane(), camera.getFarPlane(), projectionMatrix);
 
-		/* Scene rendering. */
-		// bindRelevantFBO();
-		renderScene(POSITIVE_INFINITY, camera);
-
-		/* Post rendering. */
-		boolean wireframe = OpenglUtils.isInWireframe();
-		OpenglUtils.goWireframe(false);
-		// renderPost(FlounderEngine.isGamePaused(), FlounderEngine.getScreenBlur());
-
-		/* Scene independents. */
-		guiRenderer.render(POSITIVE_INFINITY, camera);
-		fontRenderer.render(POSITIVE_INFINITY, camera);
-		OpenglUtils.goWireframe(wireframe);
-	}
-
-	private void renderScene(final Vector4f clipPlane, final ICamera camera) {
+		/* Renders each renderer. */
 		// exampleRenderer.render(null, camera);
 		skyboxRenderer.render(clipPlane, camera);
 		particleRenderer.render(clipPlane, camera);

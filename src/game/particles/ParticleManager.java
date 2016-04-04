@@ -19,14 +19,11 @@ public class ParticleManager {
 
 	private static List<List<Particle>> particles;
 	private static AABB reusableAABB;
-	private static ProfileTab profileTab;
 
 	public static void init() {
 		particleSystems = new ArrayList<>();
 		particles = new ArrayList<>();
 		reusableAABB = new AABB(new Vector3f(), new Vector3f());
-		profileTab = new ProfileTab("Particles");
-		FlounderProfiler.addTab(profileTab);
 	}
 
 	public static void update() {
@@ -61,16 +58,20 @@ public class ParticleManager {
 					totalParticles++;
 				}
 			}
+		}
 
+		for (final List<Particle> list : particles) {
 			// Added to engine.particles first -> last, so no initial reverse needed.
 			SortingAlgorithms.insertionSort(list);
 			Collections.reverse(list); // Reverse as the sorted list should be close(small) -> far(big).
 		}
 
-		profileTab.addLabel("Systems", particleSystems.size());
-		profileTab.addLabel("Types", particles.size());
-		profileTab.addLabel("Particles", totalParticles);
-		profileTab.addLabel("Visible", visibleParticles);
+		if (FlounderProfiler.isOpen()) {
+			FlounderProfiler.add("Particles", "Systems", particleSystems.size());
+			FlounderProfiler.add("Particles", "Types", particles.size());
+			FlounderProfiler.add("Particles", "Particles", totalParticles);
+			FlounderProfiler.add("Particles", "Visible", visibleParticles);
+		}
 	}
 
 	public static List<List<Particle>> getParticles() {

@@ -2,6 +2,7 @@ package game.particles;
 
 import flounder.devices.*;
 import flounder.engine.*;
+import flounder.engine.profiling.*;
 import flounder.loaders.*;
 import flounder.maths.matrices.*;
 import flounder.maths.vectors.*;
@@ -61,6 +62,7 @@ public class ParticleRenderer extends IRenderer {
 		}
 
 		shader.stop();
+		FlounderProfiler.add("Particles", "Render Time", super.getRenderTimeMs());
 	}
 
 	public void prepareRendering(final Vector4f clipPlane, final ICamera camera) {

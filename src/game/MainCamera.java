@@ -48,7 +48,6 @@ public class MainCamera implements ICamera {
 	private float angleOfElevation;
 	private float targetRotationAngle;
 	private float angleAroundPlayer;
-	private ProfileTab profileTab;
 
 	public MainCamera() {
 		toggleMouseMoveKey = GLFW_MOUSE_BUTTON_LEFT;
@@ -63,8 +62,6 @@ public class MainCamera implements ICamera {
 		angleOfElevation = targetElevation;
 		targetRotationAngle = 0;
 		angleAroundPlayer = targetRotationAngle;
-		profileTab = new ProfileTab("Camera");
-		FlounderProfiler.addTab(profileTab);
 
 		calculateDistances();
 	}
@@ -106,14 +103,14 @@ public class MainCamera implements ICamera {
 		updateViewMatrix(position, pitch, yaw);
 
 		if (FlounderProfiler.isOpen()) {
-			profileTab.addLabel("Angle Of Elevation", angleOfElevation);
-			profileTab.addLabel("Yaw", yaw);
-			profileTab.addLabel("Pitch", pitch);
-			profileTab.addLabel("Angle Around Player", angleAroundPlayer);
-			profileTab.addLabel("Actual Distance From Point", actualDistanceFromPoint);
-			profileTab.addLabel("Target Zoom", targetZoom);
-			profileTab.addLabel("Target Elevation", targetElevation);
-			profileTab.addLabel("Target Rotation Angle", targetRotationAngle);
+			FlounderProfiler.add("Camera", "Angle Of Elevation", angleOfElevation);
+			FlounderProfiler.add("Camera", "Yaw", yaw);
+			FlounderProfiler.add("Camera", "Pitch", pitch);
+			FlounderProfiler.add("Camera", "Angle Around Player", angleAroundPlayer);
+			FlounderProfiler.add("Camera", "Actual Distance From Point", actualDistanceFromPoint);
+			FlounderProfiler.add("Camera", "Target Zoom", targetZoom);
+			FlounderProfiler.add("Camera", "Target Elevation", targetElevation);
+			FlounderProfiler.add("Camera", "Target Rotation Angle", targetRotationAngle);
 		}
 	}
 
@@ -131,7 +128,7 @@ public class MainCamera implements ICamera {
 		float angleChange = 0; // Maths.normalizeAngle(yaw) - Maths.normalizeAngle(entity.getRotation().getY())
 
 		if (ManagerDevices.getMouse().getMouse(toggleMouseMoveKey) && !gamePaused) { // && !DeviceInput.isActiveInGUI()
-			angleChange = (float) ManagerDevices.getMouse().getDeltaX() * INFLUENCE_OF_MOUSEDX;
+			angleChange = ManagerDevices.getMouse().getDeltaX() * INFLUENCE_OF_MOUSEDX;
 		}
 
 		if (angleChange > MAX_HORIZONTAL_CHANGE * delta) {

@@ -2,6 +2,7 @@ package game.skyboxes;
 
 import flounder.devices.*;
 import flounder.engine.*;
+import flounder.engine.profiling.*;
 import flounder.loaders.*;
 import flounder.maths.matrices.*;
 import flounder.maths.vectors.*;
@@ -44,6 +45,7 @@ public class SkyboxRenderer extends IRenderer {
 
 		OpenglUtils.unbindVAO(0);
 		endRendering();
+		FlounderProfiler.add("Skybox", "Render Time", super.getRenderTimeMs());
 	}
 
 	private void prepareRendering(final Vector4f clipPlane, final ICamera camera) {

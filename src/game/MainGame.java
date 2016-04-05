@@ -52,7 +52,7 @@ public class MainGame extends IGame {
 		// Creates a new smoke particle type.
 		Texture smokeTexture = Texture.newTexture(new MyFile(ParticleManager.PARTICLES_LOC, "smoke.png")).createInBackground();
 		smokeTexture.setNumberOfRows(8);
-		ParticleType smokeParticleType = new ParticleType(smokeTexture, 0.1f, 6.0f, 0, 6.0f);
+		ParticleType smokeParticleType = new ParticleType(smokeTexture, 0.1f, 3.0f, 0, 6.0f);
 
 		// Creates a new fire particle type.
 		Texture fireTexture = Texture.newTexture(new MyFile(ParticleManager.PARTICLES_LOC, "fire.png")).createInBackground();
@@ -68,8 +68,8 @@ public class MainGame extends IGame {
 		SystemSimple particleSystem = new SystemSimple(92, 10.0f, particleTypes);
 		particleSystem.setSpeedError(0.3f);
 		particleSystem.randomizeRotation();
-		particleSystem.setDirection(new Vector3f(0, -1.0f, 0), 0.075f);
-		particleSystem.setSystemCenter(new Vector3f(playerPosition.x, playerPosition.y + 10, playerPosition.z));
+		particleSystem.setDirection(new Vector3f(1.0f, 0, 0), 0.075f);
+		particleSystem.setSystemCenter(playerPosition);
 		ParticleManager.addSystem(particleSystem);
 	}
 

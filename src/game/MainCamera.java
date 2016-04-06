@@ -62,6 +62,7 @@ public class MainCamera implements ICamera {
 		angleOfElevation = targetElevation;
 		targetRotationAngle = 0;
 		angleAroundPlayer = targetRotationAngle;
+		FlounderProfiler.addTab("Camera");
 
 		calculateDistances();
 	}
@@ -103,14 +104,14 @@ public class MainCamera implements ICamera {
 		updateViewMatrix(position, pitch, yaw);
 
 		if (FlounderProfiler.isOpen()) {
-			FlounderProfiler.add("Camera", "Angle Of Elevation", angleOfElevation);
-			FlounderProfiler.add("Camera", "Yaw", yaw);
-			FlounderProfiler.add("Camera", "Pitch", pitch);
-			FlounderProfiler.add("Camera", "Angle Around Player", angleAroundPlayer);
-			FlounderProfiler.add("Camera", "Actual Distance From Point", actualDistanceFromPoint);
-			FlounderProfiler.add("Camera", "Target Zoom", targetZoom);
-			FlounderProfiler.add("Camera", "Target Elevation", targetElevation);
-			FlounderProfiler.add("Camera", "Target Rotation Angle", targetRotationAngle);
+			FlounderProfiler.add("Camera","Angle Of Elevation", angleOfElevation);
+			FlounderProfiler.add("Camera","Yaw", yaw);
+			FlounderProfiler.add("Camera","Pitch", pitch);
+			FlounderProfiler.add("Camera","Angle Around Player", angleAroundPlayer);
+			FlounderProfiler.add("Camera","Actual Distance From Point", actualDistanceFromPoint);
+			FlounderProfiler.add("Camera","Target Zoom", targetZoom);
+			FlounderProfiler.add("Camera","Target Elevation", targetElevation);
+			FlounderProfiler.add("Camera","Target Rotation Angle", targetRotationAngle);
 		}
 	}
 

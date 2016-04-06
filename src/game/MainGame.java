@@ -71,6 +71,22 @@ public class MainGame extends IGame {
 		particleSystem.setDirection(new Vector3f(1.0f, 0, 0), 0.075f);
 		particleSystem.setSystemCenter(playerPosition);
 		ParticleManager.addSystem(particleSystem);
+
+		// Creates a new simple particle emitter system.
+		SystemSimple particleSystem1 = new SystemSimple(92, 10.0f, particleTypes);
+		particleSystem1.setSpeedError(0.3f);
+		particleSystem1.randomizeRotation();
+		particleSystem1.setDirection(new Vector3f(0.0f, 1.0f, 0), 0.075f);
+		particleSystem1.setSystemCenter(new Vector3f(5, 0, 5));
+		ParticleManager.addSystem(particleSystem1);
+
+		// Creates a new simple particle emitter system.
+		SystemSimple particleSystem2 = new SystemSimple(92, 10.0f, particleTypes);
+		particleSystem2.setSpeedError(0.3f);
+		particleSystem2.randomizeRotation();
+		particleSystem2.setDirection(new Vector3f(0.0f, -1.0f, 0), 0.075f);
+		particleSystem2.setSystemCenter(new Vector3f(-5, 0, -5));
+		ParticleManager.addSystem(particleSystem2);
 	}
 
 	@Override

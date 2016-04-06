@@ -59,7 +59,7 @@ public class SkyboxRenderer extends IRenderer {
 		shader.upperFogLimit.loadFloat(Environment.getFog().getSkyUpperLimit());
 		shader.fogColour.loadVec3(Environment.getFog().getFogColour());
 
-		// Logger.error(Matrix4f.transform(Matrix4f.multiply(FlounderEngine.getProjectionMatrix(), updateViewMatrix(), null), new Vector4f(12, 0, -5, 1), null));
+		// FlounderLogger.error(Matrix4f.transform(Matrix4f.multiply(FlounderEngine.getProjectionMatrix(), updateViewMatrix(), null), new Vector4f(12, 0, -5, 1), null));
 	}
 
 	private Matrix4f updateViewMatrix() {

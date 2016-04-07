@@ -1,9 +1,12 @@
 package game.uis;
 
+import flounder.devices.*;
 import flounder.engine.*;
 import flounder.fonts.*;
 import flounder.guis.*;
 import flounder.maths.*;
+import flounder.resources.*;
+import flounder.textures.*;
 import flounder.visual.*;
 
 import java.util.*;
@@ -21,11 +24,13 @@ public class GameMenu extends GuiComponent {
 	private boolean displayed = true;
 	private boolean closeSecondary = false;
 	private GuiComponent secondaryScreen;
+	private GuiTexture cursorPos; // TODO: Move into a new window overlay.
 
 	public GameMenu(final GameMenuBackground superMenu) {
 		mainMenu = new MainMenu(superMenu, this);
 		Text text = Text.newText("Flounder 2.0").center().setFontSize(TITLE_FONT_SIZE).create();
 		text.setColour(TEXT_COLOUR);
+		cursorPos = new GuiTexture(Texture.newTexture(new MyFile(MyFile.RES_FOLDER, "cursor.png")).createInBackground(), false);
 		super.addText(text, 0, 0, 1);
 		addComponent(mainMenu, 0, MAIN_MENU_Y_POS, 1, MAIN_MENU_Y_SIZE);
 	}
@@ -74,10 +79,14 @@ public class GameMenu extends GuiComponent {
 				closeSecondary = false;
 			}
 		}
+
+		cursorPos.setPosition(GuiManager.getSelector().getCursorX(), GuiManager.getSelector().getCursorY(), 0.05f, 0.05f * ManagerDevices.getDisplay().getAspectRatio());
+		cursorPos.update();
 	}
 
 	@Override
 	protected void getGuiTextures(final List<GuiTexture> guiTextures) {
+		guiTextures.add(cursorPos);
 	}
 
 	private void removeSecondaryScreen() {

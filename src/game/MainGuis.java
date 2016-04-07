@@ -1,5 +1,6 @@
 package game;
 
+import flounder.devices.*;
 import flounder.guis.*;
 import flounder.inputs.*;
 import game.uis.*;

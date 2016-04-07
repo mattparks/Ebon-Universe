@@ -3,6 +3,7 @@ package game;
 import flounder.devices.*;
 import flounder.engine.*;
 import flounder.engine.profiling.*;
+import flounder.inputs.*;
 import flounder.maths.*;
 import flounder.maths.matrices.*;
 import flounder.maths.vectors.*;
@@ -20,6 +21,8 @@ public class MainCamera implements ICamera {
 	private final static float CAMERA_AIM_OFFSET = 0.0f; // 10.0f;
 	private final static float INFLUENCE_OF_MOUSEDY = -1000.0f;
 	private final static float INFLUENCE_OF_MOUSEDX = INFLUENCE_OF_MOUSEDY * 92.0f;
+	private final static float INFLUENCE_OF_JOYSTICKDY = -1.0f;
+	private final static float INFLUENCE_OF_JOYSTICKDX = 100.0f * INFLUENCE_OF_JOYSTICKDY;
 	private final static float INFLUENCE_OF_MOUSE_WHEEL = 12.5f;
 	private final static float MAX_ANGLE_OF_ELEVATION = 1.5f;
 	private final static float PITCH_OFFSET = 3f;
@@ -30,6 +33,11 @@ public class MainCamera implements ICamera {
 	private static final float NORMAL_ZOOM = 32f;
 
 	public static int toggleMouseMoveKey;
+	private JoystickAxis joystickRotateX;
+	private JoystickAxis joystickRotateY;
+	private JoystickButton joystickZoomIn;
+	private JoystickButton joystickZoomOut;
+
 	private Matrix4f viewMatrix;
 	private Vector3f position;
 
@@ -51,6 +59,11 @@ public class MainCamera implements ICamera {
 
 	public MainCamera() {
 		toggleMouseMoveKey = GLFW_MOUSE_BUTTON_LEFT;
+		joystickRotateX = new JoystickAxis(0, 0);
+		joystickRotateY = new JoystickAxis(0, 1);
+		joystickZoomIn = new JoystickButton(0, 5);
+		joystickZoomOut = new JoystickButton(0, 4);
+
 		viewMatrix = new Matrix4f();
 		position = new Vector3f();
 		viewFrustum = new Frustum();
@@ -128,8 +141,10 @@ public class MainCamera implements ICamera {
 		float delta = FlounderEngine.getDelta();
 		float angleChange = 0; // Maths.normalizeAngle(yaw) - Maths.normalizeAngle(entity.getRotation().getY())
 
-		if (ManagerDevices.getMouse().getMouse(toggleMouseMoveKey) && !gamePaused) { // && !DeviceInput.isActiveInGUI()
+		if (!gamePaused && ManagerDevices.getMouse().getMouse(toggleMouseMoveKey)) { // && !DeviceInput.isActiveInGUI()
 			angleChange = ManagerDevices.getMouse().getDeltaX() * INFLUENCE_OF_MOUSEDX;
+		} else if (!gamePaused && Math.abs(Maths.deadband(0.1f, joystickRotateX.getAmount())) > 0.0f) {
+			angleChange = joystickRotateX.getAmount() * FlounderEngine.getDelta() * INFLUENCE_OF_JOYSTICKDX;
 		}
 
 		if (angleChange > MAX_HORIZONTAL_CHANGE * delta) {
@@ -151,8 +166,10 @@ public class MainCamera implements ICamera {
 		float delta = FlounderEngine.getDelta();
 		float angleChange = 0;
 
-		if (ManagerDevices.getMouse().getMouse(toggleMouseMoveKey) && !gamePaused) { // && !DeviceMouse.isActiveInGUI()
+		if (!gamePaused && ManagerDevices.getMouse().getMouse(toggleMouseMoveKey)) { // && !DeviceMouse.isActiveInGUI()
 			angleChange = -ManagerDevices.getMouse().getDeltaY() * INFLUENCE_OF_MOUSEDY;
+		} else if (!gamePaused && Math.abs(Maths.deadband(0.1f, joystickRotateY.getAmount())) > 0.0f) {
+			angleChange = joystickRotateY.getAmount() * FlounderEngine.getDelta() * INFLUENCE_OF_JOYSTICKDY;
 		}
 
 		if (angleChange > MAX_VERTICAL_CHANGE * delta) {
@@ -163,25 +180,34 @@ public class MainCamera implements ICamera {
 
 		targetElevation -= angleChange;
 
-		//if (targetElevation >= MAX_ANGLE_OF_ELEVATION) {
-		//	targetElevation = MAX_ANGLE_OF_ELEVATION;
-		//} else if (targetElevation <= 0) {
-		//	targetElevation = 0;
-		//}
+		if (targetElevation >= MAX_ANGLE_OF_ELEVATION) {
+			targetElevation = MAX_ANGLE_OF_ELEVATION;
+		} else if (targetElevation <= 0) {
+			targetElevation = 0;
+		}
 	}
 
 	private void calculateZoom(boolean gamePaused) {
-		float zoomLevel = gamePaused ? 0.0f : (ManagerDevices.getMouse().getDeltaWheel() / INFLUENCE_OF_MOUSE_WHEEL);
-		// float zoomLevel = 0;
+		float zoomLevel = 0.0f;
+
+		if (!gamePaused && Math.abs(Maths.deadband(0.1f, ManagerDevices.getMouse().getDeltaWheel())) > 1) {
+			zoomLevel = ManagerDevices.getMouse().getDeltaWheel();
+		} else if (joystickZoomIn.isDown()) {
+			zoomLevel = 1.0f;
+		} else if (joystickZoomOut.isDown()) {
+			zoomLevel = -1.0f;
+		}
+
+		zoomLevel = zoomLevel / INFLUENCE_OF_MOUSE_WHEEL;
 
 		if (zoomLevel != 0) {
 			targetZoom -= zoomLevel;
 
-			//if (targetZoom < MINIMUM_ZOOM) {
-			//	targetZoom = MINIMUM_ZOOM;
-			//} else if (targetZoom > MAXIMUM_ZOOM) {
-			//	targetZoom = MAXIMUM_ZOOM;
-			//}
+			if (targetZoom < MINIMUM_ZOOM) {
+				targetZoom = MINIMUM_ZOOM;
+			} else if (targetZoom > MAXIMUM_ZOOM) {
+				targetZoom = MAXIMUM_ZOOM;
+			}
 		}
 	}
 

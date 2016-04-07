@@ -62,7 +62,7 @@ public class ParticleManager {
 
 		for (final List<Particle> list : particles) {
 			// Added to engine.particles first -> last, so no initial reverse needed.
-			SortingAlgorithms.insertionSort(list);
+			SortingAlgorithms.heapSort(list); // insertionSort
 			Collections.reverse(list); // Reverse as the sorted list should be close(small) -> far(big).
 		}
 

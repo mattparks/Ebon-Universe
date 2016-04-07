@@ -11,7 +11,7 @@ import static org.lwjgl.glfw.GLFW.*;
  */
 public class MainGuis {
 	private static GameMenuBackground gameMenu;
-	private static KeyButton openKey;
+	private static CompoundButton openKey;
 	private static boolean menuOpen;
 
 	/**
@@ -19,7 +19,7 @@ public class MainGuis {
 	 */
 	public static void init() {
 		gameMenu = new GameMenuBackground();
-		openKey = new KeyButton(GLFW_KEY_ESCAPE);
+		openKey = new CompoundButton(new KeyButton(GLFW_KEY_ESCAPE), new JoystickButton(0, 7));
 		menuOpen = false;
 		GuiManager.addComponent(gameMenu, 0, 0, 1, 1);
 	}

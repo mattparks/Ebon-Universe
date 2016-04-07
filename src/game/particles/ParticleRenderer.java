@@ -7,10 +7,12 @@ import flounder.loaders.*;
 import flounder.maths.matrices.*;
 import flounder.maths.vectors.*;
 import org.lwjgl.*;
-import org.lwjgl.opengl.*;
 
 import java.nio.*;
 import java.util.*;
+
+import static org.lwjgl.opengl.ARBDrawInstanced.*;
+import static org.lwjgl.opengl.GL11.*;
 
 public class ParticleRenderer extends IRenderer {
 	private static final float[] VERTICES = {-0.5f, 0.5f, -0.5f, -0.5f, 0.5f, 0.5f, 0.5f, -0.5f};
@@ -57,7 +59,7 @@ public class ParticleRenderer extends IRenderer {
 			}
 
 			Loader.updateVBO(VBO, vboData, BUFFER);
-			GL31.glDrawArraysInstanced(GL11.GL_TRIANGLE_STRIP, 0, VERTICES.length, list.size());
+			glDrawArraysInstancedARB(GL_TRIANGLE_STRIP, 0, VERTICES.length, list.size());
 			unbindTexturedModel();
 		}
 
@@ -80,14 +82,14 @@ public class ParticleRenderer extends IRenderer {
 		OpenglUtils.cullBackFaces(true);
 		OpenglUtils.enableDepthTesting();
 		OpenglUtils.enableAlphaBlending();
-		GL11.glDepthMask(false); // Stops engine.particles from being rendered to the depth BUFFER.
+		glDepthMask(false); // Stops engine.particles from being rendered to the depth BUFFER.
 
 		shader.numberOfRows.loadFloat(particleType.getTexture().getNumberOfRows());
 		OpenglUtils.bindTextureToBank(particleType.getTexture().getTextureID(), 0);
 	}
 
 	private void unbindTexturedModel() {
-		GL11.glDepthMask(true);
+		glDepthMask(true);
 		OpenglUtils.disableBlending();
 		OpenglUtils.unbindVAO(0, 1, 2, 3, 4, 5, 6, 7);
 	}

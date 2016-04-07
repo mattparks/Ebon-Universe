@@ -39,7 +39,7 @@ public class MainMasterRenderer extends IRendererMaster {
 		postProcessingFBO = FBO.newFBO(displayWidth, displayHeight).fitToScreen().depthBuffer(FBOBuilder.DepthBufferType.TEXTURE).create();
 		pipelineDemo = new PipelineDemo();
 		pipelineBloom = new PipelineBloom();
-		pipelineGaussian1 = new PipelineGaussian(720, 430, false);
+		pipelineGaussian1 = new PipelineGaussian(540, 360, false);
 		pipelineGaussian2 = new PipelineGaussian(displayWidth, displayHeight, true);
 		pipelineDepthOfField = new PipelineDepthOfField();
 

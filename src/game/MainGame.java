@@ -19,8 +19,8 @@ public class MainGame extends IGame {
 	private KeyButton screenshot;
 	private KeyButton fullscreen;
 	private KeyButton polygons;
-	private KeyButton pauseMusic;
-	private KeyButton skipMusic;
+	private CompoundButton pauseMusic;
+	private CompoundButton skipMusic;
 
 	private Vector3f playerPosition;
 	private Vector3f playerRotation;
@@ -33,8 +33,8 @@ public class MainGame extends IGame {
 		screenshot = new KeyButton(GLFW_KEY_F2);
 		fullscreen = new KeyButton(GLFW_KEY_F11);
 		polygons = new KeyButton(GLFW_KEY_P);
-		pauseMusic = new KeyButton(GLFW_KEY_DOWN);
-		skipMusic = new KeyButton(GLFW_KEY_LEFT, GLFW_KEY_RIGHT);
+		pauseMusic = new CompoundButton(new KeyButton(GLFW_KEY_DOWN), new JoystickButton(0, 1));
+		skipMusic = new CompoundButton(new KeyButton(GLFW_KEY_LEFT, GLFW_KEY_RIGHT), new JoystickButton(0, 0));
 		playerPosition = new Vector3f();
 		playerRotation = new Vector3f();
 

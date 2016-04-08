@@ -48,7 +48,7 @@ public class Main {
 			Thread.yield();
 		}*/
 
-		FlounderEngine.preinit(null, 1080, 720, "Flounder 2.0", 144, false, false, GLFW.GLFW_DONT_CARE, false); // gameCanvas
+		FlounderEngine.preinit(null, 1080, 720, "Flounder 2.0", 144, false, false, 0, false); // gameCanvas
 		FlounderEngine.init(new IModule(new MainGame(), new MainCamera(), new MainMasterRenderer()));
 		FlounderEngine.run();
 		FlounderEngine.dispose();

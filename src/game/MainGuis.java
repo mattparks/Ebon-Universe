@@ -23,6 +23,7 @@ public class MainGuis {
 		openKey = new CompoundButton(new KeyButton(GLFW_KEY_ESCAPE), new JoystickButton(0, 7));
 		menuOpen = false;
 		GuiManager.addComponent(gameMenu, 0, 0, 1, 1);
+		GuiManager.getSelector().initJoysticks(0, 2, 3, 0, 1);
 	}
 
 	/**

@@ -13,7 +13,7 @@ import java.util.*;
 
 public class GameMenu extends GuiComponent {
 	public static final Colour TEXT_COLOUR = new Colour(0.85f, 0.85f, 0.85f);
-	private static final float TITLE_FONT_SIZE = 4;
+	private static final float TITLE_FONT_SIZE = 4.0f;
 	private static final float MAIN_MENU_Y_POS = 0.25f;
 	private static final float MAIN_MENU_Y_SIZE = 0.6f;
 
@@ -31,6 +31,8 @@ public class GameMenu extends GuiComponent {
 		Text text = Text.newText("Flounder 2.0").center().setFontSize(TITLE_FONT_SIZE).create();
 		text.setColour(TEXT_COLOUR);
 		cursorPos = new GuiTexture(Texture.newTexture(new MyFile(MyFile.RES_FOLDER, "cursor.png")).createInBackground(), false);
+		cursorPos.getTexture().setNumberOfRows(2);
+		cursorPos.setSelectedRow(1);
 		super.addText(text, 0, 0, 1);
 		addComponent(mainMenu, 0, MAIN_MENU_Y_POS, 1, MAIN_MENU_Y_SIZE);
 	}
@@ -80,7 +82,8 @@ public class GameMenu extends GuiComponent {
 			}
 		}
 
-		cursorPos.setPosition(GuiManager.getSelector().getCursorX(), GuiManager.getSelector().getCursorY(), 0.05f, 0.05f * ManagerDevices.getDisplay().getAspectRatio());
+		cursorPos.setSelectedRow(GuiManager.getSelector().isLeftClick() || GuiManager.getSelector().isRightClick() ? 2 : 0);
+		cursorPos.setPosition(GuiManager.getSelector().getCursorX(), GuiManager.getSelector().getCursorY(), 0.0375f, 0.0375f * ManagerDevices.getDisplay().getAspectRatio());
 		cursorPos.update();
 	}
 

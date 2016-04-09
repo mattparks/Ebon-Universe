@@ -14,7 +14,7 @@ public class OptionScreenDeveloper extends GuiComponent {
 
 		createProfilerToggleOption(OptionScreen.BUTTONS_X_CENTER_POS, 0.0f);
 
-		createBackOption(OptionScreen.BUTTONS_X_CENTER_POS, 0.9f);
+		createBackOption(OptionScreen.BUTTONS_X_CENTER_POS, 1.0f);
 	}
 
 	private void createProfilerToggleOption(final float xPos, final float yPos) {

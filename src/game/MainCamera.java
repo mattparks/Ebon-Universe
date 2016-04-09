@@ -192,9 +192,9 @@ public class MainCamera implements ICamera {
 
 		if (!gamePaused && Math.abs(Maths.deadband(0.1f, ManagerDevices.getMouse().getDeltaWheel())) > 1) {
 			zoomLevel = ManagerDevices.getMouse().getDeltaWheel();
-		} else if (joystickZoomIn.isDown()) {
+		} else if (!gamePaused && joystickZoomIn.isDown()) {
 			zoomLevel = 1.0f;
-		} else if (joystickZoomOut.isDown()) {
+		} else if (!gamePaused && joystickZoomOut.isDown()) {
 			zoomLevel = -1.0f;
 		}
 

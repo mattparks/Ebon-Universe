@@ -19,7 +19,7 @@ public class OptionScreenGraphics extends GuiComponent {
 		createVSyncOption(OptionScreen.BUTTONS_X_RIGHT_POS, 0.0f);
 		createPostOption(OptionScreen.BUTTONS_X_RIGHT_POS, 0.2f);
 
-		createBackOption(OptionScreen.BUTTONS_X_CENTER_POS, 0.9f);
+		createBackOption(OptionScreen.BUTTONS_X_CENTER_POS, 1.0f);
 	}
 
 	private void createFullscreenOption(final float xPos, final float yPos) {

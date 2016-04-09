@@ -10,9 +10,12 @@ import java.util.*;
 
 public class OptionScreenSounds extends GuiComponent {
 	private final GameMenu gameMenu;
+	private float lastSoundVolume;
+
 
 	protected OptionScreenSounds(final GameMenu menu) {
 		gameMenu = menu;
+		lastSoundVolume = 0.0f;
 
 		createSoundOption(OptionScreen.BUTTONS_X_LEFT_POS, 0.0f);
 		createMusicOption(OptionScreen.BUTTONS_X_LEFT_POS, 0.2f);
@@ -20,18 +23,25 @@ public class OptionScreenSounds extends GuiComponent {
 
 		createVolumeOption(OptionScreen.BUTTONS_X_RIGHT_POS, 0.0f);
 
-		createBackOption(OptionScreen.BUTTONS_X_CENTER_POS, 0.9f);
+		createBackOption(OptionScreen.BUTTONS_X_CENTER_POS, 1.0f);
 	}
 
 	private void createSoundOption(final float xPos, final float yPos) {
 		final String soundText = "Sound: ";
-		final Text text = Text.newText(soundText + (OptionsAudio.SOUND_VOLUME == 1.0f ? "On" : "Off")).center().setFontSize(OptionScreen.FONT_SIZE).create();
+		final Text text = Text.newText(soundText + (OptionsAudio.SOUND_VOLUME == 0.0f ? "Off" : "On")).center().setFontSize(OptionScreen.FONT_SIZE).create();
 		text.setColour(GameMenu.TEXT_COLOUR);
 		final GuiTextButton button = new GuiTextButton(text);
 
 		final Listener leftListener = () -> {
-			OptionsAudio.SOUND_VOLUME = OptionsAudio.SOUND_VOLUME != 1.0f ? 1 : 0;
-			text.setText(soundText + (OptionsAudio.SOUND_VOLUME == 1.0f ? "On" : "Off"));
+			if (OptionsAudio.SOUND_VOLUME != 0) {
+				lastSoundVolume = OptionsAudio.SOUND_VOLUME;
+				OptionsAudio.SOUND_VOLUME = 0.0f;
+			} else {
+				OptionsAudio.SOUND_VOLUME = lastSoundVolume;
+				lastSoundVolume = 0.0f;
+			}
+
+			text.setText(soundText + (OptionsAudio.SOUND_VOLUME == 0.0f ? "Off" : "On"));
 		};
 
 		button.addLeftListener(leftListener);
@@ -55,7 +65,7 @@ public class OptionScreenSounds extends GuiComponent {
 	}
 
 	private void createAmbientOption(final float xPos, final float yPos) {
-		final MusicPlayer mPlayer = ManagerDevices.getSound().getMusicPlayer(); // TODO: Stop ambient sounds!
+		final MusicPlayer mPlayer = ManagerDevices.getSound().getMusicPlayer();
 		final String ambientText = "Ambient: ";
 		final Text text = Text.newText(ambientText + (mPlayer.getVolume() == 1.0f ? "On" : "Off")).center().setFontSize(OptionScreen.FONT_SIZE).create();
 		text.setColour(GameMenu.TEXT_COLOUR);

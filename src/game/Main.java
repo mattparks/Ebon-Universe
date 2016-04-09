@@ -1,7 +1,6 @@
 package game;
 
 import flounder.engine.*;
-import org.lwjgl.glfw.*;
 
 /**
  * The games main entry point.

@@ -15,6 +15,7 @@ import game.world.*;
 
 public class MainMasterRenderer extends IRendererMaster {
 	private static final Vector4f POSITIVE_INFINITY = new Vector4f(0, 1, 0, Float.POSITIVE_INFINITY);
+
 	private FBO multisamplingFBO;
 	private FBO postProcessingFBO;
 	private PipelineDemo pipelineDemo;

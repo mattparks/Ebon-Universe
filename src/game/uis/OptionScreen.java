@@ -3,6 +3,7 @@ package game.uis;
 import flounder.devices.*;
 import flounder.fonts.*;
 import flounder.guis.*;
+import flounder.maths.*;
 import flounder.resources.*;
 import flounder.sounds.*;
 
@@ -10,6 +11,8 @@ import java.util.*;
 
 public class OptionScreen extends GuiComponent {
 	public static final float FONT_SIZE = 2;
+	public static final Colour SLIDERS_COLOUR = new Colour(0.0f, 0.8f, 0.0f);
+	public static final float SLIDERS_X_POS = 0.5f;
 	public static final float BUTTONS_Y_SIZE = 0.2f;
 	public static final float BUTTONS_X_LEFT_POS = 0.049999997f;
 	public static final float BUTTONS_X_CENTER_POS = 0.3f;

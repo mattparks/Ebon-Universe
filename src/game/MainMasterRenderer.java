@@ -63,8 +63,8 @@ public class MainMasterRenderer extends IRendererMaster {
 		renderPost(FlounderEngine.isGamePaused(), FlounderEngine.getScreenBlur());
 
 		/* Scene independents. */
-		fontRenderer.render(POSITIVE_INFINITY, null);
 		guiRenderer.render(POSITIVE_INFINITY, null);
+		fontRenderer.render(POSITIVE_INFINITY, null);
 		OpenglUtils.goWireframe(wireframe);
 	}
 

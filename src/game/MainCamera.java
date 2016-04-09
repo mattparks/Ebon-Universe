@@ -8,6 +8,7 @@ import flounder.maths.*;
 import flounder.maths.matrices.*;
 import flounder.maths.vectors.*;
 import flounder.space.*;
+import game.options.*;
 
 import static org.lwjgl.glfw.GLFW.*;
 
@@ -59,10 +60,10 @@ public class MainCamera implements ICamera {
 
 	public MainCamera() {
 		toggleMouseMoveKey = GLFW_MOUSE_BUTTON_LEFT;
-		joystickRotateX = new JoystickAxis(0, 0);
-		joystickRotateY = new JoystickAxis(0, 1);
-		joystickZoomIn = new JoystickButton(0, 5);
-		joystickZoomOut = new JoystickButton(0, 4);
+		joystickRotateX = new JoystickAxis(OptionsControls.JOYSTICK_PORT, OptionsControls.JOYSTICK_AXIS_X);
+		joystickRotateY = new JoystickAxis(OptionsControls.JOYSTICK_PORT, OptionsControls.JOYSTICK_AXIS_Y);
+		joystickZoomIn = new JoystickButton(OptionsControls.JOYSTICK_PORT, OptionsControls.JOYSTICK_CAMERA_ZOOM_IN);
+		joystickZoomOut = new JoystickButton(OptionsControls.JOYSTICK_PORT, OptionsControls.JOYSTICK_CAMERA_ZOOM_OUT);
 
 		viewMatrix = new Matrix4f();
 		position = new Vector3f();

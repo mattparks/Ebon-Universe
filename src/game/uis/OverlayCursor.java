@@ -2,6 +2,7 @@ package game.uis;
 
 import flounder.devices.*;
 import flounder.guis.*;
+import flounder.maths.*;
 import flounder.resources.*;
 import flounder.textures.*;
 
@@ -9,17 +10,17 @@ import java.util.*;
 
 public class OverlayCursor extends GuiComponent {
 	private final GuiTexture cursorPos;
+	private final Colour inactiveColour;
+	private final Colour activeColour;
 	private boolean displayed;
-	private int inactiveRow;
-	private int activeRow;
 
 	public OverlayCursor() {
 		cursorPos = new GuiTexture(Texture.newTexture(new MyFile(MyFile.RES_FOLDER, "cursor.png")).createInBackground(), false);
-		cursorPos.getTexture().setNumberOfRows(2);
+		cursorPos.getTexture().setNumberOfRows(1);
 		cursorPos.setSelectedRow(1);
 		displayed = true;
-		inactiveRow = 0;
-		activeRow = 2;
+		inactiveColour = new Colour(1, 0, 0);
+		activeColour = new Colour(0, 0, 1);
 	}
 
 	public boolean isDisplayed() {
@@ -34,26 +35,26 @@ public class OverlayCursor extends GuiComponent {
 		return cursorPos.getTexture().getNumberOfRows();
 	}
 
-	public int getInactiveRow() {
-		return inactiveRow;
+	public Colour getInactiveColour() {
+		return inactiveColour;
 	}
 
-	public void setInactiveRow(final int inactiveRow) {
-		this.inactiveRow = inactiveRow;
+	public void setInactiveColour(final float r, final float g, final float b) {
+		this.inactiveColour.set(r, g, b);
 	}
 
-	public int getActiveRow() {
-		return activeRow;
+	public Colour getActiveColour() {
+		return activeColour;
 	}
 
-	public void setActiveRow(final int activeRow) {
-		this.activeRow = activeRow;
+	public void setActiveColour(final float r, final float g, final float b) {
+		this.activeColour.set(r, g, b);
 	}
 
 	@Override
 	protected void updateSelf() {
 		if (displayed) {
-			cursorPos.setSelectedRow(GuiManager.getSelector().isLeftClick() || GuiManager.getSelector().isRightClick() ? activeRow : inactiveRow);
+			cursorPos.setColourOffset(GuiManager.getSelector().isLeftClick() || GuiManager.getSelector().isRightClick() ? activeColour : inactiveColour);
 			cursorPos.setPosition(GuiManager.getSelector().getCursorX(), GuiManager.getSelector().getCursorY(), 0.0375f, 0.0375f * ManagerDevices.getDisplay().getAspectRatio());
 			cursorPos.update();
 		}

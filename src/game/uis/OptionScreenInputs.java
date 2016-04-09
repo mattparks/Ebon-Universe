@@ -48,30 +48,35 @@ public class OptionScreenInputs extends GuiComponent {
 		text.setColour(GameMenu.TEXT_COLOUR);
 		final GuiSlider slider = new GuiSlider();
 		slider.addText(text);
-		slider.setValue((MainGuis.getOverlayCursor().getInactiveColour().r / 3) + (MainGuis.getOverlayCursor().getInactiveColour().g / 3) + (MainGuis.getOverlayCursor().getInactiveColour().b / 3));
+		slider.setValue(1.0f/3.0f);
+		slider.setFullColour(MainGuis.getOverlayCursor().getInactiveColour());
 
 		final Listener listenerLeft = () -> {
 			float r = MainGuis.getOverlayCursor().getInactiveColour().r;
 			float g = MainGuis.getOverlayCursor().getInactiveColour().g;
 			float b = MainGuis.getOverlayCursor().getInactiveColour().b;
+			float t = 1.0f;
 
 			if (r == 1.0f) {
-				r = 0;
-				g = 1;
-				b = 0;
+				r = 0.0f;
+				g = 1.0f;
+				b = 0.0f;
+				t = 2.0f;
 			} else if (g == 1.0f) {
-				r = 0;
-				g = 0;
-				b = 1;
+				r = 0.0f;
+				g = 0.0f;
+				b = 1.0f;
+				t = 3.0f;
 			} else if (b == 1.0f) {
-				r = 1;
-				g = 0;
-				b = 0;
+				r = 1.0f;
+				g = 0.0f;
+				b = 0.0f;
+				t = 1.0f;
 			}
 
 			MainGuis.getOverlayCursor().setInactiveColour(r, g, b);
 			slider.setFullColour(MainGuis.getOverlayCursor().getInactiveColour());
-			slider.setValue((r / 3) + (g / 3) + (b / 3));
+			slider.setValue(t / 3.0f);
 		};
 
 		slider.addLeftListener(listenerLeft);
@@ -84,30 +89,35 @@ public class OptionScreenInputs extends GuiComponent {
 		text.setColour(GameMenu.TEXT_COLOUR);
 		final GuiSlider slider = new GuiSlider();
 		slider.addText(text);
-		slider.setValue((MainGuis.getOverlayCursor().getActiveColour().r / 3) + (MainGuis.getOverlayCursor().getActiveColour().g / 3) + (MainGuis.getOverlayCursor().getActiveColour().b / 3));
+		slider.setValue(1.0f/3.0f);
+		slider.setFullColour(MainGuis.getOverlayCursor().getActiveColour());
 
 		final Listener listenerLeft = () -> {
 			float r = MainGuis.getOverlayCursor().getActiveColour().r;
 			float g = MainGuis.getOverlayCursor().getActiveColour().g;
 			float b = MainGuis.getOverlayCursor().getActiveColour().b;
+			float t = 1.0f;
 
 			if (r == 1.0f) {
-				r = 0;
-				g = 1;
-				b = 0;
+				r = 0.0f;
+				g = 1.0f;
+				b = 0.0f;
+				t = 2.0f;
 			} else if (g == 1.0f) {
-				r = 0;
-				g = 0;
-				b = 1;
+				r = 0.0f;
+				g = 0.0f;
+				b = 1.0f;
+				t = 3.0f;
 			} else if (b == 1.0f) {
-				r = 1;
-				g = 0;
-				b = 0;
+				r = 1.0f;
+				g = 0.0f;
+				b = 0.0f;
+				t = 1.0f;
 			}
 
 			MainGuis.getOverlayCursor().setActiveColour(r, g, b);
 			slider.setFullColour(MainGuis.getOverlayCursor().getActiveColour());
-			slider.setValue((r / 3) + (g / 3) + (b / 3));
+			slider.setValue(t / 3.0f);
 		};
 
 		slider.addLeftListener(listenerLeft);

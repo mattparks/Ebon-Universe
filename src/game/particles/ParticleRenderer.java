@@ -40,6 +40,10 @@ public class ParticleRenderer extends IRenderer {
 
 	@Override
 	public void renderObjects(final Vector4f clipPlane, final ICamera camera) {
+		if (ParticleManager.getParticles().size() < 1) {
+			return;
+		}
+
 		prepareRendering(clipPlane, camera);
 
 		for (final List<Particle> list : ParticleManager.getParticles()) {

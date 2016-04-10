@@ -10,6 +10,7 @@ import flounder.maths.vectors.*;
 import flounder.post.piplines.*;
 import flounder.textures.fbos.*;
 import game.particles.*;
+import game.planets.*;
 import game.skyboxes.*;
 import game.world.*;
 
@@ -26,6 +27,7 @@ public class MainMasterRenderer extends IRendererMaster {
 
 	private Matrix4f projectionMatrix;
 	private SkyboxRenderer skyboxRenderer;
+	private PlanetRenderer planetRenderer;
 	private ParticleRenderer particleRenderer;
 	private FontRenderer fontRenderer;
 	private GuiRenderer guiRenderer;
@@ -46,6 +48,7 @@ public class MainMasterRenderer extends IRendererMaster {
 
 		projectionMatrix = new Matrix4f();
 		skyboxRenderer = new SkyboxRenderer();
+		planetRenderer = new PlanetRenderer();
 		particleRenderer = new ParticleRenderer();
 		fontRenderer = new FontRenderer();
 		guiRenderer = new GuiRenderer();
@@ -77,6 +80,7 @@ public class MainMasterRenderer extends IRendererMaster {
 		/* Renders each renderer. */
 		// exampleRenderer.render(null, camera);
 		skyboxRenderer.render(clipPlane, camera);
+		planetRenderer.render(clipPlane, camera);
 		particleRenderer.render(clipPlane, camera);
 	}
 
@@ -96,6 +100,7 @@ public class MainMasterRenderer extends IRendererMaster {
 		pipelineDepthOfField.dispose();
 
 		skyboxRenderer.dispose();
+		planetRenderer.dispose();
 		particleRenderer.dispose();
 		fontRenderer.dispose();
 		guiRenderer.dispose();

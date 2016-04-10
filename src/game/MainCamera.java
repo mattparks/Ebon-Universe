@@ -191,7 +191,7 @@ public class MainCamera implements ICamera {
 	private void calculateZoom(boolean gamePaused) {
 		float zoomLevel = 0.0f;
 
-		if (!gamePaused && Math.abs(Maths.deadband(0.1f, ManagerDevices.getMouse().getDeltaWheel())) > 1) {
+		if (!gamePaused && Math.abs(Maths.deadband(0.1f, ManagerDevices.getMouse().getDeltaWheel())) > 0.0f) {
 			zoomLevel = ManagerDevices.getMouse().getDeltaWheel();
 		} else if (!gamePaused && joystickZoomIn.isDown()) {
 			zoomLevel = 1.0f;

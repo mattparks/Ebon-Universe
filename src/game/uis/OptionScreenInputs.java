@@ -48,7 +48,7 @@ public class OptionScreenInputs extends GuiComponent {
 		text.setColour(GameMenu.TEXT_COLOUR);
 		final GuiSlider slider = new GuiSlider();
 		slider.addText(text);
-		slider.setValue(1.0f/3.0f);
+		slider.setValue(1.0f / 3.0f);
 		slider.setFullColour(MainGuis.getOverlayCursor().getInactiveColour());
 
 		final Listener listenerLeft = () -> {
@@ -89,7 +89,7 @@ public class OptionScreenInputs extends GuiComponent {
 		text.setColour(GameMenu.TEXT_COLOUR);
 		final GuiSlider slider = new GuiSlider();
 		slider.addText(text);
-		slider.setValue(1.0f/3.0f);
+		slider.setValue(3.0f / 3.0f);
 		slider.setFullColour(MainGuis.getOverlayCursor().getActiveColour());
 
 		final Listener listenerLeft = () -> {

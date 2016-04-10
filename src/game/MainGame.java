@@ -7,21 +7,24 @@ import flounder.maths.*;
 import flounder.maths.vectors.*;
 import flounder.resources.*;
 import flounder.sounds.*;
-import flounder.textures.*;
 import game.options.*;
 import game.particles.*;
 import game.world.*;
 
-import java.util.*;
-
 import static org.lwjgl.glfw.GLFW.*;
 
 public class MainGame extends IGame {
+	private static final float RUN_SPEED = 40;
+	private static final float TURN_SPEED = 160;
 	private KeyButton screenshot;
 	private KeyButton fullscreen;
 	private KeyButton polygons;
 	private CompoundButton pauseMusic;
 	private CompoundButton skipMusic;
+	private IAxis inputForward;
+	private IAxis inputTurn;
+	private float currentSpeed;
+	private float currentTurnSpeed;
 
 	private Vector3f playerPosition;
 	private Vector3f playerRotation;
@@ -36,6 +39,14 @@ public class MainGame extends IGame {
 		polygons = new KeyButton(GLFW_KEY_P);
 		pauseMusic = new CompoundButton(new KeyButton(GLFW_KEY_DOWN), new JoystickButton(OptionsControls.JOYSTICK_PORT, OptionsControls.JOYSTICK_MUSIC_PAUSE));
 		skipMusic = new CompoundButton(new KeyButton(GLFW_KEY_LEFT, GLFW_KEY_RIGHT), new JoystickButton(OptionsControls.JOYSTICK_PORT, OptionsControls.JOYSTICK_MUSIC_SKIP));
+
+		IButton leftKeyButtons = new KeyButton(new int[]{GLFW_KEY_A, GLFW_KEY_LEFT});
+		IButton rightKeyButtons = new KeyButton(new int[]{GLFW_KEY_D, GLFW_KEY_RIGHT});
+		IButton upKeyButtons = new KeyButton(new int[]{GLFW_KEY_W, GLFW_KEY_UP});
+		IButton downKeyButtons = new KeyButton(new int[]{GLFW_KEY_S, GLFW_KEY_DOWN});
+		inputForward = new CompoundAxis(new ButtonAxis(upKeyButtons, downKeyButtons), new JoystickAxis(0, 1));
+		inputTurn = new CompoundAxis(new ButtonAxis(leftKeyButtons, rightKeyButtons), new JoystickAxis(0, 3));
+
 		playerPosition = new Vector3f();
 		playerRotation = new Vector3f();
 
@@ -51,48 +62,57 @@ public class MainGame extends IGame {
 		ManagerDevices.getSound().getMusicPlayer().playMusicPlaylist(playlist, true, 3.2f, 7.2f);
 
 		// Creates a new smoke particle type.
-		Texture smokeTexture = Texture.newTexture(new MyFile(ParticleManager.PARTICLES_LOC, "smoke.png")).createInBackground();
-		smokeTexture.setNumberOfRows(8);
-		ParticleType smokeParticleType = new ParticleType(smokeTexture, 0.1f, 3.0f, 0, 6.0f);
+		//	Texture smokeTexture = Texture.newTexture(new MyFile(ParticleManager.PARTICLES_LOC, "smoke.png")).createInBackground();
+		//	smokeTexture.setNumberOfRows(8);
+		//	ParticleType smokeParticleType = new ParticleType(smokeTexture, 0.1f, 3.0f, 0, 6.0f);
 
 		// Creates a new fire particle type.
-		Texture fireTexture = Texture.newTexture(new MyFile(ParticleManager.PARTICLES_LOC, "fire.png")).createInBackground();
-		fireTexture.setNumberOfRows(8);
-		ParticleType fireParticleType = new ParticleType(fireTexture, 0.1f, 1.5f, 0, 4.0f);
+		//	Texture fireTexture = Texture.newTexture(new MyFile(ParticleManager.PARTICLES_LOC, "fire.png")).createInBackground();
+		//	fireTexture.setNumberOfRows(8);
+		//	ParticleType fireParticleType = new ParticleType(fireTexture, 0.1f, 1.5f, 0, 4.0f);
 
 		// Creates a list of usable particles for the system..
-		List<ParticleType> particleTypes = new ArrayList<>();
-		particleTypes.add(smokeParticleType);
-		particleTypes.add(fireParticleType);
+		//	List<ParticleType> particleTypes = new ArrayList<>();
+		//	particleTypes.add(smokeParticleType);
+		//	particleTypes.add(fireParticleType);
 
 		// Creates a new simple particle emitter system.
-		SystemSimple particleSystem = new SystemSimple(92, 10.0f, particleTypes);
-		particleSystem.setSpeedError(0.3f);
-		particleSystem.randomizeRotation();
-		particleSystem.setDirection(new Vector3f(1.0f, 0, 0), 0.075f);
-		particleSystem.setSystemCenter(playerPosition);
-		ParticleManager.addSystem(particleSystem);
+		//	SystemSimple particleSystem = new SystemSimple(92, 10.0f, particleTypes);
+		//	particleSystem.setSpeedError(0.3f);
+		//	particleSystem.randomizeRotation();
+		//	particleSystem.setDirection(new Vector3f(1.0f, 0, 0), 0.075f);
+		//	particleSystem.setSystemCenter(playerPosition);
+		//	ParticleManager.addSystem(particleSystem);
 
 		// Creates a new simple particle emitter system.
-		SystemSimple particleSystem1 = new SystemSimple(92, 10.0f, particleTypes);
-		particleSystem1.setSpeedError(0.3f);
-		particleSystem1.randomizeRotation();
-		particleSystem1.setDirection(new Vector3f(0.0f, 1.0f, 0), 0.075f);
-		particleSystem1.setSystemCenter(new Vector3f(5, 0, 5));
-		ParticleManager.addSystem(particleSystem1);
+		//	SystemSimple particleSystem1 = new SystemSimple(92, 10.0f, particleTypes);
+		//	particleSystem1.setSpeedError(0.3f);
+		//	particleSystem1.randomizeRotation();
+		//	particleSystem1.setDirection(new Vector3f(0.0f, 1.0f, 0), 0.075f);
+		//	particleSystem1.setSystemCenter(new Vector3f(5, 0, 5));
+		//	ParticleManager.addSystem(particleSystem1);
 
 		// Creates a new simple particle emitter system.
-		SystemSimple particleSystem2 = new SystemSimple(92, 10.0f, particleTypes);
-		particleSystem2.setSpeedError(0.3f);
-		particleSystem2.randomizeRotation();
-		particleSystem2.setDirection(new Vector3f(0.0f, -1.0f, 0), 0.075f);
-		particleSystem2.setSystemCenter(new Vector3f(-5, 0, -5));
-		ParticleManager.addSystem(particleSystem2);
+		//	SystemSimple particleSystem2 = new SystemSimple(92, 10.0f, particleTypes);
+		//	particleSystem2.setSpeedError(0.3f);
+		//	particleSystem2.randomizeRotation();
+		//	particleSystem2.setDirection(new Vector3f(0.0f, -1.0f, 0), 0.075f);
+		//	particleSystem2.setSystemCenter(new Vector3f(-5, 0, -5));
+		//	ParticleManager.addSystem(particleSystem2);
 	}
 
 	@Override
 	public void update() {
 		MainGuis.update();
+
+		currentSpeed = (float) (-RUN_SPEED * Maths.deadband(0.05f, inputForward.getAmount()));
+		currentTurnSpeed = 0.0f; // Add back in once a player model is added. // (float) (-TURN_SPEED * Maths.deadband(0.05f, inputTurn.getAmount()));
+		float distance = currentSpeed * FlounderEngine.getDelta();
+		float dx = (float) (-distance * Math.sin(Math.toRadians(Maths.normalizeAngle(playerRotation.getY() + FlounderEngine.getCamera().getYaw()))));
+		float dz = (float) (-distance * Math.cos(Math.toRadians(Maths.normalizeAngle(playerRotation.getY() - FlounderEngine.getCamera().getYaw()))));
+		float ry = currentTurnSpeed * FlounderEngine.getDelta();
+		playerPosition.set(playerPosition.x + dx, playerPosition.y, playerPosition.z + dz);
+		playerRotation.set(playerRotation.x, playerRotation.y + ry, playerRotation.z);
 
 		if (screenshot.wasDown()) {
 			ManagerDevices.getDisplay().screenshot();

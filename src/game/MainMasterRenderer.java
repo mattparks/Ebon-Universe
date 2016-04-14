@@ -9,8 +9,8 @@ import flounder.maths.matrices.*;
 import flounder.maths.vectors.*;
 import flounder.post.piplines.*;
 import flounder.textures.fbos.*;
+import game.entities.*;
 import game.particles.*;
-import game.planets.*;
 import game.skyboxes.*;
 import game.world.*;
 
@@ -27,7 +27,8 @@ public class MainMasterRenderer extends IRendererMaster {
 
 	private Matrix4f projectionMatrix;
 	private SkyboxRenderer skyboxRenderer;
-	private PlanetRenderer planetRenderer;
+	private EntityRenderer entityRenderer;
+	//	private PlanetRenderer planetRenderer;
 	private ParticleRenderer particleRenderer;
 	private FontRenderer fontRenderer;
 	private GuiRenderer guiRenderer;
@@ -48,7 +49,8 @@ public class MainMasterRenderer extends IRendererMaster {
 
 		projectionMatrix = new Matrix4f();
 		skyboxRenderer = new SkyboxRenderer();
-		planetRenderer = new PlanetRenderer();
+		entityRenderer = new EntityRenderer();
+//		planetRenderer = new PlanetRenderer();
 		particleRenderer = new ParticleRenderer();
 		fontRenderer = new FontRenderer();
 		guiRenderer = new GuiRenderer();
@@ -66,8 +68,8 @@ public class MainMasterRenderer extends IRendererMaster {
 		renderPost(FlounderEngine.isGamePaused(), FlounderEngine.getScreenBlur());
 
 		/* Scene independents. */
-		guiRenderer.render(POSITIVE_INFINITY, null);
 		fontRenderer.render(POSITIVE_INFINITY, null);
+		guiRenderer.render(POSITIVE_INFINITY, null);
 		OpenglUtils.goWireframe(wireframe);
 	}
 
@@ -80,8 +82,9 @@ public class MainMasterRenderer extends IRendererMaster {
 		/* Renders each renderer. */
 		// exampleRenderer.render(null, camera);
 		skyboxRenderer.render(clipPlane, camera);
-		planetRenderer.render(clipPlane, camera);
+//		planetRenderer.render(clipPlane, camera);
 		particleRenderer.render(clipPlane, camera);
+		entityRenderer.render(clipPlane, camera);
 	}
 
 	@Override
@@ -100,7 +103,8 @@ public class MainMasterRenderer extends IRendererMaster {
 		pipelineDepthOfField.dispose();
 
 		skyboxRenderer.dispose();
-		planetRenderer.dispose();
+		entityRenderer.dispose();
+//		planetRenderer.dispose();
 		particleRenderer.dispose();
 		fontRenderer.dispose();
 		guiRenderer.dispose();

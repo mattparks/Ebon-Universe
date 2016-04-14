@@ -7,6 +7,11 @@ import flounder.maths.*;
 import flounder.maths.vectors.*;
 import flounder.resources.*;
 import flounder.sounds.*;
+import flounder.textures.*;
+import game.entities.*;
+import game.entities.components.*;
+import game.lights.*;
+import game.models.*;
 import game.options.*;
 import game.particles.*;
 import game.world.*;
@@ -99,6 +104,18 @@ public class MainGame extends IGame {
 		//	particleSystem2.setDirection(new Vector3f(0.0f, -1.0f, 0), 0.075f);
 		//	particleSystem2.setSystemCenter(new Vector3f(-5, 0, -5));
 		//	ParticleManager.addSystem(particleSystem2);
+
+		Entity barrel = new Entity(Environment.getStructure(), new Vector3f(0, 0, 0), new Vector3f(90, 90, 90));
+		ModelTextured model = new ModelTextured(LoaderOBJ.loadOBJ(new MyFile(MyFile.RES_FOLDER, "entities/barrel.obj")), Texture.newTexture(new MyFile(MyFile.RES_FOLDER, "entities/barrel.png")).create());
+		model.setNormalTexture(Texture.newTexture(new MyFile(MyFile.RES_FOLDER, "entities/barrelNormal.png")).create());
+		model.setShineDamper(10.0f);
+		model.setReflectivity(0.5f);
+		new ColliderComponent(barrel);
+		new CollisionComponent(barrel);
+		new ModelComponent(barrel, model, 1.0f);
+
+		Entity sun = new Entity(Environment.getStructure(), new Vector3f(0, 2000, 2000), new Vector3f(90, 90, 90));
+		new LightComponent(sun, new Vector3f(0, 0, 0), new Light(new Colour(0.6f, 0.6f, 0.6f), new Vector3f(0, 0, 0)));
 	}
 
 	@Override
@@ -139,6 +156,8 @@ public class MainGame extends IGame {
 		if (!MainGuis.isMenuOpen()) {
 			ParticleManager.update();
 		}
+
+		Environment.updateEntities();
 	}
 
 	@Override

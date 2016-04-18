@@ -6,10 +6,10 @@ import flounder.maths.vectors.*;
  * Attenuation is used in calculating the range of engine.lights.
  */
 public class Attenuation {
+	private final Vector3f attenuationVector;
 	private float constant;
 	private float linear;
 	private float exponent;
-	private final Vector3f attenuationVector;
 
 	/**
 	 * Creates a Attenuation object used in engine.lights. The calculation used is as follows:<br>

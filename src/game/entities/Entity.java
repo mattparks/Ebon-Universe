@@ -12,11 +12,11 @@ import java.util.*;
  * A generic object in the game.
  */
 public class Entity implements ISpatialObject {
-	private ISpatialStructure<Entity> structure;
 	private final List<IEntityComponent> components;
 	private final Vector3f position;
 	private final Vector3f rotation;
 	private final Matrix4f transformation;
+	private ISpatialStructure<Entity> structure;
 	private boolean isRemoved;
 
 	/**

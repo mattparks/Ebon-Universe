@@ -7,12 +7,7 @@ import flounder.maths.*;
 import flounder.maths.vectors.*;
 import flounder.resources.*;
 import flounder.sounds.*;
-import flounder.textures.*;
 import game.blocks.*;
-import game.entities.*;
-import game.entities.components.*;
-import game.lights.*;
-import game.models.*;
 import game.options.*;
 import game.particles.*;
 import game.world.*;
@@ -91,48 +86,22 @@ public class MainGame extends IGame {
 		//	particleSystem.setDirection(new Vector3f(1.0f, 0, 0), 0.075f);
 		//	particleSystem.setSystemCenter(playerPosition);
 		//	ParticleManager.addSystem(particleSystem);
-
-		// Creates a new simple particle emitter system.
-		//	SystemSimple particleSystem1 = new SystemSimple(92, 10.0f, particleTypes);
-		//	particleSystem1.setSpeedError(0.3f);
-		//	particleSystem1.randomizeRotation();
-		//	particleSystem1.setDirection(new Vector3f(0.0f, 1.0f, 0), 0.075f);
-		//	particleSystem1.setSystemCenter(new Vector3f(5, 0, 5));
-		//	ParticleManager.addSystem(particleSystem1);
-
-		// Creates a new simple particle emitter system.
-		//	SystemSimple particleSystem2 = new SystemSimple(92, 10.0f, particleTypes);
-		//	particleSystem2.setSpeedError(0.3f);
-		//	particleSystem2.randomizeRotation();
-		//	particleSystem2.setDirection(new Vector3f(0.0f, -1.0f, 0), 0.075f);
-		//	particleSystem2.setSystemCenter(new Vector3f(-5, 0, -5));
-		//	ParticleManager.addSystem(particleSystem2);
-
-		Entity barrel = new Entity(Environment.getStructure(), new Vector3f(0, 0, 0), new Vector3f(90, 90, 90));
-		ModelTextured model = new ModelTextured(LoaderOBJ.loadOBJ(new MyFile(MyFile.RES_FOLDER, "entities/barrel.obj")), Texture.newTexture(new MyFile(MyFile.RES_FOLDER, "entities/barrel.png")).create());
-		model.setNormalTexture(Texture.newTexture(new MyFile(MyFile.RES_FOLDER, "entities/barrelNormal.png")).create());
-		model.setShineDamper(10.0f);
-		model.setReflectivity(0.5f);
-		new ColliderComponent(barrel);
-		new CollisionComponent(barrel);
-		new ModelComponent(barrel, model, 1.0f);
-
-		Entity sun = new Entity(Environment.getStructure(), new Vector3f(0, 2000, 2000), new Vector3f(90, 90, 90));
-		new LightComponent(sun, new Vector3f(0, 0, 0), new Light(new Colour(0.6f, 0.6f, 0.6f), new Vector3f(0, 0, 0)));
 	}
 
 	@Override
 	public void update() {
 		MainGuis.update();
 
-		currentSpeed = (float) (-RUN_SPEED * Maths.deadband(0.05f, inputForward.getAmount()));
-		currentTurnSpeed = 0.0f; // Add back in once a player model is added. // (float) (-TURN_SPEED * Maths.deadband(0.05f, inputTurn.getAmount()));
-		float distance = currentSpeed * FlounderEngine.getDelta();
-		float dx = (float) (-distance * Math.sin(Math.toRadians(Maths.normalizeAngle(playerRotation.getY() + FlounderEngine.getCamera().getYaw()))));
-		float dz = (float) (-distance * Math.cos(Math.toRadians(Maths.normalizeAngle(playerRotation.getY() - FlounderEngine.getCamera().getYaw()))));
-		float ry = currentTurnSpeed * FlounderEngine.getDelta();
-		playerPosition.set(playerPosition.x + dx, playerPosition.y, playerPosition.z + dz);
-		playerRotation.set(playerRotation.x, playerRotation.y + ry, playerRotation.z);
+		if (!MainGuis.isMenuOpen()) {
+			currentSpeed = (float) (-RUN_SPEED * Maths.deadband(0.05f, inputForward.getAmount()));
+			currentTurnSpeed = 0.0f; // Add back in once a player model is added. // (float) (-TURN_SPEED * Maths.deadband(0.05f, inputTurn.getAmount()));
+			float distance = currentSpeed * FlounderEngine.getDelta();
+			float dx = (float) (-distance * Math.sin(Math.toRadians(Maths.normalizeAngle(playerRotation.getY() + FlounderEngine.getCamera().getYaw()))));
+			float dz = (float) (-distance * Math.cos(Math.toRadians(Maths.normalizeAngle(playerRotation.getY() - FlounderEngine.getCamera().getYaw()))));
+			float ry = currentTurnSpeed * FlounderEngine.getDelta();
+			playerPosition.set(playerPosition.x + dx, playerPosition.y, playerPosition.z + dz);
+			playerRotation.set(playerRotation.x, playerRotation.y + ry, playerRotation.z);
+		}
 
 		if (screenshot.wasDown()) {
 			ManagerDevices.getDisplay().screenshot();
@@ -158,10 +127,8 @@ public class MainGame extends IGame {
 
 		if (!MainGuis.isMenuOpen()) {
 			ParticleManager.update();
+			worldManager.update();
 		}
-
-		Environment.updateEntities();
-		worldManager.update();
 	}
 
 	@Override

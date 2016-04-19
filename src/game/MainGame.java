@@ -8,6 +8,7 @@ import flounder.maths.vectors.*;
 import flounder.resources.*;
 import flounder.sounds.*;
 import game.blocks.*;
+import game.models.*;
 import game.options.*;
 import game.particles.*;
 import game.world.*;
@@ -29,7 +30,6 @@ public class MainGame extends IGame {
 
 	private Vector3f playerPosition;
 	private Vector3f playerRotation;
-	private ChunkManager worldManager;
 
 	public MainGame() {
 	}
@@ -51,7 +51,7 @@ public class MainGame extends IGame {
 
 		playerPosition = new Vector3f();
 		playerRotation = new Vector3f();
-		worldManager = new ChunkManager();
+		ChunkManager.init();
 
 		// Initializes 3D game objects.
 		Environment.init(new Fog(new Colour(0.15f, 0.16f, 0.18f), 0.001f, 2.0f, 0.0f, 500.0f));
@@ -127,7 +127,7 @@ public class MainGame extends IGame {
 
 		if (!MainGuis.isMenuOpen()) {
 			ParticleManager.update();
-			worldManager.update();
+			ChunkManager.update();
 		}
 	}
 

@@ -5,14 +5,22 @@ import flounder.maths.vectors.*;
 import java.util.*;
 
 public class ChunkManager {
-	private final List<Chunk> chunkList;
+	private static final List<Chunk> chunkList = new ArrayList<>();
 
-	public ChunkManager() {
-		this.chunkList = new ArrayList<>();
-		this.chunkList.add(new Chunk(new Vector2f(0.0f, 0.0f)));
+	public static void init() {
+		for (int x = 0; x < 9; x++) {
+			for (int z = 0; z < 9; z++) {
+				chunkList.add(new Chunk(new Vector2f(x, z)));
+			}
+		}
 	}
 
-	public void update() {
+	public static List<Chunk> getChunkList() {
+		return chunkList;
+	}
+
+	public static void update() {
 		chunkList.forEach(Chunk::update);
+		// TODO: Sort chunks back to front.
 	}
 }

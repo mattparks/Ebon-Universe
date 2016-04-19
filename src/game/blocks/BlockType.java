@@ -1,7 +1,10 @@
 package game.blocks;
 
 import flounder.engine.*;
+import flounder.maths.*;
+import flounder.resources.*;
 import flounder.textures.*;
+import game.models.*;
 
 import java.util.*;
 
@@ -9,18 +12,20 @@ public class BlockType {
 	private static List<BlockType> blockTypes = new ArrayList<>();
 
 	static {
-		new BlockType("game::grass", null, 1);
-		new BlockType("game::dirt", null, 1);
-		new BlockType("game::stone", null, 1);
+		new BlockType("game::grass", null, new Colour(0,1,0), 0.5f);
+		new BlockType("game::dirt", null, new Colour(1,0,0), 0.5f);
+		new BlockType("game::stone", null, new Colour(0,1,1), 0.5f);
 	}
 
 	private final String name;
 	private final Texture texture;
+	private final Colour colour;
 	private final float extent;
 
-	public BlockType(final String name, final Texture texture, final float extent) {
+	public BlockType(final String name, final Texture texture, final Colour colour, final float extent) {
 		this.name = name;
 		this.texture = texture;
+		this.colour = colour;
 		this.extent = extent;
 
 		boolean typeExists = false;
@@ -54,6 +59,10 @@ public class BlockType {
 
 	public Texture getTexture() {
 		return texture;
+	}
+
+	public Colour getColour() {
+		return colour;
 	}
 
 	public float getExtent() {

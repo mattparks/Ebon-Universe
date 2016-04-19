@@ -13,6 +13,7 @@ public class Block {
 		this.type = type;
 		this.position = position;
 		this.aabb = new AABB();
+		updateAABB(this.aabb, this.position, this.type.getExtent());
 	}
 
 	public boolean renderable() {

@@ -6,9 +6,9 @@ import flounder.noise.*;
 import flounder.physics.*;
 
 public class Chunk {
-	public final int CHUNK_LENGTH = 16;
-	public final int CHUNK_HEIGHT = 255;
-	public final int DIRT_DEPTH = 3;
+	public static final int CHUNK_LENGTH = 8;
+	public static final int CHUNK_HEIGHT = 16;
+	public static final int DIRT_DEPTH = 3;
 
 	private final Vector2f position;
 	private final Block[][][] blocks;
@@ -49,7 +49,7 @@ public class Chunk {
 						type = BlockType.get("game::stone");
 					}
 
-					blocks[x][y][z] = new Block(type, new Vector3f(x, y, z));
+					blocks[x][y][z] = new Block(type, new Vector3f(position.x + x, y, position.y + z));
 				}
 			}
 		}
@@ -72,5 +72,6 @@ public class Chunk {
 	}
 
 	protected void update() {
+		// TODO: Sort blocks back to front.
 	}
 }

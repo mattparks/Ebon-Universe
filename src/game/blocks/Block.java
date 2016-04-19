@@ -34,8 +34,8 @@ public class Block {
 	}
 
 	private static void updateAABB(final AABB aabb, final Vector3f position, final float extent) {
-		aabb.setMaxExtents(position.x + (extent / 2.0f), position.y + (extent / 2.0f), position.z + (extent / 2.0f));
-		aabb.setMinExtents(position.x - (extent / 2.0f), position.y - (extent / 2.0f), position.z - (extent / 2.0f));
+		aabb.setMaxExtents(position.x + extent, position.y + extent, position.z + extent);
+		aabb.setMinExtents(position.x - extent, position.y - extent, position.z - extent);
 	}
 
 	public AABB getAABB() {

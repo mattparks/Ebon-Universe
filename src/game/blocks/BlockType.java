@@ -12,9 +12,9 @@ public class BlockType {
 	private static List<BlockType> blockTypes = new ArrayList<>();
 
 	static {
-		new BlockType("game::grass", null, new Colour(0,1,0), 0.5f);
-		new BlockType("game::dirt", null, new Colour(1,0,0), 0.5f);
-		new BlockType("game::stone", null, new Colour(0,1,1), 0.5f);
+		new BlockType("game::grass", null, new Colour(105, 196, 63, true), 1.0f);
+		new BlockType("game::dirt", null, new Colour(121, 85, 58, true), 1.0f);
+		new BlockType("game::stone", null, new Colour(127, 127, 127, true), 1.0f);
 	}
 
 	private final String name;

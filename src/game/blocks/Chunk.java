@@ -6,7 +6,7 @@ import flounder.noise.*;
 import flounder.physics.*;
 
 public class Chunk {
-	public static final int CHUNK_LENGTH = 8;
+	public static final int CHUNK_LENGTH = 32;
 	public static final int CHUNK_HEIGHT = 16;
 	public static final int DIRT_DEPTH = 3;
 
@@ -49,7 +49,7 @@ public class Chunk {
 						type = BlockType.get("game::stone");
 					}
 
-					blocks[x][y][z] = new Block(type, new Vector3f(position.x + x, y, position.y + z));
+					blocks[x][y][z] = new Block(type, new Vector3f(position.x + x + (x * type.getExtent()), y + (y * type.getExtent()), position.y + z + (z * type.getExtent())));
 				}
 			}
 		}

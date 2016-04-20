@@ -59,6 +59,10 @@ public class MainMasterRenderer extends IRendererMaster {
 
 	@Override
 	public void render() {
+		/* Shadow rendering. */
+		OpenglUtils.prepareNewRenderParse(0,0,0);
+		shadowRenderer.render(POSITIVE_INFINITY, FlounderEngine.getCamera());
+
 		/* Scene rendering. */
 		bindRelevantFBO();
 		renderScene(POSITIVE_INFINITY);
@@ -82,7 +86,6 @@ public class MainMasterRenderer extends IRendererMaster {
 
 		/* Renders each renderer. */
 		skyboxRenderer.render(clipPlane, camera);
-		shadowRenderer.render(clipPlane, camera);
 		blockRenderer.render(clipPlane, camera);
 		particleRenderer.render(clipPlane, camera);
 	}

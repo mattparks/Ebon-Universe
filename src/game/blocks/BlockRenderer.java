@@ -12,14 +12,14 @@ import game.world.*;
 import org.lwjgl.opengl.*;
 
 public class BlockRenderer extends IRenderer {
+	private static final Vector3f NO_ROTATION = new Vector3f(0,0,0);
+
 	private final BlockShader shader;
-	private final Model boxModel;
-	private final Matrix4f modelMatrix;
+	public static final Model boxModel = LoaderOBJ.loadOBJ(new MyFile(MyFile.RES_FOLDER, "entities", "box.obj"));
+	public static final Matrix4f modelMatrix = new Matrix4f();
 
 	public BlockRenderer() {
 		this.shader = new BlockShader();
-		this.boxModel = LoaderOBJ.loadOBJ(new MyFile(MyFile.RES_FOLDER, "entities", "triangle.obj"));
-		this.modelMatrix = new Matrix4f();
 	}
 
 	@Override
@@ -71,6 +71,9 @@ public class BlockRenderer extends IRenderer {
 
 	private void renderBlock(final Block block) {
 		// TODO: Bind texture.
+
+//		shader.shineDamper.loadFloat(10.0f);
+//		shader.reflectivity.loadFloat(0.5f);
 
 		shader.modelMatrix.loadMat4(Block.updateModelMatrix(block, modelMatrix));
 		shader.colour.loadVec3(block.getType().getColour());

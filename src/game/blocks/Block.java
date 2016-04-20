@@ -12,15 +12,15 @@ public class Block {
 	private final BlockType type;
 	private final Vector3f position;
 	private final AABB aabb;
-	private final boolean rotated;
 	private boolean covered;
+	private boolean rotated;
 
-	public Block(final BlockType type, final Vector3f position, final boolean rotated) {
+	public Block(final BlockType type, final Vector3f position) {
 		this.type = type;
 		this.position = position;
 		this.aabb = new AABB();
-		this.rotated = rotated;
 		this.covered = false;
+		this.rotated = false;
 		updateAABB(this.aabb, this.position, this.type.getExtent());
 	}
 

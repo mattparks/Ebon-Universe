@@ -54,9 +54,7 @@ void main(void) {
 	    shadowShadeFactor = 1.0;
 	}
 
-  out_colour = vec4(colour, 1.0);
-//	out_colour = out_colour * shadowShadeFactor;
-//	out_colour = mix(vec4(fogColour, 1.0), out_colour, visibility);
-
- //   out_colour = vec4(shadowShadeFactor, shadowShadeFactor, shadowShadeFactor, 1.0);
+    out_colour = vec4(colour, 1.0);
+//    out_colour = out_colour * shadowShadeFactor;
+	out_colour = mix(vec4(fogColour, 1.0), out_colour, visibility);
 }

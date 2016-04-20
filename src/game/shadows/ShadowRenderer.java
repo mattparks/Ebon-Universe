@@ -9,11 +9,13 @@ import game.blocks.*;
 import game.models.*;
 import game.world.*;
 
+import static org.lwjgl.opengl.GL11.*;
+
 /**
  * Deals with the shadow renderObjects pass.
  */
 public class ShadowRenderer extends IRenderer {
-	public static final int SHADOW_MAP_SIZE = 4092;
+	public static final int SHADOW_MAP_SIZE = 2036;
 
 	private Matrix4f projectionMatrix;
 	private Matrix4f lightViewMatrix;
@@ -51,6 +53,22 @@ public class ShadowRenderer extends IRenderer {
 	public void renderObjects(Vector4f clipPlane, ICamera camera) {
 		prepareRendering(clipPlane, camera);
 
+		for (final Chunk chunk : ChunkManager.getChunkList()) {
+			final Block[][][] blocks = chunk.getBlocks();
+
+			for (int x = 0; x < Chunk.CHUNK_LENGTH - 1; x++) {
+				for (int y = 0; y < Chunk.CHUNK_HEIGHT - 1; y++) {
+					for (int z = 0; z < Chunk.CHUNK_LENGTH - 1; z++) {
+						if (blocks[x][y][z] != null) {
+							Matrix4f mvpMatrix = Matrix4f.multiply(projectionViewMatrix, Block.updateModelMatrix(blocks[x][y][z], BlockRenderer.modelMatrix), null);
+							shader.mvpMatrix.loadMat4(mvpMatrix);
+							glDrawElements(GL_TRIANGLES, BlockRenderer.boxModel.getVAOLength(), GL_UNSIGNED_INT, 0); // Render the entity instance.
+						}
+					}
+				}
+			}
+		}
+
 		endRendering();
 	}
 
@@ -65,6 +83,11 @@ public class ShadowRenderer extends IRenderer {
 		shadowFbo.bindFrameBuffer();
 		OpenglUtils.prepareNewRenderParse(new Colour(1, 1, 1));
 		shader.start();
+
+		OpenglUtils.bindVAO(BlockRenderer.boxModel.getVaoID(), 0);
+		OpenglUtils.antialias(false);
+		OpenglUtils.cullBackFaces(false);
+		OpenglUtils.enableDepthTesting();
 	}
 
 	/**
@@ -106,6 +129,7 @@ public class ShadowRenderer extends IRenderer {
 	}
 
 	private void endRendering() {
+		OpenglUtils.unbindVAO(0);
 		shader.stop();
 		shadowFbo.unbindFrameBuffer();
 	}
@@ -115,6 +139,10 @@ public class ShadowRenderer extends IRenderer {
 	 */
 	public int getShadowMap() {
 		return shadowFbo.getDepthTexture();
+	}
+
+	public FBO getShadowFbo() {
+		return shadowFbo;
 	}
 
 	public float getShadowDistance() {

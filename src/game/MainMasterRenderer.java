@@ -11,6 +11,7 @@ import flounder.post.piplines.*;
 import flounder.textures.fbos.*;
 import game.blocks.*;
 import game.particles.*;
+import game.shadows.*;
 import game.skyboxes.*;
 import game.world.*;
 
@@ -28,6 +29,7 @@ public class MainMasterRenderer extends IRendererMaster {
 	private Matrix4f projectionMatrix;
 	private SkyboxRenderer skyboxRenderer;
 	private BlockRenderer blockRenderer;
+	private ShadowRenderer shadowRenderer;
 	private ParticleRenderer particleRenderer;
 	private FontRenderer fontRenderer;
 	private GuiRenderer guiRenderer;
@@ -49,6 +51,7 @@ public class MainMasterRenderer extends IRendererMaster {
 		projectionMatrix = new Matrix4f();
 		skyboxRenderer = new SkyboxRenderer();
 		blockRenderer = new BlockRenderer();
+		shadowRenderer = new ShadowRenderer();
 		particleRenderer = new ParticleRenderer();
 		fontRenderer = new FontRenderer();
 		guiRenderer = new GuiRenderer();
@@ -79,6 +82,7 @@ public class MainMasterRenderer extends IRendererMaster {
 
 		/* Renders each renderer. */
 		skyboxRenderer.render(clipPlane, camera);
+		shadowRenderer.render(clipPlane, camera);
 		blockRenderer.render(clipPlane, camera);
 		particleRenderer.render(clipPlane, camera);
 	}
@@ -86,6 +90,10 @@ public class MainMasterRenderer extends IRendererMaster {
 	@Override
 	public Matrix4f getProjectionMatrix() {
 		return projectionMatrix;
+	}
+
+	public ShadowRenderer getShadowRenderer() {
+		return shadowRenderer;
 	}
 
 	@Override
@@ -100,6 +108,7 @@ public class MainMasterRenderer extends IRendererMaster {
 
 		skyboxRenderer.dispose();
 		blockRenderer.dispose();
+		shadowRenderer.dispose();
 		particleRenderer.dispose();
 		fontRenderer.dispose();
 		guiRenderer.dispose();

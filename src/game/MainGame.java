@@ -56,7 +56,7 @@ public class MainGame extends IGame {
 		ChunkManager.init();
 
 		// Initializes 3D game objects.
-		Environment.init(new Fog(new Colour(0.15f, 0.16f, 0.18f), 0.001f, 2.0f, 0.0f, 500.0f), new Light(new Colour(0.6f, 0.6f, 0.6f), new Vector3f(0, 2000, 2000), new Attenuation(0, 0, 0)));
+		Environment.init(new Fog(new Colour(0.15f, 0.16f, 0.18f), 0.01f, 2.0f, 0.0f, 500.0f), new Light(new Colour(0.6f, 0.6f, 0.6f), new Vector3f(0, 2000, 2000), new Attenuation(0, 0, 0)));
 		MainGuis.init();
 		ParticleManager.init();
 

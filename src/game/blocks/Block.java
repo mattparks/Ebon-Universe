@@ -1,19 +1,25 @@
 package game.blocks;
 
 import flounder.engine.*;
+import flounder.maths.matrices.*;
 import flounder.maths.vectors.*;
 import flounder.physics.*;
 
 public class Block {
+	public static final Vector3f ROTATION_NONE = new Vector3f(0, 0, 0);
+	public static final Vector3f ROTATION_180 = new Vector3f(0, 180, 0);
+
 	private final BlockType type;
 	private final Vector3f position;
 	private final AABB aabb;
+	private final boolean rotated;
 	private boolean covered;
 
-	public Block(final BlockType type, final Vector3f position) {
+	public Block(final BlockType type, final Vector3f position, final boolean rotated) {
 		this.type = type;
 		this.position = position;
 		this.aabb = new AABB();
+		this.rotated = rotated;
 		this.covered = false;
 		updateAABB(this.aabb, this.position, this.type.getExtent());
 	}
@@ -44,7 +50,16 @@ public class Block {
 		aabb.setMinExtents(position.x - extent, position.y - extent, position.z - extent);
 	}
 
+	public static Matrix4f updateModelMatrix(final Block block, Matrix4f modelMatrix) {
+		Matrix4f.transformationMatrix(block.getPosition(), block.isRotated() ? Block.ROTATION_180 : Block.ROTATION_NONE, block.getType().getExtent(), modelMatrix);
+		return modelMatrix;
+	}
+
 	public AABB getAABB() {
 		return aabb;
+	}
+
+	public boolean isRotated() {
+		return rotated;
 	}
 }

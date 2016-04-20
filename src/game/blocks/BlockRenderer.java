@@ -5,20 +5,20 @@ import flounder.engine.*;
 import flounder.maths.matrices.*;
 import flounder.maths.vectors.*;
 import flounder.resources.*;
+import game.*;
 import game.models.*;
+import game.shadows.*;
 import game.world.*;
 import org.lwjgl.opengl.*;
 
 public class BlockRenderer extends IRenderer {
-	private static final Vector3f NO_ROTATION = new Vector3f(0,0,0);
-
 	private final BlockShader shader;
 	private final Model boxModel;
 	private final Matrix4f modelMatrix;
 
 	public BlockRenderer() {
 		this.shader = new BlockShader();
-		this.boxModel = LoaderOBJ.loadOBJ(new MyFile(MyFile.RES_FOLDER, "entities", "box.obj"));
+		this.boxModel = LoaderOBJ.loadOBJ(new MyFile(MyFile.RES_FOLDER, "entities", "triangle.obj"));
 		this.modelMatrix = new Matrix4f();
 	}
 
@@ -51,35 +51,28 @@ public class BlockRenderer extends IRenderer {
 		shader.viewMatrix.loadMat4(camera.getViewMatrix());
 		shader.clipPlane.loadVec4(clipPlane);
 
-//		shader.fogColour.loadVec3(Environment.getFog().getFogColour());
-//		shader.fogDensity.loadFloat(Environment.getFog().getFogDensity());
-//		shader.fogGradient.loadFloat(Environment.getFog().getFogGradient());
+		shader.fogColour.loadVec3(Environment.getFog().getFogColour());
+		shader.fogDensity.loadFloat(Environment.getFog().getFogDensity());
+		shader.fogGradient.loadFloat(Environment.getFog().getFogGradient());
 
-//		for (int i = 0; i < shader.MAX_LIGHTS; i++) {
-//			if (i == 0) {
-//				shader.lightPosition[i].loadVec3(Environment.getSun().getPosition());
-//				shader.lightColour[i].loadVec3(Environment.getSun().getColour());
-//				shader.attenuation[i].loadVec3(Environment.getSun().getAttenuation().toVector());
-//			} else {
-//				shader.lightPosition[i].loadVec3(0, 0, 0);
-//				shader.lightColour[i].loadVec3(0, 0, 0);
-//				shader.attenuation[i].loadVec3(1, 0, 0);
-//			}
-//		}
+		final ShadowRenderer shadowMapMaster = ((MainMasterRenderer) FlounderEngine.getMasterRenderer()).getShadowRenderer();
+
+		shader.shadowSpaceMatrix.loadMat4(shadowMapMaster.getToShadowMapSpaceMatrix());
+		shader.shadowDistance.loadFloat(shadowMapMaster.getShadowDistance());
+		shader.shadowMapSize.loadFloat(ShadowRenderer.SHADOW_MAP_SIZE);
 
 		OpenglUtils.bindVAO(boxModel.getVaoID(), 0, 1, 2, 3);
 		OpenglUtils.antialias(ManagerDevices.getDisplay().isAntialiasing());
 		OpenglUtils.enableDepthTesting();
 		OpenglUtils.enableAlphaBlending();
+
+		OpenglUtils.bindTextureToBank(shadowMapMaster.getShadowMap(), 1);
 	}
 
 	private void renderBlock(final Block block) {
 		// TODO: Bind texture.
 
-//		shader.shineDamper.loadFloat(10.0f);
-//		shader.reflectivity.loadFloat(0.5f);
-
-		shader.modelMatrix.loadMat4(Matrix4f.transformationMatrix(block.getPosition(), NO_ROTATION, block.getType().getExtent(), modelMatrix));
+		shader.modelMatrix.loadMat4(Block.updateModelMatrix(block, modelMatrix));
 		shader.colour.loadVec3(block.getType().getColour());
 		GL11.glDrawElements(GL11.GL_TRIANGLES, boxModel.getVAOLength(), GL11.GL_UNSIGNED_INT, 0); // Render the entity instance.
 

@@ -52,7 +52,7 @@ public class Chunk {
 						type = BlockType.get("game::stone");
 					}
 
-					blocks[x][y][z] = new Block(type, new Vector3f(position.x + x + (x * type.getExtent()), y + (y * type.getExtent()), position.y + z + (z * type.getExtent())));
+					blocks[x][y][z] = new Block(type, new Vector3f(position.x + x + (x * type.getExtent()), y + (y * type.getExtent()), position.y + z + (z * type.getExtent())), ((x+z) % 2) == 0);
 				}
 			}
 		}
@@ -62,42 +62,29 @@ public class Chunk {
 		return FlounderEngine.getCamera().getViewFrustum().aabbInFrustum(aabb);
 	}
 
-	protected Block[][][] getBlocks() {
+	public Block[][][] getBlocks() {
 		return blocks;
 	}
 
-	protected void addBlock(final Block block) {
+	public void addBlock(final Block block) {
 		this.blocks[Math.round(block.getPosition().x)][Math.round(block.getPosition().y)][Math.round(block.getPosition().z)] = block;
 	}
 
-	protected void removeBlock(final Block block) {
+	public void removeBlock(final Block block) {
 		this.blocks[Math.round(block.getPosition().x)][Math.round(block.getPosition().y)][Math.round(block.getPosition().z)] = null;
 	}
 
-	protected void update() {
-		for (int x = 0; x < CHUNK_LENGTH; x++) {
-			for (int y = 0; y < CHUNK_HEIGHT; y++) {
-				for (int z = 0; z < CHUNK_LENGTH; z++) {
-					if (blocks[x][y][z] != null) {
-						boolean covered =
-								blockExists(x - 1, y, z) && blockExists(x + 1, y, z) && // left right
-								blockExists(x, y - 1, z) && blockExists(x, y + 1, z) && // up down
-								blockExists(x, y, z - 1) && blockExists(x, y, z + 1);   // front back
-						blocks[x][y][z].update(covered && !ManagerDevices.getKeyboard().getKey(GLFW_KEY_Y));
-					}
-				}
-			}
-		}
+	public void update() {
+	//	for (int x = 0; x < CHUNK_LENGTH; x++) {
+	//		for (int y = 0; y < CHUNK_HEIGHT; y++) {
+	//			for (int z = 0; z < CHUNK_LENGTH; z++) {
+	//				if (blocks[x][y][z] != null) {
+	//					blocks[x][y][z].update(!ManagerDevices.getKeyboard().getKey(GLFW_KEY_Y));
+	//				}
+	//			}
+	//		}
+	//	}
 
 		// TODO: Sort blocks back to front.
-	}
-
-	public boolean blockExists(final int x, final int y, final int z) {
-		if (x < 0 || y < 0 || z < 0 || x >= CHUNK_LENGTH || y >= CHUNK_HEIGHT || z >= CHUNK_LENGTH) { // Somethings wrong with the upper X and Z coords.
-			// TODO: Find if block exists in nearby chunk.
-			return false;
-		} else {
-			return blocks[x][y][z] != null;
-		}
 	}
 }

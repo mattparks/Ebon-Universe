@@ -2,12 +2,14 @@ package game;
 
 import flounder.devices.*;
 import flounder.engine.*;
+import flounder.engine.profiling.*;
 import flounder.inputs.*;
 import flounder.maths.*;
 import flounder.maths.vectors.*;
 import flounder.resources.*;
 import flounder.sounds.*;
 import game.blocks.*;
+import game.lights.*;
 import game.models.*;
 import game.options.*;
 import game.particles.*;
@@ -54,7 +56,7 @@ public class MainGame extends IGame {
 		ChunkManager.init();
 
 		// Initializes 3D game objects.
-		Environment.init(new Fog(new Colour(0.15f, 0.16f, 0.18f), 0.001f, 2.0f, 0.0f, 500.0f));
+		Environment.init(new Fog(new Colour(0.15f, 0.16f, 0.18f), 0.001f, 2.0f, 0.0f, 500.0f), new Light(new Colour(0.6f, 0.6f, 0.6f), new Vector3f(0, 2000, 2000), new Attenuation(0, 0, 0)));
 		MainGuis.init();
 		ParticleManager.init();
 
@@ -102,6 +104,9 @@ public class MainGame extends IGame {
 			playerPosition.set(playerPosition.x + dx, playerPosition.y, playerPosition.z + dz);
 			playerRotation.set(playerRotation.x, playerRotation.y + ry, playerRotation.z);
 		}
+
+		FlounderProfiler.add("Player", "Position", playerPosition);
+		FlounderProfiler.add("Player", "Rotation", playerRotation);
 
 		if (screenshot.wasDown()) {
 			ManagerDevices.getDisplay().screenshot();

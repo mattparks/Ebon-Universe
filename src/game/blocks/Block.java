@@ -8,16 +8,22 @@ public class Block {
 	private final BlockType type;
 	private final Vector3f position;
 	private final AABB aabb;
+	private boolean covered;
 
 	public Block(final BlockType type, final Vector3f position) {
 		this.type = type;
 		this.position = position;
 		this.aabb = new AABB();
+		this.covered = false;
 		updateAABB(this.aabb, this.position, this.type.getExtent());
 	}
 
 	public boolean renderable() {
-		return FlounderEngine.getCamera().getViewFrustum().aabbInFrustum(aabb);
+		return !covered && FlounderEngine.getCamera().getViewFrustum().aabbInFrustum(aabb);
+	}
+
+	public void update(final boolean covered) {
+		this.covered = covered;
 	}
 
 	public BlockType getType() {

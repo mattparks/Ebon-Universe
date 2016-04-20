@@ -53,17 +53,17 @@ public class OverlayCursor extends GuiComponent {
 
 	@Override
 	protected void updateSelf() {
-		if (displayed) {
+	//	if (displayed) {
 			cursorPos.setColourOffset(GuiManager.getSelector().isLeftClick() || GuiManager.getSelector().isRightClick() ? activeColour : inactiveColour);
 			cursorPos.setPosition(GuiManager.getSelector().getCursorX(), GuiManager.getSelector().getCursorY(), 0.0375f, 0.0375f * ManagerDevices.getDisplay().getAspectRatio());
 			cursorPos.update();
-		}
+	//	}
 	}
 
 	@Override
 	protected void getGuiTextures(final List<GuiTexture> guiTextures) {
-		if (displayed) {
+	//	if (displayed) {
 			guiTextures.add(cursorPos);
-		}
+	//	}
 	}
 }

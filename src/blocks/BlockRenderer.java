@@ -100,12 +100,12 @@ public class BlockRenderer extends IRenderer {
 	}
 
 	private void loadBlockFaces(final Block b, final float[] vboData) {
-		if (b == null) {
+		if (b == null || !b.isVisible()) {
 			return;
 		}
 
 		for (int f = 0; f < 6; f++) {
-			if (b.getFaces()[f].isVisible()) {
+			if (!b.getFaces()[f].isCovered()) {
 				Block.blockModelMatrix(b, f, modelMatrix);
 				final Colour colour = b.getType().getColour();
 

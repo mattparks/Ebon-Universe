@@ -8,29 +8,29 @@ import flounder.physics.*;
 import org.lwjgl.glfw.*;
 
 public class Chunk {
-	public static final int CHUNK_LENGTH = 64;
-	public static final int CHUNK_HEIGHT = 32;
+	public static final int CHUNK_LENGTH = 32;
+	public static final int CHUNK_HEIGHT = 16;
 	public static final int DIRT_DEPTH = 3;
 
-	private final Vector2f position;
+	private final Vector3f position;
 	private final Block[][][] blocks;
 	private final AABB aabb;
-	private final AABB updateAABB;
 	private int faceCount;
+	private boolean forceUpdate;
 
-	protected Chunk(final Vector2f position, final NoisePerlin perlinNoise) {
+	protected Chunk(final Vector3f position, final NoisePerlin perlinNoise) {
 		this.position = position;
-		this.blocks = new Block[CHUNK_LENGTH + 1][CHUNK_HEIGHT][CHUNK_LENGTH + 1];
-		this.aabb = new AABB(new Vector3f(position.x, 0, position.y), new Vector3f(position.x + (CHUNK_LENGTH * 2), (CHUNK_HEIGHT * 2), position.y + (CHUNK_LENGTH * 2)));
-		this.updateAABB = new AABB();
+		this.blocks = new Block[CHUNK_LENGTH][CHUNK_LENGTH][CHUNK_HEIGHT];
+		this.aabb = new AABB(position, new Vector3f(position.x + (CHUNK_LENGTH * 2), position.y + (CHUNK_HEIGHT * 2), position.z + (CHUNK_LENGTH * 2)));
 		this.faceCount = 0;
+		this.forceUpdate = true;
 		generate(perlinNoise);
 	}
 
 	private void generate(final NoisePerlin perlinNoise) {
 		for (int x = 0; x < blocks.length; x++) {
 			for (int z = 0; z < blocks[x].length; z++) {
-				double height = perlinNoise.noise2((position.x + x) / CHUNK_HEIGHT, (position.y + z) / CHUNK_HEIGHT);
+				double height = perlinNoise.noise2((position.x + x) / CHUNK_HEIGHT, (position.z + z) / CHUNK_HEIGHT);
 
 				// Negate any negative noise values.
 				if (height < 0) {
@@ -56,25 +56,17 @@ public class Chunk {
 						// TODO: Random ore spawns.
 					}
 
-					blocks[x][y][z] = new Block(type, new Vector3f(calculateBlockX(x, type.getExtent()), calculateBlockY(y, type.getExtent()), calculateBlockZ(z, type.getExtent())));
+					blocks[x][z][y] = new Block(type, new Vector3f(calculateBlock(x, type.getExtent()), calculateBlock(y, type.getExtent()), calculateBlock(z, type.getExtent())));
 				}
 			}
 		}
 	}
 
-	private float calculateBlockX(final int arrayX, final float extent) {
-		return position.x + arrayX + (arrayX * extent);
+	private float calculateBlock(final int array, final float extent) {
+		return position.z + array + (array * extent);
 	}
 
-	private float calculateBlockY(final int arrayY, final float extent) {
-		return arrayY + (arrayY * extent);
-	}
-
-	private float calculateBlockZ(final int arrayZ, final float extent) {
-		return position.y + arrayZ + (arrayZ * extent);
-	}
-
-	public Vector2f getPosition() {
+	public Vector3f getPosition() {
 		return position;
 	}
 
@@ -92,35 +84,39 @@ public class Chunk {
 		for (int x = 0; x < blocks.length; x++) {
 			for (int z = 0; z < blocks[x].length; z++) {
 				for (int y = 0; y < blocks[z].length; y++) {
-					final Block b = blocks[x][y][z];
+					final Block block = blocks[x][z][y]; // TODO: Fix out of bounds?
 
-					if (b != null) {
-						final float e = b.getType().getExtent();
-
-						updateAABB.setMinExtents(b.getPosition().x - e, b.getPosition().y - e, b.getPosition().z - e);
-						updateAABB.setMaxExtents(b.getPosition().x + e, b.getPosition().y + e, b.getPosition().z + e);
-
+					if (block != null) {
 						if (!ManagerDevices.getKeyboard().getKey(GLFW.GLFW_KEY_G)) {
-							if (!FlounderEngine.getCamera().getViewFrustum().aabbInFrustum(updateAABB)) {
-								b.update(false, false, false, false, false, false);
-							} else {
-								b.update(
-										!blockExists(x, y, z + 1), !blockExists(x, y, z - 1), // Front Back
-										!blockExists(x - 1, y, z), !blockExists(x + 1, y, z), // Left Right
-										!blockExists(x, y + 1, z), !blockExists(x, y - 1, z)  // Up Down
-								);
-							}
+							block.setVisible(FlounderEngine.getCamera().getViewFrustum().aabbInFrustum(block.getAABB()));
 						}
 
-						for (int f = 0; f < 6; f++) {
-							if (b.getFaces()[f].isVisible()) {
-								faceCount++;
+						if (forceUpdate) {
+							updateCoveredFaces(block, x, y, z);
+						}
+
+						if (block.isVisible()) {
+							for (int f = 0; f < 6; f++) {
+								if (!block.getFaces()[f].isCovered()) {
+									faceCount++;
+								}
 							}
 						}
 					}
 				}
 			}
 		}
+
+		forceUpdate = false;
+	}
+
+	public void updateCoveredFaces(final Block block, final int x, final int y, final int z) {
+		block.getFaces()[0].setCovered(blockExists(x, y, z + 1)); // Front
+		block.getFaces()[1].setCovered(blockExists(x, y, z - 1)); // Back
+		block.getFaces()[2].setCovered(blockExists(x - 1, y, z)); // Left
+		block.getFaces()[3].setCovered(blockExists(x + 1, y, z)); // Right
+		block.getFaces()[4].setCovered(blockExists(x, y + 1, z)); // Up
+		block.getFaces()[5].setCovered(blockExists(x, y - 1, z)); // Down
 	}
 
 	public boolean blockExists(final int x, final int y, final int z) {
@@ -128,7 +124,7 @@ public class Chunk {
 			//	return WorldManager.getWorldBlock(x, y, z) != null;
 			return false;
 		} else {
-			return blocks[x][y][z] != null;
+			return blocks[x][z][y] != null;
 		}
 	}
 
@@ -141,11 +137,13 @@ public class Chunk {
 	}
 
 	public void addBlock(final Block block, final int positionX, final int positionY, final int positionZ) {
-		this.blocks[positionX][positionY][positionZ] = block;
+		this.blocks[positionX][positionZ][positionY] = block;
+		this.forceUpdate = true;
 	}
 
 	public void removeBlock(final int positionX, final int positionY, final int positionZ) {
-		this.blocks[positionX][positionY][positionZ] = null;
+		this.blocks[positionX][positionZ][positionY] = null;
+		this.forceUpdate = true;
 	}
 
 	public Block getBlock(final int positionX, final int positionY, final int positionZ) {
@@ -153,6 +151,6 @@ public class Chunk {
 			return null;
 		}
 
-		return blocks[positionX][positionY][positionZ];
+		return blocks[positionX][positionZ][positionY];
 	}
 }

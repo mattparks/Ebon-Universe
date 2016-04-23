@@ -12,7 +12,7 @@ public class WorldManager {
 	public static void init() {
 		for (int x = 0; x < 1; x++) {
 			for (int z = 0; z < 1; z++) {
-				CHUNK_LIST.add(new Chunk(new Vector2f(x * (Chunk.CHUNK_LENGTH * 2.0f), z * (Chunk.CHUNK_LENGTH * 2.0f)), NOISE_PERLIN));
+				CHUNK_LIST.add(new Chunk(new Vector3f(x * (Chunk.CHUNK_LENGTH * 2.0f), 0, z * (Chunk.CHUNK_LENGTH * 2.0f)), NOISE_PERLIN));
 			}
 		}
 	}

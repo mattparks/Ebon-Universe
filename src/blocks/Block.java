@@ -2,6 +2,7 @@ package blocks;
 
 import flounder.maths.matrices.*;
 import flounder.maths.vectors.*;
+import flounder.physics.*;
 
 public class Block {
 	public static final Vector3f ROTATION_REUSABLE = new Vector3f(0, 0, 0);
@@ -10,11 +11,18 @@ public class Block {
 
 	private final BlockType type;
 	private final Vector3f position;
+	private final AABB aabb;
 	private final BlockVisible[] faces;
+	private boolean visible;
 
 	public Block(final BlockType type, final Vector3f position) {
 		this.type = type;
 		this.position = position;
+		this.aabb = new AABB();
+		this.visible = false;
+
+		blockAABB(this, aabb);
+
 		this.faces = new BlockVisible[6];
 		this.faces[0] = new BlockVisible(BlockFaces.FRONT, type.getExtent());
 		this.faces[1] = new BlockVisible(BlockFaces.BACK, type.getExtent());
@@ -22,6 +30,12 @@ public class Block {
 		this.faces[3] = new BlockVisible(BlockFaces.RIGHT, type.getExtent());
 		this.faces[4] = new BlockVisible(BlockFaces.UP, type.getExtent());
 		this.faces[5] = new BlockVisible(BlockFaces.DOWN, type.getExtent());
+	}
+
+	public static AABB blockAABB(final Block block, AABB aabb) {
+		aabb.setMinExtents(block.position.x - block.type.getExtent(), block.position.y - block.type.getExtent(), block.position.z - block.type.getExtent());
+		aabb.setMaxExtents(block.position.x + block.type.getExtent(), block.position.y + block.type.getExtent(), block.position.z + block.type.getExtent());
+		return aabb;
 	}
 
 	public static Matrix4f blockModelMatrix(final Block block, final int face, Matrix4f modelMatrix) {
@@ -68,17 +82,20 @@ public class Block {
 		return position;
 	}
 
-	public void update(final boolean visibleFront, final boolean visibleBack, final boolean visibleLeft, final boolean visibleRight, final boolean visibleUp, final boolean visibleDown) {
-		this.faces[0].setVisible(visibleFront);
-		this.faces[1].setVisible(visibleBack);
-		this.faces[2].setVisible(visibleLeft);
-		this.faces[3].setVisible(visibleRight);
-		this.faces[4].setVisible(visibleUp);
-		this.faces[5].setVisible(visibleDown);
-	}
-
 	public BlockVisible[] getFaces() {
 		return faces;
+	}
+
+	public AABB getAABB() {
+		return aabb;
+	}
+
+	public boolean isVisible() {
+		return visible;
+	}
+
+	public void setVisible(final boolean visible) {
+		this.visible = visible;
 	}
 
 	public enum BlockFaces {
@@ -88,12 +105,12 @@ public class Block {
 	public class BlockVisible {
 		private final BlockFaces face;
 		private final Vector3f stretch;
-		private boolean visible;
+		private boolean covered;
 
 		public BlockVisible(final BlockFaces face, final float extent) {
 			this.face = face;
-			this.visible = false;
 			this.stretch = new Vector3f(extent, extent, extent);
+			this.covered = false;
 		}
 
 		public BlockFaces getFace() {
@@ -108,12 +125,12 @@ public class Block {
 			stretch.set(x, y, z);
 		}
 
-		public boolean isVisible() {
-			return visible;
+		public boolean isCovered() {
+			return covered;
 		}
 
-		public void setVisible(boolean visible) {
-			this.visible = visible;
+		public void setCovered(final boolean covered) {
+			this.covered = covered;
 		}
 	}
 }

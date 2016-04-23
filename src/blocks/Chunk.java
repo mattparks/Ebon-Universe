@@ -8,8 +8,8 @@ import flounder.physics.*;
 import org.lwjgl.glfw.*;
 
 public class Chunk {
-	public static final int CHUNK_LENGTH = 32;
-	public static final int CHUNK_HEIGHT = 16;
+	public static final int CHUNK_LENGTH = 64;
+	public static final int CHUNK_HEIGHT = 32;
 	public static final int DIRT_DEPTH = 3;
 
 	private final Vector2f position;
@@ -80,20 +80,6 @@ public class Chunk {
 
 	public Block[][][] getBlocks() {
 		return blocks;
-	}
-
-	public int blockCount() {
-		int count = 0;
-
-		for (int x = 0; x < CHUNK_LENGTH; x++) {
-			for (int z = 0; z < CHUNK_LENGTH; z++) {
-				for (int y = 0; y < CHUNK_HEIGHT; y++) {
-					count++;
-				}
-			}
-		}
-
-		return count;
 	}
 
 	public boolean renderable() {

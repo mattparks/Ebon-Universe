@@ -6,8 +6,6 @@ import flounder.maths.*;
 import java.util.*;
 
 public class BlockType {
-	// TODO: Texture to render from & renderer & shader & shadows.
-
 	private static List<BlockType> BLOCK_TYPES = new ArrayList<>();
 
 	static {

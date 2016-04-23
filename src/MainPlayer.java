@@ -27,8 +27,8 @@ public class MainPlayer {
 		this.inputForward = new CompoundAxis(new ButtonAxis(upKeyButtons, downKeyButtons), new JoystickAxis(0, 1));
 		this.inputTurn = new CompoundAxis(new ButtonAxis(leftKeyButtons, rightKeyButtons), new JoystickAxis(0, 3));
 
-		this.position = new Vector3f();
-		this.rotation = new Vector3f();
+		this.position = new Vector3f(0, 10, 0);
+		this.rotation = new Vector3f(0, 0, 0);
 	}
 
 	public void update(final boolean paused) {

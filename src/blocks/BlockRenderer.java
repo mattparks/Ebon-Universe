@@ -69,9 +69,9 @@ public class BlockRenderer extends IRenderer {
 			if (chunk.renderable()) {
 				final Block[][][] blocks = chunk.getBlocks();
 
-				for (int x = 0; x < Chunk.CHUNK_LENGTH; x++) {
-					for (int y = 0; y < Chunk.CHUNK_HEIGHT - 1; y++) {
-						for (int z = 0; z < Chunk.CHUNK_LENGTH; z++) {
+				for (int x = 0; x < blocks.length; x++) {
+					for (int z = 0; z < blocks[x].length; z++) {
+						for (int y = 0; y < blocks[z].length; y++) {
 							loadBlockFaces(blocks[x][y][z], vboData);
 						}
 					}

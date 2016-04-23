@@ -28,8 +28,8 @@ public class Chunk {
 	}
 
 	private void generate(final NoisePerlin perlinNoise) {
-		for (int x = 0; x < CHUNK_LENGTH + 1; x++) {
-			for (int z = 0; z < CHUNK_LENGTH + 1; z++) {
+		for (int x = 0; x < blocks.length; x++) {
+			for (int z = 0; z < blocks[x].length; z++) {
 				double height = perlinNoise.noise2((position.x + x) / CHUNK_HEIGHT, (position.y + z) / CHUNK_HEIGHT);
 
 				// Negate any negative noise values.
@@ -40,7 +40,7 @@ public class Chunk {
 				// Multiply by the max height, then round up.
 				height = Math.ceil(height * CHUNK_HEIGHT);
 
-				for (int y = (int) height; y >= 0 && y < CHUNK_HEIGHT; y--) {
+				for (int y = (int) height; y >= 0 && y < blocks[z].length; y--) {
 					int depth = (int) (height - y);
 
 					BlockType type;
@@ -89,9 +89,9 @@ public class Chunk {
 	public void update() {
 		faceCount = 0;
 
-		for (int x = 0; x < CHUNK_LENGTH; x++) {
-			for (int z = 0; z < CHUNK_LENGTH; z++) {
-				for (int y = 0; y < CHUNK_HEIGHT; y++) {
+		for (int x = 0; x < blocks.length; x++) {
+			for (int z = 0; z < blocks[x].length; z++) {
+				for (int y = 0; y < blocks[z].length; y++) {
 					final Block b = blocks[x][y][z];
 
 					if (b != null) {

@@ -101,9 +101,7 @@ public class Chunk {
 						updateAABB.setMaxExtents(b.getPosition().x + e, b.getPosition().y + e, b.getPosition().z + e);
 
 						if (!ManagerDevices.getKeyboard().getKey(GLFW.GLFW_KEY_G)) {
-							if (ManagerDevices.getKeyboard().getKey(GLFW.GLFW_KEY_F)) {
-								b.update(true, true, true, true, true, true);
-							} else if (!FlounderEngine.getCamera().getViewFrustum().aabbInFrustum(updateAABB)) {
+							if (!FlounderEngine.getCamera().getViewFrustum().aabbInFrustum(updateAABB)) {
 								b.update(false, false, false, false, false, false);
 							} else {
 								b.update(
@@ -123,33 +121,6 @@ public class Chunk {
 				}
 			}
 		}
-
-		// This could be merged into above...
-		/*for (int x = 0; x < CHUNK_LENGTH; x++) {
-			for (int z = 0; z < CHUNK_LENGTH; z++) {
-				for (int y = 0; y < CHUNK_HEIGHT; y++) {
-					// TODO: Check faces if they can merge. Then change 1 face bound, make other hide.
-
-					final Block b = blocks[x][y][z];
-
-					if (b != null) {
-						for (int f = 0; f < 6; f++) {
-							if (b.getFaces()[f].isVisible()) {
-								Block other;
-
-								// Front: Left, Right, Up, Down
-
-								if ((other = getBlock(x, y, z + 1)) != null && other.getType().getName().equals(b.getType().getName())) { // Front
-									if (b.getFaces()[2].isVisible() && other.getFaces()[2].isVisible()) { // Left
-										FlounderLogger.log("Two left faces matched!");
-									}
-								}
-							}
-						}
-					}
-				}
-			}
-		}*/
 	}
 
 	public boolean blockExists(final int x, final int y, final int z) {

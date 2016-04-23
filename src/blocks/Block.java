@@ -6,6 +6,7 @@ import flounder.maths.vectors.*;
 public class Block {
 	public static final Vector3f ROTATION_REUSABLE = new Vector3f(0, 0, 0);
 	public static final Vector3f POSITION_REUSABLE = new Vector3f(0, 0, 0);
+	public static final Vector3f SCALE_REUSABLE = new Vector3f(0, 0, 0);
 
 	private final BlockType type;
 	private final Vector3f position;
@@ -15,24 +16,24 @@ public class Block {
 		this.type = type;
 		this.position = position;
 		this.faces = new BlockVisible[6];
-		this.faces[0] = new BlockVisible(BlockFaces.FRONT, true);
-		this.faces[1] = new BlockVisible(BlockFaces.BACK, true);
-		this.faces[2] = new BlockVisible(BlockFaces.LEFT, true);
-		this.faces[3] = new BlockVisible(BlockFaces.RIGHT, true);
-		this.faces[4] = new BlockVisible(BlockFaces.UP, true);
-		this.faces[5] = new BlockVisible(BlockFaces.DOWN, true);
+		this.faces[0] = new BlockVisible(BlockFaces.FRONT, type.getExtent());
+		this.faces[1] = new BlockVisible(BlockFaces.BACK, type.getExtent());
+		this.faces[2] = new BlockVisible(BlockFaces.LEFT, type.getExtent());
+		this.faces[3] = new BlockVisible(BlockFaces.RIGHT, type.getExtent());
+		this.faces[4] = new BlockVisible(BlockFaces.UP, type.getExtent());
+		this.faces[5] = new BlockVisible(BlockFaces.DOWN, type.getExtent());
 	}
 
-	public static Matrix4f blockModelMatrix(final Block block, final BlockFaces faces, Matrix4f modelMatrix) {
+	public static Matrix4f blockModelMatrix(final Block block, final int face, Matrix4f modelMatrix) {
 		POSITION_REUSABLE.set(block.getPosition());
 		ROTATION_REUSABLE.set(0.0f, 0.0f, 0.0f);
-		blockPaneUpdate(faces, block.getType().getExtent(), ROTATION_REUSABLE, POSITION_REUSABLE);
-		Matrix4f.transformationMatrix(POSITION_REUSABLE, ROTATION_REUSABLE, block.getType().getExtent(), modelMatrix);
+		SCALE_REUSABLE.set(block.getFaces()[face].getStretch());
+		blockPaneUpdate(block.getFaces()[face].getFace(), block.getType().getExtent(), ROTATION_REUSABLE, POSITION_REUSABLE);
+		Matrix4f.transformationMatrix(POSITION_REUSABLE, ROTATION_REUSABLE, SCALE_REUSABLE, modelMatrix);
 		return modelMatrix;
 	}
 
 	private static void blockPaneUpdate(final BlockFaces faces, final float extent, final Vector3f rotation, final Vector3f position) {
-		// TODO: Change rotation and add position offsets.
 		switch (faces) {
 			case FRONT:
 				rotation.x = 90.0f;
@@ -55,8 +56,6 @@ public class Block {
 				break;
 			case DOWN:
 				position.y -= extent;
-				break;
-			default:
 				break;
 		}
 	}
@@ -88,15 +87,25 @@ public class Block {
 
 	public class BlockVisible {
 		private final BlockFaces face;
+		private final Vector3f stretch;
 		private boolean visible;
 
-		public BlockVisible(final BlockFaces face, final boolean visible) {
+		public BlockVisible(final BlockFaces face, final float extent) {
 			this.face = face;
-			this.visible = visible;
+			this.visible = false;
+			this.stretch = new Vector3f(extent, extent, extent);
 		}
 
 		public BlockFaces getFace() {
 			return face;
+		}
+
+		public Vector3f getStretch() {
+			return stretch;
+		}
+
+		public void setStretch(final float x, final float y, final float z) {
+			stretch.set(x, y, z);
 		}
 
 		public boolean isVisible() {

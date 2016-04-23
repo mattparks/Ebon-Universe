@@ -106,7 +106,7 @@ public class BlockRenderer extends IRenderer {
 
 		for (int f = 0; f < 6; f++) {
 			if (b.getFaces()[f].isVisible()) {
-				Block.blockModelMatrix(b, b.getFaces()[f].getFace(), modelMatrix);
+				Block.blockModelMatrix(b, f, modelMatrix);
 				final Colour colour = b.getType().getColour();
 
 				vboData[pointer++] = modelMatrix.m00;

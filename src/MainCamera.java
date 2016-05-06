@@ -195,13 +195,13 @@ public class MainCamera implements ICamera {
 		zoomLevel = zoomLevel / INFLUENCE_OF_MOUSE_WHEEL;
 
 		// if (zoomLevel != 0) {
-			targetZoom -= zoomLevel;
+		targetZoom -= zoomLevel;
 
-			if (targetZoom < MINIMUM_ZOOM) {
-				targetZoom = MINIMUM_ZOOM;
-			} else if (targetZoom > MAXIMUM_ZOOM) {
-				targetZoom = MAXIMUM_ZOOM;
-			}
+		if (targetZoom < MINIMUM_ZOOM) {
+			targetZoom = MINIMUM_ZOOM;
+		} else if (targetZoom > MAXIMUM_ZOOM) {
+			targetZoom = MAXIMUM_ZOOM;
+		}
 		// }
 	}
 

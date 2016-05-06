@@ -35,18 +35,14 @@ public class Chunk {
 			for (int z = 0; z < blocks[x].length; z++) {
 				for (int y = 0; y < blocks[z].length; y++) {
 					BlockType type = null;
-					int posX = (int) position.x + x;
+					/*int posX = (int) position.x + x;
 					int posY = (int) position.y + y;
 					int posZ = (int) position.z + z;
 
-					float height = ((float) noise.eval((double) posX / 50d, (double) posZ / 50d) + 1f) * (float) CHUNK_SIZE;
+					float height = ((float) noise.eval((double) posX / 50d, (double) posY / 50d, (double) posZ / 50d) + 1f) * (float) CHUNK_SIZE;
 
 					if (posY < height) {
-						//	if (posY == 0) {
-						//		type = BlockType.get("game::bedrock");
-						//	} else {
 						type = BlockType.get("game::stone");
-						//	}
 					} else if (posY - 1f <= height) {
 						if (posY <= SEA_LEVEL + 1) {
 							type = BlockType.get("game::sand");
@@ -59,7 +55,9 @@ public class Chunk {
 						} else {
 							type = null;
 						}
-					}
+					}*/
+
+					type = BlockType.get("game::stone");
 
 					if (type != null) {
 						blocks[x][z][y] = createBlock(this, x, y, z, type);
@@ -67,18 +65,6 @@ public class Chunk {
 				}
 			}
 		}
-	}
-
-	public static Block createBlock(final Chunk chunk, final int x, final int y, final int z, final BlockType type) {
-		return new Block(type, new Vector3f(chunk.calculateBlock(chunk.position.x, x, type.getExtent()), chunk.calculateBlock(chunk.position.y, y, type.getExtent()), chunk.calculateBlock(chunk.position.z, z, type.getExtent())));
-	}
-
-	public static float calculateBlock(final float position, final int array, final float extent) {
-		return position + array + (array * extent);
-	}
-
-	public static int inversePosition(final float position, final float component, final float extent) {
-		return (int) (component / 2.0f * (position * extent));
 	}
 
 	private void populate(final Random random) {
@@ -103,17 +89,6 @@ public class Chunk {
 							if (type != null) {
 								blocks[x][z][y] = new Block(type, new Vector3f(calculateBlock(position.x, x, type.getExtent()), calculateBlock(position.y, y, type.getExtent()), calculateBlock(position.z, z, type.getExtent())));
 							}
-						} else if (block.getType().getName().equals("game::grass")) {
-							int rand = random.nextInt(100);
-
-							if (rand == 1) {
-								createCustomTree(block.getPosition().x, block.getPosition().y + 1.0f, z + block.getPosition().z, BlockType.get("game::wood"), BlockType.get("game::leafs"));
-							}
-
-							if (rand > 1 && rand <= 11) {
-							//	final BlockType type = BlockType.get("game::tallGrass");
-							//	WorldManager.setBlock(x + (int) position.x, y + 1 + (int) position.y, z + (int) position.z, type);
-							}
 						}
 					}
 				}
@@ -121,34 +96,32 @@ public class Chunk {
 		}
 	}
 
-	public static void createCustomTree(final float x, final float y, final float z, final BlockType trunk, final BlockType leaf) {
-		FlounderLogger.error("Creating tree at " + x  + "," + y + "," + z);
+	public static Block createBlock(final Chunk chunk, final int x, final int y, final int z, final BlockType type) {
+		return new Block(type, new Vector3f(calculateBlock(chunk.position.x, x, type.getExtent()), calculateBlock(chunk.position.y, y, type.getExtent()), calculateBlock(chunk.position.z, z, type.getExtent())));
+	}
 
-		for (int i = 0; i < 5; i++) {
-			WorldManager.setBlock(x, y + (i * trunk.getExtent()), z, trunk);
-		}
+	public static float calculateBlock(final float position, final int array, final float extent) {
+		return position + array + (array * extent);
+	}
 
-		WorldManager.setBlock(x, y + (3 * leaf.getExtent()), z + (1 * leaf.getExtent()), leaf);
-		WorldManager.setBlock(x + (1 * leaf.getExtent()), y + (3 * leaf.getExtent()), z + 1, leaf);
-		WorldManager.setBlock(x - (1 * leaf.getExtent()), y + (3 * leaf.getExtent()), z + 1, leaf);
-
-		WorldManager.setBlock(x, y + (3 * leaf.getExtent()), z - (1 * leaf.getExtent()), leaf);
-		WorldManager.setBlock(x + (1 * leaf.getExtent()), y + (3 * leaf.getExtent()), z - 1, leaf);
-		WorldManager.setBlock(x - (1 * leaf.getExtent()), y + (3 * leaf.getExtent()), z - 1, leaf);
-
-		WorldManager.setBlock(x - (1 * leaf.getExtent()), y + (3 * leaf.getExtent()), z, leaf);
-		WorldManager.setBlock(x + (1 * leaf.getExtent()), y + (3 * leaf.getExtent()), z, leaf);
-
-		WorldManager.setBlock(x, y + (4 * leaf.getExtent()), z + (1 * leaf.getExtent()), leaf);
-		WorldManager.setBlock(x, y + (4 * leaf.getExtent()), z - (1 * leaf.getExtent()), leaf);
-		WorldManager.setBlock(x + (1 * leaf.getExtent()), y + (4 * leaf.getExtent()), z, leaf);
-		WorldManager.setBlock(x - (1 * leaf.getExtent()), y + (4 * leaf.getExtent()), z, leaf);
-
-		WorldManager.setBlock(x, y + (5 * leaf.getExtent()), z, leaf);
+	public static int inverseBlock(final float position, final float component, final float extent) {
+		return (int) ((component - position) / (2.0f * extent));
 	}
 
 	public boolean inBounds(final float x, final float y, final float z) {
 		return !(x < 0 || y < 0 || z < 0 || x > CHUNK_SIZE - 1 || y > CHUNK_SIZE - 1 || z > CHUNK_SIZE - 1);
+	}
+
+	public boolean blockExists(final int x, final int y, final int z) {
+		return inBounds(x, y, z) && getBlock(x, y, z) != null;
+	}
+
+	public Block getBlock(final int x, final int y, final int z) {
+		return blocks[x][z][y];
+	}
+
+	public void setBlock(final Block block, final int x, final int y, final int z) {
+		blocks[x][z][y] = block;
 	}
 
 	public Vector3f getPosition() {
@@ -161,6 +134,10 @@ public class Chunk {
 
 	public boolean renderable() {
 		return FlounderEngine.getCamera().getViewFrustum().aabbInFrustum(aabb);
+	}
+
+	public int getFaceCount() {
+		return faceCount;
 	}
 
 	public void update() {
@@ -177,7 +154,31 @@ public class Chunk {
 						}
 
 						if (forceUpdate) {
-							updateCoveredFaces(block, x, y, z);
+							final float be = block.getType().getExtent();
+							final int bx = inverseBlock(position.x, block.getPosition().x, be);
+							final int by = inverseBlock(position.y, block.getPosition().y, be);
+							final int bz = inverseBlock(position.z, block.getPosition().z, be);
+
+							for (int i = 0; i < 6; i++) {
+								final int currX = bx + ((i == 2) ? -1 : (i == 3) ? 1 : 0); // Left / Right
+								final int currY = by + ((i == 4) ? 1 : (i == 5) ? -1 : 0); // Up / Down
+								final int currZ = bz + ((i == 0) ? 1 : (i == 1) ? -1 : 0); // Front / Back
+
+								final float cx = calculateBlock(position.x, currX, be);
+								final float cy = calculateBlock(position.y, currY, be);
+								final float cz = calculateBlock(position.z, currZ, be);
+
+								if (WorldManager.blockExists(cx, cy, cz, be)) {
+									final Block currBlock = WorldManager.getBlock(cx, cy, cz, be);
+									block.getFaces()[i].setCovered(true);
+
+									if (currBlock != null && currBlock.getType().equals(block.getType())) {
+										// Merge this face into that face.
+									}
+								} else {
+									block.getFaces()[i].setCovered(false);
+								}
+							}
 						}
 
 						faceCount += block.getVisibleFaces();
@@ -187,48 +188,5 @@ public class Chunk {
 		}
 
 		forceUpdate = false;
-	}
-
-	public void updateCoveredFaces(final Block block, final int x, final int y, final int z) {
-		block.getFaces()[0].setCovered(blockExists(x, y, z + 1)); // Front
-		block.getFaces()[1].setCovered(blockExists(x, y, z - 1)); // Back
-		block.getFaces()[2].setCovered(blockExists(x - 1, y, z)); // Left
-		block.getFaces()[3].setCovered(blockExists(x + 1, y, z)); // Right
-		block.getFaces()[4].setCovered(blockExists(x, y + 1, z)); // Up
-		block.getFaces()[5].setCovered(blockExists(x, y - 1, z)); // Down
-	}
-
-	public boolean blockExists(final int x, final int y, final int z) {
-		if (!inBounds(x, y, z)) {
-			// return WorldManager.getWorldBlock(x, y, z, 1.0f) != null;
-
-			return false;
-		} else {
-			return blocks[x][z][y] != null;
-		}
-	}
-
-	public int getFaceCount() {
-		return faceCount;
-	}
-
-	public void addBlock(final Block block, final int positionX, final int positionY, final int positionZ) {
-		if (inBounds(positionX, positionY, positionZ)) {
-			this.blocks[positionX][positionZ][positionY] = block;
-			this.forceUpdate = true;
-		}
-	}
-
-	public void removeBlock(final int positionX, final int positionY, final int positionZ) {
-		this.blocks[positionX][positionZ][positionY] = null;
-		this.forceUpdate = true;
-	}
-
-	public Block getBlock(final int positionX, final int positionY, final int positionZ) {
-		if (!inBounds(positionX, positionY, positionZ)) {
-			return WorldManager.getWorldBlock(positionX, positionY, positionZ, 1.0f);
-		}
-
-		return blocks[positionX][positionZ][positionY];
 	}
 }

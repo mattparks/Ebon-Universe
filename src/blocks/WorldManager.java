@@ -12,10 +12,10 @@ public class WorldManager {
 	private static final NoiseOpenSimplex NOISE = new NoiseOpenSimplex(); // (int) GameSeed.getSeed()
 
 	public static void init() {
-		for (int x = 0; x < 2; x++) {
-			for (int z = 0; z < 2; z++) {
-				for (int y = -1; y < 2; y++) {
-					FlounderLogger.log("Creating Chunk At: "+ x + ", " + y + ", " + z);
+		for (int x = 0; x < 1; x++) {
+			for (int z = 0; z < 1; z++) {
+				for (int y = -2; y < 2; y++) {
+					FlounderLogger.log("Creating Chunk At: " + x + ", " + y + ", " + z);
 					CHUNK_LIST.add(new Chunk(new Vector3f(x * (Chunk.CHUNK_SIZE * 2.0f), y * (Chunk.CHUNK_SIZE * 2.0f), z * (Chunk.CHUNK_SIZE * 2.0f)), NOISE, Maths.RANDOM));
 				}
 			}
@@ -24,6 +24,48 @@ public class WorldManager {
 
 	public static void update() {
 		CHUNK_LIST.forEach(Chunk::update);
+	}
+
+	public static boolean blockExists(final float x, final float y, final float z, final float extent) {
+		for (final Chunk chunk : CHUNK_LIST) {
+			final int bx = Chunk.inverseBlock(chunk.getPosition().x, x, extent);
+			final int by = Chunk.inverseBlock(chunk.getPosition().y, y, extent);
+			final int bz = Chunk.inverseBlock(chunk.getPosition().z, z, extent);
+
+			if (chunk.inBounds(bx, by, bz)) {
+				return chunk.blockExists(bx, by, bz);
+			}
+		}
+
+		return false;
+	}
+
+	public static Block getBlock(final float x, final float y, final float z, final float extent) {
+		for (final Chunk chunk : CHUNK_LIST) {
+			final int bx = Chunk.inverseBlock(chunk.getPosition().x, x, extent);
+			final int by = Chunk.inverseBlock(chunk.getPosition().y, y, extent);
+			final int bz = Chunk.inverseBlock(chunk.getPosition().z, z, extent);
+
+			if (chunk.inBounds(bx, by, bz)) {
+				return chunk.getBlock(bx, by, bz);
+			}
+		}
+
+		return null;
+	}
+
+	public static void setBlock(final float x, final float y, final float z, final BlockType type) {
+		for (final Chunk chunk : CHUNK_LIST) {
+			final float extent = type.getExtent();
+			final int bx = Chunk.inverseBlock(chunk.getPosition().x, x, extent);
+			final int by = Chunk.inverseBlock(chunk.getPosition().y, y, extent);
+			final int bz = Chunk.inverseBlock(chunk.getPosition().z, z, extent);
+
+			if (chunk.inBounds(bx, by, bz)) {
+				final Block block = Chunk.createBlock(chunk, bx, by, bz, type);
+				chunk.setBlock(block, bx, by, bz);
+			}
+		}
 	}
 
 	public static int renderableChunkFaces() {
@@ -40,40 +82,5 @@ public class WorldManager {
 
 	public static List<Chunk> getChunkList() {
 		return CHUNK_LIST;
-	}
-
-	public static void setBlock(final float x, final float y, final float z, final BlockType type) {
-		CHUNK_LIST.forEach(chunk -> {
-			int inverseX, inverseY, inverseZ;
-
-			if (chunk.inBounds(
-					inverseX = Chunk.inversePosition(chunk.getPosition().x, x, type.getExtent()),
-					inverseY = Chunk.inversePosition(chunk.getPosition().y, y, type.getExtent()),
-					inverseZ = Chunk.inversePosition(chunk.getPosition().z, z, type.getExtent())
-			)) {
-				FlounderLogger.error("Setting block at " + inverseX + "," + inverseY + "," + inverseZ);
-
-				final Block block = Chunk.createBlock(chunk, inverseX, inverseY, inverseZ, type);
-				chunk.addBlock(block, inverseX, inverseY, inverseZ);
-			}
-		});
-	}
-
-	public static Block getWorldBlock(final float x, final float y, final float z, final float extent) {
-		for (final Chunk chunk : CHUNK_LIST) {
-			int inverseX, inverseY, inverseZ;
-
-			if (chunk.inBounds(
-					inverseX = Chunk.inversePosition(chunk.getPosition().x, x, extent),
-					inverseY = Chunk.inversePosition(chunk.getPosition().y, y, extent),
-					inverseZ = Chunk.inversePosition(chunk.getPosition().z, z, extent)
-			)) {
-				FlounderLogger.error("Getting block at " + inverseX + "," + inverseY + "," + inverseZ);
-
-				return chunk.getBlock(inverseX, inverseY, inverseZ);
-			}
-		}
-
-		return null;
 	}
 }

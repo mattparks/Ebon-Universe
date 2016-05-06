@@ -13,8 +13,8 @@ public class WorldManager {
 
 	public static void init() {
 		for (int x = 0; x < 1; x++) {
-			for (int z = 0; z < 1; z++) {
-				for (int y = -2; y < 2; y++) {
+			for (int z = 0; z < 2; z++) {
+				for (int y = -1; y < 2; y++) {
 					FlounderLogger.log("Creating Chunk At: " + x + ", " + y + ", " + z);
 					CHUNK_LIST.add(new Chunk(new Vector3f(x * (Chunk.CHUNK_SIZE * 2.0f), y * (Chunk.CHUNK_SIZE * 2.0f), z * (Chunk.CHUNK_SIZE * 2.0f)), NOISE, Maths.RANDOM));
 				}

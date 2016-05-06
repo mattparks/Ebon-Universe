@@ -173,10 +173,13 @@ public class Chunk {
 									block.getFaces()[i].setCovered(true);
 
 									if (currBlock != null && currBlock.getType().equals(block.getType())) {
-										// Merge this face into that face.
+										// TODO: Merge this face into that face.
+										//block.getFaces()[i].setCovered(false);
+										//block.getFaces()[i].setStretch(be, be, be);
 									}
 								} else {
 									block.getFaces()[i].setCovered(false);
+									block.getFaces()[i].setStretch(be, be, be);
 								}
 							}
 						}

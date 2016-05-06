@@ -7,10 +7,12 @@ import flounder.noise.*;
 import flounder.physics.*;
 import org.lwjgl.glfw.*;
 
+import java.util.*;
+
 public class Chunk {
-	public static final int CHUNK_LENGTH = 32;
-	public static final int CHUNK_HEIGHT = 16;
+	public static final int CHUNK_SIZE = 16;
 	public static final int DIRT_DEPTH = 3;
+	public static final int SEA_LEVEL = 10;
 
 	private final Vector3f position;
 	private final Block[][][] blocks;
@@ -18,52 +20,135 @@ public class Chunk {
 	private int faceCount;
 	private boolean forceUpdate;
 
-	protected Chunk(final Vector3f position, final NoisePerlin perlinNoise) {
+	protected Chunk(final Vector3f position, final NoiseOpenSimplex noise, final Random random) {
 		this.position = position;
-		this.blocks = new Block[CHUNK_LENGTH][CHUNK_LENGTH][CHUNK_HEIGHT];
-		this.aabb = new AABB(position, new Vector3f(position.x + (CHUNK_LENGTH * 2), position.y + (CHUNK_HEIGHT * 2), position.z + (CHUNK_LENGTH * 2)));
+		this.blocks = new Block[CHUNK_SIZE][CHUNK_SIZE][CHUNK_SIZE + 1];
+		this.aabb = new AABB(position, new Vector3f(position.x + (CHUNK_SIZE * 2), position.y + (CHUNK_SIZE * 2), position.z + (CHUNK_SIZE * 2)));
 		this.faceCount = 0;
 		this.forceUpdate = true;
-		generate(perlinNoise);
+		generate(noise);
+		populate(random);
 	}
 
-	private void generate(final NoisePerlin perlinNoise) {
+	private void generate(final NoiseOpenSimplex noise) {
 		for (int x = 0; x < blocks.length; x++) {
 			for (int z = 0; z < blocks[x].length; z++) {
-				double height = perlinNoise.noise2((position.x + x) / CHUNK_HEIGHT, (position.z + z) / CHUNK_HEIGHT);
+				for (int y = 0; y < blocks[z].length; y++) {
+					BlockType type = null;
+					int posX = (int) position.x + x;
+					int posY = (int) position.y + y;
+					int posZ = (int) position.z + z;
 
-				// Negate any negative noise values.
-				if (height < 0) {
-					height = -height;
-				}
+					float height = ((float) noise.eval((double) posX / 50d, (double) posZ / 50d) + 1f) * (float) CHUNK_SIZE;
 
-				// Multiply by the max height, then round up.
-				height = Math.ceil(height * CHUNK_HEIGHT);
-
-				for (int y = (int) height; y >= 0 && y < blocks[z].length; y--) {
-					int depth = (int) (height - y);
-
-					BlockType type;
-
-					// TODO: Biomes.
-
-					if (depth == 0) {
-						type = BlockType.get("game::grass");
-					} else if (depth <= DIRT_DEPTH) {
-						type = BlockType.get("game::dirt");
-					} else {
+					if (posY < height) {
+						//	if (posY == 0) {
+						//		type = BlockType.get("game::bedrock");
+						//	} else {
 						type = BlockType.get("game::stone");
-						// TODO: Random ore spawns.
+						//	}
+					} else if (posY - 1f <= height) {
+						if (posY <= SEA_LEVEL + 1) {
+							type = BlockType.get("game::sand");
+						} else {
+							type = BlockType.get("game::grass");
+						}
+					} else {
+						if (posY <= SEA_LEVEL) {
+							type = BlockType.get("game::water");
+						} else {
+							type = null;
+						}
 					}
 
-					blocks[x][z][y] = new Block(type, new Vector3f(calculateBlock(x, type.getExtent()), calculateBlock(y, type.getExtent()), calculateBlock(z, type.getExtent())));
+					if (type != null) {
+						blocks[x][z][y] = createBlock(this, x, y, z, type);
+					}
 				}
 			}
 		}
 	}
 
-	private float calculateBlock(final int array, final float extent) {
-		return position.z + array + (array * extent);
+	public static Block createBlock(final Chunk chunk, final int x, final int y, final int z, final BlockType type) {
+		return new Block(type, new Vector3f(chunk.calculateBlock(chunk.position.x, x, type.getExtent()), chunk.calculateBlock(chunk.position.y, y, type.getExtent()), chunk.calculateBlock(chunk.position.z, z, type.getExtent())));
+	}
+
+	public static float calculateBlock(final float position, final int array, final float extent) {
+		return position + array + (array * extent);
+	}
+
+	public static int inversePosition(final float position, final float component, final float extent) {
+		return (int) (component / 2.0f * (position * extent));
+	}
+
+	private void populate(final Random random) {
+		for (int x = 0; x < blocks.length; x++) {
+			for (int z = 0; z < blocks[x].length; z++) {
+				for (int y = 0; y < blocks[z].length; y++) {
+					final Block block = blocks[x][z][y];
+
+					if (block != null) {
+						if (block.getType().getName().equals("game::stone")) {
+							int rand = random.nextInt(10000);
+							BlockType type = null;
+
+							if (rand <= 100) {
+								type = BlockType.get("game::coalOre");
+							} else if (rand > 100 && rand <= 150) {
+								type = BlockType.get("game::ironOre");
+							} else if (rand > 150 && rand <= 160) {
+								type = BlockType.get("game::goldOre");
+							}
+
+							if (type != null) {
+								blocks[x][z][y] = new Block(type, new Vector3f(calculateBlock(position.x, x, type.getExtent()), calculateBlock(position.y, y, type.getExtent()), calculateBlock(position.z, z, type.getExtent())));
+							}
+						} else if (block.getType().getName().equals("game::grass")) {
+							int rand = random.nextInt(100);
+
+							if (rand == 1) {
+								createCustomTree(block.getPosition().x, block.getPosition().y + 1.0f, z + block.getPosition().z, BlockType.get("game::wood"), BlockType.get("game::leafs"));
+							}
+
+							if (rand > 1 && rand <= 11) {
+							//	final BlockType type = BlockType.get("game::tallGrass");
+							//	WorldManager.setBlock(x + (int) position.x, y + 1 + (int) position.y, z + (int) position.z, type);
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+
+	public static void createCustomTree(final float x, final float y, final float z, final BlockType trunk, final BlockType leaf) {
+		FlounderLogger.error("Creating tree at " + x  + "," + y + "," + z);
+
+		for (int i = 0; i < 5; i++) {
+			WorldManager.setBlock(x, y + (i * trunk.getExtent()), z, trunk);
+		}
+
+		WorldManager.setBlock(x, y + (3 * leaf.getExtent()), z + (1 * leaf.getExtent()), leaf);
+		WorldManager.setBlock(x + (1 * leaf.getExtent()), y + (3 * leaf.getExtent()), z + 1, leaf);
+		WorldManager.setBlock(x - (1 * leaf.getExtent()), y + (3 * leaf.getExtent()), z + 1, leaf);
+
+		WorldManager.setBlock(x, y + (3 * leaf.getExtent()), z - (1 * leaf.getExtent()), leaf);
+		WorldManager.setBlock(x + (1 * leaf.getExtent()), y + (3 * leaf.getExtent()), z - 1, leaf);
+		WorldManager.setBlock(x - (1 * leaf.getExtent()), y + (3 * leaf.getExtent()), z - 1, leaf);
+
+		WorldManager.setBlock(x - (1 * leaf.getExtent()), y + (3 * leaf.getExtent()), z, leaf);
+		WorldManager.setBlock(x + (1 * leaf.getExtent()), y + (3 * leaf.getExtent()), z, leaf);
+
+		WorldManager.setBlock(x, y + (4 * leaf.getExtent()), z + (1 * leaf.getExtent()), leaf);
+		WorldManager.setBlock(x, y + (4 * leaf.getExtent()), z - (1 * leaf.getExtent()), leaf);
+		WorldManager.setBlock(x + (1 * leaf.getExtent()), y + (4 * leaf.getExtent()), z, leaf);
+		WorldManager.setBlock(x - (1 * leaf.getExtent()), y + (4 * leaf.getExtent()), z, leaf);
+
+		WorldManager.setBlock(x, y + (5 * leaf.getExtent()), z, leaf);
+	}
+
+	public boolean inBounds(final float x, final float y, final float z) {
+		return !(x < 0 || y < 0 || z < 0 || x > CHUNK_SIZE - 1 || y > CHUNK_SIZE - 1 || z > CHUNK_SIZE - 1);
 	}
 
 	public Vector3f getPosition() {
@@ -84,7 +169,7 @@ public class Chunk {
 		for (int x = 0; x < blocks.length; x++) {
 			for (int z = 0; z < blocks[x].length; z++) {
 				for (int y = 0; y < blocks[z].length; y++) {
-					final Block block = blocks[x][z][y]; // TODO: Fix out of bounds?
+					final Block block = blocks[x][z][y];
 
 					if (block != null) {
 						if (!ManagerDevices.getKeyboard().getKey(GLFW.GLFW_KEY_G)) {
@@ -95,13 +180,7 @@ public class Chunk {
 							updateCoveredFaces(block, x, y, z);
 						}
 
-						if (block.isVisible()) {
-							for (int f = 0; f < 6; f++) {
-								if (!block.getFaces()[f].isCovered()) {
-									faceCount++;
-								}
-							}
-						}
+						faceCount += block.getVisibleFaces();
 					}
 				}
 			}
@@ -121,15 +200,12 @@ public class Chunk {
 
 	public boolean blockExists(final int x, final int y, final int z) {
 		if (!inBounds(x, y, z)) {
-			//	return WorldManager.getWorldBlock(x, y, z) != null;
+			// return WorldManager.getWorldBlock(x, y, z, 1.0f) != null;
+
 			return false;
 		} else {
 			return blocks[x][z][y] != null;
 		}
-	}
-
-	public boolean inBounds(final int x, final int y, final int z) {
-		return !(x < 0 || y < 0 || z < 0 || x > CHUNK_LENGTH - 1 || y > CHUNK_HEIGHT - 2 || z > CHUNK_LENGTH - 1);
 	}
 
 	public int getFaceCount() {
@@ -137,8 +213,10 @@ public class Chunk {
 	}
 
 	public void addBlock(final Block block, final int positionX, final int positionY, final int positionZ) {
-		this.blocks[positionX][positionZ][positionY] = block;
-		this.forceUpdate = true;
+		if (inBounds(positionX, positionY, positionZ)) {
+			this.blocks[positionX][positionZ][positionY] = block;
+			this.forceUpdate = true;
+		}
 	}
 
 	public void removeBlock(final int positionX, final int positionY, final int positionZ) {
@@ -148,7 +226,7 @@ public class Chunk {
 
 	public Block getBlock(final int positionX, final int positionY, final int positionZ) {
 		if (!inBounds(positionX, positionY, positionZ)) {
-			return null;
+			return WorldManager.getWorldBlock(positionX, positionY, positionZ, 1.0f);
 		}
 
 		return blocks[positionX][positionZ][positionY];

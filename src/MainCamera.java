@@ -19,10 +19,10 @@ public class MainCamera implements ICamera {
 	private static final float ROTATE_AGILITY = 6.0f;
 	private static final float PITCH_AGILITY = 8.0f;
 
-	private final static float CAMERA_AIM_OFFSET = 2.0f; // 10.0f;
+	private final static float CAMERA_AIM_OFFSET = 32.0f;
 	private final static float MAX_ANGLE_OF_ELEVATION = 1.5f;
 	private final static float PITCH_OFFSET = 3.0f;
-	private final static float MINIMUM_ZOOM = 8.0f;
+	private final static float MINIMUM_ZOOM = -300.0f;
 	private final static float MAXIMUM_ZOOM = 300.0f;
 	private static final float NORMAL_ZOOM = 32.0f;
 
@@ -194,7 +194,7 @@ public class MainCamera implements ICamera {
 
 		zoomLevel = zoomLevel / INFLUENCE_OF_MOUSE_WHEEL;
 
-		if (zoomLevel != 0) {
+		// if (zoomLevel != 0) {
 			targetZoom -= zoomLevel;
 
 			if (targetZoom < MINIMUM_ZOOM) {
@@ -202,7 +202,7 @@ public class MainCamera implements ICamera {
 			} else if (targetZoom > MAXIMUM_ZOOM) {
 				targetZoom = MAXIMUM_ZOOM;
 			}
-		}
+		// }
 	}
 
 	private void updateActualZoom() {

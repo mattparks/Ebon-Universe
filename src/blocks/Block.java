@@ -74,6 +74,22 @@ public class Block {
 		}
 	}
 
+	public int getVisibleFaces() {
+		if (!visible) {
+			return 0;
+		}
+
+		int count = 0;
+
+		for (int f = 0; f < 6; f++) {
+			if (!faces[f].isCovered()) {
+				count++;
+			}
+		}
+
+		return count;
+	}
+
 	public BlockType getType() {
 		return type;
 	}

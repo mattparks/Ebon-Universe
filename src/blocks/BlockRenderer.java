@@ -87,7 +87,7 @@ public class BlockRenderer extends IRenderer {
 		shader.clipPlane.loadVec4(clipPlane);
 
 		OpenglUtils.antialias(ManagerDevices.getDisplay().isAntialiasing());
-		OpenglUtils.cullBackFaces(false);
+		OpenglUtils.cullBackFaces(true);
 		OpenglUtils.enableDepthTesting();
 		OpenglUtils.enableAlphaBlending();
 

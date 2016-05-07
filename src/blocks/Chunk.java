@@ -1,16 +1,11 @@
 package blocks;
 
-import flounder.devices.*;
 import flounder.engine.*;
 import flounder.maths.vectors.*;
 import flounder.noise.*;
 import flounder.physics.*;
-import flounder.resources.*;
-import javafx.util.*;
-import org.lwjgl.glfw.*;
 
 import java.io.*;
-import java.nio.file.*;
 import java.util.*;
 
 public class Chunk {
@@ -32,6 +27,62 @@ public class Chunk {
 		this.forceUpdate = true;
 		generate(noise);
 		populate(random);
+	}
+
+	public static void chunkData(final Chunk chunk) {
+		File file = new File("chunk-" + chunk.position.x + "-" + chunk.position.y + "-" + chunk.position.z + ".txt");
+		String string = "";
+
+		for (int x = 0; x < chunk.blocks.length; x++) {
+			for (int z = 0; z < chunk.blocks[x].length; z++) {
+				for (int y = 0; y < chunk.blocks[z].length; y++) {
+					final Block block = chunk.blocks[x][z][y];
+
+					if (block != null) {
+						string += "[(" + +x + "," + y + "," + z + ")'" + block.getType().getName() + "'],";
+					}
+				}
+			}
+		}
+
+		try {
+			FileWriter fileWriter = new FileWriter(file);
+			fileWriter.write(string); // new String(CompressionUtils.compress(string))
+			fileWriter.flush();
+			fileWriter.close();
+		} catch (final Exception e) {
+			FlounderLogger.exception(e);
+		}
+
+		/*try {
+			BufferedReader fileReader = new BufferedReader(new FileReader(file));
+			String fileData = fileReader.toString();
+			String line = fileReader.readLine();
+
+			while (line != null) {
+				fileData += line;
+				fileData += "\n";
+				line = fileReader.readLine();
+			}
+
+			byte[] data = fileData.getBytes();
+			String read = CompressionUtils.decompress(data);
+			FlounderLogger.log(read);
+		} catch (final Exception e) {
+			FlounderLogger.exception(e);
+		}*/
+	}
+
+	public static Block createBlock(final Chunk chunk, final int x, final int y, final int z, final BlockType type) {
+		return new Block(type, new Vector3f(calculateBlock(chunk.position.x, x, type.getExtent()), calculateBlock(chunk.position.y, y, type.getExtent()), calculateBlock(chunk.position.z, z, type.getExtent())));
+	}
+
+	public static float calculateBlock(final float position, final int array, final float extent) {
+		return position + array + (array * extent);
+	}
+
+	public static int inverseBlock(final float position, final float component, final float extent) {
+		return (int) ((component - position) / (2.0f * extent));
 	}
 
 	private void generate(final NoiseOpenSimplex noise) {
@@ -100,62 +151,6 @@ public class Chunk {
 		}
 	}
 
-	public static void chunkData(final Chunk chunk) {
-		File file = new File("chunk-" + chunk.position.x + "-" + chunk.position.y + "-" + chunk.position.z + ".txt");
-		String string = "";
-
-		for (int x = 0; x < chunk.blocks.length; x++) {
-			for (int z = 0; z < chunk.blocks[x].length; z++) {
-				for (int y = 0; y < chunk.blocks[z].length; y++) {
-					final Block block = chunk.blocks[x][z][y];
-
-					if (block != null) {
-						string += "[(" + + x + "," + y + "," + z + ")'" + block.getType().getName() + "'],";
-					}
-				}
-			}
-		}
-
-		try {
-			FileWriter fileWriter = new FileWriter(file);
-			fileWriter.write(string); // new String(CompressionUtils.compress(string))
-			fileWriter.flush();
-			fileWriter.close();
-		} catch (final Exception e) {
-			FlounderLogger.exception(e);
-		}
-
-		/*try {
-			BufferedReader fileReader = new BufferedReader(new FileReader(file));
-			String fileData = fileReader.toString();
-			String line = fileReader.readLine();
-
-			while (line != null) {
-				fileData += line;
-				fileData += "\n";
-				line = fileReader.readLine();
-			}
-
-			byte[] data = fileData.getBytes();
-			String read = CompressionUtils.decompress(data);
-			FlounderLogger.log(read);
-		} catch (final Exception e) {
-			FlounderLogger.exception(e);
-		}*/
-	}
-
-	public static Block createBlock(final Chunk chunk, final int x, final int y, final int z, final BlockType type) {
-		return new Block(type, new Vector3f(calculateBlock(chunk.position.x, x, type.getExtent()), calculateBlock(chunk.position.y, y, type.getExtent()), calculateBlock(chunk.position.z, z, type.getExtent())));
-	}
-
-	public static float calculateBlock(final float position, final int array, final float extent) {
-		return position + array + (array * extent);
-	}
-
-	public static int inverseBlock(final float position, final float component, final float extent) {
-		return (int) ((component - position) / (2.0f * extent));
-	}
-
 	public boolean inBounds(final float x, final float y, final float z) {
 		return !(x < 0 || y < 0 || z < 0 || x > CHUNK_SIZE - 1 || y > CHUNK_SIZE - 1 || z > CHUNK_SIZE - 1);
 	}
@@ -188,56 +183,56 @@ public class Chunk {
 		return faceCount;
 	}
 
-	public void update() {
-		faceCount = 0;
+	public boolean getForceUpdate() {
+		return forceUpdate;
+	}
 
+	public void setForceUpdate(final boolean forceUpdate) {
+		this.forceUpdate = forceUpdate;
+	}
+
+	public void resetFaceCount() {
+		faceCount = 0;
+	}
+
+	public void addFaceCount(final int newFaces) {
+		faceCount += newFaces;
+	}
+
+	public void runFaceUpdate(final FaceUpdates... faceUpdates) {
 		for (int x = 0; x < blocks.length; x++) {
 			for (int z = 0; z < blocks[x].length; z++) {
 				for (int y = 0; y < blocks[z].length; y++) {
 					final Block block = blocks[x][z][y];
 
 					if (block != null) {
-						if (forceUpdate) {
-							final float be = block.getType().getExtent();
-							final int bx = inverseBlock(position.x, block.getPosition().x, be);
-							final int by = inverseBlock(position.y, block.getPosition().y, be);
-							final int bz = inverseBlock(position.z, block.getPosition().z, be);
+						final float be = block.getType().getExtent();
+						final int bx = inverseBlock(position.x, block.getPosition().x, be);
+						final int by = inverseBlock(position.y, block.getPosition().y, be);
+						final int bz = inverseBlock(position.z, block.getPosition().z, be);
 
-							for (int i = 0; i < 6; i++) {
-								final int currX = bx + ((i == 2) ? -1 : (i == 3) ? 1 : 0); // Left / Right
-								final int currY = by + ((i == 4) ? 1 : (i == 5) ? -1 : 0); // Up / Down
-								final int currZ = bz + ((i == 0) ? 1 : (i == 1) ? -1 : 0); // Front / Back
+						for (int i = 0; i < 6; i++) {
+							final int currX = bx + ((i == 2) ? -1 : (i == 3) ? 1 : 0); // Left / Right
+							final int currY = by + ((i == 4) ? 1 : (i == 5) ? -1 : 0); // Up / Down
+							final int currZ = bz + ((i == 0) ? 1 : (i == 1) ? -1 : 0); // Front / Back
 
-								final float cx = calculateBlock(position.x, currX, be);
-								final float cy = calculateBlock(position.y, currY, be);
-								final float cz = calculateBlock(position.z, currZ, be);
+							final float cx = calculateBlock(position.x, currX, be);
+							final float cy = calculateBlock(position.y, currY, be);
+							final float cz = calculateBlock(position.z, currZ, be);
 
-								if (WorldManager.blockExists(cx, cy, cz, be)) {
-									final Block currBlock = WorldManager.getBlock(cx, cy, cz, be);
-									block.getFaces()[i].setCovered(true);
-
-									if (currBlock != null && currBlock.getType().equals(block.getType())) {
-										// TODO: Merge this face into that face.
-										//block.getFaces()[i].setCovered(false);
-										//block.getFaces()[i].setStretch(be, be, be);
-									}
-								} else {
-									block.getFaces()[i].setCovered(false);
-									block.getFaces()[i].setStretch(be, be, be);
+							for (FaceUpdates updates : faceUpdates) {
+								if (updates != null) {
+									updates.update(this, block, i, cx, cy, cz, be);
 								}
 							}
 						}
-
-						if (!ManagerDevices.getKeyboard().getKey(GLFW.GLFW_KEY_G)) {
-							block.setVisible(FlounderEngine.getCamera().getViewFrustum().aabbInFrustum(block.getAABB()));
-						}
-
-						faceCount += block.getVisibleFaces();
 					}
 				}
 			}
 		}
+	}
 
-		forceUpdate = false;
+	public interface FaceUpdates {
+		void update(final Chunk chunk, final Block parent, final int faceIndex, final float cx, final float cy, final float cz, final float extent);
 	}
 }

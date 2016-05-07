@@ -1,17 +1,54 @@
 package blocks;
 
+import flounder.devices.*;
 import flounder.engine.*;
 import flounder.maths.*;
 import flounder.maths.vectors.*;
 import flounder.noise.*;
+import org.lwjgl.glfw.*;
 
 import java.util.*;
 
 public class WorldManager {
 	private static final List<Chunk> CHUNK_LIST = new ArrayList<>();
 	private static final NoiseOpenSimplex NOISE = new NoiseOpenSimplex(); // (int) GameSeed.getSeed()
+	private static final Chunk.FaceUpdates[] FACE_UPDATES = new Chunk.FaceUpdates[4];
 
 	public static void init() {
+		FACE_UPDATES[0] = (final Chunk chunk, final Block parent, final int faceIndex, final float cx, final float cy, final float cz, final float extent) -> {
+			if (!chunk.getForceUpdate()) {
+				return;
+			}
+
+			if (WorldManager.blockExists(cx, cy, cz, extent)) {
+				parent.getFaces()[faceIndex].setCovered(true);
+			} else {
+				parent.getFaces()[faceIndex].setCovered(false);
+				parent.getFaces()[faceIndex].setStretch(extent, extent, extent);
+			}
+		};
+		FACE_UPDATES[1] = (final Chunk chunk, final Block parent, final int faceIndex, final float cx, final float cy, final float cz, final float extent) -> {
+			if (!ManagerDevices.getKeyboard().getKey(GLFW.GLFW_KEY_G)) {
+				parent.setVisible(FlounderEngine.getCamera().getViewFrustum().aabbInFrustum(parent.getAABB()));
+			}
+		};
+		FACE_UPDATES[2] = (final Chunk chunk, final Block parent, final int faceIndex, final float cx, final float cy, final float cz, final float extent) -> {
+			if (!chunk.getForceUpdate()) {
+				return;
+			}
+
+			final Block currBlock = WorldManager.getBlock(cx, cy, cz, extent);
+
+			if (currBlock != null && currBlock.getType().equals(parent.getType())) {
+				// TODO: Merge this face into that face.
+				// block.getFaces()[i].setCovered(true);
+				// block.getFaces()[i].setStretch(be, be, be);
+			}
+		};
+		FACE_UPDATES[3] = (final Chunk chunk, final Block parent, final int faceIndex, final float cx, final float cy, final float cz, final float extent) -> {
+			chunk.addFaceCount(parent.getVisibleFaces());
+		};
+
 		for (int x = 0; x < 1; x++) {
 			for (int z = 0; z < 2; z++) {
 				for (int y = -1; y < 2; y++) {
@@ -21,11 +58,16 @@ public class WorldManager {
 			}
 		}
 
-		Chunk.chunkData(CHUNK_LIST.get(0));
+		//	Chunk.chunkData(CHUNK_LIST.get(0));
 	}
 
 	public static void update() {
-		CHUNK_LIST.forEach(Chunk::update);
+		CHUNK_LIST.forEach(chunk -> {
+			chunk.resetFaceCount();
+			chunk.runFaceUpdate(FACE_UPDATES[0], FACE_UPDATES[1]);
+			chunk.runFaceUpdate(FACE_UPDATES[2], FACE_UPDATES[3]);
+			chunk.setForceUpdate(false);
+		});
 	}
 
 	public static boolean blockExists(final float x, final float y, final float z, final float extent) {

@@ -20,6 +20,8 @@ public class WorldManager {
 				}
 			}
 		}
+
+		Chunk.chunkData(CHUNK_LIST.get(0));
 	}
 
 	public static void update() {

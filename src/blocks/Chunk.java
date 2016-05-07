@@ -5,8 +5,12 @@ import flounder.engine.*;
 import flounder.maths.vectors.*;
 import flounder.noise.*;
 import flounder.physics.*;
+import flounder.resources.*;
+import javafx.util.*;
 import org.lwjgl.glfw.*;
 
+import java.io.*;
+import java.nio.file.*;
 import java.util.*;
 
 public class Chunk {
@@ -96,6 +100,50 @@ public class Chunk {
 		}
 	}
 
+	public static void chunkData(final Chunk chunk) {
+		File file = new File("chunk-" + chunk.position.x + "-" + chunk.position.y + "-" + chunk.position.z + ".txt");
+		String string = "";
+
+		for (int x = 0; x < chunk.blocks.length; x++) {
+			for (int z = 0; z < chunk.blocks[x].length; z++) {
+				for (int y = 0; y < chunk.blocks[z].length; y++) {
+					final Block block = chunk.blocks[x][z][y];
+
+					if (block != null) {
+						string += "[(" + + x + "," + y + "," + z + ")'" + block.getType().getName() + "'],";
+					}
+				}
+			}
+		}
+
+		try {
+			FileWriter fileWriter = new FileWriter(file);
+			fileWriter.write(string); // new String(CompressionUtils.compress(string))
+			fileWriter.flush();
+			fileWriter.close();
+		} catch (final Exception e) {
+			FlounderLogger.exception(e);
+		}
+
+		/*try {
+			BufferedReader fileReader = new BufferedReader(new FileReader(file));
+			String fileData = fileReader.toString();
+			String line = fileReader.readLine();
+
+			while (line != null) {
+				fileData += line;
+				fileData += "\n";
+				line = fileReader.readLine();
+			}
+
+			byte[] data = fileData.getBytes();
+			String read = CompressionUtils.decompress(data);
+			FlounderLogger.log(read);
+		} catch (final Exception e) {
+			FlounderLogger.exception(e);
+		}*/
+	}
+
 	public static Block createBlock(final Chunk chunk, final int x, final int y, final int z, final BlockType type) {
 		return new Block(type, new Vector3f(calculateBlock(chunk.position.x, x, type.getExtent()), calculateBlock(chunk.position.y, y, type.getExtent()), calculateBlock(chunk.position.z, z, type.getExtent())));
 	}
@@ -149,10 +197,6 @@ public class Chunk {
 					final Block block = blocks[x][z][y];
 
 					if (block != null) {
-						if (!ManagerDevices.getKeyboard().getKey(GLFW.GLFW_KEY_G)) {
-							block.setVisible(FlounderEngine.getCamera().getViewFrustum().aabbInFrustum(block.getAABB()));
-						}
-
 						if (forceUpdate) {
 							final float be = block.getType().getExtent();
 							final int bx = inverseBlock(position.x, block.getPosition().x, be);
@@ -182,6 +226,10 @@ public class Chunk {
 									block.getFaces()[i].setStretch(be, be, be);
 								}
 							}
+						}
+
+						if (!ManagerDevices.getKeyboard().getKey(GLFW.GLFW_KEY_G)) {
+							block.setVisible(FlounderEngine.getCamera().getViewFrustum().aabbInFrustum(block.getAABB()));
 						}
 
 						faceCount += block.getVisibleFaces();

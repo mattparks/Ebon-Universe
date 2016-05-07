@@ -1,3 +1,4 @@
+import blocks.*;
 import flounder.engine.*;
 import flounder.inputs.*;
 import flounder.maths.*;
@@ -31,7 +32,7 @@ public class MainPlayer {
 
 		this.direction = new Vector3f(0, 0, 0);
 
-		this.position = new Vector3f(0, 0, 0);
+		this.position = new Vector3f(-2, 0, 0);
 		this.rotation = new Vector3f(0, 0, 0);
 	}
 
@@ -42,7 +43,15 @@ public class MainPlayer {
 			direction.x = -SIDE_SPEED * FlounderEngine.getDelta() * Maths.deadband(0.05f, inputTurn.getAmount());
 			// Vector3f.rotate(direction, FlounderEngine.getCamera().getYaw(), DIRECTION_AXIS, DIRECTION_CENTRE, direction);
 
+			boolean pevInsideBlock = WorldManager.insideBlock(position.x, position.y, position.z);
+
 			position.set(position.x + direction.x, position.y + direction.y, position.z + direction.z);
+
+			boolean insideBlock = WorldManager.insideBlock(position.x, position.y, position.z);
+
+			if (insideBlock && !pevInsideBlock) {
+				position.set(position.x - direction.x, position.y - direction.y, position.z - direction.z);
+			}
 		}
 	}
 

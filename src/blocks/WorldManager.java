@@ -112,6 +112,20 @@ public class WorldManager {
 		}
 	}
 
+	public static boolean insideBlock(final float x, final float y, final float z) {
+		for (final Chunk chunk : CHUNK_LIST) {
+			final int bx = Chunk.inverseBlock(chunk.getPosition().x, x, 1.0f);
+			final int by = Chunk.inverseBlock(chunk.getPosition().y, y, 1.0f);
+			final int bz = Chunk.inverseBlock(chunk.getPosition().z, z, 1.0f);
+
+			if (chunk.inBounds(bx, by, bz)) {
+				return chunk.getBlock(bx, by, bz) != null;
+			}
+		}
+
+		return false;
+	}
+
 	public static int renderableChunkFaces() {
 		int count = 0;
 

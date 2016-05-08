@@ -23,7 +23,7 @@ public class Chunk {
 		this.blocks = new Block[CHUNK_SIZE][CHUNK_SIZE][CHUNK_SIZE + 1];
 		this.aabb = new AABB(
 				Vector3f.subtract(position, new Vector3f(BlockType.BLOCK_EXTENT, 0, BlockType.BLOCK_EXTENT), null),
-				Vector3f.subtract(new Vector3f(position.x + (CHUNK_SIZE * 2), position.y + (CHUNK_SIZE * 2), position.z + (CHUNK_SIZE * 2)),
+				Vector3f.subtract(new Vector3f((position.x + (CHUNK_SIZE * 2)) * BlockType.BLOCK_EXTENT, (position.y + (CHUNK_SIZE * 2)) * BlockType.BLOCK_EXTENT, (position.z + (CHUNK_SIZE * 2)) * BlockType.BLOCK_EXTENT),
 						new Vector3f(BlockType.BLOCK_EXTENT, BlockType.BLOCK_EXTENT, BlockType.BLOCK_EXTENT), null)
 		);
 		this.faceCount = 0;

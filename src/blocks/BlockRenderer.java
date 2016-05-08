@@ -75,7 +75,13 @@ public class BlockRenderer extends IRenderer {
 		}
 
 		prepareRendering(clipPlane, camera);
-		Loader.updateVBO(VBO, vboData, BUFFER);
+
+		try {
+			Loader.updateVBO(VBO, vboData, BUFFER);
+		} catch (final BufferOverflowException e) {
+			FlounderLogger.exception(e);
+		}
+
 		glDrawArraysInstancedARB(GL_TRIANGLE_STRIP, 0, VAO_LENGTH, instances);
 		endRendering();
 	}

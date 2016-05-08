@@ -31,7 +31,7 @@ public class WorldManager {
 		CHUNK_LIST.forEach(chunkL -> {
 			chunkL.resetFaceCount();
 
-			chunkL.runFaceUpdate((final Chunk chunk, final Block parent, final int faceIndex, final float cx, final float cy, final float cz, final float extent) -> {
+			Chunk.runFaceUpdate(chunkL, (final Chunk chunk, final Block parent, final int faceIndex, final float cx, final float cy, final float cz, final float extent) -> {
 				if (!chunk.getForceUpdate()) {
 					return;
 				}
@@ -47,7 +47,7 @@ public class WorldManager {
 					parent.setVisible(FlounderEngine.getCamera().getViewFrustum().aabbInFrustum(parent.getAABB()));
 				}
 			});
-			chunkL.runFaceUpdate((final Chunk chunk, final Block parent, final int faceIndex, final float cx, final float cy, final float cz, final float extent) -> {
+			Chunk.runFaceUpdate(chunkL, (final Chunk chunk, final Block parent, final int faceIndex, final float cx, final float cy, final float cz, final float extent) -> {
 				if (!chunk.getForceUpdate()) {
 					return;
 				}
@@ -91,8 +91,8 @@ public class WorldManager {
 			final int by = Chunk.inverseBlock(chunk.getPosition().y, y, extent);
 			final int bz = Chunk.inverseBlock(chunk.getPosition().z, z, extent);
 
-			if (chunk.inBounds(bx, by, bz)) {
-				return chunk.blockExists(bx, by, bz);
+			if (Chunk.inChunkBounds(bx, by, bz)) {
+				return Chunk.blockExists(chunk, bx, by, bz);
 			}
 		}
 
@@ -105,7 +105,7 @@ public class WorldManager {
 			final int by = Chunk.inverseBlock(chunk.getPosition().y, y, extent);
 			final int bz = Chunk.inverseBlock(chunk.getPosition().z, z, extent);
 
-			if (chunk.inBounds(bx, by, bz)) {
+			if (Chunk.inChunkBounds(bx, by, bz)) {
 				return chunk.getBlock(bx, by, bz);
 			}
 		}
@@ -120,7 +120,7 @@ public class WorldManager {
 			final int by = Chunk.inverseBlock(chunk.getPosition().y, y, extent);
 			final int bz = Chunk.inverseBlock(chunk.getPosition().z, z, extent);
 
-			if (chunk.inBounds(bx, by, bz)) {
+			if (Chunk.inChunkBounds(bx, by, bz)) {
 				final Block block = Chunk.createBlock(chunk, bx, by, bz, type);
 				chunk.setBlock(block, bx, by, bz);
 			}
@@ -129,11 +129,11 @@ public class WorldManager {
 
 	public static boolean insideBlock(final float x, final float y, final float z) {
 		for (final Chunk chunk : CHUNK_LIST) {
-			final int bx = Chunk.inverseBlock(chunk.getPosition().x, x, 1.0f);
-			final int by = Chunk.inverseBlock(chunk.getPosition().y, y, 1.0f);
-			final int bz = Chunk.inverseBlock(chunk.getPosition().z, z, 1.0f);
+			final int bx = Chunk.inverseBlock(chunk.getPosition().x, x, BlockType.BLOCK_EXTENT);
+			final int by = Chunk.inverseBlock(chunk.getPosition().y, y, BlockType.BLOCK_EXTENT);
+			final int bz = Chunk.inverseBlock(chunk.getPosition().z, z, BlockType.BLOCK_EXTENT);
 
-			if (chunk.inBounds(bx, by, bz)) {
+			if (Chunk.inChunkBounds(bx, by, bz)) {
 				return chunk.getBlock(bx, by, bz) != null;
 			}
 		}

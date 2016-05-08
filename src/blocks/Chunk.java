@@ -10,8 +10,6 @@ import java.util.*;
 
 public class Chunk {
 	public static final int CHUNK_SIZE = 16;
-	public static final int DIRT_DEPTH = 3;
-	public static final int SEA_LEVEL = 10;
 
 	private final Vector3f position;
 	private final Block[][][] blocks;
@@ -23,7 +21,11 @@ public class Chunk {
 	protected Chunk(final Vector3f position, final NoiseOpenSimplex noise, final Random random) {
 		this.position = position;
 		this.blocks = new Block[CHUNK_SIZE][CHUNK_SIZE][CHUNK_SIZE + 1];
-		this.aabb = new AABB(position, new Vector3f(position.x + (CHUNK_SIZE * 2), position.y + (CHUNK_SIZE * 2), position.z + (CHUNK_SIZE * 2)));
+		this.aabb = new AABB(
+				Vector3f.subtract(position, new Vector3f(BlockType.BLOCK_EXTENT, 0, BlockType.BLOCK_EXTENT), null),
+				Vector3f.subtract(new Vector3f(position.x + (CHUNK_SIZE * 2), position.y + (CHUNK_SIZE * 2), position.z + (CHUNK_SIZE * 2)),
+						new Vector3f(BlockType.BLOCK_EXTENT, BlockType.BLOCK_EXTENT, BlockType.BLOCK_EXTENT), null)
+		);
 		this.faceCount = 0;
 		this.forceUpdate = true;
 		this.visible = false;
@@ -31,7 +33,7 @@ public class Chunk {
 		populate(random);
 	}
 
-	public static void chunkData(final Chunk chunk) {
+	protected static void writeChunkData(final Chunk chunk) { // , final String file
 		File file = new File("chunk-" + chunk.position.x + "-" + chunk.position.y + "-" + chunk.position.z + ".txt");
 		String string = "";
 
@@ -55,7 +57,9 @@ public class Chunk {
 		} catch (final Exception e) {
 			FlounderLogger.exception(e);
 		}
+	}
 
+	protected static Chunk readChunkData(final String file) {
 		/*try {
 			BufferedReader fileReader = new BufferedReader(new FileReader(file));
 			String fileData = fileReader.toString();
@@ -73,18 +77,61 @@ public class Chunk {
 		} catch (final Exception e) {
 			FlounderLogger.exception(e);
 		}*/
+
+		return null;
 	}
 
 	public static Block createBlock(final Chunk chunk, final int x, final int y, final int z, final BlockType type) {
 		return new Block(type, new Vector3f(calculateBlock(chunk.position.x, x, type.getExtent()), calculateBlock(chunk.position.y, y, type.getExtent()), calculateBlock(chunk.position.z, z, type.getExtent())));
 	}
 
-	public static float calculateBlock(final float position, final int array, final float extent) {
+	protected static float calculateBlock(final float position, final int array, final float extent) {
 		return position + array + (array * extent);
 	}
 
-	public static int inverseBlock(final float position, final float component, final float extent) {
+	protected static int inverseBlock(final float position, final float component, final float extent) {
 		return (int) ((component - position) / (2.0f * extent));
+	}
+
+	public static boolean inChunkBounds(final float x, final float y, final float z) {
+		return !(x < 0 || y < 0 || z < 0 || x > CHUNK_SIZE - 1 || y > CHUNK_SIZE - 1 || z > CHUNK_SIZE - 1);
+	}
+
+	public static boolean blockExists(final Chunk chunk, final int x, final int y, final int z) {
+		return inChunkBounds(x, y, z) && chunk.getBlock(x, y, z) != null;
+	}
+
+	protected static void runFaceUpdate(final Chunk chunk, final FaceUpdates... faceUpdates) {
+		for (int x = 0; x < chunk.blocks.length; x++) {
+			for (int z = 0; z < chunk.blocks[x].length; z++) {
+				for (int y = 0; y < chunk.blocks[z].length; y++) {
+					final Block block = chunk.blocks[x][z][y];
+
+					if (block != null) {
+						final float be = block.getType().getExtent();
+						final int bx = inverseBlock(chunk.position.x, block.getPosition().x, be);
+						final int by = inverseBlock(chunk.position.y, block.getPosition().y, be);
+						final int bz = inverseBlock(chunk.position.z, block.getPosition().z, be);
+
+						for (int i = 0; i < 6; i++) {
+							final int currX = bx + ((i == 2) ? -1 : (i == 3) ? 1 : 0); // Left / Right
+							final int currY = by + ((i == 4) ? 1 : (i == 5) ? -1 : 0); // Up / Down
+							final int currZ = bz + ((i == 0) ? 1 : (i == 1) ? -1 : 0); // Front / Back
+
+							final float cx = calculateBlock(chunk.position.x, currX, be);
+							final float cy = calculateBlock(chunk.position.y, currY, be);
+							final float cz = calculateBlock(chunk.position.z, currZ, be);
+
+							for (FaceUpdates updates : faceUpdates) {
+								if (updates != null) {
+									updates.update(chunk, block, i, cx, cy, cz, be);
+								}
+							}
+						}
+					}
+				}
+			}
+		}
 	}
 
 	private void generate(final NoiseOpenSimplex noise) {
@@ -153,96 +200,55 @@ public class Chunk {
 		}
 	}
 
-	public boolean inBounds(final float x, final float y, final float z) {
-		return !(x < 0 || y < 0 || z < 0 || x > CHUNK_SIZE - 1 || y > CHUNK_SIZE - 1 || z > CHUNK_SIZE - 1);
-	}
-
-	public boolean blockExists(final int x, final int y, final int z) {
-		return inBounds(x, y, z) && getBlock(x, y, z) != null;
-	}
-
-	public Block getBlock(final int x, final int y, final int z) {
+	protected Block getBlock(final int x, final int y, final int z) {
 		return blocks[x][z][y];
 	}
 
-	public void setBlock(final Block block, final int x, final int y, final int z) {
+	protected void setBlock(final Block block, final int x, final int y, final int z) {
 		blocks[x][z][y] = block;
 	}
 
-	public Vector3f getPosition() {
+	protected Vector3f getPosition() {
 		return position;
 	}
 
-	public Block[][][] getBlocks() {
+	protected Block[][][] getBlocks() {
 		return blocks;
 	}
 
-	public AABB getAABB() {
+	protected AABB getAABB() {
 		return aabb;
 	}
 
-	public boolean isVisible() {
+	protected boolean isVisible() {
 		return visible;
 	}
 
-	public void updateVisible() {
+	protected void updateVisible() {
 		this.visible = FlounderEngine.getCamera().getViewFrustum().aabbInFrustum(aabb);
 	}
 
-	public int getFaceCount() {
+	protected int getFaceCount() {
 		return faceCount;
 	}
 
-	public boolean getForceUpdate() {
+	protected boolean getForceUpdate() {
 		return forceUpdate;
 	}
 
-	public void setForceUpdate(final boolean forceUpdate) {
+	protected void setForceUpdate(final boolean forceUpdate) {
 		this.forceUpdate = forceUpdate;
 	}
 
-	public void resetFaceCount() {
+	protected void resetFaceCount() {
 		faceCount = 0;
 	}
 
-	public void addFaceCount(final int newFaces) {
+	protected void addFaceCount(final int newFaces) {
 		faceCount += newFaces;
 	}
 
-	public void runFaceUpdate(final FaceUpdates... faceUpdates) {
-		for (int x = 0; x < blocks.length; x++) {
-			for (int z = 0; z < blocks[x].length; z++) {
-				for (int y = 0; y < blocks[z].length; y++) {
-					final Block block = blocks[x][z][y];
-
-					if (block != null) {
-						final float be = block.getType().getExtent();
-						final int bx = inverseBlock(position.x, block.getPosition().x, be);
-						final int by = inverseBlock(position.y, block.getPosition().y, be);
-						final int bz = inverseBlock(position.z, block.getPosition().z, be);
-
-						for (int i = 0; i < 6; i++) {
-							final int currX = bx + ((i == 2) ? -1 : (i == 3) ? 1 : 0); // Left / Right
-							final int currY = by + ((i == 4) ? 1 : (i == 5) ? -1 : 0); // Up / Down
-							final int currZ = bz + ((i == 0) ? 1 : (i == 1) ? -1 : 0); // Front / Back
-
-							final float cx = calculateBlock(position.x, currX, be);
-							final float cy = calculateBlock(position.y, currY, be);
-							final float cz = calculateBlock(position.z, currZ, be);
-
-							for (FaceUpdates updates : faceUpdates) {
-								if (updates != null) {
-									updates.update(this, block, i, cx, cy, cz, be);
-								}
-							}
-						}
-					}
-				}
-			}
-		}
-	}
-
-	public interface FaceUpdates {
+	protected interface FaceUpdates {
 		void update(final Chunk chunk, final Block parent, final int faceIndex, final float cx, final float cy, final float cz, final float extent);
 	}
 }

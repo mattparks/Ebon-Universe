@@ -7,7 +7,7 @@ import java.util.*;
 
 public class BlockType {
 	private static List<BlockType> BLOCK_TYPES = new ArrayList<>();
-	private static float BLOCK_EXTENT = 1.0f;
+	public static float BLOCK_EXTENT = 1.0f;
 
 	static {
 		new BlockType("game::bedrock", new Colour(47.0f, 47.0f, 47.0f, true), BLOCK_EXTENT);

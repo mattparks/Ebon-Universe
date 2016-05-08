@@ -30,11 +30,11 @@ public class BlockRenderer extends IRenderer {
 		this.pointer = 0;
 
 		// Creates the basic pane.
-		final int[] indicies = new int[]{1, 3, 2, 0, 1, 2};
+		//	final int[] indicies = new int[]{1, 3, 2, 0, 1, 2};
 		final float[] verticies = new float[]{-1.0f, 0.0f, 1.0f, 1.0f, 0.0f, 1.0f, -1.0f, 0.0f, -1.0f, 1.0f, 0.0f, -1.0f};
-		final float[] textureCoords = new float[]{0.9999f, 1.00016594E-4f, 1.0E-4f, 1.00016594E-4f, 0.9999f, 0.9999f, 1.0E-4f, 0.9999f};
-		final float[] normals = new float[]{0.0f, 1.0f, 0.0f, 0.0f, 1.0f, 0.0f, 0.0f, 1.0f, 0.0f, 0.0f, 1.0f, 0.0f};
-		final float[] tangents = new float[]{-1.0f, 0.0f, 0.0f, -1.0f, 0.0f, 0.0f, -1.0f, 0.0f, 0.0f, -1.0f, 0.0f, 0.0f};
+		//	final float[] textureCoords = new float[]{0.9999f, 1.00016594E-4f, 1.0E-4f, 1.00016594E-4f, 0.9999f, 0.9999f, 1.0E-4f, 0.9999f};
+		//	final float[] normals = new float[]{0.0f, 1.0f, 0.0f, 0.0f, 1.0f, 0.0f, 0.0f, 1.0f, 0.0f, 0.0f, 1.0f, 0.0f};
+		//	final float[] tangents = new float[]{-1.0f, 0.0f, 0.0f, -1.0f, 0.0f, 0.0f, -1.0f, 0.0f, 0.0f, -1.0f, 0.0f, 0.0f};
 		VAO = Loader.createInterleavedVAO(verticies, 3);
 		VAO_LENGTH = verticies.length;
 
@@ -61,7 +61,7 @@ public class BlockRenderer extends IRenderer {
 		final float[] vboData = new float[instances * INSTANCE_DATA_LENGTH];
 
 		for (final Chunk chunk : WorldManager.getChunkList()) {
-			if (chunk.renderable()) {
+			if (chunk.isVisible()) {
 				final Block[][][] blocks = chunk.getBlocks();
 
 				for (int x = 0; x < blocks.length; x++) {

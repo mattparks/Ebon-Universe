@@ -126,7 +126,7 @@ public class Block {
 		public BlockVisible(final BlockFaces face, final float extent) {
 			this.face = face;
 			this.stretch = new Vector3f(extent, extent, extent);
-			this.covered = false;
+			this.covered = true;
 		}
 
 		public BlockFaces getFace() {
@@ -139,6 +139,10 @@ public class Block {
 
 		public void setStretch(final float x, final float y, final float z) {
 			stretch.set(x, y, z);
+		}
+
+		public boolean isStretched() {
+			return stretch.x != 1.0f || stretch.y != 1.0f || stretch.z != 1.0f;
 		}
 
 		public boolean isCovered() {

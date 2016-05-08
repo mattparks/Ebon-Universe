@@ -18,6 +18,7 @@ public class Chunk {
 	private final AABB aabb;
 	private int faceCount;
 	private boolean forceUpdate;
+	private boolean visible;
 
 	protected Chunk(final Vector3f position, final NoiseOpenSimplex noise, final Random random) {
 		this.position = position;
@@ -25,6 +26,7 @@ public class Chunk {
 		this.aabb = new AABB(position, new Vector3f(position.x + (CHUNK_SIZE * 2), position.y + (CHUNK_SIZE * 2), position.z + (CHUNK_SIZE * 2)));
 		this.faceCount = 0;
 		this.forceUpdate = true;
+		this.visible = false;
 		generate(noise);
 		populate(random);
 	}
@@ -175,8 +177,16 @@ public class Chunk {
 		return blocks;
 	}
 
-	public boolean renderable() {
-		return FlounderEngine.getCamera().getViewFrustum().aabbInFrustum(aabb);
+	public AABB getAABB() {
+		return aabb;
+	}
+
+	public boolean isVisible() {
+		return visible;
+	}
+
+	public void updateVisible() {
+		this.visible = FlounderEngine.getCamera().getViewFrustum().aabbInFrustum(aabb);
 	}
 
 	public int getFaceCount() {

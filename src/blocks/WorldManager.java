@@ -5,6 +5,7 @@ import flounder.engine.*;
 import flounder.maths.*;
 import flounder.maths.vectors.*;
 import flounder.noise.*;
+import flounder.physics.*;
 import org.lwjgl.glfw.*;
 
 import java.util.*;
@@ -12,46 +13,11 @@ import java.util.*;
 public class WorldManager {
 	private static final List<Chunk> CHUNK_LIST = new ArrayList<>();
 	private static final NoiseOpenSimplex NOISE = new NoiseOpenSimplex(); // (int) GameSeed.getSeed()
-	private static final Chunk.FaceUpdates[] FACE_UPDATES = new Chunk.FaceUpdates[4];
 
 	public static void init() {
-		FACE_UPDATES[0] = (final Chunk chunk, final Block parent, final int faceIndex, final float cx, final float cy, final float cz, final float extent) -> {
-			if (!chunk.getForceUpdate()) {
-				return;
-			}
-
-			if (WorldManager.blockExists(cx, cy, cz, extent)) {
-				parent.getFaces()[faceIndex].setCovered(true);
-			} else {
-				parent.getFaces()[faceIndex].setCovered(false);
-				parent.getFaces()[faceIndex].setStretch(extent, extent, extent);
-			}
-		};
-		FACE_UPDATES[1] = (final Chunk chunk, final Block parent, final int faceIndex, final float cx, final float cy, final float cz, final float extent) -> {
-			if (!ManagerDevices.getKeyboard().getKey(GLFW.GLFW_KEY_G)) {
-				parent.setVisible(FlounderEngine.getCamera().getViewFrustum().aabbInFrustum(parent.getAABB()));
-			}
-		};
-		FACE_UPDATES[2] = (final Chunk chunk, final Block parent, final int faceIndex, final float cx, final float cy, final float cz, final float extent) -> {
-			if (!chunk.getForceUpdate()) {
-				return;
-			}
-
-			final Block currBlock = WorldManager.getBlock(cx, cy, cz, extent);
-
-			if (currBlock != null && currBlock.getType().equals(parent.getType())) {
-				// TODO: Merge this face into that face.
-				// block.getFaces()[i].setCovered(true);
-				// block.getFaces()[i].setStretch(be, be, be);
-			}
-		};
-		FACE_UPDATES[3] = (final Chunk chunk, final Block parent, final int faceIndex, final float cx, final float cy, final float cz, final float extent) -> {
-			chunk.addFaceCount(parent.getVisibleFaces());
-		};
-
-		for (int x = 0; x < 1; x++) {
-			for (int z = 0; z < 2; z++) {
-				for (int y = -1; y < 2; y++) {
+		for (int x = 0; x < 2; x++) {
+			for (int z = 0; z < 1; z++) {
+				for (int y = 0; y < 1; y++) {
 					FlounderLogger.log("Creating Chunk At: " + x + ", " + y + ", " + z);
 					CHUNK_LIST.add(new Chunk(new Vector3f(x * (Chunk.CHUNK_SIZE * 2.0f), y * (Chunk.CHUNK_SIZE * 2.0f), z * (Chunk.CHUNK_SIZE * 2.0f)), NOISE, Maths.RANDOM));
 				}
@@ -62,11 +28,60 @@ public class WorldManager {
 	}
 
 	public static void update() {
-		CHUNK_LIST.forEach(chunk -> {
-			chunk.resetFaceCount();
-			chunk.runFaceUpdate(FACE_UPDATES[0], FACE_UPDATES[1]);
-			chunk.runFaceUpdate(FACE_UPDATES[2], FACE_UPDATES[3]);
-			chunk.setForceUpdate(false);
+		CHUNK_LIST.forEach(chunkL -> {
+			chunkL.resetFaceCount();
+
+			chunkL.runFaceUpdate((final Chunk chunk, final Block parent, final int faceIndex, final float cx, final float cy, final float cz, final float extent) -> {
+				if (!chunk.getForceUpdate()) {
+					return;
+				}
+
+				if (WorldManager.blockExists(cx, cy, cz, extent)) {
+					parent.getFaces()[faceIndex].setCovered(true);
+				} else {
+					parent.getFaces()[faceIndex].setCovered(false);
+					parent.getFaces()[faceIndex].setStretch(extent, extent, extent);
+				}
+			}, (final Chunk chunk, final Block parent, final int faceIndex, final float cx, final float cy, final float cz, final float extent) -> {
+				if (!ManagerDevices.getKeyboard().getKey(GLFW.GLFW_KEY_G)) {
+					parent.setVisible(FlounderEngine.getCamera().getViewFrustum().aabbInFrustum(parent.getAABB()));
+				}
+			});
+			chunkL.runFaceUpdate((final Chunk chunk, final Block parent, final int faceIndex, final float cx, final float cy, final float cz, final float extent) -> {
+				if (!chunk.getForceUpdate()) {
+					return;
+				}
+
+				final Block currBlock = WorldManager.getBlock(cx, cy, cz, extent);
+
+			/*if (currBlock != null && currBlock.getType().equals(parent.getType())) { // !parent.getFaces()[faceIndex].isCovered() &&
+				if (!currBlock.getFaces()[faceIndex].isCovered()) {
+					if (!parent.getFaces()[faceIndex].isStretched() && !currBlock.getFaces()[faceIndex].isStretched()) {
+						parent.getFaces()[faceIndex].setCovered(false);
+						currBlock.getFaces()[faceIndex].setCovered(true);
+
+						final float stretchDirX = extent + ((faceIndex == 2) ? -2.0f : (faceIndex == 3) ? 2.0f : 0.0f); // Left / Right
+						final float stretchDirY = extent + ((faceIndex == 4) ? 2.0f : (faceIndex == 5) ? -2.0f : 0.0f); // Up / Down
+						final float stretchDirZ = extent + ((faceIndex == 0) ? 2.0f : (faceIndex == 1) ? -2.0f : 0.0f); // Front / Back
+
+						parent.getFaces()[faceIndex].setStretch(stretchDirX, stretchDirY, stretchDirZ);
+					}
+				}
+
+				// TODO: Merge this face into that face.
+				// parent.getFaces()[faceIndex].setCovered(true);
+				// parent.getFaces()[faceIndex].setStretch(be, be, be);
+			}*/
+			}, (final Chunk chunk, final Block parent, final int faceIndex, final float cx, final float cy, final float cz, final float extent) -> {
+				chunk.addFaceCount(parent.getVisibleFaces());
+			});
+
+			chunkL.setForceUpdate(false);
+			chunkL.updateVisible();
+
+			if (chunkL.isVisible()) {
+				AABBManager.addAABBRender(chunkL.getAABB());
+			}
 		});
 	}
 
@@ -130,7 +145,7 @@ public class WorldManager {
 		int count = 0;
 
 		for (final Chunk chunk : CHUNK_LIST) {
-			if (chunk.renderable()) {
+			if (chunk.isVisible()) {
 				count += chunk.getFaceCount();
 			}
 		}

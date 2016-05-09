@@ -32,25 +32,24 @@ public class MainPlayer {
 
 		this.direction = new Vector3f(0, 0, 0);
 
-		this.position = new Vector3f(-2, 0, 0);
+		this.position = new Vector3f(-2, 0, -2);
 		this.rotation = new Vector3f(0, 0, 0);
 	}
 
 	public void update(final boolean paused) {
 		if (!paused) {
+			final float cameraYaw = FlounderEngine.getCamera().getYaw();
 			direction.z = -FRONT_SPEED * FlounderEngine.getDelta() * Maths.deadband(0.05f, inputForward.getAmount());
 			direction.y = -UP_SPEED * 0.0f;
 			direction.x = -SIDE_SPEED * FlounderEngine.getDelta() * Maths.deadband(0.05f, inputTurn.getAmount());
-			// Vector3f.rotate(direction, FlounderEngine.getCamera().getYaw(), DIRECTION_AXIS, DIRECTION_CENTRE, direction);
+			// Vector3f.rotate(direction, cameraYaw, DIRECTION_AXIS, DIRECTION_CENTRE, direction);
 
-			boolean pevInsideBlock = WorldManager.insideBlock(position.x, position.y, position.z);
-
-			position.set(position.x + direction.x, position.y + direction.y, position.z + direction.z);
-
-			boolean insideBlock = WorldManager.insideBlock(position.x, position.y, position.z);
+			boolean pevInsideBlock = WorldManager.insideBlock(position);
+			Vector3f.add(position, direction, position);
+			boolean insideBlock = WorldManager.insideBlock(position);
 
 			if (insideBlock && !pevInsideBlock) {
-				position.set(position.x - direction.x, position.y - direction.y, position.z - direction.z);
+				Vector3f.subtract(position, direction, position);
 			}
 		}
 	}

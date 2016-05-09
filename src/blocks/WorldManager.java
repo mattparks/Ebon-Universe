@@ -126,14 +126,16 @@ public class WorldManager {
 		}
 	}
 
-	public static boolean insideBlock(final float x, final float y, final float z) {
+	public static boolean insideBlock(final Vector3f point) {
 		for (final Chunk chunk : CHUNK_LIST) {
-			final int bx = Chunk.inverseBlock(chunk.getPosition().x, x);
-			final int by = Chunk.inverseBlock(chunk.getPosition().y, y);
-			final int bz = Chunk.inverseBlock(chunk.getPosition().z, z);
+			if (chunk.getAABB().contains(point)) {
+				final int bx = Chunk.inverseBlock(chunk.getPosition().x, point.x);
+				final int by = Chunk.inverseBlock(chunk.getPosition().y, point.y);
+				final int bz = Chunk.inverseBlock(chunk.getPosition().z, point.z);
 
-			if (Chunk.inChunkBounds(bx, by, bz)) {
-				return chunk.getBlock(bx, by, bz) != null;
+				if (Chunk.inChunkBounds(bx, by, bz)) {
+					return chunk.getBlock(bx, by, bz) != null;
+				}
 			}
 		}
 

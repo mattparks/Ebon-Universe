@@ -6,7 +6,7 @@ import flounder.maths.*;
 import java.util.*;
 
 public class BlockType {
-	public static float BLOCK_EXTENT = 1.0f;
+	public static final float BLOCK_EXTENT = 1.0f;
 	private static List<BlockType> BLOCK_TYPES = new ArrayList<>();
 
 	static {

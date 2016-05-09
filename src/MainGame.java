@@ -29,6 +29,10 @@ public class MainGame extends IGame {
 
 	@Override
 	public void update() {
+		if (screenshot.wasDown()) {
+			ManagerDevices.getDisplay().screenshot();
+		}
+
 		if (fullscreen.wasDown()) {
 			ManagerDevices.getDisplay().setFullscreen(!ManagerDevices.getDisplay().isFullscreen());
 		}

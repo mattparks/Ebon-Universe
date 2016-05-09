@@ -21,55 +21,55 @@ public class Block {
 		this.aabb = new AABB();
 		this.visible = false;
 
-		blockAABB(this, aabb);
+		updateBlockAABB(this, aabb);
 
 		this.faces = new BlockVisible[6];
-		this.faces[0] = new BlockVisible(BlockFaces.FRONT, type.getExtent());
-		this.faces[1] = new BlockVisible(BlockFaces.BACK, type.getExtent());
-		this.faces[2] = new BlockVisible(BlockFaces.LEFT, type.getExtent());
-		this.faces[3] = new BlockVisible(BlockFaces.RIGHT, type.getExtent());
-		this.faces[4] = new BlockVisible(BlockFaces.UP, type.getExtent());
-		this.faces[5] = new BlockVisible(BlockFaces.DOWN, type.getExtent());
+		this.faces[0] = new BlockVisible(BlockFaces.FRONT);
+		this.faces[1] = new BlockVisible(BlockFaces.BACK);
+		this.faces[2] = new BlockVisible(BlockFaces.LEFT);
+		this.faces[3] = new BlockVisible(BlockFaces.RIGHT);
+		this.faces[4] = new BlockVisible(BlockFaces.UP);
+		this.faces[5] = new BlockVisible(BlockFaces.DOWN);
 	}
 
-	public static AABB blockAABB(final Block block, AABB aabb) {
-		aabb.setMinExtents(block.position.x - block.type.getExtent(), block.position.y - block.type.getExtent(), block.position.z - block.type.getExtent());
-		aabb.setMaxExtents(block.position.x + block.type.getExtent(), block.position.y + block.type.getExtent(), block.position.z + block.type.getExtent());
+	private static AABB updateBlockAABB(final Block block, AABB aabb) {
+		aabb.setMinExtents(block.position.x - BlockType.BLOCK_EXTENT, block.position.y - BlockType.BLOCK_EXTENT, block.position.z - BlockType.BLOCK_EXTENT);
+		aabb.setMaxExtents(block.position.x + BlockType.BLOCK_EXTENT, block.position.y + BlockType.BLOCK_EXTENT, block.position.z + BlockType.BLOCK_EXTENT);
 		return aabb;
 	}
 
-	public static Matrix4f blockModelMatrix(final Block block, final int face, Matrix4f modelMatrix) {
+	protected static Matrix4f blockModelMatrix(final Block block, final int face, Matrix4f modelMatrix) {
 		POSITION_REUSABLE.set(block.getPosition());
 		ROTATION_REUSABLE.set(0.0f, 0.0f, 0.0f);
 		SCALE_REUSABLE.set(block.getFaces()[face].getStretch());
-		blockPaneUpdate(block.getFaces()[face].getFace(), block.getType().getExtent(), ROTATION_REUSABLE, POSITION_REUSABLE);
+		blockPaneUpdate(block.getFaces()[face].getFace(), ROTATION_REUSABLE, POSITION_REUSABLE);
 		Matrix4f.transformationMatrix(POSITION_REUSABLE, ROTATION_REUSABLE, SCALE_REUSABLE, modelMatrix);
 		return modelMatrix;
 	}
 
-	private static void blockPaneUpdate(final BlockFaces faces, final float extent, final Vector3f rotation, final Vector3f position) {
+	private static void blockPaneUpdate(final BlockFaces faces, final Vector3f rotation, final Vector3f position) {
 		switch (faces) {
 			case FRONT:
 				rotation.x = 90.0f;
-				position.z += extent;
+				position.z += BlockType.BLOCK_EXTENT;
 				break;
 			case BACK:
 				rotation.x = 90.0f;
-				position.z -= extent;
+				position.z -= BlockType.BLOCK_EXTENT;
 				break;
 			case LEFT:
 				rotation.z = 90.0f;
-				position.x -= extent;
+				position.x -= BlockType.BLOCK_EXTENT;
 				break;
 			case RIGHT:
 				rotation.z = 90.0f;
-				position.x += extent;
+				position.x += BlockType.BLOCK_EXTENT;
 				break;
 			case UP:
-				position.y += extent;
+				position.y += BlockType.BLOCK_EXTENT;
 				break;
 			case DOWN:
-				position.y -= extent;
+				position.y -= BlockType.BLOCK_EXTENT;
 				break;
 		}
 	}
@@ -123,9 +123,9 @@ public class Block {
 		private final Vector3f stretch;
 		private boolean covered;
 
-		public BlockVisible(final BlockFaces face, final float extent) {
+		public BlockVisible(final BlockFaces face) {
 			this.face = face;
-			this.stretch = new Vector3f(extent, extent, extent);
+			this.stretch = new Vector3f(BlockType.BLOCK_EXTENT, BlockType.BLOCK_EXTENT, BlockType.BLOCK_EXTENT);
 			this.covered = true;
 		}
 

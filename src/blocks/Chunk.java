@@ -22,9 +22,12 @@ public class Chunk {
 		this.position = position;
 		this.blocks = new Block[CHUNK_SIZE][CHUNK_SIZE][CHUNK_SIZE + 1];
 		this.aabb = new AABB(
-				Vector3f.subtract(position, new Vector3f(BlockType.BLOCK_EXTENT, 0, BlockType.BLOCK_EXTENT), null),
-				Vector3f.subtract(new Vector3f((position.x + (CHUNK_SIZE * 2)) * BlockType.BLOCK_EXTENT, (position.y + (CHUNK_SIZE * 2)) * BlockType.BLOCK_EXTENT, (position.z + (CHUNK_SIZE * 2)) * BlockType.BLOCK_EXTENT),
-						new Vector3f(BlockType.BLOCK_EXTENT, BlockType.BLOCK_EXTENT, BlockType.BLOCK_EXTENT), null)
+				Vector3f.subtract(position, new Vector3f(BlockType.BLOCK_EXTENT, BlockType.BLOCK_EXTENT, BlockType.BLOCK_EXTENT), null),
+				Vector3f.subtract(new Vector3f(
+						(position.x + (2.0f * CHUNK_SIZE) * BlockType.BLOCK_EXTENT),
+						(position.y + (2.0f * CHUNK_SIZE) * BlockType.BLOCK_EXTENT),
+						(position.z + (2.0f * CHUNK_SIZE) * BlockType.BLOCK_EXTENT)
+				), new Vector3f(BlockType.BLOCK_EXTENT, BlockType.BLOCK_EXTENT, BlockType.BLOCK_EXTENT), null)
 		);
 		this.faceCount = 0;
 		this.forceUpdate = true;
@@ -82,15 +85,15 @@ public class Chunk {
 	}
 
 	public static Block createBlock(final Chunk chunk, final int x, final int y, final int z, final BlockType type) {
-		return new Block(type, new Vector3f(calculateBlock(chunk.position.x, x, type.getExtent()), calculateBlock(chunk.position.y, y, type.getExtent()), calculateBlock(chunk.position.z, z, type.getExtent())));
+		return new Block(type, new Vector3f(calculateBlock(chunk.position.x, x), calculateBlock(chunk.position.y, y), calculateBlock(chunk.position.z, z)));
 	}
 
-	protected static float calculateBlock(final float position, final int array, final float extent) {
-		return position + array + (array * extent);
+	protected static float calculateBlock(final float position, final int array) {
+		return position + (2.0f * array * BlockType.BLOCK_EXTENT);
 	}
 
-	protected static int inverseBlock(final float position, final float component, final float extent) {
-		return (int) ((component - position) / (2.0f * extent));
+	protected static int inverseBlock(final float position, final float component) {
+		return (int) ((component - position) / (2.0f * BlockType.BLOCK_EXTENT)); // TODO: Double check maths here...
 	}
 
 	public static boolean inChunkBounds(final float x, final float y, final float z) {
@@ -108,23 +111,22 @@ public class Chunk {
 					final Block block = chunk.blocks[x][z][y];
 
 					if (block != null) {
-						final float be = block.getType().getExtent();
-						final int bx = inverseBlock(chunk.position.x, block.getPosition().x, be);
-						final int by = inverseBlock(chunk.position.y, block.getPosition().y, be);
-						final int bz = inverseBlock(chunk.position.z, block.getPosition().z, be);
+						final int bx = inverseBlock(chunk.position.x, block.getPosition().x);
+						final int by = inverseBlock(chunk.position.y, block.getPosition().y);
+						final int bz = inverseBlock(chunk.position.z, block.getPosition().z);
 
 						for (int i = 0; i < 6; i++) {
 							final int currX = bx + ((i == 2) ? -1 : (i == 3) ? 1 : 0); // Left / Right
 							final int currY = by + ((i == 4) ? 1 : (i == 5) ? -1 : 0); // Up / Down
 							final int currZ = bz + ((i == 0) ? 1 : (i == 1) ? -1 : 0); // Front / Back
 
-							final float cx = calculateBlock(chunk.position.x, currX, be);
-							final float cy = calculateBlock(chunk.position.y, currY, be);
-							final float cz = calculateBlock(chunk.position.z, currZ, be);
+							final float cx = calculateBlock(chunk.position.x, currX);
+							final float cy = calculateBlock(chunk.position.y, currY);
+							final float cz = calculateBlock(chunk.position.z, currZ);
 
 							for (FaceUpdates updates : faceUpdates) {
 								if (updates != null) {
-									updates.update(chunk, block, i, cx, cy, cz, be);
+									updates.update(chunk, block, i, cx, cy, cz);
 								}
 							}
 						}
@@ -191,7 +193,7 @@ public class Chunk {
 							}
 
 							if (type != null) {
-								blocks[x][z][y] = new Block(type, new Vector3f(calculateBlock(position.x, x, type.getExtent()), calculateBlock(position.y, y, type.getExtent()), calculateBlock(position.z, z, type.getExtent())));
+								blocks[x][z][y] = new Block(type, new Vector3f(calculateBlock(position.x, x), calculateBlock(position.y, y), calculateBlock(position.z, z)));
 							}
 						}
 					}
@@ -249,6 +251,6 @@ public class Chunk {
 	}
 
 	protected interface FaceUpdates {
-		void update(final Chunk chunk, final Block parent, final int faceIndex, final float cx, final float cy, final float cz, final float extent);
+		void update(final Chunk chunk, final Block parent, final int faceIndex, final float cx, final float cy, final float cz);
 	}
 }

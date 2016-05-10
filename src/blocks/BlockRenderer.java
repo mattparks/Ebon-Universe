@@ -61,8 +61,8 @@ public class BlockRenderer extends IRenderer {
 		final float[] vboData = new float[instances * INSTANCE_DATA_LENGTH];
 
 		for (final Chunk chunk : WorldManager.getChunkList()) {
-			if (!chunk.isEmpty() && chunk.isVisible()) {
-				final Block[][][] blocks = chunk.getBlocks();
+			if (!Chunk.isEmpty(chunk) && Chunk.isVisible(chunk)) {
+				final Block[][][] blocks = Chunk.getBlocks(chunk);
 
 				for (int x = 0; x < blocks.length; x++) {
 					for (int z = 0; z < blocks[x].length; z++) {

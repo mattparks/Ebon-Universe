@@ -106,7 +106,7 @@ public class Chunk {
 		return inChunkBounds(x, y, z) && chunk.getBlock(x, y, z) != null;
 	}
 
-	protected static void update(final Chunk chunk, final FaceUpdates... faceUpdates) {
+	protected static void update(final Chunk chunk, final BlockUpdate... blockUpdates) {
 		chunk.empty = true;
 
 		for (int x = 0; x < chunk.blocks.length; x++) {
@@ -120,17 +120,17 @@ public class Chunk {
 						final int bz = inverseBlock(chunk.position.z, block.getPosition().z);
 
 						for (int i = 0; i < 6; i++) {
+							final int currZ = bz + ((i == 0) ? 1 : (i == 1) ? -1 : 0); // Front / Back
 							final int currX = bx + ((i == 2) ? -1 : (i == 3) ? 1 : 0); // Left / Right
 							final int currY = by + ((i == 4) ? 1 : (i == 5) ? -1 : 0); // Up / Down
-							final int currZ = bz + ((i == 0) ? 1 : (i == 1) ? -1 : 0); // Front / Back
 
 							final float cx = calculateBlock(chunk.position.x, currX);
 							final float cy = calculateBlock(chunk.position.y, currY);
 							final float cz = calculateBlock(chunk.position.z, currZ);
 
-							for (FaceUpdates face : faceUpdates) {
-								if (face != null) {
-									face.update(chunk, block, i, cx, cy, cz);
+							for (BlockUpdate blockUpdate : blockUpdates) {
+								if (blockUpdate != null) {
+									blockUpdate.update(chunk, block, i, cx, cy, cz);
 								}
 							}
 						}
@@ -141,6 +141,8 @@ public class Chunk {
 			}
 		}
 	}
+
+	protected sta
 
 	private void generate(final NoisePerlin noise) {
 		for (int x = 0; x < blocks.length; x++) {

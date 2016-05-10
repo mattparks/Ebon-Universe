@@ -124,6 +124,7 @@ public class Block {
 		private final BlockFaces face;
 		private Vector3f stretch;
 		private boolean covered;
+		private boolean blockNearby;
 
 		public BlockVisible(final BlockFaces face) {
 			this.face = face;
@@ -157,6 +158,14 @@ public class Block {
 
 		public void setCovered(final boolean covered) {
 			this.covered = covered;
+		}
+
+		public boolean isBlockNearby() {
+			return blockNearby;
+		}
+
+		public void setBlockNearby(boolean blockNearby) {
+			this.blockNearby = blockNearby;
 		}
 	}
 }

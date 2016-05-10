@@ -14,7 +14,8 @@ import java.util.concurrent.*;
 public class WorldManager {
 	private static final List<Chunk> CHUNK_LIST = new ArrayList<>();
 	private static final NoisePerlin NOISE = new NoisePerlin((int) GameSeed.getSeed());
-	private static long TIMER_OFFSET = 500;
+
+	private static long TIMER_OFFSET = 1000;
 	private static long TIMER_TESTING = System.currentTimeMillis() + TIMER_OFFSET;
 
 	public static void init() {
@@ -39,8 +40,8 @@ public class WorldManager {
 		CHUNK_LIST.forEach(chunk -> {
 			chunk.resetFaceCount();
 
-			Chunk.update(chunk, new BlockUpdateFaces(), new BlockUpdateVisibility());
-			Chunk.update(chunk, new BlockUpdateFaceMerge(), new BlockUpdateFaceCount());
+			Chunk.update(chunk, WorldManager::blockUpdateFaces, WorldManager::blockUpdateVisibility, WorldManager::blockUpdatePreFaceMerge);
+			Chunk.update(chunk, WorldManager::blockUpdateFaceCount);
 
 			chunk.setForceUpdate(false);
 			chunk.updateVisible();
@@ -131,65 +132,58 @@ public class WorldManager {
 		return CHUNK_LIST;
 	}
 
-	private static class BlockUpdateFaces implements FaceUpdates {
-		@Override
-		public void update(Chunk chunk, Block parent, int faceIndex, float cx, float cy, float cz) {
-			if (!chunk.getForceUpdate()) {
-				return;
-			}
+	private static void blockUpdateFaces(Chunk chunk, Block parent, int faceIndex, float cx, float cy, float cz) {
+		if (!chunk.getForceUpdate()) {
+			return;
+		}
 
-			if (WorldManager.blockExists(cx, cy, cz)) {
-				parent.getFaces()[faceIndex].setCovered(true);
-			} else {
-				parent.getFaces()[faceIndex].setCovered(false);
+		if (WorldManager.blockExists(cx, cy, cz)) {
+			parent.getFaces()[faceIndex].setCovered(true);
+		} else {
+			parent.getFaces()[faceIndex].setCovered(false);
+
+			if (parent.getFaces()[faceIndex].isStretched()) {
 				parent.getFaces()[faceIndex].setStretch(BlockTypes.BLOCK_EXTENT, BlockTypes.BLOCK_EXTENT, BlockTypes.BLOCK_EXTENT);
 			}
 		}
 	}
 
-	private static class BlockUpdateVisibility implements FaceUpdates {
-		@Override
-		public void update(Chunk chunk, Block parent, int faceIndex, float cx, float cy, float cz) {
-			if (!ManagerDevices.getKeyboard().getKey(GLFW.GLFW_KEY_G)) {
-				parent.setVisible(FlounderEngine.getCamera().getViewFrustum().aabbInFrustum(parent.getAABB()));
-			}
+	private static void blockUpdateVisibility(Chunk chunk, Block parent, int faceIndex, float cx, float cy, float cz) {
+		// TODO: Only calculate once.
+		if (!ManagerDevices.getKeyboard().getKey(GLFW.GLFW_KEY_G)) {
+			parent.setVisible(FlounderEngine.getCamera().getViewFrustum().aabbInFrustum(parent.getAABB()));
 		}
 	}
 
-	private static class BlockUpdateFaceMerge implements FaceUpdates {
-		@Override
-		public void update(Chunk chunk, Block parent, int faceIndex, float cx, float cy, float cz) {
-			if (!chunk.getForceUpdate()) {
-				return;
+	private static void blockUpdatePreFaceMerge(Chunk chunk, Block parent, int faceIndex, float cx, float cy, float cz) {
+		if (!chunk.getForceUpdate()) {
+			return;
+		}
+
+		final Block targetBlock = WorldManager.getBlock(cx, cy, cz);
+
+		if (targetBlock != null && targetBlock.getType().equals(parent.getType())) {
+			if (!targetBlock.getFaces()[faceIndex].isCovered()) {
+				final boolean frontBack = ((faceIndex == 0) || (faceIndex == 1)); // Front / Back
+				final boolean leftRight = ((faceIndex == 2) || (faceIndex == 3)); // Left / Right
+				final boolean upDown = ((faceIndex == 4) || (faceIndex == 5)); // Up / Down
+
+				parent.getFaces()[0].setBlockNearby(frontBack);
+				parent.getFaces()[1].setBlockNearby(frontBack);
+				parent.getFaces()[2].setBlockNearby(leftRight);
+				parent.getFaces()[3].setBlockNearby(leftRight);
+				parent.getFaces()[4].setBlockNearby(upDown);
+				parent.getFaces()[5].setBlockNearby(upDown);
 			}
 
-			final Block currBlock = WorldManager.getBlock(cx, cy, cz);
-
-				/*if (currBlock != null && currBlock.getType().equals(parent.getType())) { // !parent.getFaces()[faceIndex].isCovered() &&
-					if (!currBlock.getFaces()[faceIndex].isCovered()) {
-						if (!parent.getFaces()[faceIndex].isStretched() && !currBlock.getFaces()[faceIndex].isStretched()) {
-							parent.getFaces()[faceIndex].setCovered(false);
-							currBlock.getFaces()[faceIndex].setCovered(true);
-
-							final float stretchDirX = BlockTypes.BLOCK_EXTENT + ((faceIndex == 2) ? -2.0f : (faceIndex == 3) ? 2.0f : 0.0f); // Left / Right
-							final float stretchDirY = BlockTypes.BLOCK_EXTENT + ((faceIndex == 4) ? 2.0f : (faceIndex == 5) ? -2.0f : 0.0f); // Up / Down
-							final float stretchDirZ = BlockTypes.BLOCK_EXTENT + ((faceIndex == 0) ? 2.0f : (faceIndex == 1) ? -2.0f : 0.0f); // Front / Back
-
-							parent.getFaces()[faceIndex].setStretch(stretchDirX, stretchDirY, stretchDirZ);
-						}
-					}
-
-					// TODO: Merge this face into that face.
-					// parent.getFaces()[faceIndex].setCovered(true);
-					// parent.getFaces()[faceIndex].setStretch(be, be, be);
-				}*/
+			// TODO: Merge this face into that face.
+			// parent.getFaces()[faceIndex].setCovered(true);
+			// parent.getFaces()[faceIndex].setStretch(be, be, be);
 		}
 	}
 
-	private static class BlockUpdateFaceCount implements FaceUpdates {
-		@Override
-		public void update(Chunk chunk, Block parent, int faceIndex, float cx, float cy, float cz) {
-			chunk.addFaceCount(parent.getVisibleFaces());
-		}
+	private static void blockUpdateFaceCount(Chunk chunk, Block parent, int faceIndex, float cx, float cy, float cz) {
+		// TODO: Only calculate once.
+		chunk.addFaceCount(parent.getVisibleFaces());
 	}
 }

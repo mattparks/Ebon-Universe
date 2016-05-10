@@ -32,7 +32,7 @@ public class MainPlayer {
 
 		this.direction = new Vector3f(0, 0, 0);
 
-		this.position = new Vector3f(-2, 0, -2);
+		this.position = new Vector3f(-2, -3, -2);
 		this.rotation = new Vector3f(0, 0, 0);
 	}
 

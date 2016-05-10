@@ -115,11 +115,7 @@ public class Chunk {
 					final Block block = chunk.blocks[x][z][y];
 
 					if (block != null) {
-						final int bz = inverseBlock(chunk.position.z, block.getPosition().z);
-						final int bx = inverseBlock(chunk.position.x, block.getPosition().x);
-						final int by = inverseBlock(chunk.position.y, block.getPosition().y);
-
-						if (blockUpdates != null) {
+						if (blockUpdates != null && blockUpdates.length != 0) {
 							for (UpdateBlock blockUpdate : blockUpdates) {
 								if (blockUpdate != null) {
 									blockUpdate.update(chunk, block);
@@ -127,15 +123,15 @@ public class Chunk {
 							}
 						}
 
-						for (int i = 0; i < 6; i++) {
-							final int currZ = bz + ((i == 0) ? 1 : (i == 1) ? -1 : 0); // Front / Back
-							final int currX = bx + ((i == 2) ? -1 : (i == 3) ? 1 : 0); // Left / Right
-							final int currY = by + ((i == 4) ? 1 : (i == 5) ? -1 : 0); // Up / Down
-							final float cz = calculateBlock(chunk.position.z, currZ);
-							final float cx = calculateBlock(chunk.position.x, currX);
-							final float cy = calculateBlock(chunk.position.y, currY);
+						if (faceUpdates != null && faceUpdates.length != 0) {
+							for (int i = 0; i < 6; i++) {
+								final int currZ = Chunk.inverseBlock(Chunk.getPosition(chunk).z, block.getPosition().z) + ((i == 0) ? 1 : (i == 1) ? -1 : 0); // Front / Back
+								final int currX = Chunk.inverseBlock(Chunk.getPosition(chunk).x, block.getPosition().x) + ((i == 2) ? -1 : (i == 3) ? 1 : 0); // Left / Right
+								final int currY = Chunk.inverseBlock(Chunk.getPosition(chunk).y, block.getPosition().y) + ((i == 4) ? 1 : (i == 5) ? -1 : 0); // Up / Down
+								final float cz = Chunk.calculateBlock(Chunk.getPosition(chunk).z, currZ);
+								final float cx = Chunk.calculateBlock(Chunk.getPosition(chunk).x, currX);
+								final float cy = Chunk.calculateBlock(Chunk.getPosition(chunk).y, currY);
 
-							if (faceUpdates != null) {
 								for (UpdateFaces faceUpdate : faceUpdates) {
 									if (faceUpdate != null) {
 										faceUpdate.update(chunk, block, i, cx, cy, cz);

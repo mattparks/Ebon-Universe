@@ -130,6 +130,7 @@ public class Block {
 			this.face = face;
 			this.stretch = null;
 			this.covered = true;
+			this.blockNearby = false;
 		}
 
 		public BlockFaces getFace() {
@@ -164,7 +165,7 @@ public class Block {
 			return blockNearby;
 		}
 
-		public void setBlockNearby(boolean blockNearby) {
+		public void setBlockNearby(final boolean blockNearby) {
 			this.blockNearby = blockNearby;
 		}
 	}

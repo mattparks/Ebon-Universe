@@ -13,13 +13,13 @@ public class WorldManager {
 	private static final List<Chunk> CHUNK_LIST = new ArrayList<>();
 	private static final NoisePerlin NOISE = new NoisePerlin((int) GameSeed.getSeed());
 
-	private static final UpdateBlock UPDATE_1_BLOCK[] = new UpdateBlock[]{ WorldManager::update1BlockVisibility, WorldManager::update1BlockPreMerge };
-	private static final UpdateFaces UPDATE_1_FACES[] = new UpdateFaces[]{ WorldManager::update1FaceCovered };
+	private static final UpdateBlock UPDATE_1_BLOCK[] = new UpdateBlock[]{WorldManager::update1BlockVisibility, WorldManager::update1BlockPreMerge};
+	private static final UpdateFaces UPDATE_1_FACES[] = new UpdateFaces[]{WorldManager::update1FaceCovered};
 
-	private static final UpdateBlock UPDATE_2_BLOCK[] = new UpdateBlock[]{ WorldManager::update2BlockMerge };
+	private static final UpdateBlock UPDATE_2_BLOCK[] = new UpdateBlock[]{WorldManager::update2BlockMerge};
 	private static final UpdateFaces UPDATE_2_FACES[] = new UpdateFaces[]{};
 
-	private static final UpdateBlock UPDATE_3_BLOCK[] = new UpdateBlock[]{ WorldManager::update3BlockFaceCount };
+	private static final UpdateBlock UPDATE_3_BLOCK[] = new UpdateBlock[]{WorldManager::update3BlockFaceCount};
 	private static final UpdateFaces UPDATE_3_FACES[] = new UpdateFaces[]{};
 
 	private static long TIMER_OFFSET = 2000;
@@ -107,15 +107,15 @@ public class WorldManager {
 			return;
 		}
 
+		parent.getFaces()[faceIndex].setCovered(false);
+		parent.getFaces()[faceIndex].setBlockNearby(false);
+
+		if (parent.getFaces()[faceIndex].isStretched()) {
+			parent.getFaces()[faceIndex].setStretch(BlockTypes.BLOCK_EXTENT, BlockTypes.BLOCK_EXTENT, BlockTypes.BLOCK_EXTENT);
+		}
+
 		if (WorldManager.blockExists(cx, cy, cz)) {
 			parent.getFaces()[faceIndex].setCovered(true);
-		} else {
-			parent.getFaces()[faceIndex].setCovered(false);
-			parent.getFaces()[faceIndex].setBlockNearby(false);
-
-			if (parent.getFaces()[faceIndex].isStretched()) {
-				parent.getFaces()[faceIndex].setStretch(BlockTypes.BLOCK_EXTENT, BlockTypes.BLOCK_EXTENT, BlockTypes.BLOCK_EXTENT);
-			}
 		}
 	}
 

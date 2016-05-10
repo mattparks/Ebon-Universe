@@ -9,13 +9,13 @@ public class Block {
 	public static final Vector3f POSITION_REUSABLE = new Vector3f(0, 0, 0);
 	public static final Vector3f SCALE_REUSABLE = new Vector3f(0, 0, 0);
 
-	private final BlockType type;
+	private final BlockTypes type;
 	private final Vector3f position;
 	private final AABB aabb;
 	private final BlockVisible[] faces;
 	private boolean visible;
 
-	public Block(final BlockType type, final Vector3f position) {
+	public Block(final BlockTypes type, final Vector3f position) {
 		this.type = type;
 		this.position = position;
 		this.aabb = new AABB();
@@ -33,43 +33,49 @@ public class Block {
 	}
 
 	private static AABB updateBlockAABB(final Block block, AABB aabb) {
-		aabb.setMinExtents(block.position.x - BlockType.BLOCK_EXTENT, block.position.y - BlockType.BLOCK_EXTENT, block.position.z - BlockType.BLOCK_EXTENT);
-		aabb.setMaxExtents(block.position.x + BlockType.BLOCK_EXTENT, block.position.y + BlockType.BLOCK_EXTENT, block.position.z + BlockType.BLOCK_EXTENT);
+		aabb.setMinExtents(block.position.x - BlockTypes.BLOCK_EXTENT, block.position.y - BlockTypes.BLOCK_EXTENT, block.position.z - BlockTypes.BLOCK_EXTENT);
+		aabb.setMaxExtents(block.position.x + BlockTypes.BLOCK_EXTENT, block.position.y + BlockTypes.BLOCK_EXTENT, block.position.z + BlockTypes.BLOCK_EXTENT);
 		return aabb;
 	}
 
 	protected static Matrix4f blockModelMatrix(final Block block, final int face, Matrix4f modelMatrix) {
 		POSITION_REUSABLE.set(block.getPosition());
 		ROTATION_REUSABLE.set(0.0f, 0.0f, 0.0f);
-		SCALE_REUSABLE.set(block.getFaces()[face].getStretch());
+
+		if (block.getFaces()[face].getStretch() != null) {
+			SCALE_REUSABLE.set(block.getFaces()[face].getStretch());
+		} else {
+			SCALE_REUSABLE.set(BlockTypes.BLOCK_EXTENT, BlockTypes.BLOCK_EXTENT, BlockTypes.BLOCK_EXTENT);
+		}
+
 		blockPaneUpdate(block.getFaces()[face].getFace(), ROTATION_REUSABLE, POSITION_REUSABLE);
-		Matrix4f.transformationMatrix(POSITION_REUSABLE, ROTATION_REUSABLE, SCALE_REUSABLE, modelMatrix);
-		return modelMatrix;
+
+		return Matrix4f.transformationMatrix(POSITION_REUSABLE, ROTATION_REUSABLE, SCALE_REUSABLE, modelMatrix);
 	}
 
 	private static void blockPaneUpdate(final BlockFaces faces, final Vector3f rotation, final Vector3f position) {
 		switch (faces) {
 			case FRONT:
 				rotation.x = 90.0f;
-				position.z += BlockType.BLOCK_EXTENT;
+				position.z += BlockTypes.BLOCK_EXTENT;
 				break;
 			case BACK:
 				rotation.x = 90.0f;
-				position.z -= BlockType.BLOCK_EXTENT;
+				position.z -= BlockTypes.BLOCK_EXTENT;
 				break;
 			case LEFT:
 				rotation.z = 90.0f;
-				position.x -= BlockType.BLOCK_EXTENT;
+				position.x -= BlockTypes.BLOCK_EXTENT;
 				break;
 			case RIGHT:
 				rotation.z = 90.0f;
-				position.x += BlockType.BLOCK_EXTENT;
+				position.x += BlockTypes.BLOCK_EXTENT;
 				break;
 			case UP:
-				position.y += BlockType.BLOCK_EXTENT;
+				position.y += BlockTypes.BLOCK_EXTENT;
 				break;
 			case DOWN:
-				position.y -= BlockType.BLOCK_EXTENT;
+				position.y -= BlockTypes.BLOCK_EXTENT;
 				break;
 		}
 	}
@@ -90,7 +96,7 @@ public class Block {
 		return count;
 	}
 
-	public BlockType getType() {
+	public BlockTypes getType() {
 		return type;
 	}
 
@@ -114,18 +120,14 @@ public class Block {
 		this.visible = visible;
 	}
 
-	public enum BlockFaces {
-		FRONT, BACK, LEFT, RIGHT, UP, DOWN
-	}
-
 	public class BlockVisible {
 		private final BlockFaces face;
-		private final Vector3f stretch;
+		private Vector3f stretch;
 		private boolean covered;
 
 		public BlockVisible(final BlockFaces face) {
 			this.face = face;
-			this.stretch = new Vector3f(BlockType.BLOCK_EXTENT, BlockType.BLOCK_EXTENT, BlockType.BLOCK_EXTENT);
+			this.stretch = null;
 			this.covered = true;
 		}
 
@@ -138,11 +140,15 @@ public class Block {
 		}
 
 		public void setStretch(final float x, final float y, final float z) {
+			if (stretch == null) {
+				stretch = new Vector3f(BlockTypes.BLOCK_EXTENT, BlockTypes.BLOCK_EXTENT, BlockTypes.BLOCK_EXTENT);
+			}
+
 			stretch.set(x, y, z);
 		}
 
 		public boolean isStretched() {
-			return stretch.x != 1.0f || stretch.y != 1.0f || stretch.z != 1.0f;
+			return stretch != null && (stretch.x != 1.0f || stretch.y != 1.0f || stretch.z != 1.0f);
 		}
 
 		public boolean isCovered() {

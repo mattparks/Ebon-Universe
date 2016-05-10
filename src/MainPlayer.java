@@ -38,10 +38,10 @@ public class MainPlayer {
 
 	public void update(final boolean paused) {
 		if (!paused) {
-			final float cameraYaw = FlounderEngine.getCamera().getYaw();
-			direction.z = -FRONT_SPEED * FlounderEngine.getDelta() * Maths.deadband(0.05f, inputForward.getAmount());
-			direction.y = -UP_SPEED * 0.0f;
-			direction.x = -SIDE_SPEED * FlounderEngine.getDelta() * Maths.deadband(0.05f, inputTurn.getAmount());
+			final float yawRadians = (float) Math.toRadians(FlounderEngine.getCamera().getYaw());
+			direction.z = (float) (-FRONT_SPEED * FlounderEngine.getDelta() * Maths.deadband(0.05f, inputForward.getAmount())); //  * Math.sin(yawRadians)
+			direction.y = (float) (-UP_SPEED * 0.0f);
+			direction.x = (float) (-SIDE_SPEED * FlounderEngine.getDelta() * Maths.deadband(0.05f, inputTurn.getAmount())); //  * Math.cos(yawRadians)
 			// Vector3f.rotate(direction, cameraYaw, DIRECTION_AXIS, DIRECTION_CENTRE, direction);
 
 			boolean pevInsideBlock = WorldManager.insideBlock(position);

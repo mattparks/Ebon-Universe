@@ -17,21 +17,23 @@ public class Chunk {
 	private int faceCount;
 	private boolean forceUpdate;
 	private boolean visible;
+	private boolean empty;
 
-	protected Chunk(final Vector3f position, final NoiseOpenSimplex noise, final Random random) {
+	protected Chunk(final Vector3f position, final NoisePerlin noise, final Random random) {
 		this.position = position;
 		this.blocks = new Block[CHUNK_SIZE][CHUNK_SIZE][CHUNK_SIZE + 1];
 		this.aabb = new AABB(
-				Vector3f.subtract(position, new Vector3f(BlockType.BLOCK_EXTENT, BlockType.BLOCK_EXTENT, BlockType.BLOCK_EXTENT), null),
+				Vector3f.subtract(position, new Vector3f(BlockTypes.BLOCK_EXTENT, BlockTypes.BLOCK_EXTENT, BlockTypes.BLOCK_EXTENT), null),
 				Vector3f.subtract(new Vector3f(
-						(position.x + (2.0f * CHUNK_SIZE) * BlockType.BLOCK_EXTENT),
-						(position.y + (2.0f * CHUNK_SIZE) * BlockType.BLOCK_EXTENT),
-						(position.z + (2.0f * CHUNK_SIZE) * BlockType.BLOCK_EXTENT)
-				), new Vector3f(BlockType.BLOCK_EXTENT, BlockType.BLOCK_EXTENT, BlockType.BLOCK_EXTENT), null)
+						(position.x + (2.0f * CHUNK_SIZE) * BlockTypes.BLOCK_EXTENT),
+						(position.y + (2.0f * CHUNK_SIZE) * BlockTypes.BLOCK_EXTENT),
+						(position.z + (2.0f * CHUNK_SIZE) * BlockTypes.BLOCK_EXTENT)
+				), new Vector3f(BlockTypes.BLOCK_EXTENT, BlockTypes.BLOCK_EXTENT, BlockTypes.BLOCK_EXTENT), null)
 		);
 		this.faceCount = 0;
 		this.forceUpdate = true;
 		this.visible = false;
+		this.empty = true;
 		generate(noise);
 		populate(random);
 	}
@@ -84,16 +86,16 @@ public class Chunk {
 		return null;
 	}
 
-	public static Block createBlock(final Chunk chunk, final int x, final int y, final int z, final BlockType type) {
+	public static Block createBlock(final Chunk chunk, final int x, final int y, final int z, final BlockTypes type) {
 		return new Block(type, new Vector3f(calculateBlock(chunk.position.x, x), calculateBlock(chunk.position.y, y), calculateBlock(chunk.position.z, z)));
 	}
 
 	protected static float calculateBlock(final float position, final int array) {
-		return position + (2.0f * array * BlockType.BLOCK_EXTENT);
+		return position + (2.0f * array * BlockTypes.BLOCK_EXTENT);
 	}
 
 	protected static int inverseBlock(final float position, final float component) {
-		return (int) ((component - position) / (2.0f * BlockType.BLOCK_EXTENT)); // TODO: Double check maths here...
+		return (int) ((component - position) / (2.0f * BlockTypes.BLOCK_EXTENT));
 	}
 
 	public static boolean inChunkBounds(final float x, final float y, final float z) {
@@ -104,7 +106,9 @@ public class Chunk {
 		return inChunkBounds(x, y, z) && chunk.getBlock(x, y, z) != null;
 	}
 
-	protected static void runFaceUpdate(final Chunk chunk, final FaceUpdates... faceUpdates) {
+	protected static void update(final Chunk chunk, final FaceUpdates... faceUpdates) {
+		chunk.empty = true;
+
 		for (int x = 0; x < chunk.blocks.length; x++) {
 			for (int z = 0; z < chunk.blocks[x].length; z++) {
 				for (int y = 0; y < chunk.blocks[z].length; y++) {
@@ -124,48 +128,51 @@ public class Chunk {
 							final float cy = calculateBlock(chunk.position.y, currY);
 							final float cz = calculateBlock(chunk.position.z, currZ);
 
-							for (FaceUpdates updates : faceUpdates) {
-								if (updates != null) {
-									updates.update(chunk, block, i, cx, cy, cz);
+							for (FaceUpdates face : faceUpdates) {
+								if (face != null) {
+									face.update(chunk, block, i, cx, cy, cz);
 								}
 							}
 						}
+
+						chunk.empty = false;
 					}
 				}
 			}
 		}
 	}
 
-	private void generate(final NoiseOpenSimplex noise) {
+	private void generate(final NoisePerlin noise) {
 		for (int x = 0; x < blocks.length; x++) {
 			for (int z = 0; z < blocks[x].length; z++) {
 				for (int y = 0; y < blocks[z].length; y++) {
-					BlockType type = null;
-					/*int posX = (int) position.x + x;
-					int posY = (int) position.y + y;
-					int posZ = (int) position.z + z;
+					BlockTypes type = null;
+					/*final int posX = (int) position.x + x;
+					final int posY = (int) position.y + y;
+					final int posZ = (int) position.z + z;
 
 					float height = ((float) noise.eval((double) posX / 50d, (double) posY / 50d, (double) posZ / 50d) + 1f) * (float) CHUNK_SIZE;
 
 					if (posY < height) {
-						type = BlockType.get("game::stone");
+						type = BlockTypes.get("game::stone");
 					} else if (posY - 1f <= height) {
 						if (posY <= SEA_LEVEL + 1) {
-							type = BlockType.get("game::sand");
+							type = BlockTypes.get("game::sand");
 						} else {
-							type = BlockType.get("game::grass");
+							type = BlockTypes.get("game::grass");
 						}
 					} else {
 						if (posY <= SEA_LEVEL) {
-							type = BlockType.get("game::water");
+							type = BlockTypes.get("game::water");
 						} else {
 							type = null;
 						}
 					}*/
 
-					type = BlockType.get("game::stone");
+					type = BlockTypes.get("game::stone");
 
 					if (type != null) {
+						empty = false;
 						blocks[x][z][y] = createBlock(this, x, y, z, type);
 					}
 				}
@@ -182,14 +189,14 @@ public class Chunk {
 					if (block != null) {
 						if (block.getType().getName().equals("game::stone")) {
 							int rand = random.nextInt(10000);
-							BlockType type = null;
+							BlockTypes type = null;
 
 							if (rand <= 100) {
-								type = BlockType.get("game::coalOre");
+								type = BlockTypes.get("game::coalOre");
 							} else if (rand > 100 && rand <= 150) {
-								type = BlockType.get("game::ironOre");
+								type = BlockTypes.get("game::ironOre");
 							} else if (rand > 150 && rand <= 160) {
-								type = BlockType.get("game::goldOre");
+								type = BlockTypes.get("game::goldOre");
 							}
 
 							if (type != null) {
@@ -206,8 +213,14 @@ public class Chunk {
 		return blocks[x][z][y];
 	}
 
-	protected void setBlock(final Block block, final int x, final int y, final int z) {
+	protected void putBlock(final Block block, final int x, final int y, final int z) {
 		blocks[x][z][y] = block;
+		forceUpdate = true;
+	}
+
+	protected void removeBlock(final int x, final int y, final int z) {
+		blocks[x][z][y] = null;
+		forceUpdate = true;
 	}
 
 	protected Vector3f getPosition() {
@@ -250,7 +263,7 @@ public class Chunk {
 		faceCount += newFaces;
 	}
 
-	protected interface FaceUpdates {
-		void update(final Chunk chunk, final Block parent, final int faceIndex, final float cx, final float cy, final float cz);
+	public boolean isEmpty() {
+		return empty;
 	}
 }

@@ -14,7 +14,7 @@ public class Chunk {
 	private final Vector3f position;
 	private final Block[][][] blocks;
 	private final AABB aabb;
-	private int faceCount;
+
 	private boolean forceUpdate;
 	private boolean visible;
 	private boolean empty;
@@ -30,7 +30,7 @@ public class Chunk {
 						(position.z + (2.0f * CHUNK_SIZE) * BlockTypes.BLOCK_EXTENT)
 				), new Vector3f(BlockTypes.BLOCK_EXTENT, BlockTypes.BLOCK_EXTENT, BlockTypes.BLOCK_EXTENT), null)
 		);
-		this.faceCount = 0;
+
 		this.forceUpdate = true;
 		this.visible = false;
 		this.empty = true;
@@ -106,7 +106,7 @@ public class Chunk {
 		return inChunkBounds(x, y, z) && Chunk.getBlock(chunk, x, y, z) != null;
 	}
 
-	protected static void update(final Chunk chunk, final UpdateBlock[] blockUpdates, final UpdateFaces[] faceUpdates) {
+	protected static void update(final Chunk chunk, final UpdateFaces... faceUpdates) {
 		chunk.empty = true;
 
 		for (int x = 0; x < chunk.blocks.length; x++) {
@@ -115,26 +115,20 @@ public class Chunk {
 					final Block block = chunk.blocks[x][z][y];
 
 					if (block != null) {
-						if (blockUpdates != null && blockUpdates.length != 0) {
-							for (final UpdateBlock blockUpdate : blockUpdates) {
-								if (blockUpdate != null) {
-									blockUpdate.update(chunk, block);
-								}
-							}
-						}
+						block.setVisible(FlounderEngine.getCamera().getViewFrustum().aabbInFrustum(block.getAABB()));
 
 						if (faceUpdates != null && faceUpdates.length != 0) {
-							for (int i = 0; i < 6; i++) {
-								final int currZ = Chunk.inverseBlock(Chunk.getPosition(chunk).z, block.getPosition().z) + ((i == 0) ? 1 : (i == 1) ? -1 : 0); // Front / Back
-								final int currX = Chunk.inverseBlock(Chunk.getPosition(chunk).x, block.getPosition().x) + ((i == 2) ? -1 : (i == 3) ? 1 : 0); // Left / Right
-								final int currY = Chunk.inverseBlock(Chunk.getPosition(chunk).y, block.getPosition().y) + ((i == 4) ? 1 : (i == 5) ? -1 : 0); // Up / Down
+							for (int f = 0; f < 6; f++) {
+								final int currZ = Chunk.inverseBlock(Chunk.getPosition(chunk).z, block.getPosition().z) + ((f == 0) ? 1 : (f == 1) ? -1 : 0); // Front / Back
+								final int currX = Chunk.inverseBlock(Chunk.getPosition(chunk).x, block.getPosition().x) + ((f == 2) ? -1 : (f == 3) ? 1 : 0); // Left / Right
+								final int currY = Chunk.inverseBlock(Chunk.getPosition(chunk).y, block.getPosition().y) + ((f == 4) ? 1 : (f == 5) ? -1 : 0); // Up / Down
 								final float cz = Chunk.calculateBlock(Chunk.getPosition(chunk).z, currZ);
 								final float cx = Chunk.calculateBlock(Chunk.getPosition(chunk).x, currX);
 								final float cy = Chunk.calculateBlock(Chunk.getPosition(chunk).y, currY);
 
 								for (final UpdateFaces faceUpdate : faceUpdates) {
 									if (faceUpdate != null) {
-										faceUpdate.update(chunk, block, i, cx, cy, cz);
+										faceUpdate.update(chunk, block, f, cx, cy, cz);
 									}
 								}
 							}
@@ -227,8 +221,23 @@ public class Chunk {
 		chunk.visible = FlounderEngine.getCamera().getViewFrustum().aabbInFrustum(chunk.aabb);
 	}
 
+
 	protected static int getFaceCount(final Chunk chunk) {
-		return chunk.faceCount;
+		int faces = 0;
+
+		for (int x = 0; x < chunk.blocks.length; x++) {
+			for (int z = 0; z < chunk.blocks[x].length; z++) {
+				for (int y = 0; y < chunk.blocks[z].length; y++) {
+					final Block block = chunk.blocks[x][z][y];
+
+					if (block != null) {
+						faces += block.getVisibleFaces();
+					}
+				}
+			}
+		}
+
+		return faces;
 	}
 
 	protected static boolean getForceUpdate(final Chunk chunk) {
@@ -237,14 +246,6 @@ public class Chunk {
 
 	protected static void setForceUpdate(final Chunk chunk, final boolean forceUpdate) {
 		chunk.forceUpdate = forceUpdate;
-	}
-
-	protected static void resetFaceCount(final Chunk chunk) {
-		chunk.faceCount = 0;
-	}
-
-	protected static void addFaceCount(final Chunk chunk, final int newFaces) {
-		chunk.faceCount += newFaces;
 	}
 
 	public static boolean isEmpty(final Chunk chunk) {

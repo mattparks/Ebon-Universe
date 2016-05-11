@@ -12,7 +12,7 @@ public class Block {
 	private final BlockTypes type;
 	private final Vector3f position;
 	private final AABB aabb;
-	private final BlockVisible[] faces;
+	private final BlockFace[] faces;
 	private boolean visible;
 
 	public Block(final BlockTypes type, final Vector3f position) {
@@ -23,13 +23,13 @@ public class Block {
 
 		updateBlockAABB(this, aabb);
 
-		this.faces = new BlockVisible[6];
-		this.faces[0] = new BlockVisible(BlockFaces.FRONT);
-		this.faces[1] = new BlockVisible(BlockFaces.BACK);
-		this.faces[2] = new BlockVisible(BlockFaces.LEFT);
-		this.faces[3] = new BlockVisible(BlockFaces.RIGHT);
-		this.faces[4] = new BlockVisible(BlockFaces.UP);
-		this.faces[5] = new BlockVisible(BlockFaces.DOWN);
+		this.faces = new BlockFace[6];
+		this.faces[0] = new BlockFace(FaceTypes.FRONT);
+		this.faces[1] = new BlockFace(FaceTypes.BACK);
+		this.faces[2] = new BlockFace(FaceTypes.LEFT);
+		this.faces[3] = new BlockFace(FaceTypes.RIGHT);
+		this.faces[4] = new BlockFace(FaceTypes.UP);
+		this.faces[5] = new BlockFace(FaceTypes.DOWN);
 	}
 
 	private static AABB updateBlockAABB(final Block block, AABB aabb) {
@@ -53,7 +53,7 @@ public class Block {
 		return Matrix4f.transformationMatrix(POSITION_REUSABLE, ROTATION_REUSABLE, SCALE_REUSABLE, modelMatrix);
 	}
 
-	private static void blockPaneUpdate(final BlockFaces faces, final Vector3f rotation, final Vector3f position) {
+	private static void blockPaneUpdate(final FaceTypes faces, final Vector3f rotation, final Vector3f position) {
 		switch (faces) {
 			case FRONT:
 				rotation.x = 90.0f;
@@ -104,7 +104,7 @@ public class Block {
 		return position;
 	}
 
-	public BlockVisible[] getFaces() {
+	public BlockFace[] getFaces() {
 		return faces;
 	}
 
@@ -120,20 +120,20 @@ public class Block {
 		this.visible = visible;
 	}
 
-	public class BlockVisible {
-		private final BlockFaces face;
+	public class BlockFace {
+		private final FaceTypes face;
 		private Vector3f stretch;
 		private boolean covered;
 		private boolean blockNearby;
 
-		public BlockVisible(final BlockFaces face) {
+		public BlockFace(final FaceTypes face) {
 			this.face = face;
 			this.stretch = null;
 			this.covered = true;
 			this.blockNearby = false;
 		}
 
-		public BlockFaces getFace() {
+		public FaceTypes getFace() {
 			return face;
 		}
 
@@ -143,7 +143,7 @@ public class Block {
 
 		public void setStretch(final float x, final float y, final float z) {
 			if (stretch == null) {
-				stretch = new Vector3f(BlockTypes.BLOCK_EXTENT, BlockTypes.BLOCK_EXTENT, BlockTypes.BLOCK_EXTENT);
+				stretch = new Vector3f();
 			}
 
 			stretch.set(x, y, z);

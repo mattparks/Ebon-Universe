@@ -13,15 +13,6 @@ public class WorldManager {
 	private static final List<Chunk> CHUNK_LIST = new ArrayList<>();
 	private static final NoisePerlin NOISE = new NoisePerlin((int) GameSeed.getSeed());
 
-	private static final UpdateBlock UPDATE_1_BLOCK[] = new UpdateBlock[]{WorldManager::update1BlockVisibility, WorldManager::update1BlockPreMerge};
-	private static final UpdateFaces UPDATE_1_FACES[] = new UpdateFaces[]{WorldManager::update1FaceCovered};
-
-	private static final UpdateBlock UPDATE_2_BLOCK[] = new UpdateBlock[]{WorldManager::update2BlockMerge};
-	private static final UpdateFaces UPDATE_2_FACES[] = new UpdateFaces[]{};
-
-	private static final UpdateBlock UPDATE_3_BLOCK[] = new UpdateBlock[]{WorldManager::update3BlockFaceCount};
-	private static final UpdateFaces UPDATE_3_FACES[] = new UpdateFaces[]{};
-
 	private static long TIMER_OFFSET = 2000;
 	private static long TIMER_TESTING = System.currentTimeMillis() + TIMER_OFFSET;
 
@@ -45,19 +36,14 @@ public class WorldManager {
 		}
 
 		for (final Chunk chunk : CHUNK_LIST) {
-			Chunk.resetFaceCount(chunk);
-
-			Chunk.update(chunk, UPDATE_1_BLOCK, UPDATE_1_FACES);
-			Chunk.update(chunk, UPDATE_2_BLOCK, UPDATE_2_FACES);
-			Chunk.update(chunk, UPDATE_3_BLOCK, UPDATE_3_FACES);
-
+			Chunk.update(chunk, WorldManager::updateCovered, WorldManager::updatePremerge);
+			Chunk.update(chunk, WorldManager::updateMerge);
 			Chunk.updateVisibility(chunk);
+			Chunk.setForceUpdate(chunk, false);
 
 			if (Chunk.isVisible(chunk)) {
 				AABBManager.addAABBRender(Chunk.getAABB(chunk));
 			}
-
-			Chunk.setForceUpdate(chunk, false);
 		}
 	}
 
@@ -70,49 +56,7 @@ public class WorldManager {
 		}
 	}
 
-	private static void update1BlockVisibility(final Chunk chunk, final Block block) {
-		block.setVisible(FlounderEngine.getCamera().getViewFrustum().aabbInFrustum(block.getAABB()));
-	}
-
-	private static void update1BlockPreMerge(final Chunk chunk, final Block block) {
-		if (!Chunk.getForceUpdate(chunk)) {
-			return;
-		}
-
-		for (int i = 0; i < 6; i++) {
-			final int currZ = Chunk.inverseBlock(Chunk.getPosition(chunk).z, block.getPosition().z) + ((i == 0) ? 1 : (i == 1) ? -1 : 0); // Front / Back
-			final int currX = Chunk.inverseBlock(Chunk.getPosition(chunk).x, block.getPosition().x) + ((i == 2) ? -1 : (i == 3) ? 1 : 0); // Left / Right
-			final int currY = Chunk.inverseBlock(Chunk.getPosition(chunk).y, block.getPosition().y) + ((i == 4) ? 1 : (i == 5) ? -1 : 0); // Up / Down
-			final float cz = Chunk.calculateBlock(Chunk.getPosition(chunk).z, currZ);
-			final float cx = Chunk.calculateBlock(Chunk.getPosition(chunk).x, currX);
-			final float cy = Chunk.calculateBlock(Chunk.getPosition(chunk).y, currY);
-			final Block nearby = WorldManager.getBlock(cx, cy, cz);
-			final boolean blockNearby = nearby != null && nearby.getType().equals(block.getType());
-
-			if (i != 0 && i != 1) { // Front / Back
-				if (!block.getFaces()[0].isBlockNearby() || !block.getFaces()[1].isBlockNearby()) {
-					block.getFaces()[0].setBlockNearby(blockNearby);
-					block.getFaces()[1].setBlockNearby(blockNearby);
-				}
-			}
-
-			if (i != 2 && i != 3) { // Left / Right
-				if (!block.getFaces()[2].isBlockNearby() || !block.getFaces()[3].isBlockNearby()) {
-					block.getFaces()[2].setBlockNearby(blockNearby);
-					block.getFaces()[3].setBlockNearby(blockNearby);
-				}
-			}
-
-			if (i != 4 && i != 5) { // Up / Down
-				if (!block.getFaces()[4].isBlockNearby() || !block.getFaces()[5].isBlockNearby()) {
-					block.getFaces()[4].setBlockNearby(blockNearby);
-					block.getFaces()[5].setBlockNearby(blockNearby);
-				}
-			}
-		}
-	}
-
-	private static void update1FaceCovered(final Chunk chunk, final Block parent, final int faceIndex, final float cx, final float cy, final float cz) {
+	private static void updateCovered(final Chunk chunk, final Block parent, final int faceIndex, final float cx, final float cy, final float cz) {
 		if (!Chunk.getForceUpdate(chunk)) {
 			return;
 		}
@@ -124,22 +68,48 @@ public class WorldManager {
 		}
 	}
 
-	private static void update2BlockMerge(final Chunk chunk, final Block block) {
+	private static void updatePremerge(final Chunk chunk, final Block block, final int faceIndex, final float cx, final float cy, final float cz) {
+		if (!Chunk.getForceUpdate(chunk) || !block.getFaces()[faceIndex].isCovered()) {
+			return;
+		}
+
+		final Block nearby = WorldManager.getBlock(cx, cy, cz);
+		final boolean blockNearby = nearby != null && nearby.getType().equals(block.getType());
+
+		if (faceIndex != 0 && faceIndex != 1) { // Front / Back
+			if (!block.getFaces()[0].isBlockNearby() || !block.getFaces()[1].isBlockNearby()) {
+				block.getFaces()[0].setBlockNearby(blockNearby);
+				block.getFaces()[1].setBlockNearby(blockNearby);
+			}
+		}
+
+		if (faceIndex != 2 && faceIndex != 3) { // Left / Right
+			if (!block.getFaces()[2].isBlockNearby() || !block.getFaces()[3].isBlockNearby()) {
+				block.getFaces()[2].setBlockNearby(blockNearby);
+				block.getFaces()[3].setBlockNearby(blockNearby);
+			}
+		}
+
+		if (faceIndex != 4 && faceIndex != 5) { // Up / Down
+			if (!block.getFaces()[4].isBlockNearby() || !block.getFaces()[5].isBlockNearby()) {
+				block.getFaces()[4].setBlockNearby(blockNearby);
+				block.getFaces()[5].setBlockNearby(blockNearby);
+			}
+		}
+	}
+
+	private static void updateMerge(final Chunk chunk, final Block block, final int faceIndex, final float cx, final float cy, final float cz) {
 		if (!Chunk.getForceUpdate(chunk)) {
 			return;
 		}
 
-		for (int i = 0; i < 6; i++) {
-			final boolean blockNearby = block.getFaces()[i].isBlockNearby();
+		if (!block.getFaces()[faceIndex].isCovered()) {
+			final boolean blockNearby = block.getFaces()[faceIndex].isBlockNearby();
 
 			if (blockNearby) {
 				// TODO: BlockNearby && !BlockNearby.isCovered ? MERGE
 			}
 		}
-	}
-
-	private static void update3BlockFaceCount(final Chunk chunk, final Block block) {
-		Chunk.addFaceCount(chunk, block.getVisibleFaces());
 	}
 
 	public static boolean blockExists(final float x, final float y, final float z) {

@@ -100,15 +100,15 @@ public class BlockRenderer extends IRenderer {
 		OpenglUtils.bindVAO(VAO, 0, 1, 2, 3, 4, 5);
 	}
 
-	private void loadBlockFaces(final Block b, final float[] vboData) {
-		if (b == null || !b.isVisible()) {
+	private void loadBlockFaces(final Block block, final float[] vboData) {
+		if (block == null || !block.isVisible()) {
 			return;
 		}
 
 		for (int f = 0; f < 6; f++) {
-			if (!b.getFaces()[f].isCovered()) {
-				Block.blockModelMatrix(b, f, modelMatrix);
-				final Colour colour = b.getType().getColour();
+			if (!block.getFaces()[f].isCovered()) {
+				Block.blockModelMatrix(block, f, modelMatrix);
+				final Colour colour = block.getType().getColour();
 
 				vboData[pointer++] = modelMatrix.m00;
 				vboData[pointer++] = modelMatrix.m01;

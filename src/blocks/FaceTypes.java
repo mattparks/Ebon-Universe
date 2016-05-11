@@ -1,5 +1,5 @@
 package blocks;
 
-public enum BlockFaces {
+public enum FaceTypes {
 	FRONT, BACK, LEFT, RIGHT, UP, DOWN
 }

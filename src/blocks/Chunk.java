@@ -116,7 +116,7 @@ public class Chunk {
 
 					if (block != null) {
 						if (blockUpdates != null && blockUpdates.length != 0) {
-							for (UpdateBlock blockUpdate : blockUpdates) {
+							for (final UpdateBlock blockUpdate : blockUpdates) {
 								if (blockUpdate != null) {
 									blockUpdate.update(chunk, block);
 								}
@@ -132,7 +132,7 @@ public class Chunk {
 								final float cx = Chunk.calculateBlock(Chunk.getPosition(chunk).x, currX);
 								final float cy = Chunk.calculateBlock(Chunk.getPosition(chunk).y, currY);
 
-								for (UpdateFaces faceUpdate : faceUpdates) {
+								for (final UpdateFaces faceUpdate : faceUpdates) {
 									if (faceUpdate != null) {
 										faceUpdate.update(chunk, block, i, cx, cy, cz);
 									}
@@ -152,6 +152,7 @@ public class Chunk {
 			for (int z = 0; z < blocks[x].length; z++) {
 				for (int y = 0; y < blocks[z].length; y++) {
 					BlockTypes type = null;
+
 					type = BlockTypes.get("game::stone");
 
 					if (type != null) {

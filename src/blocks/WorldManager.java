@@ -80,24 +80,34 @@ public class WorldManager {
 		}
 
 		for (int i = 0; i < 6; i++) {
-			final int currZ = Chunk.inverseBlock(Chunk.getPosition(chunk).x, block.getPosition().z) + ((i == 0) ? 1 : (i == 1) ? -1 : 0); // Front / Back
+			final int currZ = Chunk.inverseBlock(Chunk.getPosition(chunk).z, block.getPosition().z) + ((i == 0) ? 1 : (i == 1) ? -1 : 0); // Front / Back
 			final int currX = Chunk.inverseBlock(Chunk.getPosition(chunk).x, block.getPosition().x) + ((i == 2) ? -1 : (i == 3) ? 1 : 0); // Left / Right
-			final int currY = Chunk.inverseBlock(Chunk.getPosition(chunk).x, block.getPosition().y) + ((i == 4) ? 1 : (i == 5) ? -1 : 0); // Up / Down
+			final int currY = Chunk.inverseBlock(Chunk.getPosition(chunk).y, block.getPosition().y) + ((i == 4) ? 1 : (i == 5) ? -1 : 0); // Up / Down
 			final float cz = Chunk.calculateBlock(Chunk.getPosition(chunk).z, currZ);
 			final float cx = Chunk.calculateBlock(Chunk.getPosition(chunk).x, currX);
 			final float cy = Chunk.calculateBlock(Chunk.getPosition(chunk).y, currY);
 			final Block nearby = WorldManager.getBlock(cx, cy, cz);
 			final boolean blockNearby = nearby != null && nearby.getType().equals(block.getType());
 
-			if (i == 0 || i == 1) { // Front / Back
-				block.getFaces()[0].setBlockNearby(blockNearby);
-				block.getFaces()[1].setBlockNearby(blockNearby);
-			} else if (i == 2 || i == 3) { // Left / Right
-				block.getFaces()[2].setBlockNearby(blockNearby);
-				block.getFaces()[3].setBlockNearby(blockNearby);
-			} else if (i == 4 || i == 5) { // Up / Down
-				block.getFaces()[4].setBlockNearby(blockNearby);
-				block.getFaces()[5].setBlockNearby(blockNearby);
+			if (i != 0 && i != 1) { // Front / Back
+				if (!block.getFaces()[0].isBlockNearby() || !block.getFaces()[1].isBlockNearby()) {
+					block.getFaces()[0].setBlockNearby(blockNearby);
+					block.getFaces()[1].setBlockNearby(blockNearby);
+				}
+			}
+
+			if (i != 2 && i != 3) { // Left / Right
+				if (!block.getFaces()[2].isBlockNearby() || !block.getFaces()[3].isBlockNearby()) {
+					block.getFaces()[2].setBlockNearby(blockNearby);
+					block.getFaces()[3].setBlockNearby(blockNearby);
+				}
+			}
+
+			if (i != 4 && i != 5) { // Up / Down
+				if (!block.getFaces()[4].isBlockNearby() || !block.getFaces()[5].isBlockNearby()) {
+					block.getFaces()[4].setBlockNearby(blockNearby);
+					block.getFaces()[5].setBlockNearby(blockNearby);
+				}
 			}
 		}
 	}
@@ -107,15 +117,10 @@ public class WorldManager {
 			return;
 		}
 
-		parent.getFaces()[faceIndex].setCovered(false);
-		parent.getFaces()[faceIndex].setBlockNearby(false);
+		parent.getFaces()[faceIndex].setCovered(WorldManager.blockExists(cx, cy, cz));
 
 		if (parent.getFaces()[faceIndex].isStretched()) {
 			parent.getFaces()[faceIndex].setStretch(BlockTypes.BLOCK_EXTENT, BlockTypes.BLOCK_EXTENT, BlockTypes.BLOCK_EXTENT);
-		}
-
-		if (WorldManager.blockExists(cx, cy, cz)) {
-			parent.getFaces()[faceIndex].setCovered(true);
 		}
 	}
 
@@ -125,7 +130,11 @@ public class WorldManager {
 		}
 
 		for (int i = 0; i < 6; i++) {
+			final boolean blockNearby = block.getFaces()[i].isBlockNearby();
 
+			if (blockNearby) {
+				// TODO: BlockNearby && !BlockNearby.isCovered ? MERGE
+			}
 		}
 	}
 

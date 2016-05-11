@@ -46,6 +46,10 @@ public class BlockTypes {
 		}
 	}
 
+	public String getName() {
+		return name;
+	}
+
 	public static BlockTypes get(final String name) {
 		for (final BlockTypes type : BLOCK_TYPES) {
 			if (type.getName().equals(name)) {
@@ -55,10 +59,6 @@ public class BlockTypes {
 
 		FlounderLogger.error("Could not get block with type: " + name + ". Returning null!");
 		return null;
-	}
-
-	public String getName() {
-		return name;
 	}
 
 	public Colour getColour() {

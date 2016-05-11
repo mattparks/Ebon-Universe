@@ -68,6 +68,20 @@ public class WorldManager {
 		}
 	}
 
+	public static boolean blockExists(final float x, final float y, final float z) {
+		for (final Chunk chunk : CHUNK_LIST) {
+			final int bx = Chunk.inverseBlock(Chunk.getPosition(chunk).x, x);
+			final int by = Chunk.inverseBlock(Chunk.getPosition(chunk).y, y);
+			final int bz = Chunk.inverseBlock(Chunk.getPosition(chunk).z, z);
+
+			if (Chunk.inChunkBounds(bx, by, bz)) {
+				return Chunk.blockExists(chunk, bx, by, bz);
+			}
+		}
+
+		return false;
+	}
+
 	private static void updatePremerge(final Chunk chunk, final Block block, final int faceIndex, final float cx, final float cy, final float cz) {
 		if (!Chunk.getForceUpdate(chunk) || !block.getFaces()[faceIndex].isCovered()) {
 			return;
@@ -110,20 +124,6 @@ public class WorldManager {
 				// TODO: BlockNearby && !BlockNearby.isCovered ? MERGE
 			}
 		}
-	}
-
-	public static boolean blockExists(final float x, final float y, final float z) {
-		for (final Chunk chunk : CHUNK_LIST) {
-			final int bx = Chunk.inverseBlock(Chunk.getPosition(chunk).x, x);
-			final int by = Chunk.inverseBlock(Chunk.getPosition(chunk).y, y);
-			final int bz = Chunk.inverseBlock(Chunk.getPosition(chunk).z, z);
-
-			if (Chunk.inChunkBounds(bx, by, bz)) {
-				return Chunk.blockExists(chunk, bx, by, bz);
-			}
-		}
-
-		return false;
 	}
 
 	public static Block getBlock(final float x, final float y, final float z) {

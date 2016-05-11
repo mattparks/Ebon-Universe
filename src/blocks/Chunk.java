@@ -38,6 +38,60 @@ public class Chunk {
 		populate(random);
 	}
 
+	private void generate(final NoisePerlin noise) {
+		for (int x = 0; x < blocks.length; x++) {
+			for (int z = 0; z < blocks[x].length; z++) {
+				for (int y = 0; y < blocks[z].length; y++) {
+					BlockTypes type = null;
+
+					type = BlockTypes.get("game::stone");
+
+					if (type != null) {
+						empty = false;
+						blocks[x][z][y] = createBlock(this, x, y, z, type);
+					}
+				}
+			}
+		}
+	}
+
+	public static Block createBlock(final Chunk chunk, final int x, final int y, final int z, final BlockTypes type) {
+		return new Block(type, new Vector3f(calculateBlock(chunk.position.x, x), calculateBlock(chunk.position.y, y), calculateBlock(chunk.position.z, z)));
+	}
+
+	protected static float calculateBlock(final float position, final int array) {
+		return position + (2.0f * array * BlockTypes.BLOCK_EXTENT);
+	}
+
+	private void populate(final Random random) {
+		for (int x = 0; x < blocks.length; x++) {
+			for (int z = 0; z < blocks[x].length; z++) {
+				for (int y = 0; y < blocks[z].length; y++) {
+					final Block block = blocks[x][z][y];
+
+					if (block != null) {
+						if (block.getType().getName().equals("game::stone")) {
+							int rand = random.nextInt(10000);
+							BlockTypes type = null;
+
+							if (rand <= 100) {
+								type = BlockTypes.get("game::coalOre");
+							} else if (rand > 100 && rand <= 150) {
+								type = BlockTypes.get("game::ironOre");
+							} else if (rand > 150 && rand <= 160) {
+								type = BlockTypes.get("game::goldOre");
+							}
+
+							if (type != null) {
+								blocks[x][z][y] = new Block(type, new Vector3f(calculateBlock(position.x, x), calculateBlock(position.y, y), calculateBlock(position.z, z)));
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+
 	protected static void writeChunkData(final Chunk chunk) { // , final String file
 		File file = new File("chunk-" + chunk.position.x + "-" + chunk.position.y + "-" + chunk.position.z + ".txt");
 		String string = "";
@@ -86,24 +140,16 @@ public class Chunk {
 		return null;
 	}
 
-	public static Block createBlock(final Chunk chunk, final int x, final int y, final int z, final BlockTypes type) {
-		return new Block(type, new Vector3f(calculateBlock(chunk.position.x, x), calculateBlock(chunk.position.y, y), calculateBlock(chunk.position.z, z)));
-	}
-
-	protected static float calculateBlock(final float position, final int array) {
-		return position + (2.0f * array * BlockTypes.BLOCK_EXTENT);
-	}
-
-	protected static int inverseBlock(final float position, final float component) {
-		return (int) ((component - position) / (2.0f * BlockTypes.BLOCK_EXTENT));
+	public static boolean blockExists(final Chunk chunk, final int x, final int y, final int z) {
+		return inChunkBounds(x, y, z) && Chunk.getBlock(chunk, x, y, z) != null;
 	}
 
 	public static boolean inChunkBounds(final float x, final float y, final float z) {
 		return !(x < 0 || y < 0 || z < 0 || x > CHUNK_SIZE - 1 || y > CHUNK_SIZE - 1 || z > CHUNK_SIZE - 1);
 	}
 
-	public static boolean blockExists(final Chunk chunk, final int x, final int y, final int z) {
-		return inChunkBounds(x, y, z) && Chunk.getBlock(chunk, x, y, z) != null;
+	protected static Block getBlock(final Chunk chunk, final int x, final int y, final int z) {
+		return chunk.blocks[x][z][y];
 	}
 
 	protected static void update(final Chunk chunk, final UpdateFaces... faceUpdates) {
@@ -141,54 +187,12 @@ public class Chunk {
 		}
 	}
 
-	private void generate(final NoisePerlin noise) {
-		for (int x = 0; x < blocks.length; x++) {
-			for (int z = 0; z < blocks[x].length; z++) {
-				for (int y = 0; y < blocks[z].length; y++) {
-					BlockTypes type = null;
-
-					type = BlockTypes.get("game::stone");
-
-					if (type != null) {
-						empty = false;
-						blocks[x][z][y] = createBlock(this, x, y, z, type);
-					}
-				}
-			}
-		}
+	protected static int inverseBlock(final float position, final float component) {
+		return (int) ((component - position) / (2.0f * BlockTypes.BLOCK_EXTENT));
 	}
 
-	private void populate(final Random random) {
-		for (int x = 0; x < blocks.length; x++) {
-			for (int z = 0; z < blocks[x].length; z++) {
-				for (int y = 0; y < blocks[z].length; y++) {
-					final Block block = blocks[x][z][y];
-
-					if (block != null) {
-						if (block.getType().getName().equals("game::stone")) {
-							int rand = random.nextInt(10000);
-							BlockTypes type = null;
-
-							if (rand <= 100) {
-								type = BlockTypes.get("game::coalOre");
-							} else if (rand > 100 && rand <= 150) {
-								type = BlockTypes.get("game::ironOre");
-							} else if (rand > 150 && rand <= 160) {
-								type = BlockTypes.get("game::goldOre");
-							}
-
-							if (type != null) {
-								blocks[x][z][y] = new Block(type, new Vector3f(calculateBlock(position.x, x), calculateBlock(position.y, y), calculateBlock(position.z, z)));
-							}
-						}
-					}
-				}
-			}
-		}
-	}
-
-	protected static Block getBlock(final Chunk chunk, final int x, final int y, final int z) {
-		return chunk.blocks[x][z][y];
+	protected static Vector3f getPosition(final Chunk chunk) {
+		return chunk.position;
 	}
 
 	protected static void putBlock(final Chunk chunk, final Block block, final int x, final int y, final int z) {
@@ -199,10 +203,6 @@ public class Chunk {
 	protected static void removeBlock(final Chunk chunk, final int x, final int y, final int z) {
 		chunk.blocks[x][z][y] = null;
 		chunk.forceUpdate = true;
-	}
-
-	protected static Vector3f getPosition(final Chunk chunk) {
-		return chunk.position;
 	}
 
 	protected static Block[][][] getBlocks(final Chunk chunk) {
@@ -223,6 +223,10 @@ public class Chunk {
 
 
 	protected static int getFaceCount(final Chunk chunk) {
+		if (!chunk.visible) {
+			return 0;
+		}
+
 		int faces = 0;
 
 		for (int x = 0; x < chunk.blocks.length; x++) {

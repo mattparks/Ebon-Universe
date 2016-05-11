@@ -32,13 +32,13 @@ public class Block {
 		this.faces[5] = new BlockFace(FaceTypes.DOWN);
 	}
 
-	private static AABB updateBlockAABB(final Block block, AABB aabb) {
+	private static AABB updateBlockAABB(final Block block, final AABB aabb) {
 		aabb.setMinExtents(block.position.x - BlockTypes.BLOCK_EXTENT, block.position.y - BlockTypes.BLOCK_EXTENT, block.position.z - BlockTypes.BLOCK_EXTENT);
 		aabb.setMaxExtents(block.position.x + BlockTypes.BLOCK_EXTENT, block.position.y + BlockTypes.BLOCK_EXTENT, block.position.z + BlockTypes.BLOCK_EXTENT);
 		return aabb;
 	}
 
-	protected static Matrix4f blockModelMatrix(final Block block, final int face, Matrix4f modelMatrix) {
+	protected static Matrix4f blockModelMatrix(final Block block, final int face, final Matrix4f modelMatrix) {
 		POSITION_REUSABLE.set(block.getPosition());
 		ROTATION_REUSABLE.set(0.0f, 0.0f, 0.0f);
 
@@ -80,6 +80,14 @@ public class Block {
 		}
 	}
 
+	public Vector3f getPosition() {
+		return position;
+	}
+
+	public BlockFace[] getFaces() {
+		return faces;
+	}
+
 	public int getVisibleFaces() {
 		if (!visible) {
 			return 0;
@@ -98,14 +106,6 @@ public class Block {
 
 	public BlockTypes getType() {
 		return type;
-	}
-
-	public Vector3f getPosition() {
-		return position;
-	}
-
-	public BlockFace[] getFaces() {
-		return faces;
 	}
 
 	public AABB getAABB() {

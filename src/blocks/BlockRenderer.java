@@ -108,7 +108,7 @@ public class BlockRenderer extends IRenderer {
 		for (int f = 0; f < 6; f++) {
 			if (!block.getFaces()[f].isCovered()) {
 				Block.blockModelMatrix(block, f, modelMatrix);
-				final Colour colour = block.getType().getColour();
+				final Colour colour = block.getFaces()[f].getMergeID() == -1 ? block.getType().getColour() : new Colour(0.2f, block.getFaces()[f].getMergeID() / WorldManager.CURRENT_MERGE_ID, 0.1f);
 
 				vboData[pointer++] = modelMatrix.m00;
 				vboData[pointer++] = modelMatrix.m01;

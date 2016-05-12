@@ -15,6 +15,7 @@ public class WorldManager {
 
 	private static long TIMER_OFFSET = 2000;
 	private static long TIMER_TESTING = System.currentTimeMillis() + TIMER_OFFSET;
+	public static int CURRENT_MERGE_ID = -1;
 
 	public static void init() {
 		for (int x = -1; x < 0; x++) {
@@ -35,9 +36,11 @@ public class WorldManager {
 			TIMER_TESTING += TIMER_OFFSET;
 		}
 
+		CURRENT_MERGE_ID = 1;
+
 		for (final Chunk chunk : CHUNK_LIST) {
-			Chunk.update(chunk, WorldManager::updateCovered, WorldManager::updatePremerge);
-			Chunk.update(chunk, WorldManager::updateMerge);
+			Chunk.update(chunk, WorldManager::updateResetAndCover);
+			Chunk.update(chunk, WorldManager::updatePremerge);
 			Chunk.updateVisibility(chunk);
 			Chunk.setForceUpdate(chunk, false);
 
@@ -56,15 +59,78 @@ public class WorldManager {
 		}
 	}
 
-	private static void updateCovered(final Chunk chunk, final Block parent, final int faceIndex, final float cx, final float cy, final float cz) {
+	private static void updateResetAndCover(final Chunk chunk, final Block parent, final int faceIndex, final float cx, final float cy, final float cz) {
 		if (!Chunk.getForceUpdate(chunk)) {
 			return;
 		}
 
 		parent.getFaces()[faceIndex].setCovered(WorldManager.blockExists(cx, cy, cz));
+		parent.getFaces()[faceIndex].setMergeID(-1);
 
 		if (parent.getFaces()[faceIndex].isStretched()) {
 			parent.getFaces()[faceIndex].setStretch(BlockTypes.BLOCK_EXTENT, BlockTypes.BLOCK_EXTENT, BlockTypes.BLOCK_EXTENT);
+		}
+	}
+
+	private static void updatePremerge(final Chunk chunk, final Block block, final int faceIndex, final float cx, final float cy, final float cz) {
+		if (!Chunk.getForceUpdate(chunk) || !block.getFaces()[faceIndex].isCovered()) {
+			return;
+		}
+
+		final Block nearby = WorldManager.getBlock(cx, cy, cz);
+
+		if (nearby != null && block.getType().getName().equals(nearby.getType().getName())) {
+			if (faceIndex != 0 && faceIndex != 1) { // Front / Back
+				premergeFaceMerge(0, 1, block, nearby);
+			}
+
+			if (faceIndex != 2 && faceIndex != 3) { // Left / Right
+				premergeFaceMerge(2, 3, block, nearby);
+			}
+
+			if (faceIndex != 4 && faceIndex != 5) { // Up / Down
+				premergeFaceMerge(4, 5, block, nearby);
+			}
+		}
+	}
+
+	private static void premergeFaceMerge(final int face1, final int face2, final Block block, final Block nearby) {
+		if (nearby.getFaces()[face1].getMergeID() != -1 && nearby.getFaces()[face2].getMergeID() != -1 &&
+				block.getFaces()[face1].getMergeID() == -1 && block.getFaces()[face2].getMergeID() == -1) { // They have ID and we don't.
+			if (!block.getFaces()[face1].isCovered()) {
+				block.getFaces()[face1].setMergeID(nearby.getFaces()[face1].getMergeID());
+			}
+
+			if (!block.getFaces()[face2].isCovered()) {
+				block.getFaces()[face2].setMergeID(nearby.getFaces()[face2].getMergeID());
+			}
+		} else if (nearby.getFaces()[face1].getMergeID() == -1 && nearby.getFaces()[face2].getMergeID() == -1 &&
+				block.getFaces()[face1].getMergeID() != -1 && block.getFaces()[face2].getMergeID() != -1) { // We have ID and they don't.
+			if (!nearby.getFaces()[face1].isCovered()) {
+				nearby.getFaces()[face1].setMergeID(block.getFaces()[face1].getMergeID());
+			}
+
+			if (!nearby.getFaces()[face2].isCovered()) {
+				nearby.getFaces()[face2].setMergeID(block.getFaces()[face2].getMergeID());
+			}
+		} else { // Us and them have no ID.
+			if (!nearby.getFaces()[face1].isCovered()) {
+				nearby.getFaces()[face1].setMergeID(CURRENT_MERGE_ID);
+			}
+
+			if (!nearby.getFaces()[face2].isCovered()) {
+				nearby.getFaces()[face2].setMergeID(CURRENT_MERGE_ID);
+			}
+
+			if (!block.getFaces()[face1].isCovered()) {
+				block.getFaces()[face1].setMergeID(CURRENT_MERGE_ID);
+			}
+
+			if (!block.getFaces()[face2].isCovered()) {
+				block.getFaces()[face2].setMergeID(CURRENT_MERGE_ID);
+			}
+
+			CURRENT_MERGE_ID++;
 		}
 	}
 
@@ -80,50 +146,6 @@ public class WorldManager {
 		}
 
 		return false;
-	}
-
-	private static void updatePremerge(final Chunk chunk, final Block block, final int faceIndex, final float cx, final float cy, final float cz) {
-		if (!Chunk.getForceUpdate(chunk) || !block.getFaces()[faceIndex].isCovered()) {
-			return;
-		}
-
-		final Block nearby = WorldManager.getBlock(cx, cy, cz);
-		final boolean blockNearby = nearby != null && nearby.getType().equals(block.getType());
-
-		if (faceIndex != 0 && faceIndex != 1) { // Front / Back
-			if (!block.getFaces()[0].isBlockNearby() || !block.getFaces()[1].isBlockNearby()) {
-				block.getFaces()[0].setBlockNearby(blockNearby);
-				block.getFaces()[1].setBlockNearby(blockNearby);
-			}
-		}
-
-		if (faceIndex != 2 && faceIndex != 3) { // Left / Right
-			if (!block.getFaces()[2].isBlockNearby() || !block.getFaces()[3].isBlockNearby()) {
-				block.getFaces()[2].setBlockNearby(blockNearby);
-				block.getFaces()[3].setBlockNearby(blockNearby);
-			}
-		}
-
-		if (faceIndex != 4 && faceIndex != 5) { // Up / Down
-			if (!block.getFaces()[4].isBlockNearby() || !block.getFaces()[5].isBlockNearby()) {
-				block.getFaces()[4].setBlockNearby(blockNearby);
-				block.getFaces()[5].setBlockNearby(blockNearby);
-			}
-		}
-	}
-
-	private static void updateMerge(final Chunk chunk, final Block block, final int faceIndex, final float cx, final float cy, final float cz) {
-		if (!Chunk.getForceUpdate(chunk)) {
-			return;
-		}
-
-		if (!block.getFaces()[faceIndex].isCovered()) {
-			final boolean blockNearby = block.getFaces()[faceIndex].isBlockNearby();
-
-			if (blockNearby) {
-				// TODO: BlockNearby && !BlockNearby.isCovered ? MERGE
-			}
-		}
 	}
 
 	public static Block getBlock(final float x, final float y, final float z) {

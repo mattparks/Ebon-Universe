@@ -124,13 +124,13 @@ public class Block {
 		private final FaceTypes face;
 		private Vector3f stretch;
 		private boolean covered;
-		private boolean blockNearby;
+		private int mergeID;
 
 		public BlockFace(final FaceTypes face) {
 			this.face = face;
 			this.stretch = null;
 			this.covered = true;
-			this.blockNearby = false;
+			this.mergeID = -1;
 		}
 
 		public FaceTypes getFace() {
@@ -161,12 +161,12 @@ public class Block {
 			this.covered = covered;
 		}
 
-		public boolean isBlockNearby() {
-			return blockNearby;
+		public int getMergeID() {
+			return mergeID;
 		}
 
-		public void setBlockNearby(final boolean blockNearby) {
-			this.blockNearby = blockNearby;
+		public void setMergeID(final int mergeID) {
+			this.mergeID = mergeID;
 		}
 	}
 }

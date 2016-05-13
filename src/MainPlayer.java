@@ -14,9 +14,9 @@ public class MainPlayer {
 	private static final float SIDE_SPEED = 40;
 
 	private final IAxis inputForward;
-	private final IAxis inputTurn;
+	private final IAxis inputSide;
 
-	private final Vector3f direction;
+	private final Vector3f velocity;
 
 	private final Vector3f position;
 	private final Vector3f rotation;
@@ -28,9 +28,9 @@ public class MainPlayer {
 		final IButton downKeyButtons = new KeyButton(GLFW_KEY_S, GLFW_KEY_DOWN);
 
 		this.inputForward = new CompoundAxis(new ButtonAxis(upKeyButtons, downKeyButtons), new JoystickAxis(0, 1));
-		this.inputTurn = new CompoundAxis(new ButtonAxis(leftKeyButtons, rightKeyButtons), new JoystickAxis(0, 3));
+		this.inputSide = new CompoundAxis(new ButtonAxis(leftKeyButtons, rightKeyButtons), new JoystickAxis(0, 3));
 
-		this.direction = new Vector3f(0, 0, 0);
+		this.velocity = new Vector3f(0, 0, 0);
 
 		this.position = new Vector3f(-2, -3, -2);
 		this.rotation = new Vector3f(0, 0, 0);
@@ -38,18 +38,18 @@ public class MainPlayer {
 
 	public void update(final boolean paused) {
 		if (!paused) {
-			final float yawRadians = (float) Math.toRadians(FlounderEngine.getCamera().getYaw());
-			direction.z = (float) (-FRONT_SPEED * FlounderEngine.getDelta() * Maths.deadband(0.05f, inputForward.getAmount())); //  * Math.sin(yawRadians)
-			direction.y = (float) (-UP_SPEED * 0.0f);
-			direction.x = (float) (-SIDE_SPEED * FlounderEngine.getDelta() * Maths.deadband(0.05f, inputTurn.getAmount())); //  * Math.cos(yawRadians)
-			// Vector3f.rotate(direction, cameraYaw, DIRECTION_AXIS, DIRECTION_CENTRE, direction);
+			final float yaw = FlounderEngine.getCamera().getYaw();
+			velocity.x = (float) (-SIDE_SPEED * FlounderEngine.getDelta() * Maths.deadband(0.05f, inputSide.getAmount())); //  * Math.cos(Math.toRadians(yaw - 90.0f))
+			velocity.y = (float) (-UP_SPEED * 0.0f);
+			velocity.z = (float) (-FRONT_SPEED * FlounderEngine.getDelta() * Maths.deadband(0.05f, inputForward.getAmount())); //  * Math.sin(Math.toRadians(yaw - 90.0f))
+			// Vector3f.rotate(velocity, cameraYaw, DIRECTION_AXIS, DIRECTION_CENTRE, velocity);
 
 			boolean pevInsideBlock = WorldManager.insideBlock(position);
-			Vector3f.add(position, direction, position);
+			Vector3f.add(position, velocity, position);
 			boolean insideBlock = WorldManager.insideBlock(position);
 
 			if (insideBlock && !pevInsideBlock) {
-				Vector3f.subtract(position, direction, position);
+				Vector3f.subtract(position, velocity, position);
 			}
 		}
 	}

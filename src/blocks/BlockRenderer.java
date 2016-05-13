@@ -101,14 +101,14 @@ public class BlockRenderer extends IRenderer {
 	}
 
 	private void loadBlockFaces(final Block block, final float[] vboData) {
-		if (block == null || !block.isVisible()) {
+		if (block == null) {
 			return;
 		}
 
 		for (int f = 0; f < 6; f++) {
-			if (!block.getFaces()[f].isCovered()) {
+			if (BlockFace.isRenderable(Block.getFaces(block)[f])) {
 				Block.blockModelMatrix(block, f, modelMatrix);
-				final Colour colour = block.getFaces()[f].getMergeID() == -1 ? block.getType().getColour() : new Colour(0.2f, block.getFaces()[f].getMergeID() / WorldManager.CURRENT_MERGE_ID, 0.1f);
+				final Colour colour = Block.getType(block).getColour();
 
 				vboData[pointer++] = modelMatrix.m00;
 				vboData[pointer++] = modelMatrix.m01;

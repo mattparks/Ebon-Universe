@@ -1,9 +1,11 @@
 package blocks;
 
+import flounder.devices.*;
 import flounder.engine.*;
 import flounder.maths.vectors.*;
 import flounder.noise.*;
 import flounder.physics.*;
+import flounder.sounds.*;
 
 import java.io.*;
 import java.util.*;
@@ -70,7 +72,7 @@ public class Chunk {
 					final Block block = blocks[x][z][y];
 
 					if (block != null) {
-						if (block.getType().getName().equals("game::stone")) {
+						if (Block.getType(block).getName().equals("game::stone")) {
 							int rand = random.nextInt(10000);
 							BlockTypes type = null;
 
@@ -102,7 +104,7 @@ public class Chunk {
 					final Block block = chunk.blocks[x][z][y];
 
 					if (block != null) {
-						string += "[(" + +x + "," + y + "," + z + ")'" + block.getType().getName() + "'],";
+						string += "[(" + +x + "," + y + "," + z + ")'" + Block.getType(block).getName() + "'],";
 					}
 				}
 			}
@@ -141,10 +143,14 @@ public class Chunk {
 	}
 
 	public static boolean blockExists(final Chunk chunk, final int x, final int y, final int z) {
-		return inChunkBounds(x, y, z) && Chunk.getBlock(chunk, x, y, z) != null;
+		return inBounds(x, y, z) && Chunk.getBlock(chunk, x, y, z) != null;
 	}
 
-	public static boolean inChunkBounds(final float x, final float y, final float z) {
+	public static boolean inChunkBounds(final Chunk chunk, final float x, final float y, final float z) {
+		return !(x < chunk.position.x || y < chunk.position.y || z < chunk.position.z || x > CHUNK_SIZE - 1 || y > CHUNK_SIZE - 1 || z > CHUNK_SIZE - 1);
+	}
+
+	public static boolean inBounds(final float x, final float y, final float z) {
 		return !(x < 0 || y < 0 || z < 0 || x > CHUNK_SIZE - 1 || y > CHUNK_SIZE - 1 || z > CHUNK_SIZE - 1);
 	}
 
@@ -152,39 +158,24 @@ public class Chunk {
 		return chunk.blocks[x][z][y];
 	}
 
-	protected static void update(final Chunk chunk, final UpdateFaces... faceUpdates) {
-		chunk.empty = true;
+	protected void update() {
+		visible = FlounderEngine.getCamera().getViewFrustum().aabbInFrustum(aabb);
+		empty = true;
 
-		for (int x = 0; x < chunk.blocks.length; x++) {
-			for (int z = 0; z < chunk.blocks[x].length; z++) {
-				for (int y = 0; y < chunk.blocks[z].length; y++) {
-					final Block block = chunk.blocks[x][z][y];
+		for (int x = 0; x < blocks.length; x++) {
+			for (int z = 0; z < blocks[x].length; z++) {
+				for (int y = 0; y < blocks[z].length; y++) {
+					final Block block = blocks[x][z][y];
 
 					if (block != null) {
-						block.setVisible(FlounderEngine.getCamera().getViewFrustum().aabbInFrustum(block.getAABB()));
-
-						if (faceUpdates != null && faceUpdates.length != 0) {
-							for (int f = 0; f < 6; f++) {
-								final int currZ = Chunk.inverseBlock(Chunk.getPosition(chunk).z, block.getPosition().z) + ((f == 0) ? 1 : (f == 1) ? -1 : 0); // Front / Back
-								final int currX = Chunk.inverseBlock(Chunk.getPosition(chunk).x, block.getPosition().x) + ((f == 2) ? -1 : (f == 3) ? 1 : 0); // Left / Right
-								final int currY = Chunk.inverseBlock(Chunk.getPosition(chunk).y, block.getPosition().y) + ((f == 4) ? 1 : (f == 5) ? -1 : 0); // Up / Down
-								final float cz = Chunk.calculateBlock(Chunk.getPosition(chunk).z, currZ);
-								final float cx = Chunk.calculateBlock(Chunk.getPosition(chunk).x, currX);
-								final float cy = Chunk.calculateBlock(Chunk.getPosition(chunk).y, currY);
-
-								for (final UpdateFaces faceUpdate : faceUpdates) {
-									if (faceUpdate != null) {
-										faceUpdate.update(chunk, block, f, cx, cy, cz);
-									}
-								}
-							}
-						}
-
-						chunk.empty = false;
+						Block.update(block, this);
+						empty = false;
 					}
 				}
 			}
 		}
+
+		forceUpdate = false;
 	}
 
 	protected static int inverseBlock(final float position, final float component) {
@@ -196,11 +187,23 @@ public class Chunk {
 	}
 
 	protected static void putBlock(final Chunk chunk, final Block block, final int x, final int y, final int z) {
+		if (chunk.blocks[x][z][y] != null) {
+			ManagerDevices.getSound().play3DSound(PlayRequest.new3dSoundPlayRequest(Block.getType(chunk.blocks[x][z][y]).getBreakSound(), 1.0f, Block.getPosition(chunk.blocks[x][z][y]), 16.0f, 64.0f));
+		}
+
+		if (block != null) {
+			ManagerDevices.getSound().play3DSound(PlayRequest.new3dSoundPlayRequest(Block.getType(block).getPlaceSound(), 1.0f, Block.getPosition(block), 16.0f, 64.0f));
+		}
+
 		chunk.blocks[x][z][y] = block;
 		chunk.forceUpdate = true;
 	}
 
 	protected static void removeBlock(final Chunk chunk, final int x, final int y, final int z) {
+		if (chunk.blocks[x][z][y] != null) {
+			ManagerDevices.getSound().play3DSound(PlayRequest.new3dSoundPlayRequest(Block.getType(chunk.blocks[x][z][y]).getBreakSound(), 1.0f, Block.getPosition(chunk.blocks[x][z][y]), 16.0f, 64.0f));
+		}
+
 		chunk.blocks[x][z][y] = null;
 		chunk.forceUpdate = true;
 	}
@@ -217,11 +220,6 @@ public class Chunk {
 		return chunk.visible;
 	}
 
-	protected static void updateVisibility(final Chunk chunk) {
-		chunk.visible = FlounderEngine.getCamera().getViewFrustum().aabbInFrustum(chunk.aabb);
-	}
-
-
 	protected static int getFaceCount(final Chunk chunk) {
 		if (!chunk.visible) {
 			return 0;
@@ -235,7 +233,7 @@ public class Chunk {
 					final Block block = chunk.blocks[x][z][y];
 
 					if (block != null) {
-						faces += block.getVisibleFaces();
+						faces += Block.getVisibleFaces(block);
 					}
 				}
 			}
@@ -246,10 +244,6 @@ public class Chunk {
 
 	protected static boolean getForceUpdate(final Chunk chunk) {
 		return chunk.forceUpdate;
-	}
-
-	protected static void setForceUpdate(final Chunk chunk, final boolean forceUpdate) {
-		chunk.forceUpdate = forceUpdate;
 	}
 
 	public static boolean isEmpty(final Chunk chunk) {

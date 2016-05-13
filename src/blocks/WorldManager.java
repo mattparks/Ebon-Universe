@@ -13,14 +13,13 @@ public class WorldManager {
 	private static final List<Chunk> CHUNK_LIST = new ArrayList<>();
 	private static final NoisePerlin NOISE = new NoisePerlin((int) GameSeed.getSeed());
 
-	private static long TIMER_OFFSET = 2000;
+	private static long TIMER_OFFSET = 1000;
 	private static long TIMER_TESTING = System.currentTimeMillis() + TIMER_OFFSET;
-	public static int CURRENT_MERGE_ID = -1;
 
 	public static void init() {
 		for (int x = -1; x < 0; x++) {
 			for (int z = -1; z < 0; z++) {
-				for (int y = -1; y < 1; y++) {
+				for (int y = -1; y < 2; y++) {
 					FlounderLogger.log("Creating Chunk At: " + x + ", " + y + ", " + z);
 					CHUNK_LIST.add(new Chunk(new Vector3f(x * (Chunk.CHUNK_SIZE * (2.0f * BlockTypes.BLOCK_EXTENT)), y * (Chunk.CHUNK_SIZE * (2.0f * BlockTypes.BLOCK_EXTENT)), z * (Chunk.CHUNK_SIZE * (2.0f * BlockTypes.BLOCK_EXTENT))), NOISE, Maths.RANDOM));
 				}
@@ -36,13 +35,8 @@ public class WorldManager {
 			TIMER_TESTING += TIMER_OFFSET;
 		}
 
-		CURRENT_MERGE_ID = 1;
-
 		for (final Chunk chunk : CHUNK_LIST) {
-			Chunk.update(chunk, WorldManager::updateResetAndCover);
-			Chunk.update(chunk, WorldManager::updatePremerge);
-			Chunk.updateVisibility(chunk);
-			Chunk.setForceUpdate(chunk, false);
+			chunk.update();
 
 			if (Chunk.isVisible(chunk)) {
 				AABBManager.addAABBRender(Chunk.getAABB(chunk));
@@ -51,86 +45,14 @@ public class WorldManager {
 	}
 
 	private static void updateRandomlyRemoveBlock() {
-		for (final Chunk chunk : CHUNK_LIST) {
+		final int randomChunk = ThreadLocalRandom.current().nextInt(0, CHUNK_LIST.size());
+		final Chunk chunk = CHUNK_LIST.get(randomChunk);
+
+		if (chunk != null) {
 			final int x = ThreadLocalRandom.current().nextInt(0, Chunk.CHUNK_SIZE);
 			final int y = ThreadLocalRandom.current().nextInt(0, Chunk.CHUNK_SIZE);
 			final int z = ThreadLocalRandom.current().nextInt(0, Chunk.CHUNK_SIZE);
 			Chunk.removeBlock(chunk, x, y, z);
-		}
-	}
-
-	private static void updateResetAndCover(final Chunk chunk, final Block parent, final int faceIndex, final float cx, final float cy, final float cz) {
-		if (!Chunk.getForceUpdate(chunk)) {
-			return;
-		}
-
-		parent.getFaces()[faceIndex].setCovered(WorldManager.blockExists(cx, cy, cz));
-		parent.getFaces()[faceIndex].setMergeID(-1);
-
-		if (parent.getFaces()[faceIndex].isStretched()) {
-			parent.getFaces()[faceIndex].setStretch(BlockTypes.BLOCK_EXTENT, BlockTypes.BLOCK_EXTENT, BlockTypes.BLOCK_EXTENT);
-		}
-	}
-
-	private static void updatePremerge(final Chunk chunk, final Block block, final int faceIndex, final float cx, final float cy, final float cz) {
-		if (!Chunk.getForceUpdate(chunk) || !block.getFaces()[faceIndex].isCovered()) {
-			return;
-		}
-
-		final Block nearby = WorldManager.getBlock(cx, cy, cz);
-
-		if (nearby != null && block.getType().getName().equals(nearby.getType().getName())) {
-			if (faceIndex != 0 && faceIndex != 1) { // Front / Back
-				premergeFaceMerge(0, 1, block, nearby);
-			}
-
-			if (faceIndex != 2 && faceIndex != 3) { // Left / Right
-				premergeFaceMerge(2, 3, block, nearby);
-			}
-
-			if (faceIndex != 4 && faceIndex != 5) { // Up / Down
-				premergeFaceMerge(4, 5, block, nearby);
-			}
-		}
-	}
-
-	private static void premergeFaceMerge(final int face1, final int face2, final Block block, final Block nearby) {
-		if (nearby.getFaces()[face1].getMergeID() != -1 && nearby.getFaces()[face2].getMergeID() != -1 &&
-				block.getFaces()[face1].getMergeID() == -1 && block.getFaces()[face2].getMergeID() == -1) { // They have ID and we don't.
-			if (!block.getFaces()[face1].isCovered()) {
-				block.getFaces()[face1].setMergeID(nearby.getFaces()[face1].getMergeID());
-			}
-
-			if (!block.getFaces()[face2].isCovered()) {
-				block.getFaces()[face2].setMergeID(nearby.getFaces()[face2].getMergeID());
-			}
-		} else if (nearby.getFaces()[face1].getMergeID() == -1 && nearby.getFaces()[face2].getMergeID() == -1 &&
-				block.getFaces()[face1].getMergeID() != -1 && block.getFaces()[face2].getMergeID() != -1) { // We have ID and they don't.
-			if (!nearby.getFaces()[face1].isCovered()) {
-				nearby.getFaces()[face1].setMergeID(block.getFaces()[face1].getMergeID());
-			}
-
-			if (!nearby.getFaces()[face2].isCovered()) {
-				nearby.getFaces()[face2].setMergeID(block.getFaces()[face2].getMergeID());
-			}
-		} else { // Us and them have no ID.
-			if (!nearby.getFaces()[face1].isCovered()) {
-				nearby.getFaces()[face1].setMergeID(CURRENT_MERGE_ID);
-			}
-
-			if (!nearby.getFaces()[face2].isCovered()) {
-				nearby.getFaces()[face2].setMergeID(CURRENT_MERGE_ID);
-			}
-
-			if (!block.getFaces()[face1].isCovered()) {
-				block.getFaces()[face1].setMergeID(CURRENT_MERGE_ID);
-			}
-
-			if (!block.getFaces()[face2].isCovered()) {
-				block.getFaces()[face2].setMergeID(CURRENT_MERGE_ID);
-			}
-
-			CURRENT_MERGE_ID++;
 		}
 	}
 
@@ -140,7 +62,7 @@ public class WorldManager {
 			final int by = Chunk.inverseBlock(Chunk.getPosition(chunk).y, y);
 			final int bz = Chunk.inverseBlock(Chunk.getPosition(chunk).z, z);
 
-			if (Chunk.inChunkBounds(bx, by, bz)) {
+			if (Chunk.inBounds(bx, by, bz)) {
 				return Chunk.blockExists(chunk, bx, by, bz);
 			}
 		}
@@ -154,7 +76,7 @@ public class WorldManager {
 			final int by = Chunk.inverseBlock(Chunk.getPosition(chunk).y, y);
 			final int bz = Chunk.inverseBlock(Chunk.getPosition(chunk).z, z);
 
-			if (Chunk.inChunkBounds(bx, by, bz)) {
+			if (Chunk.inBounds(bx, by, bz)) {
 				return Chunk.getBlock(chunk, bx, by, bz);
 			}
 		}
@@ -168,7 +90,7 @@ public class WorldManager {
 			final int by = Chunk.inverseBlock(Chunk.getPosition(chunk).y, y);
 			final int bz = Chunk.inverseBlock(Chunk.getPosition(chunk).z, z);
 
-			if (Chunk.inChunkBounds(bx, by, bz)) {
+			if (Chunk.inBounds(bx, by, bz)) {
 				final Block block = Chunk.createBlock(chunk, bx, by, bz, type);
 				Chunk.putBlock(chunk, block, bx, by, bz);
 			}
@@ -182,7 +104,7 @@ public class WorldManager {
 				final int by = Chunk.inverseBlock(Chunk.getPosition(chunk).y, point.y);
 				final int bz = Chunk.inverseBlock(Chunk.getPosition(chunk).z, point.z);
 
-				if (Chunk.inChunkBounds(bx, by, bz)) {
+				if (Chunk.inBounds(bx, by, bz)) {
 					return Chunk.getBlock(chunk, bx, by, bz) != null;
 				}
 			}

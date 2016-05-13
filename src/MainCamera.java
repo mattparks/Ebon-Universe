@@ -15,16 +15,12 @@ public class MainCamera implements ICamera {
 	private static final float FAR_PLANE = 3200.0f;
 	private static final float FIELD_OF_VIEW = 70.0f;
 
-	private static final float ZOOM_AGILITY = 8.0f;
 	private static final float ROTATE_AGILITY = 6.0f;
 	private static final float PITCH_AGILITY = 8.0f;
 
 	private final static float CAMERA_AIM_OFFSET = 32.0f;
 	private final static float MAX_ANGLE_OF_ELEVATION = 1.5f;
 	private final static float PITCH_OFFSET = 3.0f;
-	private final static float MINIMUM_ZOOM = -300.0f;
-	private final static float MAXIMUM_ZOOM = 300.0f;
-	private static final float NORMAL_ZOOM = 32.0f;
 
 	private final static float MAX_HORIZONTAL_CHANGE = 500.0f;
 	private final static float MAX_VERTICAL_CHANGE = 5.0f;
@@ -33,59 +29,42 @@ public class MainCamera implements ICamera {
 	private final static float INFLUENCE_OF_MOUSEDX = INFLUENCE_OF_MOUSEDY * 92.0f;
 	private final static float INFLUENCE_OF_JOYSTICKDY = -1.0f;
 	private final static float INFLUENCE_OF_JOYSTICKDX = 100.0f * INFLUENCE_OF_JOYSTICKDY;
-	private final static float INFLUENCE_OF_MOUSE_WHEEL = 12.5f;
-	private static int toggleMouseMoveKey;
+
 	private Vector3f position;
+	private Vector3f rotation;
 	private Frustum viewFrustum;
 	private Matrix4f viewMatrix;
-	private float pitch, yaw;
+
+	private static int toggleMouseMoveKey;
 	private JoystickAxis joystickRotateX;
 	private JoystickAxis joystickRotateY;
-	private JoystickButton joystickZoomIn;
-	private JoystickButton joystickZoomOut;
 
 	private float angleOfElevation;
 	private float angleAroundPlayer;
 
 	private Vector3f targetPosition;
-	private Vector3f targetRotation;
-	private float targetZoom;
 	private float targetElevation;
 	private float targetRotationAngle;
-
-	private float actualDistanceFromPoint;
-	private float horizontalDistanceFromFocus;
-	private float verticalDistanceFromFocus;
 
 	@Override
 	public void init() {
 		this.position = new Vector3f();
+		this.rotation = new Vector3f();
 		this.viewFrustum = new Frustum();
 		this.viewMatrix = new Matrix4f();
-		this.pitch = 0.0f;
-		this.yaw = 0.0f;
 
 		this.toggleMouseMoveKey = GLFW_MOUSE_BUTTON_LEFT;
 		this.joystickRotateX = new JoystickAxis(OptionsControls.JOYSTICK_PORT, OptionsControls.JOYSTICK_AXIS_X);
 		this.joystickRotateY = new JoystickAxis(OptionsControls.JOYSTICK_PORT, OptionsControls.JOYSTICK_AXIS_Y);
-		this.joystickZoomIn = new JoystickButton(OptionsControls.JOYSTICK_PORT, OptionsControls.JOYSTICK_CAMERA_ZOOM_IN);
-		this.joystickZoomOut = new JoystickButton(OptionsControls.JOYSTICK_PORT, OptionsControls.JOYSTICK_CAMERA_ZOOM_OUT);
 
 		this.angleOfElevation = 0.0f;
 		this.angleAroundPlayer = 0.0f;
 
 		this.targetPosition = new Vector3f();
-		this.targetRotation = new Vector3f();
-		this.targetZoom = 5.0f;
 		this.targetElevation = 0.0f;
 		this.targetRotationAngle = 0.0f;
 
-		this.actualDistanceFromPoint = 5.0f;
-		this.horizontalDistanceFromFocus = 0.0f;
-		this.verticalDistanceFromFocus = 0.0f;
-
 		FlounderProfiler.addTab("MainCamera");
-		calculateDistances();
 	}
 
 	@Override
@@ -107,25 +86,19 @@ public class MainCamera implements ICamera {
 	public void moveCamera(final Vector3f focusPosition, final Vector3f focusRotation, final boolean gamePaused) {
 		calculateHorizontalAngle(gamePaused);
 		calculateVerticalAngle(gamePaused);
-		calculateZoom(gamePaused);
 
 		this.targetPosition.set(focusPosition);
-		this.targetRotation.set(focusRotation);
 
-		updateActualZoom();
 		updateHorizontalAngle();
 		updatePitchAngle();
-		calculateDistances();
 		calculatePosition();
-		updateViewMatrix(position, pitch, yaw);
+		updateViewMatrix(position, rotation);
 
 		if (FlounderProfiler.isOpen()) {
 			FlounderProfiler.add("MainCamera", "Angle Of Elevation", angleOfElevation);
-			FlounderProfiler.add("MainCamera", "Yaw", yaw);
-			FlounderProfiler.add("MainCamera", "Pitch", pitch);
+			FlounderProfiler.add("MainCamera", "Rotation", rotation);
+			FlounderProfiler.add("MainCamera", "Position", position);
 			FlounderProfiler.add("MainCamera", "Angle Around MainPlayer", angleAroundPlayer);
-			FlounderProfiler.add("MainCamera", "Actual Distance From Point", actualDistanceFromPoint);
-			FlounderProfiler.add("MainCamera", "Target Zoom", targetZoom);
 			FlounderProfiler.add("MainCamera", "Target Elevation", targetElevation);
 			FlounderProfiler.add("MainCamera", "Target Rotation Angle", targetRotationAngle);
 		}
@@ -181,36 +154,6 @@ public class MainCamera implements ICamera {
 		}
 	}
 
-	private void calculateZoom(final boolean gamePaused) {
-		float zoomLevel = 0.0f;
-
-		if (!gamePaused && Math.abs(Maths.deadband(0.1f, ManagerDevices.getMouse().getDeltaWheel())) > 0.0f) {
-			zoomLevel = ManagerDevices.getMouse().getDeltaWheel();
-		} else if (!gamePaused && joystickZoomIn.isDown()) {
-			zoomLevel = 1.0f;
-		} else if (!gamePaused && joystickZoomOut.isDown()) {
-			zoomLevel = -1.0f;
-		}
-
-		zoomLevel = zoomLevel / INFLUENCE_OF_MOUSE_WHEEL;
-
-		// if (zoomLevel != 0) {
-		targetZoom -= zoomLevel;
-
-		if (targetZoom < MINIMUM_ZOOM) {
-			targetZoom = MINIMUM_ZOOM;
-		} else if (targetZoom > MAXIMUM_ZOOM) {
-			targetZoom = MAXIMUM_ZOOM;
-		}
-		// }
-	}
-
-	private void updateActualZoom() {
-		float offset = targetZoom - actualDistanceFromPoint;
-		float change = offset * FlounderEngine.getDelta() * ZOOM_AGILITY;
-		actualDistanceFromPoint += change;
-	}
-
 	private void updateHorizontalAngle() {
 		float offset = targetRotationAngle - angleAroundPlayer;
 
@@ -239,20 +182,21 @@ public class MainCamera implements ICamera {
 	}
 
 	private void calculatePosition() {
-		float theta = targetRotation.y + angleAroundPlayer;
-		position.x = targetPosition.x - (float) (horizontalDistanceFromFocus * Math.sin(Math.toRadians(theta)));
-		position.z = targetPosition.z - (float) (horizontalDistanceFromFocus * Math.cos(Math.toRadians(theta)));
-		position.y = targetPosition.y + (verticalDistanceFromFocus + CAMERA_AIM_OFFSET);
+		// float theta = angleAroundPlayer;
+		position.x = targetPosition.x; //  - (float) (Math.sin(Math.toRadians(theta)))
+		position.z = targetPosition.z; //  - (float) (Math.cos(Math.toRadians(theta)))
+		position.y = targetPosition.y; //  + CAMERA_AIM_OFFSET
 
-		yaw = targetRotation.y + Maths.DEGREES_IN_HALF_CIRCLE + angleAroundPlayer;
-		pitch = (float) Math.toDegrees(angleOfElevation) - PITCH_OFFSET;
+		rotation.x = (float) Math.toDegrees(angleOfElevation) - PITCH_OFFSET;
+		rotation.y = Maths.DEGREES_IN_HALF_CIRCLE + angleAroundPlayer;
+		rotation.z = 0.0f;
 	}
 
-	private void updateViewMatrix(final Vector3f position, final float pitch, final float yaw) {
+	private void updateViewMatrix(final Vector3f position, final Vector3f rotation) {
 		viewMatrix.setIdentity();
 		position.negate();
-		Matrix4f.rotate(viewMatrix, new Vector3f(1, 0, 0), (float) Math.toRadians(pitch), viewMatrix);
-		Matrix4f.rotate(viewMatrix, new Vector3f(0, 1, 0), (float) Math.toRadians(-yaw), viewMatrix);
+		Matrix4f.rotate(viewMatrix, new Vector3f(1, 0, 0), (float) Math.toRadians(rotation.x), viewMatrix);
+		Matrix4f.rotate(viewMatrix, new Vector3f(0, 1, 0), (float) Math.toRadians(-rotation.y), viewMatrix);
 		Matrix4f.translate(viewMatrix, position, viewMatrix);
 		position.negate();
 		viewFrustum.recalculateFrustum(FlounderEngine.getProjectionMatrix(), getViewMatrix());
@@ -284,21 +228,21 @@ public class MainCamera implements ICamera {
 
 	@Override
 	public float getPitch() {
-		return pitch;
+		return rotation.x;
 	}
 
 	@Override
 	public float getYaw() {
-		return yaw;
+		return rotation.y;
+	}
+
+	@Override
+	public float getRoll() {
+		return rotation.z;
 	}
 
 	@Override
 	public float getAimDistance() {
 		return 0.0f;
-	}
-
-	private void calculateDistances() {
-		horizontalDistanceFromFocus = (float) (actualDistanceFromPoint * Math.cos(angleOfElevation));
-		verticalDistanceFromFocus = (float) (actualDistanceFromPoint * Math.sin(angleOfElevation));
 	}
 }

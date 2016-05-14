@@ -14,8 +14,14 @@ public class BlockFace extends AABB {
 		this.visible = false;
 
 		// TODO: Fit AABB to face not block.
-		super.setMinExtents(Block.getPosition(parent).x - BlockTypes.BLOCK_EXTENT, Block.getPosition(parent).y - BlockTypes.BLOCK_EXTENT, Block.getPosition(parent).z - BlockTypes.BLOCK_EXTENT);
-		super.setMaxExtents(Block.getPosition(parent).x + BlockTypes.BLOCK_EXTENT, Block.getPosition(parent).y + BlockTypes.BLOCK_EXTENT, Block.getPosition(parent).z + BlockTypes.BLOCK_EXTENT);
+		super.setMinExtents(
+				(Block.getPosition(parent).x) - BlockTypes.BLOCK_EXTENT,
+				(Block.getPosition(parent).y) - BlockTypes.BLOCK_EXTENT,
+				(Block.getPosition(parent).z) - BlockTypes.BLOCK_EXTENT);
+		super.setMaxExtents(
+				(Block.getPosition(parent).x) + BlockTypes.BLOCK_EXTENT,
+				(Block.getPosition(parent).y) + BlockTypes.BLOCK_EXTENT,
+				(Block.getPosition(parent).z) + BlockTypes.BLOCK_EXTENT);
 	}
 
 	protected static void update(final BlockFace face, final Chunk chunk, final Block block) {
@@ -33,6 +39,10 @@ public class BlockFace extends AABB {
 		}
 
 		face.visible = FlounderEngine.getCamera().getViewFrustum().aabbInFrustum(face);
+
+		//if (face.visible && !face.covered) {
+		//	AABBManager.addAABBRender(face);
+		//}
 	}
 
 	protected static FaceTypes getType(final BlockFace face) {

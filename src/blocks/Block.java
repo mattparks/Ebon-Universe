@@ -2,8 +2,9 @@ package blocks;
 
 import flounder.maths.matrices.*;
 import flounder.maths.vectors.*;
+import flounder.physics.*;
 
-public class Block {
+public class Block extends AABB {
 	public static final Vector3f ROTATION_REUSABLE = new Vector3f(0, 0, 0);
 	public static final Vector3f POSITION_REUSABLE = new Vector3f(0, 0, 0);
 	public static final Vector3f SCALE_REUSABLE = new Vector3f(0, 0, 0);
@@ -15,6 +16,9 @@ public class Block {
 	public Block(final BlockTypes type, final Vector3f position) {
 		this.type = type;
 		this.position = position;
+
+		super.setMinExtents(position.x - BlockTypes.BLOCK_EXTENT, position.y - BlockTypes.BLOCK_EXTENT, position.z - BlockTypes.BLOCK_EXTENT);
+		super.setMaxExtents(position.x + BlockTypes.BLOCK_EXTENT, position.y + BlockTypes.BLOCK_EXTENT, position.z + BlockTypes.BLOCK_EXTENT);
 
 		this.faces = new BlockFace[6];
 		this.faces[0] = new BlockFace(FaceTypes.FRONT, this);

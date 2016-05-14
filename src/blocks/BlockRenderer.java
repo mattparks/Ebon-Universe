@@ -16,31 +16,31 @@ import static org.lwjgl.opengl.GL11.*;
 public class BlockRenderer extends IRenderer {
 	private static final int MAX_INSTANCES = 100000;
 	private static final int INSTANCE_DATA_LENGTH = 19;
+
 	private final int VAO;
 	private final int VAO_LENGTH;
 	private final FloatBuffer BUFFER;
 	private final int VBO;
+	private int pointer;
+
 	private BlockShader shader;
 	private Matrix4f modelMatrix;
-	private int pointer;
 
 	public BlockRenderer() {
 		this.shader = new BlockShader();
 		this.modelMatrix = new Matrix4f();
-		this.pointer = 0;
 
 		// Creates the basic pane.
-		//	final int[] indicies = new int[]{1, 3, 2, 0, 1, 2};
-		final float[] verticies = new float[]{-1.0f, 0.0f, 1.0f, 1.0f, 0.0f, 1.0f, -1.0f, 0.0f, -1.0f, 1.0f, 0.0f, -1.0f};
-		//	final float[] textureCoords = new float[]{0.9999f, 1.00016594E-4f, 1.0E-4f, 1.00016594E-4f, 0.9999f, 0.9999f, 1.0E-4f, 0.9999f};
-		//	final float[] normals = new float[]{0.0f, 1.0f, 0.0f, 0.0f, 1.0f, 0.0f, 0.0f, 1.0f, 0.0f, 0.0f, 1.0f, 0.0f};
-		//	final float[] tangents = new float[]{-1.0f, 0.0f, 0.0f, -1.0f, 0.0f, 0.0f, -1.0f, 0.0f, 0.0f, -1.0f, 0.0f, 0.0f};
-		VAO = Loader.createInterleavedVAO(verticies, 3);
+		final float[] verticies = new float[]{ -1.0f, 0.0f, 1.0f, 1.0f, 0.0f, 1.0f, -1.0f, 0.0f, -1.0f, 1.0f, 0.0f, -1.0f };
+		final float[] textureCoords = new float[]{ 0.9999f, 1.00016594E-4f, 1.0E-4f, 1.00016594E-4f, 0.9999f, 0.9999f, 1.0E-4f, 0.9999f };
+		final float[] normals = new float[]{ 0.0f, 1.0f, 0.0f, 0.0f, 1.0f, 0.0f, 0.0f, 1.0f, 0.0f, 0.0f, 1.0f, 0.0f };
+		VAO = Loader.createInterleavedVAO(verticies.length / 3, verticies, textureCoords, normals);
 		VAO_LENGTH = verticies.length;
 
 		// Creates the instanced array stuff.
 		BUFFER = BufferUtils.createFloatBuffer(MAX_INSTANCES * INSTANCE_DATA_LENGTH);
 		VBO = Loader.createEmptyVBO(INSTANCE_DATA_LENGTH * MAX_INSTANCES);
+		this.pointer = 0;
 
 		Loader.addInstancedAttribute(VAO, VBO, 1, 4, INSTANCE_DATA_LENGTH, 0);  // Model Mat A
 		Loader.addInstancedAttribute(VAO, VBO, 2, 4, INSTANCE_DATA_LENGTH, 4);  // Model Mat B

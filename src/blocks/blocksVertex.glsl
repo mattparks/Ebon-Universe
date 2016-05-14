@@ -1,6 +1,8 @@
 #version 130
 
 layout(location = 0) in vec3 in_position;
+//layout(location = 0) in vec3 in_textureCoord;
+//layout(location = 0) in vec3 in_normal;
 layout(location = 1) in mat4 in_modelMatrix;
 layout(location = 5) in vec3 in_colour;
 

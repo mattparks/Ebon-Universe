@@ -33,6 +33,9 @@ public class WorldManager {
 				AABBManager.addAABBRender(chunk);
 			}
 		}
+
+		SortingAlgorithms.quickSort(CHUNK_LIST); // Sorts furthest to nearest.
+		Collections.reverse(CHUNK_LIST); // Reverses so closer chunks are first.
 	}
 
 	public static boolean blockExists(final float x, final float y, final float z) {

@@ -6,10 +6,12 @@ import flounder.maths.matrices.*;
 import flounder.maths.vectors.*;
 import flounder.noise.*;
 import flounder.physics.*;
+import models.*;
+import org.lwjgl.opengl.*;
 
 import java.util.*;
 
-public class Chunk extends AABB {
+public class Chunk extends AABB implements Comparable<Chunk> {
 	public static final Vector3f ROTATION_REUSABLE = new Vector3f(0, 0, 0);
 	public static final Vector3f POSITION_REUSABLE = new Vector3f(0, 0, 0);
 	public static final Vector3f SCALE_REUSABLE = new Vector3f(0, 0, 0);
@@ -20,7 +22,7 @@ public class Chunk extends AABB {
 	private final Block[][][] blocks;
 
 	private final int vaoID;
-	private int vertexCount;
+	private int vaoLength;
 
 	private boolean forceUpdate;
 	private boolean visible;
@@ -38,15 +40,15 @@ public class Chunk extends AABB {
 		), new Vector3f(BlockTypes.BLOCK_EXTENT, BlockTypes.BLOCK_EXTENT, BlockTypes.BLOCK_EXTENT), super.getMaxExtents());
 
 		this.vaoID = Loader.createVAO();
-		this.vertexCount = 0;
+		this.vaoLength = 0;
 
 		this.forceUpdate = true;
-		this.visible = false;
+		this.visible = true;
 		this.empty = true;
 
 		generate(noise);
 		populate(random);
-		generateModel();
+		update();
 	}
 
 	private void generate(final PerlinNoise noise) {
@@ -147,6 +149,15 @@ public class Chunk extends AABB {
 			}
 		}
 
+		final Model model = BlockTypes.MODEL_DEFAULT_CUBE;
+		Loader.createIndicesVBO(vaoID, model.getIndices());
+		Loader.storeDataInVBO(vaoID, model.getVertices(), 0, 3);
+		Loader.storeDataInVBO(vaoID, model.getTextures(), 1, 2);
+		Loader.storeDataInVBO(vaoID, model.getNormals(), 2, 3);
+		Loader.storeDataInVBO(vaoID, model.getNormals(), 3, 3);
+		GL30.glBindVertexArray(0);
+		this.vaoLength = model.getIndices().length;
+
 		// TODO: Generate a model!
 	}
 
@@ -203,8 +214,8 @@ public class Chunk extends AABB {
 		return vaoID;
 	}
 
-	protected int getVertexCount() {
-		return vertexCount;
+	protected int getVAOLength() {
+		return vaoLength;
 	}
 
 	protected boolean isVisible() {
@@ -217,5 +228,12 @@ public class Chunk extends AABB {
 
 	public boolean isEmpty() {
 		return empty;
+	}
+
+	@Override
+	public int compareTo(final Chunk other) {
+		final float thisToCamera = Vector3f.getDistanceSquared(FlounderEngine.getCamera().getPosition(), position);
+		final float otherToCamera = Vector3f.getDistanceSquared(FlounderEngine.getCamera().getPosition(), other.position);
+		return Float.compare(thisToCamera, otherToCamera);
 	}
 }

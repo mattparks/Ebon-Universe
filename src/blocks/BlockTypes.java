@@ -12,7 +12,7 @@ public class BlockTypes {
 	public static final float BLOCK_EXTENT = 1.0f;
 	private static List<BlockTypes> BLOCK_TYPES = new ArrayList<>();
 
-	private static Model MODEL_DEFAULT_CUBE = LoaderOBJ.loadOBJ(new MyFile(MyFile.RES_FOLDER, "blocks", "cube.obj"));
+	public static Model MODEL_DEFAULT_CUBE = LoaderOBJ.loadOBJ(new MyFile(MyFile.RES_FOLDER, "blocks", "cube.obj"));
 
 	private static Sound SOUND_DEFAULT_PLACE = Sound.loadSoundNow(new MyFile(MyFile.RES_FOLDER, "sounds", "blockPlace.wav"), 1.0f);
 	private static Sound SOUND_DEFAULT_BREAK = Sound.loadSoundNow(new MyFile(MyFile.RES_FOLDER, "sounds", "blockBreak.wav"), 1.0f);

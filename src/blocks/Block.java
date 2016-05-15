@@ -1,5 +1,6 @@
 package blocks;
 
+import flounder.engine.*;
 import flounder.maths.matrices.*;
 import flounder.maths.vectors.*;
 import flounder.physics.*;
@@ -12,6 +13,8 @@ public class Block extends AABB {
 	private final BlockTypes type;
 	private final Vector3f position;
 	private final BlockFace[] faces;
+
+	private boolean highlighted;
 
 	public Block(final BlockTypes type, final Vector3f position) {
 		this.type = type;
@@ -27,6 +30,8 @@ public class Block extends AABB {
 		this.faces[3] = new BlockFace(FaceTypes.RIGHT, this);
 		this.faces[4] = new BlockFace(FaceTypes.UP, this);
 		this.faces[5] = new BlockFace(FaceTypes.DOWN, this);
+
+		this.highlighted = false;
 	}
 
 	protected static void update(final Block block, final Chunk chunk) {
@@ -90,5 +95,13 @@ public class Block extends AABB {
 
 	protected static BlockTypes getType(final Block block) {
 		return block.type;
+	}
+
+	protected static void setHighlighted(final Block block, final boolean highlighted) {
+		block.highlighted = highlighted;
+	}
+
+	protected static boolean isHighlighted(final Block block) {
+		return block.highlighted;
 	}
 }

@@ -1,6 +1,7 @@
 package blocks;
 
 import flounder.engine.*;
+import flounder.lights.*;
 import flounder.maths.*;
 import flounder.maths.vectors.*;
 import flounder.noise.*;
@@ -11,7 +12,8 @@ import java.util.concurrent.*;
 
 public class WorldManager {
 	private static final List<Chunk> CHUNK_LIST = new ArrayList<>();
-	private static final NoisePerlin NOISE = new NoisePerlin((int) GameSeed.getSeed());
+	private static final Light LIGHT_SUN = new Light(new Colour(0.6f, 0.6f, 0.6f), new Vector3f(10000, 10000, -10000), new Attenuation(1.0f, 0.0f, 0.0f));
+	private static final PerlinNoise NOISE = new PerlinNoise((int) GameSeed.getSeed());
 
 	private static long TIMER_OFFSET = 1000;
 	private static long TIMER_TESTING = System.currentTimeMillis() + TIMER_OFFSET;

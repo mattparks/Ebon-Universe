@@ -15,7 +15,7 @@ import static org.lwjgl.opengl.GL11.*;
 
 public class BlockRenderer extends IRenderer {
 	private static final int MAX_INSTANCES = 100000;
-	private static final int INSTANCE_DATA_LENGTH = 19;
+	private static final int INSTANCE_DATA_LENGTH = 20;
 
 	private final int VAO;
 	private final int VAO_LENGTH;
@@ -34,7 +34,9 @@ public class BlockRenderer extends IRenderer {
 		final float[] verticies = new float[]{ -1.0f, 0.0f, 1.0f, 1.0f, 0.0f, 1.0f, -1.0f, 0.0f, -1.0f, 1.0f, 0.0f, -1.0f };
 		final float[] textureCoords = new float[]{ 0.9999f, 1.00016594E-4f, 1.0E-4f, 1.00016594E-4f, 0.9999f, 0.9999f, 1.0E-4f, 0.9999f };
 		final float[] normals = new float[]{ 0.0f, 1.0f, 0.0f, 0.0f, 1.0f, 0.0f, 0.0f, 1.0f, 0.0f, 0.0f, 1.0f, 0.0f };
-		VAO = Loader.createInterleavedVAO(verticies.length / 3, verticies, textureCoords, normals);
+		VAO = Loader.createInterleavedVAO(verticies, 3);
+	//	Loader.storeDataInVBO(VAO, textureCoords, 1, 2);
+	//	Loader.storeDataInVBO(VAO, normals, 2, 3);
 		VAO_LENGTH = verticies.length;
 
 		// Creates the instanced array stuff.
@@ -42,11 +44,12 @@ public class BlockRenderer extends IRenderer {
 		VBO = Loader.createEmptyVBO(INSTANCE_DATA_LENGTH * MAX_INSTANCES);
 		this.pointer = 0;
 
-		Loader.addInstancedAttribute(VAO, VBO, 1, 4, INSTANCE_DATA_LENGTH, 0);  // Model Mat A
-		Loader.addInstancedAttribute(VAO, VBO, 2, 4, INSTANCE_DATA_LENGTH, 4);  // Model Mat B
-		Loader.addInstancedAttribute(VAO, VBO, 3, 4, INSTANCE_DATA_LENGTH, 8);  // Model Mat C
-		Loader.addInstancedAttribute(VAO, VBO, 4, 4, INSTANCE_DATA_LENGTH, 12); // Model Mat D
-		Loader.addInstancedAttribute(VAO, VBO, 5, 3, INSTANCE_DATA_LENGTH, 16); // Colours
+		Loader.addInstancedAttribute(VAO, VBO, 3, 4, INSTANCE_DATA_LENGTH, 0);  // Model Mat A
+		Loader.addInstancedAttribute(VAO, VBO, 4, 4, INSTANCE_DATA_LENGTH, 4);  // Model Mat B
+		Loader.addInstancedAttribute(VAO, VBO, 5, 4, INSTANCE_DATA_LENGTH, 8);  // Model Mat C
+		Loader.addInstancedAttribute(VAO, VBO, 6, 4, INSTANCE_DATA_LENGTH, 12); // Model Mat D
+		Loader.addInstancedAttribute(VAO, VBO, 7, 3, INSTANCE_DATA_LENGTH, 16); // Colours
+		Loader.addInstancedAttribute(VAO, VBO, 8, 1, INSTANCE_DATA_LENGTH, 19); // Highlighted
 	}
 
 	@Override
@@ -97,7 +100,7 @@ public class BlockRenderer extends IRenderer {
 		OpenglUtils.enableDepthTesting();
 		OpenglUtils.enableAlphaBlending();
 
-		OpenglUtils.bindVAO(VAO, 0, 1, 2, 3, 4, 5);
+		OpenglUtils.bindVAO(VAO, 0, 1, 2, 3, 4, 5, 6, 7, 8);
 	}
 
 	private void loadBlockFaces(final Block block, final float[] vboData) {
@@ -129,12 +132,13 @@ public class BlockRenderer extends IRenderer {
 				vboData[pointer++] = colour.r;
 				vboData[pointer++] = colour.g;
 				vboData[pointer++] = colour.b;
+				vboData[pointer++] = Block.isHighlighted(block) ? 1 : 0;
 			}
 		}
 	}
 
 	private void endRendering() {
-		OpenglUtils.unbindVAO(0, 1, 2, 3, 4, 5);
+		OpenglUtils.unbindVAO(0, 1, 2, 3, 4, 5, 6, 7, 8);
 		shader.stop();
 	}
 

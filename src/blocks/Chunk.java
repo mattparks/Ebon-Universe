@@ -21,7 +21,7 @@ public class Chunk {
 	private boolean visible;
 	private boolean empty;
 
-	protected Chunk(final Vector3f position, final NoisePerlin noise, final Random random) {
+	protected Chunk(final Vector3f position, final PerlinNoise noise, final Random random) {
 		this.position = position;
 		this.blocks = new Block[CHUNK_SIZE][CHUNK_SIZE][CHUNK_SIZE + 1];
 		this.aabb = new AABB(
@@ -40,7 +40,7 @@ public class Chunk {
 		populate(random);
 	}
 
-	private void generate(final NoisePerlin noise) {
+	private void generate(final PerlinNoise noise) {
 		for (int x = 0; x < blocks.length; x++) {
 			for (int z = 0; z < blocks[x].length; z++) {
 				for (int y = 0; y < blocks[z].length; y++) {

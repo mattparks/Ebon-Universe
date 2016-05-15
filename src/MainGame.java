@@ -7,6 +7,7 @@ import options.*;
 import static org.lwjgl.glfw.GLFW.*;
 
 public class MainGame extends IGame {
+	private KeyButton exit;
 	private KeyButton screenshot;
 	private KeyButton fullscreen;
 	private KeyButton polygons;
@@ -17,6 +18,7 @@ public class MainGame extends IGame {
 
 	@Override
 	public void init() {
+		this.exit = new KeyButton(GLFW_KEY_ESCAPE);
 		this.screenshot = new KeyButton(GLFW_KEY_F2);
 		this.fullscreen = new KeyButton(GLFW_KEY_F11);
 		this.polygons = new KeyButton(GLFW_KEY_P);
@@ -29,6 +31,10 @@ public class MainGame extends IGame {
 
 	@Override
 	public void update() {
+		if (exit.wasDown()) {
+			ManagerDevices.getDisplay().requestClose();
+		}
+
 		if (screenshot.wasDown()) {
 			ManagerDevices.getDisplay().screenshot();
 		}

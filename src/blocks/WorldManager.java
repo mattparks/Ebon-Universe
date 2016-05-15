@@ -8,7 +8,6 @@ import flounder.noise.*;
 import flounder.physics.*;
 
 import java.util.*;
-import java.util.concurrent.*;
 
 public class WorldManager {
 	private static final List<Chunk> CHUNK_LIST = new ArrayList<>();
@@ -30,20 +29,20 @@ public class WorldManager {
 		for (final Chunk chunk : CHUNK_LIST) {
 			chunk.update();
 
-			if (Chunk.isVisible(chunk)) {
-				AABBManager.addAABBRender(Chunk.getAABB(chunk));
+			if (chunk.isVisible()) {
+				AABBManager.addAABBRender(chunk);
 			}
 		}
 	}
 
 	public static boolean blockExists(final float x, final float y, final float z) {
 		for (final Chunk chunk : CHUNK_LIST) {
-			final int bx = Chunk.inverseBlock(Chunk.getPosition(chunk).x, x);
-			final int by = Chunk.inverseBlock(Chunk.getPosition(chunk).y, y);
-			final int bz = Chunk.inverseBlock(Chunk.getPosition(chunk).z, z);
+			final int bx = Chunk.inverseBlock(chunk.getPosition().x, x);
+			final int by = Chunk.inverseBlock(chunk.getPosition().y, y);
+			final int bz = Chunk.inverseBlock(chunk.getPosition().z, z);
 
 			if (Chunk.inBounds(bx, by, bz)) {
-				return Chunk.blockExists(chunk, bx, by, bz);
+				return chunk.blockExists(bx, by, bz);
 			}
 		}
 
@@ -52,12 +51,12 @@ public class WorldManager {
 
 	public static Block getBlock(final float x, final float y, final float z) {
 		for (final Chunk chunk : CHUNK_LIST) {
-			final int bx = Chunk.inverseBlock(Chunk.getPosition(chunk).x, x);
-			final int by = Chunk.inverseBlock(Chunk.getPosition(chunk).y, y);
-			final int bz = Chunk.inverseBlock(Chunk.getPosition(chunk).z, z);
+			final int bx = Chunk.inverseBlock(chunk.getPosition().x, x);
+			final int by = Chunk.inverseBlock(chunk.getPosition().y, y);
+			final int bz = Chunk.inverseBlock(chunk.getPosition().z, z);
 
 			if (Chunk.inBounds(bx, by, bz)) {
-				return Chunk.getBlock(chunk, bx, by, bz);
+				return chunk.getBlock(bx, by, bz);
 			}
 		}
 
@@ -66,26 +65,26 @@ public class WorldManager {
 
 	public static void setBlock(final float x, final float y, final float z, final BlockTypes type) {
 		for (final Chunk chunk : CHUNK_LIST) {
-			final int bx = Chunk.inverseBlock(Chunk.getPosition(chunk).x, x);
-			final int by = Chunk.inverseBlock(Chunk.getPosition(chunk).y, y);
-			final int bz = Chunk.inverseBlock(Chunk.getPosition(chunk).z, z);
+			final int bx = Chunk.inverseBlock(chunk.getPosition().x, x);
+			final int by = Chunk.inverseBlock(chunk.getPosition().y, y);
+			final int bz = Chunk.inverseBlock(chunk.getPosition().z, z);
 
 			if (Chunk.inBounds(bx, by, bz)) {
 				final Block block = Chunk.createBlock(chunk, bx, by, bz, type);
-				Chunk.putBlock(chunk, block, bx, by, bz);
+				chunk.putBlock(block, bx, by, bz);
 			}
 		}
 	}
 
 	public static boolean insideBlock(final Vector3f point) {
 		for (final Chunk chunk : CHUNK_LIST) {
-			if (Chunk.getAABB(chunk).contains(point)) {
-				final int bx = Chunk.inverseBlock(Chunk.getPosition(chunk).x, point.x);
-				final int by = Chunk.inverseBlock(Chunk.getPosition(chunk).y, point.y);
-				final int bz = Chunk.inverseBlock(Chunk.getPosition(chunk).z, point.z);
+			if (chunk.contains(point)) {
+				final int bx = Chunk.inverseBlock(chunk.getPosition().x, point.x);
+				final int by = Chunk.inverseBlock(chunk.getPosition().y, point.y);
+				final int bz = Chunk.inverseBlock(chunk.getPosition().z, point.z);
 
 				if (Chunk.inBounds(bx, by, bz)) {
-					return Chunk.getBlock(chunk, bx, by, bz) != null;
+					return chunk.getBlock(bx, by, bz) != null;
 				}
 			}
 		}

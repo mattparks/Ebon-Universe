@@ -49,7 +49,13 @@ public class Block extends AABB {
 	 * Updates all the components attached to this block.
 	 */
 	protected void update(final Chunk chunk) {
-		components.forEach(component -> component.update(chunk));
+		if (components.size() < 1) {
+			return;
+		}
+
+		for (final IBlockComponent blockComponent : components) {
+			blockComponent.update(chunk);
+		}
 	}
 
 	protected boolean isCovered(final Chunk chunk) {

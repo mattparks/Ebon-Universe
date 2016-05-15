@@ -138,27 +138,79 @@ public class Chunk extends AABB implements Comparable<Chunk> {
 	}
 
 	private void generateModel() {
+		// Gets all of the points for the chunk model.
+		final List<Integer> chunkIndices = new ArrayList<>();
+		final List<Float> chunkVertices = new ArrayList<>();
+		final List<Float> chunkTextures = new ArrayList<>();
+		final List<Float> chunkNormals = new ArrayList<>();
+		final List<Float> chunkColours = new ArrayList<>();
+
 		for (int x = 0; x < blocks.length; x++) {
 			for (int z = 0; z < blocks[x].length; z++) {
 				for (int y = 0; y < blocks[z].length; y++) {
 					final Block block = blocks[x][z][y];
 
-					if (block != null && block.isCovered(this)) {
+					if (block != null && !block.isCovered(this)) {
+						if (chunkIndices.size() < 1) { // TODO: Remove!
+							final Model model = BlockTypes.get(block.getType()).getModel();
+
+							for (int i = 0; i < model.getIndices().length; i++) {
+								chunkIndices.add(model.getIndices()[i]);
+							}
+
+							for (int i = 0; i < model.getVertices().length; i++) {
+								chunkVertices.add(model.getVertices()[i]);
+							}
+
+							for (int i = 0; i < model.getTextures().length; i++) {
+								chunkTextures.add(model.getTextures()[i]);
+							}
+
+							for (int i = 0; i < model.getNormals().length; i++) {
+								chunkNormals.add(model.getNormals()[i]);
+								chunkColours.add(model.getNormals()[i]);
+							}
+						}
 					}
 				}
 			}
 		}
 
-		final Model model = BlockTypes.MODEL_DEFAULT_CUBE;
-		Loader.createIndicesVBO(vaoID, model.getIndices());
-		Loader.storeDataInVBO(vaoID, model.getVertices(), 0, 3);
-		Loader.storeDataInVBO(vaoID, model.getTextures(), 1, 2);
-		Loader.storeDataInVBO(vaoID, model.getNormals(), 2, 3);
-		Loader.storeDataInVBO(vaoID, model.getNormals(), 3, 3);
-		GL30.glBindVertexArray(0);
-		this.vaoLength = model.getIndices().length;
+		// Converts into array form.
+		final int[] indices = new int[chunkIndices.size()];
+		final float[] vertices = new float[chunkVertices.size()];
+		final float[] textures = new float[chunkTextures.size()];
+		final float[] normals = new float[chunkNormals.size()];
+		final float[] colours = new float[chunkColours.size()];
 
-		// TODO: Generate a model!
+		for (int i = 0; i < indices.length; i++) {
+			indices[i] = chunkIndices.get(i);
+		}
+
+		for (int i = 0; i < vertices.length; i++) {
+			vertices[i] = chunkVertices.get(i);
+		}
+
+		for (int i = 0; i < textures.length; i++) {
+			textures[i] = chunkTextures.get(i);
+		}
+
+		for (int i = 0; i < normals.length; i++) {
+			normals[i] = chunkNormals.get(i);
+		}
+
+		for (int i = 0; i < colours.length; i++) {
+			colours[i] = chunkColours.get(i);
+		}
+
+		// Loads into the VAO.
+		Loader.createIndicesVBO(vaoID, indices);
+		Loader.storeDataInVBO(vaoID, vertices, 0, 3);
+		Loader.storeDataInVBO(vaoID, textures, 1, 2);
+		Loader.storeDataInVBO(vaoID, normals, 2, 3);
+		Loader.storeDataInVBO(vaoID, colours, 3, 3);
+		GL30.glBindVertexArray(0);
+		this.vaoLength = indices.length;
 	}
 
 	protected Matrix4f updateModelMatrix(final Matrix4f modelMatrix) {

@@ -15,9 +15,6 @@ public class WorldManager {
 	private static final Light LIGHT_SUN = new Light(new Colour(0.6f, 0.6f, 0.6f), new Vector3f(10000, 10000, -10000), new Attenuation(1.0f, 0.0f, 0.0f));
 	private static final PerlinNoise NOISE = new PerlinNoise((int) GameSeed.getSeed());
 
-	private static long TIMER_OFFSET = 1000;
-	private static long TIMER_TESTING = System.currentTimeMillis() + TIMER_OFFSET;
-
 	public static void init() {
 		for (int x = -1; x < 0; x++) {
 			for (int z = -1; z < 0; z++) {
@@ -27,34 +24,15 @@ public class WorldManager {
 				}
 			}
 		}
-
-		// CHUNK_LIST.forEach(Chunk::writeChunkData);
 	}
 
 	public static void update() {
-		if (System.currentTimeMillis() - TIMER_TESTING > TIMER_OFFSET) {
-			updateRandomlyRemoveBlock();
-			TIMER_TESTING += TIMER_OFFSET;
-		}
-
 		for (final Chunk chunk : CHUNK_LIST) {
 			chunk.update();
 
 			if (Chunk.isVisible(chunk)) {
 				AABBManager.addAABBRender(Chunk.getAABB(chunk));
 			}
-		}
-	}
-
-	private static void updateRandomlyRemoveBlock() {
-		final int randomChunk = ThreadLocalRandom.current().nextInt(0, CHUNK_LIST.size());
-		final Chunk chunk = CHUNK_LIST.get(randomChunk);
-
-		if (chunk != null) {
-			final int x = ThreadLocalRandom.current().nextInt(0, Chunk.CHUNK_SIZE);
-			final int y = ThreadLocalRandom.current().nextInt(0, Chunk.CHUNK_SIZE);
-			final int z = ThreadLocalRandom.current().nextInt(0, Chunk.CHUNK_SIZE);
-			Chunk.removeBlock(chunk, x, y, z);
 		}
 	}
 
@@ -113,18 +91,6 @@ public class WorldManager {
 		}
 
 		return false;
-	}
-
-	public static int renderableChunkFaces() {
-		int count = 0;
-
-		for (final Chunk chunk : CHUNK_LIST) {
-			if (Chunk.isVisible(chunk)) {
-				count += Chunk.getFaceCount(chunk);
-			}
-		}
-
-		return count;
 	}
 
 	public static List<Chunk> getChunkList() {

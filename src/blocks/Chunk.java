@@ -2,20 +2,31 @@ package blocks;
 
 import flounder.devices.*;
 import flounder.engine.*;
+import flounder.loaders.*;
+import flounder.maths.matrices.*;
 import flounder.maths.vectors.*;
 import flounder.noise.*;
 import flounder.physics.*;
 import flounder.sounds.*;
+import models.*;
+import org.lwjgl.opengl.*;
 
 import java.io.*;
 import java.util.*;
 
 public class Chunk {
+	public static final Vector3f ROTATION_REUSABLE = new Vector3f(0, 0, 0);
+	public static final Vector3f POSITION_REUSABLE = new Vector3f(0, 0, 0);
+	public static final Vector3f SCALE_REUSABLE = new Vector3f(0, 0, 0);
+
 	public static final int CHUNK_SIZE = 16;
 
 	private final Vector3f position;
 	private final Block[][][] blocks;
 	private final AABB aabb;
+
+	private final int vaoID;
+	private int vertexCount;
 
 	private boolean forceUpdate;
 	private boolean visible;
@@ -33,11 +44,16 @@ public class Chunk {
 				), new Vector3f(BlockTypes.BLOCK_EXTENT, BlockTypes.BLOCK_EXTENT, BlockTypes.BLOCK_EXTENT), null)
 		);
 
+		this.vaoID = Loader.createVAO();
+		this.vertexCount = 0;
+
 		this.forceUpdate = true;
 		this.visible = false;
 		this.empty = true;
+
 		generate(noise);
 		populate(random);
+		generateModel();
 	}
 
 	private void generate(final PerlinNoise noise) {
@@ -94,54 +110,6 @@ public class Chunk {
 		}
 	}
 
-	protected static void writeChunkData(final Chunk chunk) { // , final String file
-		File file = new File("chunk-" + chunk.position.x + "-" + chunk.position.y + "-" + chunk.position.z + ".txt");
-		String string = "";
-
-		for (int x = 0; x < chunk.blocks.length; x++) {
-			for (int z = 0; z < chunk.blocks[x].length; z++) {
-				for (int y = 0; y < chunk.blocks[z].length; y++) {
-					final Block block = chunk.blocks[x][z][y];
-
-					if (block != null) {
-						string += "[(" + +x + "," + y + "," + z + ")'" + Block.getType(block).getName() + "'],";
-					}
-				}
-			}
-		}
-
-		try {
-			FileWriter fileWriter = new FileWriter(file);
-			fileWriter.write(string); // new String(CompressionUtils.compress(string))
-			fileWriter.flush();
-			fileWriter.close();
-		} catch (final Exception e) {
-			FlounderLogger.exception(e);
-		}
-	}
-
-	protected static Chunk readChunkData(final String file) {
-		/*try {
-			BufferedReader fileReader = new BufferedReader(new FileReader(file));
-			String fileData = fileReader.toString();
-			String line = fileReader.readLine();
-
-			while (line != null) {
-				fileData += line;
-				fileData += "\n";
-				line = fileReader.readLine();
-			}
-
-			byte[] data = fileData.getBytes();
-			String read = CompressionUtils.decompress(data);
-			FlounderLogger.log(read);
-		} catch (final Exception e) {
-			FlounderLogger.exception(e);
-		}*/
-
-		return null;
-	}
-
 	public static boolean blockExists(final Chunk chunk, final int x, final int y, final int z) {
 		return inBounds(x, y, z) && Chunk.getBlock(chunk, x, y, z) != null;
 	}
@@ -175,7 +143,71 @@ public class Chunk {
 			}
 		}
 
+		if (forceUpdate) {
+			generateModel();
+		}
+
 		forceUpdate = false;
+	}
+
+	private void generateModel() {
+		for (int x = 0; x < blocks.length; x++) {
+			for (int z = 0; z < blocks[x].length; z++) {
+				for (int y = 0; y < blocks[z].length; y++) {
+					final Block block = blocks[x][z][y];
+
+					if (block != null && Block.getCovered(block, this)) {
+						final Model model = Block.getType(block).getModel();
+
+					//	FlounderLogger.error("Indices = [ " + generateThingy(model.getIndices()) + " ];");
+					//	FlounderLogger.error("Vertices = [ " + generateThingy(model.getVertices()) + " ];");
+					//	FlounderLogger.error("Textures = [ " + generateThingy(model.getTextures()) + " ];");
+					//	FlounderLogger.error("Normals = [ " + generateThingy(model.getNormals()) + " ];");
+
+						vertexCount = model.getIndices().length;
+
+						Loader.createIndicesVBO(vaoID, model.getIndices());
+						Loader.storeDataInVBO(vaoID, model.getVertices(), 0, 3);
+						Loader.storeDataInVBO(vaoID, model.getTextures(), 1, 2);
+						Loader.storeDataInVBO(vaoID, model.getNormals(), 2, 3);
+						Loader.storeDataInVBO(vaoID, model.getNormals(), 3, 3); // TODO: Colours
+						GL30.glBindVertexArray(0);
+						return;
+					}
+				}
+			}
+		}
+
+		// TODO: Generate a model!
+	}
+
+	private String generateThingy(final int[] thingy) {
+		String result = "";
+
+		for (int i = 0;i<thingy.length;i++) {
+			result += thingy[i] + ",";
+		}
+
+		return result;
+	}
+
+	private String generateThingy(final float[] thingy) {
+		String result = "";
+
+		for (int i = 0;i<thingy.length;i++) {
+			result += thingy[i] + "f,";
+		}
+
+		return result;
+	}
+
+	protected static Matrix4f updateModelMatrix(final Chunk chunk, final Matrix4f modelMatrix) {
+		modelMatrix.setIdentity();
+		POSITION_REUSABLE.set(chunk.position);
+		ROTATION_REUSABLE.set(0.0f, 0.0f, 0.0f);
+		SCALE_REUSABLE.set(1.0f, 1.0f, 1.0f);
+		Matrix4f.transformationMatrix(POSITION_REUSABLE, ROTATION_REUSABLE, SCALE_REUSABLE, modelMatrix);
+		return modelMatrix;
 	}
 
 	protected static int inverseBlock(final float position, final float component) {
@@ -216,30 +248,16 @@ public class Chunk {
 		return chunk.aabb;
 	}
 
-	protected static boolean isVisible(final Chunk chunk) {
-		return chunk.visible;
+	protected static int getVAO(final Chunk chunk) {
+		return chunk.vaoID;
 	}
 
-	protected static int getFaceCount(final Chunk chunk) {
-		if (!chunk.visible) {
-			return 0;
-		}
+	protected static int getVertexCount(final Chunk chunk) {
+		return chunk.vertexCount;
+	}
 
-		int faces = 0;
-
-		for (int x = 0; x < chunk.blocks.length; x++) {
-			for (int z = 0; z < chunk.blocks[x].length; z++) {
-				for (int y = 0; y < chunk.blocks[z].length; y++) {
-					final Block block = chunk.blocks[x][z][y];
-
-					if (block != null) {
-						faces += Block.getVisibleFaces(block);
-					}
-				}
-			}
-		}
-
-		return faces;
+	protected static boolean isVisible(final Chunk chunk) {
+		return chunk.visible;
 	}
 
 	protected static boolean getForceUpdate(final Chunk chunk) {

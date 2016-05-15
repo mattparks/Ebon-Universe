@@ -3,89 +3,43 @@ package blocks;
 import flounder.devices.*;
 import flounder.engine.*;
 import flounder.loaders.*;
-import flounder.maths.*;
 import flounder.maths.matrices.*;
 import flounder.maths.vectors.*;
-import org.lwjgl.*;
 
-import java.nio.*;
-
-import static org.lwjgl.opengl.ARBDrawInstanced.*;
 import static org.lwjgl.opengl.GL11.*;
 
 public class BlockRenderer extends IRenderer {
-	private static final int MAX_INSTANCES = 100000;
-	private static final int INSTANCE_DATA_LENGTH = 20;
-
-	private final int VAO;
-	private final int VAO_LENGTH;
-	private final FloatBuffer BUFFER;
-	private final int VBO;
-	private int pointer;
-
 	private BlockShader shader;
 	private Matrix4f modelMatrix;
+
+	private final int[] INDICES = {1, 2, 3, 7, 6, 5, 4, 8, 9, 10, 11, 12, 13, 14, 15, 0, 16, 17, 18, 1, 3, 19, 7, 5, 20, 4, 9, 21, 10, 12, 22, 13, 15, 23, 0, 17};
+	private final float[] VERTICES = {1.0f, -1.0f, -1.0f, 1.0f, -1.0f, 1.0f, -1.0f, -1.0f, 1.0f, -1.0f, -1.0f, -1.0f, 1.0f, 1.0f, -0.999999f, 0.999999f, 1.0f, 1.000001f, -1.0f, 1.0f, 1.0f, -1.0f, 1.0f, -1.0f, 0.999999f, 1.0f, 1.000001f, 1.0f, -1.0f, 1.0f, 0.999999f, 1.0f, 1.000001f, -1.0f, 1.0f, 1.0f, -1.0f, -1.0f, 1.0f, -1.0f, -1.0f, 1.0f, -1.0f, 1.0f, 1.0f, -1.0f, 1.0f, -1.0f, -1.0f, -1.0f, -1.0f, -1.0f, 1.0f, -1.0f, 1.0f, -1.0f, -1.0f, 1.0f, 1.0f, -0.999999f, 1.0f, -1.0f, -1.0f, 1.0f, -1.0f, 1.0f, -1.0f, -1.0f, -1.0f, 1.0f, 1.0f, -0.999999f};
+	private final float[] TEXTURE_COORDS = {0.666467f, 0.666866f, 0.333134f, 1.9997358E-4f, 0.333134f, 0.33313298f, 2.0E-4f, 0.33313298f, 2.0E-4f, 0.666467f, 0.333134f, 0.666866f, 0.333134f, 0.9998f, 2.0E-4f, 0.9998f, 0.333134f, 0.666467f, 0.333134f, 0.333533f, 0.333533f, 0.666467f, 0.666467f, 0.666467f, 0.666467f, 0.333533f, 0.9998f, 0.9998f, 0.666866f, 0.9998f, 0.666866f, 0.666867f, 0.666467f, 0.9998f, 0.333533f, 0.9998f, 2.0E-4f, 1.9997358E-4f, 2.0E-4f, 0.666866f, 2.0E-4f, 0.333533f, 0.333533f, 0.333533f, 0.9998f, 0.666866f, 0.333533f, 0.666866f};
+	private final float[] NORMALS = {0.5773f, -0.5773f, -0.5773f, 0.5773f, -0.5773f, 0.5773f, -0.5773f, -0.5773f, 0.5773f, -0.5773f, -0.5773f, -0.5773f, 0.5773f, 0.5773f, -0.5773f, 0.5773f, 0.5773f, 0.5773f, -0.5773f, 0.5773f, 0.5773f, -0.5773f, 0.5773f, -0.5773f, 0.5773f, 0.5773f, 0.5773f, 0.5773f, -0.5773f, 0.5773f, 0.5773f, 0.5773f, 0.5773f, -0.5773f, 0.5773f, 0.5773f, -0.5773f, -0.5773f, 0.5773f, -0.5773f, -0.5773f, 0.5773f, -0.5773f, 0.5773f, 0.5773f, -0.5773f, 0.5773f, -0.5773f, -0.5773f, -0.5773f, -0.5773f, -0.5773f, 0.5773f, -0.5773f, 0.5773f, -0.5773f, -0.5773f, 0.5773f, 0.5773f, -0.5773f, 0.5773f, -0.5773f, -0.5773f, 0.5773f, -0.5773f, 0.5773f, -0.5773f, -0.5773f, -0.5773f, 0.5773f, 0.5773f, -0.5773f};
+	private final int VAO;
 
 	public BlockRenderer() {
 		this.shader = new BlockShader();
 		this.modelMatrix = new Matrix4f();
 
-		// Creates the basic pane.
-		final float[] verticies = new float[]{ -1.0f, 0.0f, 1.0f, 1.0f, 0.0f, 1.0f, -1.0f, 0.0f, -1.0f, 1.0f, 0.0f, -1.0f };
-		final float[] textureCoords = new float[]{ 0.9999f, 1.00016594E-4f, 1.0E-4f, 1.00016594E-4f, 0.9999f, 0.9999f, 1.0E-4f, 0.9999f };
-		final float[] normals = new float[]{ 0.0f, 1.0f, 0.0f, 0.0f, 1.0f, 0.0f, 0.0f, 1.0f, 0.0f, 0.0f, 1.0f, 0.0f };
-		VAO = Loader.createInterleavedVAO(verticies, 3);
-	//	Loader.storeDataInVBO(VAO, textureCoords, 1, 2);
-	//	Loader.storeDataInVBO(VAO, normals, 2, 3);
-		VAO_LENGTH = verticies.length;
-
-		// Creates the instanced array stuff.
-		BUFFER = BufferUtils.createFloatBuffer(MAX_INSTANCES * INSTANCE_DATA_LENGTH);
-		VBO = Loader.createEmptyVBO(INSTANCE_DATA_LENGTH * MAX_INSTANCES);
-		this.pointer = 0;
-
-		Loader.addInstancedAttribute(VAO, VBO, 3, 4, INSTANCE_DATA_LENGTH, 0);  // Model Mat A
-		Loader.addInstancedAttribute(VAO, VBO, 4, 4, INSTANCE_DATA_LENGTH, 4);  // Model Mat B
-		Loader.addInstancedAttribute(VAO, VBO, 5, 4, INSTANCE_DATA_LENGTH, 8);  // Model Mat C
-		Loader.addInstancedAttribute(VAO, VBO, 6, 4, INSTANCE_DATA_LENGTH, 12); // Model Mat D
-		Loader.addInstancedAttribute(VAO, VBO, 7, 3, INSTANCE_DATA_LENGTH, 16); // Colours
-		Loader.addInstancedAttribute(VAO, VBO, 8, 1, INSTANCE_DATA_LENGTH, 19); // Highlighted
+		VAO = Loader.createVAO();
+		Loader.createIndicesVBO(VAO, INDICES);
+		Loader.storeDataInVBO(VAO, VERTICES, 0, 3);
+		Loader.storeDataInVBO(VAO, TEXTURE_COORDS, 1, 2);
+		Loader.storeDataInVBO(VAO, NORMALS, 2, 3);
+		Loader.storeDataInVBO(VAO, NORMALS, 3, 3);
 	}
 
 	@Override
 	public void renderObjects(final Vector4f clipPlane, final ICamera camera) {
-		final int instances = WorldManager.renderableChunkFaces();
-
-		if (instances < 1) {
-			return;
-		}
-
-		pointer = 0;
-		final float[] vboData = new float[instances * INSTANCE_DATA_LENGTH];
-
-		for (final Chunk chunk : WorldManager.getChunkList()) {
-			if (!Chunk.isEmpty(chunk) && Chunk.isVisible(chunk)) {
-				final Block[][][] blocks = Chunk.getBlocks(chunk);
-
-				for (int x = 0; x < blocks.length; x++) {
-					for (int z = 0; z < blocks[x].length; z++) {
-						for (int y = 0; y < blocks[z].length; y++) {
-							loadBlockFaces(blocks[x][z][y], vboData);
-						}
-					}
-				}
-			}
-		}
-
 		prepareRendering(clipPlane, camera);
 
-		try {
-			Loader.updateVBO(VBO, vboData, BUFFER);
-		} catch (final BufferOverflowException e) {
-			FlounderLogger.exception(e);
-		}
+		WorldManager.getChunkList().forEach(chunk -> {
+			if (!Chunk.isEmpty(chunk) && Chunk.isVisible(chunk)) {
+				renderChunk(chunk);
+			}
+		});
 
-		glDrawArraysInstancedARB(GL_TRIANGLE_STRIP, 0, VAO_LENGTH, instances);
 		endRendering();
 	}
 
@@ -96,49 +50,19 @@ public class BlockRenderer extends IRenderer {
 		shader.clipPlane.loadVec4(clipPlane);
 
 		OpenglUtils.antialias(ManagerDevices.getDisplay().isAntialiasing());
-		OpenglUtils.cullBackFaces(false);
+		OpenglUtils.cullBackFaces(true);
 		OpenglUtils.enableDepthTesting();
 		OpenglUtils.enableAlphaBlending();
-
-		OpenglUtils.bindVAO(VAO, 0, 1, 2, 3, 4, 5, 6, 7, 8);
 	}
 
-	private void loadBlockFaces(final Block block, final float[] vboData) {
-		if (block == null) {
-			return;
-		}
-
-		for (int f = 0; f < 6; f++) {
-			if (BlockFace.isRenderable(Block.getFaces(block)[f])) {
-				Block.blockModelMatrix(block, f, modelMatrix);
-				final Colour colour = Block.getType(block).getColour();
-
-				vboData[pointer++] = modelMatrix.m00;
-				vboData[pointer++] = modelMatrix.m01;
-				vboData[pointer++] = modelMatrix.m02;
-				vboData[pointer++] = modelMatrix.m03;
-				vboData[pointer++] = modelMatrix.m10;
-				vboData[pointer++] = modelMatrix.m11;
-				vboData[pointer++] = modelMatrix.m12;
-				vboData[pointer++] = modelMatrix.m13;
-				vboData[pointer++] = modelMatrix.m20;
-				vboData[pointer++] = modelMatrix.m21;
-				vboData[pointer++] = modelMatrix.m22;
-				vboData[pointer++] = modelMatrix.m23;
-				vboData[pointer++] = modelMatrix.m30;
-				vboData[pointer++] = modelMatrix.m31;
-				vboData[pointer++] = modelMatrix.m32;
-				vboData[pointer++] = modelMatrix.m33;
-				vboData[pointer++] = colour.r;
-				vboData[pointer++] = colour.g;
-				vboData[pointer++] = colour.b;
-				vboData[pointer++] = Block.isHighlighted(block) ? 1 : 0;
-			}
-		}
+	private void renderChunk(final Chunk chunk) {
+		OpenglUtils.bindVAO(VAO, 0, 1, 2, 3); // Chunk.getVAO(chunk)
+		shader.modelMatrix.loadMat4(Chunk.updateModelMatrix(chunk, modelMatrix));
+		glDrawElements(GL_TRIANGLES, INDICES.length, GL_UNSIGNED_INT, 0); // Chunk.getVertexCount(chunk)
+		OpenglUtils.unbindVAO(0, 1, 2, 3);
 	}
 
 	private void endRendering() {
-		OpenglUtils.unbindVAO(0, 1, 2, 3, 4, 5, 6, 7, 8);
 		shader.stop();
 	}
 

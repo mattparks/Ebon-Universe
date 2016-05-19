@@ -32,7 +32,7 @@ public class MainPlayer {
 		final IButton downKeyButtons = new KeyButton(GLFW_KEY_LEFT_SHIFT);
 
 		this.inputForward = new CompoundAxis(new ButtonAxis(forwardsKeyButtons, backwardsKeyButtons), new JoystickAxis(OptionsControls.JOYSTICK_PORT, OptionsControls.JOYSTICK_AXIS_Y));
-		this.inputUp = new CompoundAxis(new ButtonAxis(upKeyButtons, downKeyButtons));
+		this.inputUp = new CompoundAxis(new ButtonAxis(downKeyButtons, upKeyButtons));
 		this.inputSide = new CompoundAxis(new ButtonAxis(leftKeyButtons, rightKeyButtons), new JoystickAxis(OptionsControls.JOYSTICK_PORT, OptionsControls.JOYSTICK_AXIS_X));
 
 		this.velocity = new Vector3f(0, 0, 0);
@@ -43,9 +43,11 @@ public class MainPlayer {
 
 	public void update(final boolean paused) {
 		if (!paused) {
-			velocity.x = (float) (-SIDE_SPEED * FlounderEngine.getDelta() * Maths.deadband(0.05f, inputSide.getAmount()));
-			velocity.y = (float) (-UP_SPEED * FlounderEngine.getDelta() * Maths.deadband(0.05f, inputUp.getAmount()));
-			velocity.z = (float) (-FRONT_SPEED * FlounderEngine.getDelta() * Maths.deadband(0.05f, inputForward.getAmount()));
+			rotation.set(0.0f, FlounderEngine.getCamera().getYaw(), 0.0f);
+			velocity.x = SIDE_SPEED * FlounderEngine.getDelta() * Maths.deadband(0.05f, inputSide.getAmount());
+			velocity.y = UP_SPEED * FlounderEngine.getDelta() * Maths.deadband(0.05f, inputUp.getAmount());
+			velocity.z = FRONT_SPEED * FlounderEngine.getDelta() * Maths.deadband(0.05f, inputForward.getAmount());
+			Vector3f.rotate(velocity, rotation, velocity);
 
 			boolean pevInsideBlock = WorldManager.insideBlock(position);
 			Vector3f.add(position, velocity, position);

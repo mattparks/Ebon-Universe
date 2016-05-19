@@ -1,4 +1,4 @@
-package game.components;
+package game.blocks.components;
 
 import game.blocks.*;
 

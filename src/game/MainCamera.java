@@ -31,7 +31,9 @@ public class MainCamera implements ICamera {
 	private final static float INFLUENCE_OF_MOUSEDX = INFLUENCE_OF_MOUSEDY * 92.0f;
 	private final static float INFLUENCE_OF_JOYSTICKDY = -1.0f;
 	private final static float INFLUENCE_OF_JOYSTICKDX = 100.0f * INFLUENCE_OF_JOYSTICKDY;
+
 	public static int toggleMouseMoveKey;
+
 	private Vector3f position;
 	private Vector3f rotation;
 	private Frustum viewFrustum;

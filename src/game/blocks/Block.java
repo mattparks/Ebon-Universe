@@ -4,7 +4,7 @@ import flounder.devices.*;
 import flounder.maths.vectors.*;
 import flounder.physics.*;
 import flounder.sounds.*;
-import game.components.*;
+import game.blocks.components.*;
 
 import java.util.*;
 

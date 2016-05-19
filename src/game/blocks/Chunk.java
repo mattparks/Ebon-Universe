@@ -1,6 +1,7 @@
 package game.blocks;
 
 import flounder.engine.*;
+import flounder.helpers.*;
 import flounder.loaders.*;
 import flounder.maths.matrices.*;
 import flounder.maths.vectors.*;
@@ -158,6 +159,7 @@ public class Chunk extends AABB implements Comparable<Chunk> {
 							for (int i = 0; i < model.getIndices().length; i++) {
 								final int index = model.getIndices()[i];
 
+								// TODO: Grab added number from block!
 								chunkVertices.add(model.getVertices()[index] + (x * 2.0f * BlockTypes.BLOCK_EXTENT));
 								chunkVertices.add(model.getVertices()[index + 1] + (y * 2.0f * BlockTypes.BLOCK_EXTENT));
 								chunkVertices.add(model.getVertices()[index + 2] + (z * 2.0f * BlockTypes.BLOCK_EXTENT));
@@ -179,27 +181,17 @@ public class Chunk extends AABB implements Comparable<Chunk> {
 			}
 		}
 
+		// TODO: Mesh merge!
+
 		// Converts into array form.
 		final float[] vertices = new float[chunkVertices.size()];
 		final float[] textures = new float[chunkTextures.size()];
 		final float[] normals = new float[chunkNormals.size()];
 		final float[] colours = new float[chunkColours.size()];
-
-		for (int i = 0; i < chunkVertices.size(); i++) {
-			vertices[i] = chunkVertices.get(i);
-		}
-
-		for (int i = 0; i < chunkTextures.size(); i++) {
-			textures[i] = chunkTextures.get(i);
-		}
-
-		for (int i = 0; i < chunkNormals.size(); i++) {
-			normals[i] = chunkNormals.get(i);
-		}
-
-		for (int i = 0; i < chunkColours.size(); i++) {
-			colours[i] = chunkColours.get(i);
-		}
+		ArrayUtils.copyToArray(chunkVertices, vertices);
+		ArrayUtils.copyToArray(chunkTextures, textures);
+		ArrayUtils.copyToArray(chunkNormals, normals);
+		ArrayUtils.copyToArray(chunkColours, colours);
 
 		// Loads into the VAO.
 		Loader.storeDataInVBO(vaoID, vertices, 0, 3);

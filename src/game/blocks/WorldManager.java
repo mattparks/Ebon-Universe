@@ -19,9 +19,15 @@ public class WorldManager {
 			for (int z = -1; z < 0; z++) {
 				for (int y = -1; y < 0; y++) {
 					FlounderLogger.log("Creating Chunk At: " + x + ", " + y + ", " + z);
-					CHUNK_LIST.add(new Chunk(new Vector3f(x * (Chunk.CHUNK_SIZE * (2.0f * BlockTypes.BLOCK_EXTENT)), y * (Chunk.CHUNK_SIZE * (2.0f * BlockTypes.BLOCK_EXTENT)), z * (Chunk.CHUNK_SIZE * (2.0f * BlockTypes.BLOCK_EXTENT))), NOISE, Maths.RANDOM));
+					CHUNK_LIST.add(new Chunk(new Vector3f(x * (Chunk.CHUNK_SIZE * (2.0f * BlockTypes.BLOCK_EXTENT)), y * (Chunk.CHUNK_SIZE * (2.0f * BlockTypes.BLOCK_EXTENT)), z * (Chunk.CHUNK_SIZE * (2.0f * BlockTypes.BLOCK_EXTENT)))));
 				}
 			}
+		}
+
+		for (final Chunk chunk : CHUNK_LIST) {
+			chunk.generate(NOISE);
+			chunk.populate(Maths.RANDOM);
+			chunk.update();
 		}
 	}
 

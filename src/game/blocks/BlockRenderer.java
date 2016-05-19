@@ -44,7 +44,8 @@ public class BlockRenderer extends IRenderer {
 	private void renderChunk(final Chunk chunk) {
 		OpenglUtils.bindVAO(chunk.getVAO(), 0, 1, 2, 3);
 		shader.modelMatrix.loadMat4(chunk.updateModelMatrix(modelMatrix));
-		glDrawElements(GL_TRIANGLES, chunk.getVAOLength(), GL_UNSIGNED_INT, 0);
+		//	glDrawElements(GL_TRIANGLES, chunk.getVAOLength(), GL_UNSIGNED_INT, 0);
+		glDrawArrays(GL_TRIANGLE_STRIP, 0, chunk.getVAOLength());
 		OpenglUtils.unbindVAO(0, 1, 2, 3);
 	}
 

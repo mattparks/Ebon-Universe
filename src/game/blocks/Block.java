@@ -1,10 +1,10 @@
 package game.blocks;
 
-import game.components.*;
 import flounder.devices.*;
 import flounder.maths.vectors.*;
 import flounder.physics.*;
 import flounder.sounds.*;
+import game.components.*;
 
 import java.util.*;
 

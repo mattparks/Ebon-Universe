@@ -14,9 +14,9 @@ public class BlockTypes {
 	public static final float BLOCK_EXTENT = 1.0f;
 	private static List<BlockTypes> BLOCK_TYPES = new ArrayList<>();
 
-	public static TextureTessellatorAtlas tessellatorAtlas = new TextureTessellatorAtlas(256, 256, Texture.newTexture(new MyFile(MyFile.RES_FOLDER, "game/blocks", "atlas.png")).create());
+	public static TextureTessellatorAtlas TESSELLATOR_AXIS = new TextureTessellatorAtlas(256, 256, Texture.newTexture(new MyFile(MyFile.RES_FOLDER, "blocks", "atlas.png")).create());
 
-	public static Model MODEL_DEFAULT_CUBE = LoaderOBJ.loadOBJ(new MyFile(MyFile.RES_FOLDER, "game/blocks", "cube.obj"));
+	public static Model MODEL_DEFAULT_CUBE = LoaderOBJ.loadOBJ(new MyFile(MyFile.RES_FOLDER, "blocks", "cube.obj"));
 
 	private static Sound SOUND_DEFAULT_PLACE = Sound.loadSoundNow(new MyFile(MyFile.RES_FOLDER, "sounds", "blockPlace.wav"), 1.0f);
 	private static Sound SOUND_DEFAULT_BREAK = Sound.loadSoundNow(new MyFile(MyFile.RES_FOLDER, "sounds", "blockBreak.wav"), 1.0f);
@@ -31,39 +31,39 @@ public class BlockTypes {
 		new BlockTypes("game::water", new Colour(35.0f, 86.0f, 240.0f, true), MODEL_DEFAULT_CUBE, SOUND_DEFAULT_PLACE, SOUND_DEFAULT_BREAK);
 		new BlockTypes("game::stone", new Colour(127.0f, 127.0f, 127.0f, true), MODEL_DEFAULT_CUBE, SOUND_DEFAULT_PLACE, SOUND_DEFAULT_BREAK);
 
-		new BlockTypes("game::coalOre", new Colour(49.0f, 49.0f, 49.0f, true), MODEL_DEFAULT_CUBE, SOUND_DEFAULT_PLACE, SOUND_DEFAULT_BREAK);
-		new BlockTypes("game::ironOre", new Colour(202.0f, 164.0f, 143.0f, true), MODEL_DEFAULT_CUBE, SOUND_DEFAULT_PLACE, SOUND_DEFAULT_BREAK);
-		new BlockTypes("game::goldOre", new Colour(236.0f, 236.0f, 80.0f, true), MODEL_DEFAULT_CUBE, SOUND_DEFAULT_PLACE, SOUND_DEFAULT_BREAK);
+		new BlockTypes("game::coal_ore", new Colour(49.0f, 49.0f, 49.0f, true), MODEL_DEFAULT_CUBE, SOUND_DEFAULT_PLACE, SOUND_DEFAULT_BREAK);
+		new BlockTypes("game::iron_ore", new Colour(202.0f, 164.0f, 143.0f, true), MODEL_DEFAULT_CUBE, SOUND_DEFAULT_PLACE, SOUND_DEFAULT_BREAK);
+		new BlockTypes("game::gold_ore", new Colour(236.0f, 236.0f, 80.0f, true), MODEL_DEFAULT_CUBE, SOUND_DEFAULT_PLACE, SOUND_DEFAULT_BREAK);
 
 		new BlockTypes("game::wood", new Colour(81.0f, 63.0f, 30.0f, true), MODEL_DEFAULT_CUBE, SOUND_DEFAULT_PLACE, SOUND_DEFAULT_BREAK);
 		new BlockTypes("game::leafs", new Colour(10.0f, 77.0f, 0.0f, true), MODEL_DEFAULT_CUBE, SOUND_DEFAULT_PLACE, SOUND_DEFAULT_BREAK);
 	}
 
 	private static void loadTexCoords() {
-		tessellatorAtlas.registerTextureCoords("Cobblestone", new Vector2f(0, 0));
-		tessellatorAtlas.registerTextureCoords("Grass", new Vector2f(16, 0));
-		tessellatorAtlas.registerTextureCoords("GrassSide", new Vector2f(32, 0));
-		tessellatorAtlas.registerTextureCoords("GrassSideSnow", new Vector2f(48, 0));
-		tessellatorAtlas.registerTextureCoords("GrassSnow", new Vector2f(64, 0));
-		tessellatorAtlas.registerTextureCoords("Dirt", new Vector2f(80, 0));
-		tessellatorAtlas.registerTextureCoords("Indes", new Vector2f(96, 0));
-		tessellatorAtlas.registerTextureCoords("Ice", new Vector2f(112, 0));
-		tessellatorAtlas.registerTextureCoords("Leaves", new Vector2f(128, 0));
-		tessellatorAtlas.registerTextureCoords("LeavesSnow", new Vector2f(144, 0));
-		tessellatorAtlas.registerTextureCoords("Sand", new Vector2f(160, 0));
-		tessellatorAtlas.registerTextureCoords("SandSnow", new Vector2f(176, 0));
-		tessellatorAtlas.registerTextureCoords("Water", new Vector2f(192, 0));
-		tessellatorAtlas.registerTextureCoords("Stone", new Vector2f(208, 0));
-		tessellatorAtlas.registerTextureCoords("Wood", new Vector2f(224, 0));
-		tessellatorAtlas.registerTextureCoords("DimOre", new Vector2f(240, 0));
-		tessellatorAtlas.registerTextureCoords("Glass", new Vector2f(0, 16));
-		tessellatorAtlas.registerTextureCoords("GoldOre", new Vector2f(16, 16));
-		tessellatorAtlas.registerTextureCoords("Lava", new Vector2f(32, 16));
-		tessellatorAtlas.registerTextureCoords("LavaSide", new Vector2f(48, 16));
-		tessellatorAtlas.registerTextureCoords("Pedestal", new Vector2f(64, 16));
-		tessellatorAtlas.registerTextureCoords("PedestalBottom", new Vector2f(80, 16));
-		tessellatorAtlas.registerTextureCoords("PedestalTop", new Vector2f(96, 16));
-		tessellatorAtlas.registerTextureCoords("Missing", new Vector2f(240, 240));
+		TESSELLATOR_AXIS.registerTextureCoords("cobblestone", new Vector2f(0, 0));
+		TESSELLATOR_AXIS.registerTextureCoords("grass", new Vector2f(16, 0));
+		TESSELLATOR_AXIS.registerTextureCoords("grass_side", new Vector2f(32, 0));
+		TESSELLATOR_AXIS.registerTextureCoords("grass_side_snow", new Vector2f(48, 0));
+		TESSELLATOR_AXIS.registerTextureCoords("grassSnow", new Vector2f(64, 0));
+		TESSELLATOR_AXIS.registerTextureCoords("dirt", new Vector2f(80, 0));
+		TESSELLATOR_AXIS.registerTextureCoords("indes", new Vector2f(96, 0));
+		TESSELLATOR_AXIS.registerTextureCoords("ice", new Vector2f(112, 0));
+		TESSELLATOR_AXIS.registerTextureCoords("leaves", new Vector2f(128, 0));
+		TESSELLATOR_AXIS.registerTextureCoords("leaves_snow", new Vector2f(144, 0));
+		TESSELLATOR_AXIS.registerTextureCoords("sand", new Vector2f(160, 0));
+		TESSELLATOR_AXIS.registerTextureCoords("sand_snow", new Vector2f(176, 0));
+		TESSELLATOR_AXIS.registerTextureCoords("water", new Vector2f(192, 0));
+		TESSELLATOR_AXIS.registerTextureCoords("stone", new Vector2f(208, 0));
+		TESSELLATOR_AXIS.registerTextureCoords("wood", new Vector2f(224, 0));
+		TESSELLATOR_AXIS.registerTextureCoords("dim_ore", new Vector2f(240, 0));
+		TESSELLATOR_AXIS.registerTextureCoords("glass", new Vector2f(0, 16));
+		TESSELLATOR_AXIS.registerTextureCoords("gold_ore", new Vector2f(16, 16));
+		TESSELLATOR_AXIS.registerTextureCoords("lava", new Vector2f(32, 16));
+		TESSELLATOR_AXIS.registerTextureCoords("lavaSide", new Vector2f(48, 16));
+		TESSELLATOR_AXIS.registerTextureCoords("pedestal", new Vector2f(64, 16));
+		TESSELLATOR_AXIS.registerTextureCoords("pedestal_bottom", new Vector2f(80, 16));
+		TESSELLATOR_AXIS.registerTextureCoords("pedestal_top", new Vector2f(96, 16));
+		TESSELLATOR_AXIS.registerTextureCoords("missing", new Vector2f(240, 240));
 	}
 
 	private final String name;

@@ -118,7 +118,7 @@ public class ScreenOptionsSounds extends GuiComponent {
 		text.setColour(MenuGame.TEXT_COLOUR);
 		final GuiTextButton button = new GuiTextButton(text);
 
-		final Listener leftListener = () -> menuGame.setNewSecondaryScreen(screenOption);
+		final Listener leftListener = () -> menuGame.setNewSecondaryScreen(screenOption, false);
 
 		button.addLeftListener(leftListener);
 		addComponent(button, xPos, yPos, ScreenOption.BUTTONS_X_WIDTH, ScreenOption.BUTTONS_Y_SIZE);

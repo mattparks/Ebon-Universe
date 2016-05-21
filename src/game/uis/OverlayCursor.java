@@ -19,8 +19,8 @@ public class OverlayCursor extends GuiComponent {
 		cursorPos.getTexture().setNumberOfRows(1);
 		cursorPos.setSelectedRow(1);
 		displayed = true;
-		inactiveColour = new Colour(1, 0, 0);
-		activeColour = new Colour(0, 0, 1);
+		inactiveColour = new Colour(1.0f, 0.0f, 0.0f);
+		activeColour = new Colour(0.0f, 0.0f, 1.0f);
 	}
 
 	public boolean isDisplayed() {
@@ -54,10 +54,12 @@ public class OverlayCursor extends GuiComponent {
 	@Override
 	protected void updateSelf() {
 		if (displayed) {
-			cursorPos.setColourOffset(GuiManager.getSelector().isLeftClick() || GuiManager.getSelector().isRightClick() ? activeColour : inactiveColour);
-			final float averageArea = (ManagerDevices.getDisplay().getWidth() + ManagerDevices.getDisplay().getHeight()) / 2.0f;
-			cursorPos.setPosition(GuiManager.getSelector().getCursorX(), GuiManager.getSelector().getCursorY(), (33.75f / averageArea), (33.75f / averageArea) * ManagerDevices.getDisplay().getAspectRatio());
-			cursorPos.update();
+			if (ManagerDevices.getMouse().isDisplaySelected() && ManagerDevices.getDisplay().isFocused()) {
+				cursorPos.setColourOffset(GuiManager.getSelector().isLeftClick() || GuiManager.getSelector().isRightClick() ? activeColour : inactiveColour);
+				final float averageArea = (ManagerDevices.getDisplay().getWidth() + ManagerDevices.getDisplay().getHeight()) / 2.0f;
+				cursorPos.setPosition(GuiManager.getSelector().getCursorX(), GuiManager.getSelector().getCursorY(), (33.75f / averageArea), (33.75f / averageArea) * ManagerDevices.getDisplay().getAspectRatio());
+				cursorPos.update();
+			}
 		}
 	}
 

@@ -43,12 +43,12 @@ public class MenuMain extends GuiComponent {
 	}
 
 	private void createOptionsButton(final float yPos) {
-		final Listener listener = () -> menuGame.setNewSecondaryScreen(screenOption);
+		final Listener listener = () -> menuGame.setNewSecondaryScreen(screenOption, true);
 		createButton("Options", listener, yPos);
 	}
 
 	private void createQuitButton(final float yPos) {
-		final Listener listener = () -> menuGame.setNewSecondaryScreen(screenQuit);
+		final Listener listener = () -> menuGame.setNewSecondaryScreen(screenQuit, true);
 		createButton("Quit", listener, yPos);
 	}
 

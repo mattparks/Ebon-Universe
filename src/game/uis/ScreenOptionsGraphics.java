@@ -105,7 +105,7 @@ public class ScreenOptionsGraphics extends GuiComponent {
 		text.setColour(MenuGame.TEXT_COLOUR);
 		GuiTextButton button = new GuiTextButton(text);
 
-		Listener listener = () -> menuGame.setNewSecondaryScreen(screenOption);
+		Listener listener = () -> menuGame.setNewSecondaryScreen(screenOption, false);
 
 		button.addLeftListener(listener);
 		addComponent(button, xPos, yPos, ScreenOption.BUTTONS_X_WIDTH, ScreenOption.BUTTONS_Y_SIZE);

@@ -39,7 +39,7 @@ public class ScreenOptionsDeveloper extends GuiComponent {
 		text.setColour(MenuGame.TEXT_COLOUR);
 		final GuiTextButton button = new GuiTextButton(text);
 
-		final Listener listener = () -> menuGame.setNewSecondaryScreen(screenOption);
+		final Listener listener = () -> menuGame.setNewSecondaryScreen(screenOption, false);
 
 		button.addLeftListener(listener);
 		addComponent(button, xPos, yPos, ScreenOption.BUTTONS_X_WIDTH, ScreenOption.BUTTONS_Y_SIZE);

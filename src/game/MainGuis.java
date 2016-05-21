@@ -12,7 +12,7 @@ import static org.lwjgl.glfw.GLFW.*;
  * Class in charge of the main GUIs in the test game.
  */
 public class MainGuis {
-	private static GameMenuBackground gameMenu;
+	private static MenuGameBackground gameMenu;
 	private static OverlayCursor overlayCursor;
 
 	private static CompoundButton openKey;
@@ -22,7 +22,7 @@ public class MainGuis {
 	 * Carries out any necessary initialization of Guis.
 	 */
 	public static void init() {
-		gameMenu = new GameMenuBackground();
+		gameMenu = new MenuGameBackground();
 		overlayCursor = new OverlayCursor();
 
 		openKey = new CompoundButton(new KeyButton(GLFW_KEY_ESCAPE), new JoystickButton(OptionsControls.JOYSTICK_PORT, OptionsControls.JOYSTICK_GUI_TOGGLE));

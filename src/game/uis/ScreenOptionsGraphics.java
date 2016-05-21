@@ -7,27 +7,27 @@ import flounder.guis.*;
 
 import java.util.*;
 
-public class OptionScreenGraphics extends GuiComponent {
-	private final GameMenu gameMenu;
-	private final OptionScreen optionScreen;
+public class ScreenOptionsGraphics extends GuiComponent {
+	private final MenuGame menuGame;
+	private final ScreenOption screenOption;
 
-	protected OptionScreenGraphics(final OptionScreen optionScreen, GameMenu gameMenu) {
-		this.gameMenu = gameMenu;
-		this.optionScreen = optionScreen;
+	protected ScreenOptionsGraphics(final ScreenOption screenOption, MenuGame menuGame) {
+		this.menuGame = menuGame;
+		this.screenOption = screenOption;
 
-		createFullscreenOption(OptionScreen.BUTTONS_X_LEFT_POS, 0.0f);
-		createAntialiasOption(OptionScreen.BUTTONS_X_LEFT_POS, 0.2f);
+		createFullscreenOption(ScreenOption.BUTTONS_X_LEFT_POS, 0.0f);
+		createAntialiasOption(ScreenOption.BUTTONS_X_LEFT_POS, 0.2f);
 
-		createVSyncOption(OptionScreen.BUTTONS_X_RIGHT_POS, 0.0f);
-		createPostOption(OptionScreen.BUTTONS_X_RIGHT_POS, 0.2f);
+		createVSyncOption(ScreenOption.BUTTONS_X_RIGHT_POS, 0.0f);
+		createPostOption(ScreenOption.BUTTONS_X_RIGHT_POS, 0.2f);
 
-		createBackOption(OptionScreen.BUTTONS_X_CENTER_POS, 1.0f);
+		createBackOption(ScreenOption.BUTTONS_X_CENTER_POS, 1.0f);
 	}
 
 	private void createFullscreenOption(final float xPos, final float yPos) {
 		final String fullscreenText = "Fullscreen: ";
-		final Text text = Text.newText(fullscreenText + (ManagerDevices.getDisplay().isFullscreen() ? "On" : "Off")).center().setFontSize(OptionScreen.FONT_SIZE).create();
-		text.setColour(GameMenu.TEXT_COLOUR);
+		final Text text = Text.newText(fullscreenText + (ManagerDevices.getDisplay().isFullscreen() ? "On" : "Off")).center().setFontSize(ScreenOption.FONT_SIZE).create();
+		text.setColour(MenuGame.TEXT_COLOUR);
 		GuiTextButton button = new GuiTextButton(text);
 
 		Listener listener = () -> {
@@ -36,13 +36,13 @@ public class OptionScreenGraphics extends GuiComponent {
 		};
 
 		button.addLeftListener(listener);
-		addComponent(button, xPos, yPos, OptionScreen.BUTTONS_X_WIDTH, OptionScreen.BUTTONS_Y_SIZE);
+		addComponent(button, xPos, yPos, ScreenOption.BUTTONS_X_WIDTH, ScreenOption.BUTTONS_Y_SIZE);
 	}
 
 	private void createAntialiasOption(final float xPos, final float yPos) {
 		final String msaaText = "Antialiasing: ";
-		final Text text = Text.newText(msaaText + (ManagerDevices.getDisplay().isAntialiasing() ? "On" : "Off")).center().setFontSize(OptionScreen.FONT_SIZE).create();
-		text.setColour(GameMenu.TEXT_COLOUR);
+		final Text text = Text.newText(msaaText + (ManagerDevices.getDisplay().isAntialiasing() ? "On" : "Off")).center().setFontSize(ScreenOption.FONT_SIZE).create();
+		text.setColour(MenuGame.TEXT_COLOUR);
 		GuiTextButton button = new GuiTextButton(text);
 
 		Listener listener = () -> {
@@ -51,13 +51,13 @@ public class OptionScreenGraphics extends GuiComponent {
 		};
 
 		button.addLeftListener(listener);
-		addComponent(button, xPos, yPos, OptionScreen.BUTTONS_X_WIDTH, OptionScreen.BUTTONS_Y_SIZE);
+		addComponent(button, xPos, yPos, ScreenOption.BUTTONS_X_WIDTH, ScreenOption.BUTTONS_Y_SIZE);
 	}
 
 	private void createVSyncOption(final float xPos, final float yPos) {
 		final String shadowText = "VSync: ";
-		final Text text = Text.newText(shadowText + (ManagerDevices.getDisplay().isEnableVSync() ? "On" : "Off")).center().setFontSize(OptionScreen.FONT_SIZE).create();
-		text.setColour(GameMenu.TEXT_COLOUR);
+		final Text text = Text.newText(shadowText + (ManagerDevices.getDisplay().isEnableVSync() ? "On" : "Off")).center().setFontSize(ScreenOption.FONT_SIZE).create();
+		text.setColour(MenuGame.TEXT_COLOUR);
 		GuiTextButton button = new GuiTextButton(text);
 
 		Listener listener = () -> {
@@ -66,13 +66,13 @@ public class OptionScreenGraphics extends GuiComponent {
 		};
 
 		button.addLeftListener(listener);
-		addComponent(button, xPos, yPos, OptionScreen.BUTTONS_X_WIDTH, OptionScreen.BUTTONS_Y_SIZE);
+		addComponent(button, xPos, yPos, ScreenOption.BUTTONS_X_WIDTH, ScreenOption.BUTTONS_Y_SIZE);
 	}
 
 	private void createPostOption(final float xPos, final float yPos) {
 		final String postTextPre = "Post Effect: ";
-		final Text text = Text.newText(postTextPre + OptionsGraphics.POST_EFFECT).center().setFontSize(OptionScreen.FONT_SIZE).create();
-		text.setColour(GameMenu.TEXT_COLOUR);
+		final Text text = Text.newText(postTextPre + OptionsGraphics.POST_EFFECT).center().setFontSize(ScreenOption.FONT_SIZE).create();
+		text.setColour(MenuGame.TEXT_COLOUR);
 		GuiTextButton button = new GuiTextButton(text);
 
 		Listener listenerUp = () -> {
@@ -97,18 +97,18 @@ public class OptionScreenGraphics extends GuiComponent {
 
 		button.addLeftListener(listenerUp);
 		button.addRightListener(listenerDown);
-		addComponent(button, xPos, yPos, OptionScreen.BUTTONS_X_WIDTH, OptionScreen.BUTTONS_Y_SIZE);
+		addComponent(button, xPos, yPos, ScreenOption.BUTTONS_X_WIDTH, ScreenOption.BUTTONS_Y_SIZE);
 	}
 
 	private void createBackOption(final float xPos, final float yPos) {
-		final Text text = Text.newText("Back").center().setFontSize(OptionScreen.FONT_SIZE).create();
-		text.setColour(GameMenu.TEXT_COLOUR);
+		final Text text = Text.newText("Back").center().setFontSize(ScreenOption.FONT_SIZE).create();
+		text.setColour(MenuGame.TEXT_COLOUR);
 		GuiTextButton button = new GuiTextButton(text);
 
-		Listener listener = () -> gameMenu.setNewSecondaryScreen(optionScreen);
+		Listener listener = () -> menuGame.setNewSecondaryScreen(screenOption);
 
 		button.addLeftListener(listener);
-		addComponent(button, xPos, yPos, OptionScreen.BUTTONS_X_WIDTH, OptionScreen.BUTTONS_Y_SIZE);
+		addComponent(button, xPos, yPos, ScreenOption.BUTTONS_X_WIDTH, ScreenOption.BUTTONS_Y_SIZE);
 	}
 
 	@Override

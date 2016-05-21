@@ -6,15 +6,15 @@ import flounder.visual.*;
 
 import java.util.*;
 
-public class GameMenuBackground extends GuiComponent {
+public class MenuGameBackground extends GuiComponent {
 	private static final float SLIDE_TIME = 0.7f;
-	private final GameMenu menu;
+	private final MenuGame menu;
 	private ValueDriver slideDriver;
 	private float backgroundAlpha;
 	private boolean displayed = true;
 
-	public GameMenuBackground() {
-		menu = new GameMenu(this);
+	public MenuGameBackground() {
+		menu = new MenuGame(this);
 		slideDriver = new ConstantDriver(1);
 		super.addComponent(menu, 0, 0, 1, 1);
 	}

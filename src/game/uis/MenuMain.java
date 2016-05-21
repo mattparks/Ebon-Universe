@@ -5,24 +5,24 @@ import flounder.guis.*;
 
 import java.util.*;
 
-public class MainMenu extends GuiComponent {
+public class MenuMain extends GuiComponent {
 	private static final float FONT_SIZE = 2.0f;
 	private static final float BUTTONS_X_POS = 0.3f;
 	private static final float BUTTONS_Y_SIZE = 0.2f;
 	private static final float BUTTONS_X_WIDTH = 1.0f - BUTTONS_X_POS * 2.0f;
 
-	private final GameMenu gameMenu;
-	private final GameMenuBackground superMenu;
+	private final MenuGame menuGame;
+	private final MenuGameBackground superMenu;
 
-	private final OptionScreen optionScreen;
-	private final QuitScreen quitScreen;
+	private final ScreenOption screenOption;
+	private final ScreenQuit screenQuit;
 
-	protected MainMenu(final GameMenuBackground superMenu, final GameMenu gameMenu) {
-		this.gameMenu = gameMenu;
+	protected MenuMain(final MenuGameBackground superMenu, final MenuGame menuGame) {
+		this.menuGame = menuGame;
 		this.superMenu = superMenu;
 
-		this.optionScreen = new OptionScreen(gameMenu);
-		this.quitScreen = new QuitScreen(gameMenu);
+		this.screenOption = new ScreenOption(menuGame);
+		this.screenQuit = new ScreenQuit(menuGame);
 
 		createPlayButton(0.3f);
 		createOptionsButton(0.5f);
@@ -36,19 +36,19 @@ public class MainMenu extends GuiComponent {
 
 	private void createButton(final String textString, final Listener listener, final float yPos) {
 		final Text text = Text.newText(textString).center().setFontSize(FONT_SIZE).create();
-		text.setColour(GameMenu.TEXT_COLOUR);
+		text.setColour(MenuGame.TEXT_COLOUR);
 		final GuiTextButton button = new GuiTextButton(text);
 		button.addLeftListener(listener);
 		addComponent(button, BUTTONS_X_POS, yPos, BUTTONS_X_WIDTH, BUTTONS_Y_SIZE);
 	}
 
 	private void createOptionsButton(final float yPos) {
-		final Listener listener = () -> gameMenu.setNewSecondaryScreen(optionScreen);
+		final Listener listener = () -> menuGame.setNewSecondaryScreen(screenOption);
 		createButton("Options", listener, yPos);
 	}
 
 	private void createQuitButton(final float yPos) {
-		final Listener listener = () -> gameMenu.setNewSecondaryScreen(quitScreen);
+		final Listener listener = () -> menuGame.setNewSecondaryScreen(screenQuit);
 		createButton("Quit", listener, yPos);
 	}
 

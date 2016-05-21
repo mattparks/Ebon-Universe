@@ -8,28 +8,28 @@ import flounder.sounds.*;
 
 import java.util.*;
 
-public class OptionScreenSounds extends GuiComponent {
-	private final GameMenu gameMenu;
-	private final OptionScreen optionScreen;
+public class ScreenOptionsSounds extends GuiComponent {
+	private final MenuGame menuGame;
+	private final ScreenOption screenOption;
 	private float lastSoundVolume;
 
-	protected OptionScreenSounds(final OptionScreen optionScreen, final GameMenu gameMenu) {
-		this.gameMenu = gameMenu;
-		this.optionScreen = optionScreen;
+	protected ScreenOptionsSounds(final ScreenOption screenOption, final MenuGame menuGame) {
+		this.menuGame = menuGame;
+		this.screenOption = screenOption;
 
-		createSoundOption(OptionScreen.BUTTONS_X_LEFT_POS, 0.0f);
-		createMusicOption(OptionScreen.BUTTONS_X_LEFT_POS, 0.2f);
-		createAmbientOption(OptionScreen.BUTTONS_X_LEFT_POS, 0.4f);
+		createSoundOption(ScreenOption.BUTTONS_X_LEFT_POS, 0.0f);
+		createMusicOption(ScreenOption.BUTTONS_X_LEFT_POS, 0.2f);
+		createAmbientOption(ScreenOption.BUTTONS_X_LEFT_POS, 0.4f);
 
-		createVolumeOption(OptionScreen.BUTTONS_X_RIGHT_POS, 0.0f);
+		createVolumeOption(ScreenOption.BUTTONS_X_RIGHT_POS, 0.0f);
 
-		createBackOption(OptionScreen.BUTTONS_X_CENTER_POS, 1.0f);
+		createBackOption(ScreenOption.BUTTONS_X_CENTER_POS, 1.0f);
 	}
 
 	private void createSoundOption(final float xPos, final float yPos) {
 		final String soundText = "Sound: ";
-		final Text text = Text.newText(soundText + (OptionsAudio.SOUND_VOLUME == 0.0f ? "Off" : "On")).center().setFontSize(OptionScreen.FONT_SIZE).create();
-		text.setColour(GameMenu.TEXT_COLOUR);
+		final Text text = Text.newText(soundText + (OptionsAudio.SOUND_VOLUME == 0.0f ? "Off" : "On")).center().setFontSize(ScreenOption.FONT_SIZE).create();
+		text.setColour(MenuGame.TEXT_COLOUR);
 		final GuiTextButton button = new GuiTextButton(text);
 
 		final Listener leftListener = () -> {
@@ -45,14 +45,14 @@ public class OptionScreenSounds extends GuiComponent {
 		};
 
 		button.addLeftListener(leftListener);
-		addComponent(button, xPos, yPos, OptionScreen.BUTTONS_X_WIDTH, OptionScreen.BUTTONS_Y_SIZE);
+		addComponent(button, xPos, yPos, ScreenOption.BUTTONS_X_WIDTH, ScreenOption.BUTTONS_Y_SIZE);
 	}
 
 	private void createMusicOption(final float xPos, final float yPos) {
 		final MusicPlayer mPlayer = ManagerDevices.getSound().getMusicPlayer();
 		final String musicText = "Music: ";
-		final Text text = Text.newText(musicText + (mPlayer.getVolume() == 1.0f ? "On" : "Off")).center().setFontSize(OptionScreen.FONT_SIZE).create();
-		text.setColour(GameMenu.TEXT_COLOUR);
+		final Text text = Text.newText(musicText + (mPlayer.getVolume() == 1.0f ? "On" : "Off")).center().setFontSize(ScreenOption.FONT_SIZE).create();
+		text.setColour(MenuGame.TEXT_COLOUR);
 		final GuiTextButton button = new GuiTextButton(text);
 
 		final Listener leftListener = () -> {
@@ -61,14 +61,14 @@ public class OptionScreenSounds extends GuiComponent {
 		};
 
 		button.addLeftListener(leftListener);
-		addComponent(button, xPos, yPos, OptionScreen.BUTTONS_X_WIDTH, OptionScreen.BUTTONS_Y_SIZE);
+		addComponent(button, xPos, yPos, ScreenOption.BUTTONS_X_WIDTH, ScreenOption.BUTTONS_Y_SIZE);
 	}
 
 	private void createAmbientOption(final float xPos, final float yPos) {
 		final MusicPlayer mPlayer = ManagerDevices.getSound().getMusicPlayer();
 		final String ambientText = "Ambient: ";
-		final Text text = Text.newText(ambientText + (mPlayer.getVolume() == 1.0f ? "On" : "Off")).center().setFontSize(OptionScreen.FONT_SIZE).create();
-		text.setColour(GameMenu.TEXT_COLOUR);
+		final Text text = Text.newText(ambientText + (mPlayer.getVolume() == 1.0f ? "On" : "Off")).center().setFontSize(ScreenOption.FONT_SIZE).create();
+		text.setColour(MenuGame.TEXT_COLOUR);
 		final GuiTextButton button = new GuiTextButton(text);
 
 		final Listener leftListener = () -> {
@@ -77,13 +77,13 @@ public class OptionScreenSounds extends GuiComponent {
 		};
 
 		button.addLeftListener(leftListener);
-		addComponent(button, xPos, yPos, OptionScreen.BUTTONS_X_WIDTH, OptionScreen.BUTTONS_Y_SIZE);
+		addComponent(button, xPos, yPos, ScreenOption.BUTTONS_X_WIDTH, ScreenOption.BUTTONS_Y_SIZE);
 	}
 
 	private void createVolumeOption(final float xPos, final float yPos) {
 		final String soundText = "Volume: ";
-		final Text text = Text.newText(soundText + ((int) (OptionsAudio.SOUND_VOLUME * 100.0f)) + "%").center().setFontSize(OptionScreen.FONT_SIZE).create();
-		text.setColour(GameMenu.TEXT_COLOUR);
+		final Text text = Text.newText(soundText + ((int) (OptionsAudio.SOUND_VOLUME * 100.0f)) + "%").center().setFontSize(ScreenOption.FONT_SIZE).create();
+		text.setColour(MenuGame.TEXT_COLOUR);
 		final GuiTextButton button = new GuiTextButton(text);
 
 		final Listener leftListener = () -> {
@@ -107,21 +107,21 @@ public class OptionScreenSounds extends GuiComponent {
 		};
 
 		button.addLeftListener(leftListener);
-		button.setMouseLeftClickSound(OptionScreen.VALUE_UP_SOUND);
+		button.setMouseLeftClickSound(ScreenOption.VALUE_UP_SOUND);
 		button.addRightListener(rightListener);
-		button.setMouseRightClickSound(OptionScreen.VALUE_DOWN_SOUND);
-		addComponent(button, xPos, yPos, OptionScreen.BUTTONS_X_WIDTH, OptionScreen.BUTTONS_Y_SIZE);
+		button.setMouseRightClickSound(ScreenOption.VALUE_DOWN_SOUND);
+		addComponent(button, xPos, yPos, ScreenOption.BUTTONS_X_WIDTH, ScreenOption.BUTTONS_Y_SIZE);
 	}
 
 	private void createBackOption(final float xPos, final float yPos) {
-		final Text text = Text.newText("Back").center().setFontSize(OptionScreen.FONT_SIZE).create();
-		text.setColour(GameMenu.TEXT_COLOUR);
+		final Text text = Text.newText("Back").center().setFontSize(ScreenOption.FONT_SIZE).create();
+		text.setColour(MenuGame.TEXT_COLOUR);
 		final GuiTextButton button = new GuiTextButton(text);
 
-		final Listener leftListener = () -> gameMenu.setNewSecondaryScreen(optionScreen);
+		final Listener leftListener = () -> menuGame.setNewSecondaryScreen(screenOption);
 
 		button.addLeftListener(leftListener);
-		addComponent(button, xPos, yPos, OptionScreen.BUTTONS_X_WIDTH, OptionScreen.BUTTONS_Y_SIZE);
+		addComponent(button, xPos, yPos, ScreenOption.BUTTONS_X_WIDTH, ScreenOption.BUTTONS_Y_SIZE);
 	}
 
 	@Override

@@ -8,7 +8,7 @@ import flounder.sounds.*;
 
 import java.util.*;
 
-public class OptionScreen extends GuiComponent {
+public class ScreenOption extends GuiComponent {
 	public static final float FONT_SIZE = 2.0f;
 	public static final float BUTTONS_Y_SIZE = 0.2f;
 	public static final float BUTTONS_X_LEFT_POS = 0.049999997f;
@@ -20,18 +20,18 @@ public class OptionScreen extends GuiComponent {
 	public static final Sound VALUE_DOWN_SOUND = Sound.loadSoundInBackground(new MyFile(DeviceSound.SOUND_FOLDER, "button3.wav"), 0.8f);
 	public static final Sound VALUE_INVALID_SOUND = Sound.loadSoundInBackground(new MyFile(DeviceSound.SOUND_FOLDER, "button3.wav"), 0.8f);
 
-	private final GameMenu gameMenu;
-	private final OptionScreenDeveloper optionScreenDeveloper;
-	private final OptionScreenGraphics optionScreenGraphics;
-	private final OptionScreenInputs optionScreenInputs;
-	private final OptionScreenSounds optionScreenSounds;
+	private final MenuGame menuGame;
+	private final ScreenOptionsDeveloper screenOptionsDeveloper;
+	private final ScreenOptionsGraphics screenOptionsGraphics;
+	private final ScreenOptionsInputs screenOptionsInputs;
+	private final ScreenOptionsSounds screenOptionsSounds;
 
-	protected OptionScreen(final GameMenu gameMenu) {
-		this.gameMenu = gameMenu;
-		optionScreenDeveloper = new OptionScreenDeveloper(this, gameMenu);
-		optionScreenGraphics = new OptionScreenGraphics(this, gameMenu);
-		optionScreenInputs = new OptionScreenInputs(this, gameMenu);
-		optionScreenSounds = new OptionScreenSounds(this, gameMenu);
+	protected ScreenOption(final MenuGame menuGame) {
+		this.menuGame = menuGame;
+		screenOptionsDeveloper = new ScreenOptionsDeveloper(this, menuGame);
+		screenOptionsGraphics = new ScreenOptionsGraphics(this, menuGame);
+		screenOptionsInputs = new ScreenOptionsInputs(this, menuGame);
+		screenOptionsSounds = new ScreenOptionsSounds(this, menuGame);
 
 		createGraphicsOption(BUTTONS_X_LEFT_POS, 0.0f);
 		createInputsOption(BUTTONS_X_LEFT_POS, 0.2f);
@@ -45,10 +45,10 @@ public class OptionScreen extends GuiComponent {
 	private void createGraphicsOption(final float xPos, final float yPos) {
 		final String graphicsText = "Graphics Options";
 		final Text text = Text.newText(graphicsText).center().setFontSize(FONT_SIZE).create();
-		text.setColour(GameMenu.TEXT_COLOUR);
+		text.setColour(MenuGame.TEXT_COLOUR);
 		final GuiTextButton button = new GuiTextButton(text);
 
-		final Listener listener = () -> gameMenu.setNewSecondaryScreen(optionScreenGraphics);
+		final Listener listener = () -> menuGame.setNewSecondaryScreen(screenOptionsGraphics);
 
 		button.addLeftListener(listener);
 		addComponent(button, xPos, yPos, BUTTONS_X_WIDTH, BUTTONS_Y_SIZE);
@@ -57,10 +57,10 @@ public class OptionScreen extends GuiComponent {
 	private void createSoundsOption(final float xPos, final float yPos) {
 		final String soundsText = "Sounds Options";
 		final Text text = Text.newText(soundsText).center().setFontSize(FONT_SIZE).create();
-		text.setColour(GameMenu.TEXT_COLOUR);
+		text.setColour(MenuGame.TEXT_COLOUR);
 		final GuiTextButton button = new GuiTextButton(text);
 
-		final Listener listener = () -> gameMenu.setNewSecondaryScreen(optionScreenSounds);
+		final Listener listener = () -> menuGame.setNewSecondaryScreen(screenOptionsSounds);
 
 		button.addLeftListener(listener);
 		addComponent(button, xPos, yPos, BUTTONS_X_WIDTH, BUTTONS_Y_SIZE);
@@ -69,10 +69,10 @@ public class OptionScreen extends GuiComponent {
 	private void createDevelopersOption(final float xPos, final float yPos) {
 		final String soundsText = "Developer Options";
 		final Text text = Text.newText(soundsText).center().setFontSize(FONT_SIZE).create();
-		text.setColour(GameMenu.TEXT_COLOUR);
+		text.setColour(MenuGame.TEXT_COLOUR);
 		final GuiTextButton button = new GuiTextButton(text);
 
-		final Listener listener = () -> gameMenu.setNewSecondaryScreen(optionScreenDeveloper);
+		final Listener listener = () -> menuGame.setNewSecondaryScreen(screenOptionsDeveloper);
 
 		button.addLeftListener(listener);
 		addComponent(button, xPos, yPos, BUTTONS_X_WIDTH, BUTTONS_Y_SIZE);
@@ -81,10 +81,10 @@ public class OptionScreen extends GuiComponent {
 	private void createInputsOption(final float xPos, final float yPos) {
 		final String inputsText = "Inputs Options";
 		final Text text = Text.newText(inputsText).center().setFontSize(FONT_SIZE).create();
-		text.setColour(GameMenu.TEXT_COLOUR);
+		text.setColour(MenuGame.TEXT_COLOUR);
 		final GuiTextButton button = new GuiTextButton(text);
 
-		final Listener listener = () -> gameMenu.setNewSecondaryScreen(optionScreenInputs);
+		final Listener listener = () -> menuGame.setNewSecondaryScreen(screenOptionsInputs);
 
 		button.addLeftListener(listener);
 		addComponent(button, xPos, yPos, BUTTONS_X_WIDTH, BUTTONS_Y_SIZE);
@@ -92,10 +92,10 @@ public class OptionScreen extends GuiComponent {
 
 	private void createBackOption(final float xPos, final float yPos) {
 		final Text text = Text.newText("Back").center().setFontSize(FONT_SIZE).create();
-		text.setColour(GameMenu.TEXT_COLOUR);
+		text.setColour(MenuGame.TEXT_COLOUR);
 		final GuiTextButton button = new GuiTextButton(text);
 
-		Listener listener = gameMenu::closeSecondaryScreen;
+		Listener listener = menuGame::closeSecondaryScreen;
 
 		button.addLeftListener(listener);
 		addComponent(button, xPos, yPos, BUTTONS_X_WIDTH, BUTTONS_Y_SIZE);

@@ -9,9 +9,11 @@ import java.util.*;
 
 public class OptionScreenGraphics extends GuiComponent {
 	private final GameMenu gameMenu;
+	private final OptionScreen optionScreen;
 
-	protected OptionScreenGraphics(GameMenu menu) {
-		gameMenu = menu;
+	protected OptionScreenGraphics(final OptionScreen optionScreen, GameMenu gameMenu) {
+		this.gameMenu = gameMenu;
+		this.optionScreen = optionScreen;
 
 		createFullscreenOption(OptionScreen.BUTTONS_X_LEFT_POS, 0.0f);
 		createAntialiasOption(OptionScreen.BUTTONS_X_LEFT_POS, 0.2f);
@@ -103,7 +105,7 @@ public class OptionScreenGraphics extends GuiComponent {
 		text.setColour(GameMenu.TEXT_COLOUR);
 		GuiTextButton button = new GuiTextButton(text);
 
-		Listener listener = () -> gameMenu.setNewSecondaryScreen(new OptionScreen(gameMenu));
+		Listener listener = () -> gameMenu.setNewSecondaryScreen(optionScreen);
 
 		button.addLeftListener(listener);
 		addComponent(button, xPos, yPos, OptionScreen.BUTTONS_X_WIDTH, OptionScreen.BUTTONS_Y_SIZE);

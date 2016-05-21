@@ -9,10 +9,12 @@ import java.util.*;
 import static org.lwjgl.glfw.GLFW.*;
 
 public class OptionScreenInputs extends GuiComponent {
+	private final OptionScreen optionScreen;
 	private GameMenu gameMenu;
 
-	protected OptionScreenInputs(final GameMenu menu) {
-		gameMenu = menu;
+	protected OptionScreenInputs(final OptionScreen optionScreen, final GameMenu gameMenu) {
+		this.gameMenu = gameMenu;
+		this.optionScreen = optionScreen;
 
 		createMouseMoveOption(OptionScreen.BUTTONS_X_CENTER_POS, 0.0f);
 
@@ -44,7 +46,7 @@ public class OptionScreenInputs extends GuiComponent {
 		text.setColour(GameMenu.TEXT_COLOUR);
 		final GuiTextButton button = new GuiTextButton(text);
 
-		final Listener listener = () -> gameMenu.setNewSecondaryScreen(new OptionScreen(gameMenu));
+		final Listener listener = () -> gameMenu.setNewSecondaryScreen(optionScreen);
 
 		button.addLeftListener(listener);
 		addComponent(button, xPos, yPos, OptionScreen.BUTTONS_X_WIDTH, OptionScreen.BUTTONS_Y_SIZE);

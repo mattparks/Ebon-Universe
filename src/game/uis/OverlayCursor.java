@@ -55,7 +55,8 @@ public class OverlayCursor extends GuiComponent {
 	protected void updateSelf() {
 		if (displayed) {
 			cursorPos.setColourOffset(GuiManager.getSelector().isLeftClick() || GuiManager.getSelector().isRightClick() ? activeColour : inactiveColour);
-			cursorPos.setPosition(GuiManager.getSelector().getCursorX(), GuiManager.getSelector().getCursorY(), (27.0f / ManagerDevices.getDisplay().getHeight()), (27.0f / ManagerDevices.getDisplay().getHeight()) * ManagerDevices.getDisplay().getAspectRatio());
+			final float averageArea = (ManagerDevices.getDisplay().getWidth() + ManagerDevices.getDisplay().getHeight()) / 2.0f;
+			cursorPos.setPosition(GuiManager.getSelector().getCursorX(), GuiManager.getSelector().getCursorY(), (33.75f / averageArea), (33.75f / averageArea) * ManagerDevices.getDisplay().getAspectRatio());
 			cursorPos.update();
 		}
 	}

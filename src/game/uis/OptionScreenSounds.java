@@ -10,12 +10,12 @@ import java.util.*;
 
 public class OptionScreenSounds extends GuiComponent {
 	private final GameMenu gameMenu;
+	private final OptionScreen optionScreen;
 	private float lastSoundVolume;
 
-
-	protected OptionScreenSounds(final GameMenu menu) {
-		gameMenu = menu;
-		lastSoundVolume = 0.0f;
+	protected OptionScreenSounds(final OptionScreen optionScreen, final GameMenu gameMenu) {
+		this.gameMenu = gameMenu;
+		this.optionScreen = optionScreen;
 
 		createSoundOption(OptionScreen.BUTTONS_X_LEFT_POS, 0.0f);
 		createMusicOption(OptionScreen.BUTTONS_X_LEFT_POS, 0.2f);
@@ -118,7 +118,7 @@ public class OptionScreenSounds extends GuiComponent {
 		text.setColour(GameMenu.TEXT_COLOUR);
 		final GuiTextButton button = new GuiTextButton(text);
 
-		final Listener leftListener = () -> gameMenu.setNewSecondaryScreen(new OptionScreen(gameMenu));
+		final Listener leftListener = () -> gameMenu.setNewSecondaryScreen(optionScreen);
 
 		button.addLeftListener(leftListener);
 		addComponent(button, xPos, yPos, OptionScreen.BUTTONS_X_WIDTH, OptionScreen.BUTTONS_Y_SIZE);

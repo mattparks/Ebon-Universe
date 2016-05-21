@@ -4,7 +4,6 @@ import flounder.engine.*;
 import flounder.inputs.*;
 import flounder.maths.*;
 import flounder.maths.vectors.*;
-import game.blocks.*;
 import game.options.*;
 
 import static org.lwjgl.glfw.GLFW.*;
@@ -49,13 +48,12 @@ public class MainPlayer {
 			velocity.z = FRONT_SPEED * FlounderEngine.getDelta() * Maths.deadband(0.05f, inputForward.getAmount());
 			Vector3f.rotate(velocity, rotation, velocity);
 
-			boolean pevInsideBlock = WorldManager.insideBlock(position);
-			Vector3f.add(position, velocity, position);
-			boolean insideBlock = WorldManager.insideBlock(position);
-
-			if (insideBlock && !pevInsideBlock) {
-				Vector3f.subtract(position, velocity, position);
-			}
+			//	boolean pevInsideBlock = WorldManager.insideBlock(position);
+			//	Vector3f.add(position, velocity, position);
+			//	boolean insideBlock = WorldManager.insideBlock(position);
+			//	if (insideBlock && !pevInsideBlock) {
+			//		Vector3f.subtract(position, velocity, position);
+			//	}
 		}
 	}
 

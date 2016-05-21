@@ -20,7 +20,7 @@ public class GameMenuBackground extends GuiComponent {
 	}
 
 	public void display(final boolean display) {
-		menu.display(display);
+		menu.show(display);
 		displayed = display;
 
 		if (display) {

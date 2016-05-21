@@ -9,8 +9,7 @@ import flounder.sounds.*;
 import java.util.*;
 
 public class OptionScreen extends GuiComponent {
-	public static final float FONT_SIZE = 2;
-
+	public static final float FONT_SIZE = 2.0f;
 	public static final float BUTTONS_Y_SIZE = 0.2f;
 	public static final float BUTTONS_X_LEFT_POS = 0.049999997f;
 	public static final float BUTTONS_X_CENTER_POS = 0.3f;
@@ -22,9 +21,17 @@ public class OptionScreen extends GuiComponent {
 	public static final Sound VALUE_INVALID_SOUND = Sound.loadSoundInBackground(new MyFile(DeviceSound.SOUND_FOLDER, "button3.wav"), 0.8f);
 
 	private final GameMenu gameMenu;
+	private final OptionScreenDeveloper optionScreenDeveloper;
+	private final OptionScreenGraphics optionScreenGraphics;
+	private final OptionScreenInputs optionScreenInputs;
+	private final OptionScreenSounds optionScreenSounds;
 
-	protected OptionScreen(final GameMenu menu) {
-		gameMenu = menu;
+	protected OptionScreen(final GameMenu gameMenu) {
+		this.gameMenu = gameMenu;
+		optionScreenDeveloper = new OptionScreenDeveloper(this, gameMenu);
+		optionScreenGraphics = new OptionScreenGraphics(this, gameMenu);
+		optionScreenInputs = new OptionScreenInputs(this, gameMenu);
+		optionScreenSounds = new OptionScreenSounds(this, gameMenu);
 
 		createGraphicsOption(BUTTONS_X_LEFT_POS, 0.0f);
 		createInputsOption(BUTTONS_X_LEFT_POS, 0.2f);
@@ -39,9 +46,9 @@ public class OptionScreen extends GuiComponent {
 		final String graphicsText = "Graphics Options";
 		final Text text = Text.newText(graphicsText).center().setFontSize(FONT_SIZE).create();
 		text.setColour(GameMenu.TEXT_COLOUR);
-		GuiTextButton button = new GuiTextButton(text);
+		final GuiTextButton button = new GuiTextButton(text);
 
-		final Listener listener = () -> gameMenu.setNewSecondaryScreen(new OptionScreenGraphics(gameMenu));
+		final Listener listener = () -> gameMenu.setNewSecondaryScreen(optionScreenGraphics);
 
 		button.addLeftListener(listener);
 		addComponent(button, xPos, yPos, BUTTONS_X_WIDTH, BUTTONS_Y_SIZE);
@@ -51,9 +58,9 @@ public class OptionScreen extends GuiComponent {
 		final String soundsText = "Sounds Options";
 		final Text text = Text.newText(soundsText).center().setFontSize(FONT_SIZE).create();
 		text.setColour(GameMenu.TEXT_COLOUR);
-		GuiTextButton button = new GuiTextButton(text);
+		final GuiTextButton button = new GuiTextButton(text);
 
-		final Listener listener = () -> gameMenu.setNewSecondaryScreen(new OptionScreenSounds(gameMenu));
+		final Listener listener = () -> gameMenu.setNewSecondaryScreen(optionScreenSounds);
 
 		button.addLeftListener(listener);
 		addComponent(button, xPos, yPos, BUTTONS_X_WIDTH, BUTTONS_Y_SIZE);
@@ -63,9 +70,9 @@ public class OptionScreen extends GuiComponent {
 		final String soundsText = "Developer Options";
 		final Text text = Text.newText(soundsText).center().setFontSize(FONT_SIZE).create();
 		text.setColour(GameMenu.TEXT_COLOUR);
-		GuiTextButton button = new GuiTextButton(text);
+		final GuiTextButton button = new GuiTextButton(text);
 
-		final Listener listener = () -> gameMenu.setNewSecondaryScreen(new OptionScreenDeveloper(gameMenu));
+		final Listener listener = () -> gameMenu.setNewSecondaryScreen(optionScreenDeveloper);
 
 		button.addLeftListener(listener);
 		addComponent(button, xPos, yPos, BUTTONS_X_WIDTH, BUTTONS_Y_SIZE);
@@ -75,9 +82,9 @@ public class OptionScreen extends GuiComponent {
 		final String inputsText = "Inputs Options";
 		final Text text = Text.newText(inputsText).center().setFontSize(FONT_SIZE).create();
 		text.setColour(GameMenu.TEXT_COLOUR);
-		GuiTextButton button = new GuiTextButton(text);
+		final GuiTextButton button = new GuiTextButton(text);
 
-		final Listener listener = () -> gameMenu.setNewSecondaryScreen(new OptionScreenInputs(gameMenu));
+		final Listener listener = () -> gameMenu.setNewSecondaryScreen(optionScreenInputs);
 
 		button.addLeftListener(listener);
 		addComponent(button, xPos, yPos, BUTTONS_X_WIDTH, BUTTONS_Y_SIZE);
@@ -86,9 +93,9 @@ public class OptionScreen extends GuiComponent {
 	private void createBackOption(final float xPos, final float yPos) {
 		final Text text = Text.newText("Back").center().setFontSize(FONT_SIZE).create();
 		text.setColour(GameMenu.TEXT_COLOUR);
-		GuiTextButton button = new GuiTextButton(text);
+		final GuiTextButton button = new GuiTextButton(text);
 
-		Listener listener = () -> gameMenu.closeSecondaryScreen();
+		Listener listener = gameMenu::closeSecondaryScreen;
 
 		button.addLeftListener(listener);
 		addComponent(button, xPos, yPos, BUTTONS_X_WIDTH, BUTTONS_Y_SIZE);

@@ -16,8 +16,10 @@ public class GameMenu extends GuiComponent {
 	private static final float SLIDE_TIME = 0.7f;
 
 	private final MainMenu mainMenu;
-	private ValueDriver secondaryDriver = new ConstantDriver(0);
-	private ValueDriver mainDriver = new ConstantDriver(0);
+	private final Text titleText;
+
+	private final SinWaveDriver titleColourX;
+	private final SinWaveDriver titleColourY;
 
 	private boolean displayed = true;
 	private boolean closeSecondary = false;
@@ -25,23 +27,16 @@ public class GameMenu extends GuiComponent {
 
 	public GameMenu(final GameMenuBackground superMenu) {
 		mainMenu = new MainMenu(superMenu, this);
-		Text text = Text.newText("Flounder Demo").center().setFontSize(TITLE_FONT_SIZE).create();
-		text.setColour(TEXT_COLOUR);
-		text.setBorderColour(TEXT_COLOUR.r, TEXT_COLOUR.g, TEXT_COLOUR.b);
-		text.setGlowing(new SinWaveDriver(0.075f, 0.150f, 2.320f));
-		super.addText(text, 0, 0, 1);
-		addComponent(mainMenu, 0, MAIN_MENU_Y_POS, 1, MAIN_MENU_Y_SIZE);
-	}
 
-	protected void display(final boolean display) {
-		if (display) {
-			show(true);
-			mainDriver = new SlideDriver(getRelativeX(), 0, SLIDE_TIME); // SinWaveDriver for cool effect :p
-			displayed = true;
-		} else {
-			mainDriver = new SlideDriver(getRelativeX(), 1, SLIDE_TIME);
-			displayed = false;
-		}
+		titleText = Text.newText("Flounder Demo").center().setFontSize(TITLE_FONT_SIZE).create();
+		titleText.setColour(TEXT_COLOUR);
+		titleText.setBorderColour(TEXT_COLOUR.r, TEXT_COLOUR.g, TEXT_COLOUR.b);
+		titleText.setGlowing(new SinWaveDriver(0.075f, 0.150f, 2.320f));
+		super.addText(titleText, 0, 0, 1);
+		addComponent(mainMenu, 0, MAIN_MENU_Y_POS, 1, MAIN_MENU_Y_SIZE);
+
+		titleColourX = new SinWaveDriver(0.0f, 1.0f, 40.0f);
+		titleColourY = new SinWaveDriver(0.0f, 1.0f, 20.0f);
 	}
 
 	@Override
@@ -50,33 +45,30 @@ public class GameMenu extends GuiComponent {
 
 		if (!visible) {
 			removeSecondaryScreen();
-			//	secondaryDriver = new ConstantDriver(0);
 		}
+
+		this.displayed = visible;
 	}
 
 	@Override
 	protected void updateSelf() {
-		float mainValue = mainDriver.update(FlounderEngine.getDelta());
-		float value = secondaryDriver.update(FlounderEngine.getDelta());
-		mainMenu.setRelativeX(value);
+		mainMenu.setRelativeX(0.0f);
+
+		titleText.setColour(titleColourX.update(FlounderEngine.getDelta()), titleColourY.update(FlounderEngine.getDelta()), 0.3f);
+		titleText.setBorderColour(titleText.getColour().r, titleText.getColour().g, titleText.getColour().b);
 
 		if (secondaryScreen != null) {
-			secondaryScreen.setRelativeX(value - 1);
+			secondaryScreen.setRelativeX(0.0f);
+			mainMenu.show(false);
+		} else {
+			mainMenu.show(true);
 		}
 
-		super.setRelativeX(mainValue);
-
-		if (!displayed) {
-			if (mainValue >= 1) {
-				show(false);
-			}
-		}
+		super.setRelativeX(0.0f);
+		super.show(displayed);
 
 		if (closeSecondary) {
-			if (secondaryScreen.getRelativeX() <= -1) {
-				removeSecondaryScreen();
-				closeSecondary = false;
-			}
+			removeSecondaryScreen();
 		}
 	}
 
@@ -86,8 +78,9 @@ public class GameMenu extends GuiComponent {
 
 	private void removeSecondaryScreen() {
 		if (secondaryScreen != null) {
-			removeComponent(secondaryScreen);
+			secondaryScreen.show(false);
 			secondaryScreen = null;
+			closeSecondary = false;
 		}
 	}
 
@@ -98,12 +91,11 @@ public class GameMenu extends GuiComponent {
 	protected void setNewSecondaryScreen(final GuiComponent secondScreen) {
 		removeSecondaryScreen();
 		secondaryScreen = secondScreen;
-		addComponent(secondScreen, mainMenu.getRelativeX() - 1, MAIN_MENU_Y_POS, 1, MAIN_MENU_Y_SIZE);
-		secondaryDriver = new SlideDriver(mainMenu.getRelativeX(), 1, SLIDE_TIME);
+		secondaryScreen.show(true);
+		addComponent(secondScreen, mainMenu.getRelativeX() - 1.0f, MAIN_MENU_Y_POS, 1.0f, MAIN_MENU_Y_SIZE);
 	}
 
 	protected void closeSecondaryScreen() {
-		secondaryDriver = new SlideDriver(mainMenu.getRelativeX(), 0, SLIDE_TIME);
 		closeSecondary = true;
 	}
 }

@@ -5,7 +5,6 @@ import flounder.engine.*;
 import flounder.inputs.*;
 import flounder.resources.*;
 import flounder.sounds.*;
-import game.blocks.*;
 import game.options.*;
 
 import static org.lwjgl.glfw.GLFW.*;
@@ -35,7 +34,6 @@ public class MainGame extends IGame {
 		ManagerDevices.getSound().getMusicPlayer().playMusicPlaylist(playlist, true, 3.2f, 7.2f);
 
 		MainGuis.init();
-		WorldManager.init();
 	}
 
 	@Override
@@ -63,7 +61,6 @@ public class MainGame extends IGame {
 		MainGuis.update();
 		player.update(MainGuis.isMenuOpen());
 		super.updateGame(player.getPosition(), player.getRotation(), MainGuis.isMenuOpen(), MainGuis.getBlurFactor());
-		WorldManager.update();
 	}
 
 	@Override

@@ -8,9 +8,11 @@ import java.util.*;
 
 public class OptionScreenDeveloper extends GuiComponent {
 	private final GameMenu gameMenu;
+	private final OptionScreen optionScreen;
 
-	protected OptionScreenDeveloper(final GameMenu menu) {
-		gameMenu = menu;
+	protected OptionScreenDeveloper(final OptionScreen optionScreen, final GameMenu gameMenu) {
+		this.gameMenu = gameMenu;
+		this.optionScreen = optionScreen;
 
 		createProfilerToggleOption(OptionScreen.BUTTONS_X_CENTER_POS, 0.0f);
 
@@ -37,7 +39,7 @@ public class OptionScreenDeveloper extends GuiComponent {
 		text.setColour(GameMenu.TEXT_COLOUR);
 		final GuiTextButton button = new GuiTextButton(text);
 
-		final Listener listener = () -> gameMenu.setNewSecondaryScreen(new OptionScreen(gameMenu));
+		final Listener listener = () -> gameMenu.setNewSecondaryScreen(optionScreen);
 
 		button.addLeftListener(listener);
 		addComponent(button, xPos, yPos, OptionScreen.BUTTONS_X_WIDTH, OptionScreen.BUTTONS_Y_SIZE);

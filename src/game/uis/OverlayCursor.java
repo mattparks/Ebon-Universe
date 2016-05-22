@@ -19,7 +19,7 @@ public class OverlayCursor extends GuiComponent {
 		cursorPos.getTexture().setNumberOfRows(1);
 		cursorPos.setSelectedRow(1);
 		displayed = true;
-		inactiveColour = new Colour(1.0f, 0.0f, 0.0f);
+		inactiveColour = new Colour(0.25f, 0.25f, 0.25f);
 		activeColour = new Colour(0.0f, 0.0f, 1.0f);
 	}
 

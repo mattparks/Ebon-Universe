@@ -40,10 +40,10 @@ public class MainGuis {
 	public static void update() {
 		if (openKey.wasDown()) {
 			gameMenu.display(!gameMenu.isDisplayed());
-			overlayCursor.display(true); // gameMenu.isDisplayed()
+			overlayCursor.show(true);
 		}
 
-		menuOpen = gameMenu.isShown();
+		menuOpen = gameMenu.isDisplayed();
 	}
 
 	public static OverlayCursor getOverlayCursor() {

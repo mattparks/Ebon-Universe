@@ -7,16 +7,22 @@ import flounder.visual.*;
 import java.util.*;
 
 public class MenuGameBackground extends GuiComponent {
-	private static final float SLIDE_TIME = 0.7f;
+	public static final float SLIDE_TIME = 0.7f;
+
 	private final MenuGame menu;
+
 	private ValueDriver slideDriver;
 	private float backgroundAlpha;
-	private boolean displayed = true;
+	private boolean displayed;
 
 	public MenuGameBackground() {
 		menu = new MenuGame(this);
-		slideDriver = new ConstantDriver(1);
-		super.addComponent(menu, 0, 0, 1, 1);
+
+		slideDriver = new ConstantDriver(1.0f);
+		backgroundAlpha = 0.0f;
+		displayed = true;
+
+		super.addComponent(menu, 0.0f, 0.0f, 1.0f, 1.0f);
 	}
 
 	public void display(final boolean display) {
@@ -28,9 +34,9 @@ public class MenuGameBackground extends GuiComponent {
 				show(true);
 			}
 
-			slideDriver = new SlideDriver(backgroundAlpha, 1, SLIDE_TIME);
+			slideDriver = new SlideDriver(backgroundAlpha, 1.0f, SLIDE_TIME);
 		} else {
-			slideDriver = new SlideDriver(backgroundAlpha, 0, SLIDE_TIME);
+			slideDriver = new SlideDriver(backgroundAlpha, 0.0f, SLIDE_TIME);
 		}
 	}
 
@@ -51,7 +57,7 @@ public class MenuGameBackground extends GuiComponent {
 	protected void updateSelf() {
 		backgroundAlpha = slideDriver.update(FlounderEngine.getDelta());
 
-		if (!displayed && !menu.isShown()) {
+		if (!displayed && !menu.isShown() && backgroundAlpha == 0.0f) {
 			show(false);
 		}
 	}

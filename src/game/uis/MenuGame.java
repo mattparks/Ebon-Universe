@@ -13,7 +13,6 @@ public class MenuGame extends GuiComponent {
 	private static final float TITLE_FONT_SIZE = 4.0f;
 	private static final float MAIN_MENU_Y_POS = 0.25f;
 	private static final float MAIN_MENU_Y_SIZE = 0.6f;
-	private static final float SLIDE_TIME = 0.7f;
 
 	private final MenuMain menuMain;
 
@@ -53,27 +52,17 @@ public class MenuGame extends GuiComponent {
 		closeSecondary = false;
 	}
 
-	protected void setNewSecondaryScreen(final GuiComponent secondScreen, final boolean slideForwards) {
-		if (newSecondaryScreen == null && secondaryDriver.update(FlounderEngine.getDelta()) == secondaryDepth) {
-			secondaryDepth += slideForwards ? 1 : -1;
-			slidingForwards = slideForwards;
-			newSecondaryScreen = secondScreen;
-			newSecondaryScreen.show(true);
-			addComponent(secondScreen, (secondaryDepth * menuMain.getRelativeX()) - (slideForwards ? 1.0f : -1.0f), MAIN_MENU_Y_POS, 1.0f, MAIN_MENU_Y_SIZE);
-			secondaryDriver = new SlideDriver(menuMain.getRelativeX(), secondaryDepth, SLIDE_TIME);
-		}
-	}	@Override
+	@Override
 	public void show(final boolean visible) {
 		displayed = visible;
-		mainDriver = new SlideDriver(getRelativeX(), visible ? 0.0f : 1.0f, SLIDE_TIME);
+		mainDriver = new SlideDriver(getRelativeX(), visible ? 0.0f : 1.0f, MenuGameBackground.SLIDE_TIME);
 	}
 
-	protected void closeSecondaryScreen() {
-		if (newSecondaryScreen == null && secondaryScreen != null) {
-			secondaryDriver = new SlideDriver(menuMain.getRelativeX(), 0.0f, SLIDE_TIME);
-			closeSecondary = true;
-		}
-	}	@Override
+	public boolean isDisplayed() {
+		return displayed;
+	}
+
+	@Override
 	protected void updateSelf() {
 		final float mainValue = mainDriver.update(FlounderEngine.getDelta());
 		final float value = secondaryDriver.update(FlounderEngine.getDelta());
@@ -100,6 +89,18 @@ public class MenuGame extends GuiComponent {
 			menuMain.show(false);
 
 			if (!displayed) {
+				mainDriver = new ConstantDriver(0.0f);
+				secondaryDriver = new ConstantDriver(0.0f);
+
+				if (newSecondaryScreen != null) {
+					newSecondaryScreen.show(false);
+					removeComponent(newSecondaryScreen, false);
+					newSecondaryScreen = null;
+				}
+
+				removeSecondaryScreen();
+
+				secondaryDepth = 0;
 				show(false);
 			}
 		} else {
@@ -130,7 +131,21 @@ public class MenuGame extends GuiComponent {
 		}
 	}
 
+	protected void setNewSecondaryScreen(final GuiComponent secondScreen, final boolean slideForwards) {
+		if (newSecondaryScreen == null && secondaryDriver.update(FlounderEngine.getDelta()) == secondaryDepth) {
+			secondaryDepth += slideForwards ? 1 : -1;
+			slidingForwards = slideForwards;
+			newSecondaryScreen = secondScreen;
+			newSecondaryScreen.show(true);
+			addComponent(secondScreen, (secondaryDepth * menuMain.getRelativeX()) - (slideForwards ? 1.0f : -1.0f), MAIN_MENU_Y_POS, 1.0f, MAIN_MENU_Y_SIZE);
+			secondaryDriver = new SlideDriver(menuMain.getRelativeX(), secondaryDepth, MenuGameBackground.SLIDE_TIME);
+		}
+	}
 
-
-
+	protected void closeSecondaryScreen() {
+		if (newSecondaryScreen == null && secondaryScreen != null) {
+			secondaryDriver = new SlideDriver(menuMain.getRelativeX(), 0.0f, MenuGameBackground.SLIDE_TIME);
+			closeSecondary = true;
+		}
+	}
 }

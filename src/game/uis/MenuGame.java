@@ -53,13 +53,27 @@ public class MenuGame extends GuiComponent {
 		closeSecondary = false;
 	}
 
-	@Override
+	protected void setNewSecondaryScreen(final GuiComponent secondScreen, final boolean slideForwards) {
+		if (newSecondaryScreen == null && secondaryDriver.update(FlounderEngine.getDelta()) == secondaryDepth) {
+			secondaryDepth += slideForwards ? 1 : -1;
+			slidingForwards = slideForwards;
+			newSecondaryScreen = secondScreen;
+			newSecondaryScreen.show(true);
+			addComponent(secondScreen, (secondaryDepth * menuMain.getRelativeX()) - (slideForwards ? 1.0f : -1.0f), MAIN_MENU_Y_POS, 1.0f, MAIN_MENU_Y_SIZE);
+			secondaryDriver = new SlideDriver(menuMain.getRelativeX(), secondaryDepth, SLIDE_TIME);
+		}
+	}	@Override
 	public void show(final boolean visible) {
 		displayed = visible;
 		mainDriver = new SlideDriver(getRelativeX(), visible ? 0.0f : 1.0f, SLIDE_TIME);
 	}
 
-	@Override
+	protected void closeSecondaryScreen() {
+		if (newSecondaryScreen == null && secondaryScreen != null) {
+			secondaryDriver = new SlideDriver(menuMain.getRelativeX(), 0.0f, SLIDE_TIME);
+			closeSecondary = true;
+		}
+	}	@Override
 	protected void updateSelf() {
 		final float mainValue = mainDriver.update(FlounderEngine.getDelta());
 		final float value = secondaryDriver.update(FlounderEngine.getDelta());
@@ -116,21 +130,7 @@ public class MenuGame extends GuiComponent {
 		}
 	}
 
-	protected void setNewSecondaryScreen(final GuiComponent secondScreen, final boolean slideForwards) {
-		if (newSecondaryScreen == null && secondaryDriver.update(FlounderEngine.getDelta()) == secondaryDepth) {
-			secondaryDepth += slideForwards ? 1 : -1;
-			slidingForwards = slideForwards;
-			newSecondaryScreen = secondScreen;
-			newSecondaryScreen.show(true);
-			addComponent(secondScreen, (secondaryDepth * menuMain.getRelativeX()) - (slideForwards ? 1.0f : -1.0f), MAIN_MENU_Y_POS, 1.0f, MAIN_MENU_Y_SIZE);
-			secondaryDriver = new SlideDriver(menuMain.getRelativeX(), secondaryDepth, SLIDE_TIME);
-		}
-	}
 
-	protected void closeSecondaryScreen() {
-		if (newSecondaryScreen == null && secondaryScreen != null) {
-			secondaryDriver = new SlideDriver(menuMain.getRelativeX(), 0.0f, SLIDE_TIME);
-			closeSecondary = true;
-		}
-	}
+
+
 }

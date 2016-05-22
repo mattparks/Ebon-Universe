@@ -1,9 +1,9 @@
 package game.post;
 
-import flounder.engine.options.*;
 import flounder.post.*;
 import flounder.post.filters.*;
 import flounder.textures.fbos.*;
+import game.options.*;
 
 public class PipelineDemo extends PostPipeline {
 	private final FilterEmboss filterEmboss;
@@ -28,7 +28,7 @@ public class PipelineDemo extends PostPipeline {
 
 	@Override
 	public void renderPipeline(final FBO startFBO) {
-		switch (OptionsGraphics.POST_EFFECT) {
+		switch (OptionsPost.POST_EFFECT) {
 			case 1:
 				filterEmboss.applyFilter(startFBO.getColourTexture());
 				filterFXAA.applyFilter(filterEmboss.fbo.getColourTexture());

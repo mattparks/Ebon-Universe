@@ -1,9 +1,9 @@
 package game.uis;
 
 import flounder.devices.*;
-import flounder.engine.options.*;
 import flounder.fonts.*;
 import flounder.guis.*;
+import game.options.*;
 
 import java.util.*;
 
@@ -71,28 +71,28 @@ public class ScreenOptionsGraphics extends GuiComponent {
 
 	private void createPostOption(final float xPos, final float yPos) {
 		final String postTextPre = "Post Effect: ";
-		final Text text = Text.newText(postTextPre + OptionsGraphics.POST_EFFECT).center().setFontSize(ScreenOption.FONT_SIZE).create();
+		final Text text = Text.newText(postTextPre + OptionsPost.POST_EFFECT).center().setFontSize(ScreenOption.FONT_SIZE).create();
 		text.setColour(MenuGame.TEXT_COLOUR);
 		GuiTextButton button = new GuiTextButton(text);
 
 		Listener listenerUp = () -> {
-			OptionsGraphics.POST_EFFECT += 1;
+			OptionsPost.POST_EFFECT += 1;
 
-			if (OptionsGraphics.POST_EFFECT > OptionsGraphics.POST_EFFECT_MAX) {
-				OptionsGraphics.POST_EFFECT = OptionsGraphics.POST_EFFECT_MAX;
+			if (OptionsPost.POST_EFFECT > OptionsPost.POST_EFFECT_MAX) {
+				OptionsPost.POST_EFFECT = OptionsPost.POST_EFFECT_MAX;
 			}
 
-			text.setText(postTextPre + OptionsGraphics.POST_EFFECT);
+			text.setText(postTextPre + OptionsPost.POST_EFFECT);
 		};
 
 		Listener listenerDown = () -> {
-			OptionsGraphics.POST_EFFECT -= 1;
+			OptionsPost.POST_EFFECT -= 1;
 
-			if (OptionsGraphics.POST_EFFECT < 0) {
-				OptionsGraphics.POST_EFFECT = 0;
+			if (OptionsPost.POST_EFFECT < 0) {
+				OptionsPost.POST_EFFECT = 0;
 			}
 
-			text.setText(postTextPre + OptionsGraphics.POST_EFFECT);
+			text.setText(postTextPre + OptionsPost.POST_EFFECT);
 		};
 
 		button.addLeftListener(listenerUp);

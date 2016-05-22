@@ -1,7 +1,6 @@
 package game.uis;
 
 import flounder.devices.*;
-import flounder.engine.options.*;
 import flounder.fonts.*;
 import flounder.guis.*;
 import flounder.sounds.*;
@@ -28,20 +27,20 @@ public class ScreenOptionsSounds extends GuiComponent {
 
 	private void createSoundOption(final float xPos, final float yPos) {
 		final String soundText = "Sound: ";
-		final Text text = Text.newText(soundText + (OptionsAudio.SOUND_VOLUME == 0.0f ? "Off" : "On")).center().setFontSize(ScreenOption.FONT_SIZE).create();
+		final Text text = Text.newText(soundText + (MusicPlayer.SOUND_VOLUME == 0.0f ? "Off" : "On")).center().setFontSize(ScreenOption.FONT_SIZE).create();
 		text.setColour(MenuGame.TEXT_COLOUR);
 		final GuiTextButton button = new GuiTextButton(text);
 
 		final Listener leftListener = () -> {
-			if (OptionsAudio.SOUND_VOLUME != 0) {
-				lastSoundVolume = OptionsAudio.SOUND_VOLUME;
-				OptionsAudio.SOUND_VOLUME = 0.0f;
+			if (MusicPlayer.SOUND_VOLUME != 0) {
+				lastSoundVolume = MusicPlayer.SOUND_VOLUME;
+				MusicPlayer.SOUND_VOLUME = 0.0f;
 			} else {
-				OptionsAudio.SOUND_VOLUME = lastSoundVolume;
+				MusicPlayer.SOUND_VOLUME = lastSoundVolume;
 				lastSoundVolume = 0.0f;
 			}
 
-			text.setText(soundText + (OptionsAudio.SOUND_VOLUME == 0.0f ? "Off" : "On"));
+			text.setText(soundText + (MusicPlayer.SOUND_VOLUME == 0.0f ? "Off" : "On"));
 		};
 
 		button.addLeftListener(leftListener);
@@ -82,28 +81,28 @@ public class ScreenOptionsSounds extends GuiComponent {
 
 	private void createVolumeOption(final float xPos, final float yPos) {
 		final String soundText = "Volume: ";
-		final Text text = Text.newText(soundText + ((int) (OptionsAudio.SOUND_VOLUME * 100.0f)) + "%").center().setFontSize(ScreenOption.FONT_SIZE).create();
+		final Text text = Text.newText(soundText + ((int) (MusicPlayer.SOUND_VOLUME * 100.0f)) + "%").center().setFontSize(ScreenOption.FONT_SIZE).create();
 		text.setColour(MenuGame.TEXT_COLOUR);
 		final GuiTextButton button = new GuiTextButton(text);
 
 		final Listener leftListener = () -> {
-			OptionsAudio.SOUND_VOLUME += 0.05f;
+			MusicPlayer.SOUND_VOLUME += 0.05f;
 
-			if (OptionsAudio.SOUND_VOLUME > 1.0f) {
-				OptionsAudio.SOUND_VOLUME = 1.0f;
+			if (MusicPlayer.SOUND_VOLUME > 1.0f) {
+				MusicPlayer.SOUND_VOLUME = 1.0f;
 			}
 
-			text.setText(soundText + ((int) (OptionsAudio.SOUND_VOLUME * 100.0f)) + "%");
+			text.setText(soundText + ((int) (MusicPlayer.SOUND_VOLUME * 100.0f)) + "%");
 		};
 
 		final Listener rightListener = () -> {
-			OptionsAudio.SOUND_VOLUME -= 0.05f;
+			MusicPlayer.SOUND_VOLUME -= 0.05f;
 
-			if (OptionsAudio.SOUND_VOLUME < 0.0f) {
-				OptionsAudio.SOUND_VOLUME = 0.0f;
+			if (MusicPlayer.SOUND_VOLUME < 0.0f) {
+				MusicPlayer.SOUND_VOLUME = 0.0f;
 			}
 
-			text.setText(soundText + ((int) (OptionsAudio.SOUND_VOLUME * 100.0f)) + "%");
+			text.setText(soundText + ((int) (MusicPlayer.SOUND_VOLUME * 100.0f)) + "%");
 		};
 
 		button.addLeftListener(leftListener);

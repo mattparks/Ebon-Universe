@@ -16,8 +16,8 @@ public class ScreenOption extends GuiComponent {
 	public static final float BUTTONS_X_RIGHT_POS = 0.55f;
 	public static final float BUTTONS_X_WIDTH = 0.4f;
 
-	public static final Sound VALUE_UP_SOUND = Sound.loadSoundInBackground(new MyFile(DeviceSound.SOUND_FOLDER, "button3.wav"), 0.8f);
-	public static final Sound VALUE_DOWN_SOUND = Sound.loadSoundInBackground(new MyFile(DeviceSound.SOUND_FOLDER, "button3.wav"), 0.8f);
+	public static final Sound VALUE_UP_SOUND = Sound.loadSoundInBackground(new MyFile(DeviceSound.SOUND_FOLDER, "button1.wav"), 0.8f);
+	public static final Sound VALUE_DOWN_SOUND = Sound.loadSoundInBackground(new MyFile(DeviceSound.SOUND_FOLDER, "button2.wav"), 0.8f);
 	public static final Sound VALUE_INVALID_SOUND = Sound.loadSoundInBackground(new MyFile(DeviceSound.SOUND_FOLDER, "button3.wav"), 0.8f);
 
 	private final MenuGame menuGame;
@@ -43,7 +43,7 @@ public class ScreenOption extends GuiComponent {
 	}
 
 	private void createGraphicsOption(final float xPos, final float yPos) {
-		final String graphicsText = "Graphics Options";
+		final String graphicsText = "Graphics";
 		final Text text = Text.newText(graphicsText).center().setFontSize(FONT_SIZE).create();
 		text.setColour(MenuGame.TEXT_COLOUR);
 		final GuiTextButton button = new GuiTextButton(text);
@@ -55,7 +55,7 @@ public class ScreenOption extends GuiComponent {
 	}
 
 	private void createSoundsOption(final float xPos, final float yPos) {
-		final String soundsText = "Sounds Options";
+		final String soundsText = "Sounds";
 		final Text text = Text.newText(soundsText).center().setFontSize(FONT_SIZE).create();
 		text.setColour(MenuGame.TEXT_COLOUR);
 		final GuiTextButton button = new GuiTextButton(text);
@@ -67,7 +67,7 @@ public class ScreenOption extends GuiComponent {
 	}
 
 	private void createDevelopersOption(final float xPos, final float yPos) {
-		final String soundsText = "Developer Options";
+		final String soundsText = "Developer";
 		final Text text = Text.newText(soundsText).center().setFontSize(FONT_SIZE).create();
 		text.setColour(MenuGame.TEXT_COLOUR);
 		final GuiTextButton button = new GuiTextButton(text);
@@ -79,7 +79,7 @@ public class ScreenOption extends GuiComponent {
 	}
 
 	private void createInputsOption(final float xPos, final float yPos) {
-		final String inputsText = "Inputs Options";
+		final String inputsText = "Inputs";
 		final Text text = Text.newText(inputsText).center().setFontSize(FONT_SIZE).create();
 		text.setColour(MenuGame.TEXT_COLOUR);
 		final GuiTextButton button = new GuiTextButton(text);

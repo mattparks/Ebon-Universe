@@ -35,6 +35,9 @@ public class BlockRenderer extends IRenderer {
 		shader.projectionMatrix.loadMat4(FlounderEngine.getProjectionMatrix());
 		shader.viewMatrix.loadMat4(camera.getViewMatrix());
 		shader.clipPlane.loadVec4(clipPlane);
+		shader.fogColour.loadVec3(Environment.getFog().getFogColour());
+		shader.fogDensity.loadFloat(Environment.getFog().getFogDensity());
+		shader.fogGradient.loadFloat(Environment.getFog().getFogGradient());
 
 		OpenglUtils.antialias(FlounderDevices.getDisplay().isAntialiasing());
 		OpenglUtils.cullBackFaces(true);

@@ -27,6 +27,7 @@ public class MainRenderer extends IRendererMaster {
 
 	private FBO multisamplingFBO;
 	private FBO postProcessingFBO;
+	private FilterLensFlare filterLensFlare;
 	private PipelineDemo pipelineDemo;
 	private FilterCombineSlide filterCombineSlide;
 	private FBO pipelineGaussian1;
@@ -46,6 +47,7 @@ public class MainRenderer extends IRendererMaster {
 		final int displayHeight = FlounderDevices.getDisplay().getHeight();
 		multisamplingFBO = FBO.newFBO(displayWidth, displayHeight).fitToScreen().antialias(FlounderDevices.getDisplay().getSamples()).create();
 		postProcessingFBO = FBO.newFBO(displayWidth, displayHeight).fitToScreen().depthBuffer(FBOBuilder.DepthBufferType.TEXTURE).create();
+		filterLensFlare = new FilterLensFlare();
 		pipelineDemo = new PipelineDemo();
 		filterCombineSlide = new FilterCombineSlide();
 		pipelineGaussian1 = FBO.newFBO(displayWidth / 10, displayHeight / 10).depthBuffer(FBOBuilder.DepthBufferType.NONE).create();
@@ -102,6 +104,10 @@ public class MainRenderer extends IRendererMaster {
 
 	private void renderPost(final boolean isPaused, final float blurFactor) {
 		FBO output = postProcessingFBO;
+
+		// Lens Flare:
+		filterLensFlare.applyFilter(output.getColourTexture());
+		filterLensFlare.fbo.resolveMultisampledFBO(output);
 
 		// Demo Pipeline:
 		pipelineDemo.renderPipeline(postProcessingFBO);

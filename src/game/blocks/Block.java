@@ -4,6 +4,7 @@ import flounder.devices.*;
 import flounder.maths.vectors.*;
 import flounder.physics.*;
 import flounder.sounds.*;
+import game.*;
 import game.blocks.components.*;
 
 import java.util.*;
@@ -35,14 +36,14 @@ public class Block extends AABB {
 	 * Plays the game.blocks type place sound.
 	 */
 	protected void playPlaceNoise() {
-		ManagerDevices.getSound().play3DSound(PlayRequest.new3dSoundPlayRequest(BlockTypes.get(type).getPlaceSound(), 1.0f, position, 16.0f, 64.0f));
+		FlounderDevices.getSound().play3DSound(PlayRequest.new3dSoundPlayRequest(BlockTypes.get(type).getPlaceSound(), 1.0f, position, 16.0f, 64.0f));
 	}
 
 	/**
 	 * Plays the game.blocks type break sound.
 	 */
 	protected void playBreakNoise() {
-		ManagerDevices.getSound().play3DSound(PlayRequest.new3dSoundPlayRequest(BlockTypes.get(type).getBreakSound(), 1.0f, position, 16.0f, 64.0f));
+		FlounderDevices.getSound().play3DSound(PlayRequest.new3dSoundPlayRequest(BlockTypes.get(type).getBreakSound(), 1.0f, position, 16.0f, 64.0f));
 	}
 
 	/**
@@ -67,7 +68,7 @@ public class Block extends AABB {
 			final float cx = Chunk.calculateBlock(chunk.getPosition().x, currX);
 			final float cy = Chunk.calculateBlock(chunk.getPosition().y, currY);
 
-			if (!WorldManager.blockExists(cx, cy, cz)) {
+			if (!Environment.getBlocksManager().blockExists(cx, cy, cz)) {
 				return false;
 			}
 		}

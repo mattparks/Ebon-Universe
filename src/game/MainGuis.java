@@ -31,7 +31,7 @@ public class MainGuis {
 		GuiManager.addComponent(gameMenu, 0, 0, 1, 1);
 		GuiManager.addComponent(overlayCursor, 0, 0, 1, 1);
 		GuiManager.getSelector().initJoysticks(OptionsControls.JOYSTICK_PORT, OptionsControls.JOYSTICK_GUI_LEFT, OptionsControls.JOYSTICK_GUI_RIGHT, OptionsControls.JOYSTICK_AXIS_X, OptionsControls.JOYSTICK_AXIS_Y);
-		ManagerDevices.getDisplay().setCursorHidden(true);
+		FlounderDevices.getDisplay().setCursorHidden(true);
 	}
 
 	/**

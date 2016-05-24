@@ -7,7 +7,7 @@ import java.util.*;
 
 public class MenuMain extends GuiComponent {
 	private static final float FONT_SIZE = 2.0f;
-	private static final float BUTTONS_X_POS = 0.3f;
+	private static final float BUTTONS_X_POS = 0.2f;
 	private static final float BUTTONS_Y_SIZE = 0.2f;
 	private static final float BUTTONS_X_WIDTH = 1.0f - BUTTONS_X_POS * 2.0f;
 

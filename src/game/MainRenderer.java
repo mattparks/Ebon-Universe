@@ -7,8 +7,10 @@ import flounder.guis.*;
 import flounder.maths.matrices.*;
 import flounder.maths.vectors.*;
 import flounder.physics.*;
+import flounder.post.filters.*;
 import flounder.post.piplines.*;
 import flounder.textures.fbos.*;
+import game.blocks.*;
 import game.post.*;
 import game.skybox.*;
 
@@ -19,13 +21,15 @@ public class MainRenderer extends IRendererMaster {
 
 	private AABBRenderer aabbRenderer;
 	private SkyboxRenderer skyboxRenderer;
+	private BlockRenderer blockRenderer;
 	private GuiRenderer guiRenderer;
 	private FontRenderer fontRenderer;
 
 	private FBO multisamplingFBO;
 	private FBO postProcessingFBO;
 	private PipelineDemo pipelineDemo;
-	private PipelineGaussian pipelineGaussian1;
+	private FilterCombineSlide filterCombineSlide;
+	private FBO pipelineGaussian1;
 	private PipelineGaussian pipelineGaussian2;
 
 	@Override
@@ -34,16 +38,18 @@ public class MainRenderer extends IRendererMaster {
 
 		this.aabbRenderer = new AABBRenderer();
 		this.skyboxRenderer = new SkyboxRenderer();
+		this.blockRenderer = new BlockRenderer();
 		this.guiRenderer = new GuiRenderer();
 		this.fontRenderer = new FontRenderer();
 
-		final int displayWidth = ManagerDevices.getDisplay().getWidth();
-		final int displayHeight = ManagerDevices.getDisplay().getHeight();
-		multisamplingFBO = FBO.newFBO(displayWidth, displayHeight).fitToScreen().antialias(ManagerDevices.getDisplay().getSamples()).create();
+		final int displayWidth = FlounderDevices.getDisplay().getWidth();
+		final int displayHeight = FlounderDevices.getDisplay().getHeight();
+		multisamplingFBO = FBO.newFBO(displayWidth, displayHeight).fitToScreen().antialias(FlounderDevices.getDisplay().getSamples()).create();
 		postProcessingFBO = FBO.newFBO(displayWidth, displayHeight).fitToScreen().depthBuffer(FBOBuilder.DepthBufferType.TEXTURE).create();
 		pipelineDemo = new PipelineDemo();
-		pipelineGaussian1 = new PipelineGaussian(displayWidth / 5, displayHeight / 5, false);
-		pipelineGaussian2 = new PipelineGaussian(displayWidth / 2, displayHeight / 2, false);
+		filterCombineSlide = new FilterCombineSlide();
+		pipelineGaussian1 = FBO.newFBO(displayWidth / 10, displayHeight / 10).depthBuffer(FBOBuilder.DepthBufferType.NONE).create();
+		pipelineGaussian2 = new PipelineGaussian(displayWidth / 7, displayHeight / 7, false);
 	}
 
 	@Override
@@ -66,7 +72,7 @@ public class MainRenderer extends IRendererMaster {
 	}
 
 	private void bindRelevantFBO() {
-		if (ManagerDevices.getDisplay().isAntialiasing()) {
+		if (FlounderDevices.getDisplay().isAntialiasing()) {
 			multisamplingFBO.bindFrameBuffer();
 		} else {
 			postProcessingFBO.bindFrameBuffer();
@@ -74,7 +80,7 @@ public class MainRenderer extends IRendererMaster {
 	}
 
 	private void unbindRelevantFBO() {
-		if (ManagerDevices.getDisplay().isAntialiasing()) {
+		if (FlounderDevices.getDisplay().isAntialiasing()) {
 			multisamplingFBO.unbindFrameBuffer();
 			multisamplingFBO.resolveMultisampledFBO(postProcessingFBO);
 		} else {
@@ -86,11 +92,12 @@ public class MainRenderer extends IRendererMaster {
 		/* Clear and update. */
 		OpenglUtils.prepareNewRenderParse(Environment.getFog().getFogColour());
 		ICamera camera = FlounderEngine.getCamera();
-		Matrix4f.perspectiveMatrix(camera.getFOV(), ManagerDevices.getDisplay().getAspectRatio(), camera.getNearPlane(), camera.getFarPlane(), projectionMatrix);
+		Matrix4f.perspectiveMatrix(camera.getFOV(), FlounderDevices.getDisplay().getAspectRatio(), camera.getNearPlane(), camera.getFarPlane(), projectionMatrix);
 
 		/* Renders each renderer. */
 		aabbRenderer.render(clipPlane, camera);
 		skyboxRenderer.render(clipPlane, camera);
+		blockRenderer.render(clipPlane, camera);
 	}
 
 	private void renderPost(final boolean isPaused, final float blurFactor) {
@@ -101,15 +108,14 @@ public class MainRenderer extends IRendererMaster {
 		output = pipelineDemo.getOutput();
 
 		if (isPaused || blurFactor != 0.0f) {
-			pipelineGaussian1.setBlendSpreadValue(blurFactor, 1.0f, 0.0f, 1.0f);
-			pipelineGaussian1.setScale(0.5f);
-			pipelineGaussian1.renderPipeline(output);
+			output.resolveMultisampledFBO(pipelineGaussian1);
 
-			pipelineGaussian2.setBlendSpreadValue(blurFactor, 1.0f, 0.0f, 1.0f);
-			pipelineGaussian2.setScale(2.0f);
-			pipelineGaussian2.renderPipeline(pipelineGaussian1.getOutput());
+			pipelineGaussian2.setScale(1.25f);
+			pipelineGaussian2.renderPipeline(pipelineGaussian1);
 
-			output = pipelineGaussian2.getOutput();
+			filterCombineSlide.setSlideSpace(blurFactor, 1.0f, 0.0f, 1.0f);
+			filterCombineSlide.applyFilter(output.getColourTexture(), pipelineGaussian2.getOutput().getColourTexture());
+			output = filterCombineSlide.fbo;
 		}
 
 		output.blitToScreen();
@@ -124,14 +130,16 @@ public class MainRenderer extends IRendererMaster {
 	public void dispose() {
 		aabbRenderer.dispose();
 		skyboxRenderer.dispose();
+		blockRenderer.dispose();
 		guiRenderer.dispose();
 		fontRenderer.dispose();
 
 		multisamplingFBO.delete();
 		postProcessingFBO.delete();
 		pipelineDemo.dispose();
-		pipelineGaussian1.dispose();
+		pipelineGaussian1.delete();
 		pipelineGaussian2.dispose();
+		filterCombineSlide.dispose();
 	}
 }
 

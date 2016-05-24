@@ -50,8 +50,8 @@ public class MainCamera implements ICamera {
 
 	@Override
 	public void init() {
-		this.position = new Vector3f();
-		this.rotation = new Vector3f();
+		this.position = new Vector3f(0.0f, 0.0f, 0.0f);
+		this.rotation = new Vector3f(0.0f, 0.0f, 0.0f);
 		this.viewFrustum = new Frustum();
 		this.viewMatrix = new Matrix4f();
 
@@ -110,8 +110,8 @@ public class MainCamera implements ICamera {
 		float delta = FlounderEngine.getDelta();
 		float angleChange = 0.0f;
 
-		if (!gamePaused && ManagerDevices.getMouse().getMouse(toggleMouseMoveKey)) {
-			angleChange = ManagerDevices.getMouse().getDeltaX() * INFLUENCE_OF_MOUSEDX;
+		if (!gamePaused && FlounderDevices.getMouse().getMouse(toggleMouseMoveKey)) {
+			angleChange = FlounderDevices.getMouse().getDeltaX() * INFLUENCE_OF_MOUSEDX;
 		} else if (!gamePaused && Math.abs(Maths.deadband(0.1f, joystickRotateX.getAmount())) > 0.0f) {
 			angleChange = joystickRotateX.getAmount() * FlounderEngine.getDelta() * INFLUENCE_OF_JOYSTICKDX;
 		}
@@ -135,8 +135,8 @@ public class MainCamera implements ICamera {
 		float delta = FlounderEngine.getDelta();
 		float angleChange = 0.0f;
 
-		if (!gamePaused && ManagerDevices.getMouse().getMouse(toggleMouseMoveKey)) {
-			angleChange = -ManagerDevices.getMouse().getDeltaY() * INFLUENCE_OF_MOUSEDY;
+		if (!gamePaused && FlounderDevices.getMouse().getMouse(toggleMouseMoveKey)) {
+			angleChange = -FlounderDevices.getMouse().getDeltaY() * INFLUENCE_OF_MOUSEDY;
 		} else if (!gamePaused && Math.abs(Maths.deadband(0.1f, joystickRotateY.getAmount())) > 0.0f) {
 			angleChange = joystickRotateY.getAmount() * FlounderEngine.getDelta() * INFLUENCE_OF_JOYSTICKDY;
 		}

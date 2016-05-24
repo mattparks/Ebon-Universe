@@ -6,8 +6,6 @@ import flounder.engine.profiling.*;
 import flounder.loaders.*;
 import flounder.maths.matrices.*;
 import flounder.maths.vectors.*;
-import flounder.resources.*;
-import flounder.textures.*;
 import game.*;
 
 import static org.lwjgl.opengl.GL11.*;
@@ -55,7 +53,7 @@ public class SkyboxRenderer extends IRenderer {
 
 		// Binds the VAO, sets antialiasing and binds the cube map.
 		OpenglUtils.bindVAO(vao, 0);
-		OpenglUtils.antialias(ManagerDevices.getDisplay().isAntialiasing());
+		OpenglUtils.antialias(FlounderDevices.getDisplay().isAntialiasing());
 	}
 
 	private Matrix4f updateViewMatrix() {

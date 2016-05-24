@@ -1,7 +1,6 @@
 package game.blocks;
 
 import flounder.engine.*;
-import flounder.lights.*;
 import flounder.maths.*;
 import flounder.maths.vectors.*;
 import flounder.noise.*;
@@ -9,12 +8,12 @@ import flounder.physics.*;
 
 import java.util.*;
 
-public class WorldManager {
-	private static final List<Chunk> CHUNK_LIST = new ArrayList<>();
-	private static final Light LIGHT_SUN = new Light(new Colour(0.6f, 0.6f, 0.6f), new Vector3f(10000, 10000, -10000), new Attenuation(1.0f, 0.0f, 0.0f));
-	private static final PerlinNoise NOISE = new PerlinNoise((int) GameSeed.getSeed());
+public class BlocksManager {
+	private final List<Chunk> CHUNK_LIST = new ArrayList<>();
+	private final PerlinNoise NOISE = new PerlinNoise((int) GameSeed.getSeed());
+	private boolean initialized;
 
-	public static void init() {
+	public BlocksManager() {
 		for (int x = -1; x < 0; x++) {
 			for (int z = -1; z < 0; z++) {
 				for (int y = -1; y < 0; y++) {
@@ -23,15 +22,13 @@ public class WorldManager {
 				}
 			}
 		}
-
-		for (final Chunk chunk : CHUNK_LIST) {
-			chunk.generate(NOISE);
-			chunk.populate(Maths.RANDOM);
-			chunk.update();
-		}
 	}
 
-	public static void update() {
+	public void update() {
+		if (!initialized) {
+			initWorld();
+		}
+
 		for (final Chunk chunk : CHUNK_LIST) {
 			chunk.update();
 
@@ -44,7 +41,19 @@ public class WorldManager {
 		Collections.reverse(CHUNK_LIST); // Reverses so closer chunks are first.
 	}
 
-	public static boolean blockExists(final float x, final float y, final float z) {
+	private void initWorld() {
+		if (!initialized) {
+			for (final Chunk chunk : CHUNK_LIST) {
+				chunk.generate(NOISE);
+				chunk.populate(Maths.RANDOM);
+				chunk.update();
+			}
+
+			initialized = true;
+		}
+	}
+
+	public boolean blockExists(final float x, final float y, final float z) {
 		for (final Chunk chunk : CHUNK_LIST) {
 			final int bx = Chunk.inverseBlock(chunk.getPosition().x, x);
 			final int by = Chunk.inverseBlock(chunk.getPosition().y, y);
@@ -58,7 +67,7 @@ public class WorldManager {
 		return false;
 	}
 
-	public static Block getBlock(final float x, final float y, final float z) {
+	public Block getBlock(final float x, final float y, final float z) {
 		for (final Chunk chunk : CHUNK_LIST) {
 			final int bx = Chunk.inverseBlock(chunk.getPosition().x, x);
 			final int by = Chunk.inverseBlock(chunk.getPosition().y, y);
@@ -72,7 +81,7 @@ public class WorldManager {
 		return null;
 	}
 
-	public static void setBlock(final float x, final float y, final float z, final BlockTypes type) {
+	public void setBlock(final float x, final float y, final float z, final BlockTypes type) {
 		for (final Chunk chunk : CHUNK_LIST) {
 			final int bx = Chunk.inverseBlock(chunk.getPosition().x, x);
 			final int by = Chunk.inverseBlock(chunk.getPosition().y, y);
@@ -85,7 +94,7 @@ public class WorldManager {
 		}
 	}
 
-	public static boolean insideBlock(final Vector3f point) {
+	public boolean insideBlock(final Vector3f point) {
 		for (final Chunk chunk : CHUNK_LIST) {
 			if (chunk.contains(point)) {
 				final int bx = Chunk.inverseBlock(chunk.getPosition().x, point.x);
@@ -101,7 +110,7 @@ public class WorldManager {
 		return false;
 	}
 
-	public static List<Chunk> getChunkList() {
+	public List<Chunk> getChunkList() {
 		return CHUNK_LIST;
 	}
 }

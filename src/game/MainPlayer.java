@@ -36,7 +36,7 @@ public class MainPlayer {
 
 		this.velocity = new Vector3f(0, 0, 0);
 
-		this.position = new Vector3f(-2, -3, -2);
+		this.position = new Vector3f(0, -16, -64);
 		this.rotation = new Vector3f(0, 0, 0);
 	}
 
@@ -48,12 +48,13 @@ public class MainPlayer {
 			velocity.z = FRONT_SPEED * FlounderEngine.getDelta() * Maths.deadband(0.05f, inputForward.getAmount());
 			Vector3f.rotate(velocity, rotation, velocity);
 
-			//	boolean pevInsideBlock = WorldManager.insideBlock(position);
-			//	Vector3f.add(position, velocity, position);
-			//	boolean insideBlock = WorldManager.insideBlock(position);
-			//	if (insideBlock && !pevInsideBlock) {
-			//		Vector3f.subtract(position, velocity, position);
-			//	}
+			boolean pevInsideBlock = Environment.getBlocksManager().insideBlock(position);
+			Vector3f.add(position, velocity, position);
+			boolean insideBlock = Environment.getBlocksManager().insideBlock(position);
+
+			if (insideBlock && !pevInsideBlock) {
+				Vector3f.subtract(position, velocity, position);
+			}
 		}
 	}
 

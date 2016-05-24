@@ -20,7 +20,7 @@ public class ScreenQuit extends GuiComponent {
 		text.setColour(MenuGame.TEXT_COLOUR);
 		final GuiTextButton button = new GuiTextButton(text);
 
-		final Listener listener = ManagerDevices.getDisplay()::requestClose;
+		final Listener listener = FlounderDevices.getDisplay()::requestClose;
 
 		button.addLeftListener(listener);
 		addComponent(button, xPos, yPos, ScreenOption.BUTTONS_X_WIDTH, ScreenOption.BUTTONS_Y_SIZE);

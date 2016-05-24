@@ -26,13 +26,13 @@ public class ScreenOptionsGraphics extends GuiComponent {
 
 	private void createFullscreenOption(final float xPos, final float yPos) {
 		final String fullscreenText = "Fullscreen: ";
-		final Text text = Text.newText(fullscreenText + (ManagerDevices.getDisplay().isFullscreen() ? "On" : "Off")).center().setFontSize(ScreenOption.FONT_SIZE).create();
+		final Text text = Text.newText(fullscreenText + (FlounderDevices.getDisplay().isFullscreen() ? "On" : "Off")).center().setFontSize(ScreenOption.FONT_SIZE).create();
 		text.setColour(MenuGame.TEXT_COLOUR);
 		GuiTextButton button = new GuiTextButton(text);
 
 		Listener listener = () -> {
-			ManagerDevices.getDisplay().setFullscreen(!ManagerDevices.getDisplay().isFullscreen());
-			text.setText(fullscreenText + (ManagerDevices.getDisplay().isFullscreen() ? "On" : "Off"));
+			FlounderDevices.getDisplay().setFullscreen(!FlounderDevices.getDisplay().isFullscreen());
+			text.setText(fullscreenText + (FlounderDevices.getDisplay().isFullscreen() ? "On" : "Off"));
 		};
 
 		button.addLeftListener(listener);
@@ -41,13 +41,13 @@ public class ScreenOptionsGraphics extends GuiComponent {
 
 	private void createAntialiasOption(final float xPos, final float yPos) {
 		final String msaaText = "Antialiasing: ";
-		final Text text = Text.newText(msaaText + (ManagerDevices.getDisplay().isAntialiasing() ? "On" : "Off")).center().setFontSize(ScreenOption.FONT_SIZE).create();
+		final Text text = Text.newText(msaaText + (FlounderDevices.getDisplay().isAntialiasing() ? "On" : "Off")).center().setFontSize(ScreenOption.FONT_SIZE).create();
 		text.setColour(MenuGame.TEXT_COLOUR);
 		GuiTextButton button = new GuiTextButton(text);
 
 		Listener listener = () -> {
-			ManagerDevices.getDisplay().setAntialiasing(!ManagerDevices.getDisplay().isAntialiasing());
-			text.setText(msaaText + (ManagerDevices.getDisplay().isAntialiasing() ? "On" : "Off"));
+			FlounderDevices.getDisplay().setAntialiasing(!FlounderDevices.getDisplay().isAntialiasing());
+			text.setText(msaaText + (FlounderDevices.getDisplay().isAntialiasing() ? "On" : "Off"));
 		};
 
 		button.addLeftListener(listener);
@@ -56,13 +56,13 @@ public class ScreenOptionsGraphics extends GuiComponent {
 
 	private void createVSyncOption(final float xPos, final float yPos) {
 		final String shadowText = "VSync: ";
-		final Text text = Text.newText(shadowText + (ManagerDevices.getDisplay().isEnableVSync() ? "On" : "Off")).center().setFontSize(ScreenOption.FONT_SIZE).create();
+		final Text text = Text.newText(shadowText + (FlounderDevices.getDisplay().isEnableVSync() ? "On" : "Off")).center().setFontSize(ScreenOption.FONT_SIZE).create();
 		text.setColour(MenuGame.TEXT_COLOUR);
 		GuiTextButton button = new GuiTextButton(text);
 
 		Listener listener = () -> {
-			ManagerDevices.getDisplay().setEnableVSync(!ManagerDevices.getDisplay().isEnableVSync());
-			text.setText(shadowText + (ManagerDevices.getDisplay().isEnableVSync() ? "On" : "Off"));
+			FlounderDevices.getDisplay().setEnableVSync(!FlounderDevices.getDisplay().isEnableVSync());
+			text.setText(shadowText + (FlounderDevices.getDisplay().isEnableVSync() ? "On" : "Off"));
 		};
 
 		button.addLeftListener(listener);

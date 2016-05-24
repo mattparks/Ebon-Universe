@@ -48,7 +48,7 @@ public class ScreenOptionsSounds extends GuiComponent {
 	}
 
 	private void createMusicOption(final float xPos, final float yPos) {
-		final MusicPlayer mPlayer = ManagerDevices.getSound().getMusicPlayer();
+		final MusicPlayer mPlayer = FlounderDevices.getSound().getMusicPlayer();
 		final String musicText = "Music: ";
 		final Text text = Text.newText(musicText + (mPlayer.getVolume() == 1.0f ? "On" : "Off")).center().setFontSize(ScreenOption.FONT_SIZE).create();
 		text.setColour(MenuGame.TEXT_COLOUR);
@@ -64,7 +64,7 @@ public class ScreenOptionsSounds extends GuiComponent {
 	}
 
 	private void createAmbientOption(final float xPos, final float yPos) {
-		final MusicPlayer mPlayer = ManagerDevices.getSound().getMusicPlayer();
+		final MusicPlayer mPlayer = FlounderDevices.getSound().getMusicPlayer();
 		final String ambientText = "Ambient: ";
 		final Text text = Text.newText(ambientText + (mPlayer.getVolume() == 1.0f ? "On" : "Off")).center().setFontSize(ScreenOption.FONT_SIZE).create();
 		text.setColour(MenuGame.TEXT_COLOUR);

@@ -4,6 +4,7 @@ import flounder.devices.*;
 import flounder.engine.*;
 import flounder.maths.matrices.*;
 import flounder.maths.vectors.*;
+import game.*;
 
 import static org.lwjgl.opengl.GL11.*;
 
@@ -20,7 +21,7 @@ public class BlockRenderer extends IRenderer {
 	public void renderObjects(final Vector4f clipPlane, final ICamera camera) {
 		prepareRendering(clipPlane, camera);
 
-		WorldManager.getChunkList().forEach(chunk -> {
+		Environment.getBlocksManager().getChunkList().forEach(chunk -> {
 			if (!chunk.isEmpty() && chunk.isVisible()) {
 				renderChunk(chunk);
 			}
@@ -35,7 +36,7 @@ public class BlockRenderer extends IRenderer {
 		shader.viewMatrix.loadMat4(camera.getViewMatrix());
 		shader.clipPlane.loadVec4(clipPlane);
 
-		OpenglUtils.antialias(ManagerDevices.getDisplay().isAntialiasing());
+		OpenglUtils.antialias(FlounderDevices.getDisplay().isAntialiasing());
 		OpenglUtils.cullBackFaces(true);
 		OpenglUtils.enableDepthTesting();
 		OpenglUtils.enableAlphaBlending();

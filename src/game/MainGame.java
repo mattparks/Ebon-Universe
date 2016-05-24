@@ -34,7 +34,7 @@ public class MainGame extends IGame {
 		final Playlist playlist = new Playlist();
 		playlist.addMusic(Sound.loadSoundInBackground(new MyFile(DeviceSound.SOUND_FOLDER, "era-of-space.wav"), 0.5f));
 		playlist.addMusic(Sound.loadSoundInBackground(new MyFile(DeviceSound.SOUND_FOLDER, "spacey-ambient.wav"), 0.5f));
-		ManagerDevices.getSound().getMusicPlayer().playMusicPlaylist(playlist, true, 3.2f, 7.2f);
+		FlounderDevices.getSound().getMusicPlayer().playMusicPlaylist(playlist, true, 3.2f, 7.2f);
 
 		MainGuis.init();
 		Environment.init(new Fog(new Colour(0.15f, 0.16f, 0.18f), 0.01f, 2.0f, 0.0f, 50.0f), new Light(new Colour(0.6f, 0.6f, 0.6f), new Vector3f(0.0f, 2000.0f, 2000.0f), new Attenuation(0.0f, 0.0f, 1.0f)));
@@ -43,11 +43,11 @@ public class MainGame extends IGame {
 	@Override
 	public void update() {
 		if (screenshot.wasDown()) {
-			ManagerDevices.getDisplay().screenshot();
+			FlounderDevices.getDisplay().screenshot();
 		}
 
 		if (fullscreen.wasDown()) {
-			ManagerDevices.getDisplay().setFullscreen(!ManagerDevices.getDisplay().isFullscreen());
+			FlounderDevices.getDisplay().setFullscreen(!FlounderDevices.getDisplay().isFullscreen());
 		}
 
 		if (polygons.wasDown()) {
@@ -55,16 +55,17 @@ public class MainGame extends IGame {
 		}
 
 		if (pauseMusic.wasDown()) {
-			ManagerDevices.getSound().getMusicPlayer().pauseTrack();
+			FlounderDevices.getSound().getMusicPlayer().pauseTrack();
 		}
 
 		if (skipMusic.wasDown()) {
-			ManagerDevices.getSound().getMusicPlayer().skipTrack();
+			FlounderDevices.getSound().getMusicPlayer().skipTrack();
 		}
 
 		MainGuis.update();
 		player.update(MainGuis.isMenuOpen());
 		super.updateGame(player.getPosition(), player.getRotation(), MainGuis.isMenuOpen(), MainGuis.getBlurFactor());
+		Environment.update();
 	}
 
 	@Override

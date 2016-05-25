@@ -3,8 +3,10 @@ package game.uis;
 import flounder.engine.*;
 import flounder.fonts.*;
 import flounder.guis.*;
+import flounder.inputs.*;
 import flounder.maths.*;
 import flounder.visual.*;
+import org.lwjgl.glfw.*;
 
 import java.util.*;
 
@@ -14,6 +16,7 @@ public class MenuGame extends GuiComponent {
 	public static final float MAIN_MENU_Y_POS = 0.25f;
 	public static final float MAIN_MENU_Y_SIZE = 0.6f;
 	public static final int SLIDE_SCALAR = 2;
+	public static final KeyButton BACK_KEY = new KeyButton(GLFW.GLFW_KEY_BACKSPACE);
 
 	private final MenuMain menuMain;
 

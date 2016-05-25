@@ -37,7 +37,7 @@ public class MainGame extends IGame {
 		FlounderDevices.getSound().getMusicPlayer().playMusicPlaylist(playlist, true, 3.2f, 7.2f);
 
 		MainGuis.init();
-		Environment.init(new Fog(new Colour(0.15f, 0.16f, 0.18f), 0.01f, 2.0f, 0.0f, 50.0f), new Light(new Colour(0.6f, 0.6f, 0.6f), new Vector3f(0.0f, 2000.0f, 2000.0f), new Attenuation(0.0f, 0.0f, 1.0f)));
+		Environment.init(new Fog(new Colour(135.0f, 206.0f, 235.0f, true), 0.01f, 2.0f, 0.0f, 50.0f), new Light(new Colour(0.6f, 0.6f, 0.6f), new Vector3f(0.0f, 2000.0f, 2000.0f), new Attenuation(0.0f, 0.0f, 1.0f)));
 	}
 
 	@Override

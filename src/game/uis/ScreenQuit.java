@@ -9,10 +9,23 @@ import java.util.*;
 public class ScreenQuit extends GuiComponent {
 	private final MenuGame menuGame;
 
-	protected ScreenQuit(final MenuGame menu) {
-		menuGame = menu;
+	protected ScreenQuit(final MenuGame menuGame) {
+		this.menuGame = menuGame;
+
 		createQuitOption(ScreenOption.BUTTONS_X_CENTER_POS, 0.3f);
 		createBackOption(ScreenOption.BUTTONS_X_CENTER_POS, 1.0f);
+
+		super.addActionListener(new GuiListenerAdvanced() {
+			@Override
+			public boolean hasOccurred() {
+				return MenuGame.BACK_KEY.wasDown();
+			}
+
+			@Override
+			public void run() {
+				menuGame.closeSecondaryScreen();
+			}
+		});
 	}
 
 	private void createQuitOption(final float xPos, final float yPos) {
@@ -20,9 +33,9 @@ public class ScreenQuit extends GuiComponent {
 		text.setColour(MenuGame.TEXT_COLOUR);
 		final GuiTextButton button = new GuiTextButton(text);
 
-		final Listener listener = FlounderDevices.getDisplay()::requestClose;
+		final GuiListener guiListener = FlounderDevices.getDisplay()::requestClose;
 
-		button.addLeftListener(listener);
+		button.addLeftListener(guiListener);
 		addComponent(button, xPos, yPos, ScreenOption.BUTTONS_X_WIDTH, ScreenOption.BUTTONS_Y_SIZE);
 	}
 
@@ -31,9 +44,9 @@ public class ScreenQuit extends GuiComponent {
 		text.setColour(MenuGame.TEXT_COLOUR);
 		final GuiTextButton button = new GuiTextButton(text);
 
-		final Listener listener = menuGame::closeSecondaryScreen;
+		final GuiListener guiListener = menuGame::closeSecondaryScreen;
 
-		button.addLeftListener(listener);
+		button.addLeftListener(guiListener);
 		addComponent(button, xPos, yPos, ScreenOption.BUTTONS_X_WIDTH, ScreenOption.BUTTONS_Y_SIZE);
 	}
 

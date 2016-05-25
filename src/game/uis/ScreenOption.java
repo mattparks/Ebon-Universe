@@ -40,6 +40,18 @@ public class ScreenOption extends GuiComponent {
 		createDevelopersOption(BUTTONS_X_RIGHT_POS, 0.2f);
 
 		createBackOption(BUTTONS_X_CENTER_POS, 1.0f);
+
+		super.addActionListener(new GuiListenerAdvanced() {
+			@Override
+			public boolean hasOccurred() {
+				return MenuGame.BACK_KEY.wasDown();
+			}
+
+			@Override
+			public void run() {
+				menuGame.closeSecondaryScreen();
+			}
+		});
 	}
 
 	private void createGraphicsOption(final float xPos, final float yPos) {
@@ -48,9 +60,9 @@ public class ScreenOption extends GuiComponent {
 		text.setColour(MenuGame.TEXT_COLOUR);
 		final GuiTextButton button = new GuiTextButton(text);
 
-		final Listener listener = () -> menuGame.setNewSecondaryScreen(screenOptionsGraphics, true);
+		final GuiListener guiListener = () -> menuGame.setNewSecondaryScreen(screenOptionsGraphics, true);
 
-		button.addLeftListener(listener);
+		button.addLeftListener(guiListener);
 		addComponent(button, xPos, yPos, BUTTONS_X_WIDTH, BUTTONS_Y_SIZE);
 	}
 
@@ -60,9 +72,9 @@ public class ScreenOption extends GuiComponent {
 		text.setColour(MenuGame.TEXT_COLOUR);
 		final GuiTextButton button = new GuiTextButton(text);
 
-		final Listener listener = () -> menuGame.setNewSecondaryScreen(screenOptionsSounds, true);
+		final GuiListener guiListener = () -> menuGame.setNewSecondaryScreen(screenOptionsSounds, true);
 
-		button.addLeftListener(listener);
+		button.addLeftListener(guiListener);
 		addComponent(button, xPos, yPos, BUTTONS_X_WIDTH, BUTTONS_Y_SIZE);
 	}
 
@@ -72,9 +84,9 @@ public class ScreenOption extends GuiComponent {
 		text.setColour(MenuGame.TEXT_COLOUR);
 		final GuiTextButton button = new GuiTextButton(text);
 
-		final Listener listener = () -> menuGame.setNewSecondaryScreen(screenOptionsDeveloper, true);
+		final GuiListener guiListener = () -> menuGame.setNewSecondaryScreen(screenOptionsDeveloper, true);
 
-		button.addLeftListener(listener);
+		button.addLeftListener(guiListener);
 		addComponent(button, xPos, yPos, BUTTONS_X_WIDTH, BUTTONS_Y_SIZE);
 	}
 
@@ -84,9 +96,9 @@ public class ScreenOption extends GuiComponent {
 		text.setColour(MenuGame.TEXT_COLOUR);
 		final GuiTextButton button = new GuiTextButton(text);
 
-		final Listener listener = () -> menuGame.setNewSecondaryScreen(screenOptionsInputs, true);
+		final GuiListener guiListener = () -> menuGame.setNewSecondaryScreen(screenOptionsInputs, true);
 
-		button.addLeftListener(listener);
+		button.addLeftListener(guiListener);
 		addComponent(button, xPos, yPos, BUTTONS_X_WIDTH, BUTTONS_Y_SIZE);
 	}
 
@@ -95,9 +107,9 @@ public class ScreenOption extends GuiComponent {
 		text.setColour(MenuGame.TEXT_COLOUR);
 		final GuiTextButton button = new GuiTextButton(text);
 
-		Listener listener = menuGame::closeSecondaryScreen;
+		GuiListener guiListener = menuGame::closeSecondaryScreen;
 
-		button.addLeftListener(listener);
+		button.addLeftListener(guiListener);
 		addComponent(button, xPos, yPos, BUTTONS_X_WIDTH, BUTTONS_Y_SIZE);
 	}
 

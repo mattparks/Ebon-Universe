@@ -23,6 +23,18 @@ public class ScreenOptionsSounds extends GuiComponent {
 		createVolumeOption(ScreenOption.BUTTONS_X_RIGHT_POS, 0.0f);
 
 		createBackOption(ScreenOption.BUTTONS_X_CENTER_POS, 1.0f);
+
+		super.addActionListener(new GuiListenerAdvanced() {
+			@Override
+			public boolean hasOccurred() {
+				return MenuGame.BACK_KEY.wasDown();
+			}
+
+			@Override
+			public void run() {
+				menuGame.setNewSecondaryScreen(screenOption, false);
+			}
+		});
 	}
 
 	private void createSoundOption(final float xPos, final float yPos) {
@@ -31,7 +43,7 @@ public class ScreenOptionsSounds extends GuiComponent {
 		text.setColour(MenuGame.TEXT_COLOUR);
 		final GuiTextButton button = new GuiTextButton(text);
 
-		final Listener leftListener = () -> {
+		final GuiListener leftGuiListener = () -> {
 			if (MusicPlayer.SOUND_VOLUME != 0) {
 				lastSoundVolume = MusicPlayer.SOUND_VOLUME;
 				MusicPlayer.SOUND_VOLUME = 0.0f;
@@ -43,7 +55,7 @@ public class ScreenOptionsSounds extends GuiComponent {
 			text.setText(soundText + (MusicPlayer.SOUND_VOLUME == 0.0f ? "Off" : "On"));
 		};
 
-		button.addLeftListener(leftListener);
+		button.addLeftListener(leftGuiListener);
 		addComponent(button, xPos, yPos, ScreenOption.BUTTONS_X_WIDTH, ScreenOption.BUTTONS_Y_SIZE);
 	}
 
@@ -54,12 +66,12 @@ public class ScreenOptionsSounds extends GuiComponent {
 		text.setColour(MenuGame.TEXT_COLOUR);
 		final GuiTextButton button = new GuiTextButton(text);
 
-		final Listener leftListener = () -> {
+		final GuiListener leftGuiListener = () -> {
 			mPlayer.setVolume(mPlayer.getVolume() != 1.0f ? 1 : 0);
 			text.setText(musicText + (mPlayer.getVolume() == 1.0f ? "On" : "Off"));
 		};
 
-		button.addLeftListener(leftListener);
+		button.addLeftListener(leftGuiListener);
 		addComponent(button, xPos, yPos, ScreenOption.BUTTONS_X_WIDTH, ScreenOption.BUTTONS_Y_SIZE);
 	}
 
@@ -70,12 +82,12 @@ public class ScreenOptionsSounds extends GuiComponent {
 		text.setColour(MenuGame.TEXT_COLOUR);
 		final GuiTextButton button = new GuiTextButton(text);
 
-		final Listener leftListener = () -> {
+		final GuiListener leftGuiListener = () -> {
 			mPlayer.setVolume(mPlayer.getVolume() != 1.0f ? 1 : 0);
 			text.setText(ambientText + (mPlayer.getVolume() == 1.0f ? "On" : "Off"));
 		};
 
-		button.addLeftListener(leftListener);
+		button.addLeftListener(leftGuiListener);
 		addComponent(button, xPos, yPos, ScreenOption.BUTTONS_X_WIDTH, ScreenOption.BUTTONS_Y_SIZE);
 	}
 
@@ -85,7 +97,7 @@ public class ScreenOptionsSounds extends GuiComponent {
 		text.setColour(MenuGame.TEXT_COLOUR);
 		final GuiTextButton button = new GuiTextButton(text);
 
-		final Listener leftListener = () -> {
+		final GuiListener leftGuiListener = () -> {
 			MusicPlayer.SOUND_VOLUME += 0.05f;
 
 			if (MusicPlayer.SOUND_VOLUME > 1.0f) {
@@ -95,7 +107,7 @@ public class ScreenOptionsSounds extends GuiComponent {
 			text.setText(soundText + ((int) (MusicPlayer.SOUND_VOLUME * 100.0f)) + "%");
 		};
 
-		final Listener rightListener = () -> {
+		final GuiListener rightGuiListener = () -> {
 			MusicPlayer.SOUND_VOLUME -= 0.05f;
 
 			if (MusicPlayer.SOUND_VOLUME < 0.0f) {
@@ -105,9 +117,9 @@ public class ScreenOptionsSounds extends GuiComponent {
 			text.setText(soundText + ((int) (MusicPlayer.SOUND_VOLUME * 100.0f)) + "%");
 		};
 
-		button.addLeftListener(leftListener);
+		button.addLeftListener(leftGuiListener);
 		button.setMouseLeftClickSound(ScreenOption.VALUE_UP_SOUND);
-		button.addRightListener(rightListener);
+		button.addRightListener(rightGuiListener);
 		button.setMouseRightClickSound(ScreenOption.VALUE_DOWN_SOUND);
 		addComponent(button, xPos, yPos, ScreenOption.BUTTONS_X_WIDTH, ScreenOption.BUTTONS_Y_SIZE);
 	}
@@ -117,9 +129,9 @@ public class ScreenOptionsSounds extends GuiComponent {
 		text.setColour(MenuGame.TEXT_COLOUR);
 		final GuiTextButton button = new GuiTextButton(text);
 
-		final Listener leftListener = () -> menuGame.setNewSecondaryScreen(screenOption, false);
+		final GuiListener leftGuiListener = () -> menuGame.setNewSecondaryScreen(screenOption, false);
 
-		button.addLeftListener(leftListener);
+		button.addLeftListener(leftGuiListener);
 		addComponent(button, xPos, yPos, ScreenOption.BUTTONS_X_WIDTH, ScreenOption.BUTTONS_Y_SIZE);
 	}
 

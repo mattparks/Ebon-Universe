@@ -19,6 +19,18 @@ public class ScreenOptionsInputs extends GuiComponent {
 		createMouseMoveOption(ScreenOption.BUTTONS_X_CENTER_POS, 0.0f);
 
 		createBackOption(ScreenOption.BUTTONS_X_CENTER_POS, 1.0f);
+
+		super.addActionListener(new GuiListenerAdvanced() {
+			@Override
+			public boolean hasOccurred() {
+				return MenuGame.BACK_KEY.wasDown();
+			}
+
+			@Override
+			public void run() {
+				menuGame.setNewSecondaryScreen(screenOption, false);
+			}
+		});
 	}
 
 	private void createMouseMoveOption(final float xPos, final float yPos) {
@@ -27,7 +39,7 @@ public class ScreenOptionsInputs extends GuiComponent {
 		text.setColour(MenuGame.TEXT_COLOUR);
 		final GuiTextButton button = new GuiTextButton(text);
 
-		final Listener listener = () -> {
+		final GuiListener guiListener = () -> {
 			MainCamera.toggleMouseMoveKey++;
 
 			if (MainCamera.toggleMouseMoveKey > GLFW_MOUSE_BUTTON_MIDDLE) {
@@ -37,7 +49,7 @@ public class ScreenOptionsInputs extends GuiComponent {
 			text.setText(mouseText + (MainCamera.toggleMouseMoveKey == GLFW_MOUSE_BUTTON_LEFT ? "Left Key" : MainCamera.toggleMouseMoveKey == GLFW_MOUSE_BUTTON_RIGHT ? "Right Key" : "Center Key"));
 		};
 
-		button.addLeftListener(listener);
+		button.addLeftListener(guiListener);
 		addComponent(button, xPos, yPos, ScreenOption.BUTTONS_X_WIDTH, ScreenOption.BUTTONS_Y_SIZE);
 	}
 
@@ -46,9 +58,9 @@ public class ScreenOptionsInputs extends GuiComponent {
 		text.setColour(MenuGame.TEXT_COLOUR);
 		final GuiTextButton button = new GuiTextButton(text);
 
-		final Listener listener = () -> menuGame.setNewSecondaryScreen(screenOption, false);
+		final GuiListener guiListener = () -> menuGame.setNewSecondaryScreen(screenOption, false);
 
-		button.addLeftListener(listener);
+		button.addLeftListener(guiListener);
 		addComponent(button, xPos, yPos, ScreenOption.BUTTONS_X_WIDTH, ScreenOption.BUTTONS_Y_SIZE);
 	}
 

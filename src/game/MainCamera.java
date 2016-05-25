@@ -113,7 +113,7 @@ public class MainCamera implements ICamera {
 		if (!gamePaused && FlounderDevices.getMouse().getMouse(toggleMouseMoveKey)) {
 			angleChange = FlounderDevices.getMouse().getDeltaX() * INFLUENCE_OF_MOUSEDX;
 		} else if (!gamePaused && Math.abs(Maths.deadband(0.1f, joystickRotateX.getAmount())) > 0.0f) {
-			angleChange = joystickRotateX.getAmount() * FlounderEngine.getDelta() * INFLUENCE_OF_JOYSTICKDX;
+			angleChange = joystickRotateX.getAmount() * delta * INFLUENCE_OF_JOYSTICKDX;
 		}
 
 		if (angleChange > MAX_HORIZONTAL_CHANGE * delta) {
@@ -138,7 +138,7 @@ public class MainCamera implements ICamera {
 		if (!gamePaused && FlounderDevices.getMouse().getMouse(toggleMouseMoveKey)) {
 			angleChange = -FlounderDevices.getMouse().getDeltaY() * INFLUENCE_OF_MOUSEDY;
 		} else if (!gamePaused && Math.abs(Maths.deadband(0.1f, joystickRotateY.getAmount())) > 0.0f) {
-			angleChange = joystickRotateY.getAmount() * FlounderEngine.getDelta() * INFLUENCE_OF_JOYSTICKDY;
+			angleChange = joystickRotateY.getAmount() * delta * INFLUENCE_OF_JOYSTICKDY;
 		}
 
 		if (angleChange > MAX_VERTICAL_CHANGE * delta) {
@@ -157,6 +157,7 @@ public class MainCamera implements ICamera {
 	}
 
 	private void updateHorizontalAngle() {
+		float delta = FlounderEngine.getDelta();
 		float offset = targetRotationAngle - angleAroundPlayer;
 
 		if (Math.abs(offset) > Maths.DEGREES_IN_HALF_CIRCLE) {
@@ -167,7 +168,7 @@ public class MainCamera implements ICamera {
 			}
 		}
 
-		float change = offset * FlounderEngine.getDelta() * ROTATE_AGILITY;
+		float change = offset * delta * ROTATE_AGILITY;
 		angleAroundPlayer += change;
 
 		if (angleAroundPlayer >= Maths.DEGREES_IN_HALF_CIRCLE) {
@@ -178,20 +179,21 @@ public class MainCamera implements ICamera {
 	}
 
 	private void updatePitchAngle() {
+		float delta = FlounderEngine.getDelta();
 		float offset = targetElevation - angleOfElevation;
-		float change = offset * FlounderEngine.getDelta() * PITCH_AGILITY;
+
+		float change = offset * delta * PITCH_AGILITY;
+
 		angleOfElevation += change;
 	}
 
 	private void calculatePosition() {
-		// float theta = angleAroundPlayer;
-		position.x = targetPosition.x; //  - (float) (Math.sin(Math.toRadians(theta)))
-		position.z = targetPosition.z; //  - (float) (Math.cos(Math.toRadians(theta)))
-		position.y = targetPosition.y; //  + CAMERA_AIM_OFFSET
-
-		rotation.x = (float) Math.toDegrees(angleOfElevation) - PITCH_OFFSET;
-		rotation.y = Maths.DEGREES_IN_HALF_CIRCLE + angleAroundPlayer;
-		rotation.z = 0.0f;
+		position.set(targetPosition);
+		rotation.set(
+				(float) Math.toDegrees(angleOfElevation) - PITCH_OFFSET,
+				Maths.DEGREES_IN_HALF_CIRCLE + angleAroundPlayer,
+				0.0f
+		);
 	}
 
 	private void updateViewMatrix(final Vector3f position, final Vector3f rotation) {
@@ -199,6 +201,7 @@ public class MainCamera implements ICamera {
 		position.negate();
 		Matrix4f.rotate(viewMatrix, new Vector3f(1, 0, 0), (float) Math.toRadians(rotation.x), viewMatrix);
 		Matrix4f.rotate(viewMatrix, new Vector3f(0, 1, 0), (float) Math.toRadians(-rotation.y), viewMatrix);
+		Matrix4f.rotate(viewMatrix, new Vector3f(0, 0, 1), (float) Math.toRadians(rotation.z), viewMatrix);
 		Matrix4f.translate(viewMatrix, position, viewMatrix);
 		position.negate();
 		viewFrustum.recalculateFrustum(FlounderEngine.getProjectionMatrix(), getViewMatrix());
@@ -220,7 +223,7 @@ public class MainCamera implements ICamera {
 	}
 
 	@Override
-	public void reflect(float waterHeight) {
+	public void reflect(final float waterHeight) {
 	}
 
 	@Override

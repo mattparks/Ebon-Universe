@@ -17,6 +17,18 @@ public class ScreenOptionsDeveloper extends GuiComponent {
 		createProfilerToggleOption(ScreenOption.BUTTONS_X_CENTER_POS, 0.0f);
 
 		createBackOption(ScreenOption.BUTTONS_X_CENTER_POS, 1.0f);
+
+		super.addActionListener(new GuiListenerAdvanced() {
+			@Override
+			public boolean hasOccurred() {
+				return MenuGame.BACK_KEY.wasDown();
+			}
+
+			@Override
+			public void run() {
+				menuGame.setNewSecondaryScreen(screenOption, false);
+			}
+		});
 	}
 
 	private void createProfilerToggleOption(final float xPos, final float yPos) {
@@ -25,12 +37,12 @@ public class ScreenOptionsDeveloper extends GuiComponent {
 		text.setColour(MenuGame.TEXT_COLOUR);
 		final GuiTextButton button = new GuiTextButton(text);
 
-		final Listener listener = () -> {
+		final GuiListener guiListener = () -> {
 			FlounderProfiler.toggle(!FlounderProfiler.isOpen());
 			text.setText(profilerText + (FlounderProfiler.isOpen() ? "Enabled" : "Disabled"));
 		};
 
-		button.addLeftListener(listener);
+		button.addLeftListener(guiListener);
 		addComponent(button, xPos, yPos, ScreenOption.BUTTONS_X_WIDTH, ScreenOption.BUTTONS_Y_SIZE);
 	}
 
@@ -39,9 +51,9 @@ public class ScreenOptionsDeveloper extends GuiComponent {
 		text.setColour(MenuGame.TEXT_COLOUR);
 		final GuiTextButton button = new GuiTextButton(text);
 
-		final Listener listener = () -> menuGame.setNewSecondaryScreen(screenOption, false);
+		final GuiListener guiListener = () -> menuGame.setNewSecondaryScreen(screenOption, false);
 
-		button.addLeftListener(listener);
+		button.addLeftListener(guiListener);
 		addComponent(button, xPos, yPos, ScreenOption.BUTTONS_X_WIDTH, ScreenOption.BUTTONS_Y_SIZE);
 	}
 

@@ -7,7 +7,6 @@ import flounder.maths.matrices.*;
 import flounder.maths.vectors.*;
 import flounder.noise.*;
 import flounder.physics.*;
-import game.models.*;
 import org.lwjgl.opengl.*;
 
 import java.util.*;
@@ -145,7 +144,7 @@ public class Chunk extends AABB implements Comparable<Chunk> {
 		final List<Float> chunkNormals = new ArrayList<>();
 		final List<Float> chunkColours = new ArrayList<>();
 
-		for (int x = 0; x < blocks.length; x++) {
+		/*for (int x = 0; x < blocks.length; x++) {
 			for (int z = 0; z < blocks[x].length; z++) {
 				for (int y = 0; y < blocks[z].length; y++) {
 					final Block block = blocks[x][z][y];
@@ -179,7 +178,7 @@ public class Chunk extends AABB implements Comparable<Chunk> {
 					}
 				}
 			}
-		}
+		}*/
 
 		// TODO: Mesh merge!
 

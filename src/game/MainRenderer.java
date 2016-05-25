@@ -27,11 +27,14 @@ public class MainRenderer extends IRendererMaster {
 
 	private FBO multisamplingFBO;
 	private FBO postProcessingFBO;
+
 	private FilterLensFlare filterLensFlare;
 	private PipelineDemo pipelineDemo;
-	private FilterCombineSlide filterCombineSlide;
+
+	private FilterDarken filterDarken;
 	private FBO pipelineGaussian1;
 	private PipelineGaussian pipelineGaussian2;
+	private FilterCombineSlide filterCombineSlide;
 
 	@Override
 	public void init() {
@@ -47,11 +50,14 @@ public class MainRenderer extends IRendererMaster {
 		final int displayHeight = FlounderDevices.getDisplay().getHeight();
 		multisamplingFBO = FBO.newFBO(displayWidth, displayHeight).fitToScreen().antialias(FlounderDevices.getDisplay().getSamples()).create();
 		postProcessingFBO = FBO.newFBO(displayWidth, displayHeight).fitToScreen().depthBuffer(FBOBuilder.DepthBufferType.TEXTURE).create();
+
 		filterLensFlare = new FilterLensFlare();
 		pipelineDemo = new PipelineDemo();
-		filterCombineSlide = new FilterCombineSlide();
+
+		filterDarken = new FilterDarken();
 		pipelineGaussian1 = FBO.newFBO(displayWidth / 10, displayHeight / 10).depthBuffer(FBOBuilder.DepthBufferType.NONE).create();
 		pipelineGaussian2 = new PipelineGaussian(displayWidth / 7, displayHeight / 7, false);
+		filterCombineSlide = new FilterCombineSlide();
 	}
 
 	@Override
@@ -119,8 +125,10 @@ public class MainRenderer extends IRendererMaster {
 			pipelineGaussian2.setScale(1.25f);
 			pipelineGaussian2.renderPipeline(pipelineGaussian1);
 
+			filterDarken.applyFilter(pipelineGaussian2.getOutput().getColourTexture());
+
 			filterCombineSlide.setSlideSpace(blurFactor, 1.0f, 0.0f, 1.0f);
-			filterCombineSlide.applyFilter(output.getColourTexture(), pipelineGaussian2.getOutput().getColourTexture());
+			filterCombineSlide.applyFilter(output.getColourTexture(), filterDarken.fbo.getColourTexture());
 			output = filterCombineSlide.fbo;
 		}
 
@@ -142,7 +150,11 @@ public class MainRenderer extends IRendererMaster {
 
 		multisamplingFBO.delete();
 		postProcessingFBO.delete();
+
 		pipelineDemo.dispose();
+		filterLensFlare.dispose();
+
+		filterDarken.dispose();
 		pipelineGaussian1.delete();
 		pipelineGaussian2.dispose();
 		filterCombineSlide.dispose();

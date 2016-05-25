@@ -22,6 +22,18 @@ public class ScreenOptionsGraphics extends GuiComponent {
 		createPostOption(ScreenOption.BUTTONS_X_RIGHT_POS, 0.2f);
 
 		createBackOption(ScreenOption.BUTTONS_X_CENTER_POS, 1.0f);
+
+		super.addActionListener(new GuiListenerAdvanced() {
+			@Override
+			public boolean hasOccurred() {
+				return MenuGame.BACK_KEY.wasDown();
+			}
+
+			@Override
+			public void run() {
+				menuGame.setNewSecondaryScreen(screenOption, false);
+			}
+		});
 	}
 
 	private void createFullscreenOption(final float xPos, final float yPos) {
@@ -30,12 +42,12 @@ public class ScreenOptionsGraphics extends GuiComponent {
 		text.setColour(MenuGame.TEXT_COLOUR);
 		GuiTextButton button = new GuiTextButton(text);
 
-		Listener listener = () -> {
+		GuiListener guiListener = () -> {
 			FlounderDevices.getDisplay().setFullscreen(!FlounderDevices.getDisplay().isFullscreen());
 			text.setText(fullscreenText + (FlounderDevices.getDisplay().isFullscreen() ? "On" : "Off"));
 		};
 
-		button.addLeftListener(listener);
+		button.addLeftListener(guiListener);
 		addComponent(button, xPos, yPos, ScreenOption.BUTTONS_X_WIDTH, ScreenOption.BUTTONS_Y_SIZE);
 	}
 
@@ -45,12 +57,12 @@ public class ScreenOptionsGraphics extends GuiComponent {
 		text.setColour(MenuGame.TEXT_COLOUR);
 		GuiTextButton button = new GuiTextButton(text);
 
-		Listener listener = () -> {
+		GuiListener guiListener = () -> {
 			FlounderDevices.getDisplay().setAntialiasing(!FlounderDevices.getDisplay().isAntialiasing());
 			text.setText(msaaText + (FlounderDevices.getDisplay().isAntialiasing() ? "On" : "Off"));
 		};
 
-		button.addLeftListener(listener);
+		button.addLeftListener(guiListener);
 		addComponent(button, xPos, yPos, ScreenOption.BUTTONS_X_WIDTH, ScreenOption.BUTTONS_Y_SIZE);
 	}
 
@@ -60,12 +72,12 @@ public class ScreenOptionsGraphics extends GuiComponent {
 		text.setColour(MenuGame.TEXT_COLOUR);
 		GuiTextButton button = new GuiTextButton(text);
 
-		Listener listener = () -> {
+		GuiListener guiListener = () -> {
 			FlounderDevices.getDisplay().setEnableVSync(!FlounderDevices.getDisplay().isEnableVSync());
 			text.setText(shadowText + (FlounderDevices.getDisplay().isEnableVSync() ? "On" : "Off"));
 		};
 
-		button.addLeftListener(listener);
+		button.addLeftListener(guiListener);
 		addComponent(button, xPos, yPos, ScreenOption.BUTTONS_X_WIDTH, ScreenOption.BUTTONS_Y_SIZE);
 	}
 
@@ -75,7 +87,7 @@ public class ScreenOptionsGraphics extends GuiComponent {
 		text.setColour(MenuGame.TEXT_COLOUR);
 		GuiTextButton button = new GuiTextButton(text);
 
-		Listener listenerUp = () -> {
+		GuiListener guiListenerUp = () -> {
 			OptionsPost.POST_EFFECT += 1;
 
 			if (OptionsPost.POST_EFFECT > OptionsPost.POST_EFFECT_MAX) {
@@ -85,7 +97,7 @@ public class ScreenOptionsGraphics extends GuiComponent {
 			text.setText(postTextPre + OptionsPost.POST_EFFECT);
 		};
 
-		Listener listenerDown = () -> {
+		GuiListener guiListenerDown = () -> {
 			OptionsPost.POST_EFFECT -= 1;
 
 			if (OptionsPost.POST_EFFECT < 0) {
@@ -95,8 +107,8 @@ public class ScreenOptionsGraphics extends GuiComponent {
 			text.setText(postTextPre + OptionsPost.POST_EFFECT);
 		};
 
-		button.addLeftListener(listenerUp);
-		button.addRightListener(listenerDown);
+		button.addLeftListener(guiListenerUp);
+		button.addRightListener(guiListenerDown);
 		addComponent(button, xPos, yPos, ScreenOption.BUTTONS_X_WIDTH, ScreenOption.BUTTONS_Y_SIZE);
 	}
 
@@ -105,9 +117,9 @@ public class ScreenOptionsGraphics extends GuiComponent {
 		text.setColour(MenuGame.TEXT_COLOUR);
 		GuiTextButton button = new GuiTextButton(text);
 
-		Listener listener = () -> menuGame.setNewSecondaryScreen(screenOption, false);
+		GuiListener guiListener = () -> menuGame.setNewSecondaryScreen(screenOption, false);
 
-		button.addLeftListener(listener);
+		button.addLeftListener(guiListener);
 		addComponent(button, xPos, yPos, ScreenOption.BUTTONS_X_WIDTH, ScreenOption.BUTTONS_Y_SIZE);
 	}
 

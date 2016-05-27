@@ -5,12 +5,13 @@ import flounder.maths.*;
 import flounder.maths.vectors.*;
 import flounder.noise.*;
 import flounder.physics.*;
+import game.*;
 
 import java.util.*;
 
 public class BlocksManager {
 	private final List<Chunk> CHUNK_LIST = new ArrayList<>();
-	private final PerlinNoise NOISE = new PerlinNoise((int) GameSeed.getSeed());
+	private final PerlinNoise NOISE = new PerlinNoise((int) MainSeed.getSeed());
 	private boolean initialized;
 
 	public BlocksManager() {

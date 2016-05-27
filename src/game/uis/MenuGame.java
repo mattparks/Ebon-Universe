@@ -37,7 +37,7 @@ public class MenuGame extends GuiComponent {
 	public MenuGame(final MenuGameBackground superMenu) {
 		menuMain = new MenuMain(superMenu, this);
 
-		titleText = Text.newText("Flounder Demo").center().setFont(FontManager.NEXA_BOLD).setFontSize(MAIN_TITLE_FONT_SIZE).create();
+		titleText = Text.newText("Flounder Demo").center().setFontSize(MAIN_TITLE_FONT_SIZE).create();
 		titleText.setColour(TEXT_COLOUR);
 		titleText.setBorderColour(TEXT_COLOUR.r, TEXT_COLOUR.g, TEXT_COLOUR.b);
 		titleText.setGlowing(new SinWaveDriver(0.075f, 0.150f, 2.320f));

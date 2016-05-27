@@ -16,7 +16,7 @@ public class BlockShader extends ShaderProgram {
 	protected UniformFloat fogGradient = new UniformFloat("fogGradient");
 
 	public BlockShader() {
-		super("game/blocks", VERTEX_SHADER, FRAGMENT_SHADER);
+		super("blocks", VERTEX_SHADER, FRAGMENT_SHADER);
 		super.storeAllUniformLocations(modelMatrix, projectionMatrix, viewMatrix, clipPlane, fogColour, fogDensity, fogGradient);
 	}
 }

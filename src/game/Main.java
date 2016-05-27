@@ -1,6 +1,7 @@
 package game;
 
 import flounder.engine.*;
+import flounder.fonts.*;
 import flounder.sounds.*;
 
 public class Main {
@@ -9,6 +10,7 @@ public class Main {
 
 		final IModule module = new IModule(new MainGame(), new MainCamera(), new MainRenderer());
 		final FlounderEngine engine = new FlounderEngine(module, 1080, 720, "Flounder Demo", 144, false, true, 0, false);
+		engine.startModule(FontManager.NEXA_BOLD);
 		engine.startEngine();
 		engine.stopEngine();
 	}

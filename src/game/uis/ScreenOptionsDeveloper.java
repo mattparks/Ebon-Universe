@@ -1,8 +1,8 @@
 package game.uis;
 
-import flounder.engine.profiling.*;
 import flounder.fonts.*;
 import flounder.guis.*;
+import flounder.profiling.*;
 
 import java.util.*;
 

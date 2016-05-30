@@ -2,11 +2,11 @@ package game;
 
 import flounder.devices.*;
 import flounder.engine.*;
-import flounder.engine.profiling.*;
 import flounder.inputs.*;
 import flounder.maths.*;
 import flounder.maths.matrices.*;
 import flounder.maths.vectors.*;
+import flounder.profiling.*;
 import flounder.space.*;
 import game.options.*;
 

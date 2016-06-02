@@ -10,6 +10,7 @@ public class MenuGameBackground extends GuiComponent {
 	public static final float SLIDE_TIME = 0.7f;
 
 	private final MenuGame menu;
+	private ScreenStartup screenStartup;
 
 	private ValueDriver slideDriver;
 	private float backgroundAlpha;
@@ -17,15 +18,23 @@ public class MenuGameBackground extends GuiComponent {
 
 	public MenuGameBackground() {
 		menu = new MenuGame(this);
+		screenStartup = new ScreenStartup();
 
-		slideDriver = new ConstantDriver(1.0f);
+		slideDriver = new ConstantDriver(0.0f);
 		backgroundAlpha = 0.0f;
-		displayed = true;
+		displayed = false;
 
 		super.addComponent(menu, 0.0f, 0.0f, 1.0f, 1.0f);
+		super.addComponent(screenStartup, 0.0f, 0.0f, 1.0f, 1.0f);
 	}
 
 	public void display(final boolean display) {
+		if (screenStartup != null) {
+			screenStartup.show(false);
+			removeComponent(screenStartup, true);
+			screenStartup = null;
+		}
+
 		menu.show(display);
 		displayed = display;
 
@@ -46,6 +55,14 @@ public class MenuGameBackground extends GuiComponent {
 
 	public float getBlurFactor() {
 		return backgroundAlpha;
+	}
+
+	public boolean startingGame() {
+		if (screenStartup != null) {
+			return screenStartup.isShown();
+		}
+
+		return false;
 	}
 
 	@Override

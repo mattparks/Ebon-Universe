@@ -14,9 +14,11 @@ public class ScreenOptionsDeveloper extends GuiComponent {
 		this.menuGame = menuGame;
 		this.screenOption = screenOption;
 
-		createProfilerToggleOption(ScreenOption.BUTTONS_X_CENTER_POS, 0.0f);
+		createTitleText("Dev Options");
 
-		createBackOption(ScreenOption.BUTTONS_X_CENTER_POS, 1.0f);
+		createProfilerToggleOption(MenuMain.BUTTONS_X_CENTER_POS, 0.2f);
+
+		createBackOption(MenuMain.BUTTONS_X_CENTER_POS, 1.0f);
 
 		super.addActionListener(new GuiListenerAdvanced() {
 			@Override
@@ -31,30 +33,23 @@ public class ScreenOptionsDeveloper extends GuiComponent {
 		});
 	}
 
+	private void createTitleText(final String title) {
+		final Text titleText = Text.newText(title).center().setFontSize(MenuGame.MAIN_TITLE_FONT_SIZE).create();
+		titleText.setColour(MenuGame.TEXT_COLOUR);
+		addText(titleText, -0.5f, MenuMain.TEXT_TITLE_Y_POS, 2.0f);
+	}
+
 	private void createProfilerToggleOption(final float xPos, final float yPos) {
-		final String profilerText = "Engine Profiler: ";
-		final Text text = Text.newText(profilerText + (FlounderProfiler.isOpen() ? "Enabled" : "Disabled")).center().setFontSize(ScreenOption.FONT_SIZE).create();
-		text.setColour(MenuGame.TEXT_COLOUR);
-		final GuiTextButton button = new GuiTextButton(text);
-
-		final GuiListener guiListener = () -> {
+		final GuiTextButton button = MenuMain.createButton("Profiler: " + (FlounderProfiler.isOpen() ? "Opened" : "Closed"), xPos, yPos, MenuMain.BUTTONS_X_WIDTH, MenuMain.BUTTONS_Y_SIZE, MenuMain.FONT_SIZE, this);
+		button.addLeftListener(() -> {
 			FlounderProfiler.toggle(!FlounderProfiler.isOpen());
-			text.setText(profilerText + (FlounderProfiler.isOpen() ? "Enabled" : "Disabled"));
-		};
-
-		button.addLeftListener(guiListener);
-		addComponent(button, xPos, yPos, ScreenOption.BUTTONS_X_WIDTH, ScreenOption.BUTTONS_Y_SIZE);
+			button.getText().setText("Profiler: " + (FlounderProfiler.isOpen() ? "Opened" : "Closed"));
+		});
 	}
 
 	private void createBackOption(final float xPos, final float yPos) {
-		final Text text = Text.newText("Back").center().setFontSize(ScreenOption.FONT_SIZE).create();
-		text.setColour(MenuGame.TEXT_COLOUR);
-		final GuiTextButton button = new GuiTextButton(text);
-
-		final GuiListener guiListener = () -> menuGame.setNewSecondaryScreen(screenOption, false);
-
-		button.addLeftListener(guiListener);
-		addComponent(button, xPos, yPos, ScreenOption.BUTTONS_X_WIDTH, ScreenOption.BUTTONS_Y_SIZE);
+		final GuiTextButton button = MenuMain.createButton("Back", xPos, yPos, MenuMain.BUTTONS_X_WIDTH, MenuMain.BUTTONS_Y_SIZE, MenuMain.FONT_SIZE, this);
+		button.addLeftListener(() -> menuGame.setNewSecondaryScreen(screenOption, false));
 	}
 
 	@Override

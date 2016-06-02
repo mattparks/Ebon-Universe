@@ -11,6 +11,7 @@ import flounder.post.filters.*;
 import flounder.post.piplines.*;
 import flounder.textures.fbos.*;
 import game.blocks.*;
+import game.options.*;
 import game.post.*;
 import game.skybox.*;
 
@@ -28,7 +29,6 @@ public class MainRenderer extends IRendererMaster {
 	private FBO multisamplingFBO;
 	private FBO postProcessingFBO;
 
-	private FilterLensFlare filterLensFlare;
 	private PipelineDemo pipelineDemo;
 
 	private FilterDarken filterDarken;
@@ -51,7 +51,6 @@ public class MainRenderer extends IRendererMaster {
 		multisamplingFBO = FBO.newFBO(displayWidth, displayHeight).fitToScreen().antialias(FlounderDevices.getDisplay().getSamples()).create();
 		postProcessingFBO = FBO.newFBO(displayWidth, displayHeight).fitToScreen().depthBuffer(FBOBuilder.DepthBufferType.TEXTURE).create();
 
-		filterLensFlare = new FilterLensFlare();
 		pipelineDemo = new PipelineDemo();
 
 		filterDarken = new FilterDarken();
@@ -80,26 +79,30 @@ public class MainRenderer extends IRendererMaster {
 	}
 
 	private void bindRelevantFBO() {
-		if (FlounderDevices.getDisplay().isAntialiasing()) {
-			multisamplingFBO.bindFrameBuffer();
-		} else {
-			postProcessingFBO.bindFrameBuffer();
+		if (OptionsPost.POST_ENABLED) {
+			if (FlounderDevices.getDisplay().isAntialiasing()) {
+				multisamplingFBO.bindFrameBuffer();
+			} else {
+				postProcessingFBO.bindFrameBuffer();
+			}
 		}
 	}
 
 	private void unbindRelevantFBO() {
-		if (FlounderDevices.getDisplay().isAntialiasing()) {
-			multisamplingFBO.unbindFrameBuffer();
-			multisamplingFBO.resolveMultisampledFBO(postProcessingFBO);
-		} else {
-			postProcessingFBO.unbindFrameBuffer();
+		if (OptionsPost.POST_ENABLED) {
+			if (FlounderDevices.getDisplay().isAntialiasing()) {
+				multisamplingFBO.unbindFrameBuffer();
+				multisamplingFBO.resolveMultisampledFBO(postProcessingFBO);
+			} else {
+				postProcessingFBO.unbindFrameBuffer();
+			}
 		}
 	}
 
 	private void renderScene(final Vector4f clipPlane) {
 		/* Clear and update. */
-		OpenglUtils.prepareNewRenderParse(Environment.getFog().getFogColour());
-		ICamera camera = FlounderEngine.getCamera();
+		OpenglUtils.prepareNewRenderParse(MainGuis.isStartingGame() ? MainGuis.STARTUP_COLOUR : Environment.getFog().getFogColour());
+		final ICamera camera = FlounderEngine.getCamera();
 		Matrix4f.perspectiveMatrix(camera.getFOV(), FlounderDevices.getDisplay().getAspectRatio(), camera.getNearPlane(), camera.getFarPlane(), projectionMatrix);
 
 		/* Renders each renderer. */
@@ -111,25 +114,25 @@ public class MainRenderer extends IRendererMaster {
 	private void renderPost(final boolean isPaused, final float blurFactor) {
 		FBO output = postProcessingFBO;
 
-		// Lens Flare:
-		filterLensFlare.applyFilter(output.getColourTexture());
-		filterLensFlare.fbo.resolveMultisampledFBO(output);
+		if (OptionsPost.POST_ENABLED) {
+			// Demo Pipeline:
+			pipelineDemo.renderPipeline(postProcessingFBO);
+			output = pipelineDemo.getOutput();
 
-		// Demo Pipeline:
-		pipelineDemo.renderPipeline(postProcessingFBO);
-		output = pipelineDemo.getOutput();
+			// Paused Screen:
+			if (isPaused || blurFactor != 0.0f) {
+				output.resolveMultisampledFBO(pipelineGaussian1);
 
-		if (isPaused || blurFactor != 0.0f) {
-			output.resolveMultisampledFBO(pipelineGaussian1);
+				pipelineGaussian2.setScale(1.25f);
+				pipelineGaussian2.renderPipeline(pipelineGaussian1);
 
-			pipelineGaussian2.setScale(1.25f);
-			pipelineGaussian2.renderPipeline(pipelineGaussian1);
+				filterDarken.applyFilter(pipelineGaussian2.getOutput().getColourTexture());
+				filterDarken.setFactorValue(Math.max(Math.abs(1.0f - blurFactor), 0.45f));
 
-			filterDarken.applyFilter(pipelineGaussian2.getOutput().getColourTexture());
-
-			filterCombineSlide.setSlideSpace(blurFactor, 1.0f, 0.0f, 1.0f);
-			filterCombineSlide.applyFilter(output.getColourTexture(), filterDarken.fbo.getColourTexture());
-			output = filterCombineSlide.fbo;
+				filterCombineSlide.setSlideSpace(blurFactor, 1.0f, 0.0f, 1.0f);
+				filterCombineSlide.applyFilter(output.getColourTexture(), filterDarken.fbo.getColourTexture());
+				output = filterCombineSlide.fbo;
+			}
 		}
 
 		output.blitToScreen();
@@ -152,7 +155,6 @@ public class MainRenderer extends IRendererMaster {
 		postProcessingFBO.delete();
 
 		pipelineDemo.dispose();
-		filterLensFlare.dispose();
 
 		filterDarken.dispose();
 		pipelineGaussian1.delete();

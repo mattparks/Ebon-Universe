@@ -2,15 +2,22 @@ package game;
 
 import flounder.engine.*;
 import flounder.fonts.*;
+import flounder.parsing.*;
+import flounder.resources.*;
 import flounder.sounds.*;
 
 public class Main {
 	public static void main(final String[] args) {
-		MusicPlayer.SOUND_VOLUME = 0.5f;
+		final Config config = new Config(new MyFile("configs", "settings.conf"));
+		MusicPlayer.SOUND_VOLUME = (float) config.getDoubleWithDefault("sound_volume", 0.75f);
 
 		final IModule module = new IModule(new MainGame(), new MainCamera(), new MainRenderer());
-		final FlounderEngine engine = new FlounderEngine(module, 1080, 720, "Flounder Demo", 144, false, true, 0, false);
-		engine.startEngine(FontManager.NEXA_BOLD);
+		final FlounderEngine engine = new FlounderEngine(module,
+				config.getIntWithDefault("width", 1080), config.getIntWithDefault("height", 720), "Flounder Demo",
+				config.getIntWithDefault("fps_target", 60), config.getBooleanWithDefault("vsync", true),
+				config.getBooleanWithDefault("antialias", true), 0, config.getBooleanWithDefault("fullscreen", false)
+		);
+		engine.startEngine(FontManager.FFF_FORWARD);
 		engine.closeEngine();
 	}
 }

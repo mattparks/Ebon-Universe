@@ -1,7 +1,6 @@
 package game.uis;
 
 import flounder.engine.*;
-import flounder.fonts.*;
 import flounder.guis.*;
 import flounder.inputs.*;
 import flounder.maths.*;
@@ -12,17 +11,16 @@ import java.util.*;
 
 public class MenuGame extends GuiComponent {
 	public static final Colour TEXT_COLOUR = new Colour(0.85f, 0.85f, 0.85f);
-	public static final float MAIN_TITLE_FONT_SIZE = 4.0f;
+
+	public static final float MAIN_TITLE_FONT_SIZE = 2.75f;
 	public static final float MAIN_MENU_Y_POS = 0.25f;
 	public static final float MAIN_MENU_Y_SIZE = 0.6f;
+
 	public static final int SLIDE_SCALAR = 2;
+
 	public static final KeyButton BACK_KEY = new KeyButton(GLFW.GLFW_KEY_BACKSPACE);
 
 	private final MenuMain menuMain;
-
-	private final Text titleText;
-	private final SinWaveDriver titleColourX;
-	private final SinWaveDriver titleColourY;
 
 	private ValueDriver mainDriver;
 	private GuiComponent secondaryScreen;
@@ -37,21 +35,13 @@ public class MenuGame extends GuiComponent {
 	public MenuGame(final MenuGameBackground superMenu) {
 		menuMain = new MenuMain(superMenu, this);
 
-		titleText = Text.newText("Flounder Demo").center().setFontSize(MAIN_TITLE_FONT_SIZE).create();
-		titleText.setColour(TEXT_COLOUR);
-		titleText.setBorderColour(TEXT_COLOUR.r, TEXT_COLOUR.g, TEXT_COLOUR.b);
-		titleText.setGlowing(new SinWaveDriver(0.075f, 0.150f, 2.320f));
-		addText(titleText, 0.0f, 0.0f, 1.0f);
-		titleColourX = new SinWaveDriver(0.0f, 1.0f, 40.0f);
-		titleColourY = new SinWaveDriver(0.0f, 1.0f, 20.0f);
-
-		mainDriver = new ConstantDriver(0.0f);
-		secondaryDriver = new ConstantDriver(0.0f);
+		mainDriver = new ConstantDriver(SLIDE_SCALAR);
+		secondaryDriver = new ConstantDriver(SLIDE_SCALAR);
 
 		addComponent(menuMain, 0.0f, MAIN_MENU_Y_POS, 1.0f, MAIN_MENU_Y_SIZE);
 
 		secondaryDepth = 0;
-		displayed = true;
+		displayed = false;
 		slidingForwards = true;
 		closeSecondary = false;
 	}
@@ -72,6 +62,7 @@ public class MenuGame extends GuiComponent {
 		final float value = secondaryDriver.update(FlounderEngine.getDelta());
 
 		menuMain.setRelativeX(value);
+		menuMain.show(Math.abs(value) <= SLIDE_SCALAR);
 
 		if (newSecondaryScreen != null) {
 			newSecondaryScreen.setRelativeX(value - secondaryDepth);
@@ -118,9 +109,6 @@ public class MenuGame extends GuiComponent {
 				secondaryDepth = 0;
 			}
 		}
-
-		titleText.setColour(titleColourX.update(FlounderEngine.getDelta()), titleColourY.update(FlounderEngine.getDelta()), 0.3f);
-		titleText.setBorderColour(titleText.getColour().r, titleText.getColour().g, titleText.getColour().b);
 	}
 
 	@Override

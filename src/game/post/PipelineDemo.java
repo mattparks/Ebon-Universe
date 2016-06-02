@@ -1,11 +1,14 @@
 package game.post;
 
+import flounder.devices.*;
 import flounder.post.*;
 import flounder.post.filters.*;
 import flounder.textures.fbos.*;
 import game.options.*;
 
 public class PipelineDemo extends PostPipeline {
+	public static final int TOTAL_EFFECTS = 7;
+
 	private final FilterEmboss filterEmboss;
 	private final FilterGray filterGray;
 	private final FilterNegative filterNegative;
@@ -14,6 +17,7 @@ public class PipelineDemo extends PostPipeline {
 	private final FilterTone filterTone;
 	private final FilterWobble filterWobble;
 	private final FilterFXAA filterFXAA;
+	private final FBO filterOutput;
 
 	public PipelineDemo() {
 		filterEmboss = new FilterEmboss();
@@ -24,6 +28,8 @@ public class PipelineDemo extends PostPipeline {
 		filterTone = new FilterTone();
 		filterWobble = new FilterWobble();
 		filterFXAA = new FilterFXAA();
+		filterFXAA.setSpanMaxValue(4.0f);
+		filterOutput = FBO.newFBO(FlounderDevices.getDisplay().getWidth(), FlounderDevices.getDisplay().getHeight()).fitToScreen().create();
 	}
 
 	@Override
@@ -31,41 +37,46 @@ public class PipelineDemo extends PostPipeline {
 		switch (OptionsPost.POST_EFFECT) {
 			case 1:
 				filterEmboss.applyFilter(startFBO.getColourTexture());
-				filterFXAA.applyFilter(filterEmboss.fbo.getColourTexture());
+				filterEmboss.fbo.resolveMultisampledFBO(filterOutput);
 				break;
 			case 2:
 				filterGray.applyFilter(startFBO.getColourTexture());
-				filterFXAA.applyFilter(filterGray.fbo.getColourTexture());
+				filterGray.fbo.resolveMultisampledFBO(filterOutput);
 				break;
 			case 3:
 				filterNegative.applyFilter(startFBO.getColourTexture());
-				filterFXAA.applyFilter(filterNegative.fbo.getColourTexture());
+				filterNegative.fbo.resolveMultisampledFBO(filterOutput);
 				break;
 			case 4:
 				filterPixel.applyFilter(startFBO.getColourTexture());
-				filterFXAA.applyFilter(filterPixel.fbo.getColourTexture());
+				filterPixel.fbo.resolveMultisampledFBO(filterOutput);
 				break;
 			case 5:
 				filterSepia.applyFilter(startFBO.getColourTexture());
-				filterFXAA.applyFilter(filterSepia.fbo.getColourTexture());
+				filterSepia.fbo.resolveMultisampledFBO(filterOutput);
 				break;
 			case 6:
 				filterTone.applyFilter(startFBO.getColourTexture());
-				filterFXAA.applyFilter(filterTone.fbo.getColourTexture());
+				filterTone.fbo.resolveMultisampledFBO(filterOutput);
 				break;
 			case 7:
 				filterWobble.applyFilter(startFBO.getColourTexture());
-				filterFXAA.applyFilter(filterWobble.fbo.getColourTexture());
+				filterWobble.fbo.resolveMultisampledFBO(filterOutput);
 				break;
 			default:
-				filterFXAA.applyFilter(startFBO.getColourTexture());
+				startFBO.resolveMultisampledFBO(filterOutput);
 				break;
+		}
+
+		if (FlounderDevices.getDisplay().isAntialiasing()) {
+			filterFXAA.applyFilter(filterOutput.getColourTexture());
+			filterFXAA.fbo.resolveMultisampledFBO(filterOutput);
 		}
 	}
 
 	@Override
 	public FBO getOutput() {
-		return filterFXAA.fbo;
+		return filterOutput;
 	}
 
 	@Override

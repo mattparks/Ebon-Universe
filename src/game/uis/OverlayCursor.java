@@ -15,7 +15,7 @@ public class OverlayCursor extends GuiComponent {
 	private final Colour clickRightColour;
 
 	public OverlayCursor() {
-		cursorPos = new GuiTexture(Texture.newTexture(new MyFile(MyFile.RES_FOLDER, "cursor.png")).createInBackground(), false);
+		cursorPos = new GuiTexture(Texture.newTexture(new MyFile(MyFile.RES_FOLDER, "Cursor.png")).createInSecondThread(), false);
 		cursorPos.getTexture().setNumberOfRows(1);
 		cursorPos.setSelectedRow(1);
 		inactiveColour = new Colour(0.0f, 0.0f, 0.0f);
@@ -54,7 +54,7 @@ public class OverlayCursor extends GuiComponent {
 	@Override
 	protected void updateSelf() {
 		if (super.isShown()) {
-			if (FlounderDevices.getMouse().isDisplaySelected() && FlounderDevices.getDisplay().isFocused()) {
+			if (FlounderDevices.getMouse().isDisplaySelected()) {
 				cursorPos.setColourOffset(GuiManager.getSelector().isLeftClick() ? clickLeftColour : GuiManager.getSelector().isRightClick() ? clickRightColour : inactiveColour);
 				final float averageArea = (FlounderDevices.getDisplay().getWidth() + FlounderDevices.getDisplay().getHeight()) / 2.0f;
 				cursorPos.setPosition(GuiManager.getSelector().getCursorX(), GuiManager.getSelector().getCursorY(), (33.75f / averageArea), (33.75f / averageArea) * FlounderDevices.getDisplay().getAspectRatio());

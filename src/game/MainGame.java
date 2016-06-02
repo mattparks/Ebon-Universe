@@ -19,6 +19,7 @@ public class MainGame extends IGame {
 	private CompoundButton pauseMusic;
 	private CompoundButton skipMusic;
 
+	private MainGuis guis;
 	private MainPlayer player;
 
 	@Override
@@ -29,14 +30,14 @@ public class MainGame extends IGame {
 		this.pauseMusic = new CompoundButton(new KeyButton(GLFW_KEY_DOWN), new JoystickButton(OptionsControls.JOYSTICK_PORT, OptionsControls.JOYSTICK_MUSIC_PAUSE));
 		this.skipMusic = new CompoundButton(new KeyButton(GLFW_KEY_LEFT, GLFW_KEY_RIGHT), new JoystickButton(OptionsControls.JOYSTICK_PORT, OptionsControls.JOYSTICK_MUSIC_SKIP));
 
+		this.guis = new MainGuis();
 		this.player = new MainPlayer();
 
 		final Playlist playlist = new Playlist();
-		playlist.addMusic(Sound.loadSoundInBackground(new MyFile(DeviceSound.SOUND_FOLDER, "era-of-space.wav"), 0.5f));
-		playlist.addMusic(Sound.loadSoundInBackground(new MyFile(DeviceSound.SOUND_FOLDER, "spacey-ambient.wav"), 0.5f));
-		FlounderDevices.getSound().getMusicPlayer().playMusicPlaylist(playlist, true, 3.2f, 7.2f);
+		playlist.addMusic(Sound.loadSoundInBackground(new MyFile(MyFile.RES_FOLDER, "music", "era-of-space.wav"), 1.0f));
+		playlist.addMusic(Sound.loadSoundInBackground(new MyFile(MyFile.RES_FOLDER, "music", "spacey-ambient.wav"), 1.0f));
+		FlounderDevices.getSound().getMusicPlayer().playMusicPlaylist(playlist, true, 4.0f, 16.0f);
 
-		MainGuis.init();
 		Environment.init(new Fog(new Colour(135.0f, 206.0f, 235.0f, true), 0.01f, 2.0f, 0.0f, 50.0f), new Light(new Colour(0.6f, 0.6f, 0.6f), new Vector3f(0.0f, 2000.0f, 2000.0f), new Attenuation(0.0f, 0.0f, 1.0f)));
 	}
 
@@ -59,12 +60,13 @@ public class MainGame extends IGame {
 		}
 
 		if (skipMusic.wasDown()) {
+			MainSeed.randomize();
 			FlounderDevices.getSound().getMusicPlayer().skipTrack();
 		}
 
-		MainGuis.update();
-		player.update(MainGuis.isMenuOpen());
-		super.updateGame(player.getPosition(), player.getRotation(), MainGuis.isMenuOpen(), MainGuis.getBlurFactor());
+		guis.update();
+		player.update(guis.isMenuOpen());
+		updateGame(player.getPosition(), player.getRotation(), guis.isMenuOpen(), guis.getBlurFactor());
 		Environment.update();
 	}
 

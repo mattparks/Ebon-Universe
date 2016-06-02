@@ -1,18 +1,39 @@
 package game.uis;
 
+import flounder.devices.*;
+import flounder.engine.*;
 import flounder.fonts.*;
 import flounder.guis.*;
+import flounder.resources.*;
+import flounder.sounds.*;
+import flounder.visual.*;
 
 import java.util.*;
 
 public class MenuMain extends GuiComponent {
-	private static final float FONT_SIZE = 2.0f;
-	private static final float BUTTONS_X_POS = 0.2f;
-	private static final float BUTTONS_Y_SIZE = 0.2f;
-	private static final float BUTTONS_X_WIDTH = 1.0f - BUTTONS_X_POS * 2.0f;
+	public static final float FONT_SIZE = 2.0f;
+
+	public static final float BUTTONS_CENTER_X_POS = 0.0f;
+	public static final float BUTTONS_CENTER_X_WIDTH = 1.0f - BUTTONS_CENTER_X_POS * 2.0f;
+
+	public static final float BUTTONS_X_LEFT_POS = -0.2f;
+	public static final float BUTTONS_X_CENTER_POS = 0.2f;
+	public static final float BUTTONS_X_RIGHT_POS = 0.6f;
+	public static final float BUTTONS_Y_SIZE = 0.2f;
+	public static final float BUTTONS_X_WIDTH = 0.6f;
+
+	public static final float TEXT_TITLE_Y_POS = -0.3f;
+
+	public static final Sound SOUND_MOUSE_HOVER = Sound.loadSoundInBackground(new MyFile(DeviceSound.SOUND_FOLDER, "button1.wav"), 0.8f);
+	public static final Sound SOUND_MOUSE_LEFT = Sound.loadSoundInBackground(new MyFile(DeviceSound.SOUND_FOLDER, "button2.wav"), 0.8f);
+	public static final Sound SOUND_MOUSE_RIGHT = Sound.loadSoundInBackground(new MyFile(DeviceSound.SOUND_FOLDER, "button3.wav"), 0.8f);
 
 	private final MenuGame menuGame;
 	private final MenuGameBackground superMenu;
+
+	private final Text titleText;
+	private final SinWaveDriver titleColourX;
+	private final SinWaveDriver titleColourY;
 
 	private final ScreenOption screenOption;
 	private final ScreenQuit screenQuit;
@@ -24,36 +45,50 @@ public class MenuMain extends GuiComponent {
 		this.screenOption = new ScreenOption(menuGame);
 		this.screenQuit = new ScreenQuit(menuGame);
 
+		titleText = Text.newText("Flounder Demo").center().setFontSize(MenuGame.MAIN_TITLE_FONT_SIZE).create();
+		titleText.setColour(MenuGame.TEXT_COLOUR);
+		titleText.setBorderColour(MenuGame.TEXT_COLOUR.r, MenuGame.TEXT_COLOUR.g, MenuGame.TEXT_COLOUR.b);
+		titleText.setGlowing(new SinWaveDriver(0.075f, 0.150f, 2.320f));
+		addText(titleText, 0.0f, -0.30f, 1.0f);
+		titleColourX = new SinWaveDriver(0.0f, 1.0f, 40.0f);
+		titleColourY = new SinWaveDriver(0.0f, 1.0f, 20.0f);
+
 		createPlayButton(0.3f);
-		createOptionsButton(0.5f);
-		createQuitButton(0.7f);
+		createOptionsButton(0.6f);
+		createQuitButton(0.9f);
 	}
 
 	private void createPlayButton(final float yPos) {
-		final GuiListener guiListener = () -> superMenu.display(false);
-		createButton("Play", guiListener, yPos);
-	}
-
-	private void createButton(final String textString, final GuiListener guiListener, final float yPos) {
-		final Text text = Text.newText(textString).center().setFontSize(FONT_SIZE).create();
-		text.setColour(MenuGame.TEXT_COLOUR);
-		final GuiTextButton button = new GuiTextButton(text);
-		button.addLeftListener(guiListener);
-		addComponent(button, BUTTONS_X_POS, yPos, BUTTONS_X_WIDTH, BUTTONS_Y_SIZE);
+		final GuiTextButton button = createButton("Play", BUTTONS_CENTER_X_POS, yPos, BUTTONS_CENTER_X_WIDTH, BUTTONS_Y_SIZE, FONT_SIZE, this);
+		button.addLeftListener(() -> superMenu.display(false));
+		button.addRightListener(null);
 	}
 
 	private void createOptionsButton(final float yPos) {
-		final GuiListener guiListener = () -> menuGame.setNewSecondaryScreen(screenOption, true);
-		createButton("Options", guiListener, yPos);
+		final GuiTextButton button = createButton("Options", BUTTONS_CENTER_X_POS, yPos, BUTTONS_CENTER_X_WIDTH, BUTTONS_Y_SIZE, FONT_SIZE, this);
+		button.addLeftListener(() -> menuGame.setNewSecondaryScreen(screenOption, true));
+		button.addRightListener(null);
 	}
 
 	private void createQuitButton(final float yPos) {
-		final GuiListener guiListener = () -> menuGame.setNewSecondaryScreen(screenQuit, true);
-		createButton("Quit", guiListener, yPos);
+		final GuiTextButton button = createButton("Quit", BUTTONS_CENTER_X_POS, yPos, BUTTONS_CENTER_X_WIDTH, BUTTONS_Y_SIZE, FONT_SIZE, this);
+		button.addLeftListener(() -> menuGame.setNewSecondaryScreen(screenQuit, true));
+		button.addRightListener(null);
+	}
+
+	public static GuiTextButton createButton(final String textString, final float xPos, final float yPos, final float xBut, final float yBut, final float fontSize, final GuiComponent component) {
+		final Text text = Text.newText(textString).center().setFontSize(fontSize).create();
+		text.setColour(MenuGame.TEXT_COLOUR);
+		final GuiTextButton button = new GuiTextButton(text);
+		button.setSounds(SOUND_MOUSE_HOVER, SOUND_MOUSE_LEFT, SOUND_MOUSE_RIGHT);
+		component.addComponent(button, xPos, yPos, xBut, yBut);
+		return button;
 	}
 
 	@Override
 	protected void updateSelf() {
+		titleText.setColour(titleColourX.update(FlounderEngine.getDelta()), titleColourY.update(FlounderEngine.getDelta()), 0.3f);
+		titleText.setBorderColour(titleText.getColour().r, titleText.getColour().g, titleText.getColour().b);
 	}
 
 	@Override

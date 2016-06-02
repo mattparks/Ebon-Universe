@@ -1,45 +1,33 @@
 package game.uis;
 
-import flounder.devices.*;
 import flounder.fonts.*;
 import flounder.guis.*;
-import flounder.resources.*;
-import flounder.sounds.*;
 
 import java.util.*;
 
 public class ScreenOption extends GuiComponent {
-	public static final float FONT_SIZE = 2.0f;
-	public static final float BUTTONS_Y_SIZE = 0.2f;
-	public static final float BUTTONS_X_LEFT_POS = 0.049999997f;
-	public static final float BUTTONS_X_CENTER_POS = 0.3f;
-	public static final float BUTTONS_X_RIGHT_POS = 0.55f;
-	public static final float BUTTONS_X_WIDTH = 0.4f;
-
-	public static final Sound VALUE_UP_SOUND = Sound.loadSoundInBackground(new MyFile(DeviceSound.SOUND_FOLDER, "button1.wav"), 0.8f);
-	public static final Sound VALUE_DOWN_SOUND = Sound.loadSoundInBackground(new MyFile(DeviceSound.SOUND_FOLDER, "button2.wav"), 0.8f);
-	public static final Sound VALUE_INVALID_SOUND = Sound.loadSoundInBackground(new MyFile(DeviceSound.SOUND_FOLDER, "button3.wav"), 0.8f);
-
 	private final MenuGame menuGame;
 	private final ScreenOptionsDeveloper screenOptionsDeveloper;
 	private final ScreenOptionsGraphics screenOptionsGraphics;
 	private final ScreenOptionsInputs screenOptionsInputs;
-	private final ScreenOptionsSounds screenOptionsSounds;
+	private final ScreenOptionsAudio screenOptionsAudio;
 
 	protected ScreenOption(final MenuGame menuGame) {
 		this.menuGame = menuGame;
 		screenOptionsDeveloper = new ScreenOptionsDeveloper(this, menuGame);
 		screenOptionsGraphics = new ScreenOptionsGraphics(this, menuGame);
 		screenOptionsInputs = new ScreenOptionsInputs(this, menuGame);
-		screenOptionsSounds = new ScreenOptionsSounds(this, menuGame);
+		screenOptionsAudio = new ScreenOptionsAudio(this, menuGame);
 
-		createGraphicsOption(BUTTONS_X_LEFT_POS, 0.0f);
-		createInputsOption(BUTTONS_X_LEFT_POS, 0.2f);
+		createTitleText("Options");
 
-		createSoundsOption(BUTTONS_X_RIGHT_POS, 0.0f);
-		createDevelopersOption(BUTTONS_X_RIGHT_POS, 0.2f);
+		createGraphicsOption(MenuMain.BUTTONS_X_LEFT_POS, 0.2f);
+		createInputsOption(MenuMain.BUTTONS_X_LEFT_POS, 0.5f);
 
-		createBackOption(BUTTONS_X_CENTER_POS, 1.0f);
+		createAudioOption(MenuMain.BUTTONS_X_RIGHT_POS, 0.2f);
+		createDevelopersOption(MenuMain.BUTTONS_X_RIGHT_POS, 0.5f);
+
+		createBackOption(MenuMain.BUTTONS_X_CENTER_POS, 1.0f);
 
 		super.addActionListener(new GuiListenerAdvanced() {
 			@Override
@@ -54,63 +42,35 @@ public class ScreenOption extends GuiComponent {
 		});
 	}
 
-	private void createGraphicsOption(final float xPos, final float yPos) {
-		final String graphicsText = "Graphics";
-		final Text text = Text.newText(graphicsText).center().setFontSize(FONT_SIZE).create();
-		text.setColour(MenuGame.TEXT_COLOUR);
-		final GuiTextButton button = new GuiTextButton(text);
-
-		final GuiListener guiListener = () -> menuGame.setNewSecondaryScreen(screenOptionsGraphics, true);
-
-		button.addLeftListener(guiListener);
-		addComponent(button, xPos, yPos, BUTTONS_X_WIDTH, BUTTONS_Y_SIZE);
+	private void createTitleText(final String title) {
+		final Text titleText = Text.newText(title).center().setFontSize(MenuGame.MAIN_TITLE_FONT_SIZE).create();
+		titleText.setColour(MenuGame.TEXT_COLOUR);
+		addText(titleText, -0.5f, MenuMain.TEXT_TITLE_Y_POS, 2.0f);
 	}
 
-	private void createSoundsOption(final float xPos, final float yPos) {
-		final String soundsText = "Sounds";
-		final Text text = Text.newText(soundsText).center().setFontSize(FONT_SIZE).create();
-		text.setColour(MenuGame.TEXT_COLOUR);
-		final GuiTextButton button = new GuiTextButton(text);
+	private void createGraphicsOption(final float xPos, final float yPos) {
+		final GuiTextButton button = MenuMain.createButton("Graphics", xPos, yPos, MenuMain.BUTTONS_X_WIDTH, MenuMain.BUTTONS_Y_SIZE, MenuMain.FONT_SIZE, this);
+		button.addLeftListener(() -> menuGame.setNewSecondaryScreen(screenOptionsGraphics, true));
+	}
 
-		final GuiListener guiListener = () -> menuGame.setNewSecondaryScreen(screenOptionsSounds, true);
-
-		button.addLeftListener(guiListener);
-		addComponent(button, xPos, yPos, BUTTONS_X_WIDTH, BUTTONS_Y_SIZE);
+	private void createAudioOption(final float xPos, final float yPos) {
+		final GuiTextButton button = MenuMain.createButton("Audio", xPos, yPos, MenuMain.BUTTONS_X_WIDTH, MenuMain.BUTTONS_Y_SIZE, MenuMain.FONT_SIZE, this);
+		button.addLeftListener(() -> menuGame.setNewSecondaryScreen(screenOptionsAudio, true));
 	}
 
 	private void createDevelopersOption(final float xPos, final float yPos) {
-		final String soundsText = "Developer";
-		final Text text = Text.newText(soundsText).center().setFontSize(FONT_SIZE).create();
-		text.setColour(MenuGame.TEXT_COLOUR);
-		final GuiTextButton button = new GuiTextButton(text);
-
-		final GuiListener guiListener = () -> menuGame.setNewSecondaryScreen(screenOptionsDeveloper, true);
-
-		button.addLeftListener(guiListener);
-		addComponent(button, xPos, yPos, BUTTONS_X_WIDTH, BUTTONS_Y_SIZE);
+		final GuiTextButton button = MenuMain.createButton("Developer", xPos, yPos, MenuMain.BUTTONS_X_WIDTH, MenuMain.BUTTONS_Y_SIZE, MenuMain.FONT_SIZE, this);
+		button.addLeftListener(() -> menuGame.setNewSecondaryScreen(screenOptionsDeveloper, true));
 	}
 
 	private void createInputsOption(final float xPos, final float yPos) {
-		final String inputsText = "Inputs";
-		final Text text = Text.newText(inputsText).center().setFontSize(FONT_SIZE).create();
-		text.setColour(MenuGame.TEXT_COLOUR);
-		final GuiTextButton button = new GuiTextButton(text);
-
-		final GuiListener guiListener = () -> menuGame.setNewSecondaryScreen(screenOptionsInputs, true);
-
-		button.addLeftListener(guiListener);
-		addComponent(button, xPos, yPos, BUTTONS_X_WIDTH, BUTTONS_Y_SIZE);
+		final GuiTextButton button = MenuMain.createButton("Inputs", xPos, yPos, MenuMain.BUTTONS_X_WIDTH, MenuMain.BUTTONS_Y_SIZE, MenuMain.FONT_SIZE, this);
+		button.addLeftListener(() -> menuGame.setNewSecondaryScreen(screenOptionsInputs, true));
 	}
 
 	private void createBackOption(final float xPos, final float yPos) {
-		final Text text = Text.newText("Back").center().setFontSize(FONT_SIZE).create();
-		text.setColour(MenuGame.TEXT_COLOUR);
-		final GuiTextButton button = new GuiTextButton(text);
-
-		GuiListener guiListener = menuGame::closeSecondaryScreen;
-
-		button.addLeftListener(guiListener);
-		addComponent(button, xPos, yPos, BUTTONS_X_WIDTH, BUTTONS_Y_SIZE);
+		final GuiTextButton button = MenuMain.createButton("Back", xPos, yPos, MenuMain.BUTTONS_X_WIDTH, MenuMain.BUTTONS_Y_SIZE, MenuMain.FONT_SIZE, this);
+		button.addLeftListener(menuGame::closeSecondaryScreen);
 	}
 
 	@Override

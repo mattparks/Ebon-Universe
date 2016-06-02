@@ -2,11 +2,8 @@ package game.uis;
 
 import flounder.fonts.*;
 import flounder.guis.*;
-import game.*;
 
 import java.util.*;
-
-import static org.lwjgl.glfw.GLFW.*;
 
 public class ScreenOptionsInputs extends GuiComponent {
 	private final ScreenOption screenOption;
@@ -16,9 +13,9 @@ public class ScreenOptionsInputs extends GuiComponent {
 		this.menuGame = menuGame;
 		this.screenOption = screenOption;
 
-		createMouseMoveOption(ScreenOption.BUTTONS_X_CENTER_POS, 0.0f);
+		createTitleText("Input Options");
 
-		createBackOption(ScreenOption.BUTTONS_X_CENTER_POS, 1.0f);
+		createBackOption(MenuMain.BUTTONS_X_CENTER_POS, 1.0f);
 
 		super.addActionListener(new GuiListenerAdvanced() {
 			@Override
@@ -33,35 +30,15 @@ public class ScreenOptionsInputs extends GuiComponent {
 		});
 	}
 
-	private void createMouseMoveOption(final float xPos, final float yPos) {
-		final String mouseText = "Mouse Move: ";
-		final Text text = Text.newText(mouseText + (MainCamera.toggleMouseMoveKey == GLFW_MOUSE_BUTTON_LEFT ? "Left Key" : MainCamera.toggleMouseMoveKey == GLFW_MOUSE_BUTTON_RIGHT ? "Right Key" : "Center Key")).center().setFontSize(ScreenOption.FONT_SIZE).create();
-		text.setColour(MenuGame.TEXT_COLOUR);
-		final GuiTextButton button = new GuiTextButton(text);
-
-		final GuiListener guiListener = () -> {
-			MainCamera.toggleMouseMoveKey++;
-
-			if (MainCamera.toggleMouseMoveKey > GLFW_MOUSE_BUTTON_MIDDLE) {
-				MainCamera.toggleMouseMoveKey = GLFW_MOUSE_BUTTON_LEFT;
-			}
-
-			text.setText(mouseText + (MainCamera.toggleMouseMoveKey == GLFW_MOUSE_BUTTON_LEFT ? "Left Key" : MainCamera.toggleMouseMoveKey == GLFW_MOUSE_BUTTON_RIGHT ? "Right Key" : "Center Key"));
-		};
-
-		button.addLeftListener(guiListener);
-		addComponent(button, xPos, yPos, ScreenOption.BUTTONS_X_WIDTH, ScreenOption.BUTTONS_Y_SIZE);
+	private void createTitleText(final String title) {
+		final Text titleText = Text.newText(title).center().setFontSize(MenuGame.MAIN_TITLE_FONT_SIZE).create();
+		titleText.setColour(MenuGame.TEXT_COLOUR);
+		addText(titleText, -0.5f, MenuMain.TEXT_TITLE_Y_POS, 2.0f);
 	}
 
 	private void createBackOption(final float xPos, final float yPos) {
-		final Text text = Text.newText("Back").center().setFontSize(ScreenOption.FONT_SIZE).create();
-		text.setColour(MenuGame.TEXT_COLOUR);
-		final GuiTextButton button = new GuiTextButton(text);
-
-		final GuiListener guiListener = () -> menuGame.setNewSecondaryScreen(screenOption, false);
-
-		button.addLeftListener(guiListener);
-		addComponent(button, xPos, yPos, ScreenOption.BUTTONS_X_WIDTH, ScreenOption.BUTTONS_Y_SIZE);
+		final GuiTextButton button = MenuMain.createButton("Back", xPos, yPos, MenuMain.BUTTONS_X_WIDTH, MenuMain.BUTTONS_Y_SIZE, MenuMain.FONT_SIZE, this);
+		button.addLeftListener(() -> menuGame.setNewSecondaryScreen(screenOption, false));
 	}
 
 	@Override

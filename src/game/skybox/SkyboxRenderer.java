@@ -15,11 +15,11 @@ public class SkyboxRenderer extends IRenderer {
 	private static final float SIZE = 300f;
 	private static final float[] VERTICES = {-SIZE, SIZE, -SIZE, -SIZE, -SIZE, -SIZE, SIZE, -SIZE, -SIZE, SIZE, -SIZE, -SIZE, SIZE, SIZE, -SIZE, -SIZE, SIZE, -SIZE, -SIZE, -SIZE, SIZE, -SIZE, -SIZE, -SIZE, -SIZE, SIZE, -SIZE, -SIZE, SIZE, -SIZE, -SIZE, SIZE, SIZE, -SIZE, -SIZE, SIZE, SIZE, -SIZE, -SIZE, SIZE, -SIZE, SIZE, SIZE, SIZE, SIZE, SIZE, SIZE, SIZE, SIZE, SIZE, -SIZE, SIZE, -SIZE, -SIZE, -SIZE, -SIZE, SIZE, -SIZE, SIZE, SIZE, SIZE, SIZE, SIZE, SIZE, SIZE, SIZE, SIZE, -SIZE, SIZE, -SIZE, -SIZE, SIZE, -SIZE, SIZE, -SIZE, SIZE, SIZE, -SIZE, SIZE, SIZE, SIZE, SIZE, SIZE, SIZE, -SIZE, SIZE, SIZE, -SIZE, SIZE, -SIZE, -SIZE, -SIZE, -SIZE, -SIZE, -SIZE, SIZE, SIZE, -SIZE, -SIZE, SIZE, -SIZE, -SIZE, -SIZE, -SIZE, SIZE, SIZE, -SIZE, SIZE};
 
-	private final SkyboxShader shader;
-	private final Matrix4f viewMatrix;
-	private final Vector3f viewMatrixRotate;
+	private SkyboxShader shader;
+	private Matrix4f viewMatrix;
+	private Vector3f viewMatrixRotate;
 
-	private final int vao;
+	private int vao;
 
 	public SkyboxRenderer() {
 		shader = new SkyboxShader();
@@ -32,7 +32,7 @@ public class SkyboxRenderer extends IRenderer {
 	}
 
 	@Override
-	public void renderObjects(final Vector4f clipPlane, final ICamera camera) {
+	public void renderObjects(Vector4f clipPlane, ICamera camera) {
 		prepareRendering(clipPlane, camera);
 		glDrawArrays(GL_TRIANGLES, 0, VERTICES.length); // Renders the skybox.
 		endRendering();
@@ -40,7 +40,7 @@ public class SkyboxRenderer extends IRenderer {
 		FlounderProfiler.add("Skybox", "Render Time", super.getRenderTimeMs());
 	}
 
-	private void prepareRendering(final Vector4f clipPlane, final ICamera camera) {
+	private void prepareRendering(Vector4f clipPlane, ICamera camera) {
 		viewMatrix.set(camera.getViewMatrix());
 
 		// Starts the shader and loads values. TODO: Clip plane.

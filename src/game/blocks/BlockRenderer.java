@@ -18,7 +18,7 @@ public class BlockRenderer extends IRenderer {
 	}
 
 	@Override
-	public void renderObjects(final Vector4f clipPlane, final ICamera camera) {
+	public void renderObjects(Vector4f clipPlane, ICamera camera) {
 		prepareRendering(clipPlane, camera);
 
 		Environment.getBlocksManager().getChunkList().forEach(chunk -> {
@@ -30,7 +30,7 @@ public class BlockRenderer extends IRenderer {
 		endRendering();
 	}
 
-	private void prepareRendering(final Vector4f clipPlane, final ICamera camera) {
+	private void prepareRendering(Vector4f clipPlane, ICamera camera) {
 		shader.start();
 		shader.projectionMatrix.loadMat4(FlounderEngine.getProjectionMatrix());
 		shader.viewMatrix.loadMat4(camera.getViewMatrix());
@@ -45,7 +45,7 @@ public class BlockRenderer extends IRenderer {
 		OpenglUtils.enableAlphaBlending();
 	}
 
-	private void renderChunk(final Chunk chunk) {
+	private void renderChunk(Chunk chunk) {
 		OpenglUtils.bindVAO(chunk.getVAO(), 0, 1, 2, 3);
 		shader.modelMatrix.loadMat4(chunk.updateModelMatrix(modelMatrix));
 		//	glDrawElements(GL_TRIANGLES, chunk.getVAOLength(), GL_UNSIGNED_INT, 0);

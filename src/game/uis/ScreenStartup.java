@@ -23,12 +23,12 @@ public class ScreenStartup extends GuiComponent {
 	private ValueDriver loadingDriver;
 	private boolean stageLoadingStart;
 
-	private final GuiTexture logoTexture;
+	private GuiTexture logoTexture;
 
-	private final Text titleText;
-	private final Text subtitleText;
-	private final SinWaveDriver titleColourX;
-	private final SinWaveDriver titleColourY;
+	private Text titleText;
+	private Text subtitleText;
+	private SinWaveDriver titleColourX;
+	private SinWaveDriver titleColourY;
 
 	public ScreenStartup() {
 		loadingDriver = new SlideDriver(0.0f, 1.0f, LOAD_TIME / 2.0f);
@@ -59,9 +59,9 @@ public class ScreenStartup extends GuiComponent {
 
 	@Override
 	protected void updateSelf() {
-		final float averageArea = (FlounderDevices.getDisplay().getWidth() + FlounderDevices.getDisplay().getHeight()) / 2.0f;
-		final float width = (250.0f / averageArea) * 1.25f;
-		final float height = (250.0f / averageArea) * 1.25f * FlounderDevices.getDisplay().getAspectRatio();
+		float averageArea = (FlounderDevices.getDisplay().getWidth() + FlounderDevices.getDisplay().getHeight()) / 2.0f;
+		float width = (250.0f / averageArea) * 1.25f;
+		float height = (250.0f / averageArea) * 1.25f * FlounderDevices.getDisplay().getAspectRatio();
 		logoTexture.setPosition(0.5f - (width / 2.0f), 0.375f - (height / 2.0f), width, height);
 		logoTexture.update();
 
@@ -77,7 +77,7 @@ public class ScreenStartup extends GuiComponent {
 		}
 
 		if (!stageLoadingStart) {
-			final float transparency = loadingDriver.update(FlounderEngine.getDelta());
+			float transparency = loadingDriver.update(FlounderEngine.getDelta());
 			Colour.interpolate(Environment.getFog().getFogColour(), STARTUP_BACKGROUND, transparency, MainGuis.STARTUP_COLOUR);
 
 			if (transparency == 0.0f) {
@@ -88,7 +88,7 @@ public class ScreenStartup extends GuiComponent {
 	}
 
 	@Override
-	protected void getGuiTextures(final List<GuiTexture> guiTextures) {
+	protected void getGuiTextures(List<GuiTexture> guiTextures) {
 		guiTextures.add(logoTexture);
 	}
 }

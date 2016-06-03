@@ -11,7 +11,7 @@ import java.util.*;
 
 public class BlocksManager {
 	private final List<Chunk> CHUNK_LIST = new ArrayList<>();
-	private final PerlinNoise NOISE = new PerlinNoise((int) MainSeed.getSeed());
+	private PerlinNoise NOISE = new PerlinNoise((int) MainSeed.getSeed());
 	private boolean initialized;
 
 	public BlocksManager() {
@@ -30,7 +30,7 @@ public class BlocksManager {
 			initWorld();
 		}
 
-		for (final Chunk chunk : CHUNK_LIST) {
+		for (Chunk chunk : CHUNK_LIST) {
 			chunk.update();
 
 			if (chunk.isVisible()) {
@@ -44,7 +44,7 @@ public class BlocksManager {
 
 	private void initWorld() {
 		if (!initialized) {
-			for (final Chunk chunk : CHUNK_LIST) {
+			for (Chunk chunk : CHUNK_LIST) {
 				chunk.generate(NOISE);
 				chunk.populate(Maths.RANDOM);
 				chunk.update();
@@ -54,11 +54,11 @@ public class BlocksManager {
 		}
 	}
 
-	public boolean blockExists(final float x, final float y, final float z) {
-		for (final Chunk chunk : CHUNK_LIST) {
-			final int bx = Chunk.inverseBlock(chunk.getPosition().x, x);
-			final int by = Chunk.inverseBlock(chunk.getPosition().y, y);
-			final int bz = Chunk.inverseBlock(chunk.getPosition().z, z);
+	public boolean blockExists(float x, float y, float z) {
+		for (Chunk chunk : CHUNK_LIST) {
+			int bx = Chunk.inverseBlock(chunk.getPosition().x, x);
+			int by = Chunk.inverseBlock(chunk.getPosition().y, y);
+			int bz = Chunk.inverseBlock(chunk.getPosition().z, z);
 
 			if (Chunk.inBounds(bx, by, bz)) {
 				return chunk.blockExists(bx, by, bz);
@@ -68,11 +68,11 @@ public class BlocksManager {
 		return false;
 	}
 
-	public Block getBlock(final float x, final float y, final float z) {
-		for (final Chunk chunk : CHUNK_LIST) {
-			final int bx = Chunk.inverseBlock(chunk.getPosition().x, x);
-			final int by = Chunk.inverseBlock(chunk.getPosition().y, y);
-			final int bz = Chunk.inverseBlock(chunk.getPosition().z, z);
+	public Block getBlock(float x, float y, float z) {
+		for (Chunk chunk : CHUNK_LIST) {
+			int bx = Chunk.inverseBlock(chunk.getPosition().x, x);
+			int by = Chunk.inverseBlock(chunk.getPosition().y, y);
+			int bz = Chunk.inverseBlock(chunk.getPosition().z, z);
 
 			if (Chunk.inBounds(bx, by, bz)) {
 				return chunk.getBlock(bx, by, bz);
@@ -82,25 +82,25 @@ public class BlocksManager {
 		return null;
 	}
 
-	public void setBlock(final float x, final float y, final float z, final BlockTypes type) {
-		for (final Chunk chunk : CHUNK_LIST) {
-			final int bx = Chunk.inverseBlock(chunk.getPosition().x, x);
-			final int by = Chunk.inverseBlock(chunk.getPosition().y, y);
-			final int bz = Chunk.inverseBlock(chunk.getPosition().z, z);
+	public void setBlock(float x, float y, float z, BlockTypes type) {
+		for (Chunk chunk : CHUNK_LIST) {
+			int bx = Chunk.inverseBlock(chunk.getPosition().x, x);
+			int by = Chunk.inverseBlock(chunk.getPosition().y, y);
+			int bz = Chunk.inverseBlock(chunk.getPosition().z, z);
 
 			if (Chunk.inBounds(bx, by, bz)) {
-				final Block block = Chunk.createBlock(chunk, bx, by, bz, type);
+				Block block = Chunk.createBlock(chunk, bx, by, bz, type);
 				chunk.putBlock(block, bx, by, bz);
 			}
 		}
 	}
 
-	public boolean insideBlock(final Vector3f point) {
-		for (final Chunk chunk : CHUNK_LIST) {
+	public boolean insideBlock(Vector3f point) {
+		for (Chunk chunk : CHUNK_LIST) {
 			if (chunk.contains(point)) {
-				final int bx = Chunk.inverseBlock(chunk.getPosition().x, point.x);
-				final int by = Chunk.inverseBlock(chunk.getPosition().y, point.y);
-				final int bz = Chunk.inverseBlock(chunk.getPosition().z, point.z);
+				int bx = Chunk.inverseBlock(chunk.getPosition().x, point.x);
+				int by = Chunk.inverseBlock(chunk.getPosition().y, point.y);
+				int bz = Chunk.inverseBlock(chunk.getPosition().z, point.z);
 
 				if (Chunk.inBounds(bx, by, bz)) {
 					return chunk.getBlock(bx, by, bz) != null;

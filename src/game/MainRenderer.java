@@ -46,8 +46,8 @@ public class MainRenderer extends IRendererMaster {
 		this.guiRenderer = new GuiRenderer();
 		this.fontRenderer = new FontRenderer();
 
-		final int displayWidth = FlounderDevices.getDisplay().getWidth();
-		final int displayHeight = FlounderDevices.getDisplay().getHeight();
+		int displayWidth = FlounderDevices.getDisplay().getWidth();
+		int displayHeight = FlounderDevices.getDisplay().getHeight();
 		multisamplingFBO = FBO.newFBO(displayWidth, displayHeight).fitToScreen().antialias(FlounderDevices.getDisplay().getSamples()).create();
 		postProcessingFBO = FBO.newFBO(displayWidth, displayHeight).fitToScreen().depthBuffer(FBOBuilder.DepthBufferType.TEXTURE).create();
 
@@ -99,11 +99,16 @@ public class MainRenderer extends IRendererMaster {
 		}
 	}
 
-	private void renderScene(final Vector4f clipPlane) {
+	private void renderScene(Vector4f clipPlane) {
 		/* Clear and update. */
 		OpenglUtils.prepareNewRenderParse(MainGuis.isStartingGame() ? MainGuis.STARTUP_COLOUR : Environment.getFog().getFogColour());
-		final ICamera camera = FlounderEngine.getCamera();
+		ICamera camera = FlounderEngine.getCamera();
 		Matrix4f.perspectiveMatrix(camera.getFOV(), FlounderDevices.getDisplay().getAspectRatio(), camera.getNearPlane(), camera.getFarPlane(), projectionMatrix);
+
+		/* Don't render while starting. */
+		if (MainGuis.isStartingGame()) {
+			return;
+		}
 
 		/* Renders each renderer. */
 		aabbRenderer.render(clipPlane, camera);
@@ -111,7 +116,7 @@ public class MainRenderer extends IRendererMaster {
 		blockRenderer.render(clipPlane, camera);
 	}
 
-	private void renderPost(final boolean isPaused, final float blurFactor) {
+	private void renderPost(boolean isPaused, float blurFactor) {
 		FBO output = postProcessingFBO;
 
 		if (OptionsPost.POST_ENABLED) {

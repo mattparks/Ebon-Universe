@@ -8,11 +8,11 @@ import flounder.sounds.*;
 import java.util.*;
 
 public class ScreenOptionsAudio extends GuiComponent {
-	private final MenuGame menuGame;
-	private final ScreenOption screenOption;
+	private MenuGame menuGame;
+	private ScreenOption screenOption;
 	private float lastSoundVolume;
 
-	protected ScreenOptionsAudio(final ScreenOption screenOption, final MenuGame menuGame) {
+	protected ScreenOptionsAudio(ScreenOption screenOption, MenuGame menuGame) {
 		this.menuGame = menuGame;
 		this.screenOption = screenOption;
 
@@ -39,32 +39,32 @@ public class ScreenOptionsAudio extends GuiComponent {
 		});
 	}
 
-	private void createTitleText(final String title) {
-		final Text titleText = Text.newText(title).center().setFontSize(MenuGame.MAIN_TITLE_FONT_SIZE).create();
+	private void createTitleText(String title) {
+		Text titleText = Text.newText(title).center().setFontSize(MenuGame.MAIN_TITLE_FONT_SIZE).create();
 		titleText.setColour(MenuGame.TEXT_COLOUR);
 		addText(titleText, -0.5f, MenuMain.TEXT_TITLE_Y_POS, 2.0f);
 	}
 
-	private void createMusicOption(final float xPos, final float yPos) {
-		final MusicPlayer mPlayer = FlounderDevices.getSound().getMusicPlayer();
-		final GuiTextButton button = MenuMain.createButton("Music: " + (mPlayer.getVolume() == 1.0f ? "On" : "Off"), xPos, yPos, MenuMain.BUTTONS_X_WIDTH, MenuMain.BUTTONS_Y_SIZE, MenuMain.FONT_SIZE, this);
+	private void createMusicOption(float xPos, float yPos) {
+		MusicPlayer mPlayer = FlounderDevices.getSound().getMusicPlayer();
+		GuiTextButton button = MenuMain.createButton("Music: " + (mPlayer.getVolume() == 1.0f ? "On" : "Off"), xPos, yPos, MenuMain.BUTTONS_X_WIDTH, MenuMain.BUTTONS_Y_SIZE, MenuMain.FONT_SIZE, this);
 		button.addLeftListener(() -> {
 			mPlayer.setVolume(mPlayer.getVolume() != 1.0f ? 1 : 0);
 			button.getText().setText("Music: " + (mPlayer.getVolume() == 1.0f ? "On" : "Off"));
 		});
 	}
 
-	private void createAmbientOption(final float xPos, final float yPos) {
-		final MusicPlayer mPlayer = FlounderDevices.getSound().getMusicPlayer();
-		final GuiTextButton button = MenuMain.createButton("Ambient: " + (mPlayer.getVolume() == 1.0f ? "On" : "Off"), xPos, yPos, MenuMain.BUTTONS_X_WIDTH, MenuMain.BUTTONS_Y_SIZE, MenuMain.FONT_SIZE, this);
+	private void createAmbientOption(float xPos, float yPos) {
+		MusicPlayer mPlayer = FlounderDevices.getSound().getMusicPlayer();
+		GuiTextButton button = MenuMain.createButton("Ambient: " + (mPlayer.getVolume() == 1.0f ? "On" : "Off"), xPos, yPos, MenuMain.BUTTONS_X_WIDTH, MenuMain.BUTTONS_Y_SIZE, MenuMain.FONT_SIZE, this);
 		button.addLeftListener(() -> {
 			mPlayer.setVolume(mPlayer.getVolume() != 1.0f ? 1 : 0);
 			button.getText().setText("Ambient: " + (mPlayer.getVolume() == 1.0f ? "On" : "Off"));
 		});
 	}
 
-	private void createSoundOption(final float xPos, final float yPos) {
-		final GuiTextButton button = MenuMain.createButton("Sound: " + (MusicPlayer.SOUND_VOLUME == 0.0f ? "Off" : "On"), xPos, yPos, MenuMain.BUTTONS_X_WIDTH, MenuMain.BUTTONS_Y_SIZE, MenuMain.FONT_SIZE, this);
+	private void createSoundOption(float xPos, float yPos) {
+		GuiTextButton button = MenuMain.createButton("Sound: " + (MusicPlayer.SOUND_VOLUME == 0.0f ? "Off" : "On"), xPos, yPos, MenuMain.BUTTONS_X_WIDTH, MenuMain.BUTTONS_Y_SIZE, MenuMain.FONT_SIZE, this);
 		button.addLeftListener(() -> {
 			if (MusicPlayer.SOUND_VOLUME != 0) {
 				lastSoundVolume = MusicPlayer.SOUND_VOLUME;
@@ -78,8 +78,8 @@ public class ScreenOptionsAudio extends GuiComponent {
 		});
 	}
 
-	private void createVolumeOption(final float xPos, final float yPos) {
-		final GuiTextButton button = MenuMain.createButton("Volume: " + ((int) (MusicPlayer.SOUND_VOLUME * 100.0f)) + "%", xPos, yPos, MenuMain.BUTTONS_X_WIDTH, MenuMain.BUTTONS_Y_SIZE, MenuMain.FONT_SIZE, this);
+	private void createVolumeOption(float xPos, float yPos) {
+		GuiTextButton button = MenuMain.createButton("Volume: " + ((int) (MusicPlayer.SOUND_VOLUME * 100.0f)) + "%", xPos, yPos, MenuMain.BUTTONS_X_WIDTH, MenuMain.BUTTONS_Y_SIZE, MenuMain.FONT_SIZE, this);
 		button.addLeftListener(() -> {
 			MusicPlayer.SOUND_VOLUME += 0.05f;
 
@@ -101,8 +101,8 @@ public class ScreenOptionsAudio extends GuiComponent {
 		});
 	}
 
-	private void createBackOption(final float xPos, final float yPos) {
-		final GuiTextButton button = MenuMain.createButton("Back", xPos, yPos, MenuMain.BUTTONS_X_WIDTH, MenuMain.BUTTONS_Y_SIZE, MenuMain.FONT_SIZE, this);
+	private void createBackOption(float xPos, float yPos) {
+		GuiTextButton button = MenuMain.createButton("Back", xPos, yPos, MenuMain.BUTTONS_X_WIDTH, MenuMain.BUTTONS_Y_SIZE, MenuMain.FONT_SIZE, this);
 		button.addLeftListener(() -> menuGame.setNewSecondaryScreen(screenOption, false));
 	}
 
@@ -111,6 +111,6 @@ public class ScreenOptionsAudio extends GuiComponent {
 	}
 
 	@Override
-	protected void getGuiTextures(final List<GuiTexture> guiTextures) {
+	protected void getGuiTextures(List<GuiTexture> guiTextures) {
 	}
 }

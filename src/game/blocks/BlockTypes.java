@@ -11,7 +11,7 @@ import game.models.*;
 import java.util.*;
 
 public class BlockTypes {
-	public static final float BLOCK_EXTENT = 1.0f;
+	public static float BLOCK_EXTENT = 1.0f;
 	private static List<BlockTypes> BLOCK_TYPES = new ArrayList<>();
 
 	public static TextureTessellatorAtlas TESSELLATOR_AXIS = new TextureTessellatorAtlas(256, 256, Texture.newTexture(new MyFile(MyFile.RES_FOLDER, "blocks", "atlas.png")).create());
@@ -66,15 +66,15 @@ public class BlockTypes {
 		TESSELLATOR_AXIS.registerTextureCoords("missing", new Vector2f(240, 240));
 	}
 
-	private final String name;
-	private final Colour colour;
+	private String name;
+	private Colour colour;
 
-	private final Model model;
+	private Model model;
 
-	private final Sound placeSound;
-	private final Sound breakSound;
+	private Sound placeSound;
+	private Sound breakSound;
 
-	public BlockTypes(final String name, final Colour colour, final Model model, final Sound placeSound, final Sound breakSound) {
+	public BlockTypes(String name, Colour colour, Model model, Sound placeSound, Sound breakSound) {
 		this.name = name;
 		this.colour = colour;
 
@@ -85,7 +85,7 @@ public class BlockTypes {
 
 		boolean typeExists = false;
 
-		for (final BlockTypes type : BLOCK_TYPES) {
+		for (BlockTypes type : BLOCK_TYPES) {
 			if (type.getName().equals(name)) {
 				FlounderLogger.error("Block type with name " + name + " already exists! Ignoring new type request.");
 				typeExists = true;
@@ -101,8 +101,8 @@ public class BlockTypes {
 		return name;
 	}
 
-	public static BlockTypes get(final String name) {
-		for (final BlockTypes type : BLOCK_TYPES) {
+	public static BlockTypes get(String name) {
+		for (BlockTypes type : BLOCK_TYPES) {
 			if (type.getName().equals(name)) {
 				return type;
 			}

@@ -16,7 +16,7 @@ public class Environment {
 	 * @param fog The fog to be used in the world.
 	 * @param sun The games main sunlight emitter.
 	 */
-	public static void init(final Fog fog, final Light sun) {
+	public static void init(Fog fog, Light sun) {
 		Environment.fog = fog;
 		Environment.sun = sun;
 		blocksManager = new BlocksManager();

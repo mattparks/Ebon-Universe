@@ -13,8 +13,8 @@ import java.util.*;
  * A generic block object in the game.
  */
 public class Block extends AABB {
-	private final String type;
-	private final Vector3f position;
+	private String type;
+	private Vector3f position;
 	private List<IBlockComponent> components;
 
 	/**
@@ -23,7 +23,7 @@ public class Block extends AABB {
 	 * @param type The game.blocks {@link game.blocks.BlockTypes}.
 	 * @param position The location of the block in the world.
 	 */
-	public Block(final String type, final Vector3f position) {
+	public Block(String type, Vector3f position) {
 		this.components = new ArrayList<>();
 		this.type = type;
 		this.position = position;
@@ -49,24 +49,24 @@ public class Block extends AABB {
 	/**
 	 * Updates all the components attached to this block.
 	 */
-	protected void update(final Chunk chunk) {
+	protected void update(Chunk chunk) {
 		if (components.size() < 1) {
 			return;
 		}
 
-		for (final IBlockComponent blockComponent : components) {
+		for (IBlockComponent blockComponent : components) {
 			blockComponent.update(chunk);
 		}
 	}
 
-	protected boolean isCovered(final Chunk chunk) {
+	protected boolean isCovered(Chunk chunk) {
 		for (int s = 0; s < 6; s++) {
-			final int currZ = Chunk.inverseBlock(chunk.getPosition().z, position.z) + ((s == 0) ? 1 : (s == 1) ? -1 : 0); // Front / Back
-			final int currX = Chunk.inverseBlock(chunk.getPosition().x, position.x) + ((s == 2) ? -1 : (s == 3) ? 1 : 0); // Left / Right
-			final int currY = Chunk.inverseBlock(chunk.getPosition().y, position.y) + ((s == 4) ? 1 : (s == 5) ? -1 : 0); // Up / Down
-			final float cz = Chunk.calculateBlock(chunk.getPosition().z, currZ);
-			final float cx = Chunk.calculateBlock(chunk.getPosition().x, currX);
-			final float cy = Chunk.calculateBlock(chunk.getPosition().y, currY);
+			int currZ = Chunk.inverseBlock(chunk.getPosition().z, position.z) + ((s == 0) ? 1 : (s == 1) ? -1 : 0); // Front / Back
+			int currX = Chunk.inverseBlock(chunk.getPosition().x, position.x) + ((s == 2) ? -1 : (s == 3) ? 1 : 0); // Left / Right
+			int currY = Chunk.inverseBlock(chunk.getPosition().y, position.y) + ((s == 4) ? 1 : (s == 5) ? -1 : 0); // Up / Down
+			float cz = Chunk.calculateBlock(chunk.getPosition().z, currZ);
+			float cx = Chunk.calculateBlock(chunk.getPosition().x, currX);
+			float cy = Chunk.calculateBlock(chunk.getPosition().y, currY);
 
 			if (!Environment.getBlocksManager().blockExists(cx, cy, cz)) {
 				return false;

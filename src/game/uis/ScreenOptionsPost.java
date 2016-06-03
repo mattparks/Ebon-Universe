@@ -7,10 +7,10 @@ import game.options.*;
 import java.util.*;
 
 public class ScreenOptionsPost extends GuiComponent {
-	private final MenuGame menuGame;
-	private final ScreenOptionsGraphics screenOptionsGraphics;
+	private MenuGame menuGame;
+	private ScreenOptionsGraphics screenOptionsGraphics;
 
-	protected ScreenOptionsPost(final ScreenOptionsGraphics screenOptionsGraphics, MenuGame menuGame) {
+	protected ScreenOptionsPost(ScreenOptionsGraphics screenOptionsGraphics, MenuGame menuGame) {
 		this.menuGame = menuGame;
 		this.screenOptionsGraphics = screenOptionsGraphics;
 
@@ -34,14 +34,14 @@ public class ScreenOptionsPost extends GuiComponent {
 		});
 	}
 
-	private void createTitleText(final String title) {
-		final Text titleText = Text.newText(title).center().setFontSize(MenuGame.MAIN_TITLE_FONT_SIZE).create();
+	private void createTitleText(String title) {
+		Text titleText = Text.newText(title).center().setFontSize(MenuGame.MAIN_TITLE_FONT_SIZE).create();
 		titleText.setColour(MenuGame.TEXT_COLOUR);
 		addText(titleText, -0.5f, MenuMain.TEXT_TITLE_Y_POS, 2.0f);
 	}
 
-	private void createPostOption(final float xPos, final float yPos) {
-		final GuiTextButton button = MenuMain.createButton("Post Effect: " + (OptionsPost.POST_ENABLED ? "On" : "Off"), xPos, yPos, MenuMain.BUTTONS_X_WIDTH, MenuMain.BUTTONS_Y_SIZE, MenuMain.FONT_SIZE, this);
+	private void createPostOption(float xPos, float yPos) {
+		GuiTextButton button = MenuMain.createButton("Post Effect: " + (OptionsPost.POST_ENABLED ? "On" : "Off"), xPos, yPos, MenuMain.BUTTONS_X_WIDTH, MenuMain.BUTTONS_Y_SIZE, MenuMain.FONT_SIZE, this);
 		button.addLeftListener(() -> {
 			OptionsPost.POST_EFFECT += 1;
 
@@ -63,16 +63,16 @@ public class ScreenOptionsPost extends GuiComponent {
 		});
 	}
 
-	private void createPostEnabledOption(final float xPos, final float yPos) {
-		final GuiTextButton button = MenuMain.createButton("Post Enabled: " + (OptionsPost.POST_ENABLED ? "On" : "Off"), xPos, yPos, MenuMain.BUTTONS_X_WIDTH, MenuMain.BUTTONS_Y_SIZE, MenuMain.FONT_SIZE, this);
+	private void createPostEnabledOption(float xPos, float yPos) {
+		GuiTextButton button = MenuMain.createButton("Post Enabled: " + (OptionsPost.POST_ENABLED ? "On" : "Off"), xPos, yPos, MenuMain.BUTTONS_X_WIDTH, MenuMain.BUTTONS_Y_SIZE, MenuMain.FONT_SIZE, this);
 		button.addLeftListener(() -> {
 			OptionsPost.POST_ENABLED = !OptionsPost.POST_ENABLED;
 			button.getText().setText("Post Enabled: " + (OptionsPost.POST_ENABLED ? "On" : "Off"));
 		});
 	}
 
-	private void createBackOption(final float xPos, final float yPos) {
-		final GuiTextButton button = MenuMain.createButton("Back", xPos, yPos, MenuMain.BUTTONS_X_WIDTH, MenuMain.BUTTONS_Y_SIZE, MenuMain.FONT_SIZE, this);
+	private void createBackOption(float xPos, float yPos) {
+		GuiTextButton button = MenuMain.createButton("Back", xPos, yPos, MenuMain.BUTTONS_X_WIDTH, MenuMain.BUTTONS_Y_SIZE, MenuMain.FONT_SIZE, this);
 		button.addLeftListener(() -> menuGame.setNewSecondaryScreen(screenOptionsGraphics, false));
 	}
 
@@ -81,6 +81,6 @@ public class ScreenOptionsPost extends GuiComponent {
 	}
 
 	@Override
-	protected void getGuiTextures(final List<GuiTexture> guiTextures) {
+	protected void getGuiTextures(List<GuiTexture> guiTextures) {
 	}
 }

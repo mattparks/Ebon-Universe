@@ -9,15 +9,15 @@ import game.options.*;
 public class PipelineDemo extends PostPipeline {
 	public static final int TOTAL_EFFECTS = 7;
 
-	private final FilterEmboss filterEmboss;
-	private final FilterGray filterGray;
-	private final FilterNegative filterNegative;
-	private final FilterPixel filterPixel;
-	private final FilterSepia filterSepia;
-	private final FilterTone filterTone;
-	private final FilterWobble filterWobble;
-	private final FilterFXAA filterFXAA;
-	private final FBO filterOutput;
+	private FilterEmboss filterEmboss;
+	private FilterGray filterGray;
+	private FilterNegative filterNegative;
+	private FilterPixel filterPixel;
+	private FilterSepia filterSepia;
+	private FilterTone filterTone;
+	private FilterWobble filterWobble;
+	private FilterFXAA filterFXAA;
+	private FBO filterOutput;
 
 	public PipelineDemo() {
 		filterEmboss = new FilterEmboss();
@@ -33,7 +33,7 @@ public class PipelineDemo extends PostPipeline {
 	}
 
 	@Override
-	public void renderPipeline(final FBO startFBO) {
+	public void renderPipeline(FBO startFBO) {
 		switch (OptionsPost.POST_EFFECT) {
 			case 1:
 				filterEmboss.applyFilter(startFBO.getColourTexture());

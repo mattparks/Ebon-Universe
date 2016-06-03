@@ -9,10 +9,10 @@ import flounder.textures.*;
 import java.util.*;
 
 public class OverlayCursor extends GuiComponent {
-	private final GuiTexture cursorPos;
-	private final Colour inactiveColour;
-	private final Colour clickLeftColour;
-	private final Colour clickRightColour;
+	private GuiTexture cursorPos;
+	private Colour inactiveColour;
+	private Colour clickLeftColour;
+	private Colour clickRightColour;
 
 	public OverlayCursor() {
 		cursorPos = new GuiTexture(Texture.newTexture(new MyFile(MyFile.RES_FOLDER, "Cursor.png")).createInSecondThread(), false);
@@ -31,7 +31,7 @@ public class OverlayCursor extends GuiComponent {
 		return inactiveColour;
 	}
 
-	public void setInactiveColour(final float r, final float g, final float b) {
+	public void setInactiveColour(float r, float g, float b) {
 		this.inactiveColour.set(r, g, b);
 	}
 
@@ -39,7 +39,7 @@ public class OverlayCursor extends GuiComponent {
 		return clickLeftColour;
 	}
 
-	public void setClickLeftColour(final float r, final float g, final float b) {
+	public void setClickLeftColour(float r, float g, float b) {
 		this.clickLeftColour.set(r, g, b);
 	}
 
@@ -47,7 +47,7 @@ public class OverlayCursor extends GuiComponent {
 		return clickRightColour;
 	}
 
-	public void setClickRightColour(final float r, final float g, final float b) {
+	public void setClickRightColour(float r, float g, float b) {
 		this.clickRightColour.set(r, g, b);
 	}
 
@@ -56,7 +56,7 @@ public class OverlayCursor extends GuiComponent {
 		if (super.isShown()) {
 			if (FlounderDevices.getMouse().isDisplaySelected()) {
 				cursorPos.setColourOffset(GuiManager.getSelector().isLeftClick() ? clickLeftColour : GuiManager.getSelector().isRightClick() ? clickRightColour : inactiveColour);
-				final float averageArea = (FlounderDevices.getDisplay().getWidth() + FlounderDevices.getDisplay().getHeight()) / 2.0f;
+				float averageArea = (FlounderDevices.getDisplay().getWidth() + FlounderDevices.getDisplay().getHeight()) / 2.0f;
 				cursorPos.setPosition(GuiManager.getSelector().getCursorX(), GuiManager.getSelector().getCursorY(), (33.75f / averageArea), (33.75f / averageArea) * FlounderDevices.getDisplay().getAspectRatio());
 				cursorPos.update();
 			}
@@ -64,7 +64,7 @@ public class OverlayCursor extends GuiComponent {
 	}
 
 	@Override
-	protected void getGuiTextures(final List<GuiTexture> guiTextures) {
+	protected void getGuiTextures(List<GuiTexture> guiTextures) {
 		if (super.isShown()) {
 			guiTextures.add(cursorPos);
 		}

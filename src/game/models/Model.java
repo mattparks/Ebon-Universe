@@ -1,12 +1,12 @@
 package game.models;
 
 public class Model {
-	private final float[] vertices;
-	private final float[] textureCoords;
-	private final float[] normals;
-	private final int[] indices;
+	private float[] vertices;
+	private float[] textureCoords;
+	private float[] normals;
+	private int[] indices;
 
-	public Model(final float[] vertices, final float[] textureCoords, final float[] normals, final int[] indices) {
+	public Model(float[] vertices, float[] textureCoords, float[] normals, int[] indices) {
 		this.vertices = vertices;
 		this.textureCoords = textureCoords;
 		this.normals = normals;

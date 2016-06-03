@@ -7,12 +7,12 @@ import flounder.guis.*;
 import java.util.*;
 
 public class ScreenOptionsGraphics extends GuiComponent {
-	private final MenuGame menuGame;
-	private final ScreenOption screenOption;
+	private MenuGame menuGame;
+	private ScreenOption screenOption;
 
-	private final ScreenOptionsPost screenOptionsPost;
+	private ScreenOptionsPost screenOptionsPost;
 
-	protected ScreenOptionsGraphics(final ScreenOption screenOption, MenuGame menuGame) {
+	protected ScreenOptionsGraphics(ScreenOption screenOption, MenuGame menuGame) {
 		this.menuGame = menuGame;
 		this.screenOption = screenOption;
 
@@ -41,43 +41,43 @@ public class ScreenOptionsGraphics extends GuiComponent {
 		});
 	}
 
-	private void createTitleText(final String title) {
-		final Text titleText = Text.newText(title).center().setFontSize(MenuGame.MAIN_TITLE_FONT_SIZE).create();
+	private void createTitleText(String title) {
+		Text titleText = Text.newText(title).center().setFontSize(MenuGame.MAIN_TITLE_FONT_SIZE).create();
 		titleText.setColour(MenuGame.TEXT_COLOUR);
 		addText(titleText, -0.5f, MenuMain.TEXT_TITLE_Y_POS, 2.0f);
 	}
 
-	private void createFullscreenOption(final float xPos, final float yPos) {
-		final GuiTextButton button = MenuMain.createButton("Fullscreen: " + (FlounderDevices.getDisplay().isFullscreen() ? "On" : "Off"), xPos, yPos, MenuMain.BUTTONS_X_WIDTH, MenuMain.BUTTONS_Y_SIZE, MenuMain.FONT_SIZE, this);
+	private void createFullscreenOption(float xPos, float yPos) {
+		GuiTextButton button = MenuMain.createButton("Fullscreen: " + (FlounderDevices.getDisplay().isFullscreen() ? "On" : "Off"), xPos, yPos, MenuMain.BUTTONS_X_WIDTH, MenuMain.BUTTONS_Y_SIZE, MenuMain.FONT_SIZE, this);
 		button.addLeftListener(() -> {
 			FlounderDevices.getDisplay().setFullscreen(!FlounderDevices.getDisplay().isFullscreen());
 			button.getText().setText("Fullscreen: " + (FlounderDevices.getDisplay().isFullscreen() ? "On" : "Off"));
 		});
 	}
 
-	private void createAntialiasOption(final float xPos, final float yPos) {
-		final GuiTextButton button = MenuMain.createButton("Antialiasing: " + (FlounderDevices.getDisplay().isAntialiasing() ? "On" : "Off"), xPos, yPos, MenuMain.BUTTONS_X_WIDTH, MenuMain.BUTTONS_Y_SIZE, MenuMain.FONT_SIZE, this);
+	private void createAntialiasOption(float xPos, float yPos) {
+		GuiTextButton button = MenuMain.createButton("Antialiasing: " + (FlounderDevices.getDisplay().isAntialiasing() ? "On" : "Off"), xPos, yPos, MenuMain.BUTTONS_X_WIDTH, MenuMain.BUTTONS_Y_SIZE, MenuMain.FONT_SIZE, this);
 		button.addLeftListener(() -> {
 			FlounderDevices.getDisplay().setAntialiasing(!FlounderDevices.getDisplay().isAntialiasing());
 			button.getText().setText("Antialiasing: " + (FlounderDevices.getDisplay().isAntialiasing() ? "On" : "Off"));
 		});
 	}
 
-	private void createVSyncOption(final float xPos, final float yPos) {
-		final GuiTextButton button = MenuMain.createButton("VSync: " + (FlounderDevices.getDisplay().isEnableVSync() ? "On" : "Off"), xPos, yPos, MenuMain.BUTTONS_X_WIDTH, MenuMain.BUTTONS_Y_SIZE, MenuMain.FONT_SIZE, this);
+	private void createVSyncOption(float xPos, float yPos) {
+		GuiTextButton button = MenuMain.createButton("VSync: " + (FlounderDevices.getDisplay().isEnableVSync() ? "On" : "Off"), xPos, yPos, MenuMain.BUTTONS_X_WIDTH, MenuMain.BUTTONS_Y_SIZE, MenuMain.FONT_SIZE, this);
 		button.addLeftListener(() -> {
 			FlounderDevices.getDisplay().setEnableVSync(!FlounderDevices.getDisplay().isEnableVSync());
 			button.getText().setText("VSync: " + (FlounderDevices.getDisplay().isEnableVSync() ? "On" : "Off"));
 		});
 	}
 
-	private void createPostOption(final float xPos, final float yPos) {
-		final GuiTextButton button = MenuMain.createButton("Post Effects", xPos, yPos, MenuMain.BUTTONS_X_WIDTH, MenuMain.BUTTONS_Y_SIZE, MenuMain.FONT_SIZE, this);
+	private void createPostOption(float xPos, float yPos) {
+		GuiTextButton button = MenuMain.createButton("Post Effects", xPos, yPos, MenuMain.BUTTONS_X_WIDTH, MenuMain.BUTTONS_Y_SIZE, MenuMain.FONT_SIZE, this);
 		button.addLeftListener(() -> menuGame.setNewSecondaryScreen(screenOptionsPost, true));
 	}
 
-	private void createBackOption(final float xPos, final float yPos) {
-		final GuiTextButton button = MenuMain.createButton("Back", xPos, yPos, MenuMain.BUTTONS_X_WIDTH, MenuMain.BUTTONS_Y_SIZE, MenuMain.FONT_SIZE, this);
+	private void createBackOption(float xPos, float yPos) {
+		GuiTextButton button = MenuMain.createButton("Back", xPos, yPos, MenuMain.BUTTONS_X_WIDTH, MenuMain.BUTTONS_Y_SIZE, MenuMain.FONT_SIZE, this);
 		button.addLeftListener(() -> menuGame.setNewSecondaryScreen(screenOption, false));
 	}
 
@@ -86,6 +86,6 @@ public class ScreenOptionsGraphics extends GuiComponent {
 	}
 
 	@Override
-	protected void getGuiTextures(final List<GuiTexture> guiTextures) {
+	protected void getGuiTextures(List<GuiTexture> guiTextures) {
 	}
 }

@@ -6,13 +6,13 @@ import flounder.guis.*;
 import java.util.*;
 
 public class ScreenOption extends GuiComponent {
-	private final MenuGame menuGame;
-	private final ScreenOptionsDeveloper screenOptionsDeveloper;
-	private final ScreenOptionsGraphics screenOptionsGraphics;
-	private final ScreenOptionsInputs screenOptionsInputs;
-	private final ScreenOptionsAudio screenOptionsAudio;
+	private MenuGame menuGame;
+	private ScreenOptionsDeveloper screenOptionsDeveloper;
+	private ScreenOptionsGraphics screenOptionsGraphics;
+	private ScreenOptionsInputs screenOptionsInputs;
+	private ScreenOptionsAudio screenOptionsAudio;
 
-	protected ScreenOption(final MenuGame menuGame) {
+	protected ScreenOption(MenuGame menuGame) {
 		this.menuGame = menuGame;
 		screenOptionsDeveloper = new ScreenOptionsDeveloper(this, menuGame);
 		screenOptionsGraphics = new ScreenOptionsGraphics(this, menuGame);
@@ -42,34 +42,34 @@ public class ScreenOption extends GuiComponent {
 		});
 	}
 
-	private void createTitleText(final String title) {
-		final Text titleText = Text.newText(title).center().setFontSize(MenuGame.MAIN_TITLE_FONT_SIZE).create();
+	private void createTitleText(String title) {
+		Text titleText = Text.newText(title).center().setFontSize(MenuGame.MAIN_TITLE_FONT_SIZE).create();
 		titleText.setColour(MenuGame.TEXT_COLOUR);
 		addText(titleText, -0.5f, MenuMain.TEXT_TITLE_Y_POS, 2.0f);
 	}
 
-	private void createGraphicsOption(final float xPos, final float yPos) {
-		final GuiTextButton button = MenuMain.createButton("Graphics", xPos, yPos, MenuMain.BUTTONS_X_WIDTH, MenuMain.BUTTONS_Y_SIZE, MenuMain.FONT_SIZE, this);
+	private void createGraphicsOption(float xPos, float yPos) {
+		GuiTextButton button = MenuMain.createButton("Graphics", xPos, yPos, MenuMain.BUTTONS_X_WIDTH, MenuMain.BUTTONS_Y_SIZE, MenuMain.FONT_SIZE, this);
 		button.addLeftListener(() -> menuGame.setNewSecondaryScreen(screenOptionsGraphics, true));
 	}
 
-	private void createAudioOption(final float xPos, final float yPos) {
-		final GuiTextButton button = MenuMain.createButton("Audio", xPos, yPos, MenuMain.BUTTONS_X_WIDTH, MenuMain.BUTTONS_Y_SIZE, MenuMain.FONT_SIZE, this);
+	private void createAudioOption(float xPos, float yPos) {
+		GuiTextButton button = MenuMain.createButton("Audio", xPos, yPos, MenuMain.BUTTONS_X_WIDTH, MenuMain.BUTTONS_Y_SIZE, MenuMain.FONT_SIZE, this);
 		button.addLeftListener(() -> menuGame.setNewSecondaryScreen(screenOptionsAudio, true));
 	}
 
-	private void createDevelopersOption(final float xPos, final float yPos) {
-		final GuiTextButton button = MenuMain.createButton("Developer", xPos, yPos, MenuMain.BUTTONS_X_WIDTH, MenuMain.BUTTONS_Y_SIZE, MenuMain.FONT_SIZE, this);
+	private void createDevelopersOption(float xPos, float yPos) {
+		GuiTextButton button = MenuMain.createButton("Developer", xPos, yPos, MenuMain.BUTTONS_X_WIDTH, MenuMain.BUTTONS_Y_SIZE, MenuMain.FONT_SIZE, this);
 		button.addLeftListener(() -> menuGame.setNewSecondaryScreen(screenOptionsDeveloper, true));
 	}
 
-	private void createInputsOption(final float xPos, final float yPos) {
-		final GuiTextButton button = MenuMain.createButton("Inputs", xPos, yPos, MenuMain.BUTTONS_X_WIDTH, MenuMain.BUTTONS_Y_SIZE, MenuMain.FONT_SIZE, this);
+	private void createInputsOption(float xPos, float yPos) {
+		GuiTextButton button = MenuMain.createButton("Inputs", xPos, yPos, MenuMain.BUTTONS_X_WIDTH, MenuMain.BUTTONS_Y_SIZE, MenuMain.FONT_SIZE, this);
 		button.addLeftListener(() -> menuGame.setNewSecondaryScreen(screenOptionsInputs, true));
 	}
 
-	private void createBackOption(final float xPos, final float yPos) {
-		final GuiTextButton button = MenuMain.createButton("Back", xPos, yPos, MenuMain.BUTTONS_X_WIDTH, MenuMain.BUTTONS_Y_SIZE, MenuMain.FONT_SIZE, this);
+	private void createBackOption(float xPos, float yPos) {
+		GuiTextButton button = MenuMain.createButton("Back", xPos, yPos, MenuMain.BUTTONS_X_WIDTH, MenuMain.BUTTONS_Y_SIZE, MenuMain.FONT_SIZE, this);
 		button.addLeftListener(menuGame::closeSecondaryScreen);
 	}
 
@@ -78,6 +78,6 @@ public class ScreenOption extends GuiComponent {
 	}
 
 	@Override
-	protected void getGuiTextures(final List<GuiTexture> guiTextures) {
+	protected void getGuiTextures(List<GuiTexture> guiTextures) {
 	}
 }

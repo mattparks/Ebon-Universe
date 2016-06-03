@@ -27,7 +27,7 @@ public class MainCamera implements ICamera {
 	private final static float MAX_HORIZONTAL_CHANGE = 500.0f;
 	private final static float MAX_VERTICAL_CHANGE = 5.0f;
 
-	private final static float INFLUENCE_OF_MOUSEDY = -1000.0f;
+	private final static float INFLUENCE_OF_MOUSEDY = -175.0f;
 	private final static float INFLUENCE_OF_MOUSEDX = INFLUENCE_OF_MOUSEDY * 92.0f;
 	private final static float INFLUENCE_OF_JOYSTICKDY = -1.0f;
 	private final static float INFLUENCE_OF_JOYSTICKDX = 100.0f * INFLUENCE_OF_JOYSTICKDY;
@@ -85,7 +85,7 @@ public class MainCamera implements ICamera {
 	}
 
 	@Override
-	public void moveCamera(final Vector3f focusPosition, final Vector3f focusRotation, final boolean gamePaused) {
+	public void moveCamera(Vector3f focusPosition, Vector3f focusRotation, boolean gamePaused) {
 		calculateHorizontalAngle(gamePaused);
 		calculateVerticalAngle(gamePaused);
 
@@ -106,7 +106,7 @@ public class MainCamera implements ICamera {
 		}
 	}
 
-	private void calculateHorizontalAngle(final boolean gamePaused) {
+	private void calculateHorizontalAngle(boolean gamePaused) {
 		float delta = FlounderEngine.getDelta();
 		float angleChange = 0.0f;
 
@@ -116,10 +116,10 @@ public class MainCamera implements ICamera {
 			angleChange = joystickRotateX.getAmount() * delta * INFLUENCE_OF_JOYSTICKDX;
 		}
 
-		if (angleChange > MAX_HORIZONTAL_CHANGE * delta) {
-			angleChange = MAX_HORIZONTAL_CHANGE * delta;
-		} else if (angleChange < -MAX_HORIZONTAL_CHANGE * delta) {
-			angleChange = -MAX_HORIZONTAL_CHANGE * delta;
+		if (angleChange > MAX_HORIZONTAL_CHANGE) {
+			angleChange = MAX_HORIZONTAL_CHANGE;
+		} else if (angleChange < -MAX_HORIZONTAL_CHANGE) {
+			angleChange = -MAX_HORIZONTAL_CHANGE;
 		}
 
 		targetRotationAngle -= angleChange;
@@ -131,7 +131,7 @@ public class MainCamera implements ICamera {
 		}
 	}
 
-	private void calculateVerticalAngle(final boolean gamePaused) {
+	private void calculateVerticalAngle(boolean gamePaused) {
 		float delta = FlounderEngine.getDelta();
 		float angleChange = 0.0f;
 
@@ -141,10 +141,10 @@ public class MainCamera implements ICamera {
 			angleChange = joystickRotateY.getAmount() * delta * INFLUENCE_OF_JOYSTICKDY;
 		}
 
-		if (angleChange > MAX_VERTICAL_CHANGE * delta) {
-			angleChange = MAX_VERTICAL_CHANGE * delta;
-		} else if (angleChange < -MAX_VERTICAL_CHANGE * delta) {
-			angleChange = -MAX_VERTICAL_CHANGE * delta;
+		if (angleChange > MAX_VERTICAL_CHANGE) {
+			angleChange = MAX_VERTICAL_CHANGE;
+		} else if (angleChange < -MAX_VERTICAL_CHANGE) {
+			angleChange = -MAX_VERTICAL_CHANGE;
 		}
 
 		targetElevation -= angleChange;
@@ -189,14 +189,10 @@ public class MainCamera implements ICamera {
 
 	private void calculatePosition() {
 		position.set(targetPosition);
-		rotation.set(
-				(float) Math.toDegrees(angleOfElevation) - PITCH_OFFSET,
-				Maths.DEGREES_IN_HALF_CIRCLE + angleAroundPlayer,
-				0.0f
-		);
+		rotation.set((float) Math.toDegrees(angleOfElevation) - PITCH_OFFSET, Maths.DEGREES_IN_HALF_CIRCLE + angleAroundPlayer, 0.0f);
 	}
 
-	private void updateViewMatrix(final Vector3f position, final Vector3f rotation) {
+	private void updateViewMatrix(Vector3f position, Vector3f rotation) {
 		viewMatrix.setIdentity();
 		position.negate();
 		Matrix4f.rotate(viewMatrix, new Vector3f(1, 0, 0), (float) Math.toRadians(rotation.x), viewMatrix);
@@ -218,12 +214,12 @@ public class MainCamera implements ICamera {
 	}
 
 	@Override
-	public Matrix4f getReflectionViewMatrix(final float planeHeight) {
+	public Matrix4f getReflectionViewMatrix(float planeHeight) {
 		return null;
 	}
 
 	@Override
-	public void reflect(final float waterHeight) {
+	public void reflect(float waterHeight) {
 	}
 
 	@Override

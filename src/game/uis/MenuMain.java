@@ -28,17 +28,17 @@ public class MenuMain extends GuiComponent {
 	public static final Sound SOUND_MOUSE_LEFT = Sound.loadSoundInBackground(new MyFile(DeviceSound.SOUND_FOLDER, "button2.wav"), 0.8f);
 	public static final Sound SOUND_MOUSE_RIGHT = Sound.loadSoundInBackground(new MyFile(DeviceSound.SOUND_FOLDER, "button3.wav"), 0.8f);
 
-	private final MenuGame menuGame;
-	private final MenuGameBackground superMenu;
+	private MenuGame menuGame;
+	private MenuGameBackground superMenu;
 
-	private final Text titleText;
-	private final SinWaveDriver titleColourX;
-	private final SinWaveDriver titleColourY;
+	private Text titleText;
+	private SinWaveDriver titleColourX;
+	private SinWaveDriver titleColourY;
 
-	private final ScreenOption screenOption;
-	private final ScreenQuit screenQuit;
+	private ScreenOption screenOption;
+	private ScreenQuit screenQuit;
 
-	protected MenuMain(final MenuGameBackground superMenu, final MenuGame menuGame) {
+	protected MenuMain(MenuGameBackground superMenu, MenuGame menuGame) {
 		this.menuGame = menuGame;
 		this.superMenu = superMenu;
 
@@ -58,28 +58,28 @@ public class MenuMain extends GuiComponent {
 		createQuitButton(0.9f);
 	}
 
-	private void createPlayButton(final float yPos) {
-		final GuiTextButton button = createButton("Play", BUTTONS_CENTER_X_POS, yPos, BUTTONS_CENTER_X_WIDTH, BUTTONS_Y_SIZE, FONT_SIZE, this);
+	private void createPlayButton(float yPos) {
+		GuiTextButton button = createButton("Play", BUTTONS_CENTER_X_POS, yPos, BUTTONS_CENTER_X_WIDTH, BUTTONS_Y_SIZE, FONT_SIZE, this);
 		button.addLeftListener(() -> superMenu.display(false));
 		button.addRightListener(null);
 	}
 
-	private void createOptionsButton(final float yPos) {
-		final GuiTextButton button = createButton("Options", BUTTONS_CENTER_X_POS, yPos, BUTTONS_CENTER_X_WIDTH, BUTTONS_Y_SIZE, FONT_SIZE, this);
+	private void createOptionsButton(float yPos) {
+		GuiTextButton button = createButton("Options", BUTTONS_CENTER_X_POS, yPos, BUTTONS_CENTER_X_WIDTH, BUTTONS_Y_SIZE, FONT_SIZE, this);
 		button.addLeftListener(() -> menuGame.setNewSecondaryScreen(screenOption, true));
 		button.addRightListener(null);
 	}
 
-	private void createQuitButton(final float yPos) {
-		final GuiTextButton button = createButton("Quit", BUTTONS_CENTER_X_POS, yPos, BUTTONS_CENTER_X_WIDTH, BUTTONS_Y_SIZE, FONT_SIZE, this);
+	private void createQuitButton(float yPos) {
+		GuiTextButton button = createButton("Quit", BUTTONS_CENTER_X_POS, yPos, BUTTONS_CENTER_X_WIDTH, BUTTONS_Y_SIZE, FONT_SIZE, this);
 		button.addLeftListener(() -> menuGame.setNewSecondaryScreen(screenQuit, true));
 		button.addRightListener(null);
 	}
 
-	public static GuiTextButton createButton(final String textString, final float xPos, final float yPos, final float xBut, final float yBut, final float fontSize, final GuiComponent component) {
-		final Text text = Text.newText(textString).center().setFontSize(fontSize).create();
+	public static GuiTextButton createButton(String textString, float xPos, float yPos, float xBut, float yBut, float fontSize, GuiComponent component) {
+		Text text = Text.newText(textString).center().setFontSize(fontSize).create();
 		text.setColour(MenuGame.TEXT_COLOUR);
-		final GuiTextButton button = new GuiTextButton(text);
+		GuiTextButton button = new GuiTextButton(text);
 		button.setSounds(SOUND_MOUSE_HOVER, SOUND_MOUSE_LEFT, SOUND_MOUSE_RIGHT);
 		component.addComponent(button, xPos, yPos, xBut, yBut);
 		return button;
@@ -92,6 +92,6 @@ public class MenuMain extends GuiComponent {
 	}
 
 	@Override
-	protected void getGuiTextures(final List<GuiTexture> guiTextures) {
+	protected void getGuiTextures(List<GuiTexture> guiTextures) {
 	}
 }

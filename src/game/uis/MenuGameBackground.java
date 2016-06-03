@@ -9,7 +9,7 @@ import java.util.*;
 public class MenuGameBackground extends GuiComponent {
 	public static final float SLIDE_TIME = 0.7f;
 
-	private final MenuGame menu;
+	private MenuGame menu;
 	private ScreenStartup screenStartup;
 
 	private ValueDriver slideDriver;
@@ -28,7 +28,7 @@ public class MenuGameBackground extends GuiComponent {
 		super.addComponent(screenStartup, 0.0f, 0.0f, 1.0f, 1.0f);
 	}
 
-	public void display(final boolean display) {
+	public void display(boolean display) {
 		if (screenStartup != null) {
 			screenStartup.show(false);
 			removeComponent(screenStartup, true);
@@ -66,7 +66,7 @@ public class MenuGameBackground extends GuiComponent {
 	}
 
 	@Override
-	protected void setScreenSpacePosition(final float x, final float y, final float width, final float height) {
+	protected void setScreenSpacePosition(float x, float y, float width, float height) {
 		super.setScreenSpacePosition(x, y, width, height);
 	}
 
@@ -80,6 +80,6 @@ public class MenuGameBackground extends GuiComponent {
 	}
 
 	@Override
-	protected void getGuiTextures(final List<GuiTexture> guiTextures) {
+	protected void getGuiTextures(List<GuiTexture> guiTextures) {
 	}
 }

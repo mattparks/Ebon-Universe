@@ -13,22 +13,22 @@ public class MainPlayer {
 	private static final float UP_SPEED = 30;
 	private static final float SIDE_SPEED = 40;
 
-	private final IAxis inputForward;
-	private final IAxis inputUp;
-	private final IAxis inputSide;
+	private IAxis inputForward;
+	private IAxis inputUp;
+	private IAxis inputSide;
 
-	private final Vector3f velocity;
+	private Vector3f velocity;
 
-	private final Vector3f position;
-	private final Vector3f rotation;
+	private Vector3f position;
+	private Vector3f rotation;
 
 	public MainPlayer() {
-		final IButton leftKeyButtons = new KeyButton(GLFW_KEY_A, GLFW_KEY_LEFT);
-		final IButton rightKeyButtons = new KeyButton(GLFW_KEY_D, GLFW_KEY_RIGHT);
-		final IButton forwardsKeyButtons = new KeyButton(GLFW_KEY_W, GLFW_KEY_UP);
-		final IButton backwardsKeyButtons = new KeyButton(GLFW_KEY_S, GLFW_KEY_DOWN);
-		final IButton upKeyButtons = new KeyButton(GLFW_KEY_SPACE);
-		final IButton downKeyButtons = new KeyButton(GLFW_KEY_LEFT_SHIFT);
+		IButton leftKeyButtons = new KeyButton(GLFW_KEY_A, GLFW_KEY_LEFT);
+		IButton rightKeyButtons = new KeyButton(GLFW_KEY_D, GLFW_KEY_RIGHT);
+		IButton forwardsKeyButtons = new KeyButton(GLFW_KEY_W, GLFW_KEY_UP);
+		IButton backwardsKeyButtons = new KeyButton(GLFW_KEY_S, GLFW_KEY_DOWN);
+		IButton upKeyButtons = new KeyButton(GLFW_KEY_SPACE);
+		IButton downKeyButtons = new KeyButton(GLFW_KEY_LEFT_SHIFT);
 
 		this.inputForward = new CompoundAxis(new ButtonAxis(forwardsKeyButtons, backwardsKeyButtons), new JoystickAxis(OptionsControls.JOYSTICK_PORT, OptionsControls.JOYSTICK_AXIS_Y));
 		this.inputUp = new CompoundAxis(new ButtonAxis(downKeyButtons, upKeyButtons));
@@ -40,7 +40,7 @@ public class MainPlayer {
 		this.rotation = new Vector3f(0, 0, 0);
 	}
 
-	public void update(final boolean paused) {
+	public void update(boolean paused) {
 		if (!paused) {
 			rotation.set(0.0f, FlounderEngine.getCamera().getYaw(), 0.0f);
 			velocity.x = SIDE_SPEED * FlounderEngine.getDelta() * Maths.deadband(0.05f, inputSide.getAmount());

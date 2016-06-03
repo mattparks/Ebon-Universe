@@ -18,17 +18,17 @@ public class Chunk extends AABB implements Comparable<Chunk> {
 
 	public static final int CHUNK_SIZE = 16;
 
-	private final Vector3f position;
-	private final Block[][][] blocks;
+	private Vector3f position;
+	private Block[][][] blocks;
 
-	private final int vaoID;
+	private int vaoID;
 	private int vaoLength;
 
 	private boolean forceRemesh;
 	private boolean visible;
 	private boolean empty;
 
-	protected Chunk(final Vector3f position) {
+	protected Chunk(Vector3f position) {
 		this.position = position;
 		this.blocks = new Block[CHUNK_SIZE][CHUNK_SIZE][CHUNK_SIZE + 1];
 
@@ -47,7 +47,7 @@ public class Chunk extends AABB implements Comparable<Chunk> {
 		this.empty = true;
 	}
 
-	public void generate(final PerlinNoise noise) {
+	public void generate(PerlinNoise noise) {
 		for (int x = 0; x < blocks.length; x++) {
 			for (int z = 0; z < blocks[x].length; z++) {
 				for (int y = 0; y < blocks[z].length; y++) {
@@ -66,11 +66,11 @@ public class Chunk extends AABB implements Comparable<Chunk> {
 		forceRemesh = true;
 	}
 
-	public void populate(final Random random) {
+	public void populate(Random random) {
 		for (int x = 0; x < blocks.length; x++) {
 			for (int z = 0; z < blocks[x].length; z++) {
 				for (int y = 0; y < blocks[z].length; y++) {
-					final Block block = blocks[x][z][y];
+					Block block = blocks[x][z][y];
 
 					if (block != null) {
 						if (block.getType().equals("game::stone")) {
@@ -97,19 +97,19 @@ public class Chunk extends AABB implements Comparable<Chunk> {
 		forceRemesh = true;
 	}
 
-	public static Block createBlock(final Chunk chunk, final int x, final int y, final int z, final BlockTypes type) {
+	public static Block createBlock(Chunk chunk, int x, int y, int z, BlockTypes type) {
 		return new Block(type.getName(), new Vector3f(calculateBlock(chunk.position.x, x), calculateBlock(chunk.position.y, y), calculateBlock(chunk.position.z, z)));
 	}
 
-	protected static float calculateBlock(final float position, final int array) {
+	protected static float calculateBlock(float position, int array) {
 		return position + (2.0f * array * BlockTypes.BLOCK_EXTENT);
 	}
 
-	protected static int inverseBlock(final float position, final float component) {
+	protected static int inverseBlock(float position, float component) {
 		return (int) ((component - position) / (2.0f * BlockTypes.BLOCK_EXTENT));
 	}
 
-	public static boolean inBounds(final float x, final float y, final float z) {
+	public static boolean inBounds(float x, float y, float z) {
 		return !(x < 0 || y < 0 || z < 0 || x > CHUNK_SIZE - 1 || y > CHUNK_SIZE - 1 || z > CHUNK_SIZE - 1);
 	}
 
@@ -120,7 +120,7 @@ public class Chunk extends AABB implements Comparable<Chunk> {
 		for (int x = 0; x < blocks.length; x++) {
 			for (int z = 0; z < blocks[x].length; z++) {
 				for (int y = 0; y < blocks[z].length; y++) {
-					final Block block = blocks[x][z][y];
+					Block block = blocks[x][z][y];
 
 					if (block != null) {
 						block.update(this);
@@ -139,24 +139,24 @@ public class Chunk extends AABB implements Comparable<Chunk> {
 
 	private void remesh() {
 		// Gets all of the points for the chunk model.
-		final List<Float> chunkVertices = new ArrayList<>();
-		final List<Float> chunkTextures = new ArrayList<>();
-		final List<Float> chunkNormals = new ArrayList<>();
-		final List<Float> chunkColours = new ArrayList<>();
+		List<Float> chunkVertices = new ArrayList<>();
+		List<Float> chunkTextures = new ArrayList<>();
+		List<Float> chunkNormals = new ArrayList<>();
+		List<Float> chunkColours = new ArrayList<>();
 
 		/*for (int x = 0; x < blocks.length; x++) {
 			for (int z = 0; z < blocks[x].length; z++) {
 				for (int y = 0; y < blocks[z].length; y++) {
-					final Block block = blocks[x][z][y];
+					 Block block = blocks[x][z][y];
 
 					if (block != null && !block.isCovered(this)) {
-						final BlockTypes types = BlockTypes.get(block.getType());
+						 BlockTypes types = BlockTypes.get(block.getType());
 
 						if (types != null) {
-							final Model model = types.getModel();
+							 Model model = types.getModel();
 
 							for (int i = 0; i < model.getIndices().length; i++) {
-								final int index = model.getIndices()[i];
+								 int index = model.getIndices()[i];
 
 								// TODO: Grab added number from block!
 								chunkVertices.add(model.getVertices()[index] + (x * 2.0f * BlockTypes.BLOCK_EXTENT));
@@ -183,10 +183,10 @@ public class Chunk extends AABB implements Comparable<Chunk> {
 		// TODO: Mesh merge!
 
 		// Converts into array form.
-		final float[] vertices = new float[chunkVertices.size()];
-		final float[] textures = new float[chunkTextures.size()];
-		final float[] normals = new float[chunkNormals.size()];
-		final float[] colours = new float[chunkColours.size()];
+		float[] vertices = new float[chunkVertices.size()];
+		float[] textures = new float[chunkTextures.size()];
+		float[] normals = new float[chunkNormals.size()];
+		float[] colours = new float[chunkColours.size()];
 		ArrayUtils.copyToArray(chunkVertices, vertices);
 		ArrayUtils.copyToArray(chunkTextures, textures);
 		ArrayUtils.copyToArray(chunkNormals, normals);
@@ -201,7 +201,7 @@ public class Chunk extends AABB implements Comparable<Chunk> {
 		this.vaoLength = vertices.length / 3;
 	}
 
-	protected Matrix4f updateModelMatrix(final Matrix4f modelMatrix) {
+	protected Matrix4f updateModelMatrix(Matrix4f modelMatrix) {
 		modelMatrix.setIdentity();
 		POSITION_REUSABLE.set(position);
 		ROTATION_REUSABLE.set(0.0f, 0.0f, 0.0f);
@@ -210,19 +210,19 @@ public class Chunk extends AABB implements Comparable<Chunk> {
 		return modelMatrix;
 	}
 
-	public boolean blockExists(final int x, final int y, final int z) {
+	public boolean blockExists(int x, int y, int z) {
 		return inBounds(x, y, z) && getBlock(x, y, z) != null;
 	}
 
-	protected Block getBlock(final int x, final int y, final int z) {
+	protected Block getBlock(int x, int y, int z) {
 		return blocks[x][z][y];
 	}
 
-	public boolean inChunkBounds(final float x, final float y, final float z) {
+	public boolean inChunkBounds(float x, float y, float z) {
 		return !(x < position.x || y < position.y || z < position.z || x > CHUNK_SIZE - 1 || y > CHUNK_SIZE - 1 || z > CHUNK_SIZE - 1);
 	}
 
-	protected void putBlock(final Block block, final int x, final int y, final int z) {
+	protected void putBlock(Block block, int x, int y, int z) {
 		removeBlock(x, y, z);
 
 		if (block != null) {
@@ -233,7 +233,7 @@ public class Chunk extends AABB implements Comparable<Chunk> {
 		forceRemesh = true;
 	}
 
-	protected void removeBlock(final int x, final int y, final int z) {
+	protected void removeBlock(int x, int y, int z) {
 		if (blocks[x][z][y] != null) {
 			blocks[x][z][y].playBreakNoise();
 		}
@@ -267,9 +267,9 @@ public class Chunk extends AABB implements Comparable<Chunk> {
 	}
 
 	@Override
-	public int compareTo(final Chunk other) {
-		final float thisToCamera = Vector3f.getDistanceSquared(FlounderEngine.getCamera().getPosition(), position);
-		final float otherToCamera = Vector3f.getDistanceSquared(FlounderEngine.getCamera().getPosition(), other.position);
+	public int compareTo(Chunk other) {
+		float thisToCamera = Vector3f.getDistanceSquared(FlounderEngine.getCamera().getPosition(), position);
+		float otherToCamera = Vector3f.getDistanceSquared(FlounderEngine.getCamera().getPosition(), other.position);
 		return Float.compare(thisToCamera, otherToCamera);
 	}
 }

@@ -33,10 +33,10 @@ public class MainGame extends IGame {
 		this.guis = new MainGuis();
 		this.player = new MainPlayer();
 
-		final Playlist playlist = new Playlist();
+		Playlist playlist = new Playlist();
 		playlist.addMusic(Sound.loadSoundInBackground(new MyFile(MyFile.RES_FOLDER, "music", "era-of-space.wav"), 1.0f));
 		playlist.addMusic(Sound.loadSoundInBackground(new MyFile(MyFile.RES_FOLDER, "music", "spacey-ambient.wav"), 1.0f));
-		FlounderDevices.getSound().getMusicPlayer().playMusicPlaylist(playlist, true, 4.0f, 16.0f);
+		FlounderDevices.getSound().getMusicPlayer().playMusicPlaylist(playlist, true, 4.0f, 10.0f);
 
 		Environment.init(new Fog(new Colour(135.0f, 206.0f, 235.0f, true), 0.01f, 2.0f, 0.0f, 50.0f), new Light(new Colour(0.6f, 0.6f, 0.6f), new Vector3f(0.0f, 2000.0f, 2000.0f), new Attenuation(0.0f, 0.0f, 1.0f)));
 	}

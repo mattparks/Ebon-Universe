@@ -18,9 +18,9 @@ public class MenuGame extends GuiComponent {
 
 	public static final int SLIDE_SCALAR = 2;
 
-	public static final KeyButton BACK_KEY = new KeyButton(GLFW.GLFW_KEY_BACKSPACE);
+	public static KeyButton BACK_KEY = new KeyButton(GLFW.GLFW_KEY_BACKSPACE);
 
-	private final MenuMain menuMain;
+	private MenuMain menuMain;
 
 	private ValueDriver mainDriver;
 	private GuiComponent secondaryScreen;
@@ -32,7 +32,7 @@ public class MenuGame extends GuiComponent {
 	private boolean slidingForwards;
 	private boolean closeSecondary;
 
-	public MenuGame(final MenuGameBackground superMenu) {
+	public MenuGame(MenuGameBackground superMenu) {
 		menuMain = new MenuMain(superMenu, this);
 
 		mainDriver = new ConstantDriver(SLIDE_SCALAR);
@@ -47,7 +47,7 @@ public class MenuGame extends GuiComponent {
 	}
 
 	@Override
-	public void show(final boolean visible) {
+	public void show(boolean visible) {
 		displayed = visible;
 		mainDriver = new SlideDriver(getRelativeX(), visible ? 0.0f : SLIDE_SCALAR, MenuGameBackground.SLIDE_TIME);
 	}
@@ -58,8 +58,8 @@ public class MenuGame extends GuiComponent {
 
 	@Override
 	protected void updateSelf() {
-		final float mainValue = mainDriver.update(FlounderEngine.getDelta());
-		final float value = secondaryDriver.update(FlounderEngine.getDelta());
+		float mainValue = mainDriver.update(FlounderEngine.getDelta());
+		float value = secondaryDriver.update(FlounderEngine.getDelta());
 
 		menuMain.setRelativeX(value);
 		menuMain.show(Math.abs(value) <= SLIDE_SCALAR);
@@ -112,7 +112,7 @@ public class MenuGame extends GuiComponent {
 	}
 
 	@Override
-	protected void getGuiTextures(final List<GuiTexture> guiTextures) {
+	protected void getGuiTextures(List<GuiTexture> guiTextures) {
 	}
 
 	private void removeSecondaryScreen() {
@@ -123,7 +123,7 @@ public class MenuGame extends GuiComponent {
 		}
 	}
 
-	protected void setNewSecondaryScreen(final GuiComponent secondScreen, final boolean slideForwards) {
+	protected void setNewSecondaryScreen(GuiComponent secondScreen, boolean slideForwards) {
 		if (newSecondaryScreen == null && secondaryDriver.update(FlounderEngine.getDelta()) == secondaryDepth) {
 			secondaryDepth += slideForwards ? SLIDE_SCALAR : -SLIDE_SCALAR;
 			slidingForwards = slideForwards;

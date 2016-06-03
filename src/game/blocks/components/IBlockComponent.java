@@ -44,5 +44,5 @@ public abstract class IBlockComponent {
 	 *
 	 * @param chunk The game.blocks parent chunk.
 	 */
-	public abstract void update(final Chunk chunk);
+	public abstract void update(Chunk chunk);
 }

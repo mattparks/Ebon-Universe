@@ -7,10 +7,10 @@ public class BlockShader extends ShaderProgram {
 	private static final MyFile VERTEX_SHADER = new MyFile("game/blocks", "blocksVertex.glsl");
 	private static final MyFile FRAGMENT_SHADER = new MyFile("game/blocks", "blocksFragment.glsl");
 
-	protected final UniformMat4 modelMatrix = new UniformMat4("modelMatrix");
-	protected final UniformMat4 projectionMatrix = new UniformMat4("projectionMatrix");
-	protected final UniformMat4 viewMatrix = new UniformMat4("viewMatrix");
-	protected final UniformVec4 clipPlane = new UniformVec4("clipPlane");
+	protected UniformMat4 modelMatrix = new UniformMat4("modelMatrix");
+	protected UniformMat4 projectionMatrix = new UniformMat4("projectionMatrix");
+	protected UniformMat4 viewMatrix = new UniformMat4("viewMatrix");
+	protected UniformVec4 clipPlane = new UniformVec4("clipPlane");
 	protected UniformVec3 fogColour = new UniformVec3("fogColour");
 	protected UniformFloat fogDensity = new UniformFloat("fogDensity");
 	protected UniformFloat fogGradient = new UniformFloat("fogGradient");

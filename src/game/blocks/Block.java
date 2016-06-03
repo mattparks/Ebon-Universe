@@ -48,14 +48,18 @@ public class Block extends AABB {
 
 	/**
 	 * Updates all the components attached to this block.
+	 *
+	 * @param chunk The blocks parent chunk.
 	 */
 	protected void update(Chunk chunk) {
 		if (components.size() < 1) {
 			return;
 		}
 
-		for (IBlockComponent blockComponent : components) {
-			blockComponent.update(chunk);
+		if (components.size() > 0) {
+			for (IBlockComponent blockComponent : components) {
+				blockComponent.update(chunk);
+			}
 		}
 	}
 

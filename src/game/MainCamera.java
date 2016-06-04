@@ -9,6 +9,7 @@ import flounder.maths.vectors.*;
 import flounder.profiling.*;
 import flounder.space.*;
 import game.options.*;
+import sun.reflect.generics.reflectiveObjects.*;
 
 import static org.lwjgl.glfw.GLFW.*;
 
@@ -34,6 +35,7 @@ public class MainCamera implements ICamera {
 
 	public static int toggleMouseMoveKey;
 
+	private Vector3f reusableViewVector;
 	private Vector3f position;
 	private Vector3f rotation;
 	private Frustum viewFrustum;
@@ -50,8 +52,9 @@ public class MainCamera implements ICamera {
 
 	@Override
 	public void init() {
-		this.position = new Vector3f(0.0f, 0.0f, 0.0f);
-		this.rotation = new Vector3f(0.0f, 0.0f, 0.0f);
+		this.reusableViewVector = new Vector3f();
+		this.position = new Vector3f();
+		this.rotation = new Vector3f();
 		this.viewFrustum = new Frustum();
 		this.viewMatrix = new Matrix4f();
 
@@ -195,9 +198,9 @@ public class MainCamera implements ICamera {
 	private void updateViewMatrix(Vector3f position, Vector3f rotation) {
 		viewMatrix.setIdentity();
 		position.negate();
-		Matrix4f.rotate(viewMatrix, new Vector3f(1, 0, 0), (float) Math.toRadians(rotation.x), viewMatrix);
-		Matrix4f.rotate(viewMatrix, new Vector3f(0, 1, 0), (float) Math.toRadians(-rotation.y), viewMatrix);
-		Matrix4f.rotate(viewMatrix, new Vector3f(0, 0, 1), (float) Math.toRadians(rotation.z), viewMatrix);
+		Matrix4f.rotate(viewMatrix, reusableViewVector.set(1.0f, 0.0f, 0.0f), (float) Math.toRadians(rotation.x), viewMatrix);
+		Matrix4f.rotate(viewMatrix, reusableViewVector.set(0.0f, 1.0f, 0.0f), (float) Math.toRadians(-rotation.y), viewMatrix);
+		Matrix4f.rotate(viewMatrix,reusableViewVector.set(0.0f, 0.0f, 1.0f), (float) Math.toRadians(rotation.z), viewMatrix);
 		Matrix4f.translate(viewMatrix, position, viewMatrix);
 		position.negate();
 		viewFrustum.recalculateFrustum(FlounderEngine.getProjectionMatrix(), getViewMatrix());
@@ -215,11 +218,12 @@ public class MainCamera implements ICamera {
 
 	@Override
 	public Matrix4f getReflectionViewMatrix(float planeHeight) {
-		return null;
+		throw new NotImplementedException();
 	}
 
 	@Override
 	public void reflect(float waterHeight) {
+		throw new NotImplementedException();
 	}
 
 	@Override
@@ -244,6 +248,6 @@ public class MainCamera implements ICamera {
 
 	@Override
 	public float getAimDistance() {
-		return 0.0f;
+		throw new NotImplementedException();
 	}
 }

@@ -12,7 +12,7 @@ import java.util.*;
 public class MenuGame extends GuiComponent {
 	public static final Colour TEXT_COLOUR = new Colour(0.85f, 0.85f, 0.85f);
 
-	public static final float MAIN_TITLE_FONT_SIZE = 2.75f;
+	public static final float MAIN_TITLE_FONT_SIZE = 3.5f;
 	public static final float MAIN_MENU_Y_POS = 0.25f;
 	public static final float MAIN_MENU_Y_SIZE = 0.6f;
 

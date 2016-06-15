@@ -19,5 +19,7 @@ public class Main {
 		);
 		engine.startEngine(FontManager.FFF_FORWARD);
 		engine.closeEngine();
+
+		// TODO: Write out variables.
 	}
 }

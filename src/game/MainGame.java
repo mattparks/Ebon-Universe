@@ -16,22 +16,26 @@ public class MainGame extends IGame {
 	private KeyButton screenshot;
 	private KeyButton fullscreen;
 	private KeyButton polygons;
-	private CompoundButton pauseMusic;
+	private CompoundButton toggleMusic;
 	private CompoundButton skipMusic;
 
 	private MainGuis guis;
 	private MainPlayer player;
+
+	private boolean stillLoading;
 
 	@Override
 	public void init() {
 		this.screenshot = new KeyButton(GLFW_KEY_F2);
 		this.fullscreen = new KeyButton(GLFW_KEY_F11);
 		this.polygons = new KeyButton(GLFW_KEY_P);
-		this.pauseMusic = new CompoundButton(new KeyButton(GLFW_KEY_DOWN), new JoystickButton(OptionsControls.JOYSTICK_PORT, OptionsControls.JOYSTICK_MUSIC_PAUSE));
+		this.toggleMusic = new CompoundButton(new KeyButton(GLFW_KEY_DOWN), new JoystickButton(OptionsControls.JOYSTICK_PORT, OptionsControls.JOYSTICK_MUSIC_PAUSE));
 		this.skipMusic = new CompoundButton(new KeyButton(GLFW_KEY_LEFT, GLFW_KEY_RIGHT), new JoystickButton(OptionsControls.JOYSTICK_PORT, OptionsControls.JOYSTICK_MUSIC_SKIP));
 
 		this.guis = new MainGuis();
 		this.player = new MainPlayer();
+
+		this.stillLoading = true;
 
 		Playlist playlist = new Playlist();
 		playlist.addMusic(Sound.loadSoundInBackground(new MyFile(MyFile.RES_FOLDER, "music", "era-of-space.wav"), 1.0f));
@@ -55,13 +59,27 @@ public class MainGame extends IGame {
 			OpenglUtils.goWireframe(!OpenglUtils.isInWireframe());
 		}
 
-		if (pauseMusic.wasDown()) {
-			FlounderDevices.getSound().getMusicPlayer().pauseTrack();
+		if (toggleMusic.wasDown()) {
+			if (FlounderDevices.getSound().getMusicPlayer().isPaused()) {
+				FlounderDevices.getSound().getMusicPlayer().unpauseTrack();
+			} else {
+				FlounderDevices.getSound().getMusicPlayer().pauseTrack();
+			}
 		}
 
 		if (skipMusic.wasDown()) {
 			MainSeed.randomize();
 			FlounderDevices.getSound().getMusicPlayer().skipTrack();
+		}
+
+		if (MainGuis.isStartingGame()) {
+			// Pause the music for the start screen.
+			FlounderDevices.getSound().getMusicPlayer().pauseTrack();
+		} else if (!MainGuis.isStartingGame() && stillLoading) {
+			// Unpause the music for the main menu.
+			stillLoading = false;
+			FlounderLogger.log("Starting main menu music.");
+			FlounderDevices.getSound().getMusicPlayer().unpauseTrack();
 		}
 
 		guis.update();

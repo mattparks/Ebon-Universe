@@ -16,8 +16,10 @@ public class ScreenOptionsPost extends GuiComponent {
 
 		createTitleText("Post Graphics");
 
-		createPostOption(MenuMain.BUTTONS_X_CENTER_POS, 0.2f);
-		createPostEnabledOption(MenuMain.BUTTONS_X_CENTER_POS, 0.5f);
+		createPostOption(MenuMain.BUTTONS_X_LEFT_POS, 0.2f);
+		createPostEnabledOption(MenuMain.BUTTONS_X_LEFT_POS, 0.5f);
+
+		createFilterFXAAOption(MenuMain.BUTTONS_X_RIGHT_POS, 0.2f);
 
 		createBackOption(MenuMain.BUTTONS_X_CENTER_POS, 1.0f);
 
@@ -41,7 +43,7 @@ public class ScreenOptionsPost extends GuiComponent {
 	}
 
 	private void createPostOption(float xPos, float yPos) {
-		GuiTextButton button = MenuMain.createButton("Post Effect: " + (OptionsPost.POST_ENABLED ? "On" : "Off"), xPos, yPos, MenuMain.BUTTONS_X_WIDTH, MenuMain.BUTTONS_Y_SIZE, MenuMain.FONT_SIZE, this);
+		GuiTextButton button = MenuMain.createButton("Post Effect: " + OptionsPost.POST_EFFECT, xPos, yPos, MenuMain.BUTTONS_X_WIDTH, MenuMain.BUTTONS_Y_SIZE, MenuMain.FONT_SIZE, this);
 		button.addLeftListener(() -> {
 			OptionsPost.POST_EFFECT += 1;
 
@@ -68,6 +70,14 @@ public class ScreenOptionsPost extends GuiComponent {
 		button.addLeftListener(() -> {
 			OptionsPost.POST_ENABLED = !OptionsPost.POST_ENABLED;
 			button.getText().setText("Post Enabled: " + (OptionsPost.POST_ENABLED ? "On" : "Off"));
+		});
+	}
+
+	private void createFilterFXAAOption(float xPos, float yPos) {
+		GuiTextButton button = MenuMain.createButton("FXAA: " + (OptionsPost.FILTER_FXAA ? "Enabled" : "Disabled"), xPos, yPos, MenuMain.BUTTONS_X_WIDTH, MenuMain.BUTTONS_Y_SIZE, MenuMain.FONT_SIZE, this);
+		button.addLeftListener(() -> {
+			OptionsPost.FILTER_FXAA = !OptionsPost.FILTER_FXAA;
+			button.getText().setText("FXAA: " + (OptionsPost.FILTER_FXAA ? "Enabled" : "Disabled"));
 		});
 	}
 

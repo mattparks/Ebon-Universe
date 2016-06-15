@@ -92,7 +92,7 @@ public class MainRenderer extends IRendererMaster {
 		if (OptionsPost.POST_ENABLED) {
 			if (FlounderDevices.getDisplay().isAntialiasing()) {
 				multisamplingFBO.unbindFrameBuffer();
-				multisamplingFBO.resolveMultisampledFBO(postProcessingFBO);
+				multisamplingFBO.resolveFBO(postProcessingFBO);
 			} else {
 				postProcessingFBO.unbindFrameBuffer();
 			}
@@ -126,7 +126,7 @@ public class MainRenderer extends IRendererMaster {
 
 			// Paused Screen:
 			if (isPaused || blurFactor != 0.0f) {
-				output.resolveMultisampledFBO(pipelineGaussian1);
+				output.resolveFBO(pipelineGaussian1);
 
 				pipelineGaussian2.setScale(1.25f);
 				pipelineGaussian2.renderPipeline(pipelineGaussian1);

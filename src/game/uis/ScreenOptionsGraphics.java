@@ -64,10 +64,10 @@ public class ScreenOptionsGraphics extends GuiComponent {
 	}
 
 	private void createVSyncOption(float xPos, float yPos) {
-		GuiTextButton button = MenuMain.createButton("VSync: " + (FlounderDevices.getDisplay().isEnableVSync() ? "On" : "Off"), xPos, yPos, MenuMain.BUTTONS_X_WIDTH, MenuMain.BUTTONS_Y_SIZE, MenuMain.FONT_SIZE, this);
+		GuiTextButton button = MenuMain.createButton("VSync: " + (FlounderDevices.getDisplay().isVsyncEnabled() ? "On" : "Off"), xPos, yPos, MenuMain.BUTTONS_X_WIDTH, MenuMain.BUTTONS_Y_SIZE, MenuMain.FONT_SIZE, this);
 		button.addLeftListener(() -> {
-			FlounderDevices.getDisplay().setEnableVSync(!FlounderDevices.getDisplay().isEnableVSync());
-			button.getText().setText("VSync: " + (FlounderDevices.getDisplay().isEnableVSync() ? "On" : "Off"));
+			FlounderDevices.getDisplay().setVsyncEnabled(!FlounderDevices.getDisplay().isVsyncEnabled());
+			button.getText().setText("VSync: " + (FlounderDevices.getDisplay().isVsyncEnabled() ? "On" : "Off"));
 		});
 	}
 

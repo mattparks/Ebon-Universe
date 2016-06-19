@@ -1,10 +1,9 @@
 package game.post;
 
-import flounder.devices.*;
 import flounder.engine.*;
+import flounder.fbos.*;
 import flounder.post.*;
 import flounder.post.filters.*;
-import flounder.fbos.*;
 import game.options.*;
 
 public class PipelineDemo extends PostPipeline {

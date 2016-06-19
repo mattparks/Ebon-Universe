@@ -1,8 +1,8 @@
 package game;
 
-import flounder.devices.*;
 import flounder.engine.*;
 import flounder.engine.implementation.*;
+import flounder.fbos.*;
 import flounder.fonts.*;
 import flounder.guis.*;
 import flounder.helpers.*;
@@ -11,7 +11,6 @@ import flounder.maths.vectors.*;
 import flounder.physics.renderer.*;
 import flounder.post.filters.*;
 import flounder.post.piplines.*;
-import flounder.fbos.*;
 import game.blocks.*;
 import game.options.*;
 import game.post.*;

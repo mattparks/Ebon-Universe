@@ -5,7 +5,6 @@ import flounder.helpers.*;
 import flounder.maths.*;
 import flounder.maths.vectors.*;
 import flounder.noise.*;
-import flounder.physics.*;
 import game.*;
 
 import java.util.*;

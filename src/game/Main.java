@@ -2,7 +2,6 @@ package game;
 
 import flounder.engine.*;
 import flounder.engine.implementation.*;
-import flounder.fonts.*;
 import flounder.parsing.*;
 import flounder.resources.*;
 import flounder.sounds.*;

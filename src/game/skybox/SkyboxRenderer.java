@@ -1,13 +1,10 @@
 package game.skybox;
 
-import flounder.devices.*;
 import flounder.engine.*;
 import flounder.engine.implementation.*;
 import flounder.helpers.*;
-import flounder.loaders.*;
 import flounder.maths.matrices.*;
 import flounder.maths.vectors.*;
-import flounder.profiling.*;
 import game.*;
 
 import static org.lwjgl.opengl.GL11.*;

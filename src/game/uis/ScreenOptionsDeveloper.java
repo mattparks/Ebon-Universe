@@ -3,7 +3,6 @@ package game.uis;
 import flounder.engine.*;
 import flounder.fonts.*;
 import flounder.guis.*;
-import flounder.profiling.*;
 
 import java.util.*;
 

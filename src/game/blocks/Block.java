@@ -1,6 +1,5 @@
 package game.blocks;
 
-import flounder.devices.*;
 import flounder.engine.*;
 import flounder.maths.vectors.*;
 import flounder.physics.*;

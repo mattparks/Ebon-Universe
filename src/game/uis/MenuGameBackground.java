@@ -57,6 +57,10 @@ public class MenuGameBackground extends GuiComponent {
 		return backgroundAlpha;
 	}
 
+	public ValueDriver getSlideDriver() {
+		return slideDriver;
+	}
+
 	public boolean startingGame() {
 		if (screenStartup != null) {
 			return screenStartup.isShown();

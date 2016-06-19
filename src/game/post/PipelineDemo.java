@@ -1,9 +1,10 @@
 package game.post;
 
 import flounder.devices.*;
+import flounder.engine.*;
 import flounder.post.*;
 import flounder.post.filters.*;
-import flounder.textures.fbos.*;
+import flounder.fbos.*;
 import game.options.*;
 
 public class PipelineDemo extends PostPipeline {
@@ -29,7 +30,7 @@ public class PipelineDemo extends PostPipeline {
 		filterWobble = new FilterWobble();
 		filterFXAA = new FilterFXAA();
 		filterFXAA.setSpanMaxValue(4.0f);
-		filterOutput = FBO.newFBO(FlounderDevices.getDisplay().getWidth(), FlounderDevices.getDisplay().getHeight()).fitToScreen().create();
+		filterOutput = FBO.newFBO(FlounderEngine.getDevices().getDisplay().getWidth(), FlounderEngine.getDevices().getDisplay().getHeight()).fitToScreen().create();
 	}
 
 	@Override

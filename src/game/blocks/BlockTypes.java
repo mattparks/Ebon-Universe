@@ -87,7 +87,7 @@ public class BlockTypes {
 
 		for (BlockTypes type : BLOCK_TYPES) {
 			if (type.getName().equals(name)) {
-				FlounderLogger.error("Block type with name " + name + " already exists! Ignoring new type request.");
+				FlounderEngine.getLogger().error("Block type with name " + name + " already exists! Ignoring new type request.");
 				typeExists = true;
 			}
 		}
@@ -108,7 +108,7 @@ public class BlockTypes {
 			}
 		}
 
-		FlounderLogger.error("Could not get block with type: " + name + ". Returning null!");
+		FlounderEngine.getLogger().error("Could not get block with type: " + name + ". Returning null!");
 		return null;
 	}
 

@@ -1,6 +1,7 @@
 package game.uis;
 
 import flounder.devices.*;
+import flounder.engine.*;
 import flounder.fonts.*;
 import flounder.guis.*;
 import flounder.sounds.*;
@@ -46,7 +47,7 @@ public class ScreenOptionsAudio extends GuiComponent {
 	}
 
 	private void createMusicOption(float xPos, float yPos) {
-		MusicPlayer mPlayer = FlounderDevices.getSound().getMusicPlayer();
+		MusicPlayer mPlayer = FlounderEngine.getDevices().getSound().getMusicPlayer();
 		GuiTextButton button = MenuMain.createButton("Music: " + (mPlayer.getVolume() == 1.0f ? "On" : "Off"), xPos, yPos, MenuMain.BUTTONS_X_WIDTH, MenuMain.BUTTONS_Y_SIZE, MenuMain.FONT_SIZE, this);
 		button.addLeftListener(() -> {
 			mPlayer.setVolume(mPlayer.getVolume() != 1.0f ? 1 : 0);
@@ -55,7 +56,7 @@ public class ScreenOptionsAudio extends GuiComponent {
 	}
 
 	private void createAmbientOption(float xPos, float yPos) {
-		MusicPlayer mPlayer = FlounderDevices.getSound().getMusicPlayer();
+		MusicPlayer mPlayer = FlounderEngine.getDevices().getSound().getMusicPlayer();
 		GuiTextButton button = MenuMain.createButton("Ambient: " + (mPlayer.getVolume() == 1.0f ? "On" : "Off"), xPos, yPos, MenuMain.BUTTONS_X_WIDTH, MenuMain.BUTTONS_Y_SIZE, MenuMain.FONT_SIZE, this);
 		button.addLeftListener(() -> {
 			mPlayer.setVolume(mPlayer.getVolume() != 1.0f ? 1 : 0);

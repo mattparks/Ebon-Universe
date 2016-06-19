@@ -59,9 +59,9 @@ public class ScreenStartup extends GuiComponent {
 
 	@Override
 	protected void updateSelf() {
-		float averageArea = (FlounderDevices.getDisplay().getWidth() + FlounderDevices.getDisplay().getHeight()) / 2.0f;
+		float averageArea = (FlounderEngine.getDevices().getDisplay().getWidth() + FlounderEngine.getDevices().getDisplay().getHeight()) / 2.0f;
 		float width = (250.0f / averageArea) * 1.25f;
-		float height = (250.0f / averageArea) * 1.25f * FlounderDevices.getDisplay().getAspectRatio();
+		float height = (250.0f / averageArea) * 1.25f * FlounderEngine.getDevices().getDisplay().getAspectRatio();
 		logoTexture.setPosition(0.5f - (width / 2.0f), 0.375f - (height / 2.0f), width, height);
 		logoTexture.update();
 

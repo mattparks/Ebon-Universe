@@ -1,6 +1,7 @@
 package game.blocks;
 
 import flounder.devices.*;
+import flounder.engine.*;
 import flounder.maths.vectors.*;
 import flounder.physics.*;
 import flounder.sounds.*;
@@ -36,14 +37,14 @@ public class Block extends AABB {
 	 * Plays the game.blocks type place sound.
 	 */
 	protected void playPlaceNoise() {
-		FlounderDevices.getSound().play3DSound(PlayRequest.new3dSoundPlayRequest(BlockTypes.get(type).getPlaceSound(), 1.0f, position, 16.0f, 64.0f));
+		FlounderEngine.getDevices().getSound().play3DSound(PlayRequest.new3dSoundPlayRequest(BlockTypes.get(type).getPlaceSound(), 1.0f, position, 16.0f, 64.0f));
 	}
 
 	/**
 	 * Plays the game.blocks type break sound.
 	 */
 	protected void playBreakNoise() {
-		FlounderDevices.getSound().play3DSound(PlayRequest.new3dSoundPlayRequest(BlockTypes.get(type).getBreakSound(), 1.0f, position, 16.0f, 64.0f));
+		FlounderEngine.getDevices().getSound().play3DSound(PlayRequest.new3dSoundPlayRequest(BlockTypes.get(type).getBreakSound(), 1.0f, position, 16.0f, 64.0f));
 	}
 
 	/**

@@ -1,6 +1,7 @@
 package game;
 
 import flounder.devices.*;
+import flounder.engine.*;
 import flounder.guis.*;
 import flounder.inputs.*;
 import flounder.maths.*;
@@ -40,7 +41,7 @@ public class MainGuis {
 		GuiManager.addComponent(gameMenu, 0, 0, 1, 1);
 		GuiManager.addComponent(overlayCursor, 0, 0, 1, 1);
 		GuiManager.getSelector().initJoysticks(OptionsControls.JOYSTICK_PORT, OptionsControls.JOYSTICK_GUI_LEFT, OptionsControls.JOYSTICK_GUI_RIGHT, OptionsControls.JOYSTICK_AXIS_X, OptionsControls.JOYSTICK_AXIS_Y);
-		FlounderDevices.getDisplay().setCursorHidden(true);
+		FlounderEngine.getDevices().getDisplay().setCursorHidden(true);
 	}
 
 	/**
@@ -58,6 +59,10 @@ public class MainGuis {
 		if (!startingGame && openKey.wasDown()) {
 			gameMenu.display(!gameMenu.isDisplayed());
 			overlayCursor.show(true);
+		}
+
+		if (!gameMenu.getSlideDriver().equals(overlayCursor.getCursorTexture().getAlphaDriver())) {
+			overlayCursor.setAlphaDriver(gameMenu.getSlideDriver());
 		}
 
 		menuOpen = gameMenu.isDisplayed();

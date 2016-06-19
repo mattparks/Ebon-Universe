@@ -2,6 +2,8 @@ package game.blocks;
 
 import flounder.devices.*;
 import flounder.engine.*;
+import flounder.engine.implementation.*;
+import flounder.helpers.*;
 import flounder.maths.matrices.*;
 import flounder.maths.vectors.*;
 import game.*;
@@ -39,18 +41,18 @@ public class BlockRenderer extends IRenderer {
 		shader.fogDensity.loadFloat(Environment.getFog().getFogDensity());
 		shader.fogGradient.loadFloat(Environment.getFog().getFogGradient());
 
-		OpenglUtils.antialias(FlounderDevices.getDisplay().isAntialiasing());
-		OpenglUtils.cullBackFaces(true);
-		OpenglUtils.enableDepthTesting();
-		OpenglUtils.enableAlphaBlending();
+		OpenGlUtils.antialias(FlounderEngine.getDevices().getDisplay().isAntialiasing());
+		OpenGlUtils.cullBackFaces(true);
+		OpenGlUtils.enableDepthTesting();
+		OpenGlUtils.enableAlphaBlending();
 	}
 
 	private void renderChunk(Chunk chunk) {
-		OpenglUtils.bindVAO(chunk.getVAO(), 0, 1, 2, 3);
+		OpenGlUtils.bindVAO(chunk.getVAO(), 0, 1, 2, 3);
 		shader.modelMatrix.loadMat4(chunk.updateModelMatrix(modelMatrix));
 		//	glDrawElements(GL_TRIANGLES, chunk.getVAOLength(), GL_UNSIGNED_INT, 0);
 		glDrawArrays(GL_TRIANGLE_STRIP, 0, chunk.getVAOLength());
-		OpenglUtils.unbindVAO(0, 1, 2, 3);
+		OpenGlUtils.unbindVAO(0, 1, 2, 3);
 	}
 
 	private void endRendering() {

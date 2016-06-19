@@ -2,14 +2,16 @@ package game;
 
 import flounder.devices.*;
 import flounder.engine.*;
+import flounder.engine.implementation.*;
 import flounder.fonts.*;
 import flounder.guis.*;
+import flounder.helpers.*;
 import flounder.maths.matrices.*;
 import flounder.maths.vectors.*;
-import flounder.physics.*;
+import flounder.physics.renderer.*;
 import flounder.post.filters.*;
 import flounder.post.piplines.*;
-import flounder.textures.fbos.*;
+import flounder.fbos.*;
 import game.blocks.*;
 import game.options.*;
 import game.post.*;
@@ -46,15 +48,15 @@ public class MainRenderer extends IRendererMaster {
 		this.guiRenderer = new GuiRenderer();
 		this.fontRenderer = new FontRenderer();
 
-		int displayWidth = FlounderDevices.getDisplay().getWidth();
-		int displayHeight = FlounderDevices.getDisplay().getHeight();
-		multisamplingFBO = FBO.newFBO(displayWidth, displayHeight).fitToScreen().antialias(FlounderDevices.getDisplay().getSamples()).create();
-		postProcessingFBO = FBO.newFBO(displayWidth, displayHeight).fitToScreen().depthBuffer(FBOBuilder.DepthBufferType.TEXTURE).create();
+		int displayWidth = FlounderEngine.getDevices().getDisplay().getWidth();
+		int displayHeight = FlounderEngine.getDevices().getDisplay().getHeight();
+		multisamplingFBO = FBO.newFBO(displayWidth, displayHeight).fitToScreen().antialias(FlounderEngine.getDevices().getDisplay().getSamples()).create();
+		postProcessingFBO = FBO.newFBO(displayWidth, displayHeight).fitToScreen().depthBuffer(DepthBufferType.TEXTURE).create();
 
 		pipelineDemo = new PipelineDemo();
 
 		filterDarken = new FilterDarken();
-		pipelineGaussian1 = FBO.newFBO(displayWidth / 10, displayHeight / 10).depthBuffer(FBOBuilder.DepthBufferType.NONE).create();
+		pipelineGaussian1 = FBO.newFBO(displayWidth / 10, displayHeight / 10).depthBuffer(DepthBufferType.NONE).create();
 		pipelineGaussian2 = new PipelineGaussian(displayWidth / 7, displayHeight / 7, false);
 		filterCombineSlide = new FilterCombineSlide();
 	}
@@ -80,7 +82,7 @@ public class MainRenderer extends IRendererMaster {
 
 	private void bindRelevantFBO() {
 		if (OptionsPost.POST_ENABLED) {
-			if (FlounderDevices.getDisplay().isAntialiasing()) {
+			if (FlounderEngine.getDevices().getDisplay().isAntialiasing()) {
 				multisamplingFBO.bindFrameBuffer();
 			} else {
 				postProcessingFBO.bindFrameBuffer();
@@ -90,7 +92,7 @@ public class MainRenderer extends IRendererMaster {
 
 	private void unbindRelevantFBO() {
 		if (OptionsPost.POST_ENABLED) {
-			if (FlounderDevices.getDisplay().isAntialiasing()) {
+			if (FlounderEngine.getDevices().getDisplay().isAntialiasing()) {
 				multisamplingFBO.unbindFrameBuffer();
 				multisamplingFBO.resolveFBO(postProcessingFBO);
 			} else {
@@ -101,9 +103,9 @@ public class MainRenderer extends IRendererMaster {
 
 	private void renderScene(Vector4f clipPlane) {
 		/* Clear and update. */
-		OpenglUtils.prepareNewRenderParse(MainGuis.isStartingGame() ? MainGuis.STARTUP_COLOUR : Environment.getFog().getFogColour());
+		OpenGlUtils.prepareNewRenderParse(MainGuis.isStartingGame() ? MainGuis.STARTUP_COLOUR : Environment.getFog().getFogColour());
 		ICamera camera = FlounderEngine.getCamera();
-		Matrix4f.perspectiveMatrix(camera.getFOV(), FlounderDevices.getDisplay().getAspectRatio(), camera.getNearPlane(), camera.getFarPlane(), projectionMatrix);
+		Matrix4f.perspectiveMatrix(camera.getFOV(), FlounderEngine.getDevices().getDisplay().getAspectRatio(), camera.getNearPlane(), camera.getFarPlane(), projectionMatrix);
 
 		/* Don't render while starting. */
 		if (MainGuis.isStartingGame()) {

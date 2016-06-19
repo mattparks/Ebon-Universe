@@ -1,6 +1,7 @@
 package game.uis;
 
 import flounder.devices.*;
+import flounder.engine.*;
 import flounder.fonts.*;
 import flounder.guis.*;
 
@@ -48,26 +49,26 @@ public class ScreenOptionsGraphics extends GuiComponent {
 	}
 
 	private void createFullscreenOption(float xPos, float yPos) {
-		GuiTextButton button = MenuMain.createButton("Fullscreen: " + (FlounderDevices.getDisplay().isFullscreen() ? "On" : "Off"), xPos, yPos, MenuMain.BUTTONS_X_WIDTH, MenuMain.BUTTONS_Y_SIZE, MenuMain.FONT_SIZE, this);
+		GuiTextButton button = MenuMain.createButton("Fullscreen: " + (FlounderEngine.getDevices().getDisplay().isFullscreen() ? "On" : "Off"), xPos, yPos, MenuMain.BUTTONS_X_WIDTH, MenuMain.BUTTONS_Y_SIZE, MenuMain.FONT_SIZE, this);
 		button.addLeftListener(() -> {
-			FlounderDevices.getDisplay().setFullscreen(!FlounderDevices.getDisplay().isFullscreen());
-			button.getText().setText("Fullscreen: " + (FlounderDevices.getDisplay().isFullscreen() ? "On" : "Off"));
+			FlounderEngine.getDevices().getDisplay().setFullscreen(!FlounderEngine.getDevices().getDisplay().isFullscreen());
+			button.getText().setText("Fullscreen: " + (FlounderEngine.getDevices().getDisplay().isFullscreen() ? "On" : "Off"));
 		});
 	}
 
 	private void createAntialiasOption(float xPos, float yPos) {
-		GuiTextButton button = MenuMain.createButton("Antialiasing: " + (FlounderDevices.getDisplay().isAntialiasing() ? "On" : "Off"), xPos, yPos, MenuMain.BUTTONS_X_WIDTH, MenuMain.BUTTONS_Y_SIZE, MenuMain.FONT_SIZE, this);
+		GuiTextButton button = MenuMain.createButton("Antialiasing: " + (FlounderEngine.getDevices().getDisplay().isAntialiasing() ? "On" : "Off"), xPos, yPos, MenuMain.BUTTONS_X_WIDTH, MenuMain.BUTTONS_Y_SIZE, MenuMain.FONT_SIZE, this);
 		button.addLeftListener(() -> {
-			FlounderDevices.getDisplay().setAntialiasing(!FlounderDevices.getDisplay().isAntialiasing());
-			button.getText().setText("Antialiasing: " + (FlounderDevices.getDisplay().isAntialiasing() ? "On" : "Off"));
+			FlounderEngine.getDevices().getDisplay().setAntialiasing(!FlounderEngine.getDevices().getDisplay().isAntialiasing());
+			button.getText().setText("Antialiasing: " + (FlounderEngine.getDevices().getDisplay().isAntialiasing() ? "On" : "Off"));
 		});
 	}
 
 	private void createVSyncOption(float xPos, float yPos) {
-		GuiTextButton button = MenuMain.createButton("VSync: " + (FlounderDevices.getDisplay().isVsyncEnabled() ? "On" : "Off"), xPos, yPos, MenuMain.BUTTONS_X_WIDTH, MenuMain.BUTTONS_Y_SIZE, MenuMain.FONT_SIZE, this);
+		GuiTextButton button = MenuMain.createButton("VSync: " + (FlounderEngine.getDevices().getDisplay().isVSync() ? "On" : "Off"), xPos, yPos, MenuMain.BUTTONS_X_WIDTH, MenuMain.BUTTONS_Y_SIZE, MenuMain.FONT_SIZE, this);
 		button.addLeftListener(() -> {
-			FlounderDevices.getDisplay().setVsyncEnabled(!FlounderDevices.getDisplay().isVsyncEnabled());
-			button.getText().setText("VSync: " + (FlounderDevices.getDisplay().isVsyncEnabled() ? "On" : "Off"));
+			FlounderEngine.getDevices().getDisplay().setVSync(!FlounderEngine.getDevices().getDisplay().isVSync());
+			button.getText().setText("VSync: " + (FlounderEngine.getDevices().getDisplay().isVSync() ? "On" : "Off"));
 		});
 	}
 

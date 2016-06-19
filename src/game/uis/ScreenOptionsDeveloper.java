@@ -1,5 +1,6 @@
 package game.uis;
 
+import flounder.engine.*;
 import flounder.fonts.*;
 import flounder.guis.*;
 import flounder.profiling.*;
@@ -40,10 +41,10 @@ public class ScreenOptionsDeveloper extends GuiComponent {
 	}
 
 	private void createProfilerToggleOption(float xPos, float yPos) {
-		GuiTextButton button = MenuMain.createButton("Profiler: " + (FlounderProfiler.isOpen() ? "Opened" : "Closed"), xPos, yPos, MenuMain.BUTTONS_X_WIDTH, MenuMain.BUTTONS_Y_SIZE, MenuMain.FONT_SIZE, this);
+		GuiTextButton button = MenuMain.createButton("Profiler: " + (FlounderEngine.getProfiler().isOpen() ? "Opened" : "Closed"), xPos, yPos, MenuMain.BUTTONS_X_WIDTH, MenuMain.BUTTONS_Y_SIZE, MenuMain.FONT_SIZE, this);
 		button.addLeftListener(() -> {
-			FlounderProfiler.toggle(!FlounderProfiler.isOpen());
-			button.getText().setText("Profiler: " + (FlounderProfiler.isOpen() ? "Opened" : "Closed"));
+			FlounderEngine.getProfiler().toggle(!FlounderEngine.getProfiler().isOpen());
+			button.getText().setText("Profiler: " + (FlounderEngine.getProfiler().isOpen() ? "Opened" : "Closed"));
 		});
 	}
 

@@ -39,7 +39,7 @@ public class Chunk extends AABB implements Comparable<Chunk> {
 				(position.z + (2.0f * CHUNK_SIZE) * BlockTypes.BLOCK_EXTENT)
 		), new Vector3f(BlockTypes.BLOCK_EXTENT, BlockTypes.BLOCK_EXTENT, BlockTypes.BLOCK_EXTENT), super.getMaxExtents());
 
-		this.vaoID = Loader.createVAO();
+		this.vaoID = FlounderEngine.getLoader().createVAO();
 		this.vaoLength = 0;
 
 		this.forceRemesh = true;
@@ -193,10 +193,10 @@ public class Chunk extends AABB implements Comparable<Chunk> {
 		ArrayUtils.copyToArray(chunkColours, colours);
 
 		// Loads into the VAO.
-		Loader.storeDataInVBO(vaoID, vertices, 0, 3);
-		Loader.storeDataInVBO(vaoID, textures, 1, 2);
-		Loader.storeDataInVBO(vaoID, normals, 2, 3);
-		Loader.storeDataInVBO(vaoID, colours, 3, 3);
+		FlounderEngine.getLoader().storeDataInVBO(vaoID, vertices, 0, 3);
+		FlounderEngine.getLoader().storeDataInVBO(vaoID, textures, 1, 2);
+		FlounderEngine.getLoader().storeDataInVBO(vaoID, normals, 2, 3);
+		FlounderEngine.getLoader().storeDataInVBO(vaoID, colours, 3, 3);
 		GL30.glBindVertexArray(0);
 		this.vaoLength = vertices.length / 3;
 	}

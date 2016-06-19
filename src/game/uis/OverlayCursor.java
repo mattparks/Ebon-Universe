@@ -1,30 +1,36 @@
 package game.uis;
 
 import flounder.devices.*;
+import flounder.engine.*;
 import flounder.guis.*;
 import flounder.maths.*;
 import flounder.resources.*;
 import flounder.textures.*;
+import flounder.visual.*;
 
 import java.util.*;
 
 public class OverlayCursor extends GuiComponent {
-	private GuiTexture cursorPos;
+	private GuiTexture cursorTexture;
 	private Colour inactiveColour;
 	private Colour clickLeftColour;
 	private Colour clickRightColour;
 
 	public OverlayCursor() {
-		cursorPos = new GuiTexture(Texture.newTexture(new MyFile(MyFile.RES_FOLDER, "Cursor.png")).createInSecondThread(), false);
-		cursorPos.getTexture().setNumberOfRows(1);
-		cursorPos.setSelectedRow(1);
+		cursorTexture = new GuiTexture(Texture.newTexture(new MyFile(MyFile.RES_FOLDER, "Cursor.png")).createInSecondThread(), false);
+		cursorTexture.getTexture().setNumberOfRows(1);
+		cursorTexture.setSelectedRow(1);
 		inactiveColour = new Colour(0.0f, 0.0f, 0.0f);
 		clickLeftColour = new Colour(0.0f, 0.0f, 0.8f);
 		clickRightColour = new Colour(0.8f, 0.0f, 0.0f);
 	}
 
+	public GuiTexture getCursorTexture() {
+		return cursorTexture;
+	}
+
 	public int getTotalRows() {
-		return cursorPos.getTexture().getNumberOfRows();
+		return cursorTexture.getTexture().getNumberOfRows();
 	}
 
 	public Colour getInactiveColour() {
@@ -51,14 +57,18 @@ public class OverlayCursor extends GuiComponent {
 		this.clickRightColour.set(r, g, b);
 	}
 
+	public void setAlphaDriver(ValueDriver alphaDriver) {
+		cursorTexture.setAlphaDriver(alphaDriver);
+	}
+
 	@Override
 	protected void updateSelf() {
 		if (super.isShown()) {
-			if (FlounderDevices.getMouse().isDisplaySelected()) {
-				cursorPos.setColourOffset(GuiManager.getSelector().isLeftClick() ? clickLeftColour : GuiManager.getSelector().isRightClick() ? clickRightColour : inactiveColour);
-				float averageArea = (FlounderDevices.getDisplay().getWidth() + FlounderDevices.getDisplay().getHeight()) / 2.0f;
-				cursorPos.setPosition(GuiManager.getSelector().getCursorX(), GuiManager.getSelector().getCursorY(), (33.75f / averageArea), (33.75f / averageArea) * FlounderDevices.getDisplay().getAspectRatio());
-				cursorPos.update();
+			if (FlounderEngine.getDevices().getMouse().isDisplaySelected()) {
+				cursorTexture.setColourOffset(GuiManager.getSelector().isLeftClick() ? clickLeftColour : GuiManager.getSelector().isRightClick() ? clickRightColour : inactiveColour);
+				float averageArea = (FlounderEngine.getDevices().getDisplay().getWidth() + FlounderEngine.getDevices().getDisplay().getHeight()) / 2.0f;
+				cursorTexture.setPosition(GuiManager.getSelector().getCursorX(), GuiManager.getSelector().getCursorY(), (33.75f / averageArea), (33.75f / averageArea) * FlounderEngine.getDevices().getDisplay().getAspectRatio());
+				cursorTexture.update();
 			}
 		}
 	}
@@ -66,7 +76,7 @@ public class OverlayCursor extends GuiComponent {
 	@Override
 	protected void getGuiTextures(List<GuiTexture> guiTextures) {
 		if (super.isShown()) {
-			guiTextures.add(cursorPos);
+			guiTextures.add(cursorTexture);
 		}
 	}
 }

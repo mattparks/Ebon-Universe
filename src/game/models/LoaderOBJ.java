@@ -86,7 +86,7 @@ public class LoaderOBJ {
 				model.destroy();
 				reader.close();
 			} catch (IOException e) {
-				FlounderLogger.error("Error reading the OBJ " + file);
+				FlounderEngine.getLogger().error("Error reading the OBJ " + file);
 			}
 
 			loaded.put(file.getPath(), new SoftReference<>(data));

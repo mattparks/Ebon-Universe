@@ -2,6 +2,7 @@ package game;
 
 import flounder.devices.*;
 import flounder.engine.*;
+import flounder.engine.implementation.*;
 import flounder.inputs.*;
 import flounder.maths.*;
 import flounder.maths.matrices.*;
@@ -68,8 +69,6 @@ public class MainCamera implements ICamera {
 		this.targetPosition = new Vector3f();
 		this.targetElevation = 0.0f;
 		this.targetRotationAngle = 0.0f;
-
-		FlounderProfiler.addTab("MainCamera");
 	}
 
 	@Override
@@ -88,7 +87,7 @@ public class MainCamera implements ICamera {
 	}
 
 	@Override
-	public void moveCamera(Vector3f focusPosition, Vector3f focusRotation, boolean gamePaused) {
+	public void update(Vector3f focusPosition, Vector3f focusRotation, boolean gamePaused) {
 		calculateHorizontalAngle(gamePaused);
 		calculateVerticalAngle(gamePaused);
 
@@ -99,13 +98,13 @@ public class MainCamera implements ICamera {
 		calculatePosition();
 		updateViewMatrix(position, rotation);
 
-		if (FlounderProfiler.isOpen()) {
-			FlounderProfiler.add("MainCamera", "Angle Of Elevation", angleOfElevation);
-			FlounderProfiler.add("MainCamera", "Rotation", rotation);
-			FlounderProfiler.add("MainCamera", "Position", position);
-			FlounderProfiler.add("MainCamera", "Angle Around MainPlayer", angleAroundPlayer);
-			FlounderProfiler.add("MainCamera", "Target Elevation", targetElevation);
-			FlounderProfiler.add("MainCamera", "Target Rotation Angle", targetRotationAngle);
+		if (FlounderEngine.getProfiler().isOpen()) {
+			FlounderEngine.getProfiler().add("MainCamera", "Angle Of Elevation", angleOfElevation);
+			FlounderEngine.getProfiler().add("MainCamera", "Rotation", rotation);
+			FlounderEngine.getProfiler().add("MainCamera", "Position", position);
+			FlounderEngine.getProfiler().add("MainCamera", "Angle Around MainPlayer", angleAroundPlayer);
+			FlounderEngine.getProfiler().add("MainCamera", "Target Elevation", targetElevation);
+			FlounderEngine.getProfiler().add("MainCamera", "Target Rotation Angle", targetRotationAngle);
 		}
 	}
 
@@ -113,8 +112,8 @@ public class MainCamera implements ICamera {
 		float delta = FlounderEngine.getDelta();
 		float angleChange = 0.0f;
 
-		if (!gamePaused && FlounderDevices.getMouse().getMouse(toggleMouseMoveKey)) {
-			angleChange = FlounderDevices.getMouse().getDeltaX() * INFLUENCE_OF_MOUSEDX;
+		if (!gamePaused && FlounderEngine.getDevices().getMouse().getMouse(toggleMouseMoveKey)) {
+			angleChange = FlounderEngine.getDevices().getMouse().getDeltaX() * INFLUENCE_OF_MOUSEDX;
 		} else if (!gamePaused && Math.abs(Maths.deadband(0.1f, joystickRotateX.getAmount())) > 0.0f) {
 			angleChange = joystickRotateX.getAmount() * delta * INFLUENCE_OF_JOYSTICKDX;
 		}
@@ -138,8 +137,8 @@ public class MainCamera implements ICamera {
 		float delta = FlounderEngine.getDelta();
 		float angleChange = 0.0f;
 
-		if (!gamePaused && FlounderDevices.getMouse().getMouse(toggleMouseMoveKey)) {
-			angleChange = -FlounderDevices.getMouse().getDeltaY() * INFLUENCE_OF_MOUSEDY;
+		if (!gamePaused && FlounderEngine.getDevices().getMouse().getMouse(toggleMouseMoveKey)) {
+			angleChange = -FlounderEngine.getDevices().getMouse().getDeltaY() * INFLUENCE_OF_MOUSEDY;
 		} else if (!gamePaused && Math.abs(Maths.deadband(0.1f, joystickRotateY.getAmount())) > 0.0f) {
 			angleChange = joystickRotateY.getAmount() * delta * INFLUENCE_OF_JOYSTICKDY;
 		}

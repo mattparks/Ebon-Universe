@@ -1,6 +1,7 @@
 package game.uis;
 
 import flounder.devices.*;
+import flounder.engine.*;
 import flounder.guis.*;
 
 import java.util.*;
@@ -29,7 +30,7 @@ public class ScreenQuit extends GuiComponent {
 
 	private void createQuitOption(float xPos, float yPos) {
 		GuiTextButton button = MenuMain.createButton("Quit Game", xPos, yPos, MenuMain.BUTTONS_CENTER_X_WIDTH, MenuMain.BUTTONS_Y_SIZE, MenuMain.FONT_SIZE * 1.25f, this);
-		button.addLeftListener(FlounderDevices.getDisplay()::requestClose);
+		button.addLeftListener(FlounderEngine::requestClose);
 	}
 
 	private void createBackOption(float xPos, float yPos) {

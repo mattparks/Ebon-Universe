@@ -2,6 +2,8 @@ package game.skybox;
 
 import flounder.devices.*;
 import flounder.engine.*;
+import flounder.engine.implementation.*;
+import flounder.helpers.*;
 import flounder.loaders.*;
 import flounder.maths.matrices.*;
 import flounder.maths.vectors.*;
@@ -26,8 +28,8 @@ public class SkyboxRenderer extends IRenderer {
 		viewMatrix = new Matrix4f().setIdentity();
 		viewMatrixRotate = new Vector3f(0.0f, 1.0f, 0.0f);
 
-		vao = Loader.createVAO();
-		Loader.storeDataInVBO(vao, VERTICES, 0, 3);
+		vao = FlounderEngine.getLoader().createVAO();
+		FlounderEngine.getLoader().storeDataInVBO(vao, VERTICES, 0, 3);
 		glBindVertexArray(0);
 	}
 
@@ -37,7 +39,9 @@ public class SkyboxRenderer extends IRenderer {
 		glDrawArrays(GL_TRIANGLES, 0, VERTICES.length); // Renders the skybox.
 		endRendering();
 
-		FlounderProfiler.add("Skybox", "Render Time", super.getRenderTimeMs());
+		if (FlounderEngine.getProfiler().isOpen()) {
+			FlounderEngine.getProfiler().add("Skybox", "Render Time", super.getRenderTimeMs());
+		}
 	}
 
 	private void prepareRendering(Vector4f clipPlane, ICamera camera) {
@@ -52,8 +56,8 @@ public class SkyboxRenderer extends IRenderer {
 		shader.fogColour.loadVec3(Environment.getFog().getFogColour());
 
 		// Binds the VAO, sets antialiasing and binds the cube map.
-		OpenglUtils.bindVAO(vao, 0);
-		OpenglUtils.antialias(FlounderDevices.getDisplay().isAntialiasing());
+		OpenGlUtils.bindVAO(vao, 0);
+		OpenGlUtils.antialias(FlounderEngine.getDevices().getDisplay().isAntialiasing());
 	}
 
 	private Matrix4f updateViewMatrix() {
@@ -67,7 +71,7 @@ public class SkyboxRenderer extends IRenderer {
 
 	private void endRendering() {
 		// Unbinds the VAO and stops the shader.
-		OpenglUtils.unbindVAO(0);
+		OpenGlUtils.unbindVAO(0);
 		shader.stop();
 	}
 

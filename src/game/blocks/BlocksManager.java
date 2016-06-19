@@ -1,6 +1,7 @@
 package game.blocks;
 
 import flounder.engine.*;
+import flounder.helpers.*;
 import flounder.maths.*;
 import flounder.maths.vectors.*;
 import flounder.noise.*;
@@ -18,7 +19,7 @@ public class BlocksManager {
 		for (int x = -1; x < 0; x++) {
 			for (int z = -1; z < 0; z++) {
 				for (int y = -1; y < 0; y++) {
-					FlounderLogger.log("Creating Chunk At: " + x + ", " + y + ", " + z);
+					FlounderEngine.getLogger().log("Creating Chunk At: " + x + ", " + y + ", " + z);
 					CHUNK_LIST.add(new Chunk(new Vector3f(x * (Chunk.CHUNK_SIZE * (2.0f * BlockTypes.BLOCK_EXTENT)), y * (Chunk.CHUNK_SIZE * (2.0f * BlockTypes.BLOCK_EXTENT)), z * (Chunk.CHUNK_SIZE * (2.0f * BlockTypes.BLOCK_EXTENT)))));
 				}
 			}
@@ -34,11 +35,11 @@ public class BlocksManager {
 			chunk.update();
 
 			if (chunk.isVisible()) {
-				AABBManager.addAABBRender(chunk);
+				FlounderEngine.getAABBs().addAABBRender(chunk);
 			}
 		}
 
-		SortingAlgorithms.quickSort(CHUNK_LIST); // Sorts furthest to nearest.
+		ArraySorting.quickSort(CHUNK_LIST); // Sorts furthest to nearest.
 		Collections.reverse(CHUNK_LIST); // Reverses so closer chunks are first.
 	}
 

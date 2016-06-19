@@ -7,7 +7,7 @@ import flounder.visual.*;
 import java.util.*;
 
 public class MenuGameBackground extends GuiComponent {
-	public static final float SLIDE_TIME = 0.7f;
+	public static final float SLIDE_TIME = 0.85f;
 
 	private MenuGame menu;
 	private ScreenStartup screenStartup;

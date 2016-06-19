@@ -45,7 +45,7 @@ public class MenuMain extends GuiComponent {
 		this.screenOption = new ScreenOption(menuGame);
 		this.screenQuit = new ScreenQuit(menuGame);
 
-		titleText = Text.newText("Flounder Demo").center().setFontSize(MenuGame.MAIN_TITLE_FONT_SIZE).create();
+		titleText = Text.newText("Flounder Engine").center().setFontSize(MenuGame.MAIN_TITLE_FONT_SIZE).create();
 		titleText.setColour(MenuGame.TEXT_COLOUR);
 		titleText.setBorderColour(MenuGame.TEXT_COLOUR.r, MenuGame.TEXT_COLOUR.g, MenuGame.TEXT_COLOUR.b);
 		titleText.setGlowing(new SinWaveDriver(0.075f, 0.150f, 2.320f));

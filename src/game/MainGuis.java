@@ -37,9 +37,9 @@ public class MainGuis {
 		MainGuis.startingGame = true;
 		MainGuis.forceOpenGUIs = false;
 
-		GuiManager.addComponent(gameMenu, 0, 0, 1, 1);
-		GuiManager.addComponent(overlayCursor, 0, 0, 1, 1);
-		GuiManager.getSelector().initJoysticks(OptionsControls.JOYSTICK_PORT, OptionsControls.JOYSTICK_GUI_LEFT, OptionsControls.JOYSTICK_GUI_RIGHT, OptionsControls.JOYSTICK_AXIS_X, OptionsControls.JOYSTICK_AXIS_Y);
+		FlounderEngine.getGuis().addComponent(gameMenu, 0, 0, 1, 1);
+		FlounderEngine.getGuis().addComponent(overlayCursor, 0, 0, 1, 1);
+		FlounderEngine.getGuis().getSelector().initJoysticks(OptionsControls.JOYSTICK_PORT, OptionsControls.JOYSTICK_GUI_LEFT, OptionsControls.JOYSTICK_GUI_RIGHT, OptionsControls.JOYSTICK_AXIS_X, OptionsControls.JOYSTICK_AXIS_Y);
 		FlounderEngine.getDevices().getDisplay().setCursorHidden(true);
 	}
 

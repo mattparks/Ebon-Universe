@@ -8,8 +8,6 @@ import flounder.inputs.*;
 import flounder.lights.*;
 import flounder.maths.*;
 import flounder.maths.vectors.*;
-import flounder.resources.*;
-import flounder.sounds.*;
 import game.options.*;
 
 import static org.lwjgl.glfw.GLFW.*;
@@ -28,7 +26,7 @@ public class MainGame extends IGame {
 
 	@Override
 	public void init() {
-		TextBuilder.DEFAULT_TYPE = FontManager.FFF_FORWARD; // TODO: move out
+	//	TextBuilder.DEFAULT_TYPE = FlounderEngine.getFonts().FFF_FORWARD; // TODO: move out
 
 		this.screenshot = new KeyButton(GLFW_KEY_F2);
 		this.fullscreen = new KeyButton(GLFW_KEY_F11);

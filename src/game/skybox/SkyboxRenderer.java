@@ -35,7 +35,10 @@ public class SkyboxRenderer extends IRenderer {
 		prepareRendering(clipPlane, camera);
 		glDrawArrays(GL_TRIANGLES, 0, VERTICES.length); // Renders the skybox.
 		endRendering();
+	}
 
+	@Override
+	public void profile() {
 		if (FlounderEngine.getProfiler().isOpen()) {
 			FlounderEngine.getProfiler().add("Skybox", "Render Time", super.getRenderTimeMs());
 		}

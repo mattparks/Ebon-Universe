@@ -31,6 +31,13 @@ public class BlockRenderer extends IRenderer {
 		endRendering();
 	}
 
+	@Override
+	public void profile() {
+		if (FlounderEngine.getProfiler().isOpen()) {
+			FlounderEngine.getProfiler().add("Blocks", "Render Time", super.getRenderTimeMs());
+		}
+	}
+
 	private void prepareRendering(Vector4f clipPlane, ICamera camera) {
 		shader.start();
 		shader.projectionMatrix.loadMat4(FlounderEngine.getProjectionMatrix());

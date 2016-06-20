@@ -29,7 +29,7 @@ public class PipelineDemo extends PostPipeline {
 		filterWobble = new FilterWobble();
 		filterFXAA = new FilterFXAA();
 		filterFXAA.setSpanMaxValue(4.0f);
-		filterOutput = FBO.newFBO(FlounderEngine.getDevices().getDisplay().getWidth(), FlounderEngine.getDevices().getDisplay().getHeight()).fitToScreen().create();
+		filterOutput = FBO.newFBO(1.0f).create();
 	}
 
 	@Override

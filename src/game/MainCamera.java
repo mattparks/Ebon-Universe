@@ -20,9 +20,9 @@ public class MainCamera implements ICamera {
 	private static final float ROTATE_AGILITY = 6.0f;
 	private static final float PITCH_AGILITY = 8.0f;
 
-	private final static float CAMERA_AIM_OFFSET = 32.0f;
-	private final static float MAX_ANGLE_OF_ELEVATION = 1.5f;
-	private final static float PITCH_OFFSET = 3.0f;
+	private final static float MAX_ANGLE_OF_ELEVATION = -1.0f;
+	private final static float MIN_ANGLE_OF_ELEVATION = 1.0f;
+	private final static float PITCH_OFFSET = 0.0f;
 
 	private final static float MAX_HORIZONTAL_CHANGE = 500.0f;
 	private final static float MAX_VERTICAL_CHANGE = 5.0f;
@@ -149,10 +149,10 @@ public class MainCamera implements ICamera {
 
 		targetElevation -= angleChange;
 
-		if (targetElevation >= MAX_ANGLE_OF_ELEVATION) {
+		if (targetElevation <= MAX_ANGLE_OF_ELEVATION) {
 			targetElevation = MAX_ANGLE_OF_ELEVATION;
-		} else if (targetElevation <= 0) {
-			targetElevation = 0;
+		} else if (targetElevation >= MIN_ANGLE_OF_ELEVATION) {
+			targetElevation = MIN_ANGLE_OF_ELEVATION;
 		}
 	}
 

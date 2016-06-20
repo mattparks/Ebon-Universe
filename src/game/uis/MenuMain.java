@@ -79,6 +79,8 @@ public class MenuMain extends GuiComponent {
 	public static GuiTextButton createButton(String textString, float xPos, float yPos, float xBut, float yBut, float fontSize, GuiComponent component) {
 		Text text = Text.newText(textString).center().setFontSize(fontSize).create();
 		text.setColour(MenuGame.TEXT_COLOUR);
+		text.setBorderColour(0.15f, 0.15f, 0.15f);
+		text.setBorder(new ConstantDriver(0.04f));
 		GuiTextButton button = new GuiTextButton(text);
 		button.setSounds(SOUND_MOUSE_HOVER, SOUND_MOUSE_LEFT, SOUND_MOUSE_RIGHT);
 		component.addComponent(button, xPos, yPos, xBut, yBut);

@@ -47,16 +47,14 @@ public class MainRenderer extends IRendererMaster {
 		this.guiRenderer = new GuiRenderer();
 		this.fontRenderer = new FontRenderer();
 
-		int displayWidth = FlounderEngine.getDevices().getDisplay().getWidth();
-		int displayHeight = FlounderEngine.getDevices().getDisplay().getHeight();
-		multisamplingFBO = FBO.newFBO(displayWidth, displayHeight).fitToScreen().antialias(FlounderEngine.getDevices().getDisplay().getSamples()).create();
-		postProcessingFBO = FBO.newFBO(displayWidth, displayHeight).fitToScreen().depthBuffer(DepthBufferType.TEXTURE).create();
+		multisamplingFBO = FBO.newFBO(1.0f).antialias(FlounderEngine.getDevices().getDisplay().getSamples()).create();
+		postProcessingFBO = FBO.newFBO(1.0f).depthBuffer(DepthBufferType.TEXTURE).create();
 
 		pipelineDemo = new PipelineDemo();
 
 		filterDarken = new FilterDarken();
-		pipelineGaussian1 = FBO.newFBO(displayWidth / 10, displayHeight / 10).depthBuffer(DepthBufferType.NONE).create();
-		pipelineGaussian2 = new PipelineGaussian(displayWidth / 7, displayHeight / 7, false);
+		pipelineGaussian1 = FBO.newFBO(1.0f / 10.0f).depthBuffer(DepthBufferType.NONE).create();
+		pipelineGaussian2 = new PipelineGaussian(1.0f / 7.0f);
 		filterCombineSlide = new FilterCombineSlide();
 	}
 

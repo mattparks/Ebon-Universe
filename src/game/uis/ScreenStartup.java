@@ -48,6 +48,8 @@ public class ScreenStartup extends GuiComponent {
 		subtitleText = Text.newText("Copyright © 2015-2016, Equilibrium Games, All Rights Reserved.").center().setFontSize(MAIN_SUBTITLE_FONT_SIZE).create();
 		subtitleText.setColour(TEXT_COLOUR);
 		subtitleText.setAlphaDriver(loadingDriver);
+		subtitleText.setBorderColour(0.15f, 0.15f, 0.15f);
+		subtitleText.setBorder(new ConstantDriver(0.04f));
 		addText(subtitleText, -0.5f, 0.75f, 2.0f);
 
 		titleColourX = new SinWaveDriver(0.0f, 1.0f, 40.0f);

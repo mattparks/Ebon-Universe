@@ -17,7 +17,7 @@ public class Main {
 				config.getBooleanWithDefault("vsync", true),
 				config.getBooleanWithDefault("antialias", true), 0, config.getBooleanWithDefault("fullscreen", false)
 		);
-		engine.startEngine(FlounderEngine.getFonts().FFF_FORWARD); // FlounderFonts.FFF_FORWARD
+		engine.startEngine(FlounderEngine.getFonts().fffForward); // FlounderFonts.fffForward
 
 		// TODO: Write out variables.
 	}

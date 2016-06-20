@@ -4,6 +4,7 @@ import flounder.engine.*;
 import flounder.fonts.*;
 import flounder.guis.*;
 import flounder.sounds.*;
+import flounder.visual.*;
 
 import java.util.*;
 
@@ -42,6 +43,8 @@ public class ScreenOptionsAudio extends GuiComponent {
 	private void createTitleText(String title) {
 		Text titleText = Text.newText(title).center().setFontSize(MenuGame.MAIN_TITLE_FONT_SIZE).create();
 		titleText.setColour(MenuGame.TEXT_COLOUR);
+		titleText.setBorderColour(0.15f, 0.15f, 0.15f);
+		titleText.setBorder(new ConstantDriver(0.04f));
 		addText(titleText, -0.5f, MenuMain.TEXT_TITLE_Y_POS, 2.0f);
 	}
 

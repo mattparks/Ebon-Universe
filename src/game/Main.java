@@ -7,17 +7,18 @@ import flounder.resources.*;
 import flounder.sounds.*;
 
 public class Main {
-	public static void main(String[] args) {
-		Config config = new Config(new MyFile("configs", "settings.conf"));
-		MusicPlayer.SOUND_VOLUME = (float) config.getDoubleWithDefault("sound_volume", 0.75f);
+	public static final Config CONFIG = new Config(new MyFile("configs", "settings.conf"));
 
-		Implementation implementation = new Implementation(new MainGame(), new MainCamera(), new MainRenderer(), config.getIntWithDefault("fps_target", -1));
+	public static void main(String[] args) {
+		MusicPlayer.SOUND_VOLUME = (float) CONFIG.getDoubleWithDefault("sound_volume", 0.75f);
+
+		Implementation implementation = new Implementation(new MainGame(), new MainCamera(), new MainRenderer(), CONFIG.getIntWithDefault("fps_target", -1));
 		FlounderEngine engine = new FlounderEngine(implementation,
-				config.getIntWithDefault("width", 1080), config.getIntWithDefault("height", 720), "4Space Game",
-				config.getBooleanWithDefault("vsync", true),
-				config.getBooleanWithDefault("antialias", true), 0, config.getBooleanWithDefault("fullscreen", false)
+				CONFIG.getIntWithDefault("width", 1080), CONFIG.getIntWithDefault("height", 720), "4Space Game",
+				CONFIG.getBooleanWithDefault("vsync", true),
+				CONFIG.getBooleanWithDefault("antialias", true), 0, CONFIG.getBooleanWithDefault("fullscreen", false)
 		);
-		engine.startEngine(FlounderEngine.getFonts().fffForward); // FlounderFonts.fffForward
+		engine.startEngine(FlounderEngine.getFonts().fffForward);
 
 		// TODO: Write out variables.
 	}

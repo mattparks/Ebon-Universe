@@ -33,7 +33,7 @@ public class ScreenStartup extends GuiComponent {
 		loadingDriver = new SlideDriver(0.0f, 1.0f, LOAD_TIME / 2.0f);
 		stageLoadingStart = true;
 
-		logoTexture = new GuiTexture(Texture.newTexture(new MyFile(MyFile.RES_FOLDER, "Flounder.png")).createInSecondThread());
+		logoTexture = new GuiTexture(Texture.newTexture(new MyFile(MyFile.RES_FOLDER, "flounder.png")).createInSecondThread());
 		logoTexture.getTexture().setNumberOfRows(1);
 		logoTexture.setSelectedRow(1);
 		logoTexture.setAlphaDriver(loadingDriver);

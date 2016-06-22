@@ -22,7 +22,7 @@ public class MainRenderer extends IRendererMaster {
 	private Matrix4f projectionMatrix;
 
 	private AABBRenderer aabbRenderer;
-	private SkyboxRenderer skyboxRenderer;
+	//private SkyboxRenderer skyboxRenderer;
 	private BlockRenderer blockRenderer;
 	private GuiRenderer guiRenderer;
 	private FontRenderer fontRenderer;
@@ -42,7 +42,7 @@ public class MainRenderer extends IRendererMaster {
 		this.projectionMatrix = new Matrix4f();
 
 		this.aabbRenderer = new AABBRenderer();
-		this.skyboxRenderer = new SkyboxRenderer();
+		//this.skyboxRenderer = new SkyboxRenderer();
 		this.blockRenderer = new BlockRenderer();
 		this.guiRenderer = new GuiRenderer();
 		this.fontRenderer = new FontRenderer();
@@ -111,7 +111,7 @@ public class MainRenderer extends IRendererMaster {
 
 		/* Renders each renderer. */
 		aabbRenderer.render(clipPlane, camera);
-		skyboxRenderer.render(clipPlane, camera);
+		//skyboxRenderer.render(clipPlane, camera);
 		blockRenderer.render(clipPlane, camera);
 	}
 
@@ -150,7 +150,7 @@ public class MainRenderer extends IRendererMaster {
 	@Override
 	public void dispose() {
 		aabbRenderer.dispose();
-		skyboxRenderer.dispose();
+		//skyboxRenderer.dispose();
 		blockRenderer.dispose();
 		guiRenderer.dispose();
 		fontRenderer.dispose();

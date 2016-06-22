@@ -39,6 +39,9 @@ public class MainGame extends IGame {
 
 		this.stillLoading = true;
 
+		FlounderEngine.getNetwork().startServer();
+		FlounderEngine.getNetwork().startClient();
+
 		Playlist playlist = new Playlist();
 		playlist.addMusic(Sound.loadSoundInBackground(new MyFile(MyFile.RES_FOLDER, "music", "era-of-space.wav"), 1.0f));
 		playlist.addMusic(Sound.loadSoundInBackground(new MyFile(MyFile.RES_FOLDER, "music", "spacey-ambient.wav"), 1.0f));

@@ -1,6 +1,5 @@
 package game.uis;
 
-import flounder.engine.*;
 import flounder.fonts.*;
 import flounder.guis.*;
 import flounder.visual.*;
@@ -54,8 +53,6 @@ public class ScreenOptionsPost extends GuiComponent {
 			if (OptionsPost.POST_EFFECT > OptionsPost.POST_EFFECT_MAX) {
 				OptionsPost.POST_EFFECT = OptionsPost.POST_EFFECT_MAX;
 			}
-
-			button.getText().setText("Post Effect: " + OptionsPost.POST_EFFECT);
 		});
 
 		button.addRightListener(() -> {
@@ -64,8 +61,23 @@ public class ScreenOptionsPost extends GuiComponent {
 			if (OptionsPost.POST_EFFECT < 0) {
 				OptionsPost.POST_EFFECT = 0;
 			}
+		});
 
-			button.getText().setText("Post Effect: " + OptionsPost.POST_EFFECT);
+		button.addActionListener(new GuiListenerAdvanced() {
+			private int currentEffect = OptionsPost.POST_EFFECT;
+
+			@Override
+			public boolean hasOccurred() {
+				int newCurrentEffect = OptionsPost.POST_EFFECT;
+				boolean occurred = newCurrentEffect != currentEffect;
+				currentEffect = newCurrentEffect;
+				return occurred;
+			}
+
+			@Override
+			public void run() {
+				button.getText().setText("Post Effect: " + currentEffect);
+			}
 		});
 	}
 
@@ -100,19 +112,19 @@ public class ScreenOptionsPost extends GuiComponent {
 		});
 
 		button.addActionListener(new GuiListenerAdvanced() {
-			private boolean FXAAEnabled = OptionsPost.FILTER_FXAA;
+			private boolean fxaaEnabled = OptionsPost.FILTER_FXAA;
 
 			@Override
 			public boolean hasOccurred() {
-				boolean newFXAAEnabled = OptionsPost.FILTER_FXAA;
-				boolean occurred = newFXAAEnabled != FXAAEnabled;
-				FXAAEnabled = newFXAAEnabled;
+				boolean newFxaaEnabled = OptionsPost.FILTER_FXAA;
+				boolean occurred = newFxaaEnabled != fxaaEnabled;
+				fxaaEnabled = newFxaaEnabled;
 				return occurred;
 			}
 
 			@Override
 			public void run() {
-				button.getText().setText("FXAA: " + (FXAAEnabled ? "Enabled" : "Disabled"));
+				button.getText().setText("FXAA: " + (fxaaEnabled ? "Enabled" : "Disabled"));
 			}
 		});
 	}

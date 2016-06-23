@@ -146,13 +146,13 @@ public class Chunk extends AABB implements Comparable<Chunk> {
 		/*for (int x = 0; x < blocks.length; x++) {
 			for (int z = 0; z < blocks[x].length; z++) {
 				for (int y = 0; y < blocks[z].length; y++) {
-					 Block block = blocks[x][z][y];
+					Block block = blocks[x][z][y];
 
 					if (block != null && !block.isCovered(this)) {
-						 BlockTypes types = BlockTypes.get(block.getType());
+						BlockTypes types = BlockTypes.get(block.getType());
 
 						if (types != null) {
-							 Model model = types.getModel();
+							Model model = types.getModel();
 
 							for (int i = 0; i < model.getIndices().length; i++) {
 								 int index = model.getIndices()[i];

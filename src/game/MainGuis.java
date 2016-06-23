@@ -17,7 +17,6 @@ public class MainGuis {
 
 	private MenuGameBackground gameMenu;
 	private OverlayCursor overlayCursor;
-	private OverlayConsole overlayConsole;
 
 	private CompoundButton openKey;
 	private boolean menuOpen;
@@ -31,7 +30,6 @@ public class MainGuis {
 	public MainGuis() {
 		this.gameMenu = new MenuGameBackground();
 		this.overlayCursor = new OverlayCursor();
-		this.overlayConsole = new OverlayConsole();
 
 		this.openKey = new CompoundButton(new KeyButton(GLFW_KEY_ESCAPE), new JoystickButton(OptionsControls.JOYSTICK_PORT, OptionsControls.JOYSTICK_GUI_TOGGLE));
 		this.menuOpen = false;
@@ -41,7 +39,6 @@ public class MainGuis {
 
 		FlounderEngine.getGuis().addComponent(gameMenu, 0, 0, 1, 1);
 		FlounderEngine.getGuis().addComponent(overlayCursor, 0, 0, 1, 1);
-		FlounderEngine.getGuis().addComponent(overlayConsole, 0, 0, 1, 1);
 		FlounderEngine.getGuis().getSelector().initJoysticks(OptionsControls.JOYSTICK_PORT, OptionsControls.JOYSTICK_GUI_LEFT, OptionsControls.JOYSTICK_GUI_RIGHT, OptionsControls.JOYSTICK_AXIS_X, OptionsControls.JOYSTICK_AXIS_Y);
 		FlounderEngine.getDevices().getDisplay().setCursorHidden(true);
 	}
@@ -68,15 +65,6 @@ public class MainGuis {
 		}
 
 		menuOpen = gameMenu.isDisplayed();
-	}
-
-	public void openConsole(boolean open) {
-		FlounderEngine.getLogger().log((open ? "Opining" : "Closing") + " game console!");
-		overlayConsole.show(open);
-	}
-
-	public boolean isConsoleOpen() {
-		return overlayConsole.isShown();
 	}
 
 	public static boolean isStartingGame() {

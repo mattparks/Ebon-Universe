@@ -70,8 +70,8 @@ public class MainRenderer extends IRendererMaster {
 		renderPost(FlounderEngine.isGamePaused(), MainGuis.isStartingGame(), FlounderEngine.getScreenBlur());
 
 		/* Scene independents. */
-		fontRenderer.render(POSITIVE_INFINITY, null);
 		guiRenderer.render(POSITIVE_INFINITY, null);
+		fontRenderer.render(POSITIVE_INFINITY, null);
 
 		/* Unbinds the FBO. */
 		unbindRelevantFBO();

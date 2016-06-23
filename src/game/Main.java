@@ -5,7 +5,6 @@ import flounder.engine.implementation.*;
 import flounder.parsing.*;
 import flounder.resources.*;
 import flounder.sounds.*;
-import game.options.*;
 
 public class Main {
 	public static final Config CONFIG = new Config(new MyFile("configs", "settings.conf"));

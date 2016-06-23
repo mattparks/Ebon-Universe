@@ -1,5 +1,6 @@
 package game.uis;
 
+import flounder.engine.*;
 import flounder.fonts.*;
 import flounder.guis.*;
 import flounder.visual.*;
@@ -72,7 +73,23 @@ public class ScreenOptionsPost extends GuiComponent {
 		GuiTextButton button = MenuMain.createButton("Post Enabled: " + (OptionsPost.POST_ENABLED ? "On" : "Off"), xPos, yPos, MenuMain.BUTTONS_X_WIDTH, MenuMain.BUTTONS_Y_SIZE, MenuMain.FONT_SIZE, this);
 		button.addLeftListener(() -> {
 			OptionsPost.POST_ENABLED = !OptionsPost.POST_ENABLED;
-			button.getText().setText("Post Enabled: " + (OptionsPost.POST_ENABLED ? "On" : "Off"));
+		});
+
+		button.addActionListener(new GuiListenerAdvanced() {
+			private boolean postEnabled = OptionsPost.POST_ENABLED;
+
+			@Override
+			public boolean hasOccurred() {
+				boolean newPostEnabled = OptionsPost.POST_ENABLED;
+				boolean occurred = newPostEnabled != postEnabled;
+				postEnabled = newPostEnabled;
+				return occurred;
+			}
+
+			@Override
+			public void run() {
+				button.getText().setText("Post Enabled: " + (postEnabled ? "On" : "Off"));
+			}
 		});
 	}
 
@@ -80,7 +97,23 @@ public class ScreenOptionsPost extends GuiComponent {
 		GuiTextButton button = MenuMain.createButton("FXAA: " + (OptionsPost.FILTER_FXAA ? "Enabled" : "Disabled"), xPos, yPos, MenuMain.BUTTONS_X_WIDTH, MenuMain.BUTTONS_Y_SIZE, MenuMain.FONT_SIZE, this);
 		button.addLeftListener(() -> {
 			OptionsPost.FILTER_FXAA = !OptionsPost.FILTER_FXAA;
-			button.getText().setText("FXAA: " + (OptionsPost.FILTER_FXAA ? "Enabled" : "Disabled"));
+		});
+
+		button.addActionListener(new GuiListenerAdvanced() {
+			private boolean FXAAEnabled = OptionsPost.FILTER_FXAA;
+
+			@Override
+			public boolean hasOccurred() {
+				boolean newFXAAEnabled = OptionsPost.FILTER_FXAA;
+				boolean occurred = newFXAAEnabled != FXAAEnabled;
+				FXAAEnabled = newFXAAEnabled;
+				return occurred;
+			}
+
+			@Override
+			public void run() {
+				button.getText().setText("FXAA: " + (FXAAEnabled ? "Enabled" : "Disabled"));
+			}
 		});
 	}
 

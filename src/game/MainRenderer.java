@@ -67,7 +67,7 @@ public class MainRenderer extends IRendererMaster {
 		renderScene(POSITIVE_INFINITY);
 
 		/* Post rendering. */
-		renderPost(FlounderEngine.isGamePaused(), FlounderEngine.getScreenBlur());
+		renderPost(FlounderEngine.isGamePaused(), MainGuis.isStartingGame(), FlounderEngine.getScreenBlur());
 
 		/* Scene independents. */
 		fontRenderer.render(POSITIVE_INFINITY, null);
@@ -115,10 +115,10 @@ public class MainRenderer extends IRendererMaster {
 		blockRenderer.render(clipPlane, camera);
 	}
 
-	private void renderPost(boolean isPaused, float blurFactor) {
+	private void renderPost(boolean isPaused, boolean isStarting, float blurFactor) {
 		FBO output = postProcessingFBO;
 
-		if (OptionsPost.POST_ENABLED) {
+		if (OptionsPost.POST_ENABLED && !isStarting) {
 			// Demo Pipeline:
 			pipelineDemo.renderPipeline(postProcessingFBO);
 			output = pipelineDemo.getOutput();

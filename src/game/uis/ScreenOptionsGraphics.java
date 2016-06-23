@@ -54,7 +54,23 @@ public class ScreenOptionsGraphics extends GuiComponent {
 		GuiTextButton button = MenuMain.createButton("Fullscreen: " + (FlounderEngine.getDevices().getDisplay().isFullscreen() ? "On" : "Off"), xPos, yPos, MenuMain.BUTTONS_X_WIDTH, MenuMain.BUTTONS_Y_SIZE, MenuMain.FONT_SIZE, this);
 		button.addLeftListener(() -> {
 			FlounderEngine.getDevices().getDisplay().setFullscreen(!FlounderEngine.getDevices().getDisplay().isFullscreen());
-			button.getText().setText("Fullscreen: " + (FlounderEngine.getDevices().getDisplay().isFullscreen() ? "On" : "Off"));
+		});
+
+		button.addActionListener(new GuiListenerAdvanced() {
+			private boolean isFullscreen = FlounderEngine.getDevices().getDisplay().isFullscreen();
+
+			@Override
+			public boolean hasOccurred() {
+				boolean newIsFullscreen = FlounderEngine.getDevices().getDisplay().isFullscreen();
+				boolean occurred = newIsFullscreen != isFullscreen;
+				isFullscreen = newIsFullscreen;
+				return occurred;
+			}
+
+			@Override
+			public void run() {
+				button.getText().setText("Fullscreen: " + (isFullscreen ? "On" : "Off"));
+			}
 		});
 	}
 
@@ -62,7 +78,23 @@ public class ScreenOptionsGraphics extends GuiComponent {
 		GuiTextButton button = MenuMain.createButton("Antialiasing: " + (FlounderEngine.getDevices().getDisplay().isAntialiasing() ? "On" : "Off"), xPos, yPos, MenuMain.BUTTONS_X_WIDTH, MenuMain.BUTTONS_Y_SIZE, MenuMain.FONT_SIZE, this);
 		button.addLeftListener(() -> {
 			FlounderEngine.getDevices().getDisplay().setAntialiasing(!FlounderEngine.getDevices().getDisplay().isAntialiasing());
-			button.getText().setText("Antialiasing: " + (FlounderEngine.getDevices().getDisplay().isAntialiasing() ? "On" : "Off"));
+		});
+
+		button.addActionListener(new GuiListenerAdvanced() {
+			private boolean isAntialiasing = FlounderEngine.getDevices().getDisplay().isAntialiasing();
+
+			@Override
+			public boolean hasOccurred() {
+				boolean newIsAntialiasing = FlounderEngine.getDevices().getDisplay().isAntialiasing();
+				boolean occurred = newIsAntialiasing != isAntialiasing;
+				isAntialiasing = newIsAntialiasing;
+				return occurred;
+			}
+
+			@Override
+			public void run() {
+				button.getText().setText("Antialiasing: " + (isAntialiasing ? "On" : "Off"));
+			}
 		});
 	}
 
@@ -70,7 +102,23 @@ public class ScreenOptionsGraphics extends GuiComponent {
 		GuiTextButton button = MenuMain.createButton("VSync: " + (FlounderEngine.getDevices().getDisplay().isVSync() ? "On" : "Off"), xPos, yPos, MenuMain.BUTTONS_X_WIDTH, MenuMain.BUTTONS_Y_SIZE, MenuMain.FONT_SIZE, this);
 		button.addLeftListener(() -> {
 			FlounderEngine.getDevices().getDisplay().setVSync(!FlounderEngine.getDevices().getDisplay().isVSync());
-			button.getText().setText("VSync: " + (FlounderEngine.getDevices().getDisplay().isVSync() ? "On" : "Off"));
+		});
+
+		button.addActionListener(new GuiListenerAdvanced() {
+			private boolean isVSync = FlounderEngine.getDevices().getDisplay().isVSync();
+
+			@Override
+			public boolean hasOccurred() {
+				boolean newIsVSync = FlounderEngine.getDevices().getDisplay().isVSync();
+				boolean occurred = newIsVSync != isVSync;
+				isVSync = newIsVSync;
+				return occurred;
+			}
+
+			@Override
+			public void run() {
+				button.getText().setText("VSync: " + (isVSync ? "On" : "Off"));
+			}
 		});
 	}
 

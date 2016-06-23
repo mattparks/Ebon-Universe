@@ -46,7 +46,23 @@ public class ScreenOptionsDeveloper extends GuiComponent {
 		GuiTextButton button = MenuMain.createButton("Profiler: " + (FlounderEngine.getProfiler().isOpen() ? "Opened" : "Closed"), xPos, yPos, MenuMain.BUTTONS_X_WIDTH, MenuMain.BUTTONS_Y_SIZE, MenuMain.FONT_SIZE, this);
 		button.addLeftListener(() -> {
 			FlounderEngine.getProfiler().toggle(!FlounderEngine.getProfiler().isOpen());
-			button.getText().setText("Profiler: " + (FlounderEngine.getProfiler().isOpen() ? "Opened" : "Closed"));
+		});
+
+		button.addActionListener(new GuiListenerAdvanced() {
+			private boolean isOpen = FlounderEngine.getProfiler().isOpen();
+
+			@Override
+			public boolean hasOccurred() {
+				boolean newIsOpen = FlounderEngine.getProfiler().isOpen();
+				boolean occurred = newIsOpen != isOpen;
+				isOpen = newIsOpen;
+				return occurred;
+			}
+
+			@Override
+			public void run() {
+				button.getText().setText("Profiler: " + (isOpen ? "Opened" : "Closed"));
+			}
 		});
 	}
 

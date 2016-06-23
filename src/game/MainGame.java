@@ -18,6 +18,7 @@ public class MainGame extends IGame {
 	private KeyButton screenshot;
 	private KeyButton fullscreen;
 	private KeyButton polygons;
+	private KeyButton openConsole;
 	private CompoundButton toggleMusic;
 	private CompoundButton skipMusic;
 
@@ -31,6 +32,7 @@ public class MainGame extends IGame {
 		this.screenshot = new KeyButton(GLFW_KEY_F2);
 		this.fullscreen = new KeyButton(GLFW_KEY_F11);
 		this.polygons = new KeyButton(GLFW_KEY_P);
+		this.openConsole = new KeyButton(GLFW_KEY_GRAVE_ACCENT);
 		this.toggleMusic = new CompoundButton(new KeyButton(GLFW_KEY_DOWN), new JoystickButton(OptionsControls.JOYSTICK_PORT, OptionsControls.JOYSTICK_MUSIC_PAUSE));
 		this.skipMusic = new CompoundButton(new KeyButton(GLFW_KEY_LEFT, GLFW_KEY_RIGHT), new JoystickButton(OptionsControls.JOYSTICK_PORT, OptionsControls.JOYSTICK_MUSIC_SKIP));
 
@@ -63,6 +65,10 @@ public class MainGame extends IGame {
 
 		if (polygons.wasDown()) {
 			OpenGlUtils.goWireframe(!OpenGlUtils.isInWireframe());
+		}
+
+		if (openConsole.wasDown()) {
+			guis.openConsole(!guis.isMenuOpen());
 		}
 
 		if (toggleMusic.wasDown()) {

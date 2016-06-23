@@ -20,10 +20,9 @@ public class ScreenOptionsAudio extends GuiComponent {
 		createTitleText("Audio Options");
 
 		createMusicOption(MenuMain.BUTTONS_X_LEFT_POS, 0.2f);
-		createAmbientOption(MenuMain.BUTTONS_X_LEFT_POS, 0.5f);
+		createSoundOption(MenuMain.BUTTONS_X_LEFT_POS, 0.5f);
 
-		createSoundOption(MenuMain.BUTTONS_X_RIGHT_POS, 0.2f);
-		createVolumeOption(MenuMain.BUTTONS_X_RIGHT_POS, 0.5f);
+		createVolumeOption(MenuMain.BUTTONS_X_RIGHT_POS, 0.2f);
 
 		createBackOption(MenuMain.BUTTONS_X_CENTER_POS, 1.0f);
 
@@ -50,19 +49,46 @@ public class ScreenOptionsAudio extends GuiComponent {
 
 	private void createMusicOption(float xPos, float yPos) {
 		MusicPlayer mPlayer = FlounderEngine.getDevices().getSound().getMusicPlayer();
-		GuiTextButton button = MenuMain.createButton("Music: " + (mPlayer.getVolume() == 1.0f ? "On" : "Off"), xPos, yPos, MenuMain.BUTTONS_X_WIDTH, MenuMain.BUTTONS_Y_SIZE, MenuMain.FONT_SIZE, this);
+		GuiTextButton button = MenuMain.createButton("Music: " + (!mPlayer.isPaused() ? "On" : "Off"), xPos, yPos, MenuMain.BUTTONS_X_WIDTH, MenuMain.BUTTONS_Y_SIZE, MenuMain.FONT_SIZE, this);
 		button.addLeftListener(() -> {
-			mPlayer.setVolume(mPlayer.getVolume() != 1.0f ? 1 : 0);
-			button.getText().setText("Music: " + (mPlayer.getVolume() == 1.0f ? "On" : "Off"));
+			if (mPlayer.isPaused()) {
+				mPlayer.unpauseTrack();
+			} else {
+				mPlayer.pauseTrack();
+			}
 		});
-	}
 
-	private void createAmbientOption(float xPos, float yPos) {
-		MusicPlayer mPlayer = FlounderEngine.getDevices().getSound().getMusicPlayer();
-		GuiTextButton button = MenuMain.createButton("Ambient: " + (mPlayer.getVolume() == 1.0f ? "On" : "Off"), xPos, yPos, MenuMain.BUTTONS_X_WIDTH, MenuMain.BUTTONS_Y_SIZE, MenuMain.FONT_SIZE, this);
-		button.addLeftListener(() -> {
-			mPlayer.setVolume(mPlayer.getVolume() != 1.0f ? 1 : 0);
-			button.getText().setText("Ambient: " + (mPlayer.getVolume() == 1.0f ? "On" : "Off"));
+		button.addActionListener(new GuiListenerAdvanced() {
+			private boolean paused = mPlayer.isPaused();
+			private boolean wasPaused = false;
+
+			@Override
+			public boolean hasOccurred() {
+				boolean newPaused = mPlayer.isPaused();
+				boolean occurred = newPaused != paused;
+
+				float volume = MusicPlayer.SOUND_VOLUME;
+
+				if (volume == 0.0f && !newPaused) {
+					mPlayer.pauseTrack();
+					occurred = true;
+					newPaused = true;
+					wasPaused = true;
+				} else if (volume != 0.0f && newPaused && wasPaused) {
+					mPlayer.unpauseTrack();
+					occurred = true;
+					newPaused = false;
+					wasPaused = false;
+				}
+
+				paused = newPaused;
+				return occurred;
+			}
+
+			@Override
+			public void run() {
+				button.getText().setText("Music: " + (!paused ? "On" : "Off"));
+			}
 		});
 	}
 
@@ -76,8 +102,23 @@ public class ScreenOptionsAudio extends GuiComponent {
 				MusicPlayer.SOUND_VOLUME = lastSoundVolume;
 				lastSoundVolume = 0.0f;
 			}
+		});
 
-			button.getText().setText("Sound: " + (MusicPlayer.SOUND_VOLUME == 0.0f ? "Off" : "On"));
+		button.addActionListener(new GuiListenerAdvanced() {
+			private float volume = MusicPlayer.SOUND_VOLUME;
+
+			@Override
+			public boolean hasOccurred() {
+				float newVolume = MusicPlayer.SOUND_VOLUME;
+				boolean occurred = newVolume != volume;
+				volume = newVolume;
+				return occurred;
+			}
+
+			@Override
+			public void run() {
+				button.getText().setText("Sound: " + (MusicPlayer.SOUND_VOLUME == 0.0f ? "Off" : "On"));
+			}
 		});
 	}
 
@@ -89,8 +130,6 @@ public class ScreenOptionsAudio extends GuiComponent {
 			if (MusicPlayer.SOUND_VOLUME > 1.0f) {
 				MusicPlayer.SOUND_VOLUME = 1.0f;
 			}
-
-			button.getText().setText("Volume: " + ((int) (MusicPlayer.SOUND_VOLUME * 100.0f)) + "%");
 		});
 
 		button.addRightListener(() -> {
@@ -99,8 +138,23 @@ public class ScreenOptionsAudio extends GuiComponent {
 			if (MusicPlayer.SOUND_VOLUME < 0.0f) {
 				MusicPlayer.SOUND_VOLUME = 0.0f;
 			}
+		});
 
-			button.getText().setText("Volume: " + ((int) (MusicPlayer.SOUND_VOLUME * 100.0f)) + "%");
+		button.addActionListener(new GuiListenerAdvanced() {
+			private float volume = MusicPlayer.SOUND_VOLUME;
+
+			@Override
+			public boolean hasOccurred() {
+				float newVolume = MusicPlayer.SOUND_VOLUME;
+				boolean occurred = newVolume != volume;
+				volume = newVolume;
+				return occurred;
+			}
+
+			@Override
+			public void run() {
+				button.getText().setText("Volume: " + ((int) (volume * 100.0f)) + "%");
+			}
 		});
 	}
 

@@ -14,7 +14,7 @@ public class ScreenQuit extends GuiComponent {
 		createQuitOption(MenuMain.BUTTONS_CENTER_X_POS, 0.3f);
 		createBackOption(MenuMain.BUTTONS_CENTER_X_POS, 1.0f);
 
-		super.addActionListener(new GuiListenerAdvanced() {
+		super.addActionListener(new ListenerAdvanced() {
 			@Override
 			public boolean hasOccurred() {
 				return MenuGame.BACK_KEY.wasDown();

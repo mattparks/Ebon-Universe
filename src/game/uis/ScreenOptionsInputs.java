@@ -18,7 +18,7 @@ public class ScreenOptionsInputs extends GuiComponent {
 
 		createBackOption(MenuMain.BUTTONS_X_CENTER_POS, 1.0f);
 
-		super.addActionListener(new GuiListenerAdvanced() {
+		super.addActionListener(new ListenerAdvanced() {
 			@Override
 			public boolean hasOccurred() {
 				return MenuGame.BACK_KEY.wasDown();

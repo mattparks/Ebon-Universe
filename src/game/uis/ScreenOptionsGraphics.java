@@ -29,7 +29,7 @@ public class ScreenOptionsGraphics extends GuiComponent {
 
 		createBackOption(MenuMain.BUTTONS_X_CENTER_POS, 1.0f);
 
-		super.addActionListener(new GuiListenerAdvanced() {
+		super.addActionListener(new ListenerAdvanced() {
 			@Override
 			public boolean hasOccurred() {
 				return MenuGame.BACK_KEY.wasDown();
@@ -56,7 +56,7 @@ public class ScreenOptionsGraphics extends GuiComponent {
 			FlounderEngine.getDevices().getDisplay().setFullscreen(!FlounderEngine.getDevices().getDisplay().isFullscreen());
 		});
 
-		button.addActionListener(new GuiListenerAdvanced() {
+		button.addActionListener(new ListenerAdvanced() {
 			private boolean isFullscreen = FlounderEngine.getDevices().getDisplay().isFullscreen();
 
 			@Override
@@ -80,7 +80,7 @@ public class ScreenOptionsGraphics extends GuiComponent {
 			FlounderEngine.getDevices().getDisplay().setAntialiasing(!FlounderEngine.getDevices().getDisplay().isAntialiasing());
 		});
 
-		button.addActionListener(new GuiListenerAdvanced() {
+		button.addActionListener(new ListenerAdvanced() {
 			private boolean isAntialiasing = FlounderEngine.getDevices().getDisplay().isAntialiasing();
 
 			@Override
@@ -104,7 +104,7 @@ public class ScreenOptionsGraphics extends GuiComponent {
 			FlounderEngine.getDevices().getDisplay().setVSync(!FlounderEngine.getDevices().getDisplay().isVSync());
 		});
 
-		button.addActionListener(new GuiListenerAdvanced() {
+		button.addActionListener(new ListenerAdvanced() {
 			private boolean isVSync = FlounderEngine.getDevices().getDisplay().isVSync();
 
 			@Override

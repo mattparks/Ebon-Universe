@@ -26,7 +26,7 @@ public class ScreenOptionsAudio extends GuiComponent {
 
 		createBackOption(MenuMain.BUTTONS_X_CENTER_POS, 1.0f);
 
-		super.addActionListener(new GuiListenerAdvanced() {
+		super.addActionListener(new ListenerAdvanced() {
 			@Override
 			public boolean hasOccurred() {
 				return MenuGame.BACK_KEY.wasDown();
@@ -58,7 +58,7 @@ public class ScreenOptionsAudio extends GuiComponent {
 			}
 		});
 
-		button.addActionListener(new GuiListenerAdvanced() {
+		button.addActionListener(new ListenerAdvanced() {
 			private boolean paused = mPlayer.isPaused();
 			private boolean wasPaused = false;
 
@@ -104,7 +104,7 @@ public class ScreenOptionsAudio extends GuiComponent {
 			}
 		});
 
-		button.addActionListener(new GuiListenerAdvanced() {
+		button.addActionListener(new ListenerAdvanced() {
 			private float volume = MusicPlayer.SOUND_VOLUME;
 
 			@Override
@@ -140,7 +140,7 @@ public class ScreenOptionsAudio extends GuiComponent {
 			}
 		});
 
-		button.addActionListener(new GuiListenerAdvanced() {
+		button.addActionListener(new ListenerAdvanced() {
 			private float volume = MusicPlayer.SOUND_VOLUME;
 
 			@Override

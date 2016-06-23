@@ -24,7 +24,7 @@ public class ScreenOptionsPost extends GuiComponent {
 
 		createBackOption(MenuMain.BUTTONS_X_CENTER_POS, 1.0f);
 
-		super.addActionListener(new GuiListenerAdvanced() {
+		super.addActionListener(new ListenerAdvanced() {
 			@Override
 			public boolean hasOccurred() {
 				return MenuGame.BACK_KEY.wasDown();
@@ -63,7 +63,7 @@ public class ScreenOptionsPost extends GuiComponent {
 			}
 		});
 
-		button.addActionListener(new GuiListenerAdvanced() {
+		button.addActionListener(new ListenerAdvanced() {
 			private int currentEffect = OptionsPost.POST_EFFECT;
 
 			@Override
@@ -87,7 +87,7 @@ public class ScreenOptionsPost extends GuiComponent {
 			OptionsPost.POST_ENABLED = !OptionsPost.POST_ENABLED;
 		});
 
-		button.addActionListener(new GuiListenerAdvanced() {
+		button.addActionListener(new ListenerAdvanced() {
 			private boolean postEnabled = OptionsPost.POST_ENABLED;
 
 			@Override
@@ -111,7 +111,7 @@ public class ScreenOptionsPost extends GuiComponent {
 			OptionsPost.FILTER_FXAA = !OptionsPost.FILTER_FXAA;
 		});
 
-		button.addActionListener(new GuiListenerAdvanced() {
+		button.addActionListener(new ListenerAdvanced() {
 			private boolean fxaaEnabled = OptionsPost.FILTER_FXAA;
 
 			@Override

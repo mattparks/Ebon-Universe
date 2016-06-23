@@ -21,7 +21,7 @@ public class ScreenOptionsDeveloper extends GuiComponent {
 
 		createBackOption(MenuMain.BUTTONS_X_CENTER_POS, 1.0f);
 
-		super.addActionListener(new GuiListenerAdvanced() {
+		super.addActionListener(new ListenerAdvanced() {
 			@Override
 			public boolean hasOccurred() {
 				return MenuGame.BACK_KEY.wasDown();
@@ -48,7 +48,7 @@ public class ScreenOptionsDeveloper extends GuiComponent {
 			FlounderEngine.getProfiler().toggle(!FlounderEngine.getProfiler().isOpen());
 		});
 
-		button.addActionListener(new GuiListenerAdvanced() {
+		button.addActionListener(new ListenerAdvanced() {
 			private boolean isOpen = FlounderEngine.getProfiler().isOpen();
 
 			@Override

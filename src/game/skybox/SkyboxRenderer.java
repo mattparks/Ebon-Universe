@@ -5,13 +5,19 @@ import flounder.engine.implementation.*;
 import flounder.helpers.*;
 import flounder.maths.matrices.*;
 import flounder.maths.vectors.*;
+import flounder.resources.*;
 import game.*;
 
 import static org.lwjgl.opengl.GL11.*;
 import static org.lwjgl.opengl.GL30.*;
 
 public class SkyboxRenderer extends IRenderer {
-	private static final float SIZE = 300f;
+	public static final MyFile SKYBOXES_LOC = new MyFile(MyFile.RES_FOLDER, "skybox");
+
+	private static final MyFile[] TEXTURE_FILES = {new MyFile(SKYBOXES_LOC, "nightRight.png"), new MyFile(SKYBOXES_LOC, "nightLeft.png"), new MyFile(SKYBOXES_LOC, "nightTop.png"), new MyFile(SKYBOXES_LOC, "nightBottom.png"), new MyFile(SKYBOXES_LOC, "nightBack.png"), new MyFile(SKYBOXES_LOC, "nightFront.png")};
+	private static final int TEXTURE = FlounderEngine.getTextures().loadCubeMap(TEXTURE_FILES);
+
+	private static final float SIZE = (FlounderEngine.getCamera().getFarPlane() - 25.0f) / (float) Math.sqrt(2.0);
 	private static final float[] VERTICES = {-SIZE, SIZE, -SIZE, -SIZE, -SIZE, -SIZE, SIZE, -SIZE, -SIZE, SIZE, -SIZE, -SIZE, SIZE, SIZE, -SIZE, -SIZE, SIZE, -SIZE, -SIZE, -SIZE, SIZE, -SIZE, -SIZE, -SIZE, -SIZE, SIZE, -SIZE, -SIZE, SIZE, -SIZE, -SIZE, SIZE, SIZE, -SIZE, -SIZE, SIZE, SIZE, -SIZE, -SIZE, SIZE, -SIZE, SIZE, SIZE, SIZE, SIZE, SIZE, SIZE, SIZE, SIZE, SIZE, -SIZE, SIZE, -SIZE, -SIZE, -SIZE, -SIZE, SIZE, -SIZE, SIZE, SIZE, SIZE, SIZE, SIZE, SIZE, SIZE, SIZE, SIZE, -SIZE, SIZE, -SIZE, -SIZE, SIZE, -SIZE, SIZE, -SIZE, SIZE, SIZE, -SIZE, SIZE, SIZE, SIZE, SIZE, SIZE, SIZE, -SIZE, SIZE, SIZE, -SIZE, SIZE, -SIZE, -SIZE, -SIZE, -SIZE, -SIZE, -SIZE, SIZE, SIZE, -SIZE, -SIZE, SIZE, -SIZE, -SIZE, -SIZE, -SIZE, SIZE, SIZE, -SIZE, SIZE};
 
 	private SkyboxShader shader;
@@ -57,6 +63,7 @@ public class SkyboxRenderer extends IRenderer {
 
 		// Binds the VAO, sets antialiasing and binds the cube map.
 		OpenGlUtils.bindVAO(vao, 0);
+		OpenGlUtils.bindTextureToBank(TEXTURE, 0);
 		OpenGlUtils.antialias(FlounderEngine.getDevices().getDisplay().isAntialiasing());
 	}
 

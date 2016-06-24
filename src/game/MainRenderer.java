@@ -11,19 +11,19 @@ import flounder.maths.vectors.*;
 import flounder.physics.renderer.*;
 import flounder.post.filters.*;
 import flounder.post.piplines.*;
-import game.blocks.*;
 import game.options.*;
 import game.post.*;
 import game.skybox.*;
+import game.terrains.*;
 
 public class MainRenderer extends IRendererMaster {
-	private static final Vector4f POSITIVE_INFINITY = new Vector4f(0, 1, 0, Float.POSITIVE_INFINITY);
+	private static final Vector4f POSITIVE_INFINITY = new Vector4f(0.0f, 1.0f, 0.0f, Float.POSITIVE_INFINITY);
 
 	private Matrix4f projectionMatrix;
 
 	private AABBRenderer aabbRenderer;
-	//private SkyboxRenderer skyboxRenderer;
-	private BlockRenderer blockRenderer;
+	private SkyboxRenderer skyboxRenderer;
+	private TerrainRenderer terrainRenderer;
 	private GuiRenderer guiRenderer;
 	private FontRenderer fontRenderer;
 
@@ -42,8 +42,8 @@ public class MainRenderer extends IRendererMaster {
 		this.projectionMatrix = new Matrix4f();
 
 		this.aabbRenderer = new AABBRenderer();
-		//this.skyboxRenderer = new SkyboxRenderer();
-		this.blockRenderer = new BlockRenderer();
+		this.skyboxRenderer = new SkyboxRenderer();
+		this.terrainRenderer = new TerrainRenderer();
 		this.guiRenderer = new GuiRenderer();
 		this.fontRenderer = new FontRenderer();
 
@@ -70,8 +70,8 @@ public class MainRenderer extends IRendererMaster {
 		renderPost(FlounderEngine.isGamePaused(), MainGuis.isStartingGame(), FlounderEngine.getScreenBlur());
 
 		/* Scene independents. */
-		guiRenderer.render(POSITIVE_INFINITY, null);
 		fontRenderer.render(POSITIVE_INFINITY, null);
+		guiRenderer.render(POSITIVE_INFINITY, null);
 
 		/* Unbinds the FBO. */
 		unbindRelevantFBO();
@@ -111,8 +111,8 @@ public class MainRenderer extends IRendererMaster {
 
 		/* Renders each renderer. */
 		aabbRenderer.render(clipPlane, camera);
-		//skyboxRenderer.render(clipPlane, camera);
-		blockRenderer.render(clipPlane, camera);
+		terrainRenderer.render(clipPlane, camera);
+		skyboxRenderer.render(clipPlane, camera);
 	}
 
 	private void renderPost(boolean isPaused, boolean isStarting, float blurFactor) {
@@ -150,8 +150,8 @@ public class MainRenderer extends IRendererMaster {
 	@Override
 	public void dispose() {
 		aabbRenderer.dispose();
-		//skyboxRenderer.dispose();
-		blockRenderer.dispose();
+		skyboxRenderer.dispose();
+		terrainRenderer.dispose();
 		guiRenderer.dispose();
 		fontRenderer.dispose();
 

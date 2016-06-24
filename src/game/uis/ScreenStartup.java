@@ -38,14 +38,14 @@ public class ScreenStartup extends GuiComponent {
 		logoTexture.setSelectedRow(1);
 		logoTexture.setAlphaDriver(loadingDriver);
 
-		titleText = Text.newText("Powered By Flounder").center().setFontSize(MAIN_TITLE_FONT_SIZE).create();
+		titleText = Text.newText("Powered By Flounder").centre().setFontSize(MAIN_TITLE_FONT_SIZE).create();
 		titleText.setColour(TEXT_COLOUR);
 		titleText.setBorderColour(TEXT_COLOUR.r, TEXT_COLOUR.g, TEXT_COLOUR.b);
 		titleText.setGlowing(new SinWaveDriver(0.075f, 0.150f, 2.320f));
 		titleText.setAlphaDriver(loadingDriver);
 		addText(titleText, -0.5f, 0.6f, 2.0f);
 
-		subtitleText = Text.newText("Copyright © 2015-2016, Equilibrium Games, All Rights Reserved.").center().setFontSize(MAIN_SUBTITLE_FONT_SIZE).create();
+		subtitleText = Text.newText("Copyright © 2015-2016, Equilibrium Games, All Rights Reserved.").centre().setFontSize(MAIN_SUBTITLE_FONT_SIZE).create();
 		subtitleText.setColour(TEXT_COLOUR);
 		subtitleText.setAlphaDriver(loadingDriver);
 		subtitleText.setBorderColour(0.15f, 0.15f, 0.15f);

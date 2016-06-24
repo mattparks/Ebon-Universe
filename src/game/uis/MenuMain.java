@@ -13,11 +13,11 @@ import java.util.*;
 public class MenuMain extends GuiComponent {
 	public static final float FONT_SIZE = 2.0f;
 
-	public static final float BUTTONS_CENTER_X_POS = 0.0f;
-	public static final float BUTTONS_CENTER_X_WIDTH = 1.0f - BUTTONS_CENTER_X_POS * 2.0f;
+	public static final float BUTTONS_CENTRE_X_POS = 0.0f;
+	public static final float BUTTONS_CENTRE_X_WIDTH = 1.0f - BUTTONS_CENTRE_X_POS * 2.0f;
 
 	public static final float BUTTONS_X_LEFT_POS = -0.2f;
-	public static final float BUTTONS_X_CENTER_POS = 0.2f;
+	public static final float BUTTONS_X_CENTRE_POS = 0.2f;
 	public static final float BUTTONS_X_RIGHT_POS = 0.6f;
 	public static final float BUTTONS_Y_SIZE = 0.2f;
 	public static final float BUTTONS_X_WIDTH = 0.6f;
@@ -45,7 +45,7 @@ public class MenuMain extends GuiComponent {
 		this.screenOption = new ScreenOption(menuGame);
 		this.screenQuit = new ScreenQuit(menuGame);
 
-		titleText = Text.newText("Flounder Engine").center().setFontSize(MenuGame.MAIN_TITLE_FONT_SIZE).create();
+		titleText = Text.newText("Flounder Engine").centre().setFontSize(MenuGame.MAIN_TITLE_FONT_SIZE).create();
 		titleText.setColour(MenuGame.TEXT_COLOUR);
 		titleText.setBorderColour(MenuGame.TEXT_COLOUR.r, MenuGame.TEXT_COLOUR.g, MenuGame.TEXT_COLOUR.b);
 		titleText.setGlowing(new SinWaveDriver(0.075f, 0.150f, 2.320f));
@@ -59,25 +59,25 @@ public class MenuMain extends GuiComponent {
 	}
 
 	private void createPlayButton(float yPos) {
-		GuiTextButton button = createButton("Play", BUTTONS_CENTER_X_POS, yPos, BUTTONS_CENTER_X_WIDTH, BUTTONS_Y_SIZE, FONT_SIZE, this);
+		GuiTextButton button = createButton("Play", BUTTONS_CENTRE_X_POS, yPos, BUTTONS_CENTRE_X_WIDTH, BUTTONS_Y_SIZE, FONT_SIZE, this);
 		button.addLeftListener(() -> superMenu.display(false));
 		button.addRightListener(null);
 	}
 
 	private void createOptionsButton(float yPos) {
-		GuiTextButton button = createButton("Options", BUTTONS_CENTER_X_POS, yPos, BUTTONS_CENTER_X_WIDTH, BUTTONS_Y_SIZE, FONT_SIZE, this);
+		GuiTextButton button = createButton("Options", BUTTONS_CENTRE_X_POS, yPos, BUTTONS_CENTRE_X_WIDTH, BUTTONS_Y_SIZE, FONT_SIZE, this);
 		button.addLeftListener(() -> menuGame.setNewSecondaryScreen(screenOption, true));
 		button.addRightListener(null);
 	}
 
 	private void createQuitButton(float yPos) {
-		GuiTextButton button = createButton("Quit", BUTTONS_CENTER_X_POS, yPos, BUTTONS_CENTER_X_WIDTH, BUTTONS_Y_SIZE, FONT_SIZE, this);
+		GuiTextButton button = createButton("Quit", BUTTONS_CENTRE_X_POS, yPos, BUTTONS_CENTRE_X_WIDTH, BUTTONS_Y_SIZE, FONT_SIZE, this);
 		button.addLeftListener(() -> menuGame.setNewSecondaryScreen(screenQuit, true));
 		button.addRightListener(null);
 	}
 
 	public static GuiTextButton createButton(String textString, float xPos, float yPos, float xBut, float yBut, float fontSize, GuiComponent component) {
-		Text text = Text.newText(textString).center().setFontSize(fontSize).create();
+		Text text = Text.newText(textString).centre().setFontSize(fontSize).create();
 		text.setColour(MenuGame.TEXT_COLOUR);
 		text.setBorderColour(0.15f, 0.15f, 0.15f);
 		text.setBorder(new ConstantDriver(0.04f));

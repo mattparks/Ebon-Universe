@@ -28,7 +28,7 @@ public class ScreenOption extends GuiComponent {
 		createAudioOption(MenuMain.BUTTONS_X_RIGHT_POS, 0.2f);
 		createDevelopersOption(MenuMain.BUTTONS_X_RIGHT_POS, 0.5f);
 
-		createBackOption(MenuMain.BUTTONS_X_CENTER_POS, 1.0f);
+		createBackOption(MenuMain.BUTTONS_X_CENTRE_POS, 1.0f);
 
 		super.addActionListener(new ListenerAdvanced() {
 			@Override
@@ -44,7 +44,7 @@ public class ScreenOption extends GuiComponent {
 	}
 
 	private void createTitleText(String title) {
-		Text titleText = Text.newText(title).center().setFontSize(MenuGame.MAIN_TITLE_FONT_SIZE).create();
+		Text titleText = Text.newText(title).centre().setFontSize(MenuGame.MAIN_TITLE_FONT_SIZE).create();
 		titleText.setColour(MenuGame.TEXT_COLOUR);
 		titleText.setBorderColour(0.15f, 0.15f, 0.15f);
 		titleText.setBorder(new ConstantDriver(0.04f));

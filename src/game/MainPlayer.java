@@ -9,13 +9,15 @@ import game.options.*;
 import static org.lwjgl.glfw.GLFW.*;
 
 public class MainPlayer {
-	private static final float FRONT_SPEED = 40;
-	private static final float UP_SPEED = 30;
-	private static final float SIDE_SPEED = 40;
+	private static final float SPEED_BOOST_SCALE = 2.75f;
+	private static final float FRONT_SPEED = 60;
+	private static final float UP_SPEED = 40;
+	private static final float SIDE_SPEED = 60;
 
 	private IAxis inputForward;
 	private IAxis inputUp;
 	private IAxis inputSide;
+	private KeyButton inputSpeedBoost;
 
 	private Vector3f velocity;
 
@@ -28,33 +30,29 @@ public class MainPlayer {
 		IButton forwardsKeyButtons = new KeyButton(GLFW_KEY_W, GLFW_KEY_UP);
 		IButton backwardsKeyButtons = new KeyButton(GLFW_KEY_S, GLFW_KEY_DOWN);
 		IButton upKeyButtons = new KeyButton(GLFW_KEY_SPACE);
-		IButton downKeyButtons = new KeyButton(GLFW_KEY_LEFT_SHIFT);
+		IButton downKeyButtons = new KeyButton(GLFW_KEY_LEFT_CONTROL);
 
 		this.inputForward = new CompoundAxis(new ButtonAxis(forwardsKeyButtons, backwardsKeyButtons), new JoystickAxis(OptionsControls.JOYSTICK_PORT, OptionsControls.JOYSTICK_AXIS_Y));
 		this.inputUp = new CompoundAxis(new ButtonAxis(downKeyButtons, upKeyButtons));
 		this.inputSide = new CompoundAxis(new ButtonAxis(leftKeyButtons, rightKeyButtons), new JoystickAxis(OptionsControls.JOYSTICK_PORT, OptionsControls.JOYSTICK_AXIS_X));
+		this.inputSpeedBoost = new KeyButton(GLFW_KEY_LEFT_SHIFT);
 
 		this.velocity = new Vector3f(0, 0, 0);
 
-		this.position = new Vector3f(0, -16, -64);
+		this.position = new Vector3f(0, 5, 0);
 		this.rotation = new Vector3f(0, 0, 0);
 	}
 
 	public void update(boolean paused) {
 		if (!paused) {
+			float speedBoost = inputSpeedBoost.isDown() ? SPEED_BOOST_SCALE : 1.0f;
 			rotation.set(0.0f, FlounderEngine.getCamera().getYaw(), 0.0f);
-			velocity.x = SIDE_SPEED * FlounderEngine.getDelta() * Maths.deadband(0.05f, inputSide.getAmount());
-			velocity.y = UP_SPEED * FlounderEngine.getDelta() * Maths.deadband(0.05f, inputUp.getAmount());
-			velocity.z = FRONT_SPEED * FlounderEngine.getDelta() * Maths.deadband(0.05f, inputForward.getAmount());
+			velocity.x = speedBoost * SIDE_SPEED * FlounderEngine.getDelta() * Maths.deadband(0.05f, inputSide.getAmount());
+			velocity.y = speedBoost * UP_SPEED * FlounderEngine.getDelta() * Maths.deadband(0.05f, inputUp.getAmount());
+			velocity.z = speedBoost * FRONT_SPEED * FlounderEngine.getDelta() * Maths.deadband(0.05f, inputForward.getAmount());
 			Vector3f.rotate(velocity, rotation, velocity);
 
-			boolean pevInsideBlock = Environment.getBlocksManager().insideBlock(position);
 			Vector3f.add(position, velocity, position);
-			boolean insideBlock = Environment.getBlocksManager().insideBlock(position);
-
-			if (insideBlock && !pevInsideBlock) {
-				Vector3f.subtract(position, velocity, position);
-			}
 		}
 	}
 

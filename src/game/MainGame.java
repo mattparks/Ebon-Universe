@@ -87,7 +87,7 @@ public class MainGame extends IGame {
 			// Unpause the music for the main menu.
 			stillLoading = false;
 			FlounderEngine.getLogger().log("Starting main menu music.");
-			//	FlounderEngine.getDevices().getSound().getMusicPlayer().unpauseTrack();
+			FlounderEngine.getDevices().getSound().getMusicPlayer().unpauseTrack();
 		}
 
 		guis.update();

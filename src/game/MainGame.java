@@ -38,8 +38,8 @@ public class MainGame extends IGame {
 
 		this.stillLoading = true;
 
-	//	FlounderEngine.getNetwork().startServer();
-	//	FlounderEngine.getNetwork().startClient();
+		FlounderEngine.getNetwork().startServer();
+		FlounderEngine.getNetwork().startClient();
 
 		Playlist playlist = new Playlist();
 		playlist.addMusic(Sound.loadSoundInBackground(new MyFile(MyFile.RES_FOLDER, "music", "era-of-space.wav"), 0.80f));
@@ -47,7 +47,7 @@ public class MainGame extends IGame {
 		playlist.addMusic(Sound.loadSoundInBackground(new MyFile(MyFile.RES_FOLDER, "music", "spacey-ambient.wav"), 0.60f));
 		FlounderEngine.getDevices().getSound().getMusicPlayer().playMusicPlaylist(playlist, true, 4.0f, 10.0f);
 
-		Environment.init(new Fog(new Colour(0.25f, 0.26f, 0.28f, true), 0.001f, 2.0f, 0.0f, 50.0f), new Light(new Colour(0.85f, 0.85f, 0.85f), new Vector3f(0.0f, 2000.0f, 2000.0f)));
+		Environment.init(new Fog(new Colour(0.5f, 0.5f, 0.5f, false), 0.001f, 2.0f, 0.0f, 50.0f), new Light(new Colour(0.85f, 0.85f, 0.85f), new Vector3f(0.0f, 2000.0f, 2000.0f)));
 	}
 
 	@Override

@@ -7,6 +7,7 @@ import flounder.inputs.*;
 import flounder.lights.*;
 import flounder.maths.*;
 import flounder.maths.vectors.*;
+import flounder.models.*;
 import flounder.resources.*;
 import flounder.sounds.*;
 import game.options.*;
@@ -40,6 +41,8 @@ public class MainGame extends IGame {
 
 		FlounderEngine.getNetwork().startServer();
 		FlounderEngine.getNetwork().startClient();
+
+		Model cubeModel = Model.newModel(new MyFile(MyFile.RES_FOLDER, "blocks", "cube.obj")).create();
 
 		Playlist playlist = new Playlist();
 		playlist.addMusic(Sound.loadSoundInBackground(new MyFile(MyFile.RES_FOLDER, "music", "era-of-space.wav"), 0.80f));

@@ -1,6 +1,5 @@
 package game.post;
 
-import flounder.engine.*;
 import flounder.fbos.*;
 import flounder.post.*;
 import flounder.post.filters.*;

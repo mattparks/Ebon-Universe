@@ -94,7 +94,7 @@ public class MainCamera implements ICamera {
 		updateHorizontalAngle();
 		updatePitchAngle();
 		calculatePosition();
-		updateViewMatrix(position, rotation);
+		updateViewMatrix();
 
 		if (FlounderEngine.getProfiler().isOpen()) {
 			FlounderEngine.getProfiler().add("MainCamera", "Angle Of Elevation", angleOfElevation);
@@ -192,7 +192,7 @@ public class MainCamera implements ICamera {
 		rotation.set((float) Math.toDegrees(angleOfElevation) - PITCH_OFFSET, Maths.DEGREES_IN_HALF_CIRCLE + angleAroundPlayer, 0.0f);
 	}
 
-	private void updateViewMatrix(Vector3f position, Vector3f rotation) {
+	private void updateViewMatrix() {
 		viewMatrix.setIdentity();
 		position.negate();
 		Matrix4f.rotate(viewMatrix, reusableViewVector.set(1.0f, 0.0f, 0.0f), (float) Math.toRadians(rotation.x), viewMatrix);
@@ -220,7 +220,9 @@ public class MainCamera implements ICamera {
 
 	@Override
 	public void reflect(float waterHeight) {
-		throw new NotImplementedException();
+		position.y -= 2.0f * (position.y - waterHeight);
+		rotation.x = -rotation.x;
+		updateViewMatrix();
 	}
 
 	@Override

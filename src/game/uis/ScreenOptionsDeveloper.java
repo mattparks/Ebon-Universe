@@ -18,6 +18,7 @@ public class ScreenOptionsDeveloper extends GuiComponent {
 		createTitleText("Dev Options");
 
 		createProfilerToggleOption(MenuMain.BUTTONS_X_CENTRE_POS, 0.2f);
+		createAABBToggleOption(MenuMain.BUTTONS_X_CENTRE_POS, 0.5f);
 
 		createBackOption(MenuMain.BUTTONS_X_CENTRE_POS, 1.0f);
 
@@ -62,6 +63,30 @@ public class ScreenOptionsDeveloper extends GuiComponent {
 			@Override
 			public void run() {
 				button.getText().setText("Profiler: " + (isOpen ? "Opened" : "Closed"));
+			}
+		});
+	}
+
+	private void createAABBToggleOption(float xPos, float yPos) {
+		GuiTextButton button = MenuMain.createButton("AABBs: " + (FlounderEngine.getAABBs().renders() ? "Enabled" : "Disabled"), xPos, yPos, MenuMain.BUTTONS_X_WIDTH, MenuMain.BUTTONS_Y_SIZE, MenuMain.FONT_SIZE, this);
+		button.addLeftListener(() -> {
+			FlounderEngine.getAABBs().setRenders(!FlounderEngine.getAABBs().renders());
+		});
+
+		button.addActionListener(new ListenerAdvanced() {
+			private boolean renders = FlounderEngine.getAABBs().renders();
+
+			@Override
+			public boolean hasOccurred() {
+				boolean newRenders = FlounderEngine.getAABBs().renders();
+				boolean occurred = newRenders != renders;
+				renders = newRenders;
+				return occurred;
+			}
+
+			@Override
+			public void run() {
+				button.getText().setText("AABBs: " + (FlounderEngine.getAABBs().renders() ? "Enabled" : "Disabled"));
 			}
 		});
 	}

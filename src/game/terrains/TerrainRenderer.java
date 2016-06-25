@@ -3,7 +3,6 @@ package game.terrains;
 import flounder.engine.*;
 import flounder.engine.implementation.*;
 import flounder.helpers.*;
-import flounder.maths.*;
 import flounder.maths.matrices.*;
 import flounder.maths.vectors.*;
 import game.*;
@@ -54,9 +53,9 @@ public class TerrainRenderer extends IRenderer {
 			//	shader.lightColour[i].loadVec3(lights.get(i).getColour().toVector());
 			//	shader.attenuation[i].loadVec3(lights.get(i).getAttenuation().toVector());
 			//} else {
-				shader.lightPosition[i].loadVec3(new Vector3f(0, 0, 0));
-				shader.lightColour[i].loadVec3(new Vector3f(0, 0, 0));
-				shader.attenuation[i].loadVec3(new Vector3f(1, 0, 0));
+			shader.lightPosition[i].loadVec3(new Vector3f(0, 0, 0));
+			shader.lightColour[i].loadVec3(new Vector3f(0, 0, 0));
+			shader.attenuation[i].loadVec3(new Vector3f(1, 0, 0));
 			//}
 		}
 	}
@@ -68,7 +67,7 @@ public class TerrainRenderer extends IRenderer {
 
 		OpenGlUtils.bindVAO(model.getVaoID(), 0, 1, 2);
 		OpenGlUtils.antialias(FlounderEngine.getDevices().getDisplay().isAntialiasing());
-		OpenGlUtils.cullBackFaces(true);
+		OpenGlUtils.cullBackFaces(false);
 
 		shader.modelMatrix.loadMat4(transformationMatrix);
 

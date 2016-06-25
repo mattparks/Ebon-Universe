@@ -2,7 +2,6 @@ package game;
 
 import flounder.engine.*;
 import flounder.engine.implementation.*;
-import flounder.fonts.*;
 import flounder.helpers.*;
 import flounder.inputs.*;
 import flounder.lights.*;
@@ -39,8 +38,8 @@ public class MainGame extends IGame {
 
 		this.stillLoading = true;
 
-		FlounderEngine.getNetwork().startServer();
-		FlounderEngine.getNetwork().startClient();
+	//	FlounderEngine.getNetwork().startServer();
+	//	FlounderEngine.getNetwork().startClient();
 
 		Playlist playlist = new Playlist();
 		playlist.addMusic(Sound.loadSoundInBackground(new MyFile(MyFile.RES_FOLDER, "music", "era-of-space.wav"), 0.80f));
@@ -85,7 +84,7 @@ public class MainGame extends IGame {
 			// Unpause the music for the main menu.
 			stillLoading = false;
 			FlounderEngine.getLogger().log("Starting main menu music.");
-			FlounderEngine.getDevices().getSound().getMusicPlayer().unpauseTrack();
+			//	FlounderEngine.getDevices().getSound().getMusicPlayer().unpauseTrack();
 		}
 
 		guis.update();

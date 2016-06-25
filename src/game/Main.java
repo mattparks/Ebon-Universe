@@ -9,6 +9,7 @@ import flounder.sounds.*;
 public class Main {
 	public static final Config CONFIG = new Config(new MyFile("configs", "settings.conf"));
 	public static final Config POST_CONFIG = new Config(new MyFile("configs", "post.conf"));
+	public static final Config CONTROLS_CONFIG = new Config(new MyFile("configs", "controls_joystick.conf"));
 
 	public static void main(String[] args) {
 		MusicPlayer.SOUND_VOLUME = (float) CONFIG.getDoubleWithDefault("sound_volume", 0.75f, () -> ("" + MusicPlayer.SOUND_VOLUME));
@@ -17,20 +18,21 @@ public class Main {
 				new MainGame(),
 				new MainCamera(),
 				new MainRenderer(),
-				CONFIG.getIntWithDefault("fps_target", -1, () -> ("" + FlounderEngine.getTargetFPS()))
+				CONFIG.getIntWithDefault("fps_target", -1, () -> FlounderEngine.getTargetFPS())
 		);
 		FlounderEngine engine = new FlounderEngine(implementation,
-				CONFIG.getIntWithDefault("width", 1080, () -> ("" + FlounderEngine.getDevices().getDisplay().getWidth())),
-				CONFIG.getIntWithDefault("height", 720, () -> ("" + FlounderEngine.getDevices().getDisplay().getHeight())),
+				CONFIG.getIntWithDefault("width", 1080, () -> FlounderEngine.getDevices().getDisplay().getWidth()),
+				CONFIG.getIntWithDefault("height", 720, () -> FlounderEngine.getDevices().getDisplay().getHeight()),
 				"4Space Game",
-				CONFIG.getBooleanWithDefault("vsync", true, () -> ("" + FlounderEngine.getDevices().getDisplay().isVSync())),
-				CONFIG.getBooleanWithDefault("antialias", true, () -> ("" + FlounderEngine.getDevices().getDisplay().isAntialiasing())),
+				CONFIG.getBooleanWithDefault("vsync", true, () -> FlounderEngine.getDevices().getDisplay().isVSync()),
+				CONFIG.getBooleanWithDefault("antialias", true, () -> FlounderEngine.getDevices().getDisplay().isAntialiasing()),
 				0,
-				CONFIG.getBooleanWithDefault("fullscreen", false, () -> ("" + FlounderEngine.getDevices().getDisplay().isFullscreen()))
+				CONFIG.getBooleanWithDefault("fullscreen", false, () -> FlounderEngine.getDevices().getDisplay().isFullscreen())
 		);
 		engine.startEngine(FlounderEngine.getFonts().fffForward);
 
 		CONFIG.dispose();
 		POST_CONFIG.dispose();
+		CONTROLS_CONFIG.dispose();
 	}
 }

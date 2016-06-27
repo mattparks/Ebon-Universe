@@ -53,6 +53,8 @@ public class MainPlayer {
 			Vector3f.rotate(velocity, rotation, velocity);
 
 			Vector3f.add(position, velocity, position);
+
+			PlayerManager.movePlayer(position, rotation);
 		}
 	}
 

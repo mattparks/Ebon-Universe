@@ -1,4 +1,4 @@
-package game;
+package game.cameras;
 
 import flounder.engine.*;
 import flounder.engine.implementation.*;
@@ -12,7 +12,7 @@ import sun.reflect.generics.reflectiveObjects.*;
 
 import static org.lwjgl.glfw.GLFW.*;
 
-public class MainCamera implements ICamera {
+public class CameraFPS implements ICamera {
 	private static final float NEAR_PLANE = 0.1f;
 	private static final float FAR_PLANE = 3200.0f;
 	private static final float FIELD_OF_VIEW = 70.0f;
@@ -32,11 +32,12 @@ public class MainCamera implements ICamera {
 	private final static float INFLUENCE_OF_JOYSTICKDY = -1.0f;
 	private final static float INFLUENCE_OF_JOYSTICKDX = 100.0f * INFLUENCE_OF_JOYSTICKDY;
 
-	public static int toggleMouseMoveKey;
-
+	private int toggleMouseMoveKey;
 	private Vector3f reusableViewVector;
+
 	private Vector3f position;
 	private Vector3f rotation;
+
 	private Frustum viewFrustum;
 	private Matrix4f viewMatrix;
 	private JoystickAxis joystickRotateX;
@@ -51,13 +52,14 @@ public class MainCamera implements ICamera {
 
 	@Override
 	public void init() {
+		this.toggleMouseMoveKey = GLFW_MOUSE_BUTTON_LEFT;
 		this.reusableViewVector = new Vector3f();
+
 		this.position = new Vector3f();
 		this.rotation = new Vector3f();
 		this.viewFrustum = new Frustum();
 		this.viewMatrix = new Matrix4f();
 
-		this.toggleMouseMoveKey = GLFW_MOUSE_BUTTON_LEFT;
 		this.joystickRotateX = new JoystickAxis(OptionsControls.JOYSTICK_PORT, OptionsControls.JOYSTICK_AXIS_X);
 		this.joystickRotateY = new JoystickAxis(OptionsControls.JOYSTICK_PORT, OptionsControls.JOYSTICK_AXIS_Y);
 

@@ -2,19 +2,27 @@ package game;
 
 import flounder.engine.*;
 import flounder.engine.implementation.*;
+import flounder.exceptions.*;
 import flounder.helpers.*;
 import flounder.inputs.*;
 import flounder.lights.*;
 import flounder.maths.*;
 import flounder.maths.vectors.*;
-import flounder.models.*;
+import flounder.parsing.*;
+import flounder.physics.*;
 import flounder.resources.*;
 import flounder.sounds.*;
+import game.cameras.*;
+import game.players.*;
 import game.options.*;
 
 import static org.lwjgl.glfw.GLFW.*;
 
 public class MainGame extends IGame {
+	public static final Config CONFIG = new Config(new MyFile("configs", "settings.conf"));
+	public static final Config POST_CONFIG = new Config(new MyFile("configs", "post.conf"));
+	public static final Config CONTROLS_CONFIG = new Config(new MyFile("configs", "controls_joystick.conf"));
+
 	private KeyButton screenshot;
 	private KeyButton fullscreen;
 	private KeyButton polygons;
@@ -22,7 +30,9 @@ public class MainGame extends IGame {
 	private CompoundButton skipMusic;
 
 	private MainGuis guis;
-	private MainPlayer player;
+	private IPlayer player;
+
+	private AABB testAABB;
 
 	private boolean stillLoading;
 
@@ -35,20 +45,31 @@ public class MainGame extends IGame {
 		this.skipMusic = new CompoundButton(new KeyButton(GLFW_KEY_LEFT, GLFW_KEY_RIGHT), new JoystickButton(OptionsControls.JOYSTICK_PORT, OptionsControls.JOYSTICK_MUSIC_SKIP));
 
 		this.guis = new MainGuis();
-		this.player = new MainPlayer();
+
+		if (FlounderEngine.getCamera() instanceof CameraFocus) {
+			this.player = new PlayerFocus();
+		} else if (FlounderEngine.getCamera() instanceof CameraFPS) {
+			this.player = new PlayerFPS();
+		} else {
+			throw new FlounderRuntimeException("Could not find IPlayer implementation for ICamera!");
+		}
+
+		this.player.init();
+
+		this.testAABB = new AABB();
+		testAABB.getMinExtents().set(0, 0, 0);
+		testAABB.getMaxExtents().set(1.5f, 1.5f, 1.5f);
 
 		this.stillLoading = true;
 
-		//FlounderEngine.getNetwork().startServer();
+		FlounderEngine.getNetwork().startServer();
 		FlounderEngine.getNetwork().startClient();
 
-		Model cubeModel = Model.newModel(new MyFile(MyFile.RES_FOLDER, "blocks", "cube.obj")).create();
-
-	//	Playlist playlist = new Playlist();
-	//	playlist.addMusic(Sound.loadSoundInBackground(new MyFile(MyFile.RES_FOLDER, "music", "era-of-space.wav"), 0.80f));
-	//	playlist.addMusic(Sound.loadSoundInBackground(new MyFile(MyFile.RES_FOLDER, "music", "pyrosanical.wav"), 0.50f));
-	//	playlist.addMusic(Sound.loadSoundInBackground(new MyFile(MyFile.RES_FOLDER, "music", "spacey-ambient.wav"), 0.60f));
-	//	FlounderEngine.getDevices().getSound().getMusicPlayer().playMusicPlaylist(playlist, true, 4.0f, 10.0f);
+		Playlist playlist = new Playlist();
+		playlist.addMusic(Sound.loadSoundInBackground(new MyFile(MyFile.RES_FOLDER, "music", "era-of-space.wav"), 0.80f));
+		playlist.addMusic(Sound.loadSoundInBackground(new MyFile(MyFile.RES_FOLDER, "music", "pyrosanical.wav"), 0.50f));
+		playlist.addMusic(Sound.loadSoundInBackground(new MyFile(MyFile.RES_FOLDER, "music", "spacey-ambient.wav"), 0.60f));
+		FlounderEngine.getDevices().getSound().getMusicPlayer().playMusicPlaylist(playlist, true, 4.0f, 10.0f);
 
 		Environment.init(new Fog(new Colour(0.5f, 0.5f, 0.5f, false), 0.001f, 2.0f, 0.0f, 50.0f), new Light(new Colour(0.85f, 0.85f, 0.85f), new Vector3f(0.0f, 2000.0f, 2000.0f)));
 	}
@@ -86,9 +107,11 @@ public class MainGame extends IGame {
 		} else if (!MainGuis.isStartingGame() && stillLoading) {
 			// Unpause the music for the main menu.
 			stillLoading = false;
-			FlounderEngine.getLogger().log("Starting main menu music.");
-			FlounderEngine.getDevices().getSound().getMusicPlayer().unpauseTrack();
+			//	FlounderEngine.getLogger().log("Starting main menu music.");
+			//	FlounderEngine.getDevices().getSound().getMusicPlayer().unpauseTrack();
 		}
+
+		FlounderEngine.getAABBs().addAABBRender(testAABB);
 
 		guis.update();
 		player.update(guis.isMenuOpen());
@@ -99,6 +122,9 @@ public class MainGame extends IGame {
 
 	@Override
 	public void dispose() {
+		CONTROLS_CONFIG.dispose();
+		POST_CONFIG.dispose();
+		CONFIG.dispose();
 	}
 }
 

@@ -1,7 +1,6 @@
 package game;
 
 
-import flounder.engine.*;
 import flounder.helpers.*;
 import flounder.maths.vectors.*;
 import flounder.networking.*;
@@ -65,7 +64,7 @@ public class MovePacket extends Packet {
 
 	@Override
 	public byte[] getData() {
-		return (getDataPrefix() + username + "#[" + position.x + ","+ position.y + "," + position.z + "]" + "#[" + rotation.x + ","+ rotation.y + "," + rotation.z + "]").getBytes();
+		return (getDataPrefix() + username + "#[" + position.x + "," + position.y + "," + position.z + "]" + "#[" + rotation.x + "," + rotation.y + "," + rotation.z + "]").getBytes();
 	}
 
 	public String getUsername() {

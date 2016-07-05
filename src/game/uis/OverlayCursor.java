@@ -16,7 +16,7 @@ public class OverlayCursor extends GuiComponent {
 	private Colour clickRightColour;
 
 	public OverlayCursor() {
-		cursorTexture = new GuiTexture(Texture.newTexture(new MyFile(MyFile.RES_FOLDER, "Cursor.png")).createInSecondThread(), false);
+		cursorTexture = new GuiTexture(Texture.newTexture(new MyFile(MyFile.RES_FOLDER, "cursor.png")).createInSecondThread(), false);
 		cursorTexture.getTexture().setNumberOfRows(1);
 		cursorTexture.setSelectedRow(1);
 		inactiveColour = new Colour(0.0f, 0.0f, 0.0f);

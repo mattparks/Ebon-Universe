@@ -1,18 +1,19 @@
-package game;
+package game.players;
 
 import flounder.engine.*;
 import flounder.inputs.*;
 import flounder.maths.*;
 import flounder.maths.vectors.*;
+import game.*;
 import game.options.*;
 
 import static org.lwjgl.glfw.GLFW.*;
 
-public class MainPlayer {
+public class PlayerFocus implements IPlayer {
 	private static final float SPEED_BOOST_SCALE = 2.75f;
-	private static final float FRONT_SPEED = 60;
-	private static final float UP_SPEED = 40;
-	private static final float SIDE_SPEED = 60;
+	private static final float FRONT_SPEED = 30;
+	private static final float UP_SPEED = 20;
+	private static final float SIDE_SPEED = 30;
 
 	private IAxis inputForward;
 	private IAxis inputUp;
@@ -24,7 +25,8 @@ public class MainPlayer {
 	private Vector3f position;
 	private Vector3f rotation;
 
-	public MainPlayer() {
+	@Override
+	public void init() {
 		IButton leftKeyButtons = new KeyButton(GLFW_KEY_A, GLFW_KEY_LEFT);
 		IButton rightKeyButtons = new KeyButton(GLFW_KEY_D, GLFW_KEY_RIGHT);
 		IButton forwardsKeyButtons = new KeyButton(GLFW_KEY_W, GLFW_KEY_UP);
@@ -43,25 +45,24 @@ public class MainPlayer {
 		this.rotation = new Vector3f(0, 0, 0);
 	}
 
+	@Override
 	public void update(boolean paused) {
 		if (!paused) {
-			float speedBoost = inputSpeedBoost.isDown() ? SPEED_BOOST_SCALE : 1.0f;
-			rotation.set(0.0f, FlounderEngine.getCamera().getYaw(), 0.0f);
-			velocity.x = speedBoost * SIDE_SPEED * FlounderEngine.getDelta() * Maths.deadband(0.05f, inputSide.getAmount());
-			velocity.y = speedBoost * UP_SPEED * FlounderEngine.getDelta() * Maths.deadband(0.05f, inputUp.getAmount());
-			velocity.z = speedBoost * FRONT_SPEED * FlounderEngine.getDelta() * Maths.deadband(0.05f, inputForward.getAmount());
-			Vector3f.rotate(velocity, rotation, velocity);
+			velocity.z = -FRONT_SPEED * FlounderEngine.getDelta() * Maths.deadband(0.05f, inputForward.getAmount());
+			velocity.y = -UP_SPEED * 0.0f;
+			velocity.x = -SIDE_SPEED * FlounderEngine.getDelta() * Maths.deadband(0.05f, inputSide.getAmount());
 
 			Vector3f.add(position, velocity, position);
-
 			PlayerManager.movePlayer(position, rotation);
 		}
 	}
 
+	@Override
 	public Vector3f getPosition() {
 		return position;
 	}
 
+	@Override
 	public Vector3f getRotation() {
 		return rotation;
 	}

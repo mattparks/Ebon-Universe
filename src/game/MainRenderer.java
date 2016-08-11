@@ -43,7 +43,8 @@ public class MainRenderer extends IRendererMaster {
 		this.cursorRenderer = new GuiRenderer(GuiRenderer.GuiRenderType.CURSOR);
 		this.fontRenderer = new FontRenderer();
 
-		multisamplingFBO = FBO.newFBO(1.0f).attachments(3).antialias(FlounderEngine.getDevices().getDisplay().getSamples()).create();
+		// Position, Normals, Albedo, Specular
+		multisamplingFBO = FBO.newFBO(1.0f).attachments(4).antialias(FlounderEngine.getDevices().getDisplay().getSamples()).create();
 		postProcessingFBO = FBO.newFBO(1.0f).depthBuffer(DepthBufferType.TEXTURE).create();
 
 		pipelineDemo = new PipelineDemo();
@@ -88,7 +89,7 @@ public class MainRenderer extends IRendererMaster {
 		if (OptionsPost.POST_ENABLED) {
 			if (FlounderEngine.getDevices().getDisplay().isAntialiasing()) {
 				multisamplingFBO.unbindFrameBuffer();
-				multisamplingFBO.resolveFBO(postProcessingFBO);
+				multisamplingFBO.resolveFBO(0, postProcessingFBO);
 			} else {
 				postProcessingFBO.unbindFrameBuffer();
 			}
@@ -120,7 +121,7 @@ public class MainRenderer extends IRendererMaster {
 
 			// Paused Screen:
 			if (isPaused || blurFactor != 0.0f) {
-				output.resolveFBO(pipelineGaussian1);
+				output.resolveFBO(0, pipelineGaussian1);
 
 				pipelineGaussian2.setScale(1.25f);
 				pipelineGaussian2.renderPipeline(pipelineGaussian1);

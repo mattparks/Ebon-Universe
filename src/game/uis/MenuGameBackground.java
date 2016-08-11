@@ -3,6 +3,7 @@ package game.uis;
 import flounder.engine.*;
 import flounder.guis.*;
 import flounder.visual.*;
+import game.*;
 
 import java.util.*;
 

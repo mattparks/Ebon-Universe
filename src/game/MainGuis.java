@@ -14,11 +14,10 @@ import static org.lwjgl.glfw.GLFW.*;
 public class MainGuis {
 	public static final Colour STARTUP_COLOUR = new Colour();
 
-	private MenuGameBackground gameMenu;
-	private OverlayCursor overlayCursor;
+	private static MenuGameBackground gameMenu;
 
-	private CompoundButton openKey;
-	private boolean menuOpen;
+	private static CompoundButton openKey;
+	private static boolean menuOpen;
 
 	private static boolean startingGame;
 	private static boolean forceOpenGUIs;
@@ -27,17 +26,15 @@ public class MainGuis {
 	 * Carries out any necessary initialization of Guis.
 	 */
 	public MainGuis() {
-		this.gameMenu = new MenuGameBackground();
-		this.overlayCursor = new OverlayCursor();
+		MainGuis.gameMenu = new MenuGameBackground();
 
-		this.openKey = new CompoundButton(new KeyButton(GLFW_KEY_ESCAPE), new JoystickButton(OptionsControls.JOYSTICK_PORT, OptionsControls.JOYSTICK_GUI_TOGGLE));
-		this.menuOpen = false;
+		MainGuis.openKey = new CompoundButton(new KeyButton(GLFW_KEY_ESCAPE), new JoystickButton(OptionsControls.JOYSTICK_PORT, OptionsControls.JOYSTICK_GUI_TOGGLE));
+		MainGuis.menuOpen = false;
 
 		MainGuis.startingGame = true;
 		MainGuis.forceOpenGUIs = false;
 
 		FlounderEngine.getGuis().addComponent(gameMenu, 0, 0, 1, 1);
-		FlounderEngine.getGuis().addComponent(overlayCursor, 0, 0, 1, 1);
 		FlounderEngine.getGuis().getSelector().initJoysticks(OptionsControls.JOYSTICK_PORT, OptionsControls.JOYSTICK_GUI_LEFT, OptionsControls.JOYSTICK_GUI_RIGHT, OptionsControls.JOYSTICK_AXIS_X, OptionsControls.JOYSTICK_AXIS_Y);
 		FlounderEngine.getDevices().getDisplay().setCursorHidden(true);
 	}
@@ -48,7 +45,7 @@ public class MainGuis {
 	public void update() {
 		if (forceOpenGUIs) {
 			gameMenu.display(true);
-			overlayCursor.show(true);
+			FlounderEngine.getCursor().show(true);
 			forceOpenGUIs = false;
 		}
 
@@ -56,14 +53,16 @@ public class MainGuis {
 
 		if (!startingGame && openKey.wasDown()) {
 			gameMenu.display(!gameMenu.isDisplayed());
-			overlayCursor.show(true);
-		}
-
-		if (!gameMenu.getSlideDriver().equals(overlayCursor.getCursorTexture().getAlphaDriver())) {
-			overlayCursor.setAlphaDriver(gameMenu.getSlideDriver());
+			FlounderEngine.getCursor().show(true);
 		}
 
 		menuOpen = gameMenu.isDisplayed();
+
+		if (!gameMenu.getSlideDriver().equals(FlounderEngine.getCursor().getCursorTexture().getAlphaDriver())) {
+			FlounderEngine.getCursor().setAlphaDriver(gameMenu.getSlideDriver());
+		}
+
+	//	overlayScores.show(!menuOpen && !startingGame);
 	}
 
 	public static boolean isStartingGame() {
@@ -74,15 +73,11 @@ public class MainGuis {
 		forceOpenGUIs = true;
 	}
 
-	public OverlayCursor getOverlayCursor() {
-		return overlayCursor;
-	}
-
-	public float getBlurFactor() {
+	public static float getBlurFactor() {
 		return gameMenu.getBlurFactor();
 	}
 
-	public boolean isMenuOpen() {
+	public static boolean isMenuOpen() {
 		return menuOpen;
 	}
 }

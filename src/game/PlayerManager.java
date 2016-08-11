@@ -15,6 +15,6 @@ public class PlayerManager {
 	}
 
 	public static void movePlayer(Vector3f position, Vector3f rotation) {
-		new MovePacket(FlounderEngine.getNetwork().getUsername(), position, rotation).writeData(FlounderEngine.getNetwork().getSocketClient());
+	//	new MovePacket(FlounderEngine.getNetwork().getUsername(), position, rotation).writeData(FlounderEngine.getNetwork().getSocketClient());
 	}
 }

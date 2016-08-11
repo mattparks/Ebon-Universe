@@ -62,8 +62,11 @@ public class MainGame extends IGame {
 
 		this.stillLoading = true;
 
-		FlounderEngine.getNetwork().startServer();
-		FlounderEngine.getNetwork().startClient();
+	//	FlounderEngine.getNetwork().startServer();
+	//	FlounderEngine.getNetwork().startClient();
+
+	//	Light testLight = new Light(new Colour(1, 1, 1), new Vector3f(0, 14, 0), new Attenuation(1, 0.01f, 0.002f));
+	//	FlounderEngine.getLogger().log("Distance = " + testLight.attenuation.getDistance());
 
 		Playlist playlist = new Playlist();
 		playlist.addMusic(Sound.loadSoundInBackground(new MyFile(MyFile.RES_FOLDER, "music", "era-of-space.wav"), 0.80f));

@@ -50,17 +50,17 @@ public class ScreenOptionsPost extends GuiComponent {
 		button.addLeftListener(() -> {
 			OptionsPost.POST_EFFECT += 1;
 
-			if (OptionsPost.POST_EFFECT > OptionsPost.POST_EFFECT_MAX) {
-				OptionsPost.POST_EFFECT = OptionsPost.POST_EFFECT_MAX;
-			}
+		//	if (OptionsPost.POST_EFFECT > OptionsPost.POST_EFFECT_MAX) {
+		//		OptionsPost.POST_EFFECT = OptionsPost.POST_EFFECT_MAX;
+		//	}
 		});
 
 		button.addRightListener(() -> {
 			OptionsPost.POST_EFFECT -= 1;
 
-			if (OptionsPost.POST_EFFECT < 0) {
-				OptionsPost.POST_EFFECT = 0;
-			}
+		//	if (OptionsPost.POST_EFFECT < 0) {
+		//		OptionsPost.POST_EFFECT = 0;
+		//	}
 		});
 
 		button.addActionListener(new ListenerAdvanced() {

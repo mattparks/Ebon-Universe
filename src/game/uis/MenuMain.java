@@ -36,6 +36,7 @@ public class MenuMain extends GuiComponent {
 	private SinWaveDriver titleColourY;
 
 	private ScreenOption screenOption;
+	private ScreenAbout screenAbout;
 	private ScreenQuit screenQuit;
 
 	protected MenuMain(MenuGameBackground superMenu, MenuGame menuGame) {
@@ -43,9 +44,10 @@ public class MenuMain extends GuiComponent {
 		this.superMenu = superMenu;
 
 		this.screenOption = new ScreenOption(menuGame);
+		this.screenAbout = new ScreenAbout(menuGame);
 		this.screenQuit = new ScreenQuit(menuGame);
 
-		titleText = Text.newText("Flounder Engine").centre().setFontSize(MenuGame.MAIN_TITLE_FONT_SIZE).create();
+		titleText = Text.newText("4SPACE").centre().setFontSize(MenuGame.MAIN_TITLE_FONT_SIZE).create();
 		titleText.setColour(MenuGame.TEXT_COLOUR);
 		titleText.setBorderColour(MenuGame.TEXT_COLOUR.r, MenuGame.TEXT_COLOUR.g, MenuGame.TEXT_COLOUR.b);
 		titleText.setGlowing(new SinWaveDriver(0.075f, 0.150f, 2.320f));
@@ -53,9 +55,10 @@ public class MenuMain extends GuiComponent {
 		titleColourX = new SinWaveDriver(0.0f, 1.0f, 40.0f);
 		titleColourY = new SinWaveDriver(0.0f, 1.0f, 20.0f);
 
-		createPlayButton(0.3f);
-		createOptionsButton(0.6f);
-		createQuitButton(0.9f);
+		createPlayButton(0.2f);
+		createOptionsButton(0.2f + (1 * 0.23f));
+		createAboutButton(0.2f + (2 * 0.23f));
+		createQuitButton(0.2f + (3 * 0.23f));
 	}
 
 	private void createPlayButton(float yPos) {
@@ -67,6 +70,12 @@ public class MenuMain extends GuiComponent {
 	private void createOptionsButton(float yPos) {
 		GuiTextButton button = createButton("Options", BUTTONS_CENTRE_X_POS, yPos, BUTTONS_CENTRE_X_WIDTH, BUTTONS_Y_SIZE, FONT_SIZE, this);
 		button.addLeftListener(() -> menuGame.setNewSecondaryScreen(screenOption, true));
+		button.addRightListener(null);
+	}
+
+	private void createAboutButton(float yPos) {
+		GuiTextButton button = createButton("About", BUTTONS_CENTRE_X_POS, yPos, BUTTONS_CENTRE_X_WIDTH, BUTTONS_Y_SIZE, FONT_SIZE, this);
+		button.addLeftListener(() -> menuGame.setNewSecondaryScreen(screenAbout, true));
 		button.addRightListener(null);
 	}
 

@@ -21,6 +21,7 @@ public class MainRenderer extends IRendererMaster {
 
 	private AABBRenderer aabbRenderer;
 	private GuiRenderer guiRenderer;
+	private GuiRenderer cursorRenderer;
 	private FontRenderer fontRenderer;
 
 	private FBO multisamplingFBO;
@@ -38,7 +39,8 @@ public class MainRenderer extends IRendererMaster {
 		this.projectionMatrix = new Matrix4f();
 
 		this.aabbRenderer = new AABBRenderer();
-		this.guiRenderer = new GuiRenderer();
+		this.guiRenderer = new GuiRenderer(GuiRenderer.GuiRenderType.GUI);
+		this.cursorRenderer = new GuiRenderer(GuiRenderer.GuiRenderType.CURSOR);
 		this.fontRenderer = new FontRenderer();
 
 		multisamplingFBO = FBO.newFBO(1.0f).antialias(FlounderEngine.getDevices().getDisplay().getSamples()).create();
@@ -64,8 +66,9 @@ public class MainRenderer extends IRendererMaster {
 		renderPost(FlounderEngine.isGamePaused(), MainGuis.isStartingGame(), FlounderEngine.getScreenBlur());
 
 		/* Scene independents. */
-		fontRenderer.render(POSITIVE_INFINITY, null);
 		guiRenderer.render(POSITIVE_INFINITY, null);
+		fontRenderer.render(POSITIVE_INFINITY, null);
+		cursorRenderer.render(POSITIVE_INFINITY, null);
 
 		/* Unbinds the FBO. */
 		unbindRelevantFBO();
@@ -142,6 +145,7 @@ public class MainRenderer extends IRendererMaster {
 	@Override
 	public void dispose() {
 		aabbRenderer.dispose();
+		cursorRenderer.dispose();
 		guiRenderer.dispose();
 		fontRenderer.dispose();
 

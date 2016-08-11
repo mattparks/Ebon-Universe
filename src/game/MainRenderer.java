@@ -43,7 +43,7 @@ public class MainRenderer extends IRendererMaster {
 		this.cursorRenderer = new GuiRenderer(GuiRenderer.GuiRenderType.CURSOR);
 		this.fontRenderer = new FontRenderer();
 
-		multisamplingFBO = FBO.newFBO(1.0f).antialias(FlounderEngine.getDevices().getDisplay().getSamples()).create();
+		multisamplingFBO = FBO.newFBO(1.0f).attachments(3).antialias(FlounderEngine.getDevices().getDisplay().getSamples()).create();
 		postProcessingFBO = FBO.newFBO(1.0f).depthBuffer(DepthBufferType.TEXTURE).create();
 
 		pipelineDemo = new PipelineDemo();
@@ -125,11 +125,11 @@ public class MainRenderer extends IRendererMaster {
 				pipelineGaussian2.setScale(1.25f);
 				pipelineGaussian2.renderPipeline(pipelineGaussian1);
 
-				filterDarken.applyFilter(pipelineGaussian2.getOutput().getColourTexture());
+				filterDarken.applyFilter(pipelineGaussian2.getOutput().getColourTexture(0));
 				filterDarken.setFactorValue(Math.max(Math.abs(1.0f - blurFactor), 0.45f));
 
 				filterCombineSlide.setSlideSpace(blurFactor, 1.0f, 0.0f, 1.0f);
-				filterCombineSlide.applyFilter(output.getColourTexture(), filterDarken.fbo.getColourTexture());
+				filterCombineSlide.applyFilter(output.getColourTexture(0), filterDarken.fbo.getColourTexture(0));
 				output = filterCombineSlide.fbo;
 			}
 		}

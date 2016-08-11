@@ -35,31 +35,31 @@ public class PipelineDemo extends PostPipeline {
 	public void renderPipeline(FBO startFBO) {
 		switch (OptionsPost.POST_EFFECT) {
 			case 1:
-				filterEmboss.applyFilter(startFBO.getColourTexture());
+				filterEmboss.applyFilter(startFBO.getColourTexture(0));
 				filterEmboss.fbo.resolveFBO(filterOutput);
 				break;
 			case 2:
-				filterGray.applyFilter(startFBO.getColourTexture());
+				filterGray.applyFilter(startFBO.getColourTexture(0));
 				filterGray.fbo.resolveFBO(filterOutput);
 				break;
 			case 3:
-				filterNegative.applyFilter(startFBO.getColourTexture());
+				filterNegative.applyFilter(startFBO.getColourTexture(0));
 				filterNegative.fbo.resolveFBO(filterOutput);
 				break;
 			case 4:
-				filterPixel.applyFilter(startFBO.getColourTexture());
+				filterPixel.applyFilter(startFBO.getColourTexture(0));
 				filterPixel.fbo.resolveFBO(filterOutput);
 				break;
 			case 5:
-				filterSepia.applyFilter(startFBO.getColourTexture());
+				filterSepia.applyFilter(startFBO.getColourTexture(0));
 				filterSepia.fbo.resolveFBO(filterOutput);
 				break;
 			case 6:
-				filterTone.applyFilter(startFBO.getColourTexture());
+				filterTone.applyFilter(startFBO.getColourTexture(0));
 				filterTone.fbo.resolveFBO(filterOutput);
 				break;
 			case 7:
-				filterWobble.applyFilter(startFBO.getColourTexture());
+				filterWobble.applyFilter(startFBO.getColourTexture(0));
 				filterWobble.fbo.resolveFBO(filterOutput);
 				break;
 			default:
@@ -68,7 +68,7 @@ public class PipelineDemo extends PostPipeline {
 		}
 
 		if (OptionsPost.FILTER_FXAA) {
-			filterFXAA.applyFilter(filterOutput.getColourTexture());
+			filterFXAA.applyFilter(filterOutput.getColourTexture(0));
 			filterFXAA.fbo.resolveFBO(filterOutput);
 		}
 	}

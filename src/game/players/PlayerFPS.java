@@ -4,7 +4,6 @@ import flounder.engine.*;
 import flounder.inputs.*;
 import flounder.maths.*;
 import flounder.maths.vectors.*;
-import game.*;
 import game.options.*;
 
 import static org.lwjgl.glfw.GLFW.*;

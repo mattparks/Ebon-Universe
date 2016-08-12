@@ -1,9 +1,7 @@
 package game.uis;
 
 import flounder.engine.*;
-import flounder.fonts.*;
 import flounder.guis.*;
-import flounder.maths.*;
 import flounder.visual.*;
 
 import java.util.*;

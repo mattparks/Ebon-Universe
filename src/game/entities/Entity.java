@@ -1,6 +1,5 @@
 package game.entities;
 
-import flounder.engine.*;
 import flounder.maths.matrices.*;
 import flounder.maths.vectors.*;
 import flounder.physics.*;

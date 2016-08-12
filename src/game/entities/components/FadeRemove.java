@@ -1,7 +1,9 @@
 package game.entities.components;
 
 import flounder.engine.*;
+import flounder.helpers.*;
 import game.entities.*;
+import game.entities.loading.*;
 
 /**
  * A RemoveComponent that fades out until the entity disappears.
@@ -22,6 +24,18 @@ public class FadeRemove extends RemoveComponent {
 		timer = 0.0;
 		this.duration = duration;
 		removesAfterDuration = true;
+	}
+
+	/**
+	 * Creates a new FadeRemove. From strings loaded from entity files.
+	 *
+	 * @param entity The entity this component is attached to.
+	 * @param template The entity template to load data from.
+	 */
+	public FadeRemove(Entity entity, EntityTemplate template) {
+		this(entity, 0);
+		this.duration = Double.parseDouble(template.getValue(getClass().getName(), "Duration"));
+		this.removesAfterDuration = Boolean.parseBoolean(template.getValue(getClass().getName(), "RemovesAfterDuration"));
 	}
 
 	@Override
@@ -50,7 +64,18 @@ public class FadeRemove extends RemoveComponent {
 		}
 	}
 
+	@Override
+	public Pair<String[], SaveFunction[]> getSavableValues() {
+		String removeAfterSave = "RemovesAfterDuration: " + removesAfterDuration;
+		String durationSave = "Duration: " + duration;
+		return new Pair<>(new String[]{removeAfterSave, durationSave}, new SaveFunction[]{});
+	}
+
 	public void setDuration(double duration) {
 		this.duration = duration;
+	}
+
+	public void setRemovesAfterDuration(boolean removesAfterDuration) {
+		this.removesAfterDuration = removesAfterDuration;
 	}
 }

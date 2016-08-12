@@ -1,8 +1,10 @@
 package game.entities.components;
 
+import flounder.helpers.*;
 import flounder.maths.vectors.*;
 import flounder.physics.*;
 import game.entities.*;
+import game.entities.loading.*;
 
 /**
  * Component that detects collision between two engine.entities.
@@ -19,6 +21,16 @@ public class CollisionComponent extends IEntityComponent {
 	 */
 	public CollisionComponent(Entity entity) {
 		super(entity, ID);
+	}
+
+	/**
+	 * Creates a new CollisionComponent. From strings loaded from entity files.
+	 *
+	 * @param entity The entity this component is attached to.
+	 * @param template The entity template to load data from.
+	 */
+	public CollisionComponent(Entity entity, EntityTemplate template) {
+		this(entity);
 	}
 
 	/**
@@ -119,6 +131,11 @@ public class CollisionComponent extends IEntityComponent {
 		}
 
 		return moveAmountZ;
+	}
+
+	@Override
+	public Pair<String[], SaveFunction[]> getSavableValues() {
+		return new Pair<>(new String[]{}, new SaveFunction[]{});
 	}
 
 	@Override

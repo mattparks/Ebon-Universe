@@ -7,10 +7,26 @@ import flounder.space.*;
 import flounder.textures.*;
 import game.entities.*;
 import game.entities.components.*;
+import game.entities.loading.*;
 
 public class EntitySphere {
+	public static EntityTemplate TEMPLATE = null;
+	public static boolean saved = false;
+
 	public static Entity createEntity(ISpatialStructure<Entity> structure, Vector3f position, Vector3f rotation) {
-		return new EntitySphereEntity(structure, position, rotation);
+		if (TEMPLATE == null) {
+			if ((TEMPLATE = EntityLoader.load("sphere")) == null) {
+				Entity entity = new EntitySphereEntity(structure, position, rotation);
+
+				if (!saved) {
+					EntitySaver.save(entity, "sphere");
+					saved = true;
+				}
+
+				return entity;
+			}
+		}
+		return TEMPLATE.createEntity(structure, position, rotation);
 	}
 
 	public static class EntitySphereEntity extends Entity {
@@ -18,9 +34,9 @@ public class EntitySphere {
 			super(structure, position, rotation);
 			Model model = Model.newModel(new MyFile(MyFile.RES_FOLDER, "models", "sphere.obj")).create();
 			Texture texture = Texture.newTexture(new MyFile(MyFile.RES_FOLDER, "entities", "sphere.png")).create();
-			
-		//	model.setShineDamper(10.0f);
-		//	model.setReflectivity(0.5f);
+
+			//	model.setShineDamper(10.0f);
+			//	model.setReflectivity(0.5f);
 
 			new ColliderComponent(this);
 			new CollisionComponent(this);

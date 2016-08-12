@@ -73,22 +73,22 @@ public class MainRenderer extends IRendererMaster {
 
 	private void bindRelevantFBO() {
 //		if (OptionsPost.POST_ENABLED) {
-			if (FlounderEngine.getDevices().getDisplay().isAntialiasing()) {
-				multisamplingFBO.bindFrameBuffer();
-			} else {
-				postProcessingFBO.bindFrameBuffer();
-			}
+		if (FlounderEngine.getDevices().getDisplay().isAntialiasing()) {
+			multisamplingFBO.bindFrameBuffer();
+		} else {
+			postProcessingFBO.bindFrameBuffer();
+		}
 //		}
 	}
 
 	private void unbindRelevantFBO() {
 //		if (OptionsPost.POST_ENABLED) {
-			if (FlounderEngine.getDevices().getDisplay().isAntialiasing()) {
-				multisamplingFBO.unbindFrameBuffer();
-				multisamplingFBO.resolveFBO(3, postProcessingFBO);
-			} else {
-				postProcessingFBO.unbindFrameBuffer();
-			}
+		if (FlounderEngine.getDevices().getDisplay().isAntialiasing()) {
+			multisamplingFBO.unbindFrameBuffer();
+			multisamplingFBO.resolveFBO(3, postProcessingFBO);
+		} else {
+			postProcessingFBO.unbindFrameBuffer();
+		}
 //		}
 	}
 

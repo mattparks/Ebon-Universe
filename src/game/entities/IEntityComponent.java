@@ -1,7 +1,10 @@
 package game.entities;
 
+import flounder.helpers.*;
+import game.entities.loading.*;
+
 /**
- * Base class for all components that can be attached to engine.entities. (Have a constructor that takes in '(Entity entity, EntityFileTemplate template)' for the entity loader).
+ * Base class for all components that can be attached to engine.entities. (Have a constructor that takes in '(Entity entity, EntityTemplate template)' for the entity loader).
  */
 public abstract class IEntityComponent {
 	private Entity entity;
@@ -36,6 +39,11 @@ public abstract class IEntityComponent {
 	public Entity getEntity() {
 		return entity;
 	}
+
+	/**
+	 * @return Returns a list of values that are saved with the component.
+	 */
+	public abstract Pair<String[], SaveFunction[]> getSavableValues();
 
 	/**
 	 * Updates this component.

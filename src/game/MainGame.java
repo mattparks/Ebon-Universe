@@ -8,16 +8,13 @@ import flounder.inputs.*;
 import flounder.lights.*;
 import flounder.maths.*;
 import flounder.maths.vectors.*;
-import flounder.models.*;
 import flounder.parsing.*;
 import flounder.resources.*;
 import flounder.sounds.*;
-import flounder.textures.*;
 import game.cameras.*;
-import game.entities.*;
 import game.entities.objects.*;
-import game.players.*;
 import game.options.*;
+import game.players.*;
 
 import java.util.*;
 
@@ -64,9 +61,9 @@ public class MainGame extends IGame {
 
 		Random ran = new Random();
 
-		for (int n = 0 ; n < 32; n++) {
-			for (int p = 0 ; p < 32; p++) {
-				for (int q = 0 ; q < 32; q++) {
+		for (int n = 0; n < 32; n++) {
+			for (int p = 0; p < 32; p++) {
+				for (int q = 0; q < 32; q++) {
 					if (ran.nextInt(10) == 1) {
 						EntityCrate.createEntity(Environment.getEntitys(), new Vector3f((n * 5) + 10, (p * 5) + 10, (q * 5) + 10), new Vector3f());
 					}

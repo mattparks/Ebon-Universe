@@ -67,7 +67,7 @@ public class MainGuis {
 			FlounderEngine.getCursor().setAlphaDriver(gameMenu.getSlideDriver());
 		}
 
-	//	overlayShading.show(!menuOpen && !startingGame);
+		//	overlayShading.show(!menuOpen && !startingGame);
 	}
 
 	public static boolean isStartingGame() {

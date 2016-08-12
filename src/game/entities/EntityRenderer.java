@@ -40,7 +40,7 @@ public class EntityRenderer extends IRenderer {
 	public void profile() {
 		if (FlounderEngine.getProfiler().isOpen()) {
 			FlounderEngine.getProfiler().add("Entity", "Render Time", super.getRenderTimeMs());
-		//	FlounderEngine.getProfiler().add("Entity", "Objects", Environment.getEntitys().size());
+			//	FlounderEngine.getProfiler().add("Entity", "Objects", Environment.getEntitys().size());
 		}
 	}
 

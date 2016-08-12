@@ -1,12 +1,16 @@
 package game;
 
 import flounder.lights.*;
+import game.entitys.*;
+
+import java.util.*;
 
 public class Environment {
 	public static final float GRAVITY = -50.0f;
 
 	private static Fog fog;
-	private static Light sun;
+	private static List<Light> lights;
+	private static List<Entity> entitys;
 
 	/**
 	 * Initializes the start game environment.
@@ -16,7 +20,9 @@ public class Environment {
 	 */
 	public static void init(Fog fog, Light sun) {
 		Environment.fog = fog;
-		Environment.sun = sun;
+		Environment.lights = new ArrayList<>();
+		Environment.lights.add(sun);
+		Environment.entitys = new ArrayList<>();
 	}
 
 	public static void update() {
@@ -26,7 +32,11 @@ public class Environment {
 		return fog;
 	}
 
-	public static Light getSun() {
-		return sun;
+	public static List<Light> getLights() {
+		return lights;
+	}
+
+	public static List<Entity> getEntitys() {
+		return entitys;
 	}
 }

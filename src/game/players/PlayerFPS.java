@@ -41,7 +41,7 @@ public class PlayerFPS implements IPlayer {
 
 		this.velocity = new Vector3f(0, 0, 0);
 
-		this.position = new Vector3f(0, 5, 0);
+		this.position = new Vector3f(0, 0, -5);
 		this.rotation = new Vector3f(0, 0, 0);
 	}
 
@@ -56,8 +56,6 @@ public class PlayerFPS implements IPlayer {
 			Vector3f.rotate(velocity, rotation, velocity);
 
 			Vector3f.add(position, velocity, position);
-
-			PlayerManager.movePlayer(position, rotation);
 		}
 	}
 

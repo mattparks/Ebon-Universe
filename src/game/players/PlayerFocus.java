@@ -53,7 +53,6 @@ public class PlayerFocus implements IPlayer {
 			velocity.x = -SIDE_SPEED * FlounderEngine.getDelta() * Maths.deadband(0.05f, inputSide.getAmount());
 
 			Vector3f.add(position, velocity, position);
-			PlayerManager.movePlayer(position, rotation);
 		}
 	}
 

@@ -8,13 +8,18 @@ import flounder.inputs.*;
 import flounder.lights.*;
 import flounder.maths.*;
 import flounder.maths.vectors.*;
+import flounder.models.*;
 import flounder.parsing.*;
 import flounder.physics.*;
 import flounder.resources.*;
 import flounder.sounds.*;
+import flounder.textures.*;
 import game.cameras.*;
+import game.entitys.*;
 import game.players.*;
 import game.options.*;
+
+import java.util.*;
 
 import static org.lwjgl.glfw.GLFW.*;
 
@@ -32,7 +37,7 @@ public class MainGame extends IGame {
 	private MainGuis guis;
 	private IPlayer player;
 
-	private AABB testAABB;
+	//private AABB testAABB;
 
 	private boolean stillLoading;
 
@@ -55,15 +60,41 @@ public class MainGame extends IGame {
 		}
 
 		this.player.init();
+		Environment.init(new Fog(new Colour(0.5f, 0.5f, 0.5f, false), 0.001f, 2.0f, 0.0f, 50.0f), new Light(new Colour(0.85f, 0.85f, 0.85f), new Vector3f(0.0f, 2000.0f, 2000.0f)));
 
-		this.testAABB = new AABB();
-		testAABB.getMinExtents().set(0, 0, 0);
-		testAABB.getMaxExtents().set(1.5f, 1.5f, 1.5f);
+	//	this.testAABB = new AABB();
+	//	testAABB.getMinExtents().set(0.0f, 0.0f, 0.0f);
+	//	testAABB.getMaxExtents().set(8.0f, 8.0f, 8.0f);
+
+		Environment.getEntitys().add(Entity.newEntity(
+				Model.newModel(new MyFile(MyFile.RES_FOLDER, "entitys", "barrel.obj")).createInBackground(),
+				Texture.newTexture(new MyFile(MyFile.RES_FOLDER, "entitys", "barrel.png")).createInBackground()
+			)
+				.setNormalMap(Texture.newTexture(new MyFile(MyFile.RES_FOLDER, "entitys", "barrelNormal.png")).createInBackground())
+				.setPosition(new Vector3f()).setRotation(new Vector3f()).setScale(0.8f)
+				.create()
+		);
+
+		Random ran = new Random();
+
+		for (int n = 0 ; n < 32; n++) {
+			for (int p = 0 ; p < 32; p++) {
+				for (int q = 0 ; q < 32; q++) {
+					if (ran.nextInt(10) == 1) {
+						Environment.getEntitys().add(Entity.newEntity(
+								Model.newModel(new MyFile(MyFile.RES_FOLDER, "entitys", "crate.obj")).createInBackground(),
+								Texture.newTexture(new MyFile(MyFile.RES_FOLDER, "entitys", "crate.png")).createInBackground()
+							)
+								.setNormalMap(Texture.newTexture(new MyFile(MyFile.RES_FOLDER, "entitys", "crateNormal.png")).createInBackground())
+								.setPosition(new Vector3f((n * 5) + 10, (p * 5) + 10, (q * 5) + 10)).setRotation(new Vector3f()).setScale(0.025f)
+								.create()
+						);
+					}
+				}
+			}
+		}
 
 		this.stillLoading = true;
-
-	//	FlounderEngine.getNetwork().startServer();
-	//	FlounderEngine.getNetwork().startClient();
 
 	//	Light testLight = new Light(new Colour(1, 1, 1), new Vector3f(0, 14, 0), new Attenuation(1, 0.01f, 0.002f));
 	//	FlounderEngine.getLogger().log("Distance = " + testLight.attenuation.getDistance());
@@ -73,8 +104,6 @@ public class MainGame extends IGame {
 		playlist.addMusic(Sound.loadSoundInBackground(new MyFile(MyFile.RES_FOLDER, "music", "pyrosanical.wav"), 0.50f));
 		playlist.addMusic(Sound.loadSoundInBackground(new MyFile(MyFile.RES_FOLDER, "music", "spacey-ambient.wav"), 0.60f));
 		FlounderEngine.getDevices().getSound().getMusicPlayer().playMusicPlaylist(playlist, true, 4.0f, 10.0f);
-
-		Environment.init(new Fog(new Colour(0.5f, 0.5f, 0.5f, false), 0.001f, 2.0f, 0.0f, 50.0f), new Light(new Colour(0.85f, 0.85f, 0.85f), new Vector3f(0.0f, 2000.0f, 2000.0f)));
 	}
 
 	@Override
@@ -114,12 +143,11 @@ public class MainGame extends IGame {
 			//	FlounderEngine.getDevices().getSound().getMusicPlayer().unpauseTrack();
 		}
 
-		FlounderEngine.getAABBs().addAABBRender(testAABB);
+		//FlounderEngine.getAABBs().addAABBRender(testAABB);
 
 		guis.update();
 		player.update(guis.isMenuOpen());
 		Environment.update();
-		PlayerManager.update();
 		update(player.getPosition(), player.getRotation(), guis.isMenuOpen(), guis.getBlurFactor());
 	}
 

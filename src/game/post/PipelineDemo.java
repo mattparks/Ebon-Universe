@@ -31,6 +31,10 @@ public class PipelineDemo extends PostPipeline {
 		filterOutput = FBO.newFBO(1.0f).create();
 	}
 
+	public boolean willRunDemo() {
+		return OptionsPost.POST_EFFECT > 0 && OptionsPost.POST_EFFECT <= TOTAL_EFFECTS;
+	}
+
 	@Override
 	public void renderPipeline(FBO startFBO) {
 		switch (OptionsPost.POST_EFFECT) {

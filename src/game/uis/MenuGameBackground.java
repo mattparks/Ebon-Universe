@@ -45,8 +45,10 @@ public class MenuGameBackground extends GuiComponent {
 			}
 
 			slideDriver = new SlideDriver(backgroundAlpha, 1.0f, SLIDE_TIME);
+			MainGuis.getOverlayShading().show(false);
 		} else {
 			slideDriver = new SlideDriver(backgroundAlpha, 0.0f, SLIDE_TIME);
+			MainGuis.getOverlayShading().show(true);
 		}
 	}
 

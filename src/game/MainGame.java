@@ -54,8 +54,8 @@ public class MainGame extends IGame {
 			throw new FlounderRuntimeException("Could not find IPlayer implementation for ICamera!");
 		}
 
-		this.player.init();
 		Environment.init(new Fog(new Colour(1.0f, 1.0f, 1.0f, false), 0.001f, 2.0f, 0.0f, 50.0f), new Light(new Colour(0.85f, 0.85f, 0.85f), new Vector3f(0.0f, 2000.0f, 2000.0f)));
+		this.player.init();
 
 		EntityBarrel.createEntity(Environment.getEntitys(), new Vector3f(), new Vector3f());
 

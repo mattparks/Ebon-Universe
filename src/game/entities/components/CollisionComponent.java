@@ -1,5 +1,6 @@
 package game.entities.components;
 
+import flounder.engine.*;
 import flounder.helpers.*;
 import flounder.maths.vectors.*;
 import flounder.physics.*;
@@ -42,30 +43,30 @@ public class CollisionComponent extends IEntityComponent {
 	 */
 	public Vector3f resolveAABBCollisions(Vector3f amount) {
 		Vector3f result = new Vector3f(amount.getX(), amount.getY(), amount.getZ());
-		ColliderComponent component1 = (ColliderComponent) getEntity().getComponent(ColliderComponent.ID);
+		ColliderComponent collider1 = (ColliderComponent) getEntity().getComponent(ColliderComponent.ID);
 
-		if (component1 == null) {
+		if (collider1 == null) {
 			return result;
 		}
 
-		final AABB collisionRange = AABB.stretch(component1.getAABB(), null, amount); // The range in where there can be collisions!
-
-		AABB aabb1 = component1.getAABB();
+		AABB aabb1 = collider1.getAABB();
+		final AABB collisionRange = AABB.stretch(aabb1, null, amount); // The range in where there can be collisions!
 
 		getEntity().visitInRange(CollisionComponent.ID, collisionRange, (Entity entity, IEntityComponent component) -> {
 			if (entity.equals(getEntity())) {
 				return;
 			}
 
-			ColliderComponent component2 = (ColliderComponent) entity.getComponent(ColliderComponent.ID);
+			ColliderComponent collider2 = (ColliderComponent) entity.getComponent(ColliderComponent.ID);
 
-			if (component2 == null) {
+			if (collider2 == null) {
 				return;
 			}
 
-			AABB aabb2 = component2.getAABB();
+			AABB aabb2 = collider2.getAABB();
 
 			if (aabb2.intersects(collisionRange).isIntersection()) {
+				// TODO: Mesh collision.
 				result.set((float) resolveCollisionX(aabb1, aabb2, result.getX()), (float) resolveCollisionY(aabb1, aabb2, result.getY()), (float) resolveCollisionZ(aabb1, aabb2, result.getZ()));
 			}
 		});

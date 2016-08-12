@@ -30,7 +30,7 @@ public class CameraFocus implements ICamera {
 	private final static float MAX_HORIZONTAL_CHANGE = 500.0f;
 	private final static float MAX_VERTICAL_CHANGE = 5.0f;
 
-	private final static float INFLUENCE_OF_MOUSEDY = -1000.0f;
+	private final static float INFLUENCE_OF_MOUSEDY = -175.0f;
 	private final static float INFLUENCE_OF_MOUSEDX = INFLUENCE_OF_MOUSEDY * 92.0f;
 	private final static float INFLUENCE_OF_JOYSTICKDY = -1.0f;
 	private final static float INFLUENCE_OF_JOYSTICKDX = 100.0f * INFLUENCE_OF_JOYSTICKDY;
@@ -77,11 +77,11 @@ public class CameraFocus implements ICamera {
 
 		this.targetPosition = new Vector3f();
 		this.targetRotation = new Vector3f();
-		this.targetZoom = 5.0f;
+		this.targetZoom = NORMAL_ZOOM;
 		this.targetElevation = 0.0f;
 		this.targetRotationAngle = 0.0f;
 
-		this.actualDistanceFromPoint = 5.0f;
+		this.actualDistanceFromPoint = NORMAL_ZOOM;
 		this.horizontalDistanceFromFocus = 0.0f;
 		this.verticalDistanceFromFocus = 0.0f;
 

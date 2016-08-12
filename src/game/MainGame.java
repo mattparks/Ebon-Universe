@@ -10,12 +10,11 @@ import flounder.maths.*;
 import flounder.maths.vectors.*;
 import flounder.models.*;
 import flounder.parsing.*;
-import flounder.physics.*;
 import flounder.resources.*;
 import flounder.sounds.*;
 import flounder.textures.*;
 import game.cameras.*;
-import game.entitys.*;
+import game.entities.*;
 import game.players.*;
 import game.options.*;
 
@@ -36,8 +35,6 @@ public class MainGame extends IGame {
 
 	private MainGuis guis;
 	private IPlayer player;
-
-	//private AABB testAABB;
 
 	private boolean stillLoading;
 
@@ -60,17 +57,12 @@ public class MainGame extends IGame {
 		}
 
 		this.player.init();
-		Environment.init(new Fog(new Colour(0.5f, 0.5f, 0.5f, false), 0.001f, 2.0f, 0.0f, 50.0f), new Light(new Colour(0.85f, 0.85f, 0.85f), new Vector3f(0.0f, 2000.0f, 2000.0f)));
-
-	//	this.testAABB = new AABB();
-	//	testAABB.getMinExtents().set(0.0f, 0.0f, 0.0f);
-	//	testAABB.getMaxExtents().set(8.0f, 8.0f, 8.0f);
+		Environment.init(new Fog(new Colour(1.0f, 1.0f, 1.0f, false), 0.001f, 2.0f, 0.0f, 50.0f), new Light(new Colour(0.85f, 0.85f, 0.85f), new Vector3f(0.0f, 2000.0f, 2000.0f)));
 
 		Environment.getEntitys().add(Entity.newEntity(
-				Model.newModel(new MyFile(MyFile.RES_FOLDER, "entitys", "barrel.obj")).createInBackground(),
-				Texture.newTexture(new MyFile(MyFile.RES_FOLDER, "entitys", "barrel.png")).createInBackground()
-			)
-				.setNormalMap(Texture.newTexture(new MyFile(MyFile.RES_FOLDER, "entitys", "barrelNormal.png")).createInBackground())
+				Model.newModel(new MyFile(MyFile.RES_FOLDER, "entities", "barrel.obj")).create(),
+				Texture.newTexture(new MyFile(MyFile.RES_FOLDER, "entities", "barrel.png")).create())
+				.setNormalMap(Texture.newTexture(new MyFile(MyFile.RES_FOLDER, "entities", "barrelNormal.png")).create())
 				.setPosition(new Vector3f()).setRotation(new Vector3f()).setScale(0.8f)
 				.create()
 		);
@@ -82,10 +74,9 @@ public class MainGame extends IGame {
 				for (int q = 0 ; q < 32; q++) {
 					if (ran.nextInt(10) == 1) {
 						Environment.getEntitys().add(Entity.newEntity(
-								Model.newModel(new MyFile(MyFile.RES_FOLDER, "entitys", "crate.obj")).createInBackground(),
-								Texture.newTexture(new MyFile(MyFile.RES_FOLDER, "entitys", "crate.png")).createInBackground()
-							)
-								.setNormalMap(Texture.newTexture(new MyFile(MyFile.RES_FOLDER, "entitys", "crateNormal.png")).createInBackground())
+								Model.newModel(new MyFile(MyFile.RES_FOLDER, "entities", "crate.obj")).create(),
+								Texture.newTexture(new MyFile(MyFile.RES_FOLDER, "entities", "crate.png")).create())
+								.setNormalMap(Texture.newTexture(new MyFile(MyFile.RES_FOLDER, "entities", "crateNormal.png")).create())
 								.setPosition(new Vector3f((n * 5) + 10, (p * 5) + 10, (q * 5) + 10)).setRotation(new Vector3f()).setScale(0.025f)
 								.create()
 						);
@@ -96,8 +87,21 @@ public class MainGame extends IGame {
 
 		this.stillLoading = true;
 
-	//	Light testLight = new Light(new Colour(1, 1, 1), new Vector3f(0, 14, 0), new Attenuation(1, 0.01f, 0.002f));
-	//	FlounderEngine.getLogger().log("Distance = " + testLight.attenuation.getDistance());
+		Light testLight = new Light(new Colour(0, 0, 1), new Vector3f(0, 14, 10), new Attenuation(1, 0.01f, 0.002f));
+		Environment.getLights().add(testLight);
+
+		Environment.getEntitys().add(Entity.newEntity(
+				Model.newModel(new MyFile(MyFile.RES_FOLDER, "models", "sphere.obj")).create(),
+				Texture.newTexture(new MyFile(MyFile.RES_FOLDER, "entities", "sphere.png")).create())
+				.setPosition(testLight.position).setRotation(new Vector3f()).setScale(0.5f)
+				.create()
+		);
+		Environment.getEntitys().add(Entity.newEntity(
+				Model.newModel(new MyFile(MyFile.RES_FOLDER, "models", "sphere.obj")).create(),
+				Texture.newTexture(new MyFile(MyFile.RES_FOLDER, "entities", "sphere.png")).create())
+				.setPosition(Environment.getLights().get(0).position).setRotation(new Vector3f()).setScale(1.0f)
+				.create()
+		);
 
 		Playlist playlist = new Playlist();
 		playlist.addMusic(Sound.loadSoundInBackground(new MyFile(MyFile.RES_FOLDER, "music", "era-of-space.wav"), 0.80f));
@@ -142,8 +146,6 @@ public class MainGame extends IGame {
 			//	FlounderEngine.getLogger().log("Starting main menu music.");
 			//	FlounderEngine.getDevices().getSound().getMusicPlayer().unpauseTrack();
 		}
-
-		//FlounderEngine.getAABBs().addAABBRender(testAABB);
 
 		guis.update();
 		player.update(guis.isMenuOpen());

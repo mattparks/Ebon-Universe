@@ -14,7 +14,7 @@ public class OverlayShading extends GuiComponent {
 	public OverlayShading() {
 		mainDriver = new ConstantDriver(-MenuGame.SLIDE_SCALAR);
 
-		Text normalsTime = Text.newText("Normals (World)").setFontSize(1.2f).centre().create();
+	/*	Text normalsTime = Text.newText("Normals (World)").setFontSize(1.2f).centre().create();
 		normalsTime.setColour(MenuGame.TEXT_COLOUR);
 		normalsTime.setBorderColour(0.15f, 0.15f, 0.15f);
 		normalsTime.setBorder(new ConstantDriver(0.04f));
@@ -36,7 +36,7 @@ public class OverlayShading extends GuiComponent {
 		positionTime.setColour(MenuGame.TEXT_COLOUR);
 		positionTime.setBorderColour(0.15f, 0.15f, 0.15f);
 		positionTime.setBorder(new ConstantDriver(0.04f));
-		super.addText(positionTime, 0.375f, 0.94f, 1.0f);
+		super.addText(positionTime, 0.375f, 0.94f, 1.0f);*/
 
 		super.show(true);
 	}

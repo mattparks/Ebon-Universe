@@ -17,7 +17,7 @@ public class ScreenStartup extends GuiComponent {
 	public static final Colour TEXT_COLOUR = new Colour(0.75f, 0.75f, 0.75f);
 	public static final float MAIN_TITLE_FONT_SIZE = 2.5f;
 	public static final float MAIN_SUBTITLE_FONT_SIZE = 0.75f;
-	private static final float LOAD_TIME = 20.0f;
+	private static final float LOAD_TIME = FlounderEngine.getLogger().inJar() ? 20.0f : 7.0f;
 
 	private ValueDriver loadingDriver;
 	private boolean stageLoadingStart;

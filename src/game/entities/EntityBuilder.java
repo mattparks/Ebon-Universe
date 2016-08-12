@@ -1,4 +1,4 @@
-package game.entitys;
+package game.entities;
 
 import flounder.maths.vectors.*;
 import flounder.models.*;

@@ -1,15 +1,20 @@
-package game.entitys;
+package game.entities;
 
+import flounder.engine.*;
 import flounder.maths.matrices.*;
 import flounder.maths.vectors.*;
 import flounder.models.*;
+import flounder.physics.*;
+import flounder.space.*;
 import flounder.textures.*;
 
-public class Entity {
+public class Entity implements ISpatialObject {
 	private Vector3f position;
 	private Vector3f rotation;
 	private float scale;
 	private Matrix4f modelMatrix;
+
+	private AABB aabb;
 
 	private Model model;
 	private Texture texture;
@@ -22,6 +27,9 @@ public class Entity {
 		this.rotation = new Vector3f();
 		this.scale = 1.0f;
 		this.modelMatrix = new Matrix4f();
+
+		this.aabb = new AABB();
+
 		this.model = null;
 		this.texture = null;
 		this.normalMap = null;
@@ -34,6 +42,9 @@ public class Entity {
 		this.rotation = rotation;
 		this.scale = scale;
 		this.modelMatrix = new Matrix4f();
+
+		this.aabb = new AABB();
+
 		this.model = model;
 		this.texture = texture;
 		this.normalMap = normalMap;
@@ -68,6 +79,11 @@ public class Entity {
 		return modelMatrix;
 	}
 
+	public void update() {
+		model.getAABB().recalculate(aabb, position, rotation, scale);
+		FlounderEngine.getAABBs().addAABBRender(aabb);
+	}
+
 	public Vector3f getPosition() {
 		return position;
 	}
@@ -98,6 +114,10 @@ public class Entity {
 
 	public void setScale(float scale) {
 		this.scale = scale;
+	}
+
+	public AABB getAABB() {
+		return aabb;
 	}
 
 	public Model getModel() {

@@ -9,7 +9,7 @@ import flounder.helpers.*;
 import flounder.maths.matrices.*;
 import flounder.maths.vectors.*;
 import flounder.physics.renderer.*;
-import game.entitys.*;
+import game.entities.*;
 import game.options.*;
 import game.post.*;
 import game.post.deferred.*;
@@ -42,7 +42,7 @@ public class MainRenderer extends IRendererMaster {
 		this.cursorRenderer = new GuiRenderer(GuiRenderer.GuiRenderType.CURSOR);
 		this.fontRenderer = new FontRenderer();
 
-		// Diffuse, Position, Normals, Specular
+		// Diffuse, Position, Normals, Additonal (Specular, G, B, A)
 		multisamplingFBO = FBO.newFBO(1.0f).attachments(4).antialias(FlounderEngine.getDevices().getDisplay().getSamples()).create();
 		postProcessingFBO = FBO.newFBO(1.0f).attachments(4).depthBuffer(DepthBufferType.TEXTURE).create();
 

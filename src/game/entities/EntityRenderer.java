@@ -1,14 +1,14 @@
-package game.entitys;
+package game.entities;
 
 import flounder.engine.*;
 import flounder.engine.implementation.*;
 import flounder.helpers.*;
-import flounder.maths.matrices.*;
 import flounder.maths.vectors.*;
-import flounder.physics.*;
 import flounder.resources.*;
 import flounder.shaders.*;
 import game.*;
+
+import java.util.*;
 
 import static org.lwjgl.opengl.GL11.*;
 
@@ -16,8 +16,8 @@ import static org.lwjgl.opengl.GL11.*;
  * A renderer that is used to render entity's.
  */
 public class EntityRenderer extends IRenderer {
-	private static final MyFile VERTEX_SHADER = new MyFile("game/entitys", "entityVertex.glsl");
-	private static final MyFile FRAGMENT_SHADER = new MyFile("game/entitys", "entityFragment.glsl");
+	private static final MyFile VERTEX_SHADER = new MyFile("game/entities", "entityVertex.glsl");
+	private static final MyFile FRAGMENT_SHADER = new MyFile("game/entities", "entityFragment.glsl");
 
 	private ShaderProgram shader;
 
@@ -31,11 +31,7 @@ public class EntityRenderer extends IRenderer {
 	@Override
 	public void renderObjects(Vector4f clipPlane, ICamera camera) {
 		prepareRendering(clipPlane, camera);
-
-		for (Entity entity : Environment.getEntitys()) {
-			renderEntity(entity);
-		}
-
+		Environment.getEntitys().queryInFrustum(new ArrayList<>(), FlounderEngine.getCamera().getViewFrustum()).forEach(this::renderEntity);
 		endRendering();
 	}
 
@@ -43,7 +39,7 @@ public class EntityRenderer extends IRenderer {
 	public void profile() {
 		if (FlounderEngine.getProfiler().isOpen()) {
 			FlounderEngine.getProfiler().add("Entity", "Render Time", super.getRenderTimeMs());
-			FlounderEngine.getProfiler().add("Entity", "Objects", Environment.getEntitys().size());
+		//	FlounderEngine.getProfiler().add("Entity", "Objects", Environment.getEntitys().size());
 		}
 	}
 
@@ -53,6 +49,10 @@ public class EntityRenderer extends IRenderer {
 		shader.getUniformMat4("viewMatrix").loadMat4(camera.getViewMatrix());
 		shader.getUniformVec4("clipPlane").loadVec4(clipPlane);
 
+		shader.getUniformVec3("fogColour").loadVec3(Environment.getFog().getFogColour());
+		shader.getUniformFloat("fogDensity").loadFloat(Environment.getFog().getFogDensity());
+		shader.getUniformFloat("fogGradient").loadFloat(Environment.getFog().getFogGradient());
+
 		OpenGlUtils.antialias(FlounderEngine.getDevices().getDisplay().isAntialiasing());
 		OpenGlUtils.cullBackFaces(true);
 		OpenGlUtils.enableDepthTesting();
@@ -61,7 +61,10 @@ public class EntityRenderer extends IRenderer {
 	private void renderEntity(Entity entity) {
 		OpenGlUtils.bindVAO(entity.getModel().getVaoID(), 0, 1, 2, 3);
 		OpenGlUtils.bindTextureToBank(entity.getTexture().getTextureID(), 0);
-		OpenGlUtils.bindTextureToBank(entity.getNormalMap().getTextureID(), 1);
+
+		if (entity.getNormalMap() != null) {
+			OpenGlUtils.bindTextureToBank(entity.getNormalMap().getTextureID(), 1);
+		}
 
 		shader.getUniformMat4("modelMatrix").loadMat4(entity.getModelMatrix());
 

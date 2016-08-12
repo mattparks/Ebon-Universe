@@ -1,7 +1,8 @@
 package game;
 
 import flounder.lights.*;
-import game.entitys.*;
+import flounder.space.*;
+import game.entities.*;
 
 import java.util.*;
 
@@ -10,7 +11,7 @@ public class Environment {
 
 	private static Fog fog;
 	private static List<Light> lights;
-	private static List<Entity> entitys;
+	private static StructureBasic<Entity> entityQuadtree;
 
 	/**
 	 * Initializes the start game environment.
@@ -22,10 +23,13 @@ public class Environment {
 		Environment.fog = fog;
 		Environment.lights = new ArrayList<>();
 		Environment.lights.add(sun);
-		Environment.entitys = new ArrayList<>();
+		Environment.entityQuadtree = new StructureBasic<>();
 	}
 
 	public static void update() {
+		for (Entity entity : entityQuadtree.getAll(new ArrayList<>())) {
+			entity.update();
+		}
 	}
 
 	public static Fog getFog() {
@@ -36,7 +40,7 @@ public class Environment {
 		return lights;
 	}
 
-	public static List<Entity> getEntitys() {
-		return entitys;
+	public static ISpatialStructure<Entity> getEntitys() {
+		return entityQuadtree;
 	}
 }

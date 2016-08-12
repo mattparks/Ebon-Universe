@@ -1,6 +1,7 @@
 package game.uis;
 
 import flounder.engine.*;
+import flounder.events.*;
 import flounder.guis.*;
 
 import java.util.*;
@@ -14,14 +15,14 @@ public class ScreenQuit extends GuiComponent {
 		createQuitOption(MenuMain.BUTTONS_CENTRE_X_POS, 0.3f);
 		createBackOption(MenuMain.BUTTONS_CENTRE_X_POS, 1.0f);
 
-		super.addActionListener(new ListenerAdvanced() {
+		FlounderEngine.getEvents().addEvent(new IEvent() {
 			@Override
-			public boolean hasOccurred() {
+			public boolean eventTriggered() {
 				return MenuGame.BACK_KEY.wasDown();
 			}
 
 			@Override
-			public void run() {
+			public void onEvent() {
 				menuGame.closeSecondaryScreen();
 			}
 		});

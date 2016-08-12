@@ -1,6 +1,7 @@
 package game.uis;
 
 import flounder.engine.*;
+import flounder.events.*;
 import flounder.fonts.*;
 import flounder.guis.*;
 import flounder.visual.*;
@@ -22,14 +23,14 @@ public class ScreenOptionsDeveloper extends GuiComponent {
 
 		createBackOption(MenuMain.BUTTONS_X_CENTRE_POS, 1.0f);
 
-		super.addActionListener(new ListenerAdvanced() {
+		FlounderEngine.getEvents().addEvent(new IEvent() {
 			@Override
-			public boolean hasOccurred() {
+			public boolean eventTriggered() {
 				return MenuGame.BACK_KEY.wasDown();
 			}
 
 			@Override
-			public void run() {
+			public void onEvent() {
 				menuGame.setNewSecondaryScreen(screenOption, false);
 			}
 		});
@@ -49,11 +50,11 @@ public class ScreenOptionsDeveloper extends GuiComponent {
 			FlounderEngine.getProfiler().toggle(!FlounderEngine.getProfiler().isOpen());
 		});
 
-		button.addActionListener(new ListenerAdvanced() {
+		FlounderEngine.getEvents().addEvent(new IEvent() {
 			private boolean isOpen = FlounderEngine.getProfiler().isOpen();
 
 			@Override
-			public boolean hasOccurred() {
+			public boolean eventTriggered() {
 				boolean newIsOpen = FlounderEngine.getProfiler().isOpen();
 				boolean occurred = newIsOpen != isOpen;
 				isOpen = newIsOpen;
@@ -61,7 +62,7 @@ public class ScreenOptionsDeveloper extends GuiComponent {
 			}
 
 			@Override
-			public void run() {
+			public void onEvent() {
 				button.getText().setText("Profiler: " + (isOpen ? "Opened" : "Closed"));
 			}
 		});
@@ -73,11 +74,11 @@ public class ScreenOptionsDeveloper extends GuiComponent {
 			FlounderEngine.getAABBs().setRenders(!FlounderEngine.getAABBs().renders());
 		});
 
-		button.addActionListener(new ListenerAdvanced() {
+		FlounderEngine.getEvents().addEvent(new IEvent() {
 			private boolean renders = FlounderEngine.getAABBs().renders();
 
 			@Override
-			public boolean hasOccurred() {
+			public boolean eventTriggered() {
 				boolean newRenders = FlounderEngine.getAABBs().renders();
 				boolean occurred = newRenders != renders;
 				renders = newRenders;
@@ -85,7 +86,7 @@ public class ScreenOptionsDeveloper extends GuiComponent {
 			}
 
 			@Override
-			public void run() {
+			public void onEvent() {
 				button.getText().setText("AABBs: " + (FlounderEngine.getAABBs().renders() ? "Enabled" : "Disabled"));
 			}
 		});

@@ -1,6 +1,7 @@
 package game.uis;
 
 import flounder.engine.*;
+import flounder.events.*;
 import flounder.fonts.*;
 import flounder.guis.*;
 import flounder.visual.*;
@@ -29,14 +30,14 @@ public class ScreenOptionsGraphics extends GuiComponent {
 
 		createBackOption(MenuMain.BUTTONS_X_CENTRE_POS, 1.0f);
 
-		super.addActionListener(new ListenerAdvanced() {
+		FlounderEngine.getEvents().addEvent(new IEvent() {
 			@Override
-			public boolean hasOccurred() {
+			public boolean eventTriggered() {
 				return MenuGame.BACK_KEY.wasDown();
 			}
 
 			@Override
-			public void run() {
+			public void onEvent() {
 				menuGame.setNewSecondaryScreen(screenOption, false);
 			}
 		});
@@ -56,11 +57,11 @@ public class ScreenOptionsGraphics extends GuiComponent {
 			FlounderEngine.getDevices().getDisplay().setFullscreen(!FlounderEngine.getDevices().getDisplay().isFullscreen());
 		});
 
-		button.addActionListener(new ListenerAdvanced() {
+		FlounderEngine.getEvents().addEvent(new IEvent() {
 			private boolean isFullscreen = FlounderEngine.getDevices().getDisplay().isFullscreen();
 
 			@Override
-			public boolean hasOccurred() {
+			public boolean eventTriggered() {
 				boolean newIsFullscreen = FlounderEngine.getDevices().getDisplay().isFullscreen();
 				boolean occurred = newIsFullscreen != isFullscreen;
 				isFullscreen = newIsFullscreen;
@@ -68,7 +69,7 @@ public class ScreenOptionsGraphics extends GuiComponent {
 			}
 
 			@Override
-			public void run() {
+			public void onEvent() {
 				button.getText().setText("Fullscreen: " + (isFullscreen ? "On" : "Off"));
 			}
 		});
@@ -80,11 +81,11 @@ public class ScreenOptionsGraphics extends GuiComponent {
 			FlounderEngine.getDevices().getDisplay().setAntialiasing(!FlounderEngine.getDevices().getDisplay().isAntialiasing());
 		});
 
-		button.addActionListener(new ListenerAdvanced() {
+		FlounderEngine.getEvents().addEvent(new IEvent() {
 			private boolean isAntialiasing = FlounderEngine.getDevices().getDisplay().isAntialiasing();
 
 			@Override
-			public boolean hasOccurred() {
+			public boolean eventTriggered() {
 				boolean newIsAntialiasing = FlounderEngine.getDevices().getDisplay().isAntialiasing();
 				boolean occurred = newIsAntialiasing != isAntialiasing;
 				isAntialiasing = newIsAntialiasing;
@@ -92,7 +93,7 @@ public class ScreenOptionsGraphics extends GuiComponent {
 			}
 
 			@Override
-			public void run() {
+			public void onEvent() {
 				button.getText().setText("Antialiasing: " + (isAntialiasing ? "On" : "Off"));
 			}
 		});
@@ -104,11 +105,11 @@ public class ScreenOptionsGraphics extends GuiComponent {
 			FlounderEngine.getDevices().getDisplay().setVSync(!FlounderEngine.getDevices().getDisplay().isVSync());
 		});
 
-		button.addActionListener(new ListenerAdvanced() {
+		FlounderEngine.getEvents().addEvent(new IEvent() {
 			private boolean isVSync = FlounderEngine.getDevices().getDisplay().isVSync();
 
 			@Override
-			public boolean hasOccurred() {
+			public boolean eventTriggered() {
 				boolean newIsVSync = FlounderEngine.getDevices().getDisplay().isVSync();
 				boolean occurred = newIsVSync != isVSync;
 				isVSync = newIsVSync;
@@ -116,7 +117,7 @@ public class ScreenOptionsGraphics extends GuiComponent {
 			}
 
 			@Override
-			public void run() {
+			public void onEvent() {
 				button.getText().setText("VSync: " + (isVSync ? "On" : "Off"));
 			}
 		});

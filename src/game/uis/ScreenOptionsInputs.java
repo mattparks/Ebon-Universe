@@ -1,5 +1,7 @@
 package game.uis;
 
+import flounder.engine.*;
+import flounder.events.*;
 import flounder.fonts.*;
 import flounder.guis.*;
 import flounder.visual.*;
@@ -18,14 +20,14 @@ public class ScreenOptionsInputs extends GuiComponent {
 
 		createBackOption(MenuMain.BUTTONS_X_CENTRE_POS, 1.0f);
 
-		super.addActionListener(new ListenerAdvanced() {
+		FlounderEngine.getEvents().addEvent(new IEvent() {
 			@Override
-			public boolean hasOccurred() {
+			public boolean eventTriggered() {
 				return MenuGame.BACK_KEY.wasDown();
 			}
 
 			@Override
-			public void run() {
+			public void onEvent() {
 				menuGame.setNewSecondaryScreen(screenOption, false);
 			}
 		});

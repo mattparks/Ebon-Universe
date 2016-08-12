@@ -1,6 +1,7 @@
 package game.uis;
 
 import flounder.engine.*;
+import flounder.events.*;
 import flounder.fonts.*;
 import flounder.guis.*;
 import flounder.sounds.*;
@@ -26,14 +27,14 @@ public class ScreenOptionsAudio extends GuiComponent {
 
 		createBackOption(MenuMain.BUTTONS_X_CENTRE_POS, 1.0f);
 
-		super.addActionListener(new ListenerAdvanced() {
+		FlounderEngine.getEvents().addEvent(new IEvent() {
 			@Override
-			public boolean hasOccurred() {
+			public boolean eventTriggered() {
 				return MenuGame.BACK_KEY.wasDown();
 			}
 
 			@Override
-			public void run() {
+			public void onEvent() {
 				menuGame.setNewSecondaryScreen(screenOption, false);
 			}
 		});
@@ -58,12 +59,12 @@ public class ScreenOptionsAudio extends GuiComponent {
 			}
 		});
 
-		button.addActionListener(new ListenerAdvanced() {
+		FlounderEngine.getEvents().addEvent(new IEvent() {
 			private boolean paused = mPlayer.isPaused();
 			private boolean wasPaused = false;
 
 			@Override
-			public boolean hasOccurred() {
+			public boolean eventTriggered() {
 				boolean newPaused = mPlayer.isPaused();
 				boolean occurred = newPaused != paused;
 
@@ -86,7 +87,7 @@ public class ScreenOptionsAudio extends GuiComponent {
 			}
 
 			@Override
-			public void run() {
+			public void onEvent() {
 				button.getText().setText("Music: " + (!paused ? "On" : "Off"));
 			}
 		});
@@ -104,11 +105,11 @@ public class ScreenOptionsAudio extends GuiComponent {
 			}
 		});
 
-		button.addActionListener(new ListenerAdvanced() {
+		FlounderEngine.getEvents().addEvent(new IEvent() {
 			private float volume = MusicPlayer.SOUND_VOLUME;
 
 			@Override
-			public boolean hasOccurred() {
+			public boolean eventTriggered() {
 				float newVolume = MusicPlayer.SOUND_VOLUME;
 				boolean occurred = newVolume != volume;
 				volume = newVolume;
@@ -116,7 +117,7 @@ public class ScreenOptionsAudio extends GuiComponent {
 			}
 
 			@Override
-			public void run() {
+			public void onEvent() {
 				button.getText().setText("Sound: " + (MusicPlayer.SOUND_VOLUME == 0.0f ? "Off" : "On"));
 			}
 		});
@@ -140,11 +141,11 @@ public class ScreenOptionsAudio extends GuiComponent {
 			}
 		});
 
-		button.addActionListener(new ListenerAdvanced() {
+		FlounderEngine.getEvents().addEvent(new IEvent() {
 			private float volume = MusicPlayer.SOUND_VOLUME;
 
 			@Override
-			public boolean hasOccurred() {
+			public boolean eventTriggered() {
 				float newVolume = MusicPlayer.SOUND_VOLUME;
 				boolean occurred = newVolume != volume;
 				volume = newVolume;
@@ -152,7 +153,7 @@ public class ScreenOptionsAudio extends GuiComponent {
 			}
 
 			@Override
-			public void run() {
+			public void onEvent() {
 				button.getText().setText("Volume: " + ((int) (volume * 100.0f)) + "%");
 			}
 		});

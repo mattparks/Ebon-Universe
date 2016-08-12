@@ -78,9 +78,7 @@ public class ModelComponent extends IEntityComponent {
 			this.normalMap.setNumberOfRows(Integer.parseInt(template.getValue(this, "NormalMapNumRows")));
 		}
 
-		this.transparency = Float.parseFloat(template.getValue(this, "Transparency"));
 		this.scale = Float.parseFloat(template.getValue(this, "Scale"));
-		this.textureIndex = Integer.parseInt(template.getValue(this, "TextureIndex"));
 	}
 
 	/**
@@ -180,13 +178,11 @@ public class ModelComponent extends IEntityComponent {
 		String normalMapSave = "NormalMap: " + (normalMap == null ? null : normalMap.getFile().getPath().substring(1, normalMap.getFile().getPath().length()));
 		String normalMapNumRowsSave = "NormalMapNumRows: " + (normalMap == null ? 1 : normalMap.getNumberOfRows());
 
-		String transparencySave = "Transparency: " + transparency;
 		String scaleSave = "Scale: " + scale;
-		String indexSave = "TextureIndex: " + textureIndex;
 
 
 		return new Pair<>(
-				new String[]{textureSave, textureNumRowsSave, normalMapSave, normalMapNumRowsSave, transparencySave, scaleSave, indexSave},
+				new String[]{textureSave, textureNumRowsSave, normalMapSave, normalMapNumRowsSave, scaleSave},
 				new EntitySaverFunction[]{saveVertices, saveTextureCoords, saveNormals, saveTangents, saveIndices}
 		);
 	}

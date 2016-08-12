@@ -1,5 +1,7 @@
 package game.uis;
 
+import flounder.engine.*;
+import flounder.events.*;
 import flounder.fonts.*;
 import flounder.guis.*;
 import flounder.visual.*;
@@ -24,14 +26,14 @@ public class ScreenOptionsPost extends GuiComponent {
 
 		createBackOption(MenuMain.BUTTONS_X_CENTRE_POS, 1.0f);
 
-		super.addActionListener(new ListenerAdvanced() {
+		FlounderEngine.getEvents().addEvent(new IEvent() {
 			@Override
-			public boolean hasOccurred() {
+			public boolean eventTriggered() {
 				return MenuGame.BACK_KEY.wasDown();
 			}
 
 			@Override
-			public void run() {
+			public void onEvent() {
 				menuGame.setNewSecondaryScreen(screenOptionsGraphics, false);
 			}
 		});
@@ -63,11 +65,11 @@ public class ScreenOptionsPost extends GuiComponent {
 			}
 		});
 
-		button.addActionListener(new ListenerAdvanced() {
+		FlounderEngine.getEvents().addEvent(new IEvent() {
 			private int currentEffect = OptionsPost.POST_EFFECT;
 
 			@Override
-			public boolean hasOccurred() {
+			public boolean eventTriggered() {
 				int newCurrentEffect = OptionsPost.POST_EFFECT;
 				boolean occurred = newCurrentEffect != currentEffect;
 				currentEffect = newCurrentEffect;
@@ -75,7 +77,7 @@ public class ScreenOptionsPost extends GuiComponent {
 			}
 
 			@Override
-			public void run() {
+			public void onEvent() {
 				button.getText().setText("Post Effect: " + currentEffect);
 			}
 		});
@@ -87,11 +89,11 @@ public class ScreenOptionsPost extends GuiComponent {
 			OptionsPost.POST_ENABLED = !OptionsPost.POST_ENABLED;
 		});
 
-		button.addActionListener(new ListenerAdvanced() {
+		FlounderEngine.getEvents().addEvent(new IEvent() {
 			private boolean postEnabled = OptionsPost.POST_ENABLED;
 
 			@Override
-			public boolean hasOccurred() {
+			public boolean eventTriggered() {
 				boolean newPostEnabled = OptionsPost.POST_ENABLED;
 				boolean occurred = newPostEnabled != postEnabled;
 				postEnabled = newPostEnabled;
@@ -99,7 +101,7 @@ public class ScreenOptionsPost extends GuiComponent {
 			}
 
 			@Override
-			public void run() {
+			public void onEvent() {
 				button.getText().setText("Post Enabled: " + (postEnabled ? "On" : "Off"));
 			}
 		});
@@ -111,11 +113,11 @@ public class ScreenOptionsPost extends GuiComponent {
 			OptionsPost.FILTER_FXAA = !OptionsPost.FILTER_FXAA;
 		});
 
-		button.addActionListener(new ListenerAdvanced() {
+		FlounderEngine.getEvents().addEvent(new IEvent() {
 			private boolean fxaaEnabled = OptionsPost.FILTER_FXAA;
 
 			@Override
-			public boolean hasOccurred() {
+			public boolean eventTriggered() {
 				boolean newFxaaEnabled = OptionsPost.FILTER_FXAA;
 				boolean occurred = newFxaaEnabled != fxaaEnabled;
 				fxaaEnabled = newFxaaEnabled;
@@ -123,7 +125,7 @@ public class ScreenOptionsPost extends GuiComponent {
 			}
 
 			@Override
-			public void run() {
+			public void onEvent() {
 				button.getText().setText("FXAA: " + (fxaaEnabled ? "Enabled" : "Disabled"));
 			}
 		});

@@ -29,14 +29,16 @@ public class FilterDeferred extends PostFilter {
 		int l = 0;
 
 		for (Light light : Environment.getLights()) {
-			shader.getUniformVec3("lightsColour[" + l + "]").loadVec3(light.getColour());
-			shader.getUniformVec3("lightsPosition[" + l + "]").loadVec3(light.getPosition());
-			shader.getUniformVec3("lightsAttenuation[" + l + "]").loadVec3(light.getAttenuation());
-			l++;
+			if (light != null) {
+				shader.getUniformVec3("lightsColour[" + l + "]").loadVec3(light.getColour());
+				shader.getUniformVec3("lightsPosition[" + l + "]").loadVec3(light.getPosition());
+				shader.getUniformVec3("lightsAttenuation[" + l + "]").loadVec3(light.getAttenuation());
+				l++;
 
-			if (l >= NUMBER_LIGHTS) {
-				FlounderEngine.getLogger().error("Light overflow!");
-				break;
+				if (l >= NUMBER_LIGHTS) {
+					FlounderEngine.getLogger().error("Light overflow!");
+					break;
+				}
 			}
 		}
 	}

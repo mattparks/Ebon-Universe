@@ -101,8 +101,24 @@ public class EntityTemplate {
 		return null;
 	}
 
-	public float[] toFloatArray(String data) {
-		String[] values = data.replace("[", "").replace("]", "").replace("/", ",").split(",");
+	/**
+	 * Gets the entity templates name.
+	 *
+	 * @return The entity templates name.
+	 */
+	public String getEntityName() {
+		return entityName;
+	}
+
+	/**
+	 * Turns a segmented string into a float array.
+	 *
+	 * @param data The segmented data to parse.
+	 *
+	 * @return The resulting float array.
+	 */
+	public static float[] toFloatArray(String data) {
+		String[] values = data.split(",");
 		float[] result = new float[values.length];
 
 		for (int i = 0; i < values.length; i++) {
@@ -112,8 +128,15 @@ public class EntityTemplate {
 		return result;
 	}
 
-	public int[] toIntArray(String data) {
-		String[] values = data.replace("[", "").replace("]", "").replace("/", ",").split(",");
+	/**
+	 * Turns a segmented string into a integer array.
+	 *
+	 * @param data The segmented data to parse.
+	 *
+	 * @return The resulting integer array.
+	 */
+	public static int[] toIntArray(String data) {
+		String[] values = data.split(",");
 		int[] result = new int[values.length];
 
 		for (int i = 0; i < values.length; i++) {

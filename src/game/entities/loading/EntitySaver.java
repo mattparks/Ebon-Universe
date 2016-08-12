@@ -11,6 +11,12 @@ import java.util.*;
  * Class capable of saving engine.entities to a .entity file.
  */
 public class EntitySaver {
+	/**
+	 * Saves the entity components to a .entity file.
+	 *
+	 * @param entity The entity to save.
+	 * @param name The nave for the entity and file.
+	 */
 	public static void save(Entity entity, String name) {
 		try {
 			// Creates the save folder
@@ -79,7 +85,5 @@ public class EntitySaver {
 			FlounderEngine.getLogger().error("File saver for entity " + name + " did not execute successfully!");
 			FlounderEngine.getLogger().exception(e);
 		}
-
-		EntityTemplate template = EntityLoader.load(name);
 	}
 }

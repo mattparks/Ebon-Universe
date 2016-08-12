@@ -1,5 +1,6 @@
 package game.entities.loading;
 
+import flounder.helpers.*;
 import flounder.maths.vectors.*;
 import flounder.resources.*;
 import flounder.space.*;
@@ -15,7 +16,7 @@ public class EntityTemplate {
 	public static final MyFile ENTITIES_FOLDER = new MyFile(MyFile.RES_FOLDER, "entities");
 
 	private String entityName;
-	private Map<EntityLoader.ComponentData, List<EntityLoader.SectionData>> componentsData;
+	private Map<EntityLoader.IndividualData, List<EntityLoader.SectionData>> componentsData;
 
 	/**
 	 * Creates a new template from loaded data.
@@ -23,7 +24,7 @@ public class EntityTemplate {
 	 * @param entityName The name of the loaded entity.
 	 * @param componentsData A HashMap of loaded component data to be parsed when attaching the component to the new entity.
 	 */
-	public EntityTemplate(String entityName, Map<EntityLoader.ComponentData, List<EntityLoader.SectionData>> componentsData) {
+	public EntityTemplate(String entityName, Map<EntityLoader.IndividualData, List<EntityLoader.SectionData>> componentsData) {
 		this.entityName = entityName;
 		this.componentsData = componentsData;
 	}
@@ -40,18 +41,16 @@ public class EntityTemplate {
 	public Entity createEntity(ISpatialStructure<Entity> structure, Vector3f position, Vector3f rotation) {
 		Entity instance = new Entity(structure, position, rotation);
 
-		for (EntityLoader.ComponentData k : componentsData.keySet()) {
-			if (k != null) {
-				try {
-					Class componentClass = Class.forName(k.classpath);
-					Class[] componentTypes = new Class[]{instance.getClass(), this.getClass()};
-					@SuppressWarnings("unchecked") Constructor componentConstructor = componentClass.getConstructor(componentTypes);
-					Object[] componentParameters = new Object[]{instance, this};
-					componentConstructor.newInstance(componentParameters);
-				} catch (ClassNotFoundException | IllegalAccessException | InstantiationException | InvocationTargetException | NoSuchMethodException e) {
-					System.out.println("While loading " + entityName + "'s components " + k.classpath + " constructor could not be found!");
-					e.printStackTrace();
-				}
+		for (EntityLoader.IndividualData k : componentsData.keySet()) {
+			try {
+				Class componentClass = Class.forName(k.classpath);
+				Class[] componentTypes = new Class[]{instance.getClass(), this.getClass()};
+				@SuppressWarnings("unchecked") Constructor componentConstructor = componentClass.getConstructor(componentTypes);
+				Object[] componentParameters = new Object[]{instance, this};
+				componentConstructor.newInstance(componentParameters);
+			} catch (ClassNotFoundException | IllegalAccessException | InstantiationException | InvocationTargetException | NoSuchMethodException e) {
+				System.out.println("While loading " + entityName + "'s components " + k.classpath + " constructor could not be found!");
+				e.printStackTrace();
 			}
 		}
 
@@ -59,26 +58,19 @@ public class EntityTemplate {
 	}
 
 	/**
-	 * Gets the parsable individual data from the requested key.
+	 * Gets the individual data from the requested variable.
 	 *
+	 * @param component The component to get data for.
 	 * @param key The key to get data, the nave for the individual variable.
 	 *
 	 * @return Returns string of parsable data.
 	 */
-	public String getValue(String classpath, String key) {
-		for (EntityLoader.ComponentData data : componentsData.keySet()) {
-			if (data.classpath.equals(classpath)) {
-				for (String line : data.individualData) {
-					String[] lineKeys = line.split(":");
-
-					if (lineKeys[0].trim().equals(key)) {
-						String lineValue = lineKeys[1].replace(";", "").trim();
-
-						if (lineValue.equals("null")) {
-							return null;
-						} else {
-							return lineValue;
-						}
+	public String getValue(IEntityComponent component, String key) {
+		for (EntityLoader.IndividualData data : componentsData.keySet()) {
+			if (data.classpath.equals(component.getClass().getName())) {
+				for (Pair<String, String> pair : data.individualData) {
+					if (pair.getFirst().equals(key)) {
+						return pair.getSecond();
 					}
 				}
 			}
@@ -90,33 +82,23 @@ public class EntityTemplate {
 	/**
 	 * Gets data from a entity component section.
 	 *
-	 * @param classpath The components class path.
+	 * @param component The component to get data for.
 	 * @param sectionName The sections name.
 	 *
 	 * @return The sections data.
 	 */
-	public List<String> getSectionData(String classpath, String sectionName) {
-		for (EntityLoader.ComponentData data : componentsData.keySet()) {
-			if (data.classpath.equals(classpath)) {
+	public String getSectionData(IEntityComponent component, String sectionName) {
+		for (EntityLoader.IndividualData data : componentsData.keySet()) {
+			if (data.classpath.equals(component.getClass().getName())) {
 				for (EntityLoader.SectionData section : componentsData.get(data)) {
 					if (section.name.equals(sectionName)) {
-						return section.sectionLines;
+						return section.line;
 					}
 				}
 			}
 		}
 
 		return null;
-	}
-
-	public String toOneLine(List<String> data) {
-		String result = "";
-
-		for (String s : data) {
-			result += s.replaceAll("[\\t\\n\\r]", " ").trim();
-		}
-
-		return result;
 	}
 
 	public float[] toFloatArray(String data) {

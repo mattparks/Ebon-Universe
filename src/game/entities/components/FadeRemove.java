@@ -34,8 +34,8 @@ public class FadeRemove extends RemoveComponent {
 	 */
 	public FadeRemove(Entity entity, EntityTemplate template) {
 		this(entity, 0);
-		this.duration = Double.parseDouble(template.getValue(getClass().getName(), "Duration"));
-		this.removesAfterDuration = Boolean.parseBoolean(template.getValue(getClass().getName(), "RemovesAfterDuration"));
+		this.duration = Double.parseDouble(template.getValue(this, "Duration"));
+		this.removesAfterDuration = Boolean.parseBoolean(template.getValue(this, "RemovesAfterDuration"));
 	}
 
 	@Override
@@ -65,10 +65,10 @@ public class FadeRemove extends RemoveComponent {
 	}
 
 	@Override
-	public Pair<String[], SaveFunction[]> getSavableValues() {
+	public Pair<String[], EntitySaverFunction[]> getSavableValues() {
 		String removeAfterSave = "RemovesAfterDuration: " + removesAfterDuration;
 		String durationSave = "Duration: " + duration;
-		return new Pair<>(new String[]{removeAfterSave, durationSave}, new SaveFunction[]{});
+		return new Pair<>(new String[]{removeAfterSave, durationSave}, new EntitySaverFunction[]{});
 	}
 
 	public void setDuration(double duration) {

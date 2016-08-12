@@ -43,7 +43,7 @@ public abstract class IEntityComponent {
 	/**
 	 * @return Returns a list of values that are saved with the component.
 	 */
-	public abstract Pair<String[], SaveFunction[]> getSavableValues();
+	public abstract Pair<String[], EntitySaverFunction[]> getSavableValues();
 
 	/**
 	 * Updates this component.

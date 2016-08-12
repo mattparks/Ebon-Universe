@@ -1,7 +1,7 @@
 package game.entities.loading;
 
 import flounder.engine.*;
-import flounder.maths.vectors.*;
+import flounder.helpers.*;
 
 import java.io.*;
 import java.util.*;
@@ -24,7 +24,7 @@ public class EntityLoader {
 
 			// Loaded data.
 			String entityName = "unnamed";
-			Map<ComponentData, List<SectionData>> componentsData = new HashMap<>();
+			Map<IndividualData, List<SectionData>> componentsData = new HashMap<>();
 
 			// Current line.
 			String line;
@@ -47,7 +47,7 @@ public class EntityLoader {
 					String componentClasspaths = null;
 					String componentSubsection = null;
 
-					List<String> individualData = new ArrayList<>();
+					List<Pair<String, String>> individualData = new ArrayList<>();
 					List<String> sectionLines = new ArrayList<>();
 					List<SectionData> sections = new ArrayList<>();
 
@@ -55,6 +55,9 @@ public class EntityLoader {
 						line = fileReader.readLine();
 
 						if (line == null) {
+							individualData.clear();
+							sectionLines.clear();
+							sections.clear();
 							break;
 						}
 
@@ -72,7 +75,7 @@ public class EntityLoader {
 							fileNestation--;
 
 							if (fileNestation == 1) {
-								componentsData.put(new ComponentData(componentClasspaths, new ArrayList<>(individualData)), sections);
+								componentsData.put(new IndividualData(componentClasspaths, new ArrayList<>(individualData)), sections);
 								individualData.clear();
 								componentClasspaths = null;
 							} else if (componentSubsection != null) {
@@ -82,12 +85,11 @@ public class EntityLoader {
 							}
 						} else if (!line.isEmpty()) {
 							if (componentClasspaths != null && componentSubsection == null) {
-								individualData.add(line.replaceAll("\\s+", "").trim());
+								String[] lineKeys = line.replaceAll("\\s+", "").replace(";", "").trim().split(":");
+								individualData.add(new Pair<>(lineKeys[0].trim(), lineKeys[1].trim()));
 							} else if (componentSubsection != null) {
 								sectionLines.add(line.replaceAll("\\s+", "").trim());
 							}
-						} else {
-							// Empty line!
 						}
 					}
 				}
@@ -103,100 +105,32 @@ public class EntityLoader {
 	}
 
 	/**
-	 * Converts an list of Vector 4's into a array of floats.
-	 *
-	 * @param input The vectors to be stored.
-	 *
-	 * @return The new array of floats.
+	 * A class that contains individual from a component.
 	 */
-	public static float[] toFloatArrayV4(List<Vector4f> input) {
-		float[] list = new float[input.size() * 4];
-		int index = 0;
+	protected static class IndividualData {
+		protected String classpath;
+		protected List<Pair<String, String>> individualData;
 
-		for (Vector4f v : input) {
-			list[index] = v.getX();
-			list[index + 1] = v.getY();
-			list[index + 2] = v.getZ();
-			list[index + 3] = v.getW();
-		}
-
-		return list;
-	}
-
-	/**
-	 * Converts an list of Vector 3's into a array of floats.
-	 *
-	 * @param input The vectors to be stored.
-	 *
-	 * @return The new array of floats.
-	 */
-	public static float[] toFloatArrayV3(List<Vector3f> input) {
-		float[] list = new float[input.size() * 3];
-		int index = 0;
-
-		for (Vector3f v : input) {
-			list[index] = v.getX();
-			list[index + 1] = v.getY();
-			list[index + 2] = v.getZ();
-		}
-
-		return list;
-	}
-
-	/**
-	 * Converts an list of Vector 2's into a array of floats.
-	 *
-	 * @param input The vectors to be stored.
-	 *
-	 * @return The new array of floats.
-	 */
-	public static float[] toFloatArrayV2(List<Vector2f> input) {
-		float[] list = new float[input.size() * 2];
-		int index = 0;
-
-		for (Vector2f v : input) {
-			list[index] = v.getX();
-			list[index + 1] = v.getY();
-		}
-
-		return list;
-	}
-
-	/**
-	 * Converts an list of Integers into a array of ints.
-	 *
-	 * @param input The Integers to be stored.
-	 *
-	 * @return The new array of ints.
-	 */
-	public static int[] toIntArrayV1(List<Integer> input) {
-		int[] list = new int[input.size()];
-		int index = 0;
-
-		for (int i : input) {
-			list[index] = i;
-		}
-
-		return list;
-	}
-
-	public static class ComponentData {
-		public String classpath;
-		public List<String> individualData;
-
-		public ComponentData(String name, List<String> individualData) {
+		protected IndividualData(String name, List<Pair<String, String>> individualData) {
 			this.classpath = name;
 			this.individualData = individualData;
 		}
 	}
 
-	public static class SectionData {
-		public String name;
-		public List<String> sectionLines;
+	/**
+	 * A class that contains data from a section from a component.
+	 */
+	protected static class SectionData {
+		protected String name;
+		protected String line;
 
-		public SectionData(String name, List<String> sectionLines) {
+		protected SectionData(String name, List<String> sectionLines) {
 			this.name = name;
-			this.sectionLines = sectionLines;
+			this.line = "";
+
+			for (String s : sectionLines) {
+				line += s.replaceAll("[\\t\\n\\r]", " ").trim();
+			}
 		}
 	}
 }

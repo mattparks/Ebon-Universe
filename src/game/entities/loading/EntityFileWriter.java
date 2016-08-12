@@ -1,9 +1,6 @@
 package game.entities.loading;
 
-import flounder.maths.vectors.*;
-
 import java.io.*;
-import java.util.*;
 
 public class EntityFileWriter {
 	public static final int MAX_LINE_LENGTH = 5000;
@@ -16,92 +13,6 @@ public class EntityFileWriter {
 		this.fileWriter = fileWriter;
 		this.fileNestation = 0;
 		this.lineLength = 0;
-	}
-
-	public List<Vector3f> getVec3List(float[] input) {
-		List<Vector3f> list = new ArrayList<>();
-
-		int tripleCount = 0;
-		Vector3f c = new Vector3f();
-
-		for (float vertex : input) {
-			if (tripleCount == 0) {
-				c.x = vertex;
-			} else if (tripleCount == 1) {
-				c.y = vertex;
-			} else if (tripleCount == 2) {
-				c.z = vertex;
-			}
-
-			if (tripleCount >= 2) {
-				tripleCount = 0;
-				list.add(c);
-				c = new Vector3f();
-			} else {
-				tripleCount++;
-			}
-		}
-
-		return list;
-	}
-
-	public List<Vector2f> getVec2List(float[] input) {
-		List<Vector2f> list = new ArrayList<>();
-
-		int doubleCount = 0;
-		Vector2f c = new Vector2f();
-
-		for (float vertex : input) {
-			if (doubleCount == 0) {
-				c.x = vertex;
-			} else if (doubleCount == 1) {
-				c.y = vertex;
-			}
-
-			if (doubleCount >= 1) {
-				doubleCount = 0;
-				list.add(c);
-				c = new Vector2f();
-			} else {
-				doubleCount++;
-			}
-		}
-
-		return list;
-	}
-
-
-	/**
-	 * Turns a Vector 4 into a printable string.
-	 *
-	 * @param v The vector to read from.
-	 *
-	 * @return The printable string.
-	 */
-	public String vec4String(Vector4f v) {
-		return "[" + v.getX() + "/" + v.getY() + "/" + v.getZ() + "/" + v.getW() + "]";
-	}
-
-	/**
-	 * Turns a Vector 3 into a printable string.
-	 *
-	 * @param v The vector to read from.
-	 *
-	 * @return The printable string.
-	 */
-	public String vec3String(Vector3f v) {
-		return "[" + v.getX() + "/" + v.getY() + "/" + v.getZ() + "]";
-	}
-
-	/**
-	 * Turns a Vector 2 into a printable string.
-	 *
-	 * @param v The vector to read from.
-	 *
-	 * @return The printable string.
-	 */
-	public String vec2String(Vector2f v) {
-		return "[" + v.getX() + "/" + v.getY() + "]";
 	}
 
 	public void beginNewSegment(String name) throws IOException {

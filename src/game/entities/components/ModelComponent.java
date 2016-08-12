@@ -61,24 +61,24 @@ public class ModelComponent extends IEntityComponent {
 	public ModelComponent(Entity entity, EntityTemplate template) {
 		this(entity, null, null, null, 1.0f, 0);
 
-		float[] vertices = template.toFloatArray(template.toOneLine(template.getSectionData(getClass().getName(), "Vertices")));
-		float[] textureCoords = template.toFloatArray(template.toOneLine(template.getSectionData(getClass().getName(), "TextureCoords")));
-		float[] normals = template.toFloatArray(template.toOneLine(template.getSectionData(getClass().getName(), "Normals")));
-		float[] tangents = template.toFloatArray(template.toOneLine(template.getSectionData(getClass().getName(), "Tangents")));
-		int[] indices = template.toIntArray(template.toOneLine(template.getSectionData(getClass().getName(), "Indices")));
+		float[] vertices = template.toFloatArray(template.getSectionData(this, "Vertices"));
+		float[] textureCoords = template.toFloatArray(template.getSectionData(this, "TextureCoords"));
+		float[] normals = template.toFloatArray(template.getSectionData(this, "Normals"));
+		float[] tangents = template.toFloatArray(template.getSectionData(this, "Tangents"));
+		int[] indices = template.toIntArray(template.getSectionData(this, "Indices"));
 		this.model = new Model(vertices, textureCoords, normals, tangents, indices);
 
-		this.texture = Texture.newTexture(new MyFile(template.getValue(getClass().getName(), "Texture"))).create();
-		this.texture.setNumberOfRows(Integer.parseInt(template.getValue(getClass().getName(), "TextureNumRows")));
+		this.texture = Texture.newTexture(new MyFile(template.getValue(this, "Texture"))).create();
+		this.texture.setNumberOfRows(Integer.parseInt(template.getValue(this, "TextureNumRows")));
 
-		if (Boolean.parseBoolean(template.getValue(getClass().getName(), "UseNormalMap"))) {
-			this.normalMap = Texture.newTexture(new MyFile(template.getValue(getClass().getName(), "NormalMap"))).create();
-			this.normalMap.setNumberOfRows(Integer.parseInt(template.getValue(getClass().getName(), "NormalMapNumRows")));
+		if (!template.getValue(this, "NormalMap").equals("null")) {
+			this.normalMap = Texture.newTexture(new MyFile(template.getValue(this, "NormalMap"))).create();
+			this.normalMap.setNumberOfRows(Integer.parseInt(template.getValue(this, "NormalMapNumRows")));
 		}
 
-		this.transparency = Float.parseFloat(template.getValue(getClass().getName(), "Transparency"));
-		this.scale = Float.parseFloat(template.getValue(getClass().getName(), "Scale"));
-		this.textureIndex = Integer.parseInt(template.getValue(getClass().getName(), "TextureIndex"));
+		this.transparency = Float.parseFloat(template.getValue(this, "Transparency"));
+		this.scale = Float.parseFloat(template.getValue(this, "Scale"));
+		this.textureIndex = Integer.parseInt(template.getValue(this, "TextureIndex"));
 	}
 
 	/**
@@ -125,48 +125,48 @@ public class ModelComponent extends IEntityComponent {
 	}
 
 	@Override
-	public Pair<String[], SaveFunction[]> getSavableValues() {
-		SaveFunction saveVertices = new SaveFunction("Vertices") {
+	public Pair<String[], EntitySaverFunction[]> getSavableValues() {
+		EntitySaverFunction saveVertices = new EntitySaverFunction("Vertices") {
 			@Override
 			public void writeIntoSection(EntityFileWriter entityFileWriter) throws IOException {
-				for (Vector3f v : entityFileWriter.getVec3List(model.getVertices())) {
-					String s = entityFileWriter.vec3String(v) + ",";
+				for (float v : model.getVertices()) {
+					String s = v + ",";
 					entityFileWriter.writeSegmentData(s);
 				}
 			}
 		};
-		SaveFunction saveTextureCoords = new SaveFunction("TextureCoords") {
+		EntitySaverFunction saveTextureCoords = new EntitySaverFunction("TextureCoords") {
 			@Override
 			public void writeIntoSection(EntityFileWriter entityFileWriter) throws IOException {
-				for (Vector2f v : entityFileWriter.getVec2List(model.getTextures())) {
-					String s = entityFileWriter.vec2String(v) + ",";
+				for (float v : model.getTextures()) {
+					String s = v + ",";
 					entityFileWriter.writeSegmentData(s);
 				}
 			}
 		};
-		SaveFunction saveNormals = new SaveFunction("Normals") {
+		EntitySaverFunction saveNormals = new EntitySaverFunction("Normals") {
 			@Override
 			public void writeIntoSection(EntityFileWriter entityFileWriter) throws IOException {
-				for (Vector3f v : entityFileWriter.getVec3List(model.getNormals())) {
-					String s = entityFileWriter.vec3String(v) + ",";
+				for (float v : model.getNormals()) {
+					String s = v + ",";
 					entityFileWriter.writeSegmentData(s);
 				}
 			}
 		};
-		SaveFunction saveTangents = new SaveFunction("Tangents") {
+		EntitySaverFunction saveTangents = new EntitySaverFunction("Tangents") {
 			@Override
 			public void writeIntoSection(EntityFileWriter entityFileWriter) throws IOException {
-				for (Vector3f v : entityFileWriter.getVec3List(model.getTangents())) {
-					String s = entityFileWriter.vec3String(v) + ",";
+				for (float v : model.getTangents()) {
+					String s = v + ",";
 					entityFileWriter.writeSegmentData(s);
 				}
 			}
 		};
-		SaveFunction saveIndices = new SaveFunction("Indices") {
+		EntitySaverFunction saveIndices = new EntitySaverFunction("Indices") {
 			@Override
 			public void writeIntoSection(EntityFileWriter entityFileWriter) throws IOException {
 				for (int i : model.getIndices()) {
-					String s = i + "/";
+					String s = i + ",";
 					entityFileWriter.writeSegmentData(s);
 				}
 			}
@@ -175,7 +175,6 @@ public class ModelComponent extends IEntityComponent {
 		String textureSave = "Texture: " + texture.getFile().getPath().substring(1, texture.getFile().getPath().length());
 		String textureNumRowsSave = "TextureNumRows: " + texture.getNumberOfRows();
 
-		String useNormalMapSave = "UseNormalMap: " + (normalMap == null ? "false" : "true");
 		String normalMapSave = "NormalMap: " + (normalMap == null ? null : normalMap.getFile().getPath().substring(1, normalMap.getFile().getPath().length()));
 		String normalMapNumRowsSave = "NormalMapNumRows: " + (normalMap == null ? 1 : normalMap.getNumberOfRows());
 
@@ -185,8 +184,8 @@ public class ModelComponent extends IEntityComponent {
 
 
 		return new Pair<>(
-				new String[]{textureSave, textureNumRowsSave, useNormalMapSave, normalMapSave, normalMapNumRowsSave, transparencySave, scaleSave, indexSave},
-				new SaveFunction[]{saveVertices, saveTextureCoords, saveNormals, saveTangents, saveIndices}
+				new String[]{textureSave, textureNumRowsSave, normalMapSave, normalMapNumRowsSave, transparencySave, scaleSave, indexSave},
+				new EntitySaverFunction[]{saveVertices, saveTextureCoords, saveNormals, saveTangents, saveIndices}
 		);
 	}
 

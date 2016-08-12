@@ -134,8 +134,8 @@ public class CollisionComponent extends IEntityComponent {
 	}
 
 	@Override
-	public Pair<String[], SaveFunction[]> getSavableValues() {
-		return new Pair<>(new String[]{}, new SaveFunction[]{});
+	public Pair<String[], EntitySaverFunction[]> getSavableValues() {
+		return new Pair<>(new String[]{}, new EntitySaverFunction[]{});
 	}
 
 	@Override

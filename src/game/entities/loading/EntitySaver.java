@@ -44,7 +44,7 @@ public class EntitySaver {
 				for (int i = 0; i < entity.getComponents().size(); i++) {
 					entityFileWriter.beginNewSegment(entity.getComponents().get(i).getClass().getName());
 
-					Pair<String[], SaveFunction[]> saveableValues = entity.getComponents().get(i).getSavableValues();
+					Pair<String[], EntitySaverFunction[]> saveableValues = entity.getComponents().get(i).getSavableValues();
 
 					// Individual data components.
 					for (String s : saveableValues.getFirst()) {
@@ -60,7 +60,7 @@ public class EntitySaver {
 					// Segmented data components.
 					int fi = 0;
 
-					for (SaveFunction f : saveableValues.getSecond()) {
+					for (EntitySaverFunction f : saveableValues.getSecond()) {
 						entityFileWriter.beginNewSegment(f.getSectionName());
 						{
 							f.writeIntoSection(entityFileWriter);

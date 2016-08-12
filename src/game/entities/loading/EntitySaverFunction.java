@@ -5,7 +5,7 @@ import java.io.*;
 /**
  * A class capable of writing to a entity save file component section.
  */
-public abstract class SaveFunction {
+public abstract class EntitySaverFunction {
 	private String sectionName;
 
 	/**
@@ -13,7 +13,7 @@ public abstract class SaveFunction {
 	 *
 	 * @param sectionName The sections classpath.
 	 */
-	public SaveFunction(String sectionName) {
+	public EntitySaverFunction(String sectionName) {
 		this.sectionName = sectionName;
 	}
 

@@ -38,11 +38,6 @@ public abstract class IEntityComponent {
 	}
 
 	/**
-	 * @return Returns a list of values that are saved with the component.
-	 */
-	public abstract String[] getSavableValues();
-
-	/**
 	 * Updates this component.
 	 */
 	public abstract void update();

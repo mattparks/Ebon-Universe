@@ -7,6 +7,7 @@ import flounder.maths.vectors.*;
 import flounder.resources.*;
 import flounder.shaders.*;
 import game.*;
+import game.entities.components.*;
 
 import java.util.*;
 
@@ -59,20 +60,24 @@ public class EntityRenderer extends IRenderer {
 	}
 
 	private void renderEntity(Entity entity) {
-		OpenGlUtils.bindVAO(entity.getModel().getVaoID(), 0, 1, 2, 3);
-		OpenGlUtils.bindTextureToBank(entity.getTexture().getTextureID(), 0);
+		ModelComponent modelComponent = (ModelComponent) entity.getComponent(ModelComponent.ID);
 
-		if (entity.getNormalMap() != null) {
-			OpenGlUtils.bindTextureToBank(entity.getNormalMap().getTextureID(), 1);
+		OpenGlUtils.bindVAO(modelComponent.getModel().getVaoID(), 0, 1, 2, 3);
+		OpenGlUtils.bindTextureToBank(modelComponent.getTexture().getTextureID(), 0);
+
+		if (modelComponent.getNormalMap() != null) {
+			OpenGlUtils.bindTextureToBank(modelComponent.getNormalMap().getTextureID(), 1);
 		}
 
 		shader.getUniformMat4("modelMatrix").loadMat4(entity.getModelMatrix());
 
-		shader.getUniformFloat("numberOfRows").loadFloat(entity.getTexture().getNumberOfRows());
-		shader.getUniformVec2("textureOffset").loadVec2(entity.getTextureOffset());
-		shader.getUniformBool("useNormalMap").loadBoolean(entity.getNormalMap() != null);
+		shader.getUniformFloat("numberOfRows").loadFloat(modelComponent.getTexture().getNumberOfRows());
+		shader.getUniformVec2("textureOffset").loadVec2(modelComponent.getTextureOffset());
+		shader.getUniformBool("useNormalMap").loadBoolean(modelComponent.getNormalMap() != null);
 
-		glDrawElements(GL_TRIANGLES, entity.getModel().getVaoLength(), GL_UNSIGNED_INT, 0);
+		shader.getUniformFloat("transparency").loadFloat(modelComponent.getTransparency());
+
+		glDrawElements(GL_TRIANGLES, modelComponent.getModel().getVaoLength(), GL_UNSIGNED_INT, 0);
 
 		OpenGlUtils.unbindVAO(0, 1, 2, 3);
 	}

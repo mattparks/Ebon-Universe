@@ -15,6 +15,7 @@ varying vec3 toCameraVector;
 varying vec4 positionRelativeToCam;
 
 uniform bool useNormalMap;
+uniform float transparency;
 uniform vec3 fogColour;
 uniform float fogDensity;
 uniform float fogGradient;
@@ -35,6 +36,7 @@ void main(void) {
     float visibility = clamp(exp(-pow((length(positionRelativeToCam.xyz) * fogDensity), fogGradient)), 0.0, 1.0);
 
     out_colour = textureColour;
+    out_colour.a = min(out_colour.a, transparency);
     out_colour = mix(vec4(fogColour, 1.0), out_colour, visibility);
     out_position = entityPosition;
     out_normal = vec4(unitNormal, 0.0);

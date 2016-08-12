@@ -15,6 +15,7 @@ import flounder.sounds.*;
 import flounder.textures.*;
 import game.cameras.*;
 import game.entities.*;
+import game.entities.objects.*;
 import game.players.*;
 import game.options.*;
 
@@ -59,13 +60,7 @@ public class MainGame extends IGame {
 		this.player.init();
 		Environment.init(new Fog(new Colour(1.0f, 1.0f, 1.0f, false), 0.001f, 2.0f, 0.0f, 50.0f), new Light(new Colour(0.85f, 0.85f, 0.85f), new Vector3f(0.0f, 2000.0f, 2000.0f)));
 
-		Environment.getEntitys().add(Entity.newEntity(
-				Model.newModel(new MyFile(MyFile.RES_FOLDER, "entities", "barrel.obj")).create(),
-				Texture.newTexture(new MyFile(MyFile.RES_FOLDER, "entities", "barrel.png")).create())
-				.setNormalMap(Texture.newTexture(new MyFile(MyFile.RES_FOLDER, "entities", "barrelNormal.png")).create())
-				.setPosition(new Vector3f()).setRotation(new Vector3f()).setScale(0.8f)
-				.create()
-		);
+		EntityBarrel.createEntity(Environment.getEntitys(), new Vector3f(), new Vector3f());
 
 		Random ran = new Random();
 
@@ -73,13 +68,7 @@ public class MainGame extends IGame {
 			for (int p = 0 ; p < 32; p++) {
 				for (int q = 0 ; q < 32; q++) {
 					if (ran.nextInt(10) == 1) {
-						Environment.getEntitys().add(Entity.newEntity(
-								Model.newModel(new MyFile(MyFile.RES_FOLDER, "entities", "crate.obj")).create(),
-								Texture.newTexture(new MyFile(MyFile.RES_FOLDER, "entities", "crate.png")).create())
-								.setNormalMap(Texture.newTexture(new MyFile(MyFile.RES_FOLDER, "entities", "crateNormal.png")).create())
-								.setPosition(new Vector3f((n * 5) + 10, (p * 5) + 10, (q * 5) + 10)).setRotation(new Vector3f()).setScale(0.025f)
-								.create()
-						);
+						EntityCrate.createEntity(Environment.getEntitys(), new Vector3f((n * 5) + 10, (p * 5) + 10, (q * 5) + 10), new Vector3f());
 					}
 				}
 			}
@@ -90,18 +79,8 @@ public class MainGame extends IGame {
 		Light testLight = new Light(new Colour(0, 0, 1), new Vector3f(0, 14, 10), new Attenuation(1, 0.01f, 0.002f));
 		Environment.getLights().add(testLight);
 
-		Environment.getEntitys().add(Entity.newEntity(
-				Model.newModel(new MyFile(MyFile.RES_FOLDER, "models", "sphere.obj")).create(),
-				Texture.newTexture(new MyFile(MyFile.RES_FOLDER, "entities", "sphere.png")).create())
-				.setPosition(testLight.position).setRotation(new Vector3f()).setScale(0.5f)
-				.create()
-		);
-		Environment.getEntitys().add(Entity.newEntity(
-				Model.newModel(new MyFile(MyFile.RES_FOLDER, "models", "sphere.obj")).create(),
-				Texture.newTexture(new MyFile(MyFile.RES_FOLDER, "entities", "sphere.png")).create())
-				.setPosition(Environment.getLights().get(0).position).setRotation(new Vector3f()).setScale(1.0f)
-				.create()
-		);
+		EntitySphere.createEntity(Environment.getEntitys(), testLight.position, new Vector3f());
+		EntitySphere.createEntity(Environment.getEntitys(), Environment.getLights().get(0).position, new Vector3f());
 
 		Playlist playlist = new Playlist();
 		playlist.addMusic(Sound.loadSoundInBackground(new MyFile(MyFile.RES_FOLDER, "music", "era-of-space.wav"), 0.80f));

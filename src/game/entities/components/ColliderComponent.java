@@ -44,7 +44,7 @@ public class ColliderComponent extends IEntityComponent {
 
 		if (modelComponent != null) {
 			if (modelComponent.getModel() != null) {
-				modelComponent.getModel().getAABB().recalculate(aabb, super.getEntity().getPosition(), super.getEntity().getRotation(), modelComponent.getScale());
+				AABB.recalculate(modelComponent.getModel().getAABB(), aabb, super.getEntity().getPosition(), super.getEntity().getRotation(), modelComponent.getScale());
 				FlounderEngine.getAABBs().addAABBRender(aabb);
 				return aabb;
 			}

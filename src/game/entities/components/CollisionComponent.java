@@ -48,7 +48,7 @@ public class CollisionComponent extends IEntityComponent {
 			return result;
 		}
 
-		final AABB collisionRange = component1.getAABB().stretch(amount); // The range in where there can be collisions!
+		final AABB collisionRange = AABB.stretch(component1.getAABB(), null, amount); // The range in where there can be collisions!
 
 		AABB aabb1 = component1.getAABB();
 

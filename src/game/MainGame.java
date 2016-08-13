@@ -8,11 +8,14 @@ import flounder.inputs.*;
 import flounder.lights.*;
 import flounder.maths.*;
 import flounder.maths.vectors.*;
+import flounder.models.*;
 import flounder.parsing.*;
 import flounder.resources.*;
 import flounder.sounds.*;
+import flounder.textures.*;
 import game.cameras.*;
 import game.entities.*;
+import game.entities.components.*;
 import game.entities.loading.*;
 import game.options.*;
 import game.players.*;
@@ -57,28 +60,6 @@ public class MainGame extends IGame {
 
 		Environment.init(new Fog(new Colour(1.0f, 1.0f, 1.0f, false), 0.001f, 2.0f, 0.0f, 50.0f), new Light(new Colour(0.85f, 0.85f, 0.85f), new Vector3f(0.0f, 2000.0f, 2000.0f)));
 		this.player.init();
-
-		/*// Creates a new smoke particle type.
-		Texture smokeTexture = Texture.newTexture(new MyFile(FlounderParticles.PARTICLES_LOC, "smoke.png")).createInBackground();
-		smokeTexture.setNumberOfRows(8);
-		ParticleTemplate smokeParticleTemplate = new ParticleTemplate("smoke1", smokeTexture, 0.1f, 1.5f, 5.0f);
-
-		// Creates a new fire particle type.
-		Texture fireTexture = Texture.newTexture(new MyFile(FlounderParticles.PARTICLES_LOC, "fire.png")).createInBackground();
-		fireTexture.setNumberOfRows(8);
-		ParticleTemplate fireParticleTemplate = new ParticleTemplate("fire1", fireTexture, 0.1f, 1.5f, 5.0f);
-
-		// Creates a list of usable particles for the system..
-		List<ParticleTemplate> particleTemplates = new ArrayList<>();
-		particleTemplates.add(smokeParticleTemplate);
-		particleTemplates.add(fireParticleTemplate);
-
-		// Creates a new simple particle emitter system.
-		ParticleSystem particleSystem = new ParticleSystem(particleTemplates, new SpawnSphere(20), 1500, 1.0f);
-		particleSystem.setSpeedError(0.3f);
-		particleSystem.randomizeRotation();
-		particleSystem.setDirection(new Vector3f(1.0f, 0, 0), 0.075f);
-		particleSystem.setSystemCentre(player.getPosition());*/
 
 		EntityLoader.load("barrel").createEntity(Environment.getEntitys(), new Vector3f(), new Vector3f());
 

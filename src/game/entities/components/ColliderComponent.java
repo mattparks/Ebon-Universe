@@ -33,7 +33,8 @@ public class ColliderComponent extends IEntityComponent {
 	 * @param template The entity template to load data from.
 	 */
 	public ColliderComponent(Entity entity, EntityTemplate template) {
-		this(entity);
+		super(entity, ID);
+		this.aabb = new AABB();
 	}
 
 	/**

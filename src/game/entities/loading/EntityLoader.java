@@ -2,6 +2,7 @@ package game.entities.loading;
 
 import flounder.engine.*;
 import flounder.helpers.*;
+import flounder.resources.*;
 
 import java.io.*;
 import java.lang.ref.*;
@@ -22,10 +23,10 @@ public class EntityLoader {
 			loadedTemplates.remove(name);
 
 			// Creates the file reader.
-			File saveFile = new File("entities/" + name + ".entity");
+			MyFile saveFile = new MyFile(MyFile.RES_FOLDER, "entities", name + ".entity");
 
 			try {
-				BufferedReader fileReader = new BufferedReader(new FileReader(saveFile));
+				BufferedReader fileReader = saveFile.getReader();
 
 				if (fileReader == null) {
 					FlounderEngine.getLogger().error("Error creating reader the entity file: " + saveFile);

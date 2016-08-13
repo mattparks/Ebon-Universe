@@ -14,7 +14,8 @@ public class EntityGame extends IGame {
 
 	private Vector3f entityMove;
 	private Vector3f entityRotate;
-	private Entity focusEntity;
+
+	public static Entity focusEntity;
 
 	public EntityGame() {
 		entityMove = new Vector3f();

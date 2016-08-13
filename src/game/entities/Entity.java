@@ -1,5 +1,6 @@
 package game.entities;
 
+import flounder.engine.*;
 import flounder.maths.matrices.*;
 import flounder.maths.vectors.*;
 import flounder.physics.*;
@@ -181,6 +182,11 @@ public class Entity implements ISpatialObject {
 		// if (audioComponent != null) {
 		// audioComponent.play("remove");
 		// }
+
+		ParticleSystemComponent particleComponent = (ParticleSystemComponent) getComponent(ParticleSystemComponent.ID);
+		if (particleComponent != null) {
+			FlounderEngine.getParticles().removeSystem(particleComponent.getParticleSystem());
+		}
 
 		isRemoved = true;
 		RemoveComponent removeComponent = (RemoveComponent) getComponent(RemoveComponent.ID);

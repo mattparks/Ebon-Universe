@@ -1,0 +1,13 @@
+/**
+ * Date Generated: 13.8.2016 - 11:4
+ * Created By: null
+ */
+ParticleData {
+	Name: fire1;
+	Texture: res/particles/fire.png;
+	NumberOfRows: 8;
+	GravityEffect: 0.1;
+	LifeLength: 1.5;
+	Scale: 5.0;
+};
+

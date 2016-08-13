@@ -9,13 +9,10 @@ import flounder.lights.*;
 import flounder.maths.*;
 import flounder.maths.vectors.*;
 import flounder.parsing.*;
-import flounder.particles.*;
-import flounder.particles.loading.*;
-import flounder.particles.spawns.*;
 import flounder.resources.*;
 import flounder.sounds.*;
-import flounder.textures.*;
 import game.cameras.*;
+import game.entities.*;
 import game.entities.loading.*;
 import game.options.*;
 import game.players.*;
@@ -61,6 +58,28 @@ public class MainGame extends IGame {
 		Environment.init(new Fog(new Colour(1.0f, 1.0f, 1.0f, false), 0.001f, 2.0f, 0.0f, 50.0f), new Light(new Colour(0.85f, 0.85f, 0.85f), new Vector3f(0.0f, 2000.0f, 2000.0f)));
 		this.player.init();
 
+		/*// Creates a new smoke particle type.
+		Texture smokeTexture = Texture.newTexture(new MyFile(FlounderParticles.PARTICLES_LOC, "smoke.png")).createInBackground();
+		smokeTexture.setNumberOfRows(8);
+		ParticleTemplate smokeParticleTemplate = new ParticleTemplate("smoke1", smokeTexture, 0.1f, 1.5f, 5.0f);
+
+		// Creates a new fire particle type.
+		Texture fireTexture = Texture.newTexture(new MyFile(FlounderParticles.PARTICLES_LOC, "fire.png")).createInBackground();
+		fireTexture.setNumberOfRows(8);
+		ParticleTemplate fireParticleTemplate = new ParticleTemplate("fire1", fireTexture, 0.1f, 1.5f, 5.0f);
+
+		// Creates a list of usable particles for the system..
+		List<ParticleTemplate> particleTemplates = new ArrayList<>();
+		particleTemplates.add(smokeParticleTemplate);
+		particleTemplates.add(fireParticleTemplate);
+
+		// Creates a new simple particle emitter system.
+		ParticleSystem particleSystem = new ParticleSystem(particleTemplates, new SpawnSphere(20), 1500, 1.0f);
+		particleSystem.setSpeedError(0.3f);
+		particleSystem.randomizeRotation();
+		particleSystem.setDirection(new Vector3f(1.0f, 0, 0), 0.075f);
+		particleSystem.setSystemCentre(player.getPosition());*/
+
 		EntityLoader.load("barrel").createEntity(Environment.getEntitys(), new Vector3f(), new Vector3f());
 
 		Random ran = new Random();
@@ -80,7 +99,10 @@ public class MainGame extends IGame {
 		Light testLight = new Light(new Colour(0, 0, 1), new Vector3f(0, 14, 10), new Attenuation(1, 0.01f, 0.002f));
 		Environment.getLights().add(testLight);
 
-		EntityLoader.load("sphere").createEntity(Environment.getEntitys(), testLight.position, new Vector3f());
+		Entity sphere1 = EntityLoader.load("sphere1").createEntity(Environment.getEntitys(), testLight.position, new Vector3f());
+		//new ParticleSystemComponent(sphere1, particleTemplates, new SpawnCircle(new Vector3f(0, 1, 0), 15), 100.0f, 1.0f);
+		//EntitySaver.save(sphere1, "sphere1");
+
 		EntityLoader.load("sphere").createEntity(Environment.getEntitys(), Environment.getLights().get(0).position, new Vector3f());
 
 		Playlist playlist = new Playlist();
@@ -88,28 +110,6 @@ public class MainGame extends IGame {
 		playlist.addMusic(Sound.loadSoundInBackground(new MyFile(MyFile.RES_FOLDER, "music", "pyrosanical.wav"), 0.50f));
 		playlist.addMusic(Sound.loadSoundInBackground(new MyFile(MyFile.RES_FOLDER, "music", "spacey-ambient.wav"), 0.60f));
 		FlounderEngine.getDevices().getSound().getMusicPlayer().playMusicPlaylist(playlist, true, 4.0f, 10.0f);
-
-		// Creates a new smoke particle type.
-		Texture smokeTexture = Texture.newTexture(new MyFile(FlounderParticles.PARTICLES_LOC, "smoke.png")).createInBackground();
-		smokeTexture.setNumberOfRows(8);
-		ParticleTemplate smokeParticleTemplate = new ParticleTemplate("smoke1", smokeTexture, 0.1f, 1.5f, 5.0f);
-
-		// Creates a new fire particle type.
-		Texture fireTexture = Texture.newTexture(new MyFile(FlounderParticles.PARTICLES_LOC, "fire.png")).createInBackground();
-		fireTexture.setNumberOfRows(8);
-		ParticleTemplate fireParticleTemplate = new ParticleTemplate("smoke1", fireTexture, 0.1f, 1.5f, 5.0f);
-
-		// Creates a list of usable particles for the system..
-		List<ParticleTemplate> particleTemplates = new ArrayList<>();
-		particleTemplates.add(smokeParticleTemplate);
-		particleTemplates.add(fireParticleTemplate);
-
-		// Creates a new simple particle emitter system.
-		ParticleSystem particleSystem = new ParticleSystem(particleTemplates, new SpawnSphere(20), 1500, 1.0f);
-		particleSystem.setSpeedError(0.3f);
-		particleSystem.randomizeRotation();
-		particleSystem.setDirection(new Vector3f(1.0f, 0, 0), 0.075f);
-		particleSystem.setSystemCentre(player.getPosition());
 	}
 
 	@Override

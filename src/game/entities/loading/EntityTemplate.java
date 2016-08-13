@@ -1,5 +1,6 @@
 package game.entities.loading;
 
+import flounder.engine.*;
 import flounder.helpers.*;
 import flounder.maths.vectors.*;
 import flounder.resources.*;
@@ -49,8 +50,8 @@ public class EntityTemplate {
 				Object[] componentParameters = new Object[]{instance, this};
 				componentConstructor.newInstance(componentParameters);
 			} catch (ClassNotFoundException | IllegalAccessException | InstantiationException | InvocationTargetException | NoSuchMethodException e) {
-				System.out.println("While loading " + entityName + "'s components " + k.classpath + " constructor could not be found!");
-				e.printStackTrace();
+				FlounderEngine.getLogger().error("While loading " + entityName + "'s components " + k.classpath + " constructor could not be found!");
+				FlounderEngine.getLogger().exception(e);
 			}
 		}
 
@@ -92,7 +93,7 @@ public class EntityTemplate {
 			if (data.classpath.equals(component.getClass().getName())) {
 				for (EntityLoader.SectionData section : componentsData.get(data)) {
 					if (section.name.equals(sectionName)) {
-						return section.line;
+						return section.line.trim();
 					}
 				}
 			}
@@ -108,6 +109,17 @@ public class EntityTemplate {
 	 */
 	public String getEntityName() {
 		return entityName;
+	}
+
+	/**
+	 * Turns a segmented string into a string array.
+	 *
+	 * @param data The segmented data to parse.
+	 *
+	 * @return The resulting string array.
+	 */
+	public static String[] toStringArray(String data) {
+		return data.split(",");
 	}
 
 	/**

@@ -59,7 +59,7 @@ public class ModelComponent extends IEntityComponent {
 	 * @param template The entity template to load data from.
 	 */
 	public ModelComponent(Entity entity, EntityTemplate template) {
-		this(entity, null, null, null, 1.0f, 0);
+		super(entity, ID);
 
 		this.model = Model.newModel(new ModelBuilder.LoadManual() {
 			@Override

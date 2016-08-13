@@ -30,7 +30,7 @@ public class CollisionComponent extends IEntityComponent {
 	 * @param template The entity template to load data from.
 	 */
 	public CollisionComponent(Entity entity, EntityTemplate template) {
-		this(entity);
+		super(entity, ID);
 	}
 
 	/**
@@ -64,7 +64,7 @@ public class CollisionComponent extends IEntityComponent {
 
 			AABB aabb2 = collider2.getAABB();
 
-			if (aabb2.intersects(collisionRange).isIntersection()) {
+			if (aabb2 != null && aabb2.intersects(collisionRange).isIntersection()) {
 				// TODO: Mesh collision.
 				result.set((float) resolveCollisionX(aabb1, aabb2, result.getX()), (float) resolveCollisionY(aabb1, aabb2, result.getY()), (float) resolveCollisionZ(aabb1, aabb2, result.getZ()));
 			}

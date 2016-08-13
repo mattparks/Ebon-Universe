@@ -8,14 +8,12 @@ import flounder.maths.vectors.*;
 import flounder.particles.*;
 import flounder.particles.loading.*;
 import flounder.particles.spawns.*;
-import flounder.resources.*;
-import flounder.textures.*;
 import game.*;
 
 import java.util.*;
 
 public class ParticleGame extends IGame {
-	public ParticleSystem particleSystem;
+	public static ParticleSystem particleSystem;
 
 	public ParticleGame() {
 	}

@@ -1,7 +1,6 @@
 package game.editors.particles;
 
 import flounder.engine.*;
-import flounder.helpers.*;
 
 import javax.swing.*;
 import java.awt.*;

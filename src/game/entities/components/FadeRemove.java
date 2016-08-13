@@ -33,7 +33,7 @@ public class FadeRemove extends RemoveComponent {
 	 * @param template The entity template to load data from.
 	 */
 	public FadeRemove(Entity entity, EntityTemplate template) {
-		this(entity, 0);
+		super(entity);
 		this.duration = Double.parseDouble(template.getValue(this, "Duration"));
 		this.removesAfterDuration = Boolean.parseBoolean(template.getValue(this, "RemovesAfterDuration"));
 	}

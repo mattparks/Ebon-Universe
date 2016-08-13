@@ -13,6 +13,7 @@ import game.*;
 import java.util.*;
 
 public class ParticleGame extends IGame {
+	public static ParticleTemplate particleTemplate;
 	public static ParticleSystem particleSystem;
 
 	public ParticleGame() {
@@ -20,15 +21,19 @@ public class ParticleGame extends IGame {
 
 	@Override
 	public void init() {
-		FlounderEngine.getProfiler().toggle(false);
+	//	FlounderEngine.getProfiler().toggle(false);
 		FlounderEngine.getCursor().show(true);
 		FlounderEngine.getDevices().getDisplay().setCursorHidden(true);
 
 		Environment.init(new Fog(new Colour(1.0f, 1.0f, 1.0f, false), 0.001f, 2.0f, 0.0f, 50.0f), null);
 
+		// The template to edit.
+		particleTemplate = new ParticleTemplate("testing", null, 1.0f, 1.0f, 1.0f);
+
 		// The testing particle system.
 		particleSystem = new ParticleSystem(new ArrayList<>(), null, 376.0f, 10.0f);
-		particleSystem.addParticleType(new ParticleTemplate("loading", null, 1.0f, 1.0f, 1.0f));
+		particleSystem.addParticleType(particleTemplate);
+		particleSystem.randomizeRotation();
 		particleSystem.setSpawn(new SpawnCone(new Vector3f(0, 1, 1), 150));
 		particleSystem.setSystemCentre(focusPosition);
 
@@ -43,5 +48,6 @@ public class ParticleGame extends IGame {
 
 	@Override
 	public void dispose() {
+		ParticleSaver.save(particleTemplate);
 	}
 }

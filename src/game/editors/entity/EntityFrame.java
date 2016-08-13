@@ -25,7 +25,7 @@ public class EntityFrame {
 						"Are you sure to close this editor?", "Any unsaved work will be lost!",
 						JOptionPane.YES_NO_OPTION,
 						JOptionPane.QUESTION_MESSAGE) == JOptionPane.YES_OPTION) {
-					System.exit(-1);
+					FlounderEngine.requestClose();
 				} else {
 					jFrame.setVisible(true);
 				}

@@ -50,6 +50,7 @@ public class ParticleSystemComponent extends IEntityComponent {
 		}
 
 		particleSystem = new ParticleSystem(templateList, particleSpawn, Float.parseFloat(template.getValue(this, "PPS")), Float.parseFloat(template.getValue(this, "Speed")));
+		particleSystem.randomizeRotation();
 	}
 
 	public ParticleSystem getParticleSystem() {

@@ -69,7 +69,7 @@ public class MainGame extends IGame {
 			for (int p = 0; p < 32; p++) {
 				for (int q = 0; q < 32; q++) {
 					if (ran.nextInt(10) == 1) {
-						EntityLoader.load("crate").createEntity(Environment.getEntitys(), new Vector3f((n * 5) + 10, (p * 5) + 10, (q * 5) + 10), new Vector3f());
+						EntityLoader.load("crate").createEntity(Environment.getEntitys(), new Vector3f((n * 5) + 10, (p * 5) + 10, (q * 5) + 10), new Vector3f(0, ran.nextInt(360), 0));
 					}
 				}
 			}

@@ -16,13 +16,15 @@ public class PlayerFocus implements IPlayer {
 	private static final float FRONT_SPEED = 30;
 	private static final float UP_SPEED = 20;
 	private static final float SIDE_SPEED = 30;
+	private static final float ROTATE_SPEED = 60;
 
 	private IAxis inputForward;
 	private IAxis inputUp;
 	private IAxis inputSide;
 	private KeyButton inputSpeedBoost;
 
-	private Vector3f velocity;
+	private Vector3f velMove;
+	private Vector3f velRoat;
 
 	private Vector3f position;
 	private Vector3f rotation;
@@ -43,7 +45,8 @@ public class PlayerFocus implements IPlayer {
 		this.inputSide = new CompoundAxis(new ButtonAxis(leftKeyButtons, rightKeyButtons), new JoystickAxis(OptionsControls.JOYSTICK_PORT, OptionsControls.JOYSTICK_AXIS_X));
 		this.inputSpeedBoost = new KeyButton(GLFW_KEY_LEFT_SHIFT);
 
-		this.velocity = new Vector3f(0, 0, 0);
+		this.velMove = new Vector3f(0, 0, 0);
+		this.velRoat = new Vector3f(0, 0, 0);
 
 		this.position = new Vector3f(0, 5, 0);
 		this.rotation = new Vector3f(0, 0, 0);
@@ -55,14 +58,19 @@ public class PlayerFocus implements IPlayer {
 	public void update(boolean paused) {
 		if (!paused) {
 			float speedBoost = inputSpeedBoost.isDown() ? SPEED_BOOST_SCALE : 1.0f;
-			velocity.z = speedBoost * -FRONT_SPEED * FlounderEngine.getDelta() * Maths.deadband(0.05f, inputForward.getAmount());
-			velocity.y = speedBoost * UP_SPEED * FlounderEngine.getDelta() * Maths.deadband(0.05f, inputUp.getAmount());
-			velocity.x = speedBoost * -SIDE_SPEED * FlounderEngine.getDelta() * Maths.deadband(0.05f, inputSide.getAmount());
+			float distance =  speedBoost * -FRONT_SPEED * inputForward.getAmount() * FlounderEngine.getDelta();
 
-			if (Math.abs(velocity.x) > 0 || Math.abs(velocity.y) > 0 || Math.abs(velocity.z) > 0) {
-				focusEntity.move(velocity, rotation);
-				// Vector3f.add(position, velocity, position);
+			velMove.x = (float) (distance * Math.sin(Math.toRadians(rotation.getY())));
+			velMove.z = (float) (distance * Math.cos(Math.toRadians(rotation.getY())));
+			velMove.y = UP_SPEED * inputUp.getAmount() * FlounderEngine.getDelta();
+
+			velRoat.y = speedBoost * -ROTATE_SPEED * FlounderEngine.getDelta() * Maths.deadband(0.05f, inputSide.getAmount());
+
+			if (Math.abs(velMove.x) > 0 || Math.abs(velMove.y) > 0 || Math.abs(velMove.z) > 0 || Math.abs(velRoat.y) > 0) {
+				focusEntity.move(velMove, velRoat);
+				// Vector3f.add(position, velMove, position);
 				position.set(focusEntity.getPosition());
+				rotation.set(focusEntity.getRotation());
 			}
 		}
 	}

@@ -35,7 +35,6 @@ public class ParticleFrame {
 		addViewOptions();
 
 		jFrame.add(mainPanel);
-		jFrame.pack();
 		jFrame.setLocationByPlatform(true);
 		jFrame.setVisible(true);
 	}

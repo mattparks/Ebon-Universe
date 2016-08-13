@@ -30,54 +30,54 @@ public class EntitySaver {
 			File saveFile = new File(saveFolder.getPath() + "/" + name + ".entity");
 			saveFile.createNewFile();
 			FileWriter fileWriter = new FileWriter(saveFile);
-			EntityFileWriter entityFileWriter = new EntityFileWriter(fileWriter);
+			FlounderFileWriter flounderFileWriter = new FlounderFileWriter(fileWriter);
 
 			// Date and save info.
 			String savedDate = Calendar.getInstance().get(Calendar.DAY_OF_MONTH) + "." + (Calendar.getInstance().get(Calendar.MONTH) + 1) + "." + Calendar.getInstance().get(Calendar.YEAR) + " - " + Calendar.getInstance().get(Calendar.HOUR) + ":" + Calendar.getInstance().get(Calendar.MINUTE);
 			FlounderEngine.getLogger().log("Entity " + name + " is being saved at: " + savedDate);
-			entityFileWriter.addComment("Date Generated: " + savedDate, "Created By: " + System.getProperty("user.classpath"));
+			flounderFileWriter.addComment("Date Generated: " + savedDate, "Created By: " + System.getProperty("user.classpath"));
 
 			// Entity General Data.
-			entityFileWriter.beginNewSegment("EntityData");
+			flounderFileWriter.beginNewSegment("EntityData");
 			{
-				entityFileWriter.writeSegmentData("Name: " + name + ";", true);
+				flounderFileWriter.writeSegmentData("Name: " + name + ";", true);
 			}
-			entityFileWriter.endSegment(false);
+			flounderFileWriter.endSegment(false);
 
 			// Components.
-			entityFileWriter.beginNewSegment("Components");
+			flounderFileWriter.beginNewSegment("Components");
 			{
 				for (int i = 0; i < entity.getComponents().size(); i++) {
-					entityFileWriter.beginNewSegment(entity.getComponents().get(i).getClass().getName());
+					flounderFileWriter.beginNewSegment(entity.getComponents().get(i).getClass().getName());
 
 					Pair<String[], EntitySaverFunction[]> saveableValues = entity.getComponents().get(i).getSavableValues();
 
 					// Individual data components.
 					for (String s : saveableValues.getFirst()) {
-						entityFileWriter.writeSegmentData(s + ";", true);
+						flounderFileWriter.writeSegmentData(s + ";", true);
 					}
 
 					// Blank area between both sections.
 					if (saveableValues.getSecond().length > 0) {
-						entityFileWriter.enterBlankLine();
-						entityFileWriter.enterBlankLine();
+						flounderFileWriter.enterBlankLine();
+						flounderFileWriter.enterBlankLine();
 					}
 
 					// Segmented data components.
 					int fi = 0;
 
 					for (EntitySaverFunction f : saveableValues.getSecond()) {
-						entityFileWriter.beginNewSegment(f.getSectionName());
+						flounderFileWriter.beginNewSegment(f.getSectionName());
 						{
-							f.writeIntoSection(entityFileWriter);
+							f.writeIntoSection(flounderFileWriter);
 						}
-						entityFileWriter.endSegment(fi++ == saveableValues.getSecond().length - 1);
+						flounderFileWriter.endSegment(fi++ == saveableValues.getSecond().length - 1);
 					}
 
-					entityFileWriter.endSegment(i == entity.getComponents().size() - 1);
+					flounderFileWriter.endSegment(i == entity.getComponents().size() - 1);
 				}
 			}
-			entityFileWriter.endSegment(false);
+			flounderFileWriter.endSegment(false);
 
 			// Closes the file for writing.
 			fileWriter.close();

@@ -10,6 +10,7 @@ import flounder.maths.*;
 import flounder.maths.vectors.*;
 import flounder.parsing.*;
 import flounder.particles.*;
+import flounder.particles.loading.*;
 import flounder.particles.spawns.*;
 import flounder.resources.*;
 import flounder.sounds.*;
@@ -91,20 +92,20 @@ public class MainGame extends IGame {
 		// Creates a new smoke particle type.
 		Texture smokeTexture = Texture.newTexture(new MyFile(FlounderParticles.PARTICLES_LOC, "smoke.png")).createInBackground();
 		smokeTexture.setNumberOfRows(8);
-		ParticleType smokeParticleType = new ParticleType(smokeTexture, 0.1f, 1.5f, 5.0f);
+		ParticleTemplate smokeParticleTemplate = new ParticleTemplate("smoke1", smokeTexture, 0.1f, 1.5f, 5.0f);
 
 		// Creates a new fire particle type.
 		Texture fireTexture = Texture.newTexture(new MyFile(FlounderParticles.PARTICLES_LOC, "fire.png")).createInBackground();
 		fireTexture.setNumberOfRows(8);
-		ParticleType fireParticleType = new ParticleType(fireTexture, 0.1f, 1.5f, 5.0f);
+		ParticleTemplate fireParticleTemplate = new ParticleTemplate("smoke1", fireTexture, 0.1f, 1.5f, 5.0f);
 
 		// Creates a list of usable particles for the system..
-		List<ParticleType> particleTypes = new ArrayList<>();
-		particleTypes.add(smokeParticleType);
-		particleTypes.add(fireParticleType);
+		List<ParticleTemplate> particleTemplates = new ArrayList<>();
+		particleTemplates.add(smokeParticleTemplate);
+		particleTemplates.add(fireParticleTemplate);
 
 		// Creates a new simple particle emitter system.
-		ParticleSystem particleSystem = new ParticleSystem(particleTypes, new SpawnSphere(20), 1500, 1.0f);
+		ParticleSystem particleSystem = new ParticleSystem(particleTemplates, new SpawnSphere(20), 1500, 1.0f);
 		particleSystem.setSpeedError(0.3f);
 		particleSystem.randomizeRotation();
 		particleSystem.setDirection(new Vector3f(1.0f, 0, 0), 0.075f);

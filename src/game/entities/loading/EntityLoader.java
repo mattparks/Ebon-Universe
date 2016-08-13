@@ -8,7 +8,7 @@ import java.lang.ref.*;
 import java.util.*;
 
 /**
- * Class capable of loading engine.entities from a .entity file.
+ * Class capable of loading entities from a .entity file.
  */
 public class EntityLoader {
 	private static Map<String, SoftReference<EntityTemplate>> loadedTemplates = new HashMap<>();

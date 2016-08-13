@@ -151,7 +151,7 @@ public class ModelComponent extends IEntityComponent {
 	public Pair<String[], EntitySaverFunction[]> getSavableValues() {
 		EntitySaverFunction saveVertices = new EntitySaverFunction("Vertices") {
 			@Override
-			public void writeIntoSection(EntityFileWriter entityFileWriter) throws IOException {
+			public void writeIntoSection(FlounderFileWriter entityFileWriter) throws IOException {
 				for (float v : model.getVertices()) {
 					String s = v + ",";
 					entityFileWriter.writeSegmentData(s);
@@ -160,7 +160,7 @@ public class ModelComponent extends IEntityComponent {
 		};
 		EntitySaverFunction saveTextureCoords = new EntitySaverFunction("TextureCoords") {
 			@Override
-			public void writeIntoSection(EntityFileWriter entityFileWriter) throws IOException {
+			public void writeIntoSection(FlounderFileWriter entityFileWriter) throws IOException {
 				for (float v : model.getTextures()) {
 					String s = v + ",";
 					entityFileWriter.writeSegmentData(s);
@@ -169,7 +169,7 @@ public class ModelComponent extends IEntityComponent {
 		};
 		EntitySaverFunction saveNormals = new EntitySaverFunction("Normals") {
 			@Override
-			public void writeIntoSection(EntityFileWriter entityFileWriter) throws IOException {
+			public void writeIntoSection(FlounderFileWriter entityFileWriter) throws IOException {
 				for (float v : model.getNormals()) {
 					String s = v + ",";
 					entityFileWriter.writeSegmentData(s);
@@ -178,7 +178,7 @@ public class ModelComponent extends IEntityComponent {
 		};
 		EntitySaverFunction saveTangents = new EntitySaverFunction("Tangents") {
 			@Override
-			public void writeIntoSection(EntityFileWriter entityFileWriter) throws IOException {
+			public void writeIntoSection(FlounderFileWriter entityFileWriter) throws IOException {
 				for (float v : model.getTangents()) {
 					String s = v + ",";
 					entityFileWriter.writeSegmentData(s);
@@ -187,7 +187,7 @@ public class ModelComponent extends IEntityComponent {
 		};
 		EntitySaverFunction saveIndices = new EntitySaverFunction("Indices") {
 			@Override
-			public void writeIntoSection(EntityFileWriter entityFileWriter) throws IOException {
+			public void writeIntoSection(FlounderFileWriter entityFileWriter) throws IOException {
 				for (int i : model.getIndices()) {
 					String s = i + ",";
 					entityFileWriter.writeSegmentData(s);

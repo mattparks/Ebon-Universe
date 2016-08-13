@@ -7,7 +7,7 @@ import flounder.maths.*;
 import flounder.maths.vectors.*;
 import game.*;
 import game.entities.*;
-import game.entities.objects.*;
+import game.entities.loading.*;
 
 public class EntityGame extends IGame {
 	public static boolean ENTITY_ROTATE = true;
@@ -29,7 +29,7 @@ public class EntityGame extends IGame {
 
 		Environment.init(new Fog(new Colour(1.0f, 1.0f, 1.0f, false), 0.001f, 2.0f, 0.0f, 50.0f), null);
 
-		focusEntity = EntityBarrel.createEntity(Environment.getEntitys(), new Vector3f(), new Vector3f());
+		focusEntity = EntityLoader.load("barrel").createEntity(Environment.getEntitys(), new Vector3f(), new Vector3f());
 
 		EntityFrame frame = new EntityFrame();
 	}

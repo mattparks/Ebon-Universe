@@ -6,7 +6,7 @@ import flounder.maths.*;
 import flounder.maths.vectors.*;
 import game.*;
 import game.entities.*;
-import game.entities.objects.*;
+import game.entities.loading.*;
 import game.options.*;
 
 import static org.lwjgl.glfw.GLFW.*;
@@ -48,7 +48,7 @@ public class PlayerFocus implements IPlayer {
 		this.position = new Vector3f(0, 5, 0);
 		this.rotation = new Vector3f(0, 0, 0);
 
-		focusEntity = EntityBarrel.createEntity(Environment.getEntitys(), new Vector3f(position), new Vector3f(rotation));
+		focusEntity = EntityLoader.load("barrel").createEntity(Environment.getEntitys(), new Vector3f(position), new Vector3f(rotation));
 	}
 
 	@Override

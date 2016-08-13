@@ -37,12 +37,13 @@ public class EntityGame extends IGame {
 	//	focusEntity = EntityLoader.load("barrel").createEntity(Environment.getEntitys(), new Vector3f(), new Vector3f());
 
 		focusEntity = new Entity(Environment.getEntitys(), new Vector3f(), new Vector3f());
-		Model model = Model.newModel(new MyFile(MyFile.RES_FOLDER, "models", "sphere.obj")).create();
-		Texture texture = Texture.newTexture(new MyFile(MyFile.RES_FOLDER, "entities", "sphere.png")).create();
+		Model model = Model.newModel(new MyFile(MyFile.RES_FOLDER, "entities", "crate.obj")).create();
+		Texture texture = Texture.newTexture(new MyFile(MyFile.RES_FOLDER, "entities", "crate.png")).create();
+		Texture normalTexture = Texture.newTexture(new MyFile(MyFile.RES_FOLDER, "entities", "crateNormal.png")).create();
 		new ColliderComponent(focusEntity);
 		new CollisionComponent(focusEntity);
 		new FadeRemove(focusEntity, 1.0);
-		new ModelComponent(focusEntity, model, texture, 0.5f);
+		new ModelComponent(focusEntity, model, texture, normalTexture, 0.025f, 0);
 
 		EntityFrame frame = new EntityFrame();
 	}

@@ -62,12 +62,35 @@ public class ModelComponent extends IEntityComponent {
 		this(entity, null, null, null, 1.0f, 0);
 
 		this.model = Model.newModel(new ModelBuilder.LoadManual() {
-			@Override public String getModelName() { return template.getEntityName(); }
-			@Override public float[] getVertices() { return EntityTemplate.toFloatArray(template.getSectionData(ModelComponent.this, "Vertices")); }
-			@Override public float[] getTextureCoords() { return EntityTemplate.toFloatArray(template.getSectionData(ModelComponent.this, "TextureCoords")); }
-			@Override public float[] getNormals() { return EntityTemplate.toFloatArray(template.getSectionData(ModelComponent.this, "Normals")); }
-			@Override public float[] getTangents() { return EntityTemplate.toFloatArray(template.getSectionData(ModelComponent.this, "Tangents")); }
-			@Override public int[] getIndices() { return EntityTemplate.toIntArray(template.getSectionData(ModelComponent.this, "Indices")); }
+			@Override
+			public String getModelName() {
+				return template.getEntityName();
+			}
+
+			@Override
+			public float[] getVertices() {
+				return EntityTemplate.toFloatArray(template.getSectionData(ModelComponent.this, "Vertices"));
+			}
+
+			@Override
+			public float[] getTextureCoords() {
+				return EntityTemplate.toFloatArray(template.getSectionData(ModelComponent.this, "TextureCoords"));
+			}
+
+			@Override
+			public float[] getNormals() {
+				return EntityTemplate.toFloatArray(template.getSectionData(ModelComponent.this, "Normals"));
+			}
+
+			@Override
+			public float[] getTangents() {
+				return EntityTemplate.toFloatArray(template.getSectionData(ModelComponent.this, "Tangents"));
+			}
+
+			@Override
+			public int[] getIndices() {
+				return EntityTemplate.toIntArray(template.getSectionData(ModelComponent.this, "Indices"));
+			}
 		}).create();
 
 		this.texture = Texture.newTexture(new MyFile(template.getValue(this, "Texture"))).create();

@@ -9,8 +9,11 @@ import flounder.lights.*;
 import flounder.maths.*;
 import flounder.maths.vectors.*;
 import flounder.parsing.*;
+import flounder.particles.*;
+import flounder.particles.spawns.*;
 import flounder.resources.*;
 import flounder.sounds.*;
+import flounder.textures.*;
 import game.cameras.*;
 import game.entities.objects.*;
 import game.options.*;
@@ -84,6 +87,28 @@ public class MainGame extends IGame {
 		playlist.addMusic(Sound.loadSoundInBackground(new MyFile(MyFile.RES_FOLDER, "music", "pyrosanical.wav"), 0.50f));
 		playlist.addMusic(Sound.loadSoundInBackground(new MyFile(MyFile.RES_FOLDER, "music", "spacey-ambient.wav"), 0.60f));
 		FlounderEngine.getDevices().getSound().getMusicPlayer().playMusicPlaylist(playlist, true, 4.0f, 10.0f);
+
+		// Creates a new smoke particle type.
+		Texture smokeTexture = Texture.newTexture(new MyFile(FlounderParticles.PARTICLES_LOC, "smoke.png")).createInBackground();
+		smokeTexture.setNumberOfRows(8);
+		ParticleType smokeParticleType = new ParticleType(smokeTexture, 0.1f, 1.5f, 5.0f);
+
+		// Creates a new fire particle type.
+		Texture fireTexture = Texture.newTexture(new MyFile(FlounderParticles.PARTICLES_LOC, "fire.png")).createInBackground();
+		fireTexture.setNumberOfRows(8);
+		ParticleType fireParticleType = new ParticleType(fireTexture, 0.1f, 1.5f, 5.0f);
+
+		// Creates a list of usable particles for the system..
+		List<ParticleType> particleTypes = new ArrayList<>();
+		particleTypes.add(smokeParticleType);
+		particleTypes.add(fireParticleType);
+
+		// Creates a new simple particle emitter system.
+		ParticleSystem particleSystem = new ParticleSystem(particleTypes, new SpawnSphere(20), 1500, 1.0f);
+		particleSystem.setSpeedError(0.3f);
+		particleSystem.randomizeRotation();
+		particleSystem.setDirection(new Vector3f(1.0f, 0, 0), 0.075f);
+		particleSystem.setSystemCentre(player.getPosition());
 	}
 
 	@Override

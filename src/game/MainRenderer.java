@@ -8,6 +8,7 @@ import flounder.guis.*;
 import flounder.helpers.*;
 import flounder.maths.matrices.*;
 import flounder.maths.vectors.*;
+import flounder.particles.*;
 import flounder.physics.renderer.*;
 import game.entities.*;
 import game.options.*;
@@ -20,6 +21,7 @@ public class MainRenderer extends IRendererMaster {
 	private Matrix4f projectionMatrix;
 
 	private EntityRenderer entityRenderer;
+	private ParticleRenderer particleRenderer;
 	private AABBRenderer aabbRenderer;
 	private GuiRenderer guiRenderer;
 	private GuiRenderer cursorRenderer;
@@ -37,6 +39,7 @@ public class MainRenderer extends IRendererMaster {
 		this.projectionMatrix = new Matrix4f();
 
 		this.entityRenderer = new EntityRenderer();
+		this.particleRenderer = new ParticleRenderer();
 		this.aabbRenderer = new AABBRenderer();
 		this.guiRenderer = new GuiRenderer(GuiRenderer.GuiRenderType.GUI);
 		this.cursorRenderer = new GuiRenderer(GuiRenderer.GuiRenderType.CURSOR);
@@ -59,9 +62,6 @@ public class MainRenderer extends IRendererMaster {
 		/* Scene rendering. */
 		renderScene(POSITIVE_INFINITY);
 
-		/* Unbinds the FBO. */
-		unbindRelevantFBO();
-
 		/* Post rendering. */
 		renderPost(FlounderEngine.isGamePaused(), MainGuis.isStartingGame(), FlounderEngine.getScreenBlur());
 
@@ -69,6 +69,9 @@ public class MainRenderer extends IRendererMaster {
 		guiRenderer.render(POSITIVE_INFINITY, null);
 		fontRenderer.render(POSITIVE_INFINITY, null);
 		cursorRenderer.render(POSITIVE_INFINITY, null);
+
+		/* Unbinds the FBO. */
+		unbindRelevantFBO();
 	}
 
 	private void bindRelevantFBO() {
@@ -107,6 +110,7 @@ public class MainRenderer extends IRendererMaster {
 
 		/* Renders each renderer. */
 		entityRenderer.render(clipPlane, camera);
+		particleRenderer.render(clipPlane, camera);
 		aabbRenderer.render(clipPlane, camera);
 	}
 
@@ -142,6 +146,7 @@ public class MainRenderer extends IRendererMaster {
 	@Override
 	public void dispose() {
 		entityRenderer.dispose();
+		particleRenderer.dispose();
 		aabbRenderer.dispose();
 		cursorRenderer.dispose();
 		guiRenderer.dispose();

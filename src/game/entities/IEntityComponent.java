@@ -1,7 +1,10 @@
 package game.entities;
 
 import flounder.helpers.*;
+import game.editors.entity.*;
 import game.entities.loading.*;
+
+import javax.swing.*;
 
 /**
  * Base class for all components that can be attached to engine.entities. (Have a constructor that takes in '(Entity entity, EntityTemplate template)' for the entity loader).

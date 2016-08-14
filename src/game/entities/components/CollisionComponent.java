@@ -49,7 +49,7 @@ public class CollisionComponent extends IEntityComponent {
 		}
 
 		AABB aabb1 = collider1.getAABB();
-		ConvexHull hull1 = collider1.getHull();
+		QuickHull hull1 = collider1.getHull();
 		final AABB collisionRange = AABB.stretch(aabb1, null, amount); // The range in where there can be collisions!
 
 		getEntity().visitInRange(CollisionComponent.ID, collisionRange, (Entity entity, IEntityComponent component) -> {
@@ -64,10 +64,10 @@ public class CollisionComponent extends IEntityComponent {
 			}
 
 			AABB aabb2 = collider2.getAABB();
-			ConvexHull hull2 = collider2.getHull();
+			QuickHull hull2 = collider2.getHull();
 
 			if (aabb2 != null && aabb2.intersects(collisionRange).isIntersection()) {
-				if (hull1 != null && hull2 != null && ConvexHull.intersects(hull1, hull2)) {
+				if (hull1.intersects(hull2)) {
 					// TODO: Mesh collision maths not from AABB.
 					result.set((float) resolveCollisionX(aabb1, aabb2, result.getX()), (float) resolveCollisionY(aabb1, aabb2, result.getY()), (float) resolveCollisionZ(aabb1, aabb2, result.getZ()));
 				}

@@ -15,7 +15,7 @@ public class ColliderComponent extends IEntityComponent {
 	public static final int ID = EntityIDAssigner.getId();
 
 	private AABB aabb;
-	private ConvexHull hull;
+	private QuickHull hull;
 
 	/**
 	 * Creates a new ColliderComponent.
@@ -25,7 +25,7 @@ public class ColliderComponent extends IEntityComponent {
 	public ColliderComponent(Entity entity) {
 		super(entity, ID);
 		this.aabb = new AABB();
-		this.hull = new ConvexHull();
+		this.hull = new QuickHull();
 	}
 
 	/**
@@ -37,7 +37,7 @@ public class ColliderComponent extends IEntityComponent {
 	public ColliderComponent(Entity entity, EntityTemplate template) {
 		super(entity, ID);
 		this.aabb = new AABB();
-		this.hull = new ConvexHull();
+		this.hull = new QuickHull();
 	}
 
 	/**
@@ -52,7 +52,7 @@ public class ColliderComponent extends IEntityComponent {
 	 *
 	 * @return The models convex hull.
 	 */
-	public ConvexHull getHull() {
+	public QuickHull getHull() {
 		return hull;
 	}
 
@@ -68,12 +68,7 @@ public class ColliderComponent extends IEntityComponent {
 
 			if (modelComponent != null) {
 				AABB.recalculate(modelComponent.getModel().getAABB(), aabb, super.getEntity().getPosition(), super.getEntity().getRotation(), modelComponent.getScale());
-
-				if (hull.isEmpty()) {
-					hull.setCalculatedPoints(modelComponent.getModel().getHull().getPoints());
-				}
-
-				ConvexHull.update(hull, super.getEntity().getPosition(), super.getEntity().getRotation(), modelComponent.getScale());
+				QuickHull.recalculate(modelComponent.getModel().getHull(), hull, super.getEntity().getPosition(), super.getEntity().getRotation(), modelComponent.getScale());
 			}
 		}
 

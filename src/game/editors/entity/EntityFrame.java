@@ -1,9 +1,12 @@
 package game.editors.entity;
 
 import flounder.engine.*;
-import flounder.helpers.*;
+import game.editors.particles.*;
+import game.entities.*;
+import game.entities.loading.*;
 
 import javax.swing.*;
+import javax.swing.event.*;
 import java.awt.*;
 import java.awt.event.*;
 
@@ -11,6 +14,15 @@ public class EntityFrame {
 	private JFrame jFrame;
 
 	private JPanel contentPanel;
+
+	private JTabbedPane componentsPane;
+
+	private JTextField nameField;
+	private JCheckBox polygonMode;
+	private JCheckBox drawAABBs;
+	private JCheckBox rotateEntity;
+	private JButton resetButton;
+	private JButton saveButton;
 
 	public EntityFrame() {
 		jFrame = new JFrame(FlounderEngine.getDevices().getDisplay().getTitle());
@@ -35,8 +47,8 @@ public class EntityFrame {
 		contentPanel = new JPanel();
 		contentPanel.setLayout(new BorderLayout());
 
-		addLeftOptions();
 		addComponentOptions();
+		addLeftOptions();
 
 		jFrame.add(contentPanel);
 		jFrame.setLocationByPlatform(true);
@@ -44,50 +56,122 @@ public class EntityFrame {
 	}
 
 	private void addComponentOptions() {
-		JTabbedPane tabbedPane = new JTabbedPane();
+		if (componentsPane != null) {
+			for (int i = 0; i < componentsPane.getTabCount(); i++) {
+				componentsPane.remove(i);
+			}
 
-		JComponent panel1 = makeTextPanel("Panel #1");
-		tabbedPane.addTab("Tab 1", null, panel1, "");
+			jFrame.remove(componentsPane);
+		}
 
-		JComponent panel2 = makeTextPanel("Panel #2");
-		tabbedPane.addTab("Tab 2", null, panel2, "");
+		componentsPane = new JTabbedPane();
 
-		JComponent panel3 = makeTextPanel("Panel #3");
-		tabbedPane.addTab("Tab 3", null, panel3, "");
+		for (IEntityComponent component : EntityGame.focusEntity.getComponents()) {
+			JPanel panel = makeTextPanel(component.getTabName());
+			component.addToPanel(panel);
+			componentsPane.addTab(component.getTabName(), null, panel, "");
+		}
 
-		JComponent panel4 = makeTextPanel( "Panel #4");
-		tabbedPane.addTab("Tab 4", null, panel4, "");
-
-		jFrame.add(tabbedPane);
+		jFrame.add(componentsPane);
 	}
 
-	public static JComponent makeTextPanel(String text) {
+	public static JPanel makeTextPanel(String text) {
 		JPanel panel = new JPanel(false);
-		JLabel filler = new JLabel(text);
-		filler.setHorizontalAlignment(JLabel.CENTER);
 		panel.setLayout(new GridLayout(1, 1));
-		panel.add(filler);
 		return panel;
 	}
 
 	private void addLeftOptions() {
+		// The area to put left options.
 		JPanel checkBoxPanel = new JPanel();
 
-		JCheckBox polygonMode = new JCheckBox("Polygon Mode");
-		polygonMode.setSelected(OpenGlUtils.isInWireframe());
-		polygonMode.addItemListener((ItemEvent e) -> OpenGlUtils.goWireframe(polygonMode.isSelected()));
+		// Entity Name.
+		nameField = new JTextField(EntityGame.ENTITY_NAME);
+		nameField.getDocument().addDocumentListener(new DocumentListener() {
+			@Override
+			public void insertUpdate(DocumentEvent e) {
+				textUpdate();
+			}
+
+			@Override
+			public void removeUpdate(DocumentEvent e) {
+				textUpdate();
+			}
+
+			@Override
+			public void changedUpdate(DocumentEvent e) {
+				textUpdate();
+			}
+
+			private void textUpdate() {
+				EntityGame.ENTITY_NAME = nameField.getText();
+			}
+		});
+		checkBoxPanel.add(nameField);
+
+		// Polygon Mode.
+		polygonMode = new JCheckBox("Polygon Mode");
+		polygonMode.setSelected(EntityGame.POLYGON_MODE);
+		polygonMode.addItemListener(new ItemListener() {
+			@Override
+			public void itemStateChanged(ItemEvent e) {
+				EntityGame.POLYGON_MODE = !EntityGame.POLYGON_MODE;
+			}
+		});
 		checkBoxPanel.add(polygonMode);
 
-		JCheckBox drawAABBs = new JCheckBox("Draw AABBs");
-		polygonMode.setSelected(FlounderEngine.getAABBs().renders());
-		drawAABBs.addItemListener((ItemEvent e) -> FlounderEngine.getAABBs().setRenders(drawAABBs.isSelected()));
+		// Draw AABBs.
+		drawAABBs = new JCheckBox("Draw AABBs");
+		drawAABBs.setSelected(FlounderEngine.getAABBs().renders());
+		drawAABBs.addItemListener(new ItemListener() {
+			@Override
+			public void itemStateChanged(ItemEvent e) {
+				FlounderEngine.getAABBs().setRenders(drawAABBs.isSelected());
+			}
+		});
 		checkBoxPanel.add(drawAABBs);
 
-		JCheckBox rotateEntity = new JCheckBox("RotateEntity");
+		// Rotate Entity,
+		rotateEntity = new JCheckBox("Rotate Entity");
 		rotateEntity.setSelected(EntityGame.ENTITY_ROTATE);
-		rotateEntity.addItemListener((ItemEvent e) -> EntityGame.ENTITY_ROTATE = rotateEntity.isSelected());
+		rotateEntity.addItemListener(new ItemListener() {
+			@Override
+			public void itemStateChanged(ItemEvent e) {
+				EntityGame.ENTITY_ROTATE = rotateEntity.isSelected();
+			}
+		});
 		checkBoxPanel.add(rotateEntity);
 
+		// Reset Button.
+		resetButton = new JButton("Reset");
+		resetButton.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				if (JOptionPane.showConfirmDialog(jFrame,
+						"Are you sure you want to reset entity settings?", "Any unsaved work will be lost!",
+						JOptionPane.YES_NO_OPTION,
+						JOptionPane.QUESTION_MESSAGE) == JOptionPane.YES_OPTION) {
+					nameField.setText("unnamed");
+					EntityGame.generateBlankEntity();
+					addComponentOptions();
+				}
+			}
+		});
+		checkBoxPanel.add(resetButton);
+
+		// Save Button.
+		saveButton = new JButton("Save Entity");
+		saveButton.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				if (EntityGame.focusEntity != null) {
+					EntitySaver.save(EntityGame.focusEntity, EntityGame.ENTITY_NAME);
+				}
+			}
+		});
+		checkBoxPanel.add(saveButton);
+
+		// Adds the checkbox panel to the content panel.
 		contentPanel.add(checkBoxPanel);
 	}
 }

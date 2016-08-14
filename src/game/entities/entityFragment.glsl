@@ -36,8 +36,8 @@ void main(void) {
     float visibility = clamp(exp(-pow((length(positionRelativeToCam.xyz) * fogDensity), fogGradient)), 0.0, 1.0);
 
     out_colour = textureColour;
-    out_colour.a = min(out_colour.a, transparency);
     out_colour = mix(vec4(fogColour, 1.0), out_colour, visibility);
+    out_colour.a = min(out_colour.a, transparency);
     out_position = entityPosition;
     out_normal = vec4(unitNormal, 0.0);
     out_additonal = vec4(0.2, 0.0, 0.0, 0.0);

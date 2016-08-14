@@ -12,18 +12,27 @@ import javax.swing.*;
 public abstract class IEntityComponent {
 	private Entity entity;
 	private int id;
+	private String name;
 
 	/**
 	 * Creates a component attached to a specific entity.
 	 *
 	 * @param entity The entity this component is attached to.
 	 * @param id The id identifying the type of component. This should be unique to the subclass, but not unique to the object.
+	 * @param name The name of the component.
 	 */
-	public IEntityComponent(Entity entity, int id) {
-		this.id = id;
+	public IEntityComponent(Entity entity, int id, String name) {
 		this.entity = entity;
+		this.id = id;
+		this.name= name;
 		entity.addComponent(this);
 	}
+
+	public String getTabName() {
+		return name;
+	}
+
+	public abstract void addToPanel(JPanel panel);
 
 	/**
 	 * Gets the id of this component.

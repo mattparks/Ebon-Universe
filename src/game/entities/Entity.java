@@ -117,7 +117,12 @@ public class Entity implements ISpatialObject {
 	 * Updates all the components attached to this entity.
 	 */
 	public void update() {
-		components.forEach(IEntityComponent::update);
+		try {
+			components.forEach(IEntityComponent::update);
+		} catch (ConcurrentModificationException e) {
+			FlounderEngine.getLogger().exception(e);
+		}
+
 		hasMoved = false;
 	}
 

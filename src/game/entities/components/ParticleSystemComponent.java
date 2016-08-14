@@ -8,23 +8,25 @@ import flounder.particles.spawns.*;
 import game.entities.*;
 import game.entities.loading.*;
 
+import javax.swing.*;
 import java.io.*;
 import java.lang.reflect.*;
 import java.util.*;
 
 public class ParticleSystemComponent extends IEntityComponent {
 	public static final int ID = EntityIDAssigner.getId();
+	public static final String NAME = "Particle System";
 
 	private ParticleSystem particleSystem;
 
 	public ParticleSystemComponent(Entity entity, List<ParticleTemplate> types, IParticleSpawn spawn, float pps, float speed) {
-		super(entity, ID);
+		super(entity, ID, NAME);
 		particleSystem = new ParticleSystem(types, spawn, pps, speed);
 		particleSystem.setSystemCentre(super.getEntity().getPosition());
 	}
 
 	public ParticleSystemComponent(Entity entity, EntityTemplate template) {
-		super(entity, ID);
+		super(entity, ID, NAME);
 		String[] templates = EntityTemplate.toStringArray(template.getSectionData(this, "Templates"));
 		List<ParticleTemplate> templateList = new ArrayList<>();
 
@@ -54,6 +56,11 @@ public class ParticleSystemComponent extends IEntityComponent {
 		particleSystem.setSystemCentre(super.getEntity().getPosition());
 	}
 
+	@Override
+	public void addToPanel(JPanel panel) {
+
+	}
+
 	public ParticleSystem getParticleSystem() {
 		return particleSystem;
 	}
@@ -73,14 +80,16 @@ public class ParticleSystemComponent extends IEntityComponent {
 		EntitySaverFunction saveSpawnValues = new EntitySaverFunction("SpawnValues") {
 			@Override
 			public void writeIntoSection(FlounderFileWriter entityFileWriter) throws IOException {
-				for (String values : particleSystem.getSpawn().getSavableValues()) {
-					String s = values + ",";
-					entityFileWriter.writeSegmentData(s);
+				if (particleSystem.getSpawn() != null) {
+					for (String values : particleSystem.getSpawn().getSavableValues()) {
+						String s = values + ",";
+						entityFileWriter.writeSegmentData(s);
+					}
 				}
 			}
 		};
 
-		String particleSpawn = "Spawn: " + particleSystem.getSpawn().getClass().getName();
+		String particleSpawn = "Spawn: " + (particleSystem.getSpawn() == null ? null :particleSystem.getSpawn().getClass().getName());
 		String particlePPS = "PPS: " + particleSystem.getPps();
 		String particleSpeed = "Speed: " + particleSystem.getAverageSpeed();
 

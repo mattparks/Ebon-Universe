@@ -8,6 +8,7 @@ import flounder.textures.*;
 import game.entities.*;
 import game.entities.loading.*;
 
+import javax.swing.*;
 import java.io.*;
 
 /**
@@ -15,6 +16,7 @@ import java.io.*;
  */
 public class ModelComponent extends IEntityComponent {
 	public static final int ID = EntityIDAssigner.getId();
+	public static final String NAME = "Model";
 
 	private Model model;
 	private Texture texture;
@@ -43,7 +45,7 @@ public class ModelComponent extends IEntityComponent {
 	 * @param textureIndex What texture index this entity should renderObjects from (0 default).
 	 */
 	public ModelComponent(Entity entity, Model model, Texture texture, Texture normalMap, float scale, int textureIndex) {
-		super(entity, ID);
+		super(entity, ID, NAME);
 		this.model = model;
 		this.texture = texture;
 		this.normalMap = normalMap;
@@ -59,7 +61,7 @@ public class ModelComponent extends IEntityComponent {
 	 * @param template The entity template to load data from.
 	 */
 	public ModelComponent(Entity entity, EntityTemplate template) {
-		super(entity, ID);
+		super(entity, ID, NAME);
 
 		this.model = Model.newModel(new ModelBuilder.LoadManual() {
 			@Override
@@ -102,6 +104,11 @@ public class ModelComponent extends IEntityComponent {
 		}
 
 		this.scale = Float.parseFloat(template.getValue(this, "Scale"));
+	}
+
+	@Override
+	public void addToPanel(JPanel panel) {
+
 	}
 
 	/**

@@ -6,6 +6,8 @@ import flounder.physics.*;
 import game.entities.*;
 import game.entities.loading.*;
 
+import javax.swing.*;
+
 /**
  * Component that detects collision between two engine.entities.
  * <p>
@@ -13,6 +15,7 @@ import game.entities.loading.*;
  */
 public class CollisionComponent extends IEntityComponent {
 	public static final int ID = EntityIDAssigner.getId();
+	public static final String NAME = "Collision";
 
 	/**
 	 * Creates a new CollisionComponent.
@@ -20,7 +23,7 @@ public class CollisionComponent extends IEntityComponent {
 	 * @param entity The entity this component is attached to.
 	 */
 	public CollisionComponent(Entity entity) {
-		super(entity, ID);
+		super(entity, ID, NAME);
 	}
 
 	/**
@@ -30,7 +33,12 @@ public class CollisionComponent extends IEntityComponent {
 	 * @param template The entity template to load data from.
 	 */
 	public CollisionComponent(Entity entity, EntityTemplate template) {
-		super(entity, ID);
+		super(entity, ID, NAME);
+	}
+
+	@Override
+	public void addToPanel(JPanel panel) {
+
 	}
 
 	/**

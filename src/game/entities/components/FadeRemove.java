@@ -2,16 +2,26 @@ package game.entities.components;
 
 import flounder.engine.*;
 import flounder.helpers.*;
+import flounder.particles.loading.*;
+import game.editors.entity.*;
+import game.editors.particles.*;
 import game.entities.*;
 import game.entities.loading.*;
+
+import javax.swing.*;
+import javax.swing.event.*;
+import java.awt.event.*;
 
 /**
  * A RemoveComponent that fades out until the entity disappears.
  */
 public class FadeRemove extends RemoveComponent {
+	public static final String NAME = "Remove Fade";
+
 	public boolean removesAfterDuration;
 	private double timer;
 	private double duration;
+	private boolean testMode;
 
 	/**
 	 * Creates a new FadeRemove
@@ -20,10 +30,11 @@ public class FadeRemove extends RemoveComponent {
 	 * @param duration How long the fade out takes.
 	 */
 	public FadeRemove(Entity entity, double duration) {
-		super(entity);
+		super(entity, NAME);
 		timer = 0.0;
 		this.duration = duration;
-		removesAfterDuration = true;
+		this.removesAfterDuration = true;
+		this.testMode = false;
 	}
 
 	/**
@@ -33,9 +44,47 @@ public class FadeRemove extends RemoveComponent {
 	 * @param template The entity template to load data from.
 	 */
 	public FadeRemove(Entity entity, EntityTemplate template) {
-		super(entity);
+		super(entity, NAME);
 		this.duration = Double.parseDouble(template.getValue(this, "Duration"));
 		this.removesAfterDuration = Boolean.parseBoolean(template.getValue(this, "RemovesAfterDuration"));
+		this.testMode = false;
+	}
+
+	@Override
+	public void addToPanel(JPanel panel) {
+		// Time Slider.
+		JSlider timeSlider = new JSlider(JSlider.HORIZONTAL, 0, 50, 0);
+		timeSlider.addChangeListener(new ChangeListener() {
+			@Override
+			public void stateChanged(ChangeEvent e) {
+				JSlider source = (JSlider)e.getSource();
+
+				if (!source.getValueIsAdjusting()) {
+					int reading = source.getValue();
+
+					FadeRemove.this.duration = reading / 5.0f;
+				}
+			}
+		});
+
+		//Turn on labels at major tick marks.
+		timeSlider.setMajorTickSpacing(10);
+		timeSlider.setMinorTickSpacing(5);
+		timeSlider.setPaintTicks(true);
+		timeSlider.setPaintLabels(true);
+		panel.add(timeSlider);
+
+		// Test Button.
+		JButton testButton = new JButton("Test Remove");
+		testButton.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				FadeRemove.this.testMode = true;
+				EntityGame.focusEntity.remove();
+				FadeRemove.super.activate();
+			}
+		});
+		panel.add(testButton);
 	}
 
 	@Override
@@ -52,12 +101,20 @@ public class FadeRemove extends RemoveComponent {
 		timer += FlounderEngine.getDelta();
 		double fadeAmount = (duration - timer) / duration;
 
-		if (timer >= duration && removesAfterDuration) {
-			getEntity().removeComponent(CollisionComponent.ID);
-			getEntity().forceRemove();
-		}
-
 		ModelComponent mc = (ModelComponent) super.getEntity().getComponent(ModelComponent.ID);
+
+		if (timer >= duration) {
+			if (testMode) {
+				if (mc != null) {
+					fadeAmount = 1.0f;
+					timer = 0.0f;
+					super.deactivate();
+				}
+			} else if (removesAfterDuration) {
+				getEntity().removeComponent(CollisionComponent.ID);
+				getEntity().forceRemove();
+			}
+		}
 
 		if (mc != null) {
 			mc.setTransparency((float) fadeAmount);

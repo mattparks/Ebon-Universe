@@ -57,6 +57,7 @@ public class EntityRenderer extends IRenderer {
 		OpenGlUtils.antialias(FlounderEngine.getDevices().getDisplay().isAntialiasing());
 		OpenGlUtils.cullBackFaces(true);
 		OpenGlUtils.enableDepthTesting();
+		OpenGlUtils.enableAlphaBlending();
 	}
 
 	private void renderEntity(Entity entity) {
@@ -76,6 +77,12 @@ public class EntityRenderer extends IRenderer {
 		shader.getUniformBool("useNormalMap").loadBoolean(modelComponent.getNormalMap() != null);
 
 		shader.getUniformFloat("transparency").loadFloat(modelComponent.getTransparency());
+
+		if (modelComponent.getTransparency() != 1.0 || modelComponent.getTexture().hasTransparency()) {
+			OpenGlUtils.cullBackFaces(false); // Disable face culling if the object has transparency.
+		} else {
+			OpenGlUtils.cullBackFaces(true); // Enable face culling if the object does not have transparency.
+		}
 
 		glDrawElements(GL_TRIANGLES, modelComponent.getModel().getVaoLength(), GL_UNSIGNED_INT, 0);
 

@@ -10,6 +10,7 @@ import javax.swing.*;
 import javax.swing.event.*;
 import java.awt.*;
 import java.awt.event.*;
+import java.io.*;
 
 public class ParticleFrame {
 	private JFrame jFrame;
@@ -99,7 +100,10 @@ public class ParticleFrame {
 		button.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent ae) {
 				JFileChooser fileChooser = new JFileChooser();
+				File workingDirectory = new File(System.getProperty("user.dir"));
+				fileChooser.setCurrentDirectory(workingDirectory);
 				int returnValue = fileChooser.showOpenDialog(null);
+
 				if (returnValue == JFileChooser.APPROVE_OPTION) {
 					String selectedFile = fileChooser.getSelectedFile().getPath().replace("\\", "/");
 
@@ -220,7 +224,7 @@ public class ParticleFrame {
 	}
 
 	private void addGravitySlider() {
-		gravitySlider = new JSlider(JSlider.HORIZONTAL, -10, 10, 0);
+		gravitySlider = new JSlider(JSlider.HORIZONTAL, -10, 10, 4);
 		gravitySlider.addChangeListener(new ChangeListener() {
 			@Override
 			public void stateChanged(ChangeEvent e) {
@@ -253,12 +257,15 @@ public class ParticleFrame {
 						"Are you sure you want to reset particle settings?", "Any unsaved work will be lost!",
 						JOptionPane.YES_NO_OPTION,
 						JOptionPane.QUESTION_MESSAGE) == JOptionPane.YES_OPTION) {
+					ParticleGame.particleSystem.removeParticleType(ParticleGame.particleTemplate);
 					ParticleGame.particleTemplate = new ParticleTemplate("testing", null, 1.0f, 1.0f, 1.0f);
+					ParticleGame.particleSystem.addParticleType(ParticleGame.particleTemplate);
+					FlounderEngine.getParticles().clearAllParticles();
 					nameField.setText(ParticleGame.particleTemplate.getName());
 					rowSlider.setValue(0);
 					scaleSlider.setValue(100);
 					lifeSlider.setValue(10);
-					gravitySlider.setValue(0);
+					gravitySlider.setValue(4);
 				}
 			}
 		});

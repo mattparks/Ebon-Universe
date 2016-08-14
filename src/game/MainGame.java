@@ -80,10 +80,7 @@ public class MainGame extends IGame {
 		Light testLight = new Light(new Colour(0, 0, 1), new Vector3f(0, 14, 10), new Attenuation(1, 0.01f, 0.002f));
 		Environment.getLights().add(testLight);
 
-		Entity sphere1 = EntityLoader.load("sphere1").createEntity(Environment.getEntitys(), testLight.position, new Vector3f());
-		//new ParticleSystemComponent(sphere1, particleTemplates, new SpawnCircle(new Vector3f(0, 1, 0), 15), 100.0f, 1.0f);
-		//EntitySaver.save(sphere1, "sphere1");
-
+		EntityLoader.load("sphere1").createEntity(Environment.getEntitys(), testLight.position, new Vector3f());
 		EntityLoader.load("sphere").createEntity(Environment.getEntitys(), Environment.getLights().get(0).position, new Vector3f());
 
 		Playlist playlist = new Playlist();

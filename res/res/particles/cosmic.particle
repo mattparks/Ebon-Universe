@@ -1,0 +1,13 @@
+/**
+ * Date Generated: 14.8.2016 - 11:6
+ * Created By: null
+ */
+ParticleData {
+	Name: cosmic;
+	Texture: res/particles/cosmic.png;
+	NumberOfRows: 4;
+	GravityEffect: 1.0;
+	LifeLength: 1.0;
+	Scale: 1.25;
+};
+

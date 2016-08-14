@@ -16,7 +16,7 @@ import game.entities.loading.*;
 import org.lwjgl.glfw.*;
 
 public class EntityGame extends IGame {
-	public static boolean ENTITY_ROTATE = false;
+	public static boolean ENTITY_ROTATE = true;
 
 	private Vector3f entityMove;
 	private Vector3f entityRotate;

@@ -81,14 +81,14 @@ Components {
 	game.entities.components.ParticleSystemComponent {
 		Spawn: flounder.particles.spawns.SpawnCircle;
 		PPS: 100.0;
-		Speed: 1.0;
+		Speed: 3.0;
 
 		Templates {
-			smoke1,fire1,
+			cosmic,cosmicHot,
 		};
 
 		SpawnValues {
-			Vector3f(x=0.0| y=1.0| z=0.0),15.0,
+			Vector3f(x=0.0| y=-1.0| z=0.0),15.0,
 		};
 	};
 };

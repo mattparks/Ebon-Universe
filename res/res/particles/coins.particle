@@ -1,0 +1,13 @@
+/**
+ * Date Generated: 14.8.2016 - 11:5
+ * Created By: null
+ */
+ParticleData {
+	Name: coins;
+	Texture: res/particles/coins.png;
+	NumberOfRows: 3;
+	GravityEffect: 1.0;
+	LifeLength: 1.2;
+	Scale: 1.21;
+};
+

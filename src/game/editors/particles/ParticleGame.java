@@ -48,6 +48,5 @@ public class ParticleGame extends IGame {
 
 	@Override
 	public void dispose() {
-		ParticleSaver.save(particleTemplate);
 	}
 }

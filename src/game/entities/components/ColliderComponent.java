@@ -41,17 +41,7 @@ public class ColliderComponent extends IEntityComponent {
 	 * @return Returns a AABB representing the basic collision range.
 	 */
 	public AABB getAABB() {
-		ModelComponent modelComponent = (ModelComponent) getEntity().getComponent(ModelComponent.ID);
-
-		if (modelComponent != null) {
-			if (modelComponent.getModel() != null) {
-				AABB.recalculate(modelComponent.getModel().getAABB(), aabb, super.getEntity().getPosition(), super.getEntity().getRotation(), modelComponent.getScale());
-				FlounderEngine.getAABBs().addAABBRender(aabb);
-				return aabb;
-			}
-		}
-
-		return null;
+		return aabb;
 	}
 
 	@Override
@@ -61,5 +51,14 @@ public class ColliderComponent extends IEntityComponent {
 
 	@Override
 	public void update() {
+		if (super.getEntity().hasMoved()) {
+			ModelComponent modelComponent = (ModelComponent) getEntity().getComponent(ModelComponent.ID);
+
+			if (modelComponent != null) {
+				AABB.recalculate(modelComponent.getModel().getAABB(), aabb, super.getEntity().getPosition(), super.getEntity().getRotation(), modelComponent.getScale());
+			}
+		}
+
+		FlounderEngine.getAABBs().addAABBRender(aabb);
 	}
 }

@@ -18,6 +18,7 @@ public class Entity implements ISpatialObject {
 	private Vector3f position;
 	private Vector3f rotation;
 	private Matrix4f modelMatrix;
+	private boolean hasMoved;
 	private boolean isRemoved;
 
 	/**
@@ -33,7 +34,8 @@ public class Entity implements ISpatialObject {
 		this.position = position;
 		this.rotation = rotation;
 		this.modelMatrix = new Matrix4f();
-		isRemoved = false;
+		this.hasMoved = true;
+		this.isRemoved = false;
 		this.structure.add(this);
 	}
 
@@ -116,6 +118,7 @@ public class Entity implements ISpatialObject {
 	 */
 	public void update() {
 		components.forEach(IEntityComponent::update);
+		hasMoved = false;
 	}
 
 	/**
@@ -142,6 +145,8 @@ public class Entity implements ISpatialObject {
 			moveAmountY = amounts.getY();
 			moveAmountZ = amounts.getZ();
 		}
+
+		hasMoved = true;
 
 		position.set(position.getX() + moveAmountX, position.getY() + moveAmountY, position.getZ() + moveAmountZ);
 		rotation.set(rotation.getX() + rotateAmountX, rotation.getY() + rotateAmountY, rotation.getZ() + rotateAmountZ);
@@ -229,6 +234,10 @@ public class Entity implements ISpatialObject {
 
 	public void setRotation(Vector3f rotation) {
 		this.rotation = rotation;
+	}
+
+	public boolean hasMoved() {
+		return hasMoved;
 	}
 
 	@Override

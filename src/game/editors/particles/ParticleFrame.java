@@ -15,6 +15,15 @@ public class ParticleFrame {
 	private JFrame jFrame;
 	private JPanel mainPanel;
 
+	private JTextField nameField;
+	private JButton button;
+	private JSlider rowSlider;
+	private JSlider scaleSlider;
+	private JSlider lifeSlider;
+	private JSlider gravitySlider;
+	private JButton resetButton;
+	private JButton saveButton;
+
 	public ParticleFrame() {
 		jFrame = new JFrame(FlounderEngine.getDevices().getDisplay().getTitle());
 		jFrame.setSize(FlounderEngine.getDevices().getDisplay().getWidth(), FlounderEngine.getDevices().getDisplay().getHeight());
@@ -49,6 +58,7 @@ public class ParticleFrame {
 		addScaleSlider();
 		addLifeSlider();
 		addGravitySlider();
+		reset();
 		saveParticle();
 
 		jFrame.add(mainPanel);
@@ -57,7 +67,7 @@ public class ParticleFrame {
 	}
 
 	private void addNameField() {
-		JTextField nameField = new JTextField(ParticleGame.particleTemplate.getName());
+		nameField = new JTextField(ParticleGame.particleTemplate.getName());
 		nameField.getDocument().addDocumentListener(new DocumentListener() {
 			@Override
 			public void insertUpdate(DocumentEvent e) {
@@ -85,7 +95,7 @@ public class ParticleFrame {
 	}
 
 	private void addTextureLoad() {
-		JButton button = new JButton("Select File");
+		button = new JButton("Select File");
 		button.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent ae) {
 				JFileChooser fileChooser = new JFileChooser();
@@ -110,7 +120,7 @@ public class ParticleFrame {
 	}
 
 	private void addTextureRowSlider() {
-		JSlider rowSlider = new JSlider(JSlider.HORIZONTAL, 1, 17, 1);
+		rowSlider = new JSlider(JSlider.HORIZONTAL, 1, 17, 1);
 		rowSlider.addChangeListener(new ChangeListener() {
 			@Override
 			public void stateChanged(ChangeEvent e) {
@@ -160,7 +170,7 @@ public class ParticleFrame {
 	}
 
 	private void addScaleSlider() {
-		JSlider scaleSlider = new JSlider(JSlider.HORIZONTAL, 0, 200, 100);
+		scaleSlider = new JSlider(JSlider.HORIZONTAL, 0, 200, 100);
 		scaleSlider.addChangeListener(new ChangeListener() {
 			@Override
 			public void stateChanged(ChangeEvent e) {
@@ -185,7 +195,7 @@ public class ParticleFrame {
 	}
 
 	private void addLifeSlider() {
-		JSlider lifeSlider = new JSlider(JSlider.HORIZONTAL, 0, 100, 10);
+		lifeSlider = new JSlider(JSlider.HORIZONTAL, 0, 100, 10);
 		lifeSlider.addChangeListener(new ChangeListener() {
 			@Override
 			public void stateChanged(ChangeEvent e) {
@@ -210,7 +220,7 @@ public class ParticleFrame {
 	}
 
 	private void addGravitySlider() {
-		JSlider gravitySlider = new JSlider(JSlider.HORIZONTAL, -10, 10, 0);
+		gravitySlider = new JSlider(JSlider.HORIZONTAL, -10, 10, 0);
 		gravitySlider.addChangeListener(new ChangeListener() {
 			@Override
 			public void stateChanged(ChangeEvent e) {
@@ -234,11 +244,33 @@ public class ParticleFrame {
 		mainPanel.add(gravitySlider);
 	}
 
-	private void saveParticle() {
-		JButton saveButton = new JButton("Save Particle");
-		saveButton.addChangeListener(new ChangeListener() {
+	private void reset() {
+		resetButton = new JButton("Reset");
+		resetButton.addActionListener(new ActionListener() {
 			@Override
-			public void stateChanged(ChangeEvent e) {
+			public void actionPerformed(ActionEvent e) {
+				if (JOptionPane.showConfirmDialog(jFrame,
+						"Are you sure you want to reset particle settings?", "Any unsaved work will be lost!",
+						JOptionPane.YES_NO_OPTION,
+						JOptionPane.QUESTION_MESSAGE) == JOptionPane.YES_OPTION) {
+					ParticleGame.particleTemplate = new ParticleTemplate("testing", null, 1.0f, 1.0f, 1.0f);
+					nameField.setText(ParticleGame.particleTemplate.getName());
+					rowSlider.setValue(0);
+					scaleSlider.setValue(100);
+					lifeSlider.setValue(10);
+					gravitySlider.setValue(0);
+				}
+			}
+		});
+
+		mainPanel.add(resetButton);
+	}
+
+	private void saveParticle() {
+		saveButton = new JButton("Save Particle");
+		saveButton.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
 				if (ParticleGame.particleTemplate != null) {
 					ParticleSaver.save(ParticleGame.particleTemplate);
 				}

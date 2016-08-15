@@ -11,6 +11,7 @@ import javax.swing.*;
 import javax.swing.event.*;
 import java.awt.*;
 import java.awt.event.*;
+import java.io.*;
 import java.lang.reflect.*;
 import java.util.*;
 import java.util.List;
@@ -26,19 +27,20 @@ public class EntityFrame {
 
 	private static JFrame jFrame;
 
-	private static JPanel contentPanel;
-	private static JPanel checkBoxPanel;
+	public static JPanel contentPanel;
+	public static JPanel checkBoxPanel;
 
-	private static JTabbedPane componentsPane;
+	public static JTabbedPane componentsPane;
 
-	private static JComboBox componentDropdown;
-	private static JButton componentAdd;
-	private static JTextField nameField;
-	private static JCheckBox polygonMode;
-	private static JCheckBox drawAABBs;
-	private static JCheckBox rotateEntity;
-	private static JButton resetButton;
-	private static JButton saveButton;
+	public static JComboBox componentDropdown;
+	public static JButton componentAdd;
+	public static JTextField nameField;
+	public static JButton loadButton;
+	public static JCheckBox polygonMode;
+	public static JCheckBox drawAABBs;
+	public static JCheckBox rotateEntity;
+	public static JButton resetButton;
+	public static JButton saveButton;
 
 	public EntityFrame() {
 		jFrame = new JFrame(FlounderEngine.getDevices().getDisplay().getTitle());
@@ -70,6 +72,7 @@ public class EntityFrame {
 		addComponentsDropdown();
 		addComponentsButton();
 		entityName();
+		addEntityLoad();
 		polygonMode();
 		drawAABBs();
 		rotate();
@@ -105,7 +108,7 @@ public class EntityFrame {
 		ids.forEach(componentsPane::remove);
 	}
 
-	private void addSidePane() {
+	public static void addSidePane() {
 		if (componentsPane != null) {
 			for (int i = 0; i < componentsPane.getTabCount(); i++) {
 				componentsPane.remove(i);
@@ -171,7 +174,7 @@ public class EntityFrame {
 		checkBoxPanel.add(componentAdd);
 	}
 
-	private void componentAddRemove(String tabName, JPanel panel, IEntityComponent component) {
+	public static void componentAddRemove(String tabName, JPanel panel, IEntityComponent component) {
 		JButton removeButton = new JButton("Remove");
 		removeButton.addActionListener(new ActionListener() {
 			@Override
@@ -211,6 +214,32 @@ public class EntityFrame {
 			}
 		});
 		checkBoxPanel.add(nameField);
+	}
+
+	private void addEntityLoad() {
+		loadButton = new JButton("Select .entity");
+		loadButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent ae) {
+				JFileChooser fileChooser = new JFileChooser();
+				File workingDirectory = new File(System.getProperty("user.dir"));
+				fileChooser.setCurrentDirectory(workingDirectory);
+				int returnValue = fileChooser.showOpenDialog(null);
+
+				if (returnValue == JFileChooser.APPROVE_OPTION) {
+					String selectedFile = fileChooser.getSelectedFile().getPath().replace("\\", "/");
+
+					if (selectedFile.contains("res/entities")) {
+						String[] filepath = selectedFile.split("/");
+						String fileName = filepath[filepath.length - 1];
+
+						EntityGame.LOAD_FROM_ENTITY = fileName.replace(".entity", "");
+					} else {
+						FlounderEngine.getLogger().error("The selected file path is not inside the res/particles folder!");
+					}
+				}
+			}
+		});
+		checkBoxPanel.add(loadButton);
 	}
 
 	private void polygonMode() {

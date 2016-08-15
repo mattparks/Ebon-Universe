@@ -63,7 +63,7 @@ public class FadeRemove extends RemoveComponent {
 	public void addToPanel(JPanel panel) {
 		// Time Slider.
 	//	panel.add(new JLabel("Time Slider: "));
-		JSlider timeSlider = new JSlider(JSlider.HORIZONTAL, 0, 50, 0);
+		JSlider timeSlider = new JSlider(JSlider.HORIZONTAL, 0, 50, (int) (duration * 5.0f));
 		timeSlider.addChangeListener(new ChangeListener() {
 			@Override
 			public void stateChanged(ChangeEvent e) {

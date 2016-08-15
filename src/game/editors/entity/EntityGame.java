@@ -12,11 +12,15 @@ import flounder.textures.*;
 import game.*;
 import game.entities.*;
 import game.entities.components.*;
+import game.entities.loading.*;
+
+import javax.swing.*;
 
 public class EntityGame extends IGame {
 	public static boolean ENTITY_ROTATE = true;
 	public static boolean POLYGON_MODE = false;
 	public static String ENTITY_NAME = "unnamed";
+	public static String LOAD_FROM_ENTITY;
 
 	public static MyFile PATH_MODEL = null;
 	public static MyFile PATH_TEXTURE = null;
@@ -37,7 +41,7 @@ public class EntityGame extends IGame {
 
 	@Override
 	public void init() {
-		FlounderEngine.getProfiler().toggle(false);
+	//	FlounderEngine.getProfiler().toggle(false);
 		FlounderEngine.getCursor().show(true);
 		FlounderEngine.getDevices().getDisplay().setCursorHidden(true);
 
@@ -59,6 +63,39 @@ public class EntityGame extends IGame {
 
 	@Override
 	public void update() {
+		if (LOAD_FROM_ENTITY != null) {
+			if (focusEntity != null) {
+				focusEntity.forceRemove();
+			}
+
+			focusEntity = EntityLoader.load(LOAD_FROM_ENTITY).createEntity(Environment.getEntitys(), new Vector3f(0, -3, 0), new Vector3f());
+
+			ModelComponent modelComponent = (ModelComponent) focusEntity.getComponent(ModelComponent.ID);
+
+			if (modelComponent != null) {
+				EntityGame.PATH_MODEL = modelComponent.getModel() != null ? new MyFile(modelComponent.getModel().getFile()) : null;
+				EntityGame.PATH_TEXTURE = modelComponent.getTexture() != null ? modelComponent.getTexture().getFile() : null;
+				EntityGame.PATH_NORMALMAP = modelComponent.getNormalMap() != null ? modelComponent.getNormalMap().getFile() : null;
+			} else {
+				EntityGame.PATH_MODEL = null;
+				EntityGame.PATH_TEXTURE = null;
+				EntityGame.PATH_NORMALMAP = null;
+			}
+
+			for (IEntityComponent component : focusEntity.getComponents()) {
+				String componentName = component.getClass().getName().split("\\.")[ByteWork.getCharCount(component.getClass().getName(), '.')].replace("Component", "");
+				JPanel panel = EntityFrame.makeTextPanel();
+				component.addToPanel(panel);
+				EntityFrame.componentAddRemove(componentName, panel, component);
+				EntityFrame.addSideTab(componentName, panel);
+			}
+
+			EntityFrame.nameField.setText(LOAD_FROM_ENTITY);
+
+			EntityFrame.addSidePane();
+			LOAD_FROM_ENTITY = null;
+		}
+
 		if (ENTITY_ROTATE) {
 			entityRotate.y = 20.0f * FlounderEngine.getDelta();
 			focusEntity.move(entityMove, entityRotate);
@@ -68,8 +105,10 @@ public class EntityGame extends IGame {
 
 		if (modelComponent != null) {
 			if (PATH_MODEL != null && (modelComponent.getModel() == null || !modelComponent.getModel().getFile().equals(PATH_MODEL.getPath()))) {
-				Model model = Model.newModel(PATH_MODEL).create();
-				modelComponent.setModel(model);
+				if (PATH_MODEL.getPath().contains(".obj")) {
+					Model model = Model.newModel(PATH_MODEL).create();
+					modelComponent.setModel(model);
+				}
 			}
 
 			if (PATH_TEXTURE != null && (modelComponent.getTexture() == null || !modelComponent.getTexture().getFile().getPath().equals(PATH_TEXTURE.getPath()))) {

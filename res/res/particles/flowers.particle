@@ -1,12 +1,11 @@
 /**
- * Date Generated: 14.8.2016 - 11:8
+ * Date Generated: 15.8.2016 - 0:14
  * Created By: null
  */
 ParticleData {
 	Name: flowers;
-	Texture: res/particles/flowers.png;
-	NumberOfRows: 2;
-	GravityEffect: 1.0;
+	Texture: res/particles/star.png;
+	NumberOfRows: 1;
 	LifeLength: 1.9;
 	Scale: 1.21;
 };

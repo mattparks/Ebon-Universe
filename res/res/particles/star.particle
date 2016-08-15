@@ -1,12 +1,11 @@
 /**
- * Date Generated: 14.8.2016 - 11:8
+ * Date Generated: 15.8.2016 - 0:15
  * Created By: null
  */
 ParticleData {
 	Name: star;
 	Texture: res/particles/star.png;
 	NumberOfRows: 1;
-	GravityEffect: 1.0;
 	LifeLength: 1.0;
 	Scale: 1.27;
 };

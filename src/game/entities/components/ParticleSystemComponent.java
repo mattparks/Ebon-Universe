@@ -33,7 +33,7 @@ public class ParticleSystemComponent extends IEntityComponent {
 
 	public ParticleSystemComponent(Entity entity) {
 		super(entity, ID);
-		particleSystem = new ParticleSystem(new ArrayList<>(), null, 0.0f, 0.0f, 1.0f);
+		particleSystem = new ParticleSystem(new ArrayList<>(), null, 100.0f, 1.0f, 1.0f);
 		particleSystem.setSystemCentre(new Vector3f());
 		centreOffset = new Vector3f();
 		lastPosition = new Vector3f();
@@ -84,7 +84,7 @@ public class ParticleSystemComponent extends IEntityComponent {
 	public void addToPanel(JPanel panel) {
 		// PPS Slider.
 	//	panel.add(new JLabel("PPS Slider: "));
-		JSlider ppsSlider = new JSlider(JSlider.HORIZONTAL, 0, 2500, 100);
+		JSlider ppsSlider = new JSlider(JSlider.HORIZONTAL, 0, 2500, (int) particleSystem.getPps());
 		ppsSlider.addChangeListener(new ChangeListener() {
 			@Override
 			public void stateChanged(ChangeEvent e) {
@@ -103,7 +103,7 @@ public class ParticleSystemComponent extends IEntityComponent {
 
 		// Gravity Effect Slider.
 	//	panel.add(new JLabel("Gravity Slider: "));
-		JSlider gravityEffectSlider = new JSlider(JSlider.HORIZONTAL, -150, 150, 100);
+		JSlider gravityEffectSlider = new JSlider(JSlider.HORIZONTAL, -150, 150, (int) (particleSystem.getGravityEffect() * 100.0f));
 		gravityEffectSlider.addChangeListener(new ChangeListener() {
 			@Override
 			public void stateChanged(ChangeEvent e) {
@@ -122,7 +122,7 @@ public class ParticleSystemComponent extends IEntityComponent {
 
 		// Speed Slider.
 	//	panel.add(new JLabel("Speed Slider: "));
-		JSlider speedSlider = new JSlider(JSlider.HORIZONTAL, 0, 150, 10);
+		JSlider speedSlider = new JSlider(JSlider.HORIZONTAL, 0, 150, (int) (particleSystem.getAverageSpeed() * 10.0f));
 		speedSlider.addChangeListener(new ChangeListener() {
 			@Override
 			public void stateChanged(ChangeEvent e) {
@@ -140,7 +140,7 @@ public class ParticleSystemComponent extends IEntityComponent {
 		panel.add(speedSlider);
 
 		// X Offset Field.
-		JTextField xOffsetField = new JTextField("0.0f");
+		JTextField xOffsetField = new JTextField("" + particleSystem.getSystemCentre().x);
 		xOffsetField.getDocument().addDocumentListener(new DocumentListener() {
 			@Override
 			public void insertUpdate(DocumentEvent e) {
@@ -164,7 +164,7 @@ public class ParticleSystemComponent extends IEntityComponent {
 		panel.add(xOffsetField);
 
 		// Y Offset Field.
-		JTextField yOffsetField = new JTextField("0.0f");
+		JTextField yOffsetField = new JTextField("" + particleSystem.getSystemCentre().y);
 		yOffsetField.getDocument().addDocumentListener(new DocumentListener() {
 			@Override
 			public void insertUpdate(DocumentEvent e) {
@@ -188,7 +188,7 @@ public class ParticleSystemComponent extends IEntityComponent {
 		panel.add(yOffsetField);
 
 		// Z Offset Field.
-		JTextField zOffsetField = new JTextField("0.0f");
+		JTextField zOffsetField = new JTextField("" + particleSystem.getSystemCentre().z);
 		zOffsetField.getDocument().addDocumentListener(new DocumentListener() {
 			@Override
 			public void insertUpdate(DocumentEvent e) {

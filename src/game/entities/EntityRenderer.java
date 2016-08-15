@@ -67,7 +67,10 @@ public class EntityRenderer extends IRenderer {
 		}
 
 		OpenGlUtils.bindVAO(modelComponent.getModel().getVaoID(), 0, 1, 2, 3);
-		OpenGlUtils.bindTextureToBank(modelComponent.getTexture().getTextureID(), 0);
+
+		if (modelComponent.getTexture() != null) {
+			OpenGlUtils.bindTextureToBank(modelComponent.getTexture().getTextureID(), 0);
+		}
 
 		if (modelComponent.getNormalMap() != null) {
 			OpenGlUtils.bindTextureToBank(modelComponent.getNormalMap().getTextureID(), 1);
@@ -88,7 +91,6 @@ public class EntityRenderer extends IRenderer {
 		}
 
 		glDrawElements(GL_TRIANGLES, modelComponent.getModel().getVaoLength(), GL_UNSIGNED_INT, 0);
-
 		OpenGlUtils.unbindVAO(0, 1, 2, 3);
 	}
 

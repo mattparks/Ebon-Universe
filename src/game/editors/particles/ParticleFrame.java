@@ -16,14 +16,13 @@ public class ParticleFrame {
 	private JFrame jFrame;
 	private JPanel mainPanel;
 
-	private JTextField nameField;
-	private JButton button;
-	private JSlider rowSlider;
-	private JSlider scaleSlider;
-	private JSlider lifeSlider;
-	private JSlider gravitySlider;
-	private JButton resetButton;
-	private JButton saveButton;
+	public static JTextField nameField;
+	public static JButton loadButton;
+	public static JSlider rowSlider;
+	public static JSlider scaleSlider;
+	public static JSlider lifeSlider;
+	public static JButton resetButton;
+	public static JButton saveButton;
 
 	public ParticleFrame() {
 		jFrame = new JFrame(FlounderEngine.getDevices().getDisplay().getTitle());
@@ -95,8 +94,8 @@ public class ParticleFrame {
 	}
 
 	private void addTextureLoad() {
-		button = new JButton("Select File");
-		button.addActionListener(new ActionListener() {
+		loadButton = new JButton("Select .png/.particle");
+		loadButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent ae) {
 				JFileChooser fileChooser = new JFileChooser();
 				File workingDirectory = new File(System.getProperty("user.dir"));
@@ -108,18 +107,24 @@ public class ParticleFrame {
 
 					if (selectedFile.contains("res/particles")) {
 						String[] filepath = selectedFile.split("/");
-						Texture texture = Texture.newTexture(new MyFile(MyFile.RES_FOLDER, "particles", filepath[filepath.length - 1])).createInSecondThread();
+						String fileName = filepath[filepath.length - 1];
 
-						if (ParticleGame.particleTemplate != null) {
-							ParticleGame.particleTemplate.setTexture(texture);
+						if (fileName.contains(".png")) {
+							Texture texture = Texture.newTexture(new MyFile(MyFile.RES_FOLDER, "particles", fileName)).createInSecondThread();
+
+							if (ParticleGame.particleTemplate != null) {
+								ParticleGame.particleTemplate.setTexture(texture);
+							}
+						} else {
+							ParticleGame.LOAD_FROM_PARTICLE = fileName.replace(".particle", "");
 						}
 					} else {
-						FlounderEngine.getLogger().error("The selected texture path is not inside the res/particles folder!");
+						FlounderEngine.getLogger().error("The selected file path is not inside the res/particles folder!");
 					}
 				}
 			}
 		});
-		mainPanel.add(button);
+		mainPanel.add(loadButton);
 	}
 
 	private void addTextureRowSlider() {
@@ -230,7 +235,6 @@ public class ParticleFrame {
 					rowSlider.setValue(0);
 					scaleSlider.setValue(100);
 					lifeSlider.setValue(10);
-					gravitySlider.setValue(4);
 				}
 			}
 		});

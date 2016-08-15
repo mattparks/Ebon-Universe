@@ -4,10 +4,10 @@ import flounder.engine.*;
 import flounder.engine.implementation.*;
 import flounder.lights.*;
 import flounder.maths.*;
-import flounder.maths.vectors.*;
 import flounder.particles.*;
 import flounder.particles.loading.*;
 import flounder.particles.spawns.*;
+import flounder.resources.*;
 import game.*;
 
 import java.util.*;
@@ -15,6 +15,7 @@ import java.util.*;
 public class ParticleGame extends IGame {
 	public static ParticleTemplate particleTemplate;
 	public static ParticleSystem particleSystem;
+	public static String LOAD_FROM_PARTICLE;
 
 	public ParticleGame() {
 	}
@@ -34,7 +35,7 @@ public class ParticleGame extends IGame {
 		particleSystem = new ParticleSystem(new ArrayList<>(), null, 376.0f, 10.0f, 1.0f);
 		particleSystem.addParticleType(particleTemplate);
 		particleSystem.randomizeRotation();
-		particleSystem.setSpawn(new SpawnCircle(new Vector3f(0, 1, 1), 150));
+		particleSystem.setSpawn(new SpawnSphere(12));
 		particleSystem.setSystemCentre(focusPosition);
 
 		ParticleFrame frame = new ParticleFrame();
@@ -42,6 +43,19 @@ public class ParticleGame extends IGame {
 
 	@Override
 	public void update() {
+		if (LOAD_FROM_PARTICLE != null) {
+			ParticleTemplate template = ParticleLoader.load(LOAD_FROM_PARTICLE);
+			ParticleGame.particleSystem.removeParticleType(ParticleGame.particleTemplate);
+			ParticleGame.particleTemplate = template;
+			ParticleGame.particleSystem.addParticleType(ParticleGame.particleTemplate);
+			FlounderEngine.getParticles().clearAllParticles();
+			ParticleFrame.nameField.setText(template.getName());
+			ParticleFrame.rowSlider.setValue(template.getTexture() != null ? template.getTexture().getNumberOfRows() : 0);
+			ParticleFrame.scaleSlider.setValue((int) (template.getScale() * 100.0f));
+			ParticleFrame.lifeSlider.setValue((int) (template.getLifeLength() * 10.0f));
+			LOAD_FROM_PARTICLE = null;
+		}
+
 		update(focusPosition, focusRotation, false, 0.0f);
 		Environment.update();
 	}

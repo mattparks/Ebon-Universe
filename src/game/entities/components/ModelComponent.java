@@ -107,14 +107,17 @@ public class ModelComponent extends IEntityComponent {
 			}
 		}).create();
 
-		this.texture = Texture.newTexture(new MyFile(template.getValue(this, "Texture"))).create();
-		this.texture.setNumberOfRows(Integer.parseInt(template.getValue(this, "TextureNumRows")));
+		if (!template.getValue(this, "Texture").equals("null")) {
+			this.texture = Texture.newTexture(new MyFile(template.getValue(this, "Texture"))).create();
+			this.texture.setNumberOfRows(Integer.parseInt(template.getValue(this, "TextureNumRows")));
+		}
 
 		if (!template.getValue(this, "NormalMap").equals("null")) {
 			this.normalMap = Texture.newTexture(new MyFile(template.getValue(this, "NormalMap"))).create();
 			this.normalMap.setNumberOfRows(Integer.parseInt(template.getValue(this, "NormalMapNumRows")));
 		}
 
+		this.transparency = 1.0f;
 		this.scale = Float.parseFloat(template.getValue(this, "Scale"));
 	}
 
@@ -191,7 +194,7 @@ public class ModelComponent extends IEntityComponent {
 
 		// Scale Slider.
 	//	panel.add(new JLabel("Scale Slider: "));
-		JSlider scaleSlider = new JSlider(JSlider.HORIZONTAL, 0, 50, 25);
+		JSlider scaleSlider = new JSlider(JSlider.HORIZONTAL, 0, 50, (int) (scale * 25.0f));
 		scaleSlider.addChangeListener(new ChangeListener() {
 			@Override
 			public void stateChanged(ChangeEvent e) {

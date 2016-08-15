@@ -144,4 +144,8 @@ public class FadeRemove extends RemoveComponent {
 	public void setRemovesAfterDuration(boolean removesAfterDuration) {
 		this.removesAfterDuration = removesAfterDuration;
 	}
+
+	@Override
+	public void dispose() {
+	}
 }

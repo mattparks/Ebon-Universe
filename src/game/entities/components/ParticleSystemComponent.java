@@ -5,9 +5,7 @@ import flounder.helpers.*;
 import flounder.particles.*;
 import flounder.particles.loading.*;
 import flounder.particles.spawns.*;
-import flounder.resources.*;
 import game.editors.entity.*;
-import game.editors.particles.*;
 import game.entities.*;
 import game.entities.loading.*;
 
@@ -19,22 +17,12 @@ import java.lang.reflect.*;
 import java.util.*;
 
 public class ParticleSystemComponent extends IEntityComponent {
-	private class SpawnTypes {
-		private String classPath;
-		private String tabName;
-
-		public SpawnTypes(String classPath, String tabName) {
-			this.classPath = classPath;
-			this.tabName = tabName;
-		}
-	}
-
-	private SpawnTypes[] spawns = new SpawnTypes[]{
-			new SpawnTypes(SpawnCircle.class.getName(), "Circle"),
-			new SpawnTypes(SpawnCone.class.getName(), "Cone"),
-			new SpawnTypes(SpawnLine.class.getName(), "Line"),
-			new SpawnTypes(SpawnPoint.class.getName(), "Point"),
-			new SpawnTypes(SpawnSphere.class.getName(), "Sphere"),
+	private String[] spawns = new String[]{
+			SpawnCircle.class.getName(),
+			SpawnCone.class.getName(),
+			SpawnLine.class.getName(),
+			SpawnPoint.class.getName(),
+			SpawnSphere.class.getName(),
 	};
 
 	public static final int ID = EntityIDAssigner.getId();
@@ -125,7 +113,7 @@ public class ParticleSystemComponent extends IEntityComponent {
 		// Component Dropdown.
 		JComboBox componentDropdown = new JComboBox();
 		for (int i = 0; i < spawns.length; i++) {
-			componentDropdown.addItem(spawns[i].tabName);
+			componentDropdown.addItem(spawns[i].split("\\.")[ByteWork.getCharCount(spawns[i], '.')].replace("Spawn", ""));
 		}
 		panel.add(componentDropdown);
 
@@ -137,23 +125,33 @@ public class ParticleSystemComponent extends IEntityComponent {
 				IParticleSpawn particleSpawn = null;
 
 				for (int i = 0; i < spawns.length; i++) {
-					if (spawns[i].tabName.equals(spawn)) {
+					if (spawns[i].split("\\.")[ByteWork.getCharCount(spawns[i], '.')].replace("Spawn", "").equals(spawn)) {
 						try {
 							FlounderEngine.getLogger().log("Adding component: " + spawn);
-							Class componentClass = Class.forName(spawns[i].classPath);
+							Class componentClass = Class.forName(spawns[i]);
 							Class[] componentTypes = new Class[]{};
 							@SuppressWarnings("unchecked") Constructor componentConstructor = componentClass.getConstructor(componentTypes);
 							Object[] componentParameters = new Object[]{};
 							particleSpawn = (IParticleSpawn) componentConstructor.newInstance(componentParameters);
 						} catch (ClassNotFoundException | IllegalAccessException | InstantiationException | InvocationTargetException | NoSuchMethodException ex) {
-							FlounderEngine.getLogger().error("While loading particle spawn" + spawns[i].classPath + "'s constructor could not be found!");
+							FlounderEngine.getLogger().error("While loading particle spawn" + spawns[i] + "'s constructor could not be found!");
 							FlounderEngine.getLogger().exception(ex);
 						}
 					}
 				}
 
+				if (ParticleSystemComponent.this.particleSystem.getSpawn() != null) {
+					String classname = particleSystem.getSpawn().getClass().getName();
+					EntityFrame.removeSideTab(ParticleSystemComponent.class.getName().split("\\.")[ByteWork.getCharCount(ParticleSystemComponent.class.getName(), '.')].replace("Component", "") + " (" + classname.split("\\.")[ByteWork.getCharCount(classname, '.')].replace("Spawn", "") + ")");
+				}
+
 				if (particleSpawn != null) {
+					String classname = particleSpawn.getClass().getName();
 					ParticleSystemComponent.this.particleSystem.setSpawn(particleSpawn);
+
+					JPanel panel = EntityFrame.makeTextPanel();
+					// particleSpawn.addToPanel(panel);
+					EntityFrame.addSideTab(ParticleSystemComponent.class.getName().split("\\.")[ByteWork.getCharCount(ParticleSystemComponent.class.getName(), '.')].replace("Component", "") + " (" + classname.split("\\.")[ByteWork.getCharCount(classname, '.')].replace("Spawn", "") + ")", panel);
 				}
 			}
 		});
@@ -201,5 +199,11 @@ public class ParticleSystemComponent extends IEntityComponent {
 			particleSystem.addParticleType(ParticleLoader.load("cosmic"));
 			particleSystem.addParticleType(ParticleLoader.load("cosmicHot"));
 		}
+	}
+
+	@Override
+	public void dispose() {
+		FlounderEngine.getParticles().removeSystem(particleSystem);
+		particleSystem = null;
 	}
 }

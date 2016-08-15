@@ -53,4 +53,9 @@ public abstract class IEntityComponent {
 	 * Updates this component.
 	 */
 	public abstract void update();
+
+	/**
+	 * Runs when the component is removed from the entity.
+	 */
+	public abstract void dispose();
 }

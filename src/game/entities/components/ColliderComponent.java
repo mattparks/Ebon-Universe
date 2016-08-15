@@ -80,4 +80,8 @@ public class ColliderComponent extends IEntityComponent {
 
 		FlounderEngine.getAABBs().addAABBRender(aabb);
 	}
+
+	@Override
+	public void dispose() {
+	}
 }

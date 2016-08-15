@@ -152,4 +152,8 @@ public class CollisionComponent extends IEntityComponent {
 	@Override
 	public void update() {
 	}
+
+	@Override
+	public void dispose() {
+	}
 }

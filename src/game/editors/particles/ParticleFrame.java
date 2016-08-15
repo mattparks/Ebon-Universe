@@ -60,7 +60,7 @@ public class ParticleFrame {
 		addLifeSlider();
 		addGravitySlider();
 		reset();
-		saveParticle();
+		save();
 
 		jFrame.add(mainPanel);
 		jFrame.setLocationByPlatform(true);
@@ -261,7 +261,7 @@ public class ParticleFrame {
 		mainPanel.add(resetButton);
 	}
 
-	private void saveParticle() {
+	private void save() {
 		saveButton = new JButton("Save Particle");
 		saveButton.addActionListener(new ActionListener() {
 			@Override

@@ -54,6 +54,7 @@ public class Entity implements ISpatialObject {
 	 * @param component The component to remove.
 	 */
 	public void removeComponent(IEntityComponent component) {
+		component.dispose();
 		components.remove(component);
 	}
 
@@ -69,6 +70,7 @@ public class Entity implements ISpatialObject {
 	public void removeComponent(int id) {
 		for (IEntityComponent c : components) {
 			if (c.getId() == id) {
+				c.dispose();
 				components.remove(c);
 				return;
 			}
@@ -198,16 +200,6 @@ public class Entity implements ISpatialObject {
 			return;
 		}
 
-		// AudioComponent audioComponent = (AudioComponent) getComponent(AudioComponent.ID);
-		// if (audioComponent != null) {
-		// audioComponent.play("remove");
-		// }
-
-		ParticleSystemComponent particleComponent = (ParticleSystemComponent) getComponent(ParticleSystemComponent.ID);
-		if (particleComponent != null) {
-			FlounderEngine.getParticles().removeSystem(particleComponent.getParticleSystem());
-		}
-
 		isRemoved = true;
 		RemoveComponent removeComponent = (RemoveComponent) getComponent(RemoveComponent.ID);
 
@@ -224,6 +216,10 @@ public class Entity implements ISpatialObject {
 	public void forceRemove() {
 		isRemoved = true;
 		structure.remove(this);
+
+		for (IEntityComponent component : components) {
+			component.dispose();
+		}
 	}
 
 	/**

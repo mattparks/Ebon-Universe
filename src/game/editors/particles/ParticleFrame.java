@@ -129,13 +129,10 @@ public class ParticleFrame {
 			@Override
 			public void stateChanged(ChangeEvent e) {
 				JSlider source = (JSlider) e.getSource();
+				int reading = source.getValue();
 
-				if (!source.getValueIsAdjusting()) {
-					int reading = source.getValue();
-
-					if (ParticleGame.particleTemplate != null && ParticleGame.particleTemplate.getTexture() != null) {
-						ParticleGame.particleTemplate.getTexture().setNumberOfRows(reading);
-					}
+				if (ParticleGame.particleTemplate != null && ParticleGame.particleTemplate.getTexture() != null) {
+					ParticleGame.particleTemplate.getTexture().setNumberOfRows(reading);
 				}
 			}
 		});
@@ -179,13 +176,10 @@ public class ParticleFrame {
 			@Override
 			public void stateChanged(ChangeEvent e) {
 				JSlider source = (JSlider) e.getSource();
+				int reading = source.getValue();
 
-				if (!source.getValueIsAdjusting()) {
-					int reading = source.getValue();
-
-					if (ParticleGame.particleTemplate != null) {
-						ParticleGame.particleTemplate.setScale(reading / 100.0f);
-					}
+				if (ParticleGame.particleTemplate != null) {
+					ParticleGame.particleTemplate.setScale(reading / 100.0f);
 				}
 			}
 		});
@@ -204,13 +198,10 @@ public class ParticleFrame {
 			@Override
 			public void stateChanged(ChangeEvent e) {
 				JSlider source = (JSlider) e.getSource();
+				int reading = source.getValue();
 
-				if (!source.getValueIsAdjusting()) {
-					int reading = source.getValue();
-
-					if (ParticleGame.particleTemplate != null) {
-						ParticleGame.particleTemplate.setLifeLength(reading / 10.0f);
-					}
+				if (ParticleGame.particleTemplate != null) {
+					ParticleGame.particleTemplate.setLifeLength(reading / 10.0f);
 				}
 			}
 		});
@@ -229,13 +220,10 @@ public class ParticleFrame {
 			@Override
 			public void stateChanged(ChangeEvent e) {
 				JSlider source = (JSlider) e.getSource();
+				int reading = source.getValue();
 
-				if (!source.getValueIsAdjusting()) {
-					int reading = source.getValue();
-
-					if (ParticleGame.particleTemplate != null) {
-						ParticleGame.particleTemplate.setGravityEffect((float) ((reading / 3.33f) * Math.sqrt(2)));
-					}
+				if (ParticleGame.particleTemplate != null) {
+					ParticleGame.particleTemplate.setGravityEffect((float) ((reading / 3.33f) * Math.sqrt(2)));
 				}
 			}
 		});

@@ -7,7 +7,6 @@ import flounder.models.*;
 import flounder.resources.*;
 import flounder.textures.*;
 import game.editors.entity.*;
-import game.editors.particles.*;
 import game.entities.*;
 import game.entities.loading.*;
 

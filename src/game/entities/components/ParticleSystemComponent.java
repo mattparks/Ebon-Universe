@@ -5,10 +5,12 @@ import flounder.helpers.*;
 import flounder.particles.*;
 import flounder.particles.loading.*;
 import flounder.particles.spawns.*;
+import game.editors.particles.*;
 import game.entities.*;
 import game.entities.loading.*;
 
 import javax.swing.*;
+import javax.swing.event.*;
 import java.io.*;
 import java.lang.reflect.*;
 import java.util.*;
@@ -63,7 +65,22 @@ public class ParticleSystemComponent extends IEntityComponent {
 
 	@Override
 	public void addToPanel(JPanel panel) {
+		JSlider ppsSlider = new JSlider(JSlider.HORIZONTAL, 0, 2000, 100);
+		ppsSlider.addChangeListener(new ChangeListener() {
+			@Override
+			public void stateChanged(ChangeEvent e) {
+				JSlider source = (JSlider) e.getSource();
+				int reading = source.getValue();
+				particleSystem.setPps(reading);
+			}
+		});
 
+		//Turn on labels at major tick marks.
+		ppsSlider.setMajorTickSpacing(500);
+		ppsSlider.setMinorTickSpacing(100);
+		ppsSlider.setPaintTicks(true);
+		ppsSlider.setPaintLabels(true);
+		panel.add(ppsSlider);
 	}
 
 	public ParticleSystem getParticleSystem() {

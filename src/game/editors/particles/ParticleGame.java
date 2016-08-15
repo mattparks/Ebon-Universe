@@ -28,13 +28,13 @@ public class ParticleGame extends IGame {
 		Environment.init(new Fog(new Colour(1.0f, 1.0f, 1.0f, false), 0.001f, 2.0f, 0.0f, 50.0f), null);
 
 		// The template to edit.
-		particleTemplate = new ParticleTemplate("testing", null, 1.0f, 1.0f, 1.0f);
+		particleTemplate = new ParticleTemplate("testing", null, 1.0f, 1.0f);
 
 		// The testing particle system.
-		particleSystem = new ParticleSystem(new ArrayList<>(), null, 376.0f, 10.0f);
+		particleSystem = new ParticleSystem(new ArrayList<>(), null, 376.0f, 10.0f, 1.0f);
 		particleSystem.addParticleType(particleTemplate);
 		particleSystem.randomizeRotation();
-		particleSystem.setSpawn(new SpawnCone(new Vector3f(0, 1, 1), 150));
+		particleSystem.setSpawn(new SpawnCircle(new Vector3f(0, 1, 1), 150));
 		particleSystem.setSystemCentre(focusPosition);
 
 		ParticleFrame frame = new ParticleFrame();

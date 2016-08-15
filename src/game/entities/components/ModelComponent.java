@@ -190,6 +190,7 @@ public class ModelComponent extends IEntityComponent {
 		panel.add(loadNormalMap);
 
 		// Scale Slider.
+	//	panel.add(new JLabel("Scale Slider: "));
 		JSlider scaleSlider = new JSlider(JSlider.HORIZONTAL, 0, 50, 25);
 		scaleSlider.addChangeListener(new ChangeListener() {
 			@Override

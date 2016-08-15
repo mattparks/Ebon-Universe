@@ -45,7 +45,7 @@ public class EntityFrame {
 		jFrame.setSize(FlounderEngine.getDevices().getDisplay().getWidth(), FlounderEngine.getDevices().getDisplay().getHeight());
 		jFrame.setResizable(true);
 		jFrame.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
-		jFrame.setLayout(new GridLayout(1, 2));
+		jFrame.setLayout(new GridLayout(2, 1));
 		jFrame.addWindowListener(new java.awt.event.WindowAdapter() {
 			@Override
 			public void windowClosing(java.awt.event.WindowEvent windowEvent) {

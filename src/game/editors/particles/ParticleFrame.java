@@ -58,7 +58,6 @@ public class ParticleFrame {
 		addTextureRowSlider();
 		addScaleSlider();
 		addLifeSlider();
-		addGravitySlider();
 		reset();
 		save();
 
@@ -214,28 +213,6 @@ public class ParticleFrame {
 		mainPanel.add(lifeSlider);
 	}
 
-	private void addGravitySlider() {
-		gravitySlider = new JSlider(JSlider.HORIZONTAL, -10, 10, 4);
-		gravitySlider.addChangeListener(new ChangeListener() {
-			@Override
-			public void stateChanged(ChangeEvent e) {
-				JSlider source = (JSlider) e.getSource();
-				int reading = source.getValue();
-
-				if (ParticleGame.particleTemplate != null) {
-					ParticleGame.particleTemplate.setGravityEffect((float) ((reading / 3.33f) * Math.sqrt(2)));
-				}
-			}
-		});
-
-		//Turn on labels at major tick marks.
-		gravitySlider.setMajorTickSpacing(5);
-		gravitySlider.setMinorTickSpacing(0);
-		gravitySlider.setPaintTicks(true);
-		gravitySlider.setPaintLabels(true);
-		mainPanel.add(gravitySlider);
-	}
-
 	private void reset() {
 		resetButton = new JButton("Reset");
 		resetButton.addActionListener(new ActionListener() {
@@ -246,7 +223,7 @@ public class ParticleFrame {
 						JOptionPane.YES_NO_OPTION,
 						JOptionPane.QUESTION_MESSAGE) == JOptionPane.YES_OPTION) {
 					ParticleGame.particleSystem.removeParticleType(ParticleGame.particleTemplate);
-					ParticleGame.particleTemplate = new ParticleTemplate("testing", null, 1.0f, 1.0f, 1.0f);
+					ParticleGame.particleTemplate = new ParticleTemplate("testing", null, 1.0f, 1.0f);
 					ParticleGame.particleSystem.addParticleType(ParticleGame.particleTemplate);
 					FlounderEngine.getParticles().clearAllParticles();
 					nameField.setText(ParticleGame.particleTemplate.getName());

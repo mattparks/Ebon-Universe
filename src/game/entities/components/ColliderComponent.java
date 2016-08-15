@@ -7,7 +7,6 @@ import game.entities.*;
 import game.entities.loading.*;
 
 import javax.swing.*;
-import java.awt.event.*;
 
 /**
  * Gives an object a collider for spatial interaction. Note that a collider doesn't necessarily need to be used for collision. A collider component can be used for any spatial interaction.
@@ -16,7 +15,6 @@ import java.awt.event.*;
  */
 public class ColliderComponent extends IEntityComponent {
 	public static final int ID = EntityIDAssigner.getId();
-	public static final String NAME = "Collider";
 
 	private AABB aabb;
 	private QuickHull hull;
@@ -27,7 +25,7 @@ public class ColliderComponent extends IEntityComponent {
 	 * @param entity The entity this component is attached to.
 	 */
 	public ColliderComponent(Entity entity) {
-		super(entity, ID, NAME);
+		super(entity, ID);
 		this.aabb = new AABB();
 		this.hull = new QuickHull();
 	}
@@ -43,7 +41,7 @@ public class ColliderComponent extends IEntityComponent {
 	 * @param template The entity template to load data from.
 	 */
 	public ColliderComponent(Entity entity, EntityTemplate template) {
-		super(entity, ID, NAME);
+		super(entity, ID);
 		this.aabb = new AABB();
 		this.hull = new QuickHull();
 	}
@@ -74,7 +72,7 @@ public class ColliderComponent extends IEntityComponent {
 		if (super.getEntity().hasMoved()) {
 			ModelComponent modelComponent = (ModelComponent) getEntity().getComponent(ModelComponent.ID);
 
-			if (modelComponent != null) {
+			if (modelComponent != null && modelComponent.getModel() != null) {
 				AABB.recalculate(modelComponent.getModel().getAABB(), aabb, super.getEntity().getPosition(), super.getEntity().getRotation(), modelComponent.getScale());
 				QuickHull.recalculate(modelComponent.getModel().getHull(), hull, super.getEntity().getPosition(), super.getEntity().getRotation(), modelComponent.getScale());
 			}

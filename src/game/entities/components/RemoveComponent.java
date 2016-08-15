@@ -14,10 +14,9 @@ public abstract class RemoveComponent extends IEntityComponent {
 	 * Creates a new RemoveComponent.
 	 *
 	 * @param entity The entity this component is attached to.
-	 * @param name The name of the remove implementation.
 	 */
-	public RemoveComponent(Entity entity, String name) {
-		super(entity, ID, name);
+	public RemoveComponent(Entity entity) {
+		super(entity, ID);
 		activated = false;
 	}
 

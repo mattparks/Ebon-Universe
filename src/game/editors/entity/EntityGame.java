@@ -7,19 +7,22 @@ import flounder.lights.*;
 import flounder.maths.*;
 import flounder.maths.vectors.*;
 import flounder.models.*;
-import flounder.particles.loading.*;
 import flounder.resources.*;
 import flounder.textures.*;
 import game.*;
 import game.entities.*;
 import game.entities.components.*;
 
-import java.util.*;
-
 public class EntityGame extends IGame {
 	public static boolean ENTITY_ROTATE = true;
 	public static boolean POLYGON_MODE = false;
 	public static String ENTITY_NAME = "unnamed";
+
+	public static MyFile PATH_MODEL = null;
+	public static MyFile PATH_TEXTURE = null;
+	public static MyFile PATH_NORMALMAP = null;
+
+	public static EntityGame instance;
 
 	private Vector3f entityMove;
 	private Vector3f entityRotate;
@@ -29,6 +32,7 @@ public class EntityGame extends IGame {
 	public EntityGame() {
 		entityMove = new Vector3f();
 		entityRotate = new Vector3f();
+		instance = this;
 	}
 
 	@Override
@@ -42,6 +46,7 @@ public class EntityGame extends IGame {
 		generateBlankEntity();
 
 		EntityFrame frame = new EntityFrame();
+		frame.create();
 	}
 
 	public static void generateBlankEntity() {
@@ -50,14 +55,6 @@ public class EntityGame extends IGame {
 		}
 
 		focusEntity = new Entity(Environment.getEntitys(), new Vector3f(0, -3, 0), new Vector3f());
-		Model model = Model.newModel(new MyFile(MyFile.RES_FOLDER, "entities", "spaceShip.obj")).create();
-		Texture texture = Texture.newTexture(new MyFile(MyFile.RES_FOLDER, "entities", "crate.png")).create();
-		Texture normalTexture = Texture.newTexture(new MyFile(MyFile.RES_FOLDER, "entities", "crateNormal.png")).create();
-		new ColliderComponent(focusEntity);
-		new CollisionComponent(focusEntity);
-		new FadeRemove(focusEntity, 0.0f);
-		new ModelComponent(focusEntity, model, texture, normalTexture, 1.7f, 0);
-		new ParticleSystemComponent(focusEntity, new ArrayList<ParticleTemplate>(), null, 0.0f, 0.0f);
 	}
 
 	@Override
@@ -65,6 +62,25 @@ public class EntityGame extends IGame {
 		if (ENTITY_ROTATE) {
 			entityRotate.y = 20.0f * FlounderEngine.getDelta();
 			focusEntity.move(entityMove, entityRotate);
+		}
+
+		ModelComponent modelComponent = (ModelComponent) focusEntity.getComponent(ModelComponent.ID);
+
+		if (modelComponent != null) {
+			if (PATH_MODEL != null && (modelComponent.getModel() == null || !modelComponent.getModel().getFile().equals(PATH_MODEL.getPath()))) {
+				Model model = Model.newModel(PATH_MODEL).create();
+				modelComponent.setModel(model);
+			}
+
+			if (PATH_TEXTURE != null && (modelComponent.getTexture() == null || !modelComponent.getTexture().getFile().getPath().equals(PATH_TEXTURE.getPath()))) {
+				Texture texture = Texture.newTexture(PATH_TEXTURE).create();
+				modelComponent.setTexture(texture);
+			}
+
+			if (PATH_NORMALMAP != null && (modelComponent.getNormalMap() == null || !modelComponent.getNormalMap().getFile().getPath().equals(PATH_NORMALMAP.getPath()))) {
+				Texture normalTexture = Texture.newTexture(PATH_NORMALMAP).create();
+				modelComponent.setNormalMap(normalTexture);
+			}
 		}
 
 		update(focusPosition, focusRotation, false, 0.0f);

@@ -75,6 +75,16 @@ public class Entity implements ISpatialObject {
 		}
 	}
 
+	public boolean hasComponent(String classPath) {
+		for (IEntityComponent component : components) {
+			if (component.getClass().getName().equals(classPath)) {
+				return true;
+			}
+		}
+
+		return false;
+	}
+
 	/**
 	 * Visits every entity with a particular component within a certain range of space.
 	 *

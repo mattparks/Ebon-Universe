@@ -15,18 +15,23 @@ import java.util.*;
 
 public class ParticleSystemComponent extends IEntityComponent {
 	public static final int ID = EntityIDAssigner.getId();
-	public static final String NAME = "Particle System";
 
 	private ParticleSystem particleSystem;
 
+	public ParticleSystemComponent(Entity entity) {
+		super(entity, ID);
+		particleSystem = new ParticleSystem(new ArrayList<>(), null, 0.0f, 0.0f);
+		particleSystem.setSystemCentre(super.getEntity().getPosition());
+	}
+
 	public ParticleSystemComponent(Entity entity, List<ParticleTemplate> types, IParticleSpawn spawn, float pps, float speed) {
-		super(entity, ID, NAME);
+		super(entity, ID);
 		particleSystem = new ParticleSystem(types, spawn, pps, speed);
 		particleSystem.setSystemCentre(super.getEntity().getPosition());
 	}
 
 	public ParticleSystemComponent(Entity entity, EntityTemplate template) {
-		super(entity, ID, NAME);
+		super(entity, ID);
 		String[] templates = EntityTemplate.toStringArray(template.getSectionData(this, "Templates"));
 		List<ParticleTemplate> templateList = new ArrayList<>();
 
@@ -89,7 +94,7 @@ public class ParticleSystemComponent extends IEntityComponent {
 			}
 		};
 
-		String particleSpawn = "Spawn: " + (particleSystem.getSpawn() == null ? null :particleSystem.getSpawn().getClass().getName());
+		String particleSpawn = "Spawn: " + (particleSystem.getSpawn() == null ? null : particleSystem.getSpawn().getClass().getName());
 		String particlePPS = "PPS: " + particleSystem.getPps();
 		String particleSpeed = "Speed: " + particleSystem.getAverageSpeed();
 

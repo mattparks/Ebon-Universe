@@ -55,13 +55,16 @@ public class EntityRenderer extends IRenderer {
 		shader.getUniformFloat("fogGradient").loadFloat(Environment.getFog().getFogGradient());
 
 		OpenGlUtils.antialias(FlounderEngine.getDevices().getDisplay().isAntialiasing());
-		OpenGlUtils.cullBackFaces(true);
 		OpenGlUtils.enableDepthTesting();
 		OpenGlUtils.enableAlphaBlending();
 	}
 
 	private void renderEntity(Entity entity) {
 		ModelComponent modelComponent = (ModelComponent) entity.getComponent(ModelComponent.ID);
+
+		if (modelComponent == null || modelComponent.getModel() == null) {
+			return;
+		}
 
 		OpenGlUtils.bindVAO(modelComponent.getModel().getVaoID(), 0, 1, 2, 3);
 		OpenGlUtils.bindTextureToBank(modelComponent.getTexture().getTextureID(), 0);

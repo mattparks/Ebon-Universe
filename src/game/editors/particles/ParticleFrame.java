@@ -115,7 +115,7 @@ public class ParticleFrame {
 							ParticleGame.particleTemplate.setTexture(texture);
 						}
 					} else {
-						FlounderEngine.getLogger().error("The selected texture path is not inside the res folder!");
+						FlounderEngine.getLogger().error("The selected texture path is not inside the res/particles folder!");
 					}
 				}
 			}
@@ -128,7 +128,7 @@ public class ParticleFrame {
 		rowSlider.addChangeListener(new ChangeListener() {
 			@Override
 			public void stateChanged(ChangeEvent e) {
-				JSlider source = (JSlider)e.getSource();
+				JSlider source = (JSlider) e.getSource();
 
 				if (!source.getValueIsAdjusting()) {
 					int reading = source.getValue();
@@ -178,7 +178,7 @@ public class ParticleFrame {
 		scaleSlider.addChangeListener(new ChangeListener() {
 			@Override
 			public void stateChanged(ChangeEvent e) {
-				JSlider source = (JSlider)e.getSource();
+				JSlider source = (JSlider) e.getSource();
 
 				if (!source.getValueIsAdjusting()) {
 					int reading = source.getValue();
@@ -203,7 +203,7 @@ public class ParticleFrame {
 		lifeSlider.addChangeListener(new ChangeListener() {
 			@Override
 			public void stateChanged(ChangeEvent e) {
-				JSlider source = (JSlider)e.getSource();
+				JSlider source = (JSlider) e.getSource();
 
 				if (!source.getValueIsAdjusting()) {
 					int reading = source.getValue();
@@ -228,7 +228,7 @@ public class ParticleFrame {
 		gravitySlider.addChangeListener(new ChangeListener() {
 			@Override
 			public void stateChanged(ChangeEvent e) {
-				JSlider source = (JSlider)e.getSource();
+				JSlider source = (JSlider) e.getSource();
 
 				if (!source.getValueIsAdjusting()) {
 					int reading = source.getValue();

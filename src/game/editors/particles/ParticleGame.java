@@ -21,7 +21,7 @@ public class ParticleGame extends IGame {
 
 	@Override
 	public void init() {
-	//	FlounderEngine.getProfiler().toggle(false);
+		//	FlounderEngine.getProfiler().toggle(false);
 		FlounderEngine.getCursor().show(true);
 		FlounderEngine.getDevices().getDisplay().setCursorHidden(true);
 

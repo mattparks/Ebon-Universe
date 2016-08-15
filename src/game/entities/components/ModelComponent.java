@@ -1,14 +1,19 @@
 package game.entities.components;
 
+import flounder.engine.*;
 import flounder.helpers.*;
 import flounder.maths.vectors.*;
 import flounder.models.*;
 import flounder.resources.*;
 import flounder.textures.*;
+import game.editors.entity.*;
+import game.editors.particles.*;
 import game.entities.*;
 import game.entities.loading.*;
 
 import javax.swing.*;
+import javax.swing.event.*;
+import java.awt.event.*;
 import java.io.*;
 
 /**
@@ -16,7 +21,6 @@ import java.io.*;
  */
 public class ModelComponent extends IEntityComponent {
 	public static final int ID = EntityIDAssigner.getId();
-	public static final String NAME = "Model";
 
 	private Model model;
 	private Texture texture;
@@ -24,6 +28,15 @@ public class ModelComponent extends IEntityComponent {
 	private float transparency;
 	private float scale;
 	private int textureIndex;
+
+	/**
+	 * Creates a new ModelComponent.
+	 *
+	 * @param entity The entity this component is attached to.
+	 */
+	public ModelComponent(Entity entity) {
+		this(entity, null, null, null, 1.0f, 0);
+	}
 
 	/**
 	 * Creates a new ModelComponent.
@@ -45,7 +58,7 @@ public class ModelComponent extends IEntityComponent {
 	 * @param textureIndex What texture index this entity should renderObjects from (0 default).
 	 */
 	public ModelComponent(Entity entity, Model model, Texture texture, Texture normalMap, float scale, int textureIndex) {
-		super(entity, ID, NAME);
+		super(entity, ID);
 		this.model = model;
 		this.texture = texture;
 		this.normalMap = normalMap;
@@ -61,7 +74,7 @@ public class ModelComponent extends IEntityComponent {
 	 * @param template The entity template to load data from.
 	 */
 	public ModelComponent(Entity entity, EntityTemplate template) {
-		super(entity, ID, NAME);
+		super(entity, ID);
 
 		this.model = Model.newModel(new ModelBuilder.LoadManual() {
 			@Override
@@ -108,7 +121,92 @@ public class ModelComponent extends IEntityComponent {
 
 	@Override
 	public void addToPanel(JPanel panel) {
+		// Load Texture.
+		JButton loadModel = new JButton("Select Model");
+		loadModel.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent ae) {
+				JFileChooser fileChooser = new JFileChooser();
+				File workingDirectory = new File(System.getProperty("user.dir"));
+				fileChooser.setCurrentDirectory(workingDirectory);
+				int returnValue = fileChooser.showOpenDialog(null);
 
+				if (returnValue == JFileChooser.APPROVE_OPTION) {
+					String selectedFile = fileChooser.getSelectedFile().getPath().replace("\\", "/");
+
+					if (selectedFile.contains("res/entities")) {
+						String[] filepath = selectedFile.split("/");
+						EntityGame.PATH_MODEL = new MyFile(MyFile.RES_FOLDER, "entities", filepath[filepath.length - 1]);
+					} else {
+						FlounderEngine.getLogger().error("The selected texture path is not inside the res/entities folder!");
+					}
+				}
+			}
+		});
+		panel.add(loadModel);
+
+		// Load Texture.
+		JButton loadTexture = new JButton("Select Texture");
+		loadTexture.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent ae) {
+				JFileChooser fileChooser = new JFileChooser();
+				File workingDirectory = new File(System.getProperty("user.dir"));
+				fileChooser.setCurrentDirectory(workingDirectory);
+				int returnValue = fileChooser.showOpenDialog(null);
+
+				if (returnValue == JFileChooser.APPROVE_OPTION) {
+					String selectedFile = fileChooser.getSelectedFile().getPath().replace("\\", "/");
+
+					if (selectedFile.contains("res/entities")) {
+						String[] filepath = selectedFile.split("/");
+						EntityGame.PATH_TEXTURE = new MyFile(MyFile.RES_FOLDER, "entities", filepath[filepath.length - 1]);
+					} else {
+						FlounderEngine.getLogger().error("The selected texture path is not inside the res/entities folder!");
+					}
+				}
+			}
+		});
+		panel.add(loadTexture);
+
+		// Load Normal Map.
+		JButton loadNormalMap = new JButton("Select Normal Map");
+		loadNormalMap.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent ae) {
+				JFileChooser fileChooser = new JFileChooser();
+				File workingDirectory = new File(System.getProperty("user.dir"));
+				fileChooser.setCurrentDirectory(workingDirectory);
+				int returnValue = fileChooser.showOpenDialog(null);
+
+				if (returnValue == JFileChooser.APPROVE_OPTION) {
+					String selectedFile = fileChooser.getSelectedFile().getPath().replace("\\", "/");
+
+					if (selectedFile.contains("res/entities")) {
+						String[] filepath = selectedFile.split("/");
+						EntityGame.PATH_NORMALMAP = new MyFile(MyFile.RES_FOLDER, "entities", filepath[filepath.length - 1]);
+					} else {
+						FlounderEngine.getLogger().error("The selected texture path is not inside the res/entities folder!");
+					}
+				}
+			}
+		});
+		panel.add(loadNormalMap);
+
+		// Scale Slider.
+		JSlider scaleSlider = new JSlider(JSlider.HORIZONTAL, 0, 50, 25);
+		scaleSlider.addChangeListener(new ChangeListener() {
+			@Override
+			public void stateChanged(ChangeEvent e) {
+				JSlider source = (JSlider) e.getSource();
+				int reading = source.getValue();
+
+				ModelComponent.this.scale = reading / 25.0f;
+			}
+		});
+		//Turn on labels at major tick marks.
+		scaleSlider.setMajorTickSpacing(10);
+		scaleSlider.setMinorTickSpacing(2);
+		scaleSlider.setPaintTicks(true);
+		scaleSlider.setPaintLabels(true);
+		panel.add(scaleSlider);
 	}
 
 	/**
@@ -126,12 +224,24 @@ public class ModelComponent extends IEntityComponent {
 		return model;
 	}
 
+	public void setModel(Model model) {
+		this.model = model;
+	}
+
 	public Texture getTexture() {
 		return texture;
 	}
 
+	public void setTexture(Texture texture) {
+		this.texture = texture;
+	}
+
 	public Texture getNormalMap() {
 		return normalMap;
+	}
+
+	public void setNormalMap(Texture normalMap) {
+		this.normalMap = normalMap;
 	}
 
 	public float getTransparency() {

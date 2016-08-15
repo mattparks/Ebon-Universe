@@ -2,9 +2,7 @@ package game.entities.components;
 
 import flounder.engine.*;
 import flounder.helpers.*;
-import flounder.particles.loading.*;
 import game.editors.entity.*;
-import game.editors.particles.*;
 import game.entities.*;
 import game.entities.loading.*;
 
@@ -16,8 +14,6 @@ import java.awt.event.*;
  * A RemoveComponent that fades out until the entity disappears.
  */
 public class FadeRemove extends RemoveComponent {
-	public static final String NAME = "Remove Fade";
-
 	public boolean removesAfterDuration;
 	private double timer;
 	private double duration;
@@ -27,10 +23,23 @@ public class FadeRemove extends RemoveComponent {
 	 * Creates a new FadeRemove
 	 *
 	 * @param entity The entity this component is attached to.
+	 */
+	public FadeRemove(Entity entity) {
+		super(entity);
+		timer = 0.0;
+		this.duration = 0.0f;
+		this.removesAfterDuration = true;
+		this.testMode = false;
+	}
+
+	/**
+	 * Creates a new FadeRemove
+	 *
+	 * @param entity The entity this component is attached to.
 	 * @param duration How long the fade out takes.
 	 */
 	public FadeRemove(Entity entity, double duration) {
-		super(entity, NAME);
+		super(entity);
 		timer = 0.0;
 		this.duration = duration;
 		this.removesAfterDuration = true;
@@ -44,7 +53,7 @@ public class FadeRemove extends RemoveComponent {
 	 * @param template The entity template to load data from.
 	 */
 	public FadeRemove(Entity entity, EntityTemplate template) {
-		super(entity, NAME);
+		super(entity);
 		this.duration = Double.parseDouble(template.getValue(this, "Duration"));
 		this.removesAfterDuration = Boolean.parseBoolean(template.getValue(this, "RemovesAfterDuration"));
 		this.testMode = false;
@@ -57,7 +66,7 @@ public class FadeRemove extends RemoveComponent {
 		timeSlider.addChangeListener(new ChangeListener() {
 			@Override
 			public void stateChanged(ChangeEvent e) {
-				JSlider source = (JSlider)e.getSource();
+				JSlider source = (JSlider) e.getSource();
 
 				if (!source.getValueIsAdjusting()) {
 					int reading = source.getValue();

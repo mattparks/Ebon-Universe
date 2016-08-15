@@ -15,7 +15,6 @@ import javax.swing.*;
  */
 public class CollisionComponent extends IEntityComponent {
 	public static final int ID = EntityIDAssigner.getId();
-	public static final String NAME = "Collision";
 
 	/**
 	 * Creates a new CollisionComponent.
@@ -23,7 +22,7 @@ public class CollisionComponent extends IEntityComponent {
 	 * @param entity The entity this component is attached to.
 	 */
 	public CollisionComponent(Entity entity) {
-		super(entity, ID, NAME);
+		super(entity, ID);
 	}
 
 	/**
@@ -33,7 +32,7 @@ public class CollisionComponent extends IEntityComponent {
 	 * @param template The entity template to load data from.
 	 */
 	public CollisionComponent(Entity entity, EntityTemplate template) {
-		super(entity, ID, NAME);
+		super(entity, ID);
 	}
 
 	@Override

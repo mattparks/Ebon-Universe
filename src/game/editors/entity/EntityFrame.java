@@ -1,22 +1,44 @@
 package game.editors.entity;
 
 import flounder.engine.*;
-import game.editors.particles.*;
+import flounder.resources.*;
 import game.entities.*;
+import game.entities.components.*;
 import game.entities.loading.*;
 
 import javax.swing.*;
 import javax.swing.event.*;
 import java.awt.*;
 import java.awt.event.*;
+import java.lang.reflect.*;
 
 public class EntityFrame {
+	private class FrameComponent {
+		private String classPath;
+		private String tabName;
+
+		public FrameComponent(String classPath, String tabName) {
+			this.classPath = classPath;
+			this.tabName = tabName;
+		}
+	}
+
+	private FrameComponent[] components = new FrameComponent[]{
+			new FrameComponent(ColliderComponent.class.getName(), "Collider"),
+			new FrameComponent(CollisionComponent.class.getName(), "Collision"),
+			new FrameComponent(FadeRemove.class.getName(), "Remove Fade"),
+			new FrameComponent(ModelComponent.class.getName(), "Model"),
+			new FrameComponent(ParticleSystemComponent.class.getName(), "Particle System"),
+	};
+
 	private JFrame jFrame;
 
 	private JPanel contentPanel;
 
 	private JTabbedPane componentsPane;
 
+	private JComboBox componentDropdown;
+	private JButton componentAdd;
 	private JTextField nameField;
 	private JCheckBox polygonMode;
 	private JCheckBox drawAABBs;
@@ -43,7 +65,9 @@ public class EntityFrame {
 				}
 			}
 		});
+	}
 
+	public void create() {
 		contentPanel = new JPanel();
 		contentPanel.setLayout(new BorderLayout());
 
@@ -66,11 +90,11 @@ public class EntityFrame {
 
 		componentsPane = new JTabbedPane();
 
-		for (IEntityComponent component : EntityGame.focusEntity.getComponents()) {
-			JPanel panel = makeTextPanel(component.getTabName());
-			component.addToPanel(panel);
-			componentsPane.addTab(component.getTabName(), null, panel, "");
-		}
+		//for (IEntityComponent component : EntityGame.focusEntity.getComponents()) {
+		//	JPanel panel = makeTextPanel(component.getTabName());
+		//		component.addToPanel(panel);
+		//	componentsPane.addTab(component.getTabName(), null, panel, "");
+		//	}
 
 		jFrame.add(componentsPane);
 	}
@@ -84,6 +108,55 @@ public class EntityFrame {
 	private void addLeftOptions() {
 		// The area to put left options.
 		JPanel checkBoxPanel = new JPanel();
+
+		// Component Dropdown.
+		componentDropdown = new JComboBox();
+		for (int i = 0; i < components.length; i++) {
+			componentDropdown.addItem(components[i].tabName);
+		}
+		checkBoxPanel.add(componentDropdown);
+
+		// Component Add Button.
+		componentAdd = new JButton("Add Component");
+		componentAdd.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				String component = (String) componentDropdown.getSelectedItem();
+				IEntityComponent entityComponent = null;
+
+				for (int i = 0; i < components.length; i++) {
+					if (components[i].tabName.equals(component)) {
+						if (EntityGame.focusEntity != null && !EntityGame.focusEntity.hasComponent(components[i].classPath)) {
+							try {
+								FlounderEngine.getLogger().log("Adding component: " + component);
+								Class componentClass = Class.forName(components[i].classPath);
+								Class[] componentTypes = new Class[]{Entity.class};
+								@SuppressWarnings("unchecked") Constructor componentConstructor = componentClass.getConstructor(componentTypes);
+								Object[] componentParameters = new Object[]{EntityGame.focusEntity};
+								entityComponent = (IEntityComponent) componentConstructor.newInstance(componentParameters);
+							} catch (ClassNotFoundException | IllegalAccessException | InstantiationException | InvocationTargetException | NoSuchMethodException ex) {
+								FlounderEngine.getLogger().error("While loading component" + components[i].classPath + "'s constructor could not be found!");
+								FlounderEngine.getLogger().exception(ex);
+							}
+						} else {
+							FlounderEngine.getLogger().error("Entity already has instance of " + components[i].classPath);
+						}
+					}
+				}
+
+				if (component.equals("Model")) {
+					EntityGame.PATH_MODEL = new MyFile(MyFile.RES_FOLDER, "entities", "spaceShip.obj");
+					EntityGame.PATH_TEXTURE = new MyFile(MyFile.RES_FOLDER, "entities", "crate.png");
+					EntityGame.PATH_NORMALMAP = new MyFile(MyFile.RES_FOLDER, "entities", "crateNormal.png");
+				}
+
+				if (entityComponent != null) {
+					JPanel panel = makeTextPanel(component);
+					entityComponent.addToPanel(panel);
+					componentsPane.addTab(component, null, panel, "");
+				}
+			}
+		});
+		checkBoxPanel.add(componentAdd);
 
 		// Entity Name.
 		nameField = new JTextField(EntityGame.ENTITY_NAME);
@@ -112,9 +185,9 @@ public class EntityFrame {
 		// Polygon Mode.
 		polygonMode = new JCheckBox("Polygon Mode");
 		polygonMode.setSelected(EntityGame.POLYGON_MODE);
-		polygonMode.addItemListener(new ItemListener() {
+		polygonMode.addActionListener(new ActionListener() {
 			@Override
-			public void itemStateChanged(ItemEvent e) {
+			public void actionPerformed(ActionEvent e) {
 				EntityGame.POLYGON_MODE = !EntityGame.POLYGON_MODE;
 			}
 		});
@@ -152,6 +225,9 @@ public class EntityFrame {
 						JOptionPane.YES_NO_OPTION,
 						JOptionPane.QUESTION_MESSAGE) == JOptionPane.YES_OPTION) {
 					nameField.setText("unnamed");
+					EntityGame.PATH_MODEL = null;
+					EntityGame.PATH_TEXTURE = null;
+					EntityGame.PATH_NORMALMAP = null;
 					EntityGame.generateBlankEntity();
 					addComponentOptions();
 				}

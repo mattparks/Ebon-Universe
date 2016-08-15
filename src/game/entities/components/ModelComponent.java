@@ -14,6 +14,7 @@ import javax.swing.*;
 import javax.swing.event.*;
 import java.awt.event.*;
 import java.io.*;
+import java.nio.file.*;
 
 /**
  * Creates a model with a texture that can be rendered into the world.
@@ -269,6 +270,42 @@ public class ModelComponent extends IEntityComponent {
 
 	@Override
 	public Pair<String[], EntitySaverFunction[]> getSavableValues() {
+		if (texture != null) {
+			try {
+				InputStream input = texture.getFile().getInputStream();
+				OutputStream output = new FileOutputStream(new File("entities/" + texture.getFile().getName()));
+				byte[] buf = new byte[1024];
+				int bytesRead;
+
+				while ((bytesRead = input.read(buf)) > 0) {
+					output.write(buf, 0, bytesRead);
+				}
+
+				input.close();
+				output.close();
+			} catch (IOException e) {
+				FlounderEngine.getLogger().exception(e);
+			}
+		}
+
+		if (normalMap != null) {
+			try {
+				InputStream input = normalMap.getFile().getInputStream();
+				OutputStream output = new FileOutputStream(new File("entities/" + normalMap.getFile().getName()));
+				byte[] buf = new byte[1024];
+				int bytesRead;
+
+				while ((bytesRead = input.read(buf)) > 0) {
+					output.write(buf, 0, bytesRead);
+				}
+
+				input.close();
+				output.close();
+			} catch (IOException e) {
+				FlounderEngine.getLogger().exception(e);
+			}
+		}
+
 		EntitySaverFunction saveVertices = new EntitySaverFunction("Vertices") {
 			@Override
 			public void writeIntoSection(FlounderFileWriter entityFileWriter) throws IOException {

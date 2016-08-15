@@ -5,17 +5,38 @@ import flounder.helpers.*;
 import flounder.particles.*;
 import flounder.particles.loading.*;
 import flounder.particles.spawns.*;
+import flounder.resources.*;
+import game.editors.entity.*;
 import game.editors.particles.*;
 import game.entities.*;
 import game.entities.loading.*;
 
 import javax.swing.*;
 import javax.swing.event.*;
+import java.awt.event.*;
 import java.io.*;
 import java.lang.reflect.*;
 import java.util.*;
 
 public class ParticleSystemComponent extends IEntityComponent {
+	private class SpawnTypes {
+		private String classPath;
+		private String tabName;
+
+		public SpawnTypes(String classPath, String tabName) {
+			this.classPath = classPath;
+			this.tabName = tabName;
+		}
+	}
+
+	private SpawnTypes[] spawns = new SpawnTypes[]{
+			new SpawnTypes(SpawnCircle.class.getName(), "Circle"),
+			new SpawnTypes(SpawnCone.class.getName(), "Cone"),
+			new SpawnTypes(SpawnLine.class.getName(), "Line"),
+			new SpawnTypes(SpawnPoint.class.getName(), "Point"),
+			new SpawnTypes(SpawnSphere.class.getName(), "Sphere"),
+	};
+
 	public static final int ID = EntityIDAssigner.getId();
 
 	private ParticleSystem particleSystem;
@@ -65,6 +86,7 @@ public class ParticleSystemComponent extends IEntityComponent {
 
 	@Override
 	public void addToPanel(JPanel panel) {
+		// PPS Slider.
 		JSlider ppsSlider = new JSlider(JSlider.HORIZONTAL, 0, 2000, 100);
 		ppsSlider.addChangeListener(new ChangeListener() {
 			@Override
@@ -81,6 +103,61 @@ public class ParticleSystemComponent extends IEntityComponent {
 		ppsSlider.setPaintTicks(true);
 		ppsSlider.setPaintLabels(true);
 		panel.add(ppsSlider);
+
+		// Speed Slider.
+		JSlider speedSlider = new JSlider(JSlider.HORIZONTAL, -100, 100, 10);
+		speedSlider.addChangeListener(new ChangeListener() {
+			@Override
+			public void stateChanged(ChangeEvent e) {
+				JSlider source = (JSlider) e.getSource();
+				int reading = source.getValue();
+				particleSystem.setAverageSpeed(reading / 10.0f);
+			}
+		});
+
+		//Turn on labels at major tick marks.
+		speedSlider.setMajorTickSpacing(20);
+		speedSlider.setMinorTickSpacing(10);
+		speedSlider.setPaintTicks(true);
+		speedSlider.setPaintLabels(true);
+		panel.add(speedSlider);
+
+		// Component Dropdown.
+		JComboBox componentDropdown = new JComboBox();
+		for (int i = 0; i < spawns.length; i++) {
+			componentDropdown.addItem(spawns[i].tabName);
+		}
+		panel.add(componentDropdown);
+
+		// Component Add Button.
+		JButton componentAdd = new JButton("Add Spawn");
+		componentAdd.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				String spawn = (String) componentDropdown.getSelectedItem();
+				IParticleSpawn particleSpawn = null;
+
+				for (int i = 0; i < spawns.length; i++) {
+					if (spawns[i].tabName.equals(spawn)) {
+						try {
+							FlounderEngine.getLogger().log("Adding component: " + spawn);
+							Class componentClass = Class.forName(spawns[i].classPath);
+							Class[] componentTypes = new Class[]{};
+							@SuppressWarnings("unchecked") Constructor componentConstructor = componentClass.getConstructor(componentTypes);
+							Object[] componentParameters = new Object[]{};
+							particleSpawn = (IParticleSpawn) componentConstructor.newInstance(componentParameters);
+						} catch (ClassNotFoundException | IllegalAccessException | InstantiationException | InvocationTargetException | NoSuchMethodException ex) {
+							FlounderEngine.getLogger().error("While loading particle spawn" + spawns[i].classPath + "'s constructor could not be found!");
+							FlounderEngine.getLogger().exception(ex);
+						}
+					}
+				}
+
+				if (particleSpawn != null) {
+					ParticleSystemComponent.this.particleSystem.setSpawn(particleSpawn);
+				}
+			}
+		});
+		panel.add(componentAdd);
 	}
 
 	public ParticleSystem getParticleSystem() {
@@ -120,6 +197,9 @@ public class ParticleSystemComponent extends IEntityComponent {
 
 	@Override
 	public void update() {
-
+		if (particleSystem != null && particleSystem.getTypes().isEmpty()) {
+			particleSystem.addParticleType(ParticleLoader.load("cosmic"));
+			particleSystem.addParticleType(ParticleLoader.load("cosmicHot"));
+		}
 	}
 }

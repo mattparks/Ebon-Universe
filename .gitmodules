@@ -1,0 +1,3 @@
+[submodule "flounder-engine"]
+	path = flounder-engine
+	url = https://github.com/EquilibriumGames/Flounder-Engine

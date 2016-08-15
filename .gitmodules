@@ -4,3 +4,9 @@
 [submodule "Flounder-Engine"]
 	path = Flounder-Engine
 	url = https://github.com/EquilibriumGames/Flounder-Engine
+[submodule "Editor-Entity"]
+	path = Editor-Entity
+	url = https://github.com/EquilibriumGames/Editor-Entity
+[submodule "Editor-Particle"]
+	path = Editor-Particle
+	url = https://github.com/EquilibriumGames/Editor-Particle

@@ -60,7 +60,7 @@ public class EntityRenderer extends IRenderer {
 	}
 
 	private void renderEntity(Entity entity) {
-		ModelComponent modelComponent = (ModelComponent) entity.getComponent(ModelComponent.ID);
+		ComponentModel modelComponent = (ComponentModel) entity.getComponent(ComponentModel.ID);
 
 		if (modelComponent == null || modelComponent.getModel() == null) {
 			return;

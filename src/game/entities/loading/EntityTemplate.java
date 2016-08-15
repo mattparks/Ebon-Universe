@@ -6,6 +6,7 @@ import flounder.maths.vectors.*;
 import flounder.resources.*;
 import flounder.space.*;
 import game.entities.*;
+import game.entities.components.*;
 
 import java.lang.reflect.*;
 import java.util.*;

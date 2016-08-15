@@ -58,6 +58,11 @@ public class Entity implements ISpatialObject {
 		components.remove(component);
 	}
 
+	/**
+	 * Gets a list of all entity components.
+	 *
+	 * @return All entity components in this entity.
+	 */
 	public List<IEntityComponent> getComponents() {
 		return components;
 	}
@@ -75,16 +80,6 @@ public class Entity implements ISpatialObject {
 				return;
 			}
 		}
-	}
-
-	public boolean hasComponent(String classPath) {
-		for (IEntityComponent component : components) {
-			if (component.getClass().getName().equals(classPath)) {
-				return true;
-			}
-		}
-
-		return false;
 	}
 
 	/**
@@ -154,7 +149,7 @@ public class Entity implements ISpatialObject {
 		float rotateAmountY = rotate.getY();
 		float rotateAmountZ = rotate.getZ();
 
-		CollisionComponent collision = (CollisionComponent) getComponent(CollisionComponent.ID);
+		ComponentCollision collision = (ComponentCollision) getComponent(ComponentCollision.ID);
 
 		if (collision != null) {
 			Vector3f amounts = collision.resolveAABBCollisions(new Vector3f(moveAmountX, moveAmountY, moveAmountZ));
@@ -170,9 +165,14 @@ public class Entity implements ISpatialObject {
 		structure.add(this);
 	}
 
+	/**
+	 * Gets the entitys model matrix.
+	 *
+	 * @return The entitys model matrix.
+	 */
 	public Matrix4f getModelMatrix() {
 		modelMatrix.setIdentity();
-		float scale = (getComponent(ModelComponent.ID) != null) ? ((ModelComponent) getComponent(ModelComponent.ID)).getScale() : 1.0f;
+		float scale = (getComponent(ComponentModel.ID) != null) ? ((ComponentModel) getComponent(ComponentModel.ID)).getScale() : 1.0f;
 		Matrix4f.transformationMatrix(position, rotation, scale, modelMatrix);
 		return modelMatrix;
 	}
@@ -201,7 +201,7 @@ public class Entity implements ISpatialObject {
 		}
 
 		isRemoved = true;
-		RemoveComponent removeComponent = (RemoveComponent) getComponent(RemoveComponent.ID);
+		ComponentRemove removeComponent = (ComponentRemove) getComponent(ComponentRemove.ID);
 
 		if (removeComponent != null) {
 			removeComponent.activate();
@@ -253,7 +253,7 @@ public class Entity implements ISpatialObject {
 
 	@Override
 	public AABB getAABB() {
-		ColliderComponent ac = (ColliderComponent) getComponent(ColliderComponent.ID);
+		ComponentCollider ac = (ComponentCollider) getComponent(ComponentCollider.ID);
 
 		if (ac != null) {
 			return ac.getAABB();

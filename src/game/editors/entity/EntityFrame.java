@@ -12,6 +12,8 @@ import javax.swing.event.*;
 import java.awt.*;
 import java.awt.event.*;
 import java.lang.reflect.*;
+import java.util.*;
+import java.util.List;
 
 public class EntityFrame {
 	private String[] components = new String[]{
@@ -91,7 +93,16 @@ public class EntityFrame {
 	}
 
 	public static void removeSideTab(String tabName) {
+		List<Integer> ids = new ArrayList<>();
 
+		for (int i = 0; i < componentsPane.getTabCount(); i++) {
+			if (componentsPane.getTitleAt(i).contains(tabName)) {
+				ids.add(i);
+			}
+		}
+
+		Collections.reverse(ids);
+		ids.forEach(componentsPane::remove);
 	}
 
 	private void addSidePane() {

@@ -75,7 +75,7 @@ public class ParticleSystemComponent extends IEntityComponent {
 	@Override
 	public void addToPanel(JPanel panel) {
 		// PPS Slider.
-		JSlider ppsSlider = new JSlider(JSlider.HORIZONTAL, 0, 2000, 100);
+		JSlider ppsSlider = new JSlider(JSlider.HORIZONTAL, 0, 2500, 100);
 		ppsSlider.addChangeListener(new ChangeListener() {
 			@Override
 			public void stateChanged(ChangeEvent e) {
@@ -93,7 +93,7 @@ public class ParticleSystemComponent extends IEntityComponent {
 		panel.add(ppsSlider);
 
 		// Speed Slider.
-		JSlider speedSlider = new JSlider(JSlider.HORIZONTAL, -100, 100, 10);
+		JSlider speedSlider = new JSlider(JSlider.HORIZONTAL, 0, 150, 10);
 		speedSlider.addChangeListener(new ChangeListener() {
 			@Override
 			public void stateChanged(ChangeEvent e) {
@@ -104,8 +104,8 @@ public class ParticleSystemComponent extends IEntityComponent {
 		});
 
 		//Turn on labels at major tick marks.
-		speedSlider.setMajorTickSpacing(20);
-		speedSlider.setMinorTickSpacing(10);
+		speedSlider.setMajorTickSpacing(30);
+		speedSlider.setMinorTickSpacing(5);
 		speedSlider.setPaintTicks(true);
 		speedSlider.setPaintLabels(true);
 		panel.add(speedSlider);
@@ -118,7 +118,7 @@ public class ParticleSystemComponent extends IEntityComponent {
 		panel.add(componentDropdown);
 
 		// Component Add Button.
-		JButton componentAdd = new JButton("Add Spawn");
+		JButton componentAdd = new JButton("Set Spawn");
 		componentAdd.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				String spawn = (String) componentDropdown.getSelectedItem();
@@ -150,7 +150,7 @@ public class ParticleSystemComponent extends IEntityComponent {
 					ParticleSystemComponent.this.particleSystem.setSpawn(particleSpawn);
 
 					JPanel panel = EntityFrame.makeTextPanel();
-					// particleSpawn.addToPanel(panel);
+					particleSpawn.addToPanel(panel);
 					EntityFrame.addSideTab(ParticleSystemComponent.class.getName().split("\\.")[ByteWork.getCharCount(ParticleSystemComponent.class.getName(), '.')].replace("Component", "") + " (" + classname.split("\\.")[ByteWork.getCharCount(classname, '.')].replace("Spawn", "") + ")", panel);
 				}
 			}

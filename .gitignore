@@ -1,0 +1,5 @@
+configs/
+logs/
+out/
+*.class
+*.log

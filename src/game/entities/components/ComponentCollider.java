@@ -15,16 +15,18 @@ public class ComponentCollider extends IEntityComponent {
 
 	private AABB aabb;
 	private QuickHull hull;
+	private boolean renderAABB;
 
 	/**
 	 * Creates a new ComponentCollider.
 	 *
 	 * @param entity The entity this component is attached to.
 	 */
-	public ComponentCollider(Entity entity) {
+	public ComponentCollider(Entity entity, boolean renderAABB) {
 		super(entity, ID);
 		this.aabb = new AABB();
 		this.hull = new QuickHull();
+		this.renderAABB = renderAABB;
 	}
 
 	/**
@@ -37,6 +39,7 @@ public class ComponentCollider extends IEntityComponent {
 		super(entity, ID);
 		this.aabb = new AABB();
 		this.hull = new QuickHull();
+		this.renderAABB = Boolean.parseBoolean(template.getSectionData(this, "RenderAABB"));
 	}
 
 	/**
@@ -55,6 +58,14 @@ public class ComponentCollider extends IEntityComponent {
 		return hull;
 	}
 
+	public boolean renderAABB() {
+		return renderAABB;
+	}
+
+	public void setRenderAABB(boolean renderAABB) {
+		this.renderAABB = renderAABB;
+	}
+
 	@Override
 	public void update() {
 		if (super.getEntity().hasMoved()) {
@@ -66,7 +77,9 @@ public class ComponentCollider extends IEntityComponent {
 			}
 		}
 
-		FlounderEngine.getAABBs().addAABBRender(aabb);
+		if (renderAABB) {
+			FlounderEngine.getAABBs().addAABBRender(aabb);
+		}
 	}
 
 	@Override

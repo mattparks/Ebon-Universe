@@ -13,13 +13,14 @@ import flounder.physics.renderer.*;
 import game.entities.*;
 import game.options.*;
 import game.post.*;
-import game.post.deferred.*;
+import game.shadows.*;
 
 public class MainRenderer extends IRendererMaster {
 	private static final Vector4f POSITIVE_INFINITY = new Vector4f(0.0f, 1.0f, 0.0f, Float.POSITIVE_INFINITY);
 
 	private Matrix4f projectionMatrix;
 
+	private ShadowRenderer shadowRenderer;
 	private EntityRenderer entityRenderer;
 	private ParticleRenderer particleRenderer;
 	private AABBRenderer aabbRenderer;
@@ -30,7 +31,6 @@ public class MainRenderer extends IRendererMaster {
 	private FBO multisamplingFBO;
 	private FBO postProcessingFBO;
 
-	private FilterDeferred deferredShading;
 	private PipelineDemo pipelineDemo;
 	private PipelinePaused pipelinePaused;
 
@@ -38,6 +38,7 @@ public class MainRenderer extends IRendererMaster {
 	public void init() {
 		this.projectionMatrix = new Matrix4f();
 
+		this.shadowRenderer = new ShadowRenderer();
 		this.entityRenderer = new EntityRenderer();
 		this.particleRenderer = new ParticleRenderer();
 		this.aabbRenderer = new AABBRenderer();
@@ -49,13 +50,15 @@ public class MainRenderer extends IRendererMaster {
 		multisamplingFBO = FBO.newFBO(1.0f).attachments(4).antialias(FlounderEngine.getDevices().getDisplay().getSamples()).create();
 		postProcessingFBO = FBO.newFBO(1.0f).attachments(4).depthBuffer(DepthBufferType.TEXTURE).create();
 
-		deferredShading = new FilterDeferred();
 		pipelineDemo = new PipelineDemo();
 		pipelinePaused = new PipelinePaused();
 	}
 
 	@Override
 	public void render() {
+		/* Shadow rendering. */
+		shadowRenderer.render(POSITIVE_INFINITY, FlounderEngine.getCamera());
+
 		/* Binds the relevant FBO. */
 		bindRelevantFBO();
 
@@ -75,24 +78,24 @@ public class MainRenderer extends IRendererMaster {
 	}
 
 	private void bindRelevantFBO() {
-//		if (OptionsPost.POST_ENABLED) {
-		if (FlounderEngine.getDevices().getDisplay().isAntialiasing()) {
-			multisamplingFBO.bindFrameBuffer();
-		} else {
-			postProcessingFBO.bindFrameBuffer();
+		if (OptionsPost.POST_ENABLED) {
+			if (FlounderEngine.getDevices().getDisplay().isAntialiasing()) {
+				multisamplingFBO.bindFrameBuffer();
+			} else {
+				postProcessingFBO.bindFrameBuffer();
+			}
 		}
-//		}
 	}
 
 	private void unbindRelevantFBO() {
-//		if (OptionsPost.POST_ENABLED) {
-		if (FlounderEngine.getDevices().getDisplay().isAntialiasing()) {
-			multisamplingFBO.unbindFrameBuffer();
-			multisamplingFBO.resolveFBO(3, postProcessingFBO);
-		} else {
-			postProcessingFBO.unbindFrameBuffer();
+		if (OptionsPost.POST_ENABLED) {
+			if (FlounderEngine.getDevices().getDisplay().isAntialiasing()) {
+				multisamplingFBO.unbindFrameBuffer();
+				multisamplingFBO.resolveFBO(3, postProcessingFBO);
+			} else {
+				postProcessingFBO.unbindFrameBuffer();
+			}
 		}
-//		}
 	}
 
 	private void renderScene(Vector4f clipPlane) {
@@ -118,12 +121,9 @@ public class MainRenderer extends IRendererMaster {
 		FBO output = postProcessingFBO;
 
 		if (!isStarting) {
-			deferredShading.applyFilter(output.getColourTexture(0), output.getColourTexture(1), output.getColourTexture(2), output.getColourTexture(3));
-			output = deferredShading.fbo;
-
 			if (OptionsPost.POST_ENABLED) {
 				if (pipelineDemo.willRunDemo()) {
-					pipelineDemo.renderPipeline(deferredShading.fbo);
+					pipelineDemo.renderPipeline(output);
 					output = pipelineDemo.getOutput();
 				}
 
@@ -143,8 +143,16 @@ public class MainRenderer extends IRendererMaster {
 		return projectionMatrix;
 	}
 
+	/**
+	 * @return Returns the shadow map renderer.
+	 */
+	public ShadowRenderer getShadowMapRenderer() {
+		return shadowRenderer;
+	}
+
 	@Override
 	public void dispose() {
+		shadowRenderer.dispose();
 		entityRenderer.dispose();
 		particleRenderer.dispose();
 		aabbRenderer.dispose();
@@ -155,7 +163,6 @@ public class MainRenderer extends IRendererMaster {
 		multisamplingFBO.delete();
 		postProcessingFBO.delete();
 
-		deferredShading.dispose();
 		pipelineDemo.dispose();
 		pipelinePaused.dispose();
 	}

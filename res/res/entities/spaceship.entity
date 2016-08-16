@@ -8,7 +8,7 @@ EntityData {
 
 Components {
 	game.entities.components.ComponentCollider {
-
+		RenderAABB: true;
 	};
 
 	game.entities.components.ComponentCollision {

@@ -62,7 +62,7 @@ public class PlayerFocus implements IPlayer {
 
 			velMove.x = (float) (distance * Math.sin(Math.toRadians(rotation.getY())));
 			velMove.z = (float) (distance * Math.cos(Math.toRadians(rotation.getY())));
-			velMove.y = UP_SPEED * inputUp.getAmount() * FlounderEngine.getDelta();
+			velMove.y = speedBoost * UP_SPEED * inputUp.getAmount() * FlounderEngine.getDelta();
 
 			velRoat.y = speedBoost * -ROTATE_SPEED * FlounderEngine.getDelta() * Maths.deadband(0.05f, inputSide.getAmount());
 

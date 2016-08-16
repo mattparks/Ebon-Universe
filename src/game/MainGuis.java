@@ -15,7 +15,7 @@ public class MainGuis {
 	public static final Colour STARTUP_COLOUR = new Colour();
 
 	private static MenuGameBackground gameMenu;
-	private static OverlayShading overlayShading;
+	private static OverlayStatus overlayStatus;
 
 	private static CompoundButton openKey;
 	private static boolean menuOpen;
@@ -28,7 +28,7 @@ public class MainGuis {
 	 */
 	public MainGuis() {
 		MainGuis.gameMenu = new MenuGameBackground();
-		MainGuis.overlayShading = new OverlayShading();
+		MainGuis.overlayStatus = new OverlayStatus();
 
 		MainGuis.openKey = new CompoundButton(new KeyButton(GLFW_KEY_ESCAPE), new JoystickButton(OptionsControls.JOYSTICK_PORT, OptionsControls.JOYSTICK_GUI_TOGGLE));
 		MainGuis.menuOpen = false;
@@ -37,7 +37,7 @@ public class MainGuis {
 		MainGuis.forceOpenGUIs = false;
 
 		FlounderEngine.getGuis().addComponent(gameMenu, 0, 0, 1, 1);
-		FlounderEngine.getGuis().addComponent(overlayShading, 0, 0, 1, 1);
+		FlounderEngine.getGuis().addComponent(overlayStatus, 0, 0, 1, 1);
 		FlounderEngine.getGuis().getSelector().initJoysticks(OptionsControls.JOYSTICK_PORT, OptionsControls.JOYSTICK_GUI_LEFT, OptionsControls.JOYSTICK_GUI_RIGHT, OptionsControls.JOYSTICK_AXIS_X, OptionsControls.JOYSTICK_AXIS_Y);
 		FlounderEngine.getDevices().getDisplay().setCursorHidden(true);
 	}
@@ -48,7 +48,7 @@ public class MainGuis {
 	public void update() {
 		if (forceOpenGUIs) {
 			gameMenu.display(true);
-			overlayShading.show(false);
+			overlayStatus.show(false);
 			FlounderEngine.getCursor().show(true);
 			forceOpenGUIs = false;
 		}
@@ -57,7 +57,7 @@ public class MainGuis {
 
 		if (!startingGame && openKey.wasDown()) {
 			gameMenu.display(!gameMenu.isDisplayed());
-			overlayShading.show(!startingGame && !gameMenu.isDisplayed());
+			overlayStatus.show(!startingGame && !gameMenu.isDisplayed());
 			FlounderEngine.getCursor().show(true);
 		}
 
@@ -67,7 +67,7 @@ public class MainGuis {
 			FlounderEngine.getCursor().setAlphaDriver(gameMenu.getSlideDriver());
 		}
 
-		//	overlayShading.show(!menuOpen && !startingGame);
+		//	overlayStatus.show(!menuOpen && !startingGame);
 	}
 
 	public static boolean isStartingGame() {
@@ -82,8 +82,8 @@ public class MainGuis {
 		return gameMenu.getBlurFactor();
 	}
 
-	public static OverlayShading getOverlayShading() {
-		return overlayShading;
+	public static OverlayStatus getOverlayStatus() {
+		return overlayStatus;
 	}
 
 	public static boolean isMenuOpen() {

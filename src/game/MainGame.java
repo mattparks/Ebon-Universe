@@ -64,8 +64,8 @@ public class MainGame extends IGame {
 		for (int n = 0; n < 32; n++) {
 			for (int p = 0; p < 32; p++) {
 				for (int q = 0; q < 32; q++) {
-					if (ran.nextInt(10) == 1) {
-						EntityLoader.load("crate").createEntity(Environment.getEntitys(), new Vector3f((n * 5) + 10, (p * 5) + 10, (q * 5) + 10), new Vector3f(0, ran.nextInt(360), 0));
+					if (ran.nextInt(10) == 1 || p == 31) {
+						EntityLoader.load("crate").createEntity(Environment.getEntitys(), new Vector3f((n * 5) + 10, (p * 5) + 10, (q * 5) + 10), new Vector3f(0, 0, 0)); // ran.nextInt(360)
 					}
 				}
 			}
@@ -73,10 +73,6 @@ public class MainGame extends IGame {
 
 		this.stillLoading = true;
 
-		Light testLight = new Light(new Colour(0, 0, 1), new Vector3f(0, 14, 10), new Attenuation(1, 0.01f, 0.002f));
-		Environment.getLights().add(testLight);
-
-		EntityLoader.load("sphere").createEntity(Environment.getEntitys(), testLight.position, new Vector3f());
 		EntityLoader.load("sphere").createEntity(Environment.getEntitys(), Environment.getLights().get(0).position, new Vector3f());
 
 		Playlist playlist = new Playlist();

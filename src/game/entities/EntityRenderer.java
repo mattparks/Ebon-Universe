@@ -8,6 +8,7 @@ import flounder.resources.*;
 import flounder.shaders.*;
 import game.*;
 import game.entities.components.*;
+import game.shadows.*;
 
 import java.util.*;
 
@@ -38,10 +39,8 @@ public class EntityRenderer extends IRenderer {
 
 	@Override
 	public void profile() {
-		if (FlounderEngine.getProfiler().isOpen()) {
-			FlounderEngine.getProfiler().add("Entity", "Render Time", super.getRenderTimeMs());
-			//	FlounderEngine.getProfiler().add("Entity", "Objects", Environment.getEntitys().size());
-		}
+		FlounderEngine.getProfiler().add("Entity", "Render Time", super.getRenderTimeMs());
+		//	FlounderEngine.getProfiler().add("Entity", "Objects", Environment.getEntitys().size());
 	}
 
 	private void prepareRendering(Vector4f clipPlane, ICamera camera) {
@@ -67,28 +66,30 @@ public class EntityRenderer extends IRenderer {
 		}
 
 		OpenGlUtils.bindVAO(modelComponent.getModel().getVaoID(), 0, 1, 2, 3);
+		OpenGlUtils.cullBackFaces(true); // Enable face culling if the object does not have transparency.
 
 		if (modelComponent.getTexture() != null) {
 			OpenGlUtils.bindTextureToBank(modelComponent.getTexture().getTextureID(), 0);
+			shader.getUniformFloat("numberOfRows").loadFloat(modelComponent.getTexture().getNumberOfRows());
+			shader.getUniformVec2("textureOffset").loadVec2(modelComponent.getTextureOffset());
+
+			if (modelComponent.getTransparency() != 1.0 || modelComponent.getTexture().hasTransparency()) {
+				OpenGlUtils.cullBackFaces(false); // Disable face culling if the object has transparency.
+			}
 		}
 
 		if (modelComponent.getNormalMap() != null) {
 			OpenGlUtils.bindTextureToBank(modelComponent.getNormalMap().getTextureID(), 1);
+			shader.getUniformBool("useNormalMap").loadBoolean(modelComponent.getNormalMap() != null);
 		}
 
 		shader.getUniformMat4("modelMatrix").loadMat4(entity.getModelMatrix());
-
-		shader.getUniformFloat("numberOfRows").loadFloat(modelComponent.getTexture().getNumberOfRows());
-		shader.getUniformVec2("textureOffset").loadVec2(modelComponent.getTextureOffset());
-		shader.getUniformBool("useNormalMap").loadBoolean(modelComponent.getNormalMap() != null);
-
 		shader.getUniformFloat("transparency").loadFloat(modelComponent.getTransparency());
 
-		if (modelComponent.getTransparency() != 1.0 || modelComponent.getTexture().hasTransparency()) {
-			OpenGlUtils.cullBackFaces(false); // Disable face culling if the object has transparency.
-		} else {
-			OpenGlUtils.cullBackFaces(true); // Enable face culling if the object does not have transparency.
-		}
+		shader.getUniformFloat("shadowMapSize").loadFloat(ShadowRenderer.SHADOW_MAP_SIZE);
+		shader.getUniformMat4("shadowSpaceMatrix").loadMat4(((MainRenderer) FlounderEngine.getMasterRenderer()).getShadowMapRenderer().getToShadowMapSpaceMatrix());
+		shader.getUniformFloat("shadowDistance").loadFloat(((MainRenderer) FlounderEngine.getMasterRenderer()).getShadowMapRenderer().getShadowDistance());
+		OpenGlUtils.bindTextureToBank(((MainRenderer) FlounderEngine.getMasterRenderer()).getShadowMapRenderer().getShadowMap(), 2);
 
 		glDrawElements(GL_TRIANGLES, modelComponent.getModel().getVaoLength(), GL_UNSIGNED_INT, 0);
 		OpenGlUtils.unbindVAO(0, 1, 2, 3);

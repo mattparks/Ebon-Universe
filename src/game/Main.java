@@ -25,5 +25,6 @@ public class Main {
 				MainGame.CONFIG.getBooleanWithDefault("fullscreen", false, () -> FlounderEngine.getDevices().getDisplay().isFullscreen())
 		);
 		engine.startEngine(FlounderEngine.getFonts().fffForward);
+		System.exit(1);
 	}
 }

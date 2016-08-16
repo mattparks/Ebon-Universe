@@ -1,0 +1,46 @@
+/**
+ * Date Generated: 15.8.2016 - 6:45
+ * Created By: null
+ */
+EntityData {
+	Name: paneEntity;
+};
+
+Components {
+	game.entities.components.ComponentCollider {
+		RenderAABB: false;
+	};
+
+	game.entities.components.ComponentCollision {
+
+	};
+
+	game.entities.components.ComponentModel {
+		Texture: res/entities/paneEntity.png;
+		TextureNumRows: 1;
+		NormalMap: null;
+		NormalMapNumRows: 1;
+		Scale: 10.0;
+
+		Vertices {
+			-5.37,0.0,5.37,5.37,0.0,5.37,-5.37,0.0,-5.37,5.37,0.0,-5.37,
+		};
+
+		TextureCoords {
+			0.9999,1.00016594E-4,1.0E-4,1.00016594E-4,0.9999,0.9999,1.0E-4,0.9999,
+		};
+
+		Normals {
+			0.0,1.0,0.0,0.0,1.0,0.0,0.0,1.0,0.0,0.0,1.0,0.0,
+		};
+
+		Tangents {
+			-1.0,0.0,0.0,-1.0,0.0,0.0,-1.0,0.0,0.0,-1.0,0.0,0.0,
+		};
+
+		Indices {
+			1,2,0,1,3,2,
+		};
+	};
+};
+

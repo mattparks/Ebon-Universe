@@ -13,6 +13,7 @@ import flounder.physics.renderer.*;
 import game.entities.*;
 import game.options.*;
 import game.post.*;
+import game.post.deferred.*;
 import game.shadows.*;
 
 public class MainRenderer extends IRendererMaster {
@@ -29,8 +30,8 @@ public class MainRenderer extends IRendererMaster {
 	private FontRenderer fontRenderer;
 
 	private FBO multisamplingFBO;
-	private FBO postProcessingFBO;
 
+	private FilterDeferred filterDeferred;
 	private PipelineDemo pipelineDemo;
 	private PipelinePaused pipelinePaused;
 
@@ -47,9 +48,9 @@ public class MainRenderer extends IRendererMaster {
 		this.fontRenderer = new FontRenderer();
 
 		// Diffuse, Position, Normals, Additonal (Specular, G, B, A)
-		multisamplingFBO = FBO.newFBO(1.0f).attachments(4).antialias(FlounderEngine.getDevices().getDisplay().getSamples()).create();
-		postProcessingFBO = FBO.newFBO(1.0f).attachments(4).depthBuffer(DepthBufferType.TEXTURE).create();
+		multisamplingFBO = FBO.newFBO(1.0f).attachments(4).depthBuffer(DepthBufferType.TEXTURE).create(); // .antialias(FlounderEngine.getDevices().getDisplay().getSamples())
 
+		filterDeferred = new FilterDeferred();
 		pipelineDemo = new PipelineDemo();
 		pipelinePaused = new PipelinePaused();
 	}
@@ -78,24 +79,11 @@ public class MainRenderer extends IRendererMaster {
 	}
 
 	private void bindRelevantFBO() {
-		if (OptionsPost.POST_ENABLED) {
-			if (FlounderEngine.getDevices().getDisplay().isAntialiasing()) {
-				multisamplingFBO.bindFrameBuffer();
-			} else {
-				postProcessingFBO.bindFrameBuffer();
-			}
-		}
+		multisamplingFBO.bindFrameBuffer();
 	}
 
 	private void unbindRelevantFBO() {
-		if (OptionsPost.POST_ENABLED) {
-			if (FlounderEngine.getDevices().getDisplay().isAntialiasing()) {
-				multisamplingFBO.unbindFrameBuffer();
-				multisamplingFBO.resolveFBO(3, postProcessingFBO);
-			} else {
-				postProcessingFBO.unbindFrameBuffer();
-			}
-		}
+		multisamplingFBO.unbindFrameBuffer();
 	}
 
 	private void renderScene(Vector4f clipPlane) {
@@ -118,9 +106,12 @@ public class MainRenderer extends IRendererMaster {
 	}
 
 	private void renderPost(boolean isPaused, boolean isStarting, float blurFactor) {
-		FBO output = postProcessingFBO;
+		FBO output = multisamplingFBO;
 
 		if (!isStarting) {
+			filterDeferred.applyFilter(output.getColourTexture(0), output.getColourTexture(1), output.getColourTexture(2), output.getColourTexture(3), shadowRenderer.getShadowMap());
+			output = filterDeferred.fbo;
+
 			if (OptionsPost.POST_ENABLED) {
 				if (pipelineDemo.willRunDemo()) {
 					pipelineDemo.renderPipeline(output);
@@ -161,8 +152,8 @@ public class MainRenderer extends IRendererMaster {
 		fontRenderer.dispose();
 
 		multisamplingFBO.delete();
-		postProcessingFBO.delete();
 
+		filterDeferred.dispose();
 		pipelineDemo.dispose();
 		pipelinePaused.dispose();
 	}

@@ -8,13 +8,11 @@ layout(location = 3) in vec3 in_tangent;
 varying vec2 textureCoords;
 varying vec4 entityPosition;
 varying vec3 surfaceNormal;
-varying vec4 shadowCoords;
-varying vec3 toCameraVector;
 varying vec4 positionRelativeToCam;
+varying vec3 toCameraVector;
 
 uniform mat4 projectionMatrix;
 uniform mat4 shadowSpaceMatrix;
-uniform float shadowDistance;
 uniform mat4 viewMatrix;
 uniform vec4 clipPlane;
 uniform mat4 modelMatrix;
@@ -22,24 +20,16 @@ uniform mat4 modelMatrix;
 uniform float numberOfRows;
 uniform vec2 textureOffset;
 
-const float transitionDistance = 75.0;
-
 void main(void) {
     vec4 worldPosition = modelMatrix * vec4(in_position, 1.0);
 	positionRelativeToCam = viewMatrix * worldPosition;
-	entityPosition = projectionMatrix * positionRelativeToCam;
+	entityPosition = worldPosition;
 
 	gl_ClipDistance[0] = dot(worldPosition, clipPlane);
-	gl_Position = entityPosition;
+	gl_Position = projectionMatrix * positionRelativeToCam;
 
 	textureCoords = (in_textureCoords / numberOfRows) + textureOffset;
 	surfaceNormal = (modelMatrix * vec4(in_normal, 0.0)).xyz;
-	shadowCoords = shadowSpaceMatrix * worldPosition;
-
-    float distanceAway = length(positionRelativeToCam.xyz);
-    distanceAway = distanceAway - ((shadowDistance * 2.0) - (transitionDistance));
-    distanceAway = distanceAway / transitionDistance;
-    shadowCoords.w = clamp(1.0 - distanceAway, 0.0, 1.0);
 
 	vec3 normal = normalize(surfaceNormal);
 	vec3 tangent = normalize((viewMatrix * modelMatrix * vec4(in_tangent, 0.0)).xyz);

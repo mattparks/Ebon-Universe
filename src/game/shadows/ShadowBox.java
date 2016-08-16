@@ -109,7 +109,7 @@ public class ShadowBox {
 	}
 
 	private void updateShadowDistance(ICamera camera) {
-		shadowDistance = 75; //camera.getAimDistance() * 2.0f;
+		shadowDistance = 85; //camera.getAimDistance() * 2.0f;
 	}
 
 	private void updateWidthsAndHeights(ICamera camera) {

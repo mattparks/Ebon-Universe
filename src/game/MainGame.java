@@ -54,32 +54,19 @@ public class MainGame extends IGame {
 			throw new FlounderRuntimeException("Could not find IPlayer implementation for ICamera!");
 		}
 
-		Environment.init(new Fog(new Colour(1.0f, 1.0f, 1.0f, false), 0.003f, 2.0f, 0.0f, 50.0f), new Light(new Colour(0.85f, 0.85f, 0.85f), new Vector3f(0.0f, 2000.0f, 2000.0f)));
+		Environment.init(new Fog(new Colour(0.15f, 0.16f, 0.18f), 0.003f, 2.0f, 0.0f, 50.0f), new Light(new Colour(0.85f, 0.85f, 0.85f), new Vector3f(0.0f, 2000.0f, 2000.0f)));
 		this.player.init();
-
-		EntityLoader.load("barrel").createEntity(Environment.getEntitys(), new Vector3f(), new Vector3f());
-
-		Random ran = new Random();
-
-		for (int n = 0; n < 32; n++) {
-			for (int p = 0; p < 32; p++) {
-				for (int q = 0; q < 32; q++) {
-					if (ran.nextInt(10) == 1 || p == 31) {
-						EntityLoader.load("crate").createEntity(Environment.getEntitys(), new Vector3f((n * 5) + 10, (p * 5) + 10, (q * 5) + 10), new Vector3f(0, 0, 0)); // ran.nextInt(360)
-					}
-				}
-			}
-		}
-
 		this.stillLoading = true;
 
+		EntityLoader.load("dragon").createEntity(Environment.getEntitys(), new Vector3f(30, 0, 0), new Vector3f());
+		EntityLoader.load("pane").createEntity(Environment.getEntitys(), new Vector3f(), new Vector3f());
 		EntityLoader.load("sphere").createEntity(Environment.getEntitys(), Environment.getLights().get(0).position, new Vector3f());
 
-		Playlist playlist = new Playlist();
-		playlist.addMusic(Sound.loadSoundInBackground(new MyFile(MyFile.RES_FOLDER, "music", "era-of-space.wav"), 0.80f));
-		playlist.addMusic(Sound.loadSoundInBackground(new MyFile(MyFile.RES_FOLDER, "music", "pyrosanical.wav"), 0.50f));
-		playlist.addMusic(Sound.loadSoundInBackground(new MyFile(MyFile.RES_FOLDER, "music", "spacey-ambient.wav"), 0.60f));
-		FlounderEngine.getDevices().getSound().getMusicPlayer().playMusicPlaylist(playlist, true, 4.0f, 10.0f);
+	//	Playlist playlist = new Playlist();
+	//	playlist.addMusic(Sound.loadSoundInBackground(new MyFile(MyFile.RES_FOLDER, "music", "era-of-space.wav"), 0.80f));
+	//	playlist.addMusic(Sound.loadSoundInBackground(new MyFile(MyFile.RES_FOLDER, "music", "pyrosanical.wav"), 0.50f));
+	//	playlist.addMusic(Sound.loadSoundInBackground(new MyFile(MyFile.RES_FOLDER, "music", "spacey-ambient.wav"), 0.60f));
+	//	FlounderEngine.getDevices().getSound().getMusicPlayer().playMusicPlaylist(playlist, true, 4.0f, 10.0f);
 	}
 
 	@Override
@@ -115,8 +102,8 @@ public class MainGame extends IGame {
 		} else if (!MainGuis.isStartingGame() && stillLoading) {
 			// Unpause the music for the main menu.
 			stillLoading = false;
-			//	FlounderEngine.getLogger().log("Starting main menu music.");
-			//	FlounderEngine.getDevices().getSound().getMusicPlayer().unpauseTrack();
+		//	FlounderEngine.getLogger().log("Starting main menu music.");
+		//	FlounderEngine.getDevices().getSound().getMusicPlayer().unpauseTrack();
 		}
 
 		guis.update();

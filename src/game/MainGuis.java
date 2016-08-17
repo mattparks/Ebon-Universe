@@ -12,7 +12,7 @@ import static org.lwjgl.glfw.GLFW.*;
  * Class in charge of the main GUIs in the test game.
  */
 public class MainGuis {
-	public static final Colour STARTUP_COLOUR = new Colour();
+	public static final Colour STARTUP_COLOUR = new Colour(1.0f, 1.0f, 1.0f);
 
 	private static MenuGameBackground gameMenu;
 	private static OverlayStatus overlayStatus;

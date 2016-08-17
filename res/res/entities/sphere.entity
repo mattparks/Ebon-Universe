@@ -16,7 +16,7 @@ Components {
 	};
 
 	game.entities.components.ComponentModel {
-		Texture: res/entities/sphere.png;
+		Texture: res/entities/white.png;
 		TextureNumRows: 1;
 		NormalMap: null;
 		NormalMapNumRows: 1;

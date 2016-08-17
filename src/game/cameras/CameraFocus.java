@@ -8,6 +8,7 @@ import flounder.maths.matrices.*;
 import flounder.maths.vectors.*;
 import flounder.space.*;
 import game.options.*;
+import sun.reflect.generics.reflectiveObjects.*;
 
 import static org.lwjgl.glfw.GLFW.*;
 
@@ -20,7 +21,7 @@ public class CameraFocus implements ICamera {
 	private static final float ROTATE_AGILITY = 6.0f;
 	private static final float PITCH_AGILITY = 8.0f;
 
-	private final static float CAMERA_AIM_OFFSET = 0.0f;
+	private final static float CAMERA_AIM_OFFSET = 10.0f;
 	private final static float MAX_ANGLE_OF_ELEVATION = 1.5f;
 	private final static float PITCH_OFFSET = 3.0f;
 	private final static float MINIMUM_ZOOM = -300.0f;
@@ -270,7 +271,7 @@ public class CameraFocus implements ICamera {
 
 	@Override
 	public Matrix4f getReflectionViewMatrix(final float planeHeight) {
-		return null;
+		throw new NotImplementedException();
 	}
 
 	@Override
@@ -299,7 +300,7 @@ public class CameraFocus implements ICamera {
 
 	@Override
 	public float getAimDistance() {
-		return 0.0f;
+		throw new NotImplementedException();
 	}
 
 	private void calculateDistances() {

@@ -8,6 +8,7 @@ import flounder.resources.*;
 import flounder.shaders.*;
 import game.*;
 import game.entities.components.*;
+import game.shadows.*;
 
 import java.util.*;
 
@@ -48,6 +49,10 @@ public class EntityRenderer extends IRenderer {
 		shader.getUniformMat4("viewMatrix").loadMat4(camera.getViewMatrix());
 		shader.getUniformVec4("clipPlane").loadVec4(clipPlane);
 
+		shader.getUniformVec3("fogColour").loadVec3(Environment.getFog().getFogColour());
+		shader.getUniformFloat("fogDensity").loadFloat(Environment.getFog().getFogDensity());
+		shader.getUniformFloat("fogGradient").loadFloat(Environment.getFog().getFogGradient());
+
 		OpenGlUtils.antialias(FlounderEngine.getDevices().getDisplay().isAntialiasing());
 		OpenGlUtils.enableDepthTesting();
 		OpenGlUtils.enableAlphaBlending();
@@ -77,6 +82,11 @@ public class EntityRenderer extends IRenderer {
 			OpenGlUtils.bindTextureToBank(modelComponent.getNormalMap().getTextureID(), 1);
 			shader.getUniformBool("useNormalMap").loadBoolean(modelComponent.getNormalMap() != null);
 		}
+
+		shader.getUniformFloat("shadowMapSize").loadFloat(ShadowRenderer.SHADOW_MAP_SIZE);
+		shader.getUniformMat4("shadowSpaceMatrix").loadMat4(((MainRenderer) FlounderEngine.getMasterRenderer()).getShadowMapRenderer().getToShadowMapSpaceMatrix());
+		shader.getUniformFloat("shadowDistance").loadFloat(((MainRenderer) FlounderEngine.getMasterRenderer()).getShadowMapRenderer().getShadowDistance());
+		OpenGlUtils.bindTextureToBank(((MainRenderer) FlounderEngine.getMasterRenderer()).getShadowMapRenderer().getShadowMap(), 2);
 
 		shader.getUniformMat4("modelMatrix").loadMat4(entity.getModelMatrix());
 		shader.getUniformFloat("transparency").loadFloat(modelComponent.getTransparency());

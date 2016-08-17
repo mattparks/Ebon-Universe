@@ -19,7 +19,7 @@ import static org.lwjgl.opengl.GL11.*;
 public class ShadowRenderer extends IRenderer {
 	private static final MyFile VERTEX_SHADER = new MyFile("game/shadows", "shadowVertex.glsl");
 	private static final MyFile FRAGMENT_SHADER = new MyFile("game/shadows", "shadowFragment.glsl");
-	public static final int SHADOW_MAP_SIZE = 4096;
+	public static final int SHADOW_MAP_SIZE = 4096 * 4;
 
 	private ShaderProgram shader;
 

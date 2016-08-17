@@ -13,8 +13,8 @@ import flounder.physics.renderer.*;
 import game.entities.*;
 import game.options.*;
 import game.post.*;
-import game.post.deferred.*;
 import game.shadows.*;
+import game.skybox.*;
 
 public class MainRenderer extends IRendererMaster {
 	private static final Vector4f POSITIVE_INFINITY = new Vector4f(0.0f, 1.0f, 0.0f, Float.POSITIVE_INFINITY);
@@ -23,6 +23,7 @@ public class MainRenderer extends IRendererMaster {
 
 	private ShadowRenderer shadowRenderer;
 	private EntityRenderer entityRenderer;
+	private SkyboxRenderer skyboxRenderer;
 	private ParticleRenderer particleRenderer;
 	private AABBRenderer aabbRenderer;
 	private GuiRenderer guiRenderer;
@@ -31,7 +32,6 @@ public class MainRenderer extends IRendererMaster {
 
 	private FBO multisamplingFBO;
 
-	private FilterDeferred filterDeferred;
 	private PipelineDemo pipelineDemo;
 	private PipelinePaused pipelinePaused;
 
@@ -41,6 +41,7 @@ public class MainRenderer extends IRendererMaster {
 
 		this.shadowRenderer = new ShadowRenderer();
 		this.entityRenderer = new EntityRenderer();
+		this.skyboxRenderer = new SkyboxRenderer();
 		this.particleRenderer = new ParticleRenderer();
 		this.aabbRenderer = new AABBRenderer();
 		this.guiRenderer = new GuiRenderer(GuiRenderer.GuiRenderType.GUI);
@@ -50,7 +51,6 @@ public class MainRenderer extends IRendererMaster {
 		// Diffuse, Position, Normals, Additonal (Specular, G, B, A)
 		multisamplingFBO = FBO.newFBO(1.0f).attachments(4).depthBuffer(DepthBufferType.TEXTURE).create(); // .antialias(FlounderEngine.getDevices().getDisplay().getSamples())
 
-		filterDeferred = new FilterDeferred();
 		pipelineDemo = new PipelineDemo();
 		pipelinePaused = new PipelinePaused();
 	}
@@ -97,9 +97,8 @@ public class MainRenderer extends IRendererMaster {
 			return;
 		}
 
-		/* Renders the world*/
-
 		/* Renders each renderer. */
+		skyboxRenderer.render(clipPlane, camera);
 		entityRenderer.render(clipPlane, camera);
 		particleRenderer.render(clipPlane, camera);
 		aabbRenderer.render(clipPlane, camera);
@@ -109,9 +108,6 @@ public class MainRenderer extends IRendererMaster {
 		FBO output = multisamplingFBO;
 
 		if (!isStarting) {
-			filterDeferred.applyFilter(output.getColourTexture(0), output.getColourTexture(1), output.getColourTexture(2), output.getColourTexture(3), shadowRenderer.getShadowMap());
-			output = filterDeferred.fbo;
-
 			if (OptionsPost.POST_ENABLED) {
 				if (pipelineDemo.willRunDemo()) {
 					pipelineDemo.renderPipeline(output);
@@ -144,6 +140,7 @@ public class MainRenderer extends IRendererMaster {
 	@Override
 	public void dispose() {
 		shadowRenderer.dispose();
+		skyboxRenderer.dispose();
 		entityRenderer.dispose();
 		particleRenderer.dispose();
 		aabbRenderer.dispose();
@@ -153,7 +150,6 @@ public class MainRenderer extends IRendererMaster {
 
 		multisamplingFBO.delete();
 
-		filterDeferred.dispose();
 		pipelineDemo.dispose();
 		pipelinePaused.dispose();
 	}

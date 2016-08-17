@@ -21,7 +21,7 @@ public class CameraFocus implements ICamera {
 	private static final float ROTATE_AGILITY = 6.0f;
 	private static final float PITCH_AGILITY = 8.0f;
 
-	private final static float CAMERA_AIM_OFFSET = 10.0f;
+	private final static float CAMERA_AIM_OFFSET = 0.0f;
 	private final static float MAX_ANGLE_OF_ELEVATION = 1.5f;
 	private final static float PITCH_OFFSET = 3.0f;
 	private final static float MINIMUM_ZOOM = -300.0f;

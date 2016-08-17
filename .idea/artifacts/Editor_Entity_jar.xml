@@ -1,6 +1,6 @@
 <component name="ArtifactManager">
   <artifact type="jar" name="Editor Entity:jar">
-    <output-path>$PROJECT_DIR$/out/artifacts/Editor_Entity_jar</output-path>
+    <output-path>$PROJECT_DIR$/out/artifacts</output-path>
     <root id="archive" name="Editor Entity.jar">
       <element id="module-output" name="Editor-Entity" />
       <element id="module-output" name="4Space-Game" />

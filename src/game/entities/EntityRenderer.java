@@ -79,7 +79,9 @@ public class EntityRenderer extends IRenderer {
 
 		if (modelComponent.getNormalMap() != null) {
 			OpenGlUtils.bindTextureToBank(modelComponent.getNormalMap().getTextureID(), 1);
-			shader.getUniformBool("useNormalMap").loadBoolean(modelComponent.getNormalMap() != null);
+			shader.getUniformBool("useNormalMap").loadBoolean(true);
+		} else {
+			shader.getUniformBool("useNormalMap").loadBoolean(false);
 		}
 
 		shader.getUniformMat4("modelMatrix").loadMat4(entity.getModelMatrix());

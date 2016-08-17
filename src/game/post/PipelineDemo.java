@@ -40,40 +40,40 @@ public class PipelineDemo extends PostPipeline {
 		switch (OptionsPost.POST_EFFECT) {
 			case 1:
 				filterEmboss.applyFilter(startFBO.getColourTexture(0));
-				filterEmboss.fbo.resolveFBO(0, filterOutput);
+				filterEmboss.fbo.resolveFBO(0, 0, filterOutput);
 				break;
 			case 2:
 				filterGray.applyFilter(startFBO.getColourTexture(0));
-				filterGray.fbo.resolveFBO(0, filterOutput);
+				filterGray.fbo.resolveFBO(0, 0, filterOutput);
 				break;
 			case 3:
 				filterNegative.applyFilter(startFBO.getColourTexture(0));
-				filterNegative.fbo.resolveFBO(0, filterOutput);
+				filterNegative.fbo.resolveFBO(0, 0, filterOutput);
 				break;
 			case 4:
 				filterPixel.applyFilter(startFBO.getColourTexture(0));
-				filterPixel.fbo.resolveFBO(0, filterOutput);
+				filterPixel.fbo.resolveFBO(0, 0, filterOutput);
 				break;
 			case 5:
 				filterSepia.applyFilter(startFBO.getColourTexture(0));
-				filterSepia.fbo.resolveFBO(0, filterOutput);
+				filterSepia.fbo.resolveFBO(0, 0, filterOutput);
 				break;
 			case 6:
 				filterTone.applyFilter(startFBO.getColourTexture(0));
-				filterTone.fbo.resolveFBO(0, filterOutput);
+				filterTone.fbo.resolveFBO(0, 0, filterOutput);
 				break;
 			case 7:
 				filterWobble.applyFilter(startFBO.getColourTexture(0));
-				filterWobble.fbo.resolveFBO(0, filterOutput);
+				filterWobble.fbo.resolveFBO(0, 0, filterOutput);
 				break;
 			default:
-				startFBO.resolveFBO(0, filterOutput);
+				startFBO.resolveFBO(0, 0, filterOutput);
 				break;
 		}
 
 		if (OptionsPost.FILTER_FXAA) {
 			filterFXAA.applyFilter(filterOutput.getColourTexture(0));
-			filterFXAA.fbo.resolveFBO(0, filterOutput);
+			filterFXAA.fbo.resolveFBO(0, 0, filterOutput);
 		}
 	}
 

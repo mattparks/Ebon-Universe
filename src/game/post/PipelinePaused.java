@@ -24,7 +24,7 @@ public class PipelinePaused extends PostPipeline {
 
 	@Override
 	public void renderPipeline(FBO startFBO) {
-		startFBO.resolveFBO(0, pipelineGaussian1);
+		startFBO.resolveFBO(0, 0, pipelineGaussian1);
 
 		pipelineGaussian2.setScale(1.25f);
 		pipelineGaussian2.renderPipeline(pipelineGaussian1);

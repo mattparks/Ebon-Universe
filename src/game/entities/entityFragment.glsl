@@ -1,6 +1,9 @@
 #version 130
 
 layout(location = 0) out vec4 out_colour;
+layout(location = 1) out vec4 out_depth;
+layout(location = 2) out vec4 out_normal;
+layout(location = 3) out vec4 out_specular;
 
 layout(binding = 0) uniform sampler2D colourTexture;
 layout(binding = 1) uniform sampler2D normalMapTexture;
@@ -13,6 +16,7 @@ varying vec4 positionRelativeToCam;
 
 uniform bool useNormalMap;
 uniform float transparency;
+
 uniform vec3 fogColour;
 uniform float fogDensity;
 uniform float fogGradient;
@@ -25,7 +29,8 @@ void main(void) {
 	vec4 textureColour = texture(colourTexture, textureCoords);
 	vec3 unitNormal = normalize(surfaceNormal);
 
-	if (textureColour.a < 0.5){
+	if (textureColour.a < 0.4){
+	    out_colour = vec4(0.0);
 		discard;
 	}
 
@@ -34,7 +39,10 @@ void main(void) {
     	unitNormal = normalize(normalMapValue.xyz);
     }
 
-    out_colour = vec4(textureColour.xyz, 1.0);
-    out_colour = mix(vec4(fogColour, 1.0), out_colour, visibility());
-    out_colour.a = min(out_colour.a, transparency);
+    out_colour = vec4(textureColour.rgb, 1.0);
+    // out_colour = mix(vec4(fogColour, 1.0), out_colour, visibility());
+    //out_colour.a = min(out_colour.a, transparency);
+    out_depth = entityPosition;
+    out_normal = vec4(unitNormal, 1.0);
+    out_specular = vec4(0.2, 0.0, 0.0, 1.0);
 }

@@ -1,5 +1,6 @@
 package game.entities.components;
 
+import flounder.materials.*;
 import flounder.maths.vectors.*;
 import flounder.models.*;
 import flounder.resources.*;
@@ -87,6 +88,11 @@ public class ComponentModel extends IEntityComponent {
 			@Override
 			public int[] getIndices() {
 				return EntityTemplate.toIntArray(template.getSectionData(ComponentModel.this, "Indices"));
+			}
+
+			@Override
+			public Material[] getMaterials() {
+				return new Material[]{}; // TODO: Save and load materials!
 			}
 		}).create();
 

@@ -23,10 +23,10 @@ uniform vec2 textureOffset;
 void main(void) {
     vec4 worldPosition = modelMatrix * vec4(in_position, 1.0);
 	positionRelativeToCam = viewMatrix * worldPosition;
-	entityPosition = projectionMatrix * positionRelativeToCam;
+	entityPosition = worldPosition;
 
 	gl_ClipDistance[0] = dot(worldPosition, clipPlane);
-	gl_Position = entityPosition;
+	gl_Position = projectionMatrix * positionRelativeToCam;
 
 	textureCoords = (in_textureCoords / numberOfRows) + textureOffset;
 	surfaceNormal = (modelMatrix * vec4(in_normal, 0.0)).xyz;

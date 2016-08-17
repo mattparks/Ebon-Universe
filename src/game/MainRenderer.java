@@ -13,9 +13,11 @@ import flounder.physics.renderer.*;
 import game.entities.*;
 import game.options.*;
 import game.post.*;
+import game.post.deferred.*;
 
 public class MainRenderer extends IRendererMaster {
 	private static final Vector4f POSITIVE_INFINITY = new Vector4f(0.0f, 1.0f, 0.0f, Float.POSITIVE_INFINITY);
+	private static final int FBO_ATTACHMENTS = 4;
 
 	private Matrix4f projectionMatrix;
 
@@ -27,7 +29,9 @@ public class MainRenderer extends IRendererMaster {
 	private FontRenderer fontRenderer;
 
 	private FBO multisamplingFBO;
+	private FBO nonsampledFBO;
 
+	private FilterDeferred filterDeferred;
 	private PipelineDemo pipelineDemo;
 	private PipelinePaused pipelinePaused;
 
@@ -43,10 +47,12 @@ public class MainRenderer extends IRendererMaster {
 		this.fontRenderer = new FontRenderer();
 
 		// Diffuse, Position, Normals, Additonal (Specular, G, B, A)
-		multisamplingFBO = FBO.newFBO(1.0f).attachments(4).depthBuffer(DepthBufferType.TEXTURE).create(); // .antialias(FlounderEngine.getDevices().getDisplay().getSamples())
+		this.multisamplingFBO = FBO.newFBO(1.0f).attachments(FBO_ATTACHMENTS).antialias(FlounderEngine.getDevices().getDisplay().getSamples()).create();
+		this.nonsampledFBO = FBO.newFBO(1.0f).attachments(FBO_ATTACHMENTS).depthBuffer(DepthBufferType.TEXTURE).create();
 
-		pipelineDemo = new PipelineDemo();
-		pipelinePaused = new PipelinePaused();
+		this.filterDeferred = new FilterDeferred();
+		this.pipelineDemo = new PipelineDemo();
+		this.pipelinePaused = new PipelinePaused();
 	}
 
 	@Override
@@ -70,11 +76,20 @@ public class MainRenderer extends IRendererMaster {
 	}
 
 	private void bindRelevantFBO() {
-		multisamplingFBO.bindFrameBuffer();
+		if (FlounderEngine.getDevices().getDisplay().isAntialiasing()) {
+			multisamplingFBO.bindFrameBuffer();
+		} else {
+			nonsampledFBO.bindFrameBuffer();
+		}
 	}
 
 	private void unbindRelevantFBO() {
-		multisamplingFBO.unbindFrameBuffer();
+		if (FlounderEngine.getDevices().getDisplay().isAntialiasing()) {
+			multisamplingFBO.unbindFrameBuffer();
+			multisamplingFBO.resolveFBO(nonsampledFBO);
+		} else {
+			nonsampledFBO.unbindFrameBuffer();
+		}
 	}
 
 	private void renderScene(Vector4f clipPlane) {
@@ -95,9 +110,12 @@ public class MainRenderer extends IRendererMaster {
 	}
 
 	private void renderPost(boolean isPaused, boolean isStarting, float blurFactor) {
-		FBO output = multisamplingFBO;
+		FBO output = nonsampledFBO;
 
 		if (!isStarting) {
+			filterDeferred.applyFilter(output.getColourTexture(0), output.getColourTexture(1), output.getColourTexture(2), output.getColourTexture(3));
+			output = filterDeferred.fbo;
+
 			if (OptionsPost.POST_ENABLED) {
 				if (pipelineDemo.willRunDemo()) {
 					pipelineDemo.renderPipeline(output);
@@ -130,7 +148,9 @@ public class MainRenderer extends IRendererMaster {
 		fontRenderer.dispose();
 
 		multisamplingFBO.delete();
+		nonsampledFBO.delete();
 
+		filterDeferred.dispose();
 		pipelineDemo.dispose();
 		pipelinePaused.dispose();
 	}

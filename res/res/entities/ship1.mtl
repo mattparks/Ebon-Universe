@@ -1,0 +1,48 @@
+# Blender MTL File: 'None'
+# Material Count: 4
+
+newmtl exhaust_burn.008
+Ns 96.078431
+Ka 1.000000 1.000000 1.000000
+Kd 0.800000 0.289804 0.285592
+Ks 0.500000 0.500000 0.500000
+Ke 1.000000 0.362254 0.356990
+Ni 1.000000
+d 1.000000
+illum 2
+
+newmtl hull.008
+Ns 96.078431
+Ka 1.000000 1.000000 1.000000
+Kd 0.037232 0.037158 0.047016
+Ks 0.100000 0.100000 0.100000
+Ke 0.000000 0.000000 0.000000
+Ni 1.000000
+d 1.000000
+illum 2
+map_Bump hull_normal.png
+map_Kd .
+
+newmtl hull_dark.008
+Ns 96.078431
+Ka 1.000000 1.000000 1.000000
+Kd 0.011170 0.011147 0.014105
+Ks 0.100000 0.100000 0.100000
+Ke 0.000000 0.000000 0.000000
+Ni 1.000000
+d 1.000000
+illum 2
+map_Bump hull_normal.png
+
+newmtl hull_lights.008
+Ns 96.078431
+Ka 1.000000 1.000000 1.000000
+Kd 0.037232 0.037158 0.047016
+Ks 0.100000 0.100000 0.100000
+Ke 0.000000 0.000000 0.000000
+Ni 1.000000
+d 1.000000
+illum 2
+map_Bump hull_normal.png
+map_Kd hull_lights_diffuse.png
+map_Ke hull_lights_emit.png

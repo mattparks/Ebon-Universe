@@ -1,6 +1,6 @@
 # Blender v2.77 (sub 0) OBJ File: 'Tiny_SpaceShip_by_CoyHot.blend'
 # www.blender.org
-mtllib spaceShip.mtl
+mtllib spaceship.mtl
 o Mesh.002_Vaisseau.002
 v 0.656855 3.577178 2.612015
 v 0.807097 4.145515 0.433945
@@ -6055,7 +6055,8 @@ f 12/9/9 27/27/27 22/23/23
 f 7/5/5 6/25/25 22/23/23
 f 10/7/7 11/10/10 5/4/4
 f 4/2/2 3/8/8 5/4/4
-usemtl Material.001
+usemtl Spaceship
+s off
 f 678/28/28 680/29/29 679/30/30
 f 682/31/31 684/32/32 683/33/33
 f 680/29/29 687/34/34 686/35/35

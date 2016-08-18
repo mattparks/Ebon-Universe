@@ -89,12 +89,12 @@ public class EntityTemplate {
 	 *
 	 * @return The sections data.
 	 */
-	public String getSectionData(IEntityComponent component, String sectionName) {
+	public String[] getSectionData(IEntityComponent component, String sectionName) {
 		for (EntityLoader.IndividualData data : componentsData.keySet()) {
 			if (data.classpath.equals(component.getClass().getName())) {
 				for (EntityLoader.SectionData section : componentsData.get(data)) {
 					if (section.name.equals(sectionName)) {
-						return section.line.trim();
+						return section.lines;
 					}
 				}
 			}
@@ -113,29 +113,17 @@ public class EntityTemplate {
 	}
 
 	/**
-	 * Turns a segmented string into a string array.
-	 *
-	 * @param data The segmented data to parse.
-	 *
-	 * @return The resulting string array.
-	 */
-	public static String[] toStringArray(String data) {
-		return data.split(",");
-	}
-
-	/**
 	 * Turns a segmented string into a float array.
 	 *
 	 * @param data The segmented data to parse.
 	 *
 	 * @return The resulting float array.
 	 */
-	public static float[] toFloatArray(String data) {
-		String[] values = data.split(",");
-		float[] result = new float[values.length];
+	public static float[] toFloatArray(String[] data) {
+		float[] result = new float[data.length];
 
-		for (int i = 0; i < values.length; i++) {
-			result[i] = Float.parseFloat(values[i]);
+		for (int i = 0; i < data.length; i++) {
+			result[i] = Float.parseFloat(data[i]);
 		}
 
 		return result;
@@ -148,12 +136,11 @@ public class EntityTemplate {
 	 *
 	 * @return The resulting integer array.
 	 */
-	public static int[] toIntArray(String data) {
-		String[] values = data.split(",");
-		int[] result = new int[values.length];
+	public static int[] toIntArray(String[] data) {
+		int[] result = new int[data.length];
 
-		for (int i = 0; i < values.length; i++) {
-			result[i] = Integer.parseInt(values[i]);
+		for (int i = 0; i < data.length; i++) {
+			result[i] = Integer.parseInt(data[i]);
 		}
 
 		return result;

@@ -39,7 +39,7 @@ public class ComponentCollider extends IEntityComponent {
 		super(entity, ID);
 		this.aabb = new AABB();
 		this.hull = new QuickHull();
-		this.renderAABB = Boolean.parseBoolean(template.getSectionData(this, "RenderAABB"));
+		this.renderAABB = Boolean.parseBoolean(template.getValue(this, "RenderAABB"));
 	}
 
 	/**

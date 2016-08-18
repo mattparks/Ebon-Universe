@@ -10,7 +10,6 @@ import flounder.maths.*;
 import flounder.maths.vectors.*;
 import flounder.parsing.*;
 import flounder.resources.*;
-import flounder.sounds.*;
 import game.cameras.*;
 import game.entities.loading.*;
 import game.options.*;
@@ -75,13 +74,13 @@ public class MainGame extends IGame {
 		}
 
 		//	Playlist playlist = new Playlist();
-	//	playlist.addMusic(Sound.loadSoundInBackground(new MyFile(MyFile.RES_FOLDER, "music", "era-of-space.wav"), 0.80f));
-	//	playlist.addMusic(Sound.loadSoundInBackground(new MyFile(MyFile.RES_FOLDER, "music", "pyrosanical.wav"), 0.50f));
-	//	playlist.addMusic(Sound.loadSoundInBackground(new MyFile(MyFile.RES_FOLDER, "music", "spacey-ambient.wav"), 0.60f));
-	//	FlounderEngine.getDevices().getSound().getMusicPlayer().playMusicPlaylist(playlist, true, 4.0f, 10.0f);
+		//	playlist.addMusic(Sound.loadSoundInBackground(new MyFile(MyFile.RES_FOLDER, "music", "era-of-space.wav"), 0.80f));
+		//	playlist.addMusic(Sound.loadSoundInBackground(new MyFile(MyFile.RES_FOLDER, "music", "pyrosanical.wav"), 0.50f));
+		//	playlist.addMusic(Sound.loadSoundInBackground(new MyFile(MyFile.RES_FOLDER, "music", "spacey-ambient.wav"), 0.60f));
+		//	FlounderEngine.getDevices().getSound().getMusicPlayer().playMusicPlaylist(playlist, true, 4.0f, 10.0f);
 
 		for (int i = 0; i < 100; i++) {
-			FlounderEngine.getLogger().log("Random Word" + i + ": " + FauxWord.getFauxLine(2, 4, 12));
+			FlounderEngine.getLogger().log("Random Word" + i + ": " + FauxGenerator.getFauxSentance(2, 4, 12));
 		}
 	}
 
@@ -118,8 +117,8 @@ public class MainGame extends IGame {
 		} else if (!MainGuis.isStartingGame() && stillLoading) {
 			// Unpause the music for the main menu.
 			stillLoading = false;
-		//	FlounderEngine.getLogger().log("Starting main menu music.");
-		//	FlounderEngine.getDevices().getSound().getMusicPlayer().unpauseTrack();
+			//	FlounderEngine.getLogger().log("Starting main menu music.");
+			//	FlounderEngine.getDevices().getSound().getMusicPlayer().unpauseTrack();
 		}
 
 		guis.update();

@@ -137,15 +137,11 @@ public class EntityLoader {
 	 */
 	protected static class SectionData {
 		protected String name;
-		protected String line;
+		protected String[] lines;
 
-		protected SectionData(String name, List<String> sectionLines) {
+		protected SectionData(String name, List<String> lines) {
 			this.name = name;
-			this.line = "";
-
-			for (String s : sectionLines) {
-				line += s.replaceAll("[\\t\\n\\r]", " ").trim();
-			}
+			this.lines = lines.stream().toArray(String[]::new);
 		}
 	}
 }

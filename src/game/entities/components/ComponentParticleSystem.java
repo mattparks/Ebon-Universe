@@ -28,7 +28,7 @@ public class ComponentParticleSystem extends IEntityComponent {
 
 	public ComponentParticleSystem(Entity entity, EntityTemplate template) {
 		super(entity, ID);
-		String[] templates = EntityTemplate.toStringArray(template.getSectionData(this, "Templates"));
+		String[] templates = template.getSectionData(this, "Templates");
 		List<ParticleTemplate> templateList = new ArrayList<>();
 
 		for (int t = 0; t < templates.length; t++) {
@@ -38,7 +38,7 @@ public class ComponentParticleSystem extends IEntityComponent {
 		String spawnClasspath = template.getValue(this, "Spawn");
 		IParticleSpawn particleSpawn = null;
 
-		String[] spawnValues = EntityTemplate.toStringArray(template.getSectionData(this, "SpawnValues"));
+		String[] spawnValues = template.getSectionData(this, "SpawnValues");
 
 		try {
 			Class componentClass = Class.forName(spawnClasspath);

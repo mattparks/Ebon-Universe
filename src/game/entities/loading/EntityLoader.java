@@ -23,7 +23,7 @@ public class EntityLoader {
 			loadedTemplates.remove(name);
 
 			// Creates the file reader.
-			MyFile saveFile = new MyFile(MyFile.RES_FOLDER, "entities", name + ".entity");
+			MyFile saveFile = new MyFile(MyFile.RES_FOLDER, "entities", name, name + ".entity");
 
 			try {
 				BufferedReader fileReader = saveFile.getReader();
@@ -99,7 +99,7 @@ public class EntityLoader {
 									String[] lineKeys = line.replaceAll("\\s+", "").replace(";", "").trim().split(":");
 									individualData.add(new Pair<>(lineKeys[0].trim(), lineKeys[1].trim()));
 								} else if (componentSubsection != null) {
-									sectionLines.add(line.replaceAll("\\s+", "").trim());
+									sectionLines.addAll(Arrays.asList(line.replaceAll("\\s+", "").trim().split(",")));
 								}
 							}
 						}

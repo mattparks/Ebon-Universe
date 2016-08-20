@@ -13,14 +13,15 @@ import flounder.physics.renderer.*;
 import game.entities.*;
 import game.options.*;
 import game.post.*;
-import game.post.deferred.*;
+import game.shadows.*;
 
 public class MainRenderer extends IRendererMaster {
 	private static final Vector4f POSITIVE_INFINITY = new Vector4f(0.0f, 1.0f, 0.0f, Float.POSITIVE_INFINITY);
-	private static final int FBO_ATTACHMENTS = 4;
+	private static final int FBO_ATTACHMENTS = 2;
 
 	private Matrix4f projectionMatrix;
 
+	private ShadowRenderer shadowRenderer;
 	private EntityRenderer entityRenderer;
 	private ParticleRenderer particleRenderer;
 	private AABBRenderer aabbRenderer;
@@ -31,7 +32,6 @@ public class MainRenderer extends IRendererMaster {
 	private FBO multisamplingFBO;
 	private FBO nonsampledFBO;
 
-	private FilterDeferred filterDeferred;
 	private PipelineDemo pipelineDemo;
 	private PipelinePaused pipelinePaused;
 
@@ -39,6 +39,7 @@ public class MainRenderer extends IRendererMaster {
 	public void init() {
 		this.projectionMatrix = new Matrix4f();
 
+		this.shadowRenderer = new ShadowRenderer();
 		this.entityRenderer = new EntityRenderer();
 		this.particleRenderer = new ParticleRenderer();
 		this.aabbRenderer = new AABBRenderer();
@@ -47,16 +48,18 @@ public class MainRenderer extends IRendererMaster {
 		this.fontRenderer = new FontRenderer();
 
 		// Diffuse, Position, Normals, Additonal (Specular, G, B, A)
-		this.multisamplingFBO = FBO.newFBO(1.0f).attachments(FBO_ATTACHMENTS).antialias(FlounderEngine.getDevices().getDisplay().getSamples()).create();
+		this.multisamplingFBO = FBO.newFBO(1.0f).attachments(FBO_ATTACHMENTS).depthBuffer(DepthBufferType.TEXTURE).antialias(FlounderEngine.getDevices().getDisplay().getSamples()).create();
 		this.nonsampledFBO = FBO.newFBO(1.0f).attachments(FBO_ATTACHMENTS).depthBuffer(DepthBufferType.TEXTURE).create();
 
-		this.filterDeferred = new FilterDeferred();
 		this.pipelineDemo = new PipelineDemo();
 		this.pipelinePaused = new PipelinePaused();
 	}
 
 	@Override
 	public void render() {
+		/* Shadow rendering. */
+		shadowRenderer.render(POSITIVE_INFINITY, FlounderEngine.getCamera());
+
 		/* Binds the relevant FBO. */
 		bindRelevantFBO();
 
@@ -113,9 +116,6 @@ public class MainRenderer extends IRendererMaster {
 		FBO output = nonsampledFBO;
 
 		if (!isStarting) {
-			filterDeferred.applyFilter(output.getColourTexture(0), output.getColourTexture(1), output.getColourTexture(2), output.getColourTexture(3));
-			output = filterDeferred.fbo;
-
 			if (OptionsPost.POST_ENABLED) {
 				if (pipelineDemo.willRunDemo()) {
 					pipelineDemo.renderPipeline(output);
@@ -138,8 +138,16 @@ public class MainRenderer extends IRendererMaster {
 		return projectionMatrix;
 	}
 
+	/**
+	 * @return Returns the shadow map renderer.
+	 */
+	public ShadowRenderer getShadowMapRenderer() {
+		return shadowRenderer;
+	}
+
 	@Override
 	public void dispose() {
+		shadowRenderer.dispose();
 		entityRenderer.dispose();
 		particleRenderer.dispose();
 		aabbRenderer.dispose();
@@ -150,7 +158,6 @@ public class MainRenderer extends IRendererMaster {
 		multisamplingFBO.delete();
 		nonsampledFBO.delete();
 
-		filterDeferred.dispose();
 		pipelineDemo.dispose();
 		pipelinePaused.dispose();
 	}

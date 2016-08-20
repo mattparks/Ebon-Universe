@@ -3,11 +3,13 @@ package game.entities;
 import flounder.engine.*;
 import flounder.engine.implementation.*;
 import flounder.helpers.*;
+import flounder.lights.*;
 import flounder.maths.vectors.*;
 import flounder.resources.*;
 import flounder.shaders.*;
 import game.*;
 import game.entities.components.*;
+import game.shadows.*;
 
 import java.util.*;
 
@@ -17,6 +19,8 @@ import static org.lwjgl.opengl.GL11.*;
  * A renderer that is used to render entity's.
  */
 public class EntityRenderer extends IRenderer {
+	private static final int NUMBER_LIGHTS = 4;
+
 	private static final MyFile VERTEX_SHADER = new MyFile("game/entities", "entityVertex.glsl");
 	private static final MyFile FRAGMENT_SHADER = new MyFile("game/entities", "entityFragment.glsl");
 
@@ -45,12 +49,28 @@ public class EntityRenderer extends IRenderer {
 	private void prepareRendering(Vector4f clipPlane, ICamera camera) {
 		shader.start();
 		shader.getUniformMat4("projectionMatrix").loadMat4(FlounderEngine.getProjectionMatrix());
+		shader.getUniformMat4("shadowSpaceMatrix").loadMat4(((MainRenderer) FlounderEngine.getMasterRenderer()).getShadowMapRenderer().getToShadowMapSpaceMatrix());
+		shader.getUniformFloat("shadowDistance").loadFloat(((MainRenderer) FlounderEngine.getMasterRenderer()).getShadowMapRenderer().getShadowDistance());
 		shader.getUniformMat4("viewMatrix").loadMat4(camera.getViewMatrix());
 		shader.getUniformVec4("clipPlane").loadVec4(clipPlane);
+
+		shader.getUniformFloat("shadowMapSize").loadFloat(ShadowRenderer.SHADOW_MAP_SIZE);
 
 		shader.getUniformVec3("fogColour").loadVec3(Environment.getFog().getFogColour());
 		shader.getUniformFloat("fogDensity").loadFloat(Environment.getFog().getFogDensity());
 		shader.getUniformFloat("fogGradient").loadFloat(Environment.getFog().getFogGradient());
+
+		for (int i = 0; i < NUMBER_LIGHTS; i++) {
+			if (i < Environment.getLights().size()) {
+				shader.getUniformVec3("lightPosition[" + i + "]").loadVec3(Environment.getLights().get(i).getPosition());
+				shader.getUniformVec3("lightColour[" + i + "]").loadVec3(Environment.getLights().get(i).getColour());
+				shader.getUniformVec3("lightAttenuation[" + i + "]").loadVec3(Environment.getLights().get(i).getAttenuation());
+			} else {
+				shader.getUniformVec3("lightPosition[" + i + "]").loadVec3(0.0f, 0.0f, 0.0f);
+				shader.getUniformVec3("lightColour[" + i + "]").loadVec3(0.0f, 0.0f, 0.0f);
+				shader.getUniformVec3("lightAttenuation[" + i + "]").loadVec3(1.0f, 0.0f, 0.0f);
+			}
+		}
 
 		OpenGlUtils.antialias(FlounderEngine.getDevices().getDisplay().isAntialiasing());
 		OpenGlUtils.enableDepthTesting();
@@ -83,6 +103,8 @@ public class EntityRenderer extends IRenderer {
 		} else {
 			shader.getUniformBool("useNormalMap").loadBoolean(false);
 		}
+
+		OpenGlUtils.bindTextureToBank(((MainRenderer) FlounderEngine.getMasterRenderer()).getShadowMapRenderer().getShadowMap(), 2);
 
 		shader.getUniformMat4("modelMatrix").loadMat4(entity.getModelMatrix());
 		shader.getUniformFloat("transparency").loadFloat(modelComponent.getTransparency());

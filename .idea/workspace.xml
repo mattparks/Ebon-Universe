@@ -12,18 +12,13 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="ac25c3f6-f322-4e75-a3fd-1beda46eaaa0" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/game/celestial/ICelestial.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/game/celestial/Planet.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/game/celestial/Star.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/game/celestial/StarGenerator.java" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/game/post/deferred/FilterDeferred.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/game/post/deferred/deferredFragment.glsl" afterPath="" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/flounder-engine" afterPath="$PROJECT_DIR$/flounder-engine" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/game/MainRenderer.java" afterPath="$PROJECT_DIR$/src/game/MainRenderer.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/game/entities/EntityRenderer.java" afterPath="$PROJECT_DIR$/src/game/entities/EntityRenderer.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/game/entities/entityFragment.glsl" afterPath="$PROJECT_DIR$/src/game/entities/entityFragment.glsl" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/game/entities/entityVertex.glsl" afterPath="$PROJECT_DIR$/src/game/entities/entityVertex.glsl" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Flounder-Engine/src/flounder/particles/ParticleSystem.java" afterPath="$PROJECT_DIR$/Flounder-Engine/src/flounder/particles/ParticleSystem.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/game/MainGame.java" afterPath="$PROJECT_DIR$/src/game/MainGame.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/game/celestial/Planet.java" afterPath="$PROJECT_DIR$/src/game/celestial/Planet.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/game/celestial/Star.java" afterPath="$PROJECT_DIR$/src/game/celestial/Star.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/game/celestial/StarGenerator.java" afterPath="$PROJECT_DIR$/src/game/celestial/StarGenerator.java" />
     </list>
     <ignored path="4Space Game.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -54,11 +49,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Star.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="Star.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/game/celestial/Star.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="884">
-              <caret line="52" column="12" selection-start-line="52" selection-start-column="12" selection-end-line="52" selection-end-column="12" />
+            <state relative-caret-position="2295">
+              <caret line="135" column="16" selection-start-line="135" selection-start-column="16" selection-end-line="135" selection-end-column="16" />
               <folding />
             </state>
           </provider>
@@ -67,18 +62,18 @@
       <file leaf-file-name="StarGenerator.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/game/celestial/StarGenerator.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="204">
-              <caret line="12" column="0" selection-start-line="12" selection-start-column="0" selection-end-line="12" selection-end-column="0" />
+            <state relative-caret-position="425">
+              <caret line="25" column="5" selection-start-line="25" selection-start-column="5" selection-end-line="25" selection-end-column="5" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Planet.java" pinned="false" current-in-tab="false">
+      <file leaf-file-name="Planet.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/game/celestial/Planet.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="289">
-              <caret line="17" column="0" selection-start-line="17" selection-start-column="0" selection-end-line="17" selection-end-column="0" />
+            <state relative-caret-position="442">
+              <caret line="26" column="26" selection-start-line="26" selection-start-column="26" selection-end-line="26" selection-end-column="26" />
               <folding />
             </state>
           </provider>
@@ -106,7 +101,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/src/game/skybox/SkyboxRenderer.java" />
         <option value="$PROJECT_DIR$/src/game/uis/ScreenOptionsAudio.java" />
         <option value="$PROJECT_DIR$/src/game/players/PlayerFocus.java" />
         <option value="$PROJECT_DIR$/src/game/cameras/CameraFocus.java" />
@@ -126,7 +120,6 @@
         <option value="$PROJECT_DIR$/Flounder-Engine/src/flounder/models/Model.java" />
         <option value="$PROJECT_DIR$/Flounder-Engine/src/flounder/models/ModelBuilder.java" />
         <option value="$PROJECT_DIR$/Flounder-Engine/src/flounder/noise/PerlinNoise.java" />
-        <option value="$PROJECT_DIR$/src/game/MainGame.java" />
         <option value="$PROJECT_DIR$/src/game/entities/loading/EntityTemplate.java" />
         <option value="$PROJECT_DIR$/src/game/entities/components/ComponentParticleSystem.java" />
         <option value="$PROJECT_DIR$/src/game/entities/components/ComponentCollider.java" />
@@ -154,9 +147,11 @@
         <option value="$PROJECT_DIR$/src/game/entities/entityFragment.glsl" />
         <option value="$PROJECT_DIR$/src/game/entities/entityVertex.glsl" />
         <option value="$PROJECT_DIR$/src/game/celestial/ICelestial.java" />
+        <option value="$PROJECT_DIR$/src/game/MainGame.java" />
         <option value="$PROJECT_DIR$/src/game/celestial/Planet.java" />
-        <option value="$PROJECT_DIR$/src/game/celestial/StarGenerator.java" />
         <option value="$PROJECT_DIR$/src/game/celestial/Star.java" />
+        <option value="$PROJECT_DIR$/Flounder-Engine/src/flounder/particles/ParticleSystem.java" />
+        <option value="$PROJECT_DIR$/src/game/celestial/StarGenerator.java" />
       </list>
     </option>
   </component>
@@ -197,7 +192,9 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="Scope" />
       <pane id="PackagesPane" />
+      <pane id="Scratches" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -272,8 +269,6 @@
           </PATH>
         </subPane>
       </pane>
-      <pane id="Scratches" />
-      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -698,7 +693,14 @@
       <option name="project" value="LOCAL" />
       <updated>1471648849158</updated>
     </task>
-    <option name="localTasksCounter" value="10" />
+    <task id="LOCAL-00010" summary="World building!">
+      <created>1471671182352</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1471671182352</updated>
+    </task>
+    <option name="localTasksCounter" value="11" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -711,7 +713,7 @@
       <window_info id="Capture Analysis" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.17547569" sideWeight="0.5015625" order="10" side_tool="true" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.17653278" sideWeight="0.4984375" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.17395945" sideWeight="0.4984375" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
@@ -756,7 +758,8 @@
     <MESSAGE value="A bunch of useless stuff..." />
     <MESSAGE value="Added more models, relying on blender for most things now." />
     <MESSAGE value="More model changes, need to remove outlines." />
-    <option name="LAST_COMMIT_MESSAGE" value="More model changes, need to remove outlines." />
+    <MESSAGE value="World building!" />
+    <option name="LAST_COMMIT_MESSAGE" value="World building!" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -769,13 +772,6 @@
     <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/Flounder-Engine/src/flounder/materials/package-info.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="17">
-          <caret line="1" column="70" selection-start-line="1" selection-start-column="70" selection-end-line="1" selection-end-column="70" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/Flounder-Engine/src/flounder/engine/FlounderEngine.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="350">
@@ -808,13 +804,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-6697">
           <caret line="54" column="39" selection-start-line="54" selection-start-column="39" selection-end-line="54" selection-end-column="39" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/game/MainGame.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="518">
-          <caret line="83" column="92" selection-start-line="83" selection-start-column="91" selection-end-line="83" selection-end-column="92" />
         </state>
       </provider>
     </entry>
@@ -903,7 +892,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="391">
           <caret line="141" column="41" selection-start-line="141" selection-start-column="26" selection-end-line="141" selection-end-column="41" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -918,7 +906,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-3649">
           <caret line="14" column="19" selection-start-line="14" selection-start-column="13" selection-end-line="14" selection-end-column="19" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1027,7 +1014,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="464">
           <caret line="149" column="33" selection-start-line="149" selection-start-column="33" selection-end-line="149" selection-end-column="33" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1035,7 +1021,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="238">
           <caret line="60" column="95" selection-start-line="60" selection-start-column="95" selection-end-line="60" selection-end-column="95" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1060,11 +1045,17 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Flounder-Engine/src/flounder/particles/ParticleSystem.java">
+    <entry file="file://$PROJECT_DIR$/Flounder-Engine/src/flounder/logger/FlounderLogger.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="578">
-          <caret line="208" column="67" selection-start-line="208" selection-start-column="67" selection-end-line="208" selection-end-column="67" />
-          <folding />
+        <state relative-caret-position="248">
+          <caret line="70" column="0" selection-start-line="70" selection-start-column="0" selection-end-line="70" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/game/MainGame.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="569">
+          <caret line="81" column="0" selection-start-line="81" selection-start-column="0" selection-end-line="81" selection-end-column="0" />
         </state>
       </provider>
     </entry>
@@ -1076,26 +1067,33 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/game/celestial/Planet.java">
+    <entry file="file://$PROJECT_DIR$/src/game/celestial/Star.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="289">
-          <caret line="17" column="0" selection-start-line="17" selection-start-column="0" selection-end-line="17" selection-end-column="0" />
+        <state relative-caret-position="2295">
+          <caret line="135" column="16" selection-start-line="135" selection-start-column="16" selection-end-line="135" selection-end-column="16" />
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Flounder-Engine/src/flounder/particles/ParticleSystem.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="400">
+          <caret line="226" column="43" selection-start-line="226" selection-start-column="43" selection-end-line="226" selection-end-column="43" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/game/celestial/StarGenerator.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="204">
-          <caret line="12" column="0" selection-start-line="12" selection-start-column="0" selection-end-line="12" selection-end-column="0" />
+        <state relative-caret-position="425">
+          <caret line="25" column="5" selection-start-line="25" selection-start-column="5" selection-end-line="25" selection-end-column="5" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/game/celestial/Star.java">
+    <entry file="file://$PROJECT_DIR$/src/game/celestial/Planet.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="884">
-          <caret line="52" column="12" selection-start-line="52" selection-start-column="12" selection-end-line="52" selection-end-column="12" />
+        <state relative-caret-position="442">
+          <caret line="26" column="26" selection-start-line="26" selection-start-column="26" selection-end-line="26" selection-end-column="26" />
           <folding />
         </state>
       </provider>

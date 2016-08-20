@@ -1,34 +1,29 @@
 package game.celestial;
 
-import flounder.engine.*;
 import flounder.maths.vectors.*;
 
 public class Planet extends ICelestial {
 	private Star parentStar;
 
-	private float startPeriapsis;
-	private float starApoapsis;
-	private float inclination;
+	private float earthMasses; // The planets earth mass.
+	private float earthRadius; // The planets earth radius.
+	private float density; // The planets density.
+	private float gravity; // The planets gravity.
 
-	private float orbitTime;
-	private float progression;
+	private float escapeVelocity; // The planets escape velocity.
 
-	public Planet(Star parentStar, float startPeriapsis, float starApoapsis, float inclination, float orbitTime) {
+	public Planet(Star parentStar, float earthMasses, float earthRadius) {
 		super(new Vector3f(), new Vector3f());
-
 		this.parentStar = parentStar;
+		this.earthMasses = earthMasses;
+		this.earthRadius = earthRadius;
+		this.density = density;
+		this.gravity = earthMasses / (earthRadius * earthRadius);
 
-		this.startPeriapsis = startPeriapsis;
-		this.starApoapsis = starApoapsis;
-		this.inclination = inclination;
-
-		this.orbitTime = orbitTime;
-		this.progression = 0.0f;
+		this.escapeVelocity = (float) Math.sqrt(earthMasses / earthRadius);
 	}
 
 	@Override
 	public void update() {
-		Vector3f starPosition = parentStar.getPosition();
-		progression += FlounderEngine.getDelta() * orbitTime;
 	}
 }

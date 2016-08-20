@@ -11,6 +11,7 @@ import flounder.maths.vectors.*;
 import flounder.parsing.*;
 import flounder.resources.*;
 import game.cameras.*;
+import game.celestial.*;
 import game.entities.loading.*;
 import game.options.*;
 import game.players.*;
@@ -79,9 +80,7 @@ public class MainGame extends IGame {
 		//	playlist.addMusic(Sound.loadSoundInBackground(new MyFile(MyFile.RES_FOLDER, "music", "spacey-ambient.wav"), 0.60f));
 		//	FlounderEngine.getDevices().getSound().getMusicPlayer().playMusicPlaylist(playlist, true, 4.0f, 10.0f);
 
-		for (int i = 0; i < 100; i++) {
-			FlounderEngine.getLogger().log("Random Word" + i + ": " + FauxGenerator.getFauxSentance(2, 4, 12));
-		}
+		StarGenerator.testGenerate();
 	}
 
 	@Override

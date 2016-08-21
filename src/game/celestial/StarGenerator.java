@@ -15,8 +15,8 @@ public class StarGenerator {
 
 		for (int i = 0; i < 5; i++) {
 			Star star = generateStar(new Vector3f());
-			stars.add(star);
 			FlounderEngine.getLogger().log(star.toString());
+			stars.add(star);
 		}
 	}
 
@@ -28,12 +28,17 @@ public class StarGenerator {
 	public static Star generateStar(Vector3f position) {
 		float spawnKey = Maths.RANDOM.nextFloat() * 100.0f; // TODO: Perlin noise.
 		Star.StarType starType = Star.StarType.getTypeMakeup(spawnKey);
-		List<Planet> planets = generatePlanets(starType);
-		return new Star(FauxGenerator.getFauxSentance(2, 4, 12), starType.solarMasses, position, planets);
+		Star star = new Star(FauxGenerator.getFauxSentance(2, 4, 7), starType.solarMasses, position, new ArrayList<>());
+		generatePlanets(star);
+		return star;
 	}
 
-	public static List<Planet> generatePlanets(Star.StarType starType) {
-		List<Planet> planets = new ArrayList<>();
-		return planets;
+	public static void generatePlanets(Star star) {
+		Orbit orbit = new Orbit(0.007f, 1.0f, star.solarMasses,
+				Maths.RANDOM.nextInt(32) / 10.0f, Maths.RANDOM.nextInt(360), Maths.RANDOM.nextInt(360),
+				0.0f);
+		Planet planet = new Planet(FauxGenerator.getFauxSentance(2, 4, 12), star, orbit, 0.1069f, 0.5319f);
+		FlounderEngine.getLogger().log(planet.toString());
+		star.getPlanets().add(planet);
 	}
 }

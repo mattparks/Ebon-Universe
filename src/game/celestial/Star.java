@@ -9,22 +9,32 @@ public class Star extends ICelestial {
 	private String starName;
 	private List<Planet> planets;
 
-	private float solarMasses; // The stars solar mass.
-	private float solarRadius; // The stars solar radius.
-	private float solarLumino; // The stars solar luminosity.
-	private float surfaceTemp; // The stars surface temp in kelvin.
+	public float solarMasses; // The stars solar mass.
+	public float solarRadius; // The stars solar radius.
+	public float solarLumino; // The stars solar luminosity.
+	public float surfaceTemp; // The stars surface temp in kelvin.
 
-	private float solarLifetime; // The stars lifetime.
+	public float solarLifetime; // The stars lifetime.
 
-	private Colour surfColour; // The stars surface colour.
+	public Colour surfColour; // The stars surface colour.
 
-	private float planetInnerLimit;
-	private float planetOuterLimit;
-	private float planetFrostLine;
+	public float escapeVelocity; // The stars escape velocity (km/s).
 
-	private float habitableMin; // The habitable min distance in AU for carbon based life.
-	private float habitableMax; // The habitable max distance in AU for carbon based life.
+	public float planetInnerLimit; // The inner limit for planet formation.
+	public float planetOuterLimit; // The outer limit for planet formation.
+	public float planetFrostLine; // The planetary frost line for planets.
 
+	public float habitableMin; // The habitable min distance in AU for carbon based life.
+	public float habitableMax; // The habitable max distance in AU for carbon based life.
+
+	/**
+	 * Creates a new star from a solar mass and calculated characteristics.
+	 *
+	 * @param starName The stars name.
+	 * @param solarMasses The stars mass in solar masses.
+	 * @param position The position for the static star.
+	 * @param planets The list of objects orbiting the star.
+	 */
 	public Star(String starName, float solarMasses, Vector3f position, List<Planet> planets) {
 		super(position, new Vector3f());
 		this.starName = starName;
@@ -38,6 +48,8 @@ public class Star extends ICelestial {
 		this.solarLifetime = (float) Math.pow(solarMasses, -2.5f);
 
 		this.surfColour = getColour();
+
+		this.escapeVelocity = (float) Math.sqrt(solarMasses / solarRadius) * 617.7f;
 
 		this.planetInnerLimit = 0.1f * solarMasses;
 		this.planetOuterLimit = 40.0f * solarMasses;
@@ -135,6 +147,7 @@ public class Star extends ICelestial {
 				", temperature=" + surfaceTemp +
 				", solarLifetime=" + solarLifetime +
 				", colour=" + surfColour.toString() +
+				", escapeVelocity=" + escapeVelocity +
 				", planetInnerLimit=" + planetInnerLimit +
 				", planetOuterLimit=" + planetOuterLimit +
 				", planetFrostLine=" + planetFrostLine +

@@ -1,5 +1,8 @@
 package game.celestial;
 
+/**
+ * A realistic orbit object.
+ */
 public class Orbit {
 	private float eccentricity; // The orbits deviation, 0<e<1.
 
@@ -8,25 +11,24 @@ public class Orbit {
 
 	private float periapsis; // The orbits size periapsis (AU).
 	private float apoapsis; // The orbits size apoapsis (AU).
-	private float period; // The orbital period.
+	private float period; // The orbital period (Earth Days).
+	private float velocity; // The objects velocity (km/s).
 
-	private float pitch; // The orbits inclination from 0-180 degrees.
+	private float pitch; // The orbits inclination, orbits prograde 0<i<90, orbits retrograde 90<i<180.
 	private float yaw; // The orbits longitude of the ascending node from 0-360 degrees.
 	private float roll; // The orbits argument of periapsis from 0-360 degrees.
 
-	private float plot; // The position of an object in orbit with reference to the periapsis, true anomaly, from 0-360 degrees.
-
 	/**
+	 * A object that represents a realistic orbit.
 	 *
 	 * @param eccentricity The orbits deviation, 0<e<1.
 	 * @param semiMajorAxis The semi-major axis (AU), the average separation between the two bodys.
 	 * @param solarMasses The solar mass of the object that will be orbited.
-	 * @param pitch The orbits inclination from 0-180 degrees.
+	 * @param pitch The orbits inclination, orbits prograde 0<i<90, orbits retrograde 90<i<180.
 	 * @param yaw The orbits longitude of the ascending node from 0-360 degrees.
 	 * @param roll The orbits argument of periapsis from 0-360 degrees.
-	 * @param plot The position of an object in orbit with reference to the periapsis, true anomaly, from 0-360 degrees.
 	 */
-	public Orbit(float eccentricity, float semiMajorAxis, float solarMasses, float pitch, float yaw, float roll, float plot) {
+	public Orbit(float eccentricity, float semiMajorAxis, float solarMasses, float pitch, float yaw, float roll) {
 		this.eccentricity = eccentricity;
 
 		this.semiMajorAxis = semiMajorAxis;
@@ -34,13 +36,52 @@ public class Orbit {
 
 		this.periapsis = semiMajorAxis * (float) Math.sqrt(1 - eccentricity);
 		this.apoapsis = semiMajorAxis * (float) Math.sqrt(1 + eccentricity);
-		this.period = (float) Math.sqrt(Math.pow(semiMajorAxis, 3.0f) / solarMasses);
+		this.period = (float) Math.sqrt(Math.pow(semiMajorAxis, 3.0f) / solarMasses) * 365.25f;
+		this.velocity = (float) Math.sqrt(solarMasses/ semiMajorAxis) * 29.78f;
 
 		this.pitch = pitch;
 		this.yaw = yaw;
 		this.roll = roll;
+	}
 
-		this.plot = plot;
+	public float getEccentricity() {
+		return eccentricity;
+	}
+
+	public float getSemiMajorAxis() {
+		return semiMajorAxis;
+	}
+
+	public float getSemiMinorAxis() {
+		return semiMinorAxis;
+	}
+
+	public float getPeriapsis() {
+		return periapsis;
+	}
+
+	public float getApoapsis() {
+		return apoapsis;
+	}
+
+	public float getPeriod() {
+		return period;
+	}
+
+	public float getVelocity() {
+		return velocity;
+	}
+
+	public float getPitch() {
+		return pitch;
+	}
+
+	public float getYaw() {
+		return yaw;
+	}
+
+	public float getRoll() {
+		return roll;
 	}
 
 	@Override
@@ -52,9 +93,9 @@ public class Orbit {
 				", periapsis=" + periapsis +
 				", apoapsis=" + apoapsis +
 				", period=" + period +
+				", velocity=" + velocity +
 				", pitch=" + pitch +
 				", yaw=" + yaw +
-				", roll=" + roll +
-				", plot=" + plot + "]";
+				", roll=" + roll + "]";
 	}
 }

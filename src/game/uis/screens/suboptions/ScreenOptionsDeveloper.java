@@ -10,42 +10,42 @@ import game.uis.screens.*;
 import java.util.*;
 
 public class ScreenOptionsDeveloper extends GuiComponent {
-	private MainMenuSlider mainMenuSlider;
+	private MainSlider mainSlider;
 	private ScreenOptions screenOptions;
 
-	public ScreenOptionsDeveloper(ScreenOptions screenOptions, MainMenuSlider mainMenuSlider) {
-		this.mainMenuSlider = mainMenuSlider;
+	public ScreenOptionsDeveloper(ScreenOptions screenOptions, MainSlider mainSlider) {
+		this.mainSlider = mainSlider;
 		this.screenOptions = screenOptions;
 
 		createTitleText("Developers");
 
 		float currentY = -0.15f;
-		createProfilerToggleOption(MainMenuContent.BUTTONS_X_POS, currentY += MainMenuContent.BUTTONS_Y_SEPARATION);
-		createAABBToggleOption(MainMenuContent.BUTTONS_X_POS, currentY += MainMenuContent.BUTTONS_Y_SEPARATION);
+		createProfilerToggleOption(MainSlider.BUTTONS_X_POS, currentY += MainSlider.BUTTONS_Y_SEPARATION);
+		createAABBToggleOption(MainSlider.BUTTONS_X_POS, currentY += MainSlider.BUTTONS_Y_SEPARATION);
 
-		createBackOption(MainMenuContent.BUTTONS_X_POS, 1.0f);
+		createBackOption(MainSlider.BUTTONS_X_POS, 1.0f);
 
 		super.show(false);
 
 		FlounderEngine.getEvents().addEvent(new IEvent() {
 			@Override
 			public boolean eventTriggered() {
-				return ScreenOptionsDeveloper.super.isShown() && MainMenuSlider.BACK_KEY.wasDown();
+				return ScreenOptionsDeveloper.super.isShown() && MainSlider.BACK_KEY.wasDown();
 			}
 
 			@Override
 			public void onEvent() {
-				mainMenuSlider.setNewSecondaryScreen(screenOptions, false);
+				mainSlider.setNewSecondaryScreen(screenOptions, false);
 			}
 		});
 	}
 
 	private void createTitleText(String title) {
-		Text titleText = MainMenuContent.createTitleText(title, this);
+		Text titleText = MenuStart.createTitleText(title, this);
 	}
 
 	private void createProfilerToggleOption(float xPos, float yPos) {
-		GuiTextButton button = MainMenuContent.createButton("Profiler: " + (FlounderEngine.getProfiler().isOpen() ? "Opened" : "Closed"), xPos, yPos, MainMenuContent.BUTTONS_X_WIDTH, MainMenuContent.BUTTONS_Y_SIZE, MainMenuContent.FONT_SIZE, this);
+		GuiTextButton button = MenuStart.createButton("Profiler: " + (FlounderEngine.getProfiler().isOpen() ? "Opened" : "Closed"), xPos, yPos, MainSlider.BUTTONS_X_WIDTH, MainSlider.BUTTONS_Y_SIZE, MainSlider.FONT_SIZE, this);
 		button.addLeftListener(() -> {
 			FlounderEngine.getProfiler().toggle(!FlounderEngine.getProfiler().isOpen());
 		});
@@ -69,7 +69,7 @@ public class ScreenOptionsDeveloper extends GuiComponent {
 	}
 
 	private void createAABBToggleOption(float xPos, float yPos) {
-		GuiTextButton button = MainMenuContent.createButton("AABBs: " + (FlounderEngine.getAABBs().renders() ? "Enabled" : "Disabled"), xPos, yPos, MainMenuContent.BUTTONS_X_WIDTH, MainMenuContent.BUTTONS_Y_SIZE, MainMenuContent.FONT_SIZE, this);
+		GuiTextButton button = MenuStart.createButton("AABBs: " + (FlounderEngine.getAABBs().renders() ? "Enabled" : "Disabled"), xPos, yPos, MainSlider.BUTTONS_X_WIDTH, MainSlider.BUTTONS_Y_SIZE, MainSlider.FONT_SIZE, this);
 		button.addLeftListener(() -> {
 			FlounderEngine.getAABBs().setRenders(!FlounderEngine.getAABBs().renders());
 		});
@@ -93,8 +93,8 @@ public class ScreenOptionsDeveloper extends GuiComponent {
 	}
 
 	private void createBackOption(float xPos, float yPos) {
-		GuiTextButton button = MainMenuContent.createButton("Back", xPos, yPos, MainMenuContent.BUTTONS_X_WIDTH, MainMenuContent.BUTTONS_Y_SIZE, MainMenuContent.FONT_SIZE, this);
-		button.addLeftListener(() -> mainMenuSlider.setNewSecondaryScreen(screenOptions, false));
+		GuiTextButton button = MenuStart.createButton("Back", xPos, yPos, MainSlider.BUTTONS_X_WIDTH, MainSlider.BUTTONS_Y_SIZE, MainSlider.FONT_SIZE, this);
+		button.addLeftListener(() -> mainSlider.setNewSecondaryScreen(screenOptions, false));
 	}
 
 	@Override

@@ -27,8 +27,10 @@ public class Environment {
 	}
 
 	public static void update() {
-		for (Entity entity : entityQuadtree.getAll(new ArrayList<>())) {
-			entity.update();
+		if (entityQuadtree != null) {
+			for (Entity entity : entityQuadtree.getAll(new ArrayList<>())) {
+				entity.update();
+			}
 		}
 	}
 
@@ -42,5 +44,19 @@ public class Environment {
 
 	public static ISpatialStructure<Entity> getEntitys() {
 		return entityQuadtree;
+	}
+
+	public static void destroy() {
+		fog = null;
+
+		if (lights != null) {
+			lights.clear();
+			lights = null;
+		}
+
+		if (entityQuadtree != null) {
+			entityQuadtree.clear();
+			entityQuadtree = null;
+		}
 	}
 }

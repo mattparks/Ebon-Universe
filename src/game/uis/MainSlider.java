@@ -1,26 +1,46 @@
 package game.uis;
 
+import flounder.devices.*;
 import flounder.engine.*;
 import flounder.guis.*;
 import flounder.inputs.*;
 import flounder.maths.*;
+import flounder.resources.*;
+import flounder.sounds.*;
 import flounder.visual.*;
 import org.lwjgl.glfw.*;
 
 import java.util.*;
 
-public class MainMenuSlider extends GuiComponent {
+public class MainSlider extends GuiComponent {
 	public static final Colour TEXT_COLOUR = new Colour(0.85f, 0.85f, 0.85f);
+	public static KeyButton BACK_KEY = new KeyButton(GLFW.GLFW_KEY_BACKSPACE);
+
+	public static final float FONT_SIZE = 1.625f;
+
+	public static final float BUTTONS_X_POS = 0.05f;
+	public static final float BUTTONS_X_WIDTH = 1.0f - 0.25f * 2.0f;
+	public static final float BUTTONS_Y_SEPARATION = 0.18f;
+	public static final float BUTTONS_Y_SIZE = 0.2f;
+
+	public static final Sound SOUND_MOUSE_HOVER = Sound.loadSoundInBackground(new MyFile(DeviceSound.SOUND_FOLDER, "button1.wav"), 0.8f);
+	public static final Sound SOUND_MOUSE_LEFT = Sound.loadSoundInBackground(new MyFile(DeviceSound.SOUND_FOLDER, "button2.wav"), 0.8f);
+	public static final Sound SOUND_MOUSE_RIGHT = Sound.loadSoundInBackground(new MyFile(DeviceSound.SOUND_FOLDER, "button3.wav"), 0.8f);
 
 	public static final float MAIN_TITLE_FONT_SIZE = 3.25f;
 	public static final float MAIN_MENU_Y_POS = 0.25f;
 	public static final float MAIN_MENU_Y_SIZE = 0.6f;
 
+	public static final Colour FADE_COLOUR_STARTUP = new Colour(0.2f, 0.2f, 0.2f);
+
 	public static final int SLIDE_SCALAR = 2;
 
-	public static KeyButton BACK_KEY = new KeyButton(GLFW.GLFW_KEY_BACKSPACE);
+	private MainMenu superMenu;
 
-	private MainMenuContent menuContent;
+	private MenuStart menuStart;
+	private MenuPause menuPause;
+
+	private GuiComponent menuActive;
 
 	private ValueDriver mainDriver;
 	private GuiComponent secondaryScreen;
@@ -32,18 +52,25 @@ public class MainMenuSlider extends GuiComponent {
 	private boolean slidingForwards;
 	private boolean closeSecondary;
 
-	protected MainMenuSlider(MainMenu superMenu) {
-		menuContent = new MainMenuContent(superMenu, this);
+	protected MainSlider(MainMenu superMenu) {
+		this.superMenu = superMenu;
 
-		mainDriver = new ConstantDriver(SLIDE_SCALAR);
-		secondaryDriver = new ConstantDriver(SLIDE_SCALAR);
+		this.menuStart = new MenuStart(superMenu, this);
+		this.menuPause = new MenuPause(superMenu, this);
 
-		addComponent(menuContent, 0.0f, MAIN_MENU_Y_POS, 1.0f, MAIN_MENU_Y_SIZE);
+		addComponent(menuStart, 0.0f, MAIN_MENU_Y_POS, 1.0f, MAIN_MENU_Y_SIZE);
+		addComponent(menuPause, 0.0f, MAIN_MENU_Y_POS, 1.0f, MAIN_MENU_Y_SIZE);
 
-		secondaryDepth = 0;
-		displayed = false;
-		slidingForwards = true;
-		closeSecondary = false;
+		this.menuActive = menuStart;
+		this.menuActive.show(true);
+
+		this.mainDriver = new ConstantDriver(SLIDE_SCALAR);
+		this.secondaryDriver = new ConstantDriver(SLIDE_SCALAR);
+
+		this.secondaryDepth = 0;
+		this.displayed = false;
+		this.slidingForwards = true;
+		this.closeSecondary = false;
 	}
 
 	@Override
@@ -61,8 +88,8 @@ public class MainMenuSlider extends GuiComponent {
 		float mainValue = mainDriver.update(FlounderEngine.getDelta());
 		float value = secondaryDriver.update(FlounderEngine.getDelta());
 
-		menuContent.setRelativeX(value);
-		menuContent.show(Math.abs(value) <= SLIDE_SCALAR);
+		menuActive.setRelativeX(value);
+		menuActive.show(Math.abs(value) <= SLIDE_SCALAR);
 
 		if (newSecondaryScreen != null) {
 			newSecondaryScreen.setRelativeX(value - secondaryDepth);
@@ -81,7 +108,7 @@ public class MainMenuSlider extends GuiComponent {
 		super.setRelativeX(mainValue);
 
 		if (mainValue == SLIDE_SCALAR) {
-			menuContent.show(false);
+			menuActive.show(false);
 
 			if (!displayed) {
 				mainDriver = new ConstantDriver(0.0f);
@@ -99,7 +126,7 @@ public class MainMenuSlider extends GuiComponent {
 				show(false);
 			}
 		} else {
-			menuContent.show(true);
+			menuActive.show(true);
 		}
 
 		if (closeSecondary) {
@@ -129,15 +156,37 @@ public class MainMenuSlider extends GuiComponent {
 			slidingForwards = slideForwards;
 			newSecondaryScreen = secondScreen;
 			newSecondaryScreen.show(true);
-			addComponent(secondScreen, (secondaryDepth * menuContent.getRelativeX()) - (slideForwards ? SLIDE_SCALAR : -SLIDE_SCALAR), MAIN_MENU_Y_POS, 1.0f, MAIN_MENU_Y_SIZE);
-			secondaryDriver = new SlideDriver(menuContent.getRelativeX(), secondaryDepth, MainMenu.SLIDE_TIME);
+			addComponent(secondScreen, (secondaryDepth * menuActive.getRelativeX()) - (slideForwards ? SLIDE_SCALAR : -SLIDE_SCALAR), MAIN_MENU_Y_POS, 1.0f, MAIN_MENU_Y_SIZE);
+			secondaryDriver = new SlideDriver(menuActive.getRelativeX(), secondaryDepth, MainMenu.SLIDE_TIME);
 		}
 	}
 
 	public void closeSecondaryScreen() {
 		if (newSecondaryScreen == null && secondaryScreen != null) {
-			secondaryDriver = new SlideDriver(menuContent.getRelativeX(), 0.0f, MainMenu.SLIDE_TIME);
+			secondaryDriver = new SlideDriver(menuActive.getRelativeX(), 0.0f, MainMenu.SLIDE_TIME);
 			closeSecondary = true;
 		}
+	}
+
+	public void sliderStartMenu(boolean useStartMenu) {
+		float relativeX = menuActive.getRelativeX();
+		menuActive.show(false);
+
+		if (useStartMenu) {
+			menuActive = menuStart;
+		} else {
+			menuActive = menuPause;
+		}
+
+		menuActive.show(true);
+		//	menuActive.setRelativeX(relativeX);
+	}
+
+	public boolean onStartScreen() {
+		return menuActive instanceof MenuStart;
+	}
+
+	public MainMenu getSuperMenu() {
+		return superMenu;
 	}
 }

@@ -42,18 +42,14 @@ public class MainGame extends IGame {
 		this.polygons = new KeyButton(GLFW_KEY_P);
 		this.toggleMusic = new CompoundButton(new KeyButton(GLFW_KEY_DOWN), new JoystickButton(OptionsControls.JOYSTICK_PORT, OptionsControls.JOYSTICK_MUSIC_PAUSE));
 		this.skipMusic = new CompoundButton(new KeyButton(GLFW_KEY_LEFT, GLFW_KEY_RIGHT), new JoystickButton(OptionsControls.JOYSTICK_PORT, OptionsControls.JOYSTICK_MUSIC_SKIP));
-
-		if (FlounderEngine.getCamera() instanceof CameraFocus) {
-			this.player = new PlayerFocus();
-		} else if (FlounderEngine.getCamera() instanceof CameraFPS) {
-			this.player = new PlayerFPS();
-		} else {
-			throw new FlounderRuntimeException("Could not find IPlayer implementation for ICamera!");
-		}
-
-		Environment.init(new Fog(new Colour(1.0f, 1.0f, 1.0f), 0.003f, 2.0f, 0.0f, 50.0f), new Light(new Colour(0.85f, 0.85f, 0.85f), new Vector3f(0.0f, 2000.0f, 2000.0f)));
-		this.player.init();
 		this.stillLoading = true;
+
+		//	generateWorlds();
+		//	generatePlayer();
+	}
+
+	public void generateWorlds() {
+		Environment.init(new Fog(new Colour(1.0f, 1.0f, 1.0f), 0.003f, 2.0f, 0.0f, 50.0f), new Light(new Colour(0.85f, 0.85f, 0.85f), new Vector3f(0.0f, 2000.0f, 2000.0f)));
 
 		// EntityLoader.load("dragon").createEntity(Environment.getEntitys(), new Vector3f(30, 0, 0), new Vector3f());
 		EntityLoader.load("pane").createEntity(Environment.getEntitys(), new Vector3f(), new Vector3f());
@@ -78,6 +74,24 @@ public class MainGame extends IGame {
 		//	FlounderEngine.getDevices().getSound().getMusicPlayer().playMusicPlaylist(playlist, true, 4.0f, 10.0f);
 
 		StarGenerator.testGenerate();
+	}
+
+	public void generatePlayer() {
+		if (FlounderEngine.getCamera() instanceof CameraFocus) {
+			this.player = new PlayerFocus();
+		} else if (FlounderEngine.getCamera() instanceof CameraFPS) {
+			this.player = new PlayerFPS();
+		} else {
+			throw new FlounderRuntimeException("Could not find IPlayer implementation for ICamera!");
+		}
+
+		this.player.init();
+	}
+
+	public void destroyWorld() {
+		player = null;
+		Environment.destroy();
+		System.gc();
 	}
 
 	@Override
@@ -107,19 +121,22 @@ public class MainGame extends IGame {
 			FlounderEngine.getDevices().getSound().getMusicPlayer().skipTrack();
 		}
 
-		if (FlounderEngine.getManagerGUI().isStartingGame()) {
+		if (FlounderEngine.getManagerGUI().isMenuIsOpen()) {
 			// Pause the music for the start screen.
 			FlounderEngine.getDevices().getSound().getMusicPlayer().pauseTrack();
-		} else if (!FlounderEngine.getManagerGUI().isStartingGame() && stillLoading) {
+		} else if (!FlounderEngine.getManagerGUI().isMenuIsOpen() && stillLoading) {
 			// Unpause the music for the main menu.
 			stillLoading = false;
 			//	FlounderEngine.getLogger().log("Starting main menu music.");
 			//	FlounderEngine.getDevices().getSound().getMusicPlayer().unpauseTrack();
 		}
 
-		player.update(FlounderEngine.getManagerGUI().isMenuOpen());
+		if (player != null) {
+			player.update(FlounderEngine.getManagerGUI().isMenuIsOpen());
+			update(player.getPosition(), player.getRotation());
+		}
+
 		Environment.update();
-		update(player.getPosition(), player.getRotation());
 	}
 
 	@Override

@@ -8,13 +8,13 @@ import game.uis.*;
 
 import java.util.*;
 
-public class ScreenAbout extends GuiComponent {
+public class ScreenControls extends GuiComponent {
 	private MainSlider mainSlider;
 
-	public ScreenAbout(MainSlider mainSlider) {
+	public ScreenControls(MainSlider mainSlider) {
 		this.mainSlider = mainSlider;
 
-		createTitleText("About");
+		createTitleText("Controls");
 
 		createBackOption(MainSlider.BUTTONS_X_POS, 1.0f);
 
@@ -23,7 +23,7 @@ public class ScreenAbout extends GuiComponent {
 		FlounderEngine.getEvents().addEvent(new IEvent() {
 			@Override
 			public boolean eventTriggered() {
-				return ScreenAbout.super.isShown() && MainSlider.BACK_KEY.wasDown();
+				return ScreenControls.super.isShown() && MainSlider.BACK_KEY.wasDown();
 			}
 
 			@Override

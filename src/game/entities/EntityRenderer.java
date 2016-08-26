@@ -34,8 +34,16 @@ public class EntityRenderer extends IRenderer {
 
 	@Override
 	public void renderObjects(Vector4f clipPlane, ICamera camera) {
+		if (Environment.getEntitys() == null) {
+			return;
+		}
+
 		prepareRendering(clipPlane, camera);
-		Environment.getEntitys().queryInFrustum(new ArrayList<>(), FlounderEngine.getCamera().getViewFrustum()).forEach(this::renderEntity);
+
+		for (Entity entity : Environment.getEntitys().queryInFrustum(new ArrayList<>(), FlounderEngine.getCamera().getViewFrustum())) {
+			renderEntity(entity);
+		}
+
 		endRendering();
 	}
 

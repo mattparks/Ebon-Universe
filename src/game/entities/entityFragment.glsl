@@ -111,7 +111,8 @@ void main(void) {
     	unitNormal = normalize(normalMapValue.xyz);
     }
 
-	out_colour = lighting(textureColour, unitNormal);
+    out_colour = textureColour;
+	// out_colour = lighting(out_colour, unitNormal);
     // out_colour = vec4((out_colour * shadow()).rgb, 1.0);
     out_colour = mix(vec4(fogColour, 1.0), out_colour, visibility());
     out_colour.a = min(out_colour.a, transparency);

@@ -11,45 +11,45 @@ import game.uis.screens.*;
 import java.util.*;
 
 public class ScreenOptionsAudio extends GuiComponent {
-	private MainMenuSlider mainMenuSlider;
+	private MainSlider mainSlider;
 	private ScreenOptions screenOptions;
 	private float lastSoundVolume;
 
-	public ScreenOptionsAudio(ScreenOptions screenOptions, MainMenuSlider mainMenuSlider) {
-		this.mainMenuSlider = mainMenuSlider;
+	public ScreenOptionsAudio(ScreenOptions screenOptions, MainSlider mainSlider) {
+		this.mainSlider = mainSlider;
 		this.screenOptions = screenOptions;
 
 		createTitleText("Audios");
 
 		float currentY = -0.15f;
-		createMusicOption(MainMenuContent.BUTTONS_X_POS, currentY += MainMenuContent.BUTTONS_Y_SEPARATION);
-		createSoundOption(MainMenuContent.BUTTONS_X_POS, currentY += MainMenuContent.BUTTONS_Y_SEPARATION);
-		createVolumeOption(MainMenuContent.BUTTONS_X_POS, currentY += MainMenuContent.BUTTONS_Y_SEPARATION);
+		createMusicOption(MainSlider.BUTTONS_X_POS, currentY += MainSlider.BUTTONS_Y_SEPARATION);
+		createSoundOption(MainSlider.BUTTONS_X_POS, currentY += MainSlider.BUTTONS_Y_SEPARATION);
+		createVolumeOption(MainSlider.BUTTONS_X_POS, currentY += MainSlider.BUTTONS_Y_SEPARATION);
 
-		createBackOption(MainMenuContent.BUTTONS_X_POS, 1.0f);
+		createBackOption(MainSlider.BUTTONS_X_POS, 1.0f);
 
 		super.show(false);
 
 		FlounderEngine.getEvents().addEvent(new IEvent() {
 			@Override
 			public boolean eventTriggered() {
-				return ScreenOptionsAudio.super.isShown() && MainMenuSlider.BACK_KEY.wasDown();
+				return ScreenOptionsAudio.super.isShown() && MainSlider.BACK_KEY.wasDown();
 			}
 
 			@Override
 			public void onEvent() {
-				mainMenuSlider.setNewSecondaryScreen(screenOptions, false);
+				mainSlider.setNewSecondaryScreen(screenOptions, false);
 			}
 		});
 	}
 
 	private void createTitleText(String title) {
-		Text titleText = MainMenuContent.createTitleText(title, this);
+		Text titleText = MenuStart.createTitleText(title, this);
 	}
 
 	private void createMusicOption(float xPos, float yPos) {
 		MusicPlayer mPlayer = FlounderEngine.getDevices().getSound().getMusicPlayer();
-		GuiTextButton button = MainMenuContent.createButton("Music: " + (!mPlayer.isPaused() ? "On" : "Off"), xPos, yPos, MainMenuContent.BUTTONS_X_WIDTH, MainMenuContent.BUTTONS_Y_SIZE, MainMenuContent.FONT_SIZE, this);
+		GuiTextButton button = MenuStart.createButton("Music: " + (!mPlayer.isPaused() ? "On" : "Off"), xPos, yPos, MainSlider.BUTTONS_X_WIDTH, MainSlider.BUTTONS_Y_SIZE, MainSlider.FONT_SIZE, this);
 		button.addLeftListener(() -> {
 			if (mPlayer.isPaused()) {
 				mPlayer.unpauseTrack();
@@ -93,7 +93,7 @@ public class ScreenOptionsAudio extends GuiComponent {
 	}
 
 	private void createSoundOption(float xPos, float yPos) {
-		GuiTextButton button = MainMenuContent.createButton("Sound: " + (MusicPlayer.SOUND_VOLUME == 0.0f ? "Off" : "On"), xPos, yPos, MainMenuContent.BUTTONS_X_WIDTH, MainMenuContent.BUTTONS_Y_SIZE, MainMenuContent.FONT_SIZE, this);
+		GuiTextButton button = MenuStart.createButton("Sound: " + (MusicPlayer.SOUND_VOLUME == 0.0f ? "Off" : "On"), xPos, yPos, MainSlider.BUTTONS_X_WIDTH, MainSlider.BUTTONS_Y_SIZE, MainSlider.FONT_SIZE, this);
 		button.addLeftListener(() -> {
 			if (MusicPlayer.SOUND_VOLUME != 0) {
 				lastSoundVolume = MusicPlayer.SOUND_VOLUME;
@@ -123,7 +123,7 @@ public class ScreenOptionsAudio extends GuiComponent {
 	}
 
 	private void createVolumeOption(float xPos, float yPos) {
-		GuiTextButton button = MainMenuContent.createButton("Volume: " + ((int) (MusicPlayer.SOUND_VOLUME * 100.0f)) + "%", xPos, yPos, MainMenuContent.BUTTONS_X_WIDTH, MainMenuContent.BUTTONS_Y_SIZE, MainMenuContent.FONT_SIZE, this);
+		GuiTextButton button = MenuStart.createButton("Volume: " + ((int) (MusicPlayer.SOUND_VOLUME * 100.0f)) + "%", xPos, yPos, MainSlider.BUTTONS_X_WIDTH, MainSlider.BUTTONS_Y_SIZE, MainSlider.FONT_SIZE, this);
 		button.addLeftListener(() -> {
 			MusicPlayer.SOUND_VOLUME += 0.05f;
 
@@ -159,8 +159,8 @@ public class ScreenOptionsAudio extends GuiComponent {
 	}
 
 	private void createBackOption(float xPos, float yPos) {
-		GuiTextButton button = MainMenuContent.createButton("Back", xPos, yPos, MainMenuContent.BUTTONS_X_WIDTH, MainMenuContent.BUTTONS_Y_SIZE, MainMenuContent.FONT_SIZE, this);
-		button.addLeftListener(() -> mainMenuSlider.setNewSecondaryScreen(screenOptions, false));
+		GuiTextButton button = MenuStart.createButton("Back", xPos, yPos, MainSlider.BUTTONS_X_WIDTH, MainSlider.BUTTONS_Y_SIZE, MainSlider.FONT_SIZE, this);
+		button.addLeftListener(() -> mainSlider.setNewSecondaryScreen(screenOptions, false));
 	}
 
 	@Override

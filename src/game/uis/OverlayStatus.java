@@ -16,13 +16,13 @@ public class OverlayStatus extends GuiComponent {
 	private boolean updateText;
 
 	public OverlayStatus() {
-		mainDriver = new ConstantDriver(-MainMenuSlider.SLIDE_SCALAR);
+		mainDriver = new ConstantDriver(-MainSlider.SLIDE_SCALAR);
 
-		fpsText = Text.newText("FPS: " + Maths.roundToPlace(1.0f / FlounderEngine.getDelta(), 1)).setFontSize(1.2f).create();
-		fpsText.setColour(MainMenuSlider.TEXT_COLOUR);
+		fpsText = Text.newText("FPS: " + Maths.roundToPlace(1.0f / FlounderEngine.getDelta(), 1)).setFontSize(1.0f).create();
+		fpsText.setColour(MainSlider.TEXT_COLOUR);
 		fpsText.setBorderColour(0.15f, 0.15f, 0.15f);
 		fpsText.setBorder(new ConstantDriver(0.04f));
-		super.addText(fpsText, 0.0f, 0.02f, 1.0f);
+		super.addText(fpsText, 0.02f, 0.02f, 1.0f);
 
 		Timer timer = new Timer();
 		timer.schedule(new TimerTask() {
@@ -37,7 +37,7 @@ public class OverlayStatus extends GuiComponent {
 
 	@Override
 	public void show(boolean visible) {
-		mainDriver = new SlideDriver(getRelativeX(), visible ? 0.0f : -MainMenuSlider.SLIDE_SCALAR, MainMenu.SLIDE_TIME);
+		mainDriver = new SlideDriver(getRelativeX(), visible ? 0.0f : -MainSlider.SLIDE_SCALAR, MainMenu.SLIDE_TIME);
 	}
 
 	@Override
@@ -49,7 +49,7 @@ public class OverlayStatus extends GuiComponent {
 			updateText = false;
 		}
 
-		if (mainValue == -MainMenuSlider.SLIDE_SCALAR) {
+		if (mainValue == -MainSlider.SLIDE_SCALAR) {
 			super.show(true);
 		} else {
 			super.show(true);

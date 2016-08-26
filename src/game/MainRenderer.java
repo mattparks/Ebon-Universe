@@ -14,6 +14,7 @@ import game.entities.*;
 import game.options.*;
 import game.post.*;
 import game.shadows.*;
+import game.uis.*;
 
 public class MainRenderer extends IRendererMaster {
 	private static final Vector4f POSITIVE_INFINITY = new Vector4f(0.0f, 1.0f, 0.0f, Float.POSITIVE_INFINITY);
@@ -67,7 +68,7 @@ public class MainRenderer extends IRendererMaster {
 		renderScene(POSITIVE_INFINITY);
 
 		/* Post rendering. */
-		renderPost(FlounderEngine.isGamePaused(), FlounderEngine.getManagerGUI().isStartingGame(), FlounderEngine.getScreenBlur());
+		renderPost(FlounderEngine.isGamePaused(), FlounderEngine.getScreenBlur());
 
 		/* Scene independents. */
 		guiRenderer.render(POSITIVE_INFINITY, null);
@@ -97,14 +98,14 @@ public class MainRenderer extends IRendererMaster {
 
 	private void renderScene(Vector4f clipPlane) {
 		/* Clear and update. */
-		OpenGlUtils.prepareNewRenderParse(FlounderEngine.getManagerGUI().isStartingGame() ? MainGuis.STARTUP_COLOUR : Environment.getFog().getFogColour());
+		if (Environment.getFog() != null) {
+			OpenGlUtils.prepareNewRenderParse(Environment.getFog().getFogColour());
+		} else {
+			OpenGlUtils.prepareNewRenderParse(MainSlider.FADE_COLOUR_STARTUP);
+		}
+
 		ICamera camera = FlounderEngine.getCamera();
 		Matrix4f.perspectiveMatrix(camera.getFOV(), FlounderEngine.getDevices().getDisplay().getAspectRatio(), camera.getNearPlane(), camera.getFarPlane(), projectionMatrix);
-
-		/* Don't render while starting. */
-		if (FlounderEngine.getManagerGUI().isStartingGame()) {
-			return;
-		}
 
 		/* Renders each renderer. */
 		entityRenderer.render(clipPlane, camera);
@@ -112,21 +113,19 @@ public class MainRenderer extends IRendererMaster {
 		aabbRenderer.render(clipPlane, camera);
 	}
 
-	private void renderPost(boolean isPaused, boolean isStarting, float blurFactor) {
+	private void renderPost(boolean isPaused, float blurFactor) {
 		FBO output = nonsampledFBO;
 
-		if (!isStarting) {
-			if (OptionsPost.POST_ENABLED) {
-				if (pipelineDemo.willRunDemo()) {
-					pipelineDemo.renderPipeline(output);
-					output = pipelineDemo.getOutput();
-				}
+		if (OptionsPost.POST_ENABLED) {
+			if (pipelineDemo.willRunDemo()) {
+				pipelineDemo.renderPipeline(output);
+				output = pipelineDemo.getOutput();
+			}
 
-				if (isPaused || blurFactor != 0.0f) {
-					pipelinePaused.setBlurFactor(blurFactor);
-					pipelinePaused.renderPipeline(output);
-					output = pipelinePaused.getOutput();
-				}
+			if (isPaused || blurFactor != 0.0f) {
+				pipelinePaused.setBlurFactor(blurFactor);
+				pipelinePaused.renderPipeline(output);
+				output = pipelinePaused.getOutput();
 			}
 		}
 

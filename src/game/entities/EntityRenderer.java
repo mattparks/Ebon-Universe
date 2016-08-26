@@ -3,7 +3,6 @@ package game.entities;
 import flounder.engine.*;
 import flounder.engine.implementation.*;
 import flounder.helpers.*;
-import flounder.lights.*;
 import flounder.maths.vectors.*;
 import flounder.resources.*;
 import flounder.shaders.*;

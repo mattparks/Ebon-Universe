@@ -4,28 +4,29 @@ import flounder.engine.*;
 import flounder.guis.*;
 import flounder.visual.*;
 import game.*;
+import game.uis.screens.*;
 
 import java.util.*;
 
-public class MenuGameBackground extends GuiComponent {
-	public static final float SLIDE_TIME = 0.85f;
+public class MainMenu extends GuiComponent {
+	protected static final float SLIDE_TIME = 0.85f;
 
-	private MenuGame menu;
+	private MainMenuSlider menuSlider;
 	private ScreenStartup screenStartup;
 
 	private ValueDriver slideDriver;
 	private float backgroundAlpha;
 	private boolean displayed;
 
-	public MenuGameBackground() {
-		menu = new MenuGame(this);
+	public MainMenu() {
+		menuSlider = new MainMenuSlider(this);
 		screenStartup = new ScreenStartup();
 
 		slideDriver = new ConstantDriver(0.0f);
 		backgroundAlpha = 0.0f;
 		displayed = false;
 
-		super.addComponent(menu, 0.0f, 0.0f, 1.0f, 1.0f);
+		super.addComponent(menuSlider, 0.0f, 0.0f, 1.0f, 1.0f);
 		super.addComponent(screenStartup, 0.0f, 0.0f, 1.0f, 1.0f);
 	}
 
@@ -36,7 +37,7 @@ public class MenuGameBackground extends GuiComponent {
 			screenStartup = null;
 		}
 
-		menu.show(display);
+		menuSlider.show(display);
 		displayed = display;
 
 		if (display) {
@@ -45,10 +46,10 @@ public class MenuGameBackground extends GuiComponent {
 			}
 
 			slideDriver = new SlideDriver(backgroundAlpha, 1.0f, SLIDE_TIME);
-			MainGuis.getOverlayStatus().show(false);
+			((MainGuis) FlounderEngine.getManagerGUI()).getOverlayStatus().show(false);
 		} else {
 			slideDriver = new SlideDriver(backgroundAlpha, 0.0f, SLIDE_TIME);
-			MainGuis.getOverlayStatus().show(true);
+			((MainGuis) FlounderEngine.getManagerGUI()).getOverlayStatus().show(true);
 		}
 	}
 
@@ -81,7 +82,7 @@ public class MenuGameBackground extends GuiComponent {
 	protected void updateSelf() {
 		backgroundAlpha = slideDriver.update(FlounderEngine.getDelta());
 
-		if (!displayed && !menu.isShown() && backgroundAlpha == 0.0f) {
+		if (!displayed && !menuSlider.isShown() && backgroundAlpha == 0.0f) {
 			show(false);
 		}
 	}

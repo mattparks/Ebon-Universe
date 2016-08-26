@@ -1,4 +1,4 @@
-package game.uis;
+package game.uis.screens;
 
 import flounder.engine.*;
 import flounder.fonts.*;
@@ -83,7 +83,7 @@ public class ScreenStartup extends GuiComponent {
 
 			if (transparency == 0.0f) {
 				show(false);
-				MainGuis.openMenu();
+				FlounderEngine.getManagerGUI().openMenu();
 			}
 		}
 	}

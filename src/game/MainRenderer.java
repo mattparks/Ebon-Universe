@@ -67,7 +67,7 @@ public class MainRenderer extends IRendererMaster {
 		renderScene(POSITIVE_INFINITY);
 
 		/* Post rendering. */
-		renderPost(FlounderEngine.isGamePaused(), MainGuis.isStartingGame(), FlounderEngine.getScreenBlur());
+		renderPost(FlounderEngine.isGamePaused(), FlounderEngine.getManagerGUI().isStartingGame(), FlounderEngine.getScreenBlur());
 
 		/* Scene independents. */
 		guiRenderer.render(POSITIVE_INFINITY, null);
@@ -97,12 +97,12 @@ public class MainRenderer extends IRendererMaster {
 
 	private void renderScene(Vector4f clipPlane) {
 		/* Clear and update. */
-		OpenGlUtils.prepareNewRenderParse(MainGuis.isStartingGame() ? MainGuis.STARTUP_COLOUR : Environment.getFog().getFogColour());
+		OpenGlUtils.prepareNewRenderParse(FlounderEngine.getManagerGUI().isStartingGame() ? MainGuis.STARTUP_COLOUR : Environment.getFog().getFogColour());
 		ICamera camera = FlounderEngine.getCamera();
 		Matrix4f.perspectiveMatrix(camera.getFOV(), FlounderEngine.getDevices().getDisplay().getAspectRatio(), camera.getNearPlane(), camera.getFarPlane(), projectionMatrix);
 
 		/* Don't render while starting. */
-		if (MainGuis.isStartingGame()) {
+		if (FlounderEngine.getManagerGUI().isStartingGame()) {
 			return;
 		}
 

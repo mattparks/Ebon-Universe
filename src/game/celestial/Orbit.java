@@ -37,7 +37,7 @@ public class Orbit {
 		this.periapsis = semiMajorAxis * (float) Math.sqrt(1 - eccentricity);
 		this.apoapsis = semiMajorAxis * (float) Math.sqrt(1 + eccentricity);
 		this.period = (float) Math.sqrt(Math.pow(semiMajorAxis, 3.0f) / solarMasses) * 365.25f;
-		this.velocity = (float) Math.sqrt(solarMasses/ semiMajorAxis) * 29.78f;
+		this.velocity = (float) Math.sqrt(solarMasses / semiMajorAxis) * 29.78f;
 
 		this.pitch = pitch;
 		this.yaw = yaw;

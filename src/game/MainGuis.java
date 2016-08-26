@@ -1,6 +1,7 @@
 package game;
 
 import flounder.engine.*;
+import flounder.engine.implementation.*;
 import flounder.inputs.*;
 import flounder.maths.*;
 import game.options.*;
@@ -11,30 +12,28 @@ import static org.lwjgl.glfw.GLFW.*;
 /**
  * Class in charge of the main GUIs in the test game.
  */
-public class MainGuis {
+public class MainGuis extends IManagerGUI {
 	public static final Colour STARTUP_COLOUR = new Colour(1.0f, 1.0f, 1.0f);
 
-	private static MenuGameBackground gameMenu;
-	private static OverlayStatus overlayStatus;
+	private MainMenu gameMenu;
+	private OverlayStatus overlayStatus;
 
-	private static CompoundButton openKey;
-	private static boolean menuOpen;
+	private CompoundButton openKey;
+	private boolean menuOpen;
 
-	private static boolean startingGame;
-	private static boolean forceOpenGUIs;
+	private boolean startingGame;
+	private boolean forceOpenGUIs;
 
-	/**
-	 * Carries out any necessary initialization of Guis.
-	 */
-	public MainGuis() {
-		MainGuis.gameMenu = new MenuGameBackground();
-		MainGuis.overlayStatus = new OverlayStatus();
+	@Override
+	public void init() {
+		this.gameMenu = new MainMenu();
+		this.overlayStatus = new OverlayStatus();
 
-		MainGuis.openKey = new CompoundButton(new KeyButton(GLFW_KEY_ESCAPE), new JoystickButton(OptionsControls.JOYSTICK_PORT, OptionsControls.JOYSTICK_GUI_TOGGLE));
-		MainGuis.menuOpen = false;
+		this.openKey = new CompoundButton(new KeyButton(GLFW_KEY_ESCAPE), new JoystickButton(OptionsControls.JOYSTICK_PORT, OptionsControls.JOYSTICK_GUI_TOGGLE));
+		this.menuOpen = false;
 
-		MainGuis.startingGame = true;
-		MainGuis.forceOpenGUIs = false;
+		this.startingGame = true;
+		this.forceOpenGUIs = false;
 
 		FlounderEngine.getGuis().addComponent(gameMenu, 0, 0, 1, 1);
 		FlounderEngine.getGuis().addComponent(overlayStatus, 0, 0, 1, 1);
@@ -42,9 +41,7 @@ public class MainGuis {
 		FlounderEngine.getDevices().getDisplay().setCursorHidden(true);
 	}
 
-	/**
-	 * Checks inputs and updates Guis.
-	 */
+	@Override
 	public void update() {
 		if (forceOpenGUIs) {
 			gameMenu.display(true);
@@ -70,23 +67,31 @@ public class MainGuis {
 		//	overlayStatus.show(!menuOpen && !startingGame);
 	}
 
-	public static boolean isStartingGame() {
+	@Override
+	public boolean isStartingGame() {
 		return startingGame;
 	}
 
-	public static void openMenu() {
+	@Override
+	public void openMenu() {
 		forceOpenGUIs = true;
 	}
 
-	public static float getBlurFactor() {
+	@Override
+	public float getBlurFactor() {
 		return gameMenu.getBlurFactor();
 	}
 
-	public static OverlayStatus getOverlayStatus() {
-		return overlayStatus;
+	@Override
+	public boolean isMenuOpen() {
+		return menuOpen;
 	}
 
-	public static boolean isMenuOpen() {
-		return menuOpen;
+	public MainMenu getGameMenu() {
+		return gameMenu;
+	}
+
+	public OverlayStatus getOverlayStatus() {
+		return overlayStatus;
 	}
 }

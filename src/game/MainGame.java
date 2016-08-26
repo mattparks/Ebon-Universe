@@ -31,7 +31,6 @@ public class MainGame extends IGame {
 	private CompoundButton toggleMusic;
 	private CompoundButton skipMusic;
 
-	private MainGuis guis;
 	private IPlayer player;
 
 	private boolean stillLoading;
@@ -43,8 +42,6 @@ public class MainGame extends IGame {
 		this.polygons = new KeyButton(GLFW_KEY_P);
 		this.toggleMusic = new CompoundButton(new KeyButton(GLFW_KEY_DOWN), new JoystickButton(OptionsControls.JOYSTICK_PORT, OptionsControls.JOYSTICK_MUSIC_PAUSE));
 		this.skipMusic = new CompoundButton(new KeyButton(GLFW_KEY_LEFT, GLFW_KEY_RIGHT), new JoystickButton(OptionsControls.JOYSTICK_PORT, OptionsControls.JOYSTICK_MUSIC_SKIP));
-
-		this.guis = new MainGuis();
 
 		if (FlounderEngine.getCamera() instanceof CameraFocus) {
 			this.player = new PlayerFocus();
@@ -110,20 +107,19 @@ public class MainGame extends IGame {
 			FlounderEngine.getDevices().getSound().getMusicPlayer().skipTrack();
 		}
 
-		if (MainGuis.isStartingGame()) {
+		if (FlounderEngine.getManagerGUI().isStartingGame()) {
 			// Pause the music for the start screen.
 			FlounderEngine.getDevices().getSound().getMusicPlayer().pauseTrack();
-		} else if (!MainGuis.isStartingGame() && stillLoading) {
+		} else if (!FlounderEngine.getManagerGUI().isStartingGame() && stillLoading) {
 			// Unpause the music for the main menu.
 			stillLoading = false;
 			//	FlounderEngine.getLogger().log("Starting main menu music.");
 			//	FlounderEngine.getDevices().getSound().getMusicPlayer().unpauseTrack();
 		}
 
-		guis.update();
-		player.update(guis.isMenuOpen());
+		player.update(FlounderEngine.getManagerGUI().isMenuOpen());
 		Environment.update();
-		update(player.getPosition(), player.getRotation(), guis.isMenuOpen(), guis.getBlurFactor());
+		update(player.getPosition(), player.getRotation());
 	}
 
 	@Override

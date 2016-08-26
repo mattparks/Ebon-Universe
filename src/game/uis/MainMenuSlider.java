@@ -9,10 +9,10 @@ import org.lwjgl.glfw.*;
 
 import java.util.*;
 
-public class MenuGame extends GuiComponent {
+public class MainMenuSlider extends GuiComponent {
 	public static final Colour TEXT_COLOUR = new Colour(0.85f, 0.85f, 0.85f);
 
-	public static final float MAIN_TITLE_FONT_SIZE = 3.5f;
+	public static final float MAIN_TITLE_FONT_SIZE = 3.25f;
 	public static final float MAIN_MENU_Y_POS = 0.25f;
 	public static final float MAIN_MENU_Y_SIZE = 0.6f;
 
@@ -20,7 +20,7 @@ public class MenuGame extends GuiComponent {
 
 	public static KeyButton BACK_KEY = new KeyButton(GLFW.GLFW_KEY_BACKSPACE);
 
-	private MenuMain menuMain;
+	private MainMenuContent menuContent;
 
 	private ValueDriver mainDriver;
 	private GuiComponent secondaryScreen;
@@ -32,13 +32,13 @@ public class MenuGame extends GuiComponent {
 	private boolean slidingForwards;
 	private boolean closeSecondary;
 
-	public MenuGame(MenuGameBackground superMenu) {
-		menuMain = new MenuMain(superMenu, this);
+	protected MainMenuSlider(MainMenu superMenu) {
+		menuContent = new MainMenuContent(superMenu, this);
 
 		mainDriver = new ConstantDriver(SLIDE_SCALAR);
 		secondaryDriver = new ConstantDriver(SLIDE_SCALAR);
 
-		addComponent(menuMain, 0.0f, MAIN_MENU_Y_POS, 1.0f, MAIN_MENU_Y_SIZE);
+		addComponent(menuContent, 0.0f, MAIN_MENU_Y_POS, 1.0f, MAIN_MENU_Y_SIZE);
 
 		secondaryDepth = 0;
 		displayed = false;
@@ -49,7 +49,7 @@ public class MenuGame extends GuiComponent {
 	@Override
 	public void show(boolean visible) {
 		displayed = visible;
-		mainDriver = new SlideDriver(getRelativeX(), visible ? 0.0f : SLIDE_SCALAR, MenuGameBackground.SLIDE_TIME);
+		mainDriver = new SlideDriver(getRelativeX(), visible ? 0.0f : SLIDE_SCALAR, MainMenu.SLIDE_TIME);
 	}
 
 	public boolean isDisplayed() {
@@ -61,8 +61,8 @@ public class MenuGame extends GuiComponent {
 		float mainValue = mainDriver.update(FlounderEngine.getDelta());
 		float value = secondaryDriver.update(FlounderEngine.getDelta());
 
-		menuMain.setRelativeX(value);
-		menuMain.show(Math.abs(value) <= SLIDE_SCALAR);
+		menuContent.setRelativeX(value);
+		menuContent.show(Math.abs(value) <= SLIDE_SCALAR);
 
 		if (newSecondaryScreen != null) {
 			newSecondaryScreen.setRelativeX(value - secondaryDepth);
@@ -81,7 +81,7 @@ public class MenuGame extends GuiComponent {
 		super.setRelativeX(mainValue);
 
 		if (mainValue == SLIDE_SCALAR) {
-			menuMain.show(false);
+			menuContent.show(false);
 
 			if (!displayed) {
 				mainDriver = new ConstantDriver(0.0f);
@@ -99,7 +99,7 @@ public class MenuGame extends GuiComponent {
 				show(false);
 			}
 		} else {
-			menuMain.show(true);
+			menuContent.show(true);
 		}
 
 		if (closeSecondary) {
@@ -123,20 +123,20 @@ public class MenuGame extends GuiComponent {
 		}
 	}
 
-	protected void setNewSecondaryScreen(GuiComponent secondScreen, boolean slideForwards) {
+	public void setNewSecondaryScreen(GuiComponent secondScreen, boolean slideForwards) {
 		if (newSecondaryScreen == null && secondaryDriver.update(FlounderEngine.getDelta()) == secondaryDepth) {
 			secondaryDepth += slideForwards ? SLIDE_SCALAR : -SLIDE_SCALAR;
 			slidingForwards = slideForwards;
 			newSecondaryScreen = secondScreen;
 			newSecondaryScreen.show(true);
-			addComponent(secondScreen, (secondaryDepth * menuMain.getRelativeX()) - (slideForwards ? SLIDE_SCALAR : -SLIDE_SCALAR), MAIN_MENU_Y_POS, 1.0f, MAIN_MENU_Y_SIZE);
-			secondaryDriver = new SlideDriver(menuMain.getRelativeX(), secondaryDepth, MenuGameBackground.SLIDE_TIME);
+			addComponent(secondScreen, (secondaryDepth * menuContent.getRelativeX()) - (slideForwards ? SLIDE_SCALAR : -SLIDE_SCALAR), MAIN_MENU_Y_POS, 1.0f, MAIN_MENU_Y_SIZE);
+			secondaryDriver = new SlideDriver(menuContent.getRelativeX(), secondaryDepth, MainMenu.SLIDE_TIME);
 		}
 	}
 
-	protected void closeSecondaryScreen() {
+	public void closeSecondaryScreen() {
 		if (newSecondaryScreen == null && secondaryScreen != null) {
-			secondaryDriver = new SlideDriver(menuMain.getRelativeX(), 0.0f, MenuGameBackground.SLIDE_TIME);
+			secondaryDriver = new SlideDriver(menuContent.getRelativeX(), 0.0f, MainMenu.SLIDE_TIME);
 			closeSecondary = true;
 		}
 	}

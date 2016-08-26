@@ -22,7 +22,7 @@ public class Main {
 				"4Space Game",
 				MainGame.CONFIG.getBooleanWithDefault("vsync", true, () -> FlounderEngine.getDevices().getDisplay().isVSync()),
 				MainGame.CONFIG.getBooleanWithDefault("antialias", true, () -> FlounderEngine.getDevices().getDisplay().isAntialiasing()),
-				4,
+				MainGame.CONFIG.getIntWithDefault("msaa_samples", 4, () -> FlounderEngine.getDevices().getDisplay().getSamples()),
 				MainGame.CONFIG.getBooleanWithDefault("fullscreen", false, () -> FlounderEngine.getDevices().getDisplay().isFullscreen())
 		);
 		engine.startEngine(FlounderEngine.getFonts().fffForward);

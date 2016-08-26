@@ -12,420 +12,15 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="ac25c3f6-f322-4e75-a3fd-1beda46eaaa0" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/game/uis/MenuPause.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/game/uis/screens/ScreenControls.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/game/uis/screens/ScreenPlay.java" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Flounder-Engine/doc/Testing1.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Flounder-Engine/doc/allclasses-frame.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Flounder-Engine/doc/allclasses-noframe.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Flounder-Engine/doc/constant-values.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Flounder-Engine/doc/deprecated-list.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Flounder-Engine/doc/flounder/devices/DeviceDisplay.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Flounder-Engine/doc/flounder/devices/DeviceJoysticks.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Flounder-Engine/doc/flounder/devices/DeviceKeyboard.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Flounder-Engine/doc/flounder/devices/DeviceMouse.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Flounder-Engine/doc/flounder/devices/DeviceSound.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Flounder-Engine/doc/flounder/devices/FlounderDevices.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Flounder-Engine/doc/flounder/devices/package-frame.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Flounder-Engine/doc/flounder/devices/package-summary.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Flounder-Engine/doc/flounder/devices/package-tree.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Flounder-Engine/doc/flounder/engine/FlounderEngine.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Flounder-Engine/doc/flounder/engine/IModule.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Flounder-Engine/doc/flounder/engine/Version.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Flounder-Engine/doc/flounder/engine/implementation/ICamera.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Flounder-Engine/doc/flounder/engine/implementation/IGame.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Flounder-Engine/doc/flounder/engine/implementation/IRenderer.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Flounder-Engine/doc/flounder/engine/implementation/IRendererMaster.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Flounder-Engine/doc/flounder/engine/implementation/Implementation.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Flounder-Engine/doc/flounder/engine/implementation/package-frame.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Flounder-Engine/doc/flounder/engine/implementation/package-summary.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Flounder-Engine/doc/flounder/engine/implementation/package-tree.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Flounder-Engine/doc/flounder/engine/package-frame.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Flounder-Engine/doc/flounder/engine/package-summary.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Flounder-Engine/doc/flounder/engine/package-tree.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Flounder-Engine/doc/flounder/events/FlounderEvents.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Flounder-Engine/doc/flounder/events/IEvent.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Flounder-Engine/doc/flounder/events/package-frame.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Flounder-Engine/doc/flounder/events/package-summary.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Flounder-Engine/doc/flounder/events/package-tree.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Flounder-Engine/doc/flounder/exceptions/FlounderRuntimeException.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Flounder-Engine/doc/flounder/exceptions/package-frame.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Flounder-Engine/doc/flounder/exceptions/package-summary.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Flounder-Engine/doc/flounder/exceptions/package-tree.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Flounder-Engine/doc/flounder/fbos/DepthBufferType.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Flounder-Engine/doc/flounder/fbos/FBO.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Flounder-Engine/doc/flounder/fbos/FBOBuilder.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Flounder-Engine/doc/flounder/fbos/package-frame.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Flounder-Engine/doc/flounder/fbos/package-summary.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Flounder-Engine/doc/flounder/fbos/package-tree.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Flounder-Engine/doc/flounder/fonts/Character.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Flounder-Engine/doc/flounder/fonts/FlounderFonts.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Flounder-Engine/doc/flounder/fonts/FontRenderer.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Flounder-Engine/doc/flounder/fonts/FontType.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Flounder-Engine/doc/flounder/fonts/Line.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Flounder-Engine/doc/flounder/fonts/MetaFile.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Flounder-Engine/doc/flounder/fonts/Text.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Flounder-Engine/doc/flounder/fonts/TextBuilder.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Flounder-Engine/doc/flounder/fonts/TextLoader.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Flounder-Engine/doc/flounder/fonts/Word.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Flounder-Engine/doc/flounder/fonts/package-frame.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Flounder-Engine/doc/flounder/fonts/package-summary.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Flounder-Engine/doc/flounder/fonts/package-tree.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Flounder-Engine/doc/flounder/guis/FlounderGuis.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Flounder-Engine/doc/flounder/guis/GuiComponent.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Flounder-Engine/doc/flounder/guis/GuiEvent.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Flounder-Engine/doc/flounder/guis/GuiRenderer.GuiRenderType.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Flounder-Engine/doc/flounder/guis/GuiRenderer.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Flounder-Engine/doc/flounder/guis/GuiScreenContainer.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Flounder-Engine/doc/flounder/guis/GuiSelector.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Flounder-Engine/doc/flounder/guis/GuiTextButton.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Flounder-Engine/doc/flounder/guis/GuiTexture.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Flounder-Engine/doc/flounder/guis/ListenerBasic.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Flounder-Engine/doc/flounder/guis/cursor/FlounderCursor.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Flounder-Engine/doc/flounder/guis/cursor/package-frame.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Flounder-Engine/doc/flounder/guis/cursor/package-summary.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Flounder-Engine/doc/flounder/guis/cursor/package-tree.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Flounder-Engine/doc/flounder/guis/package-frame.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Flounder-Engine/doc/flounder/guis/package-summary.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Flounder-Engine/doc/flounder/guis/package-tree.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Flounder-Engine/doc/flounder/helpers/ArraySorting.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Flounder-Engine/doc/flounder/helpers/ArrayUtils.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Flounder-Engine/doc/flounder/helpers/ByteWork.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Flounder-Engine/doc/flounder/helpers/CompressionUtils.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Flounder-Engine/doc/flounder/helpers/FlounderFileWriter.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Flounder-Engine/doc/flounder/helpers/OpenGlUtils.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Flounder-Engine/doc/flounder/helpers/Pair.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Flounder-Engine/doc/flounder/helpers/package-frame.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Flounder-Engine/doc/flounder/helpers/package-summary.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Flounder-Engine/doc/flounder/helpers/package-tree.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Flounder-Engine/doc/flounder/inputs/BaseButton.Command.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Flounder-Engine/doc/flounder/inputs/BaseButton.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Flounder-Engine/doc/flounder/inputs/ButtonAxis.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Flounder-Engine/doc/flounder/inputs/CompoundAxis.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Flounder-Engine/doc/flounder/inputs/CompoundButton.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Flounder-Engine/doc/flounder/inputs/IAxis.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Flounder-Engine/doc/flounder/inputs/IButton.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Flounder-Engine/doc/flounder/inputs/JoystickAxis.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Flounder-Engine/doc/flounder/inputs/JoystickButton.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Flounder-Engine/doc/flounder/inputs/KeyButton.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Flounder-Engine/doc/flounder/inputs/MouseButton.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Flounder-Engine/doc/flounder/inputs/package-frame.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Flounder-Engine/doc/flounder/inputs/package-summary.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Flounder-Engine/doc/flounder/inputs/package-tree.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Flounder-Engine/doc/flounder/lights/Attenuation.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Flounder-Engine/doc/flounder/lights/Fog.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Flounder-Engine/doc/flounder/lights/Light.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Flounder-Engine/doc/flounder/lights/package-frame.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Flounder-Engine/doc/flounder/lights/package-summary.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Flounder-Engine/doc/flounder/lights/package-tree.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Flounder-Engine/doc/flounder/loaders/FlounderLoader.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Flounder-Engine/doc/flounder/loaders/package-frame.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Flounder-Engine/doc/flounder/loaders/package-summary.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Flounder-Engine/doc/flounder/loaders/package-tree.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Flounder-Engine/doc/flounder/logger/FlounderLogger.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Flounder-Engine/doc/flounder/logger/package-frame.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Flounder-Engine/doc/flounder/logger/package-summary.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Flounder-Engine/doc/flounder/logger/package-tree.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Flounder-Engine/doc/flounder/maths/Colour.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Flounder-Engine/doc/flounder/maths/Delta.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Flounder-Engine/doc/flounder/maths/Maths.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Flounder-Engine/doc/flounder/maths/Timer.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Flounder-Engine/doc/flounder/maths/matrices/Matrix2f.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Flounder-Engine/doc/flounder/maths/matrices/Matrix3f.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Flounder-Engine/doc/flounder/maths/matrices/Matrix4f.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Flounder-Engine/doc/flounder/maths/matrices/package-frame.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Flounder-Engine/doc/flounder/maths/matrices/package-summary.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Flounder-Engine/doc/flounder/maths/matrices/package-tree.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Flounder-Engine/doc/flounder/maths/package-frame.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Flounder-Engine/doc/flounder/maths/package-summary.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Flounder-Engine/doc/flounder/maths/package-tree.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Flounder-Engine/doc/flounder/maths/rays/Ray.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Flounder-Engine/doc/flounder/maths/rays/package-frame.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Flounder-Engine/doc/flounder/maths/rays/package-summary.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Flounder-Engine/doc/flounder/maths/rays/package-tree.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Flounder-Engine/doc/flounder/maths/vectors/Quaternion.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Flounder-Engine/doc/flounder/maths/vectors/Vector2f.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Flounder-Engine/doc/flounder/maths/vectors/Vector3f.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Flounder-Engine/doc/flounder/maths/vectors/Vector4f.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Flounder-Engine/doc/flounder/maths/vectors/package-frame.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Flounder-Engine/doc/flounder/maths/vectors/package-summary.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Flounder-Engine/doc/flounder/maths/vectors/package-tree.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Flounder-Engine/doc/flounder/models/FlounderModels.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Flounder-Engine/doc/flounder/models/Model.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Flounder-Engine/doc/flounder/models/ModelBuilder.LoadManual.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Flounder-Engine/doc/flounder/models/ModelBuilder.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Flounder-Engine/doc/flounder/models/ModelData.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Flounder-Engine/doc/flounder/models/ModelDeleteRequest.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Flounder-Engine/doc/flounder/models/ModelLoadRequest.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Flounder-Engine/doc/flounder/models/VertexData.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Flounder-Engine/doc/flounder/models/package-frame.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Flounder-Engine/doc/flounder/models/package-summary.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Flounder-Engine/doc/flounder/models/package-tree.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Flounder-Engine/doc/flounder/networking/Client.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Flounder-Engine/doc/flounder/networking/ClientInfo.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Flounder-Engine/doc/flounder/networking/FlounderNetwork.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Flounder-Engine/doc/flounder/networking/Server.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Flounder-Engine/doc/flounder/networking/package-frame.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Flounder-Engine/doc/flounder/networking/package-summary.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Flounder-Engine/doc/flounder/networking/package-tree.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Flounder-Engine/doc/flounder/networking/packets/Packet.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Flounder-Engine/doc/flounder/networking/packets/PacketDisconnect.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Flounder-Engine/doc/flounder/networking/packets/PacketLogin.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Flounder-Engine/doc/flounder/networking/packets/package-frame.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Flounder-Engine/doc/flounder/networking/packets/package-summary.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Flounder-Engine/doc/flounder/networking/packets/package-tree.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Flounder-Engine/doc/flounder/noise/OpenSimplexNoise.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Flounder-Engine/doc/flounder/noise/PerlinNoise.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Flounder-Engine/doc/flounder/noise/package-frame.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Flounder-Engine/doc/flounder/noise/package-summary.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Flounder-Engine/doc/flounder/noise/package-tree.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Flounder-Engine/doc/flounder/package-frame.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Flounder-Engine/doc/flounder/package-summary.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Flounder-Engine/doc/flounder/package-tree.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Flounder-Engine/doc/flounder/parsing/Config.ConfigReference.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Flounder-Engine/doc/flounder/parsing/Config.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Flounder-Engine/doc/flounder/parsing/TokenReader.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Flounder-Engine/doc/flounder/parsing/json/JSON.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Flounder-Engine/doc/flounder/parsing/json/JSONArray.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Flounder-Engine/doc/flounder/parsing/json/JSONLiteral.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Flounder-Engine/doc/flounder/parsing/json/JSONNumber.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Flounder-Engine/doc/flounder/parsing/json/JSONObject.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Flounder-Engine/doc/flounder/parsing/json/JSONString.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Flounder-Engine/doc/flounder/parsing/json/JSONValue.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Flounder-Engine/doc/flounder/parsing/json/package-frame.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Flounder-Engine/doc/flounder/parsing/json/package-summary.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Flounder-Engine/doc/flounder/parsing/json/package-tree.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Flounder-Engine/doc/flounder/parsing/package-frame.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Flounder-Engine/doc/flounder/parsing/package-summary.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Flounder-Engine/doc/flounder/parsing/package-tree.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Flounder-Engine/doc/flounder/particles/FlounderParticles.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Flounder-Engine/doc/flounder/particles/Particle.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Flounder-Engine/doc/flounder/particles/ParticleRenderer.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Flounder-Engine/doc/flounder/particles/ParticleSystem.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Flounder-Engine/doc/flounder/particles/loading/ParticleLoader.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Flounder-Engine/doc/flounder/particles/loading/ParticleTemplate.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Flounder-Engine/doc/flounder/particles/loading/package-frame.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Flounder-Engine/doc/flounder/particles/loading/package-summary.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Flounder-Engine/doc/flounder/particles/loading/package-tree.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Flounder-Engine/doc/flounder/particles/package-frame.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Flounder-Engine/doc/flounder/particles/package-summary.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Flounder-Engine/doc/flounder/particles/package-tree.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Flounder-Engine/doc/flounder/particles/spawns/IParticleSpawn.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Flounder-Engine/doc/flounder/particles/spawns/SpawnCircle.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Flounder-Engine/doc/flounder/particles/spawns/SpawnLine.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Flounder-Engine/doc/flounder/particles/spawns/SpawnPoint.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Flounder-Engine/doc/flounder/particles/spawns/SpawnSphere.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Flounder-Engine/doc/flounder/particles/spawns/package-frame.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Flounder-Engine/doc/flounder/particles/spawns/package-summary.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Flounder-Engine/doc/flounder/particles/spawns/package-tree.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Flounder-Engine/doc/flounder/physics/AABB.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Flounder-Engine/doc/flounder/physics/Collidable.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Flounder-Engine/doc/flounder/physics/ColliderPlane.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Flounder-Engine/doc/flounder/physics/ColliderRadial.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Flounder-Engine/doc/flounder/physics/IntersectData.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Flounder-Engine/doc/flounder/physics/QuickHull.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Flounder-Engine/doc/flounder/physics/package-frame.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Flounder-Engine/doc/flounder/physics/package-summary.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Flounder-Engine/doc/flounder/physics/package-tree.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Flounder-Engine/doc/flounder/physics/renderer/AABBRenderer.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Flounder-Engine/doc/flounder/physics/renderer/FlounderAABBs.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Flounder-Engine/doc/flounder/physics/renderer/package-frame.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Flounder-Engine/doc/flounder/physics/renderer/package-summary.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Flounder-Engine/doc/flounder/physics/renderer/package-tree.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Flounder-Engine/doc/flounder/post/PostFilter.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Flounder-Engine/doc/flounder/post/PostPipeline.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Flounder-Engine/doc/flounder/post/filters/FilterBloom1.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Flounder-Engine/doc/flounder/post/filters/FilterBloom2.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Flounder-Engine/doc/flounder/post/filters/FilterBlurHorizontal.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Flounder-Engine/doc/flounder/post/filters/FilterBlurVertical.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Flounder-Engine/doc/flounder/post/filters/FilterCombineSlide.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Flounder-Engine/doc/flounder/post/filters/FilterDOF.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Flounder-Engine/doc/flounder/post/filters/FilterDarken.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Flounder-Engine/doc/flounder/post/filters/FilterEmboss.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Flounder-Engine/doc/flounder/post/filters/FilterFXAA.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Flounder-Engine/doc/flounder/post/filters/FilterGray.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Flounder-Engine/doc/flounder/post/filters/FilterLensFlare.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Flounder-Engine/doc/flounder/post/filters/FilterNegative.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Flounder-Engine/doc/flounder/post/filters/FilterPixel.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Flounder-Engine/doc/flounder/post/filters/FilterSepia.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Flounder-Engine/doc/flounder/post/filters/FilterTone.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Flounder-Engine/doc/flounder/post/filters/FilterWobble.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Flounder-Engine/doc/flounder/post/filters/package-frame.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Flounder-Engine/doc/flounder/post/filters/package-summary.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Flounder-Engine/doc/flounder/post/filters/package-tree.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Flounder-Engine/doc/flounder/post/package-frame.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Flounder-Engine/doc/flounder/post/package-summary.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Flounder-Engine/doc/flounder/post/package-tree.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Flounder-Engine/doc/flounder/post/piplines/PipelineBloom.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Flounder-Engine/doc/flounder/post/piplines/PipelineDepthOfField.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Flounder-Engine/doc/flounder/post/piplines/PipelineGaussian.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Flounder-Engine/doc/flounder/post/piplines/package-frame.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Flounder-Engine/doc/flounder/post/piplines/package-summary.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Flounder-Engine/doc/flounder/post/piplines/package-tree.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Flounder-Engine/doc/flounder/processing/FlounderProcessors.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Flounder-Engine/doc/flounder/processing/RequestProcessor.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Flounder-Engine/doc/flounder/processing/RequestQueue.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Flounder-Engine/doc/flounder/processing/ResourceRequest.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Flounder-Engine/doc/flounder/processing/glProcessing/GlRequest.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Flounder-Engine/doc/flounder/processing/glProcessing/GlRequestProcessor.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Flounder-Engine/doc/flounder/processing/glProcessing/GlRequestQueue.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Flounder-Engine/doc/flounder/processing/glProcessing/package-frame.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Flounder-Engine/doc/flounder/processing/glProcessing/package-summary.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Flounder-Engine/doc/flounder/processing/glProcessing/package-tree.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Flounder-Engine/doc/flounder/processing/package-frame.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Flounder-Engine/doc/flounder/processing/package-summary.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Flounder-Engine/doc/flounder/processing/package-tree.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Flounder-Engine/doc/flounder/profiling/FlounderProfiler.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Flounder-Engine/doc/flounder/profiling/FlounderProfilerTab.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Flounder-Engine/doc/flounder/profiling/FlounderTabMenu.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Flounder-Engine/doc/flounder/profiling/ProfileTimer.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Flounder-Engine/doc/flounder/profiling/package-frame.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Flounder-Engine/doc/flounder/profiling/package-summary.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Flounder-Engine/doc/flounder/profiling/package-tree.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Flounder-Engine/doc/flounder/resources/MyFile.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Flounder-Engine/doc/flounder/resources/package-frame.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Flounder-Engine/doc/flounder/resources/package-summary.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Flounder-Engine/doc/flounder/resources/package-tree.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Flounder-Engine/doc/flounder/shaders/ShaderProgram.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Flounder-Engine/doc/flounder/shaders/Uniform.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Flounder-Engine/doc/flounder/shaders/UniformBool.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Flounder-Engine/doc/flounder/shaders/UniformFloat.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Flounder-Engine/doc/flounder/shaders/UniformMat2.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Flounder-Engine/doc/flounder/shaders/UniformMat3.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Flounder-Engine/doc/flounder/shaders/UniformMat4.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Flounder-Engine/doc/flounder/shaders/UniformSampler2D.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Flounder-Engine/doc/flounder/shaders/UniformVec2.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Flounder-Engine/doc/flounder/shaders/UniformVec3.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Flounder-Engine/doc/flounder/shaders/UniformVec4.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Flounder-Engine/doc/flounder/shaders/package-frame.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Flounder-Engine/doc/flounder/shaders/package-summary.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Flounder-Engine/doc/flounder/shaders/package-tree.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Flounder-Engine/doc/flounder/sounds/AmbientNode.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Flounder-Engine/doc/flounder/sounds/AudioController.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Flounder-Engine/doc/flounder/sounds/IAudioListener.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Flounder-Engine/doc/flounder/sounds/MusicPlayer.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Flounder-Engine/doc/flounder/sounds/PlayRequest.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Flounder-Engine/doc/flounder/sounds/Playlist.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Flounder-Engine/doc/flounder/sounds/Sound.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Flounder-Engine/doc/flounder/sounds/SoundEffect.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Flounder-Engine/doc/flounder/sounds/SoundEmitter.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Flounder-Engine/doc/flounder/sounds/SoundLoader.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Flounder-Engine/doc/flounder/sounds/SoundSource.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Flounder-Engine/doc/flounder/sounds/SourcePoolManager.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Flounder-Engine/doc/flounder/sounds/StreamManager.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Flounder-Engine/doc/flounder/sounds/Streamer.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Flounder-Engine/doc/flounder/sounds/WavDataStream.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Flounder-Engine/doc/flounder/sounds/package-frame.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Flounder-Engine/doc/flounder/sounds/package-summary.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Flounder-Engine/doc/flounder/sounds/package-tree.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Flounder-Engine/doc/flounder/space/Frustum.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Flounder-Engine/doc/flounder/space/ISpatialObject.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Flounder-Engine/doc/flounder/space/ISpatialStructure.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Flounder-Engine/doc/flounder/space/StructureBasic.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Flounder-Engine/doc/flounder/space/StructureGrid.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Flounder-Engine/doc/flounder/space/StructureQuadtree.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Flounder-Engine/doc/flounder/space/package-frame.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Flounder-Engine/doc/flounder/space/package-summary.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Flounder-Engine/doc/flounder/space/package-tree.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Flounder-Engine/doc/flounder/textures/FlounderTextures.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Flounder-Engine/doc/flounder/textures/Texture.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Flounder-Engine/doc/flounder/textures/TextureBuilder.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Flounder-Engine/doc/flounder/textures/TextureData.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Flounder-Engine/doc/flounder/textures/TextureDecoder.Format.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Flounder-Engine/doc/flounder/textures/TextureDecoder.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Flounder-Engine/doc/flounder/textures/TextureDeleteRequest.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Flounder-Engine/doc/flounder/textures/TextureLoadRequest.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Flounder-Engine/doc/flounder/textures/TextureTessellatorAtlas.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Flounder-Engine/doc/flounder/textures/package-frame.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Flounder-Engine/doc/flounder/textures/package-summary.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Flounder-Engine/doc/flounder/textures/package-tree.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Flounder-Engine/doc/flounder/visual/ConstantDriver.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Flounder-Engine/doc/flounder/visual/FadeDriver.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Flounder-Engine/doc/flounder/visual/KeyFrame.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Flounder-Engine/doc/flounder/visual/KeyFrameDriver.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Flounder-Engine/doc/flounder/visual/LinearDriver.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Flounder-Engine/doc/flounder/visual/SinWaveDriver.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Flounder-Engine/doc/flounder/visual/SlideDriver.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Flounder-Engine/doc/flounder/visual/ValueDriver.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Flounder-Engine/doc/flounder/visual/interpolation/SmoothFloat.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Flounder-Engine/doc/flounder/visual/interpolation/package-frame.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Flounder-Engine/doc/flounder/visual/interpolation/package-summary.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Flounder-Engine/doc/flounder/visual/interpolation/package-tree.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Flounder-Engine/doc/flounder/visual/package-frame.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Flounder-Engine/doc/flounder/visual/package-summary.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Flounder-Engine/doc/flounder/visual/package-tree.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Flounder-Engine/doc/help-doc.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Flounder-Engine/doc/index-files/index-1.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Flounder-Engine/doc/index-files/index-10.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Flounder-Engine/doc/index-files/index-11.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Flounder-Engine/doc/index-files/index-12.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Flounder-Engine/doc/index-files/index-13.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Flounder-Engine/doc/index-files/index-14.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Flounder-Engine/doc/index-files/index-15.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Flounder-Engine/doc/index-files/index-16.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Flounder-Engine/doc/index-files/index-17.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Flounder-Engine/doc/index-files/index-18.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Flounder-Engine/doc/index-files/index-19.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Flounder-Engine/doc/index-files/index-2.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Flounder-Engine/doc/index-files/index-20.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Flounder-Engine/doc/index-files/index-21.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Flounder-Engine/doc/index-files/index-22.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Flounder-Engine/doc/index-files/index-23.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Flounder-Engine/doc/index-files/index-24.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Flounder-Engine/doc/index-files/index-25.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Flounder-Engine/doc/index-files/index-26.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Flounder-Engine/doc/index-files/index-3.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Flounder-Engine/doc/index-files/index-4.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Flounder-Engine/doc/index-files/index-5.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Flounder-Engine/doc/index-files/index-6.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Flounder-Engine/doc/index-files/index-7.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Flounder-Engine/doc/index-files/index-8.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Flounder-Engine/doc/index-files/index-9.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Flounder-Engine/doc/index.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Flounder-Engine/doc/overview-frame.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Flounder-Engine/doc/overview-summary.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Flounder-Engine/doc/overview-tree.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Flounder-Engine/doc/package-frame.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Flounder-Engine/doc/package-list" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Flounder-Engine/doc/package-summary.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Flounder-Engine/doc/package-tree.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Flounder-Engine/doc/script.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Flounder-Engine/doc/serialized-form.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Flounder-Engine/doc/stylesheet.css" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/game/uis/screens/ScreenStartup.java" afterPath="" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/game/uis/MainMenuContent.java" afterPath="$PROJECT_DIR$/src/game/uis/MenuStart.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/game/uis/MainMenuSlider.java" afterPath="$PROJECT_DIR$/src/game/uis/MainSlider.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Editor-Entity" afterPath="$PROJECT_DIR$/Editor-Entity" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Editor-Particle" afterPath="$PROJECT_DIR$/Editor-Particle" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/flounder-engine" afterPath="$PROJECT_DIR$/flounder-engine" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Editor-Entity/src/editors/entity/EntityGuis.java" afterPath="$PROJECT_DIR$/Editor-Entity/src/editors/entity/EntityGuis.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Editor-Particle/src/editors/particles/ParticleGuis.java" afterPath="$PROJECT_DIR$/Editor-Particle/src/editors/particles/ParticleGuis.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Flounder-Engine/src/flounder/engine/FlounderEngine.java" afterPath="$PROJECT_DIR$/Flounder-Engine/src/flounder/engine/FlounderEngine.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Flounder-Engine/src/flounder/engine/implementation/IGame.java" afterPath="$PROJECT_DIR$/Flounder-Engine/src/flounder/engine/implementation/IGame.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Flounder-Engine/src/flounder/engine/implementation/IManagerGUI.java" afterPath="$PROJECT_DIR$/Flounder-Engine/src/flounder/engine/implementation/IManagerGUI.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Flounder-Engine/src/flounder/fonts/Text.java" afterPath="$PROJECT_DIR$/Flounder-Engine/src/flounder/fonts/Text.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Flounder-Engine/src/flounder/fonts/fontVertex.glsl" afterPath="$PROJECT_DIR$/Flounder-Engine/src/flounder/fonts/fontVertex.glsl" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Flounder-Engine/src/flounder/guis/GuiComponent.java" afterPath="$PROJECT_DIR$/Flounder-Engine/src/flounder/guis/GuiComponent.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Flounder-Engine/src/flounder/guis/cursor/FlounderCursor.java" afterPath="$PROJECT_DIR$/Flounder-Engine/src/flounder/guis/cursor/FlounderCursor.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Flounder-Engine/src/flounder/physics/renderer/FlounderAABBs.java" afterPath="$PROJECT_DIR$/Flounder-Engine/src/flounder/physics/renderer/FlounderAABBs.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Flounder-Engine/test/Testing1.java" afterPath="$PROJECT_DIR$/Flounder-Engine/test/Testing1.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/game/Environment.java" afterPath="$PROJECT_DIR$/src/game/Environment.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/game/MainGame.java" afterPath="$PROJECT_DIR$/src/game/MainGame.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/game/MainGuis.java" afterPath="$PROJECT_DIR$/src/game/MainGuis.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/game/MainRenderer.java" afterPath="$PROJECT_DIR$/src/game/MainRenderer.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/game/cameras/CameraFocus.java" afterPath="$PROJECT_DIR$/src/game/cameras/CameraFocus.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/game/entities/EntityRenderer.java" afterPath="$PROJECT_DIR$/src/game/entities/EntityRenderer.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/game/entities/entityFragment.glsl" afterPath="$PROJECT_DIR$/src/game/entities/entityFragment.glsl" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/game/uis/MainMenu.java" afterPath="$PROJECT_DIR$/src/game/uis/MainMenu.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/game/uis/OverlayStatus.java" afterPath="$PROJECT_DIR$/src/game/uis/OverlayStatus.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/game/uis/screens/ScreenAbout.java" afterPath="$PROJECT_DIR$/src/game/uis/screens/ScreenAbout.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/game/uis/screens/ScreenOptions.java" afterPath="$PROJECT_DIR$/src/game/uis/screens/ScreenOptions.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/game/uis/screens/suboptions/ScreenOptionsAudio.java" afterPath="$PROJECT_DIR$/src/game/uis/screens/suboptions/ScreenOptionsAudio.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/game/uis/screens/suboptions/ScreenOptionsDeveloper.java" afterPath="$PROJECT_DIR$/src/game/uis/screens/suboptions/ScreenOptionsDeveloper.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/game/uis/screens/suboptions/ScreenOptionsEffects.java" afterPath="$PROJECT_DIR$/src/game/uis/screens/suboptions/ScreenOptionsEffects.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/game/uis/screens/suboptions/ScreenOptionsGraphics.java" afterPath="$PROJECT_DIR$/src/game/uis/screens/suboptions/ScreenOptionsGraphics.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/game/uis/screens/suboptions/ScreenOptionsInputs.java" afterPath="$PROJECT_DIR$/src/game/uis/screens/suboptions/ScreenOptionsInputs.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Flounder-Engine/src/flounder/logger/FlounderLogger.java" afterPath="$PROJECT_DIR$/Flounder-Engine/src/flounder/logger/FlounderLogger.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/game/Main.java" afterPath="$PROJECT_DIR$/src/game/Main.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/game/uis/MainSlider.java" afterPath="$PROJECT_DIR$/src/game/uis/MainSlider.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/game/uis/MenuStart.java" afterPath="$PROJECT_DIR$/src/game/uis/MenuStart.java" />
     </list>
     <ignored path="4Space Game.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -445,7 +40,18 @@
     <favorites_list name="4Space Game" />
   </component>
   <component name="FileEditorManager">
-    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300" />
+    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
+      <file leaf-file-name="MenuStart.java" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/game/uis/MenuStart.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="407">
+              <caret line="133" column="0" selection-start-line="133" selection-start-column="0" selection-end-line="133" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+    </leaf>
   </component>
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
@@ -470,9 +76,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/Editor-Particle/src/editors/particles/EditorGuis.java" />
-        <option value="$PROJECT_DIR$/Editor-Entity/src/editors/entity/EditorEntity.java" />
-        <option value="$PROJECT_DIR$/src/game/uis/MenuGame.java" />
         <option value="$PROJECT_DIR$/src/game/uis/ScreenOptionsPost.java" />
         <option value="$PROJECT_DIR$/src/game/uis/MenuMain.java" />
         <option value="$PROJECT_DIR$/src/game/uis/ScreenOption.java" />
@@ -485,10 +88,8 @@
         <option value="$PROJECT_DIR$/src/game/uis/screens/MainMenuContent.java" />
         <option value="$PROJECT_DIR$/src/game/uis/OverlayStatus.java" />
         <option value="$PROJECT_DIR$/Flounder-Engine/src/flounder/guis/cursor/FlounderCursor.java" />
-        <option value="$PROJECT_DIR$/Flounder-Engine/src/flounder/guis/GuiComponent.java" />
         <option value="$PROJECT_DIR$/Flounder-Engine/src/flounder/fonts/TextLoader.java" />
         <option value="$PROJECT_DIR$/src/game/uis/MainMenuContent.java" />
-        <option value="$PROJECT_DIR$/Flounder-Engine/src/flounder/fonts/Text.java" />
         <option value="$PROJECT_DIR$/Flounder-Engine/src/flounder/fonts/fontVertex.glsl" />
         <option value="$PROJECT_DIR$/src/game/uis/MainMenuStart.java" />
         <option value="$PROJECT_DIR$/src/game/cameras/CameraFocus.java" />
@@ -497,12 +98,10 @@
         <option value="$PROJECT_DIR$/src/game/uis/screens/suboptions/ScreenOptionsInputs.java" />
         <option value="$PROJECT_DIR$/src/game/uis/screens/suboptions/ScreenOptionsEffects.java" />
         <option value="$PROJECT_DIR$/src/game/uis/screens/suboptions/ScreenOptionsGraphics.java" />
-        <option value="$PROJECT_DIR$/src/game/uis/screens/suboptions/ScreenOptionsDeveloper.java" />
         <option value="$PROJECT_DIR$/src/game/uis/screens/suboptions/ScreenOptionsAudio.java" />
         <option value="$PROJECT_DIR$/src/game/uis/screens/ScreenOptions.java" />
         <option value="$PROJECT_DIR$/src/game/uis/screens/ScreenAbout.java" />
         <option value="$PROJECT_DIR$/src/game/entities/EntityRenderer.java" />
-        <option value="$PROJECT_DIR$/Flounder-Engine/src/flounder/engine/FlounderEngine.java" />
         <option value="$PROJECT_DIR$/src/game/uis/screens/ScreenStartup.java" />
         <option value="$PROJECT_DIR$/Flounder-Engine/src/flounder/engine/implementation/IManagerGUI.java" />
         <option value="$PROJECT_DIR$/Flounder-Engine/test/Testing1.java" />
@@ -512,15 +111,22 @@
         <option value="$PROJECT_DIR$/Flounder-Engine/src/flounder/physics/renderer/FlounderAABBs.java" />
         <option value="$PROJECT_DIR$/src/game/shadows/ShadowRenderer.java" />
         <option value="$PROJECT_DIR$/src/game/entities/entityFragment.glsl" />
-        <option value="$PROJECT_DIR$/src/game/uis/MainMenu.java" />
         <option value="$PROJECT_DIR$/src/game/MainGame.java" />
         <option value="$PROJECT_DIR$/src/game/Environment.java" />
         <option value="$PROJECT_DIR$/src/game/uis/screens/ScreenControls.java" />
-        <option value="$PROJECT_DIR$/src/game/uis/MenuStart.java" />
-        <option value="$PROJECT_DIR$/src/game/uis/MainSlider.java" />
         <option value="$PROJECT_DIR$/src/game/MainGuis.java" />
         <option value="$PROJECT_DIR$/src/game/uis/screens/ScreenPlay.java" />
         <option value="$PROJECT_DIR$/src/game/uis/MenuPause.java" />
+        <option value="$PROJECT_DIR$/src/game/uis/MainSlider.java" />
+        <option value="$PROJECT_DIR$/src/game/uis/MainMenu.java" />
+        <option value="$PROJECT_DIR$/Flounder-Engine/src/flounder/loaders/FlounderLoader.java" />
+        <option value="$PROJECT_DIR$/src/game/Main.java" />
+        <option value="$PROJECT_DIR$/Flounder-Engine/src/flounder/engine/FlounderEngine.java" />
+        <option value="$PROJECT_DIR$/src/game/uis/screens/suboptions/ScreenOptionsDeveloper.java" />
+        <option value="$PROJECT_DIR$/Flounder-Engine/src/flounder/logger/FlounderLogger.java" />
+        <option value="$PROJECT_DIR$/Flounder-Engine/src/flounder/guis/GuiComponent.java" />
+        <option value="$PROJECT_DIR$/Flounder-Engine/src/flounder/fonts/Text.java" />
+        <option value="$PROJECT_DIR$/src/game/uis/MenuStart.java" />
       </list>
     </option>
   </component>
@@ -625,6 +231,84 @@
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="game" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="4Space-Game" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="4Space-Game" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="game" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="uis" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="4Space-Game" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="4Space-Game" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="game" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="uis" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="screens" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="4Space-Game" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="4Space-Game" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="game" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="uis" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="screens" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="suboptions" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -1097,12 +781,19 @@
       <option name="project" value="LOCAL" />
       <updated>1472175962721</updated>
     </task>
-    <option name="localTasksCounter" value="15" />
+    <task id="LOCAL-00015" summary="UI's work ok now, start and paused screen added. Centring with fonts not working right.">
+      <created>1472240623427</created>
+      <option name="number" value="00015" />
+      <option name="presentableId" value="LOCAL-00015" />
+      <option name="project" value="LOCAL" />
+      <updated>1472240623427</updated>
+    </task>
+    <option name="localTasksCounter" value="16" />
     <servers />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="2576" height="1056" extended-state="6" />
-    <editor active="false" />
+    <editor active="true" />
     <layout>
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
@@ -1116,12 +807,12 @@
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.1359375" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.1359375" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32769555" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="UI Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.39852008" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.15010571" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="true" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
@@ -1160,7 +851,8 @@
     <MESSAGE value="Some orbital mechanics." />
     <MESSAGE value="Lot's of cool maths done for now." />
     <MESSAGE value="UI changes and bug fixes. UI's only work in 1080x720 ATM." />
-    <option name="LAST_COMMIT_MESSAGE" value="UI changes and bug fixes. UI's only work in 1080x720 ATM." />
+    <MESSAGE value="UI's work ok now, start and paused screen added. Centring with fonts not working right." />
+    <option name="LAST_COMMIT_MESSAGE" value="UI's work ok now, start and paused screen added. Centring with fonts not working right." />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -1173,27 +865,6 @@
     <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/Editor-Particle/src/editors/particles/ParticleGame.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="986">
-          <caret line="58" column="43" selection-start-line="58" selection-start-column="43" selection-end-line="58" selection-end-column="43" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Editor-Entity/src/editors/entity/EditorEntity.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="153">
-          <caret line="9" column="132" selection-start-line="9" selection-start-column="132" selection-end-line="9" selection-end-column="132" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Editor-Particle/src/editors/particles/EditorParticle.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="153">
-          <caret line="9" column="132" selection-start-line="9" selection-start-column="132" selection-end-line="9" selection-end-column="132" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/Flounder-Engine/src/flounder/models/FlounderModels.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-1840">
@@ -1209,25 +880,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/game/uis/OverlayStatus.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="374">
-          <caret line="22" column="53" selection-start-line="22" selection-start-column="53" selection-end-line="22" selection-end-column="53" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/Flounder-Engine/src/flounder/fonts/FlounderFonts.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="150">
           <caret line="35" column="20" selection-start-line="35" selection-start-column="16" selection-end-line="35" selection-end-column="20" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Flounder-Engine/src/flounder/guis/cursor/FlounderCursor.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="357">
-          <caret line="42" column="12" selection-start-line="42" selection-start-column="12" selection-end-line="42" selection-end-column="12" />
         </state>
       </provider>
     </entry>
@@ -1287,22 +943,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Flounder-Engine/src/flounder/fonts/Text.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-578">
-          <caret line="77" column="0" selection-start-line="77" selection-start-column="0" selection-end-line="77" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Flounder-Engine/src/flounder/fonts/TextLoader.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="123">
-          <caret line="82" column="8" selection-start-line="82" selection-start-column="8" selection-end-line="82" selection-end-column="8" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/Flounder-Engine/src/flounder/fonts/fontVertex.glsl">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="204">
@@ -1335,14 +975,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/game/uis/screens/suboptions/ScreenOptionsGraphics.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="276">
-          <caret line="120" column="84" selection-start-line="120" selection-start-column="84" selection-end-line="120" selection-end-column="84" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/game/uis/screens/suboptions/ScreenOptionsAudio.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="276">
@@ -1367,14 +999,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/game/Main.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="255">
-          <caret line="15" column="31" selection-start-line="15" selection-start-column="31" selection-end-line="15" selection-end-column="31" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/game/entities/Entity.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="456">
@@ -1387,14 +1011,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="612">
           <caret line="45" column="0" selection-start-line="45" selection-start-column="0" selection-end-line="45" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Flounder-Engine/src/flounder/engine/FlounderEngine.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="421">
-          <caret line="339" column="48" selection-start-line="339" selection-start-column="48" selection-end-line="339" selection-end-column="48" />
           <folding />
         </state>
       </provider>
@@ -1463,14 +1079,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/game/uis/screens/suboptions/ScreenOptionsDeveloper.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="909">
-          <caret line="95" column="139" selection-start-line="95" selection-start-column="139" selection-end-line="95" selection-end-column="139" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/game/shadows/ShadowRenderer.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="320">
@@ -1483,22 +1091,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="756">
           <caret line="115" column="7" selection-start-line="115" selection-start-column="7" selection-end-line="115" selection-end-column="7" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/game/uis/MainMenu.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="204">
-          <caret line="12" column="33" selection-start-line="12" selection-start-column="23" selection-end-line="12" selection-end-column="33" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/game/MainGame.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="391">
-          <caret line="92" column="30" selection-start-line="92" selection-start-column="30" selection-end-line="93" selection-end-column="20" />
           <folding />
         </state>
       </provider>
@@ -1519,14 +1111,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Flounder-Engine/src/flounder/guis/GuiComponent.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="252">
-          <caret line="198" column="0" selection-start-line="198" selection-start-column="0" selection-end-line="198" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/game/MainGuis.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="544">
@@ -1535,34 +1119,146 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/game/uis/MainSlider.java">
+    <entry file="file://$PROJECT_DIR$/src/game/uis/MenuPause.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="611">
-          <caret line="184" column="32" selection-start-line="184" selection-start-column="19" selection-end-line="184" selection-end-column="32" />
+        <state relative-caret-position="374">
+          <caret line="55" column="46" selection-start-line="55" selection-start-column="46" selection-end-line="55" selection-end-column="46" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/game/uis/MenuStart.java">
+    <entry file="file://$PROJECT_DIR$/src/game/uis/MainMenu.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="101">
-          <caret line="47" column="26" selection-start-line="47" selection-start-column="26" selection-end-line="47" selection-end-column="26" />
+        <state relative-caret-position="-664">
+          <caret line="3" column="23" selection-start-line="3" selection-start-column="23" selection-end-line="3" selection-end-column="23" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Flounder-Engine/src/flounder/guis/cursor/FlounderCursor.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="374">
+          <caret line="40" column="19" selection-start-line="40" selection-start-column="12" selection-end-line="40" selection-end-column="19" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Flounder-Engine/src/flounder/loaders/FlounderLoader.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="142" column="45" selection-start-line="142" selection-start-column="45" selection-end-line="142" selection-end-column="45" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/game/uis/screens/suboptions/ScreenOptionsGraphics.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="388">
+          <caret line="83" column="44" selection-start-line="83" selection-start-column="44" selection-end-line="83" selection-end-column="44" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/game/uis/screens/ScreenPlay.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="254">
-          <caret line="50" column="46" selection-start-line="50" selection-start-column="46" selection-end-line="51" selection-end-column="46" />
+        <state relative-caret-position="459">
+          <caret line="27" column="0" selection-start-line="27" selection-start-column="0" selection-end-line="27" selection-end-column="0" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/game/uis/MenuPause.java">
+    <entry file="file://$PROJECT_DIR$/Flounder-Engine/src/flounder/engine/FlounderEngine.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="374">
-          <caret line="55" column="46" selection-start-line="55" selection-start-column="46" selection-end-line="55" selection-end-column="46" />
+        <state relative-caret-position="370">
+          <caret line="150" column="26" selection-start-line="150" selection-start-column="26" selection-end-line="150" selection-end-column="26" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/game/Main.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="527">
+          <caret line="31" column="0" selection-start-line="31" selection-start-column="0" selection-end-line="31" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/game/uis/OverlayStatus.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="391">
+          <caret line="47" column="27" selection-start-line="47" selection-start-column="20" selection-end-line="47" selection-end-column="27" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Flounder-Engine/src/flounder/events/FlounderEvents.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="399">
+          <caret line="24" column="0" selection-start-line="24" selection-start-column="0" selection-end-line="24" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/game/uis/screens/suboptions/ScreenOptionsDeveloper.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="501">
+          <caret line="89" column="0" selection-start-line="89" selection-start-column="0" selection-end-line="89" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Flounder-Engine/src/flounder/logger/FlounderLogger.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="354">
+          <caret line="74" column="86" selection-start-line="74" selection-start-column="86" selection-end-line="74" selection-end-column="86" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/game/MainGame.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="985">
+          <caret line="92" column="30" selection-start-line="92" selection-start-column="30" selection-end-line="93" selection-end-column="20" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Flounder-Engine/src/flounder/fonts/TextLoader.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-800">
+          <caret line="24" column="44" selection-start-line="24" selection-start-column="40" selection-end-line="24" selection-end-column="44" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Flounder-Engine/src/flounder/guis/GuiComponent.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="254">
+          <caret line="291" column="5" selection-start-line="291" selection-start-column="5" selection-end-line="291" selection-end-column="5" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Flounder-Engine/src/flounder/fonts/Text.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="237">
+          <caret line="69" column="64" selection-start-line="69" selection-start-column="64" selection-end-line="69" selection-end-column="64" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/game/uis/MainSlider.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="917">
+          <caret line="170" column="55" selection-start-line="170" selection-start-column="55" selection-end-line="170" selection-end-column="55" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/game/uis/MenuStart.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="407">
+          <caret line="133" column="0" selection-start-line="133" selection-start-column="0" selection-end-line="133" selection-end-column="0" />
           <folding />
         </state>
       </provider>

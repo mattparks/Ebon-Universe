@@ -169,7 +169,6 @@ public class MainSlider extends GuiComponent {
 	}
 
 	public void sliderStartMenu(boolean useStartMenu) {
-		float relativeX = menuActive.getRelativeX();
 		menuActive.show(false);
 
 		if (useStartMenu) {
@@ -179,7 +178,6 @@ public class MainSlider extends GuiComponent {
 		}
 
 		menuActive.show(true);
-		//	menuActive.setRelativeX(relativeX);
 	}
 
 	public boolean onStartScreen() {

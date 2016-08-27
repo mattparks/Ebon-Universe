@@ -8,7 +8,6 @@ import flounder.resources.*;
 import flounder.shaders.*;
 import game.*;
 import game.entities.components.*;
-import game.shadows.*;
 
 import java.util.*;
 
@@ -56,12 +55,8 @@ public class EntityRenderer extends IRenderer {
 	private void prepareRendering(Vector4f clipPlane, ICamera camera) {
 		shader.start();
 		shader.getUniformMat4("projectionMatrix").loadMat4(FlounderEngine.getProjectionMatrix());
-		shader.getUniformMat4("shadowSpaceMatrix").loadMat4(((MainRenderer) FlounderEngine.getMasterRenderer()).getShadowMapRenderer().getToShadowMapSpaceMatrix());
-		shader.getUniformFloat("shadowDistance").loadFloat(((MainRenderer) FlounderEngine.getMasterRenderer()).getShadowMapRenderer().getShadowDistance());
 		shader.getUniformMat4("viewMatrix").loadMat4(camera.getViewMatrix());
 		shader.getUniformVec4("clipPlane").loadVec4(clipPlane);
-
-		shader.getUniformFloat("shadowMapSize").loadFloat(ShadowRenderer.SHADOW_MAP_SIZE);
 
 		shader.getUniformVec3("fogColour").loadVec3(Environment.getFog().getFogColour());
 		shader.getUniformFloat("fogDensity").loadFloat(Environment.getFog().getFogDensity());
@@ -96,8 +91,8 @@ public class EntityRenderer extends IRenderer {
 
 		if (modelComponent.getTexture() != null) {
 			OpenGlUtils.bindTextureToBank(modelComponent.getTexture().getTextureID(), 0);
-			shader.getUniformFloat("numberOfRows").loadFloat(modelComponent.getTexture().getNumberOfRows());
-			shader.getUniformVec2("textureOffset").loadVec2(modelComponent.getTextureOffset());
+			shader.getUniformFloat("atlasRows").loadFloat(modelComponent.getTexture().getNumberOfRows());
+			shader.getUniformVec2("atlasOffset").loadVec2(modelComponent.getTextureOffset());
 
 			if (modelComponent.getTransparency() != 1.0 || modelComponent.getTexture().hasTransparency()) {
 				OpenGlUtils.cullBackFaces(false); // Disable face culling if the object has transparency.
@@ -110,8 +105,6 @@ public class EntityRenderer extends IRenderer {
 		} else {
 			shader.getUniformBool("useNormalMap").loadBoolean(false);
 		}
-
-		OpenGlUtils.bindTextureToBank(((MainRenderer) FlounderEngine.getMasterRenderer()).getShadowMapRenderer().getShadowMap(), 2);
 
 		shader.getUniformMat4("modelMatrix").loadMat4(entity.getModelMatrix());
 		shader.getUniformFloat("transparency").loadFloat(modelComponent.getTransparency());

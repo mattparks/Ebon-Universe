@@ -11,7 +11,7 @@ public class Main {
 
 		Implementation implementation = new Implementation(
 				new MainGame(),
-				new CameraFocus(),
+				new CameraFPS(),
 				new MainRenderer(),
 				new MainGuis(),
 				MainGame.CONFIG.getIntWithDefault("fps_target", -1, FlounderEngine::getTargetFPS)

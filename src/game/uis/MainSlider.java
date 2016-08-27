@@ -9,6 +9,7 @@ import flounder.maths.*;
 import flounder.resources.*;
 import flounder.sounds.*;
 import flounder.visual.*;
+import game.*;
 import org.lwjgl.glfw.*;
 
 import java.util.*;
@@ -34,7 +35,7 @@ public class MainSlider extends GuiComponent {
 
 	public static final Colour FADE_COLOUR_STARTUP = new Colour(0.2f, 0.2f, 0.2f);
 
-	public static final int SLIDE_SCALAR = 2;
+	public static final int SLIDE_SCALAR = 5;
 
 	private MainMenu superMenu;
 
@@ -62,7 +63,14 @@ public class MainSlider extends GuiComponent {
 		addComponent(menuStart, 0.0f, MAIN_MENU_Y_POS, 1.0f, MAIN_MENU_Y_SIZE);
 		addComponent(menuPause, 0.0f, MAIN_MENU_Y_POS, 1.0f, MAIN_MENU_Y_SIZE);
 
-		this.menuActive = menuStart;
+		if (FlounderEngine.getLogger().inJar()) {
+			this.menuActive = menuStart;
+		} else {
+			this.menuActive = menuPause;
+			((MainGame) FlounderEngine.getGame()).generateWorlds();
+			((MainGame) FlounderEngine.getGame()).generatePlayer();
+		}
+
 		this.menuActive.show(true);
 
 		this.mainDriver = new ConstantDriver(SLIDE_SCALAR);

@@ -49,7 +49,7 @@ public class MenuPause extends GuiComponent {
 	}
 
 	private void createQuitButton(float yPos) {
-		GuiTextButton button = MainSlider.createButton("Quit", MainSlider.BUTTONS_X_POS, yPos, MainSlider.BUTTONS_X_WIDTH, MainSlider.BUTTONS_Y_SIZE, MainSlider.FONT_SIZE, this);
+		GuiTextButton button = MainSlider.createButton("Main Menu", MainSlider.BUTTONS_X_POS, yPos, MainSlider.BUTTONS_X_WIDTH, MainSlider.BUTTONS_Y_SIZE, MainSlider.FONT_SIZE, this);
 		button.addLeftListener(() -> {
 			mainSlider.closeSecondaryScreen();
 			mainSlider.getSuperMenu().display(true);

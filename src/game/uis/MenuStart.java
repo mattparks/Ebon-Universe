@@ -21,8 +21,6 @@ public class MenuStart extends GuiComponent {
 	private static final float SLIDE_SPEED = 4.75f;
 
 	private Text titleText;
-	private SinWaveDriver titleColourX;
-	private SinWaveDriver titleColourY;
 
 	private ScreenPlay screenPlay;
 	private ScreenOptions screenOptions;
@@ -43,16 +41,14 @@ public class MenuStart extends GuiComponent {
 				new GuiTexture(Texture.newTexture(new MyFile(MyFile.RES_FOLDER, "slideshow", "example4.png")).create()),
 				new GuiTexture(Texture.newTexture(new MyFile(MyFile.RES_FOLDER, "slideshow", "example5.png")).create())
 		};
-		slideoverlay = new GuiTexture(Texture.newTexture(new MyFile(MyFile.RES_FOLDER, "slideshow", "overlay.png")).create());
+		slideoverlay = new GuiTexture(Texture.newTexture(new MyFile(MyFile.RES_FOLDER, "slideshow", "overlay.png")).nearestFiltering().create());
 		slideshowDriver = new SlideDriver(slideshow.length - 1.0f, 0.0f, slideshow.length * SLIDE_SPEED);
 
-		titleText = Text.newText("4SPACE").setFontSize(MainSlider.MAIN_TITLE_FONT_SIZE * 1.25f).create();
+		titleText = Text.newText("4SPACE").setFontSize(MainSlider.MAIN_TITLE_FONT_SIZE * 1.5f).create();
 		titleText.setColour(MainSlider.TEXT_COLOUR);
 		titleText.setBorderColour(MainSlider.TEXT_COLOUR.r, MainSlider.TEXT_COLOUR.g, MainSlider.TEXT_COLOUR.b);
 		titleText.setGlowing(new SinWaveDriver(0.075f, 0.100f, 2.320f));
-		addText(titleText, MainSlider.BUTTONS_X_POS, -0.30f, 1.0f);
-		titleColourX = new SinWaveDriver(0.0f, 1.0f, 40.0f);
-		titleColourY = new SinWaveDriver(0.0f, 1.0f, 20.0f);
+		addText(titleText, MainSlider.BUTTONS_X_POS, -0.23f, 1.0f);
 
 		float currentY = 1.0f + MainSlider.BUTTONS_Y_SEPARATION;
 		createQuitButton(currentY -= MainSlider.BUTTONS_Y_SEPARATION);
@@ -102,13 +98,13 @@ public class MenuStart extends GuiComponent {
 
 	@Override
 	protected void updateSelf() {
-		titleText.setColour(titleColourX.update(FlounderEngine.getDelta()), titleColourY.update(FlounderEngine.getDelta()), 0.3f);
-		titleText.setBorderColour(titleText.getColour().r, titleText.getColour().g, titleText.getColour().b);
+		titleText.setColour(GuiTextButton.HOVER_COLOUR);
+		titleText.setBorderColour(GuiTextButton.HOVER_COLOUR);
 
 		// TODO: Use aspect ratio to create image width.
 		float aspectRatio = FlounderEngine.getDevices().getDisplay().getAspectRatio();
 		float progression = slideshowDriver.update(FlounderEngine.getDelta());
-		float imageWidth = 1.0f; //SLIDESHOW_ASPECT / aspectRatio;
+		float imageWidth = SLIDESHOW_ASPECT / aspectRatio;
 
 		if (progression >= slideshow.length - 1.0f) {
 			slideshowDriver = new SlideDriver(slideshow.length - 1.0f, 0.0f, slideshow.length * SLIDE_SPEED);

@@ -15,9 +15,8 @@ varying vec3 pass_toLightVector[4];
 uniform mat4 projectionMatrix;
 uniform mat4 viewMatrix;
 uniform vec4 clipPlane;
-uniform mat4 modelMatrix;
-
 uniform vec3 lightPosition[4];
+uniform mat4 modelMatrix;
 
 uniform float atlasRows;
 uniform vec2 atlasOffset;

@@ -10,11 +10,13 @@ import flounder.maths.*;
 import flounder.maths.vectors.*;
 import flounder.parsing.*;
 import flounder.resources.*;
+import flounder.textures.*;
 import game.cameras.*;
 import game.celestial.*;
 import game.entities.loading.*;
 import game.options.*;
 import game.players.*;
+import game.terrains.*;
 
 import java.util.*;
 
@@ -43,37 +45,12 @@ public class MainGame extends IGame {
 		this.toggleMusic = new CompoundButton(new KeyButton(GLFW_KEY_DOWN), new JoystickButton(OptionsControls.JOYSTICK_PORT, OptionsControls.JOYSTICK_MUSIC_PAUSE));
 		this.skipMusic = new CompoundButton(new KeyButton(GLFW_KEY_LEFT, GLFW_KEY_RIGHT), new JoystickButton(OptionsControls.JOYSTICK_PORT, OptionsControls.JOYSTICK_MUSIC_SKIP));
 		this.stillLoading = true;
-
-		//	generateWorlds();
-		//	generatePlayer();
 	}
 
 	public void generateWorlds() {
 		Environment.init(new Fog(new Colour(1.0f, 1.0f, 1.0f), 0.003f, 2.0f, 0.0f, 50.0f), new Light(new Colour(0.85f, 0.85f, 0.85f), new Vector3f(0.0f, 2000.0f, 2000.0f)));
-
-		// EntityLoader.load("dragon").createEntity(Environment.getEntitys(), new Vector3f(30, 0, 0), new Vector3f());
-		EntityLoader.load("pane").createEntity(Environment.getEntitys(), new Vector3f(), new Vector3f());
-		EntityLoader.load("sphere").createEntity(Environment.getEntitys(), Environment.getLights().get(0).position, new Vector3f());
-
-		Random ran = new Random();
-
-		for (int n = 0; n < 32; n++) {
-			for (int p = 0; p < 32; p++) {
-				for (int q = 0; q < 32; q++) {
-					if (ran.nextInt(10) == 1) {
-						EntityLoader.load("crate").createEntity(Environment.getEntitys(), new Vector3f((n * 5) + 10, (p * 5) + 10, (q * 5) + 10), new Vector3f(0, ran.nextInt(360), 0));
-					}
-				}
-			}
-		}
-
-		// Playlist playlist = new Playlist();
-		// playlist.addMusic(Sound.loadSoundInBackground(new MyFile(MyFile.RES_FOLDER, "music", "era-of-space.wav"), 0.80f));
-		// playlist.addMusic(Sound.loadSoundInBackground(new MyFile(MyFile.RES_FOLDER, "music", "pyrosanical.wav"), 0.50f));
-		// playlist.addMusic(Sound.loadSoundInBackground(new MyFile(MyFile.RES_FOLDER, "music", "spacey-ambient.wav"), 0.60f));
-		// FlounderEngine.getDevices().getSound().getMusicPlayer().playMusicPlaylist(playlist, true, 4.0f, 10.0f);
-
-		// StarGenerator.testGenerate();
+		TerrainTexturePack terrainTexturePack = new TerrainTexturePack(Texture.newTexture(new MyFile(Terrain.TERRAINS_LOC, "grass.png")).create(), Texture.newTexture(new MyFile(Terrain.TERRAINS_LOC, "mud.png")).create(), Texture.newTexture(new MyFile(Terrain.TERRAINS_LOC, "flowers.png")).create(), Texture.newTexture(new MyFile(Terrain.TERRAINS_LOC, "path.png")).create());
+		Environment.getTerrains().add(new Terrain(0, 0, terrainTexturePack));
 	}
 
 	public void generatePlayer() {

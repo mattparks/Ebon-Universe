@@ -1,12 +1,14 @@
-package game.entities;
+package game.terrains;
 
 import flounder.engine.*;
 import flounder.engine.implementation.*;
 import flounder.helpers.*;
 import flounder.maths.vectors.*;
+import flounder.models.*;
 import flounder.resources.*;
 import flounder.shaders.*;
 import game.*;
+import game.entities.*;
 import game.entities.components.*;
 
 import java.util.*;
@@ -16,31 +18,31 @@ import static org.lwjgl.opengl.GL11.*;
 /**
  * A renderer that is used to render entity's.
  */
-public class EntityRenderer extends IRenderer {
+public class TerrainRenderer extends IRenderer {
 	private static final int NUMBER_LIGHTS = 4;
 
-	private static final MyFile VERTEX_SHADER = new MyFile("game/entities", "entityVertex.glsl");
-	private static final MyFile FRAGMENT_SHADER = new MyFile("game/entities", "entityFragment.glsl");
+	private static final MyFile VERTEX_SHADER = new MyFile("game/terrains", "terrainVertex.glsl");
+	private static final MyFile FRAGMENT_SHADER = new MyFile("game/terrains", "terrainFragment.glsl");
 
 	private ShaderProgram shader;
 
 	/**
 	 * Creates a new entity renderer.
 	 */
-	public EntityRenderer() {
-		shader = new ShaderProgram("entity", VERTEX_SHADER, FRAGMENT_SHADER);
+	public TerrainRenderer() {
+		shader = new ShaderProgram("terrains", VERTEX_SHADER, FRAGMENT_SHADER);
 	}
 
 	@Override
 	public void renderObjects(Vector4f clipPlane, ICamera camera) {
-		if (Environment.getEntities() == null) {
+		if (Environment.getTerrains() == null) {
 			return;
 		}
 
 		prepareRendering(clipPlane, camera);
 
-		for (Entity entity : Environment.getEntities().queryInFrustum(new ArrayList<>(), FlounderEngine.getCamera().getViewFrustum())) {
-			renderEntity(entity);
+		for (Terrain terrain : Environment.getTerrains().queryInFrustum(new ArrayList<>(), FlounderEngine.getCamera().getViewFrustum())) {
+			renderTerrain(terrain);
 		}
 
 		endRendering();
@@ -48,8 +50,8 @@ public class EntityRenderer extends IRenderer {
 
 	@Override
 	public void profile() {
-		FlounderEngine.getProfiler().add("Entity", "Render Time", super.getRenderTimeMs());
-		//	FlounderEngine.getProfiler().add("Entity", "Objects", Environment.getEntities().size());
+		FlounderEngine.getProfiler().add("Terrains", "Render Time", super.getRenderTimeMs());
+		//	FlounderEngine.getProfiler().add("Terrains", "Objects", Environment.getTerrains().size());
 	}
 
 	private void prepareRendering(Vector4f clipPlane, ICamera camera) {
@@ -75,42 +77,27 @@ public class EntityRenderer extends IRenderer {
 		}
 
 		OpenGlUtils.antialias(FlounderEngine.getDevices().getDisplay().isAntialiasing());
-		OpenGlUtils.enableDepthTesting();
-		OpenGlUtils.enableAlphaBlending();
 	}
 
-	private void renderEntity(Entity entity) {
-		ComponentModel modelComponent = (ComponentModel) entity.getComponent(ComponentModel.ID);
+	private void renderTerrain(Terrain terrain) {
+		Model model = terrain.getModel();
+		TerrainTexturePack texturePack = terrain.getTexturePack();
 
-		if (modelComponent == null || modelComponent.getModel() == null) {
-			return;
-		}
-
-		OpenGlUtils.bindVAO(modelComponent.getModel().getVaoID(), 0, 1, 2, 3);
+		OpenGlUtils.bindVAO(model.getVaoID(), 0, 1, 2);
 		OpenGlUtils.cullBackFaces(true); // Enable face culling if the object does not have transparency.
 
-		if (modelComponent.getTexture() != null) {
-			OpenGlUtils.bindTextureToBank(modelComponent.getTexture().getTextureID(), 0);
-			shader.getUniformFloat("atlasRows").loadFloat(modelComponent.getTexture().getNumberOfRows());
-			shader.getUniformVec2("atlasOffset").loadVec2(modelComponent.getTextureOffset());
+		shader.getUniformMat4("modelMatrix").loadMat4(terrain.getModelMatrix());
 
-			if (modelComponent.getTransparency() != 1.0 || modelComponent.getTexture().hasTransparency()) {
-				OpenGlUtils.cullBackFaces(false); // Disable face culling if the object has transparency.
-			}
-		}
+		shader.getUniformFloat("shineDamper").loadFloat(1); // TODO: Add shines.
+		shader.getUniformFloat("reflectivity").loadFloat(0);
 
-		if (modelComponent.getNormalMap() != null) {
-			OpenGlUtils.bindTextureToBank(modelComponent.getNormalMap().getTextureID(), 1);
-			shader.getUniformBool("useNormalMap").loadBoolean(true);
-		} else {
-			shader.getUniformBool("useNormalMap").loadBoolean(false);
-		}
+		OpenGlUtils.bindTextureToBank(texturePack.getBackgroundTexture().getTextureID(), 0);
+		OpenGlUtils.bindTextureToBank(texturePack.getRTexture().getTextureID(), 1);
+		OpenGlUtils.bindTextureToBank(texturePack.getGTexture().getTextureID(), 2);
+		OpenGlUtils.bindTextureToBank(texturePack.getBTexture().getTextureID(), 3);
 
-		shader.getUniformMat4("modelMatrix").loadMat4(entity.getModelMatrix());
-		shader.getUniformFloat("transparency").loadFloat(modelComponent.getTransparency());
-
-		glDrawElements(GL_TRIANGLES, modelComponent.getModel().getVaoLength(), GL_UNSIGNED_INT, 0);
-		OpenGlUtils.unbindVAO(0, 1, 2, 3);
+		glDrawElements(GL_TRIANGLES, model.getVaoLength(), GL_UNSIGNED_INT, 0);
+		OpenGlUtils.unbindVAO(0, 1, 2);
 	}
 
 	private void endRendering() {

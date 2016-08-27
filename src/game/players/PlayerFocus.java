@@ -51,7 +51,7 @@ public class PlayerFocus implements IPlayer {
 		this.position = new Vector3f(0, 5, 0);
 		this.rotation = new Vector3f(0, 0, 0);
 
-		focusEntity = EntityLoader.load("barrel").createEntity(Environment.getEntitys(), new Vector3f(position), new Vector3f(rotation));
+		focusEntity = EntityLoader.load("barrel").createEntity(Environment.getEntities(), new Vector3f(position), new Vector3f(rotation));
 	}
 
 	@Override

@@ -11,23 +11,28 @@
     </artifacts-to-build>
   </component>
   <component name="BookmarkManager">
-    <bookmark url="file://$PROJECT_DIR$/Flounder-Engine/src/flounder/guis/GuiTextButton.java" line="67" />
+    <bookmark url="file://$PROJECT_DIR$/Flounder-Engine/src/flounder/guis/GuiTextButton.java" line="87" />
   </component>
   <component name="ChangeListManager">
     <list default="true" id="ac25c3f6-f322-4e75-a3fd-1beda46eaaa0" name="Default" comment="">
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/game/terrains/Terrain.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/game/terrains/TerrainRenderer.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/game/terrains/TerrainTexturePack.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/game/terrains/package-info.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/game/terrains/terrainFragment.glsl" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/game/terrains/terrainVertex.glsl" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Editor-Entity" afterPath="$PROJECT_DIR$/Editor-Entity" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/flounder-engine" afterPath="$PROJECT_DIR$/flounder-engine" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Editor-Entity/src/editors/entity/EntityGame.java" afterPath="$PROJECT_DIR$/Editor-Entity/src/editors/entity/EntityGame.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Flounder-Engine/src/flounder/guis/GuiTextButton.java" afterPath="$PROJECT_DIR$/Flounder-Engine/src/flounder/guis/GuiTextButton.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Flounder-Engine/src/flounder/physics/renderer/aabbFragment.glsl" afterPath="$PROJECT_DIR$/Flounder-Engine/src/flounder/physics/renderer/aabbFragment.glsl" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Flounder-Engine/src/flounder/physics/renderer/aabbVertex.glsl" afterPath="$PROJECT_DIR$/Flounder-Engine/src/flounder/physics/renderer/aabbVertex.glsl" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/game/Main.java" afterPath="$PROJECT_DIR$/src/game/Main.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/game/Environment.java" afterPath="$PROJECT_DIR$/src/game/Environment.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/game/MainGame.java" afterPath="$PROJECT_DIR$/src/game/MainGame.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/game/MainRenderer.java" afterPath="$PROJECT_DIR$/src/game/MainRenderer.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/game/entities/EntityRenderer.java" afterPath="$PROJECT_DIR$/src/game/entities/EntityRenderer.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/game/entities/entityFragment.glsl" afterPath="$PROJECT_DIR$/src/game/entities/entityFragment.glsl" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/game/entities/entityVertex.glsl" afterPath="$PROJECT_DIR$/src/game/entities/entityVertex.glsl" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/game/uis/MainSlider.java" afterPath="$PROJECT_DIR$/src/game/uis/MainSlider.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/game/uis/MenuPause.java" afterPath="$PROJECT_DIR$/src/game/uis/MenuPause.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/game/players/PlayerFocus.java" afterPath="$PROJECT_DIR$/src/game/players/PlayerFocus.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/game/uis/MenuStart.java" afterPath="$PROJECT_DIR$/src/game/uis/MenuStart.java" />
     </list>
     <ignored path="4Space Game.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -52,8 +57,8 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="package-info" />
         <option value="Class" />
+        <option value="package-info" />
       </list>
     </option>
   </component>
@@ -72,13 +77,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/src/game/cameras/CameraFocus.java" />
-        <option value="$PROJECT_DIR$/src/game/uis/MainMenuSlider.java" />
-        <option value="$PROJECT_DIR$/src/game/uis/MainMenuPause.java" />
-        <option value="$PROJECT_DIR$/src/game/uis/screens/ScreenStartup.java" />
-        <option value="$PROJECT_DIR$/Flounder-Engine/src/flounder/engine/implementation/IManagerGUI.java" />
-        <option value="$PROJECT_DIR$/Flounder-Engine/test/Testing1.java" />
-        <option value="$PROJECT_DIR$/Editor-Particle/src/editors/particles/ParticleGuis.java" />
         <option value="$PROJECT_DIR$/Editor-Entity/src/editors/entity/EntityGuis.java" />
         <option value="$PROJECT_DIR$/Flounder-Engine/src/flounder/physics/renderer/FlounderAABBs.java" />
         <option value="$PROJECT_DIR$/src/game/shadows/ShadowRenderer.java" />
@@ -98,12 +96,10 @@
         <option value="$PROJECT_DIR$/src/game/uis/screens/suboptions/ScreenOptionsGraphics.java" />
         <option value="$PROJECT_DIR$/src/game/uis/screens/suboptions/ScreenOptionsInputs.java" />
         <option value="$PROJECT_DIR$/Flounder-Engine/src/flounder/engine/FlounderEngine.java" />
-        <option value="$PROJECT_DIR$/src/game/uis/MenuStart.java" />
         <option value="$PROJECT_DIR$/Flounder-Engine/src/flounder/loaders/FlounderLoader.java" />
         <option value="$PROJECT_DIR$/Flounder-Engine/src/flounder/fonts/TextLoader.java" />
         <option value="$PROJECT_DIR$/src/game/uis/MenuPause.java" />
         <option value="$PROJECT_DIR$/src/game/uis/MainSlider.java" />
-        <option value="$PROJECT_DIR$/Flounder-Engine/src/flounder/guis/GuiTextButton.java" />
         <option value="$PROJECT_DIR$/src/game/Main.java" />
         <option value="$PROJECT_DIR$/src/game/blocks/blocksFragment.glsl" />
         <option value="$PROJECT_DIR$/src/game/blocks/Chunk.java" />
@@ -113,16 +109,25 @@
         <option value="$PROJECT_DIR$/src/game/blocks/components/IBlockComponent.java" />
         <option value="$PROJECT_DIR$/src/game/blocks/BlockRenderer.java" />
         <option value="$PROJECT_DIR$/src/game/players/PlayerFPS.java" />
-        <option value="$PROJECT_DIR$/src/game/Environment.java" />
         <option value="$PROJECT_DIR$/src/game/post/deferred/FilterDeferred.java" />
         <option value="$PROJECT_DIR$/src/game/post/deferred/deferredFragment.glsl" />
-        <option value="$PROJECT_DIR$/src/game/MainRenderer.java" />
         <option value="$PROJECT_DIR$/Flounder-Engine/src/flounder/physics/renderer/aabbFragment.glsl" />
         <option value="$PROJECT_DIR$/Flounder-Engine/src/flounder/physics/renderer/aabbVertex.glsl" />
         <option value="$PROJECT_DIR$/src/game/entities/EntityRenderer.java" />
-        <option value="$PROJECT_DIR$/src/game/entities/entityVertex.glsl" />
-        <option value="$PROJECT_DIR$/src/game/MainGame.java" />
         <option value="$PROJECT_DIR$/src/game/entities/entityFragment.glsl" />
+        <option value="$PROJECT_DIR$/src/game/terrains/TerrainTexturePack.java" />
+        <option value="$PROJECT_DIR$/src/game/terrains/package-info.java" />
+        <option value="$PROJECT_DIR$/src/game/Environment.java" />
+        <option value="$PROJECT_DIR$/src/game/MainGame.java" />
+        <option value="$PROJECT_DIR$/src/game/terrains/TerrainRenderer.java" />
+        <option value="$PROJECT_DIR$/src/game/terrains/terrainFragment.glsl" />
+        <option value="$PROJECT_DIR$/src/game/terrains/terrainVertex.glsl" />
+        <option value="$PROJECT_DIR$/src/game/entities/entityVertex.glsl" />
+        <option value="$PROJECT_DIR$/src/game/terrains/Terrain.java" />
+        <option value="$PROJECT_DIR$/Flounder-Engine/src/flounder/guis/GuiTextButton.java" />
+        <option value="$PROJECT_DIR$/src/game/uis/MenuStart.java" />
+        <option value="$PROJECT_DIR$/Flounder-Engine/src/flounder/devices/DeviceDisplay.java" />
+        <option value="$PROJECT_DIR$/src/game/MainRenderer.java" />
       </list>
     </option>
   </component>
@@ -134,9 +139,10 @@
     </option>
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="1273" />
-    <option name="width" value="1294" />
-    <option name="height" value="1047" />
+    <option name="x" value="-8" />
+    <option name="y" value="-8" />
+    <option name="width" value="2576" />
+    <option name="height" value="1056" />
   </component>
   <component name="ProjectInspectionProfilesVisibleTreeState">
     <entry key="Project Default">
@@ -198,60 +204,6 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="4Space-Game" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="4Space-Game" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="4Space-Game" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="4Space-Game" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="game" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="4Space-Game" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="4Space-Game" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="game" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="entities" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
         </subPane>
       </pane>
       <pane id="Scratches" />
@@ -272,22 +224,23 @@
     </excluded-roots>
   </component>
   <component name="RecentsManager">
-    <key name="MoveFile.RECENT_KEYS">
-      <recent name="C:\Users\mattp\OneDrive\4Space Game\res\res\entities" />
-    </key>
     <key name="MoveClassesOrPackagesDialog.RECENTS_KEY">
       <recent name="" />
-    </key>
-    <key name="CopyClassDialog.RECENTS_KEY">
-      <recent name="game.uis.screens" />
-      <recent name="game.uis" />
-      <recent name="editors.entity" />
     </key>
     <key name="CopyFile.RECENT_KEYS">
       <recent name="C:\Users\mattp\OneDrive\4Space-Game\Flounder-Engine\src\flounder\particles\loading" />
       <recent name="C:\Users\mattp\OneDrive\4Space-Game\Flounder-Engine\src\flounder\particles\spawns" />
       <recent name="C:\Users\mattp\OneDrive\4Space-Game\src\game\post\deferred" />
       <recent name="C:\Users\mattp\OneDrive\4Space Game\Editor Entity\src\editors\entity\particles" />
+    </key>
+    <key name="CopyClassDialog.RECENTS_KEY">
+      <recent name="game.terrains" />
+      <recent name="game.uis.screens" />
+      <recent name="game.uis" />
+      <recent name="editors.entity" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\mattp\OneDrive\4Space Game\res\res\entities" />
     </key>
   </component>
   <component name="RunManager" selected="Application.Main">
@@ -791,26 +744,34 @@
       <option name="project" value="LOCAL" />
       <updated>1472257941085</updated>
     </task>
-    <option name="localTasksCounter" value="18" />
+    <task id="LOCAL-00018" summary="OpenGL entities not working...">
+      <created>1472268476337</created>
+      <option name="number" value="00018" />
+      <option name="presentableId" value="LOCAL-00018" />
+      <option name="project" value="LOCAL" />
+      <updated>1472268476337</updated>
+    </task>
+    <option name="localTasksCounter" value="19" />
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="1273" y="0" width="1294" height="1047" extended-state="0" />
+    <frame x="-8" y="-8" width="2576" height="1056" extended-state="6" />
     <editor active="false" />
     <layout>
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32769555" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3276414" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Palette&#9;" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Analysis" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.17547569" sideWeight="0.5015625" order="10" side_tool="true" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.17395945" sideWeight="0.4984375" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.17230444" sideWeight="0.4984375" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.271518" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.13554688" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3276414" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="UI Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
@@ -821,7 +782,6 @@
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32769555" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
     </layout>
   </component>
   <component name="Vcs.Log.UiProperties">
@@ -857,7 +817,8 @@
     <MESSAGE value="UI's work ok now, start and paused screen added. Centring with fonts not working right." />
     <MESSAGE value="Some kind of slideshow... Fixed fonts again." />
     <MESSAGE value="Added text background image. Slideshow maths broken." />
-    <option name="LAST_COMMIT_MESSAGE" value="Added text background image. Slideshow maths broken." />
+    <MESSAGE value="OpenGL entities not working..." />
+    <option name="LAST_COMMIT_MESSAGE" value="OpenGL entities not working..." />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -870,72 +831,6 @@
     <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/game/shadows/ShadowRenderer.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="320">
-          <caret line="68" column="82" selection-start-line="68" selection-start-column="82" selection-end-line="68" selection-end-column="82" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/game/MainGuis.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="544">
-          <caret line="47" column="54" selection-start-line="47" selection-start-column="54" selection-end-line="47" selection-end-column="54" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Flounder-Engine/src/flounder/guis/cursor/FlounderCursor.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="374">
-          <caret line="40" column="19" selection-start-line="40" selection-start-column="12" selection-end-line="40" selection-end-column="19" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Flounder-Engine/src/flounder/events/FlounderEvents.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="399">
-          <caret line="24" column="0" selection-start-line="24" selection-start-column="0" selection-end-line="24" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Flounder-Engine/src/flounder/logger/FlounderLogger.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="354">
-          <caret line="74" column="86" selection-start-line="74" selection-start-column="86" selection-end-line="74" selection-end-column="86" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Flounder-Engine/src/flounder/guis/GuiComponent.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="254">
-          <caret line="291" column="5" selection-start-line="291" selection-start-column="5" selection-end-line="291" selection-end-column="5" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/configs/settings.conf">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="68">
-          <caret line="4" column="9" selection-start-line="4" selection-start-column="9" selection-end-line="4" selection-end-column="9" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/game/uis/MainMenu.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="153">
-          <caret line="9" column="13" selection-start-line="9" selection-start-column="13" selection-end-line="9" selection-end-column="13" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/game/uis/screens/ScreenAbout.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="586">
-          <caret line="40" column="41" selection-start-line="40" selection-start-column="41" selection-end-line="40" selection-end-column="41" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/game/uis/screens/ScreenControls.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="527">
@@ -947,6 +842,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="586">
           <caret line="83" column="41" selection-start-line="83" selection-start-column="41" selection-end-line="83" selection-end-column="41" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -977,6 +873,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="424">
           <caret line="120" column="41" selection-start-line="120" selection-start-column="41" selection-end-line="120" selection-end-column="41" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -999,6 +896,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="302">
           <caret line="75" column="0" selection-start-line="75" selection-start-column="0" selection-end-line="75" selection-end-column="0" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -1031,14 +929,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/game/uis/MenuStart.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-391">
-          <caret line="19" column="47" selection-start-line="19" selection-start-column="31" selection-end-line="19" selection-end-column="47" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/game/uis/screens/ScreenPlay.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="194">
@@ -1051,14 +941,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="561">
           <caret line="70" column="67" selection-start-line="70" selection-start-column="67" selection-end-line="70" selection-end-column="67" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Flounder-Engine/src/flounder/guis/GuiTextButton.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="416">
-          <caret line="67" column="97" selection-start-line="67" selection-start-column="97" selection-end-line="67" selection-end-column="97" />
           <folding />
         </state>
       </provider>
@@ -1151,14 +1033,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/game/Environment.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="576">
-          <caret line="59" column="9" selection-start-line="59" selection-start-column="9" selection-end-line="59" selection-end-column="9" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/game/post/deferred/FilterDeferred.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="627">
@@ -1179,14 +1053,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="404">
           <caret line="223" column="40" selection-start-line="223" selection-start-column="31" selection-end-line="223" selection-end-column="40" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/game/MainRenderer.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="525">
-          <caret line="144" column="0" selection-start-line="144" selection-start-column="0" selection-end-line="144" selection-end-column="0" />
           <folding />
         </state>
       </provider>
@@ -1231,14 +1097,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/game/MainGame.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="474">
-          <caret line="73" column="11" selection-start-line="73" selection-start-column="11" selection-end-line="73" selection-end-column="11" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/game/entities/EntityRenderer.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="338">
@@ -1247,18 +1105,130 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/game/entities/entityVertex.glsl">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="663">
-          <caret line="39" column="42" selection-start-line="39" selection-start-column="42" selection-end-line="39" selection-end-column="42" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/game/entities/entityFragment.glsl">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="372">
           <caret line="55" column="19" selection-start-line="55" selection-start-column="9" selection-end-line="55" selection-end-column="19" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/game/terrains/TerrainTexturePack.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="49">
+          <caret line="9" column="29" selection-start-line="9" selection-start-column="29" selection-end-line="9" selection-end-column="29" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/game/terrains/package-info.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="34">
+          <caret line="2" column="3" selection-start-line="2" selection-start-column="3" selection-end-line="2" selection-end-column="3" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/game/Environment.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="850">
+          <caret line="50" column="54" selection-start-line="50" selection-start-column="54" selection-end-line="50" selection-end-column="54" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/game/entities/Entity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="221">
+          <caret line="166" column="0" selection-start-line="166" selection-start-column="0" selection-end-line="178" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/game/entities/entityVertex.glsl">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="306">
+          <caret line="18" column="25" selection-start-line="18" selection-start-column="25" selection-end-line="18" selection-end-column="25" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/game/terrains/terrainVertex.glsl">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="374">
+          <caret line="22" column="22" selection-start-line="22" selection-start-column="9" selection-end-line="22" selection-end-column="22" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/game/terrains/terrainFragment.glsl">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="117">
+          <caret line="29" column="23" selection-start-line="29" selection-start-column="9" selection-end-line="29" selection-end-column="23" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/game/terrains/TerrainRenderer.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="818">
+          <caret line="88" column="42" selection-start-line="88" selection-start-column="31" selection-end-line="88" selection-end-column="42" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/game/terrains/Terrain.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="321">
+          <caret line="186" column="0" selection-start-line="186" selection-start-column="0" selection-end-line="186" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Flounder-Engine/src/flounder/maths/Timer.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="253">
+          <caret line="32" column="17" selection-start-line="32" selection-start-column="8" selection-end-line="32" selection-end-column="17" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Flounder-Engine/src/flounder/guis/GuiTextButton.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="578">
+          <caret line="87" column="125" selection-start-line="87" selection-start-column="125" selection-end-line="87" selection-end-column="125" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/game/uis/MenuStart.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="153">
+          <caret line="24" column="34" selection-start-line="24" selection-start-column="34" selection-end-line="24" selection-end-column="34" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Flounder-Engine/src/flounder/devices/DeviceDisplay.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="102">
+          <caret line="34" column="27" selection-start-line="34" selection-start-column="27" selection-end-line="34" selection-end-column="27" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/game/MainGame.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="119">
+          <caret line="52" column="77" selection-start-line="52" selection-start-column="77" selection-end-line="52" selection-end-column="77" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/game/MainRenderer.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="381">
+          <caret line="64" column="29" selection-start-line="64" selection-start-column="29" selection-end-line="64" selection-end-column="29" />
           <folding />
         </state>
       </provider>

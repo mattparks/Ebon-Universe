@@ -52,36 +52,36 @@ public class ScreenOptions extends GuiComponent {
 	}
 
 	private void createTitleText(String title) {
-		Text titleText = MenuStart.createTitleText(title, this);
+		Text titleText = MainSlider.createTitleText(title, this);
 	}
 
 	private void createAudioOption(float xPos, float yPos) {
-		GuiTextButton button = MenuStart.createButton("Audio", xPos, yPos, MainSlider.BUTTONS_X_WIDTH, MainSlider.BUTTONS_Y_SIZE, MainSlider.FONT_SIZE, this);
+		GuiTextButton button = MainSlider.createButton("Audio", xPos, yPos, MainSlider.BUTTONS_X_WIDTH, MainSlider.BUTTONS_Y_SIZE, MainSlider.FONT_SIZE, this);
 		button.addLeftListener(() -> mainSlider.setNewSecondaryScreen(screenOptionsAudio, true));
 	}
 
 	private void createDevelopersOption(float xPos, float yPos) {
-		GuiTextButton button = MenuStart.createButton("Developer", xPos, yPos, MainSlider.BUTTONS_X_WIDTH, MainSlider.BUTTONS_Y_SIZE, MainSlider.FONT_SIZE, this);
+		GuiTextButton button = MainSlider.createButton("Developer", xPos, yPos, MainSlider.BUTTONS_X_WIDTH, MainSlider.BUTTONS_Y_SIZE, MainSlider.FONT_SIZE, this);
 		button.addLeftListener(() -> mainSlider.setNewSecondaryScreen(screenOptionsDeveloper, true));
 	}
 
 	private void createGraphicsOption(float xPos, float yPos) {
-		GuiTextButton button = MenuStart.createButton("Graphics", xPos, yPos, MainSlider.BUTTONS_X_WIDTH, MainSlider.BUTTONS_Y_SIZE, MainSlider.FONT_SIZE, this);
+		GuiTextButton button = MainSlider.createButton("Graphics", xPos, yPos, MainSlider.BUTTONS_X_WIDTH, MainSlider.BUTTONS_Y_SIZE, MainSlider.FONT_SIZE, this);
 		button.addLeftListener(() -> mainSlider.setNewSecondaryScreen(screenOptionsGraphics, true));
 	}
 
 	private void createEffectsOption(float xPos, float yPos) {
-		GuiTextButton button = MenuStart.createButton("Effects", xPos, yPos, MainSlider.BUTTONS_X_WIDTH, MainSlider.BUTTONS_Y_SIZE, MainSlider.FONT_SIZE, this);
+		GuiTextButton button = MainSlider.createButton("Effects", xPos, yPos, MainSlider.BUTTONS_X_WIDTH, MainSlider.BUTTONS_Y_SIZE, MainSlider.FONT_SIZE, this);
 		button.addLeftListener(() -> mainSlider.setNewSecondaryScreen(screenOptionsEffects, true));
 	}
 
 	private void createInputsOption(float xPos, float yPos) {
-		GuiTextButton button = MenuStart.createButton("Inputs", xPos, yPos, MainSlider.BUTTONS_X_WIDTH, MainSlider.BUTTONS_Y_SIZE, MainSlider.FONT_SIZE, this);
+		GuiTextButton button = MainSlider.createButton("Inputs", xPos, yPos, MainSlider.BUTTONS_X_WIDTH, MainSlider.BUTTONS_Y_SIZE, MainSlider.FONT_SIZE, this);
 		button.addLeftListener(() -> mainSlider.setNewSecondaryScreen(screenOptionsInputs, true));
 	}
 
 	private void createBackOption(float xPos, float yPos) {
-		GuiTextButton button = MenuStart.createButton("Back", xPos, yPos, MainSlider.BUTTONS_X_WIDTH, MainSlider.BUTTONS_Y_SIZE, MainSlider.FONT_SIZE, this);
+		GuiTextButton button = MainSlider.createButton("Back", xPos, yPos, MainSlider.BUTTONS_X_WIDTH, MainSlider.BUTTONS_Y_SIZE, MainSlider.FONT_SIZE, this);
 		button.addLeftListener(mainSlider::closeSecondaryScreen);
 	}
 

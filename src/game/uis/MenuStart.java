@@ -15,6 +15,7 @@ public class MenuStart extends GuiComponent {
 	private MainSlider mainSlider;
 
 	private GuiTexture[] slideshow;
+	private GuiTexture slideoverlay;
 	private SlideDriver slideshowDriver;
 	private static final float SLIDESHOW_ASPECT = 1600.0f / 1200.0f;
 	private static final float SLIDE_SPEED = 4.75f;
@@ -35,12 +36,14 @@ public class MenuStart extends GuiComponent {
 		this.screenOptions = new ScreenOptions(mainSlider);
 		this.screenAbout = new ScreenAbout(mainSlider);
 
-		slideshow = new GuiTexture[] {
+		slideshow = new GuiTexture[]{
 				new GuiTexture(Texture.newTexture(new MyFile(MyFile.RES_FOLDER, "slideshow", "example1.png")).create()),
 				new GuiTexture(Texture.newTexture(new MyFile(MyFile.RES_FOLDER, "slideshow", "example2.png")).create()),
 				new GuiTexture(Texture.newTexture(new MyFile(MyFile.RES_FOLDER, "slideshow", "example3.png")).create()),
-				new GuiTexture(Texture.newTexture(new MyFile(MyFile.RES_FOLDER, "slideshow", "example4.png")).create())
+				new GuiTexture(Texture.newTexture(new MyFile(MyFile.RES_FOLDER, "slideshow", "example4.png")).create()),
+				new GuiTexture(Texture.newTexture(new MyFile(MyFile.RES_FOLDER, "slideshow", "example5.png")).create())
 		};
+		slideoverlay = new GuiTexture(Texture.newTexture(new MyFile(MyFile.RES_FOLDER, "slideshow", "overlay.png")).create());
 		slideshowDriver = new SlideDriver(slideshow.length - 1.0f, 0.0f, slideshow.length * SLIDE_SPEED);
 
 		titleText = Text.newText("4SPACE").setFontSize(MainSlider.MAIN_TITLE_FONT_SIZE * 1.25f).create();
@@ -64,53 +67,33 @@ public class MenuStart extends GuiComponent {
 	}
 
 	private void createPlayButton(float yPos) {
-		GuiTextButton button = createButton("Play", MainSlider.BUTTONS_X_POS, yPos, MainSlider.BUTTONS_X_WIDTH, MainSlider.BUTTONS_Y_SIZE, MainSlider.FONT_SIZE, this);
+		GuiTextButton button = MainSlider.createButton("Play", MainSlider.BUTTONS_X_POS, yPos, MainSlider.BUTTONS_X_WIDTH, MainSlider.BUTTONS_Y_SIZE, MainSlider.FONT_SIZE, this);
 		button.addLeftListener(() -> mainSlider.setNewSecondaryScreen(screenPlay, true));
 		button.addRightListener(null);
 	}
 
 	private void createOptionsButton(float yPos) {
-		GuiTextButton button = createButton("Options", MainSlider.BUTTONS_X_POS, yPos, MainSlider.BUTTONS_X_WIDTH, MainSlider.BUTTONS_Y_SIZE, MainSlider.FONT_SIZE, this);
+		GuiTextButton button = MainSlider.createButton("Options", MainSlider.BUTTONS_X_POS, yPos, MainSlider.BUTTONS_X_WIDTH, MainSlider.BUTTONS_Y_SIZE, MainSlider.FONT_SIZE, this);
 		button.addLeftListener(() -> mainSlider.setNewSecondaryScreen(screenOptions, true));
 		button.addRightListener(null);
 	}
 
 	private void createAboutButton(float yPos) {
-		GuiTextButton button = createButton("About", MainSlider.BUTTONS_X_POS, yPos, MainSlider.BUTTONS_X_WIDTH, MainSlider.BUTTONS_Y_SIZE, MainSlider.FONT_SIZE, this);
+		GuiTextButton button = MainSlider.createButton("About", MainSlider.BUTTONS_X_POS, yPos, MainSlider.BUTTONS_X_WIDTH, MainSlider.BUTTONS_Y_SIZE, MainSlider.FONT_SIZE, this);
 		button.addLeftListener(() -> mainSlider.setNewSecondaryScreen(screenAbout, true));
 		button.addRightListener(null);
 	}
 
 	private void createModsButton(float yPos) {
-		GuiTextButton button = createButton("Mods", MainSlider.BUTTONS_X_POS, yPos, MainSlider.BUTTONS_X_WIDTH, MainSlider.BUTTONS_Y_SIZE, MainSlider.FONT_SIZE, this);
+		GuiTextButton button = MainSlider.createButton("Mods", MainSlider.BUTTONS_X_POS, yPos, MainSlider.BUTTONS_X_WIDTH, MainSlider.BUTTONS_Y_SIZE, MainSlider.FONT_SIZE, this);
 		//	button.addLeftListener(() -> mainSlider.setNewSecondaryScreen(screenMods, true));
 		button.addRightListener(null);
 	}
 
 	private void createQuitButton(float yPos) {
-		GuiTextButton button = createButton("Quit", MainSlider.BUTTONS_X_POS, yPos, MainSlider.BUTTONS_X_WIDTH, MainSlider.BUTTONS_Y_SIZE, MainSlider.FONT_SIZE, this);
+		GuiTextButton button = MainSlider.createButton("Quit", MainSlider.BUTTONS_X_POS, yPos, MainSlider.BUTTONS_X_WIDTH, MainSlider.BUTTONS_Y_SIZE, MainSlider.FONT_SIZE, this);
 		button.addLeftListener(FlounderEngine::requestClose);
 		button.addRightListener(null);
-	}
-
-	public static GuiTextButton createButton(String textString, float xPos, float yPos, float xBut, float yBut, float fontSize, GuiComponent component) {
-		Text text = Text.newText(textString).setFontSize(fontSize).create();
-		text.setColour(MainSlider.TEXT_COLOUR);
-		text.setBorderColour(0.15f, 0.15f, 0.15f);
-		text.setBorder(new ConstantDriver(0.04f));
-		GuiTextButton button = new GuiTextButton(text);
-		button.setSounds(MainSlider.SOUND_MOUSE_HOVER, MainSlider.SOUND_MOUSE_LEFT, MainSlider.SOUND_MOUSE_RIGHT);
-		component.addComponent(button, xPos, yPos, xBut, yBut);
-		return button;
-	}
-
-	public static Text createTitleText(String title, GuiComponent component) {
-		Text titleText = Text.newText(title).setFontSize(MainSlider.MAIN_TITLE_FONT_SIZE).create();
-		titleText.setColour(0.15f, 0.15f, 0.15f);
-		titleText.setBorderColour(MainSlider.TEXT_COLOUR);
-		titleText.setBorder(new ConstantDriver(0.04f));
-		component.addText(titleText, MainSlider.BUTTONS_X_POS, -0.30f, 1.0f);
-		return titleText;
 	}
 
 	public MainMenu getSuperMenu() {
@@ -122,9 +105,10 @@ public class MenuStart extends GuiComponent {
 		titleText.setColour(titleColourX.update(FlounderEngine.getDelta()), titleColourY.update(FlounderEngine.getDelta()), 0.3f);
 		titleText.setBorderColour(titleText.getColour().r, titleText.getColour().g, titleText.getColour().b);
 
+		// TODO: Use aspect ratio to create image width.
 		float aspectRatio = FlounderEngine.getDevices().getDisplay().getAspectRatio();
 		float progression = slideshowDriver.update(FlounderEngine.getDelta());
-		float imageWidth = SLIDESHOW_ASPECT / aspectRatio;
+		float imageWidth = 1.0f; //SLIDESHOW_ASPECT / aspectRatio;
 
 		if (progression >= slideshow.length - 1.0f) {
 			slideshowDriver = new SlideDriver(slideshow.length - 1.0f, 0.0f, slideshow.length * SLIDE_SPEED);
@@ -132,12 +116,19 @@ public class MenuStart extends GuiComponent {
 			slideshowDriver = new SlideDriver(0.0f, slideshow.length - 1.0f, slideshow.length * SLIDE_SPEED);
 		}
 
+		float currentTextureX = progression;
+
 		if (isShown()) {
 			for (int i = 0; i < slideshow.length; i++) {
-				slideshow[i].setPosition(progression - i + (i * (1.0f - imageWidth)), 0.0f, imageWidth, 1.0f);
+				slideshow[i].setPosition(currentTextureX, 0.0f, imageWidth, 1.0f);
 				slideshow[i].update();
+				currentTextureX -= imageWidth;
 			}
 		}
+
+		//	slideoverlay.getColourOffset().set(titleText.getColour());
+		slideoverlay.setPosition(0.0f, 0.0f, 1.0f, 1.0f);
+		slideoverlay.update();
 	}
 
 	@Override
@@ -145,5 +136,7 @@ public class MenuStart extends GuiComponent {
 		for (int i = 0; i < slideshow.length; i++) {
 			guiTextures.add(slideshow[i]);
 		}
+
+		guiTextures.add(slideoverlay);
 	}
 }

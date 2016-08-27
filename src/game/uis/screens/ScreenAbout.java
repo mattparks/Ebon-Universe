@@ -34,11 +34,11 @@ public class ScreenAbout extends GuiComponent {
 	}
 
 	private void createTitleText(String title) {
-		Text titleText = MenuStart.createTitleText(title, this);
+		Text titleText = MainSlider.createTitleText(title, this);
 	}
 
 	private void createBackOption(float xPos, float yPos) {
-		GuiTextButton button = MenuStart.createButton("Back", xPos, yPos, MainSlider.BUTTONS_X_WIDTH, MainSlider.BUTTONS_Y_SIZE, MainSlider.FONT_SIZE, this);
+		GuiTextButton button = MainSlider.createButton("Back", xPos, yPos, MainSlider.BUTTONS_X_WIDTH, MainSlider.BUTTONS_Y_SIZE, MainSlider.FONT_SIZE, this);
 		button.addLeftListener(mainSlider::closeSecondaryScreen);
 	}
 

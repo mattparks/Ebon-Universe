@@ -43,11 +43,11 @@ public class ScreenOptionsEffects extends GuiComponent {
 	}
 
 	private void createTitleText(String title) {
-		Text titleText = MenuStart.createTitleText(title, this);
+		Text titleText = MainSlider.createTitleText(title, this);
 	}
 
 	private void createPostEffectOption(float xPos, float yPos) {
-		GuiTextButton button = MenuStart.createButton("Post Effect: " + OptionsPost.POST_EFFECT, xPos, yPos, MainSlider.BUTTONS_X_WIDTH, MainSlider.BUTTONS_Y_SIZE, MainSlider.FONT_SIZE, this);
+		GuiTextButton button = MainSlider.createButton("Post Effect: " + OptionsPost.POST_EFFECT, xPos, yPos, MainSlider.BUTTONS_X_WIDTH, MainSlider.BUTTONS_Y_SIZE, MainSlider.FONT_SIZE, this);
 		button.addLeftListener(() -> {
 			OptionsPost.POST_EFFECT += 1;
 
@@ -83,7 +83,7 @@ public class ScreenOptionsEffects extends GuiComponent {
 	}
 
 	private void createPostEnabledOption(float xPos, float yPos) {
-		GuiTextButton button = MenuStart.createButton("Post Enabled: " + (OptionsPost.POST_ENABLED ? "On" : "Off"), xPos, yPos, MainSlider.BUTTONS_X_WIDTH, MainSlider.BUTTONS_Y_SIZE, MainSlider.FONT_SIZE, this);
+		GuiTextButton button = MainSlider.createButton("Post Enabled: " + (OptionsPost.POST_ENABLED ? "On" : "Off"), xPos, yPos, MainSlider.BUTTONS_X_WIDTH, MainSlider.BUTTONS_Y_SIZE, MainSlider.FONT_SIZE, this);
 		button.addLeftListener(() -> {
 			OptionsPost.POST_ENABLED = !OptionsPost.POST_ENABLED;
 		});
@@ -107,7 +107,7 @@ public class ScreenOptionsEffects extends GuiComponent {
 	}
 
 	private void createFilterFXAAOption(float xPos, float yPos) {
-		GuiTextButton button = MenuStart.createButton("FXAA: " + (OptionsPost.FILTER_FXAA ? "Enabled" : "Disabled"), xPos, yPos, MainSlider.BUTTONS_X_WIDTH, MainSlider.BUTTONS_Y_SIZE, MainSlider.FONT_SIZE, this);
+		GuiTextButton button = MainSlider.createButton("FXAA: " + (OptionsPost.FILTER_FXAA ? "Enabled" : "Disabled"), xPos, yPos, MainSlider.BUTTONS_X_WIDTH, MainSlider.BUTTONS_Y_SIZE, MainSlider.FONT_SIZE, this);
 		button.addLeftListener(() -> {
 			OptionsPost.FILTER_FXAA = !OptionsPost.FILTER_FXAA;
 		});
@@ -131,7 +131,7 @@ public class ScreenOptionsEffects extends GuiComponent {
 	}
 
 	private void createBackOption(float xPos, float yPos) {
-		GuiTextButton button = MenuStart.createButton("Back", xPos, yPos, MainSlider.BUTTONS_X_WIDTH, MainSlider.BUTTONS_Y_SIZE, MainSlider.FONT_SIZE, this);
+		GuiTextButton button = MainSlider.createButton("Back", xPos, yPos, MainSlider.BUTTONS_X_WIDTH, MainSlider.BUTTONS_Y_SIZE, MainSlider.FONT_SIZE, this);
 		button.addLeftListener(() -> mainSlider.setNewSecondaryScreen(screenOptionsGraphics, false));
 	}
 

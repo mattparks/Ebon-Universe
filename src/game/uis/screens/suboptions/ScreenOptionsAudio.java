@@ -22,11 +22,11 @@ public class ScreenOptionsAudio extends GuiComponent {
 		createTitleText("Audios");
 
 		float currentY = -0.15f;
-		createMusicOption(MainSlider.BUTTONS_X_POS, currentY += MainSlider.BUTTONS_Y_SEPARATION);
-		createSoundOption(MainSlider.BUTTONS_X_POS, currentY += MainSlider.BUTTONS_Y_SEPARATION);
-		createVolumeOption(MainSlider.BUTTONS_X_POS, currentY += MainSlider.BUTTONS_Y_SEPARATION);
+		createMusicOption(MainSlider.BUTTONS_X_POS_LEFT, currentY += MainSlider.BUTTONS_Y_SEPARATION);
+		createSoundOption(MainSlider.BUTTONS_X_POS_LEFT, currentY += MainSlider.BUTTONS_Y_SEPARATION);
+		createVolumeOption(MainSlider.BUTTONS_X_POS_LEFT, currentY += MainSlider.BUTTONS_Y_SEPARATION);
 
-		createBackOption(MainSlider.BUTTONS_X_POS, 1.0f);
+		createBackOption(MainSlider.BUTTONS_X_POS_LEFT, 1.0f);
 
 		super.show(false);
 
@@ -44,12 +44,12 @@ public class ScreenOptionsAudio extends GuiComponent {
 	}
 
 	private void createTitleText(String title) {
-		Text titleText = MainSlider.createTitleText(title, this);
+		Text titleText = MainSlider.createTitleText(title, TextAlign.LEFT, this);
 	}
 
 	private void createMusicOption(float xPos, float yPos) {
 		MusicPlayer mPlayer = FlounderEngine.getDevices().getSound().getMusicPlayer();
-		GuiTextButton button = MainSlider.createButton("Music: " + (!mPlayer.isPaused() ? "On" : "Off"), xPos, yPos, MainSlider.BUTTONS_X_WIDTH, MainSlider.BUTTONS_Y_SIZE, MainSlider.FONT_SIZE, this);
+		GuiTextButton button = MainSlider.createButton("Music: " + (!mPlayer.isPaused() ? "On" : "Off"), TextAlign.LEFT, xPos, yPos, MainSlider.BUTTONS_X_WIDTH, MainSlider.BUTTONS_Y_SIZE, MainSlider.FONT_SIZE, this);
 		button.addLeftListener(() -> {
 			if (mPlayer.isPaused()) {
 				mPlayer.unpauseTrack();
@@ -93,7 +93,7 @@ public class ScreenOptionsAudio extends GuiComponent {
 	}
 
 	private void createSoundOption(float xPos, float yPos) {
-		GuiTextButton button = MainSlider.createButton("Sound: " + (MusicPlayer.SOUND_VOLUME == 0.0f ? "Off" : "On"), xPos, yPos, MainSlider.BUTTONS_X_WIDTH, MainSlider.BUTTONS_Y_SIZE, MainSlider.FONT_SIZE, this);
+		GuiTextButton button = MainSlider.createButton("Sound: " + (MusicPlayer.SOUND_VOLUME == 0.0f ? "Off" : "On"), TextAlign.LEFT, xPos, yPos, MainSlider.BUTTONS_X_WIDTH, MainSlider.BUTTONS_Y_SIZE, MainSlider.FONT_SIZE, this);
 		button.addLeftListener(() -> {
 			if (MusicPlayer.SOUND_VOLUME != 0) {
 				lastSoundVolume = MusicPlayer.SOUND_VOLUME;
@@ -123,7 +123,7 @@ public class ScreenOptionsAudio extends GuiComponent {
 	}
 
 	private void createVolumeOption(float xPos, float yPos) {
-		GuiTextButton button = MainSlider.createButton("Volume: " + ((int) (MusicPlayer.SOUND_VOLUME * 100.0f)) + "%", xPos, yPos, MainSlider.BUTTONS_X_WIDTH, MainSlider.BUTTONS_Y_SIZE, MainSlider.FONT_SIZE, this);
+		GuiTextButton button = MainSlider.createButton("Volume: " + ((int) (MusicPlayer.SOUND_VOLUME * 100.0f)) + "%", TextAlign.LEFT, xPos, yPos, MainSlider.BUTTONS_X_WIDTH, MainSlider.BUTTONS_Y_SIZE, MainSlider.FONT_SIZE, this);
 		button.addLeftListener(() -> {
 			MusicPlayer.SOUND_VOLUME += 0.05f;
 
@@ -159,7 +159,7 @@ public class ScreenOptionsAudio extends GuiComponent {
 	}
 
 	private void createBackOption(float xPos, float yPos) {
-		GuiTextButton button = MainSlider.createButton("Back", xPos, yPos, MainSlider.BUTTONS_X_WIDTH, MainSlider.BUTTONS_Y_SIZE, MainSlider.FONT_SIZE, this);
+		GuiTextButton button = MainSlider.createButton("Back", TextAlign.LEFT, xPos, yPos, MainSlider.BUTTONS_X_WIDTH, MainSlider.BUTTONS_Y_SIZE, MainSlider.FONT_SIZE, this);
 		button.addLeftListener(() -> mainSlider.setNewSecondaryScreen(screenOptions, false));
 	}
 

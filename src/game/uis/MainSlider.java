@@ -9,7 +9,6 @@ import flounder.maths.*;
 import flounder.resources.*;
 import flounder.sounds.*;
 import flounder.visual.*;
-import game.*;
 import org.lwjgl.glfw.*;
 
 import java.util.*;
@@ -20,9 +19,10 @@ public class MainSlider extends GuiComponent {
 
 	public static final float FONT_SIZE = 1.625f;
 
-	public static final float BUTTONS_X_POS = 0.05f;
+	public static final float BUTTONS_X_POS_LEFT = 0.05f;
+	public static final float BUTTONS_X_POS_RIGHT = 0.6f;
 	public static final float BUTTONS_X_WIDTH = 1.0f - 0.25f * 2.0f;
-	public static final float BUTTONS_Y_SEPARATION = 0.18f;
+	public static final float BUTTONS_Y_SEPARATION = 0.19f;
 	public static final float BUTTONS_Y_SIZE = 0.2f;
 
 	public static final Sound SOUND_MOUSE_HOVER = Sound.loadSoundInBackground(new MyFile(DeviceSound.SOUND_FOLDER, "button1.wav"), 0.8f);
@@ -63,13 +63,13 @@ public class MainSlider extends GuiComponent {
 		addComponent(menuStart, 0.0f, MAIN_MENU_Y_POS, 1.0f, MAIN_MENU_Y_SIZE);
 		addComponent(menuPause, 0.0f, MAIN_MENU_Y_POS, 1.0f, MAIN_MENU_Y_SIZE);
 
-		if (FlounderEngine.getLogger().inJar()) {
+	//	if (FlounderEngine.getLogger().inJar()) {
 			this.menuActive = menuStart;
-		} else {
-			this.menuActive = menuPause;
-			((MainGame) FlounderEngine.getGame()).generateWorlds();
-			((MainGame) FlounderEngine.getGame()).generatePlayer();
-		}
+	//	} else {
+	//		this.menuActive = menuPause;
+	//		((MainGame) FlounderEngine.getGame()).generateWorlds();
+	//		((MainGame) FlounderEngine.getGame()).generatePlayer();
+	//	}
 
 		this.menuActive.show(true);
 
@@ -189,23 +189,23 @@ public class MainSlider extends GuiComponent {
 		menuActive.show(true);
 	}
 
-	public static Text createTitleText(String title, GuiComponent component) {
-		Text titleText = Text.newText(title).setFontSize(MainSlider.MAIN_TITLE_FONT_SIZE).create();
+	public static Text createTitleText(String title, TextAlign textAlign, GuiComponent component) {
+		Text titleText = Text.newText(title, textAlign).setFontSize(MainSlider.MAIN_TITLE_FONT_SIZE).create();
 		titleText.setColour(0.15f, 0.15f, 0.15f);
 		titleText.setBorderColour(MainSlider.TEXT_COLOUR);
 		titleText.setBorder(new ConstantDriver(0.04f));
-		component.addText(titleText, MainSlider.BUTTONS_X_POS, -0.30f, 1.0f);
+		component.addText(titleText, MainSlider.BUTTONS_X_POS_LEFT, -0.30f, 1.0f);
 		return titleText;
 	}
 
-	public static GuiTextButton createButton(String textString, float xPos, float yPos, float xBut, float yBut, float fontSize, GuiComponent component) {
-		Text text = Text.newText(textString).setFontSize(fontSize).create();
+	public static GuiTextButton createButton(String textString, TextAlign textAlign, float xPos, float yPos, float xBut, float yBut, float fontSize, GuiComponent component) {
+		Text text = Text.newText(textString, textAlign).setFontSize(fontSize).create();
 		text.setColour(MainSlider.TEXT_COLOUR);
 		text.setBorderColour(0.15f, 0.15f, 0.15f);
 		text.setBorder(new ConstantDriver(0.04f));
-		GuiTextButton button = new GuiTextButton(text);
+		GuiTextButton button = new GuiTextButton(text, textAlign, xPos);
 		button.setSounds(MainSlider.SOUND_MOUSE_HOVER, MainSlider.SOUND_MOUSE_LEFT, MainSlider.SOUND_MOUSE_RIGHT);
-		component.addComponent(button, xPos, yPos, xBut, yBut);
+		component.addComponent(button, 0.0f, yPos, xBut, yBut);
 		return button;
 	}
 

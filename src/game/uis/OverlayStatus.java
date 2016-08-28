@@ -18,7 +18,7 @@ public class OverlayStatus extends GuiComponent {
 	public OverlayStatus() {
 		mainDriver = new ConstantDriver(-MainSlider.SLIDE_SCALAR);
 
-		fpsText = Text.newText("FPS: " + Maths.roundToPlace(1.0f / FlounderEngine.getDelta(), 1)).setFontSize(1.0f).create();
+		fpsText = Text.newText("FPS: " + Maths.roundToPlace(1.0f / FlounderEngine.getDelta(), 1), TextAlign.LEFT).setFontSize(1.0f).create();
 		fpsText.setColour(MainSlider.TEXT_COLOUR);
 		fpsText.setBorderColour(0.15f, 0.15f, 0.15f);
 		fpsText.setBorder(new ConstantDriver(0.04f));

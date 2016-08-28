@@ -18,10 +18,10 @@ public class ScreenPlay extends GuiComponent {
 		createTitleText("Play");
 
 		float currentY = -0.15f;
-		createSingleplayerOption(MainSlider.BUTTONS_X_POS, currentY += MainSlider.BUTTONS_Y_SEPARATION);
-		createMultiplayerOption(MainSlider.BUTTONS_X_POS, currentY += MainSlider.BUTTONS_Y_SEPARATION);
+		createSingleplayerOption(MainSlider.BUTTONS_X_POS_LEFT, currentY += MainSlider.BUTTONS_Y_SEPARATION);
+		createMultiplayerOption(MainSlider.BUTTONS_X_POS_LEFT, currentY += MainSlider.BUTTONS_Y_SEPARATION);
 
-		createBackOption(MainSlider.BUTTONS_X_POS, 1.0f);
+		createBackOption(MainSlider.BUTTONS_X_POS_LEFT, 1.0f);
 
 		super.show(false);
 
@@ -39,11 +39,11 @@ public class ScreenPlay extends GuiComponent {
 	}
 
 	private void createTitleText(String title) {
-		Text titleText = MainSlider.createTitleText(title, this);
+		Text titleText = MainSlider.createTitleText(title, TextAlign.LEFT, this);
 	}
 
 	private void createSingleplayerOption(float xPos, float yPos) {
-		GuiTextButton button = MainSlider.createButton("Singleplayer", xPos, yPos, MainSlider.BUTTONS_X_WIDTH, MainSlider.BUTTONS_Y_SIZE, MainSlider.FONT_SIZE, this);
+		GuiTextButton button = MainSlider.createButton("Singleplayer", TextAlign.LEFT, xPos, yPos, MainSlider.BUTTONS_X_WIDTH, MainSlider.BUTTONS_Y_SIZE, MainSlider.FONT_SIZE, this);
 		button.addLeftListener(() -> {
 			((MainGame) FlounderEngine.getGame()).generateWorlds();
 			((MainGame) FlounderEngine.getGame()).generatePlayer();
@@ -54,12 +54,12 @@ public class ScreenPlay extends GuiComponent {
 	}
 
 	private void createMultiplayerOption(float xPos, float yPos) {
-		GuiTextButton button = MainSlider.createButton("Multiplayer", xPos, yPos, MainSlider.BUTTONS_X_WIDTH, MainSlider.BUTTONS_Y_SIZE, MainSlider.FONT_SIZE, this);
+		GuiTextButton button = MainSlider.createButton("Multiplayer", TextAlign.LEFT, xPos, yPos, MainSlider.BUTTONS_X_WIDTH, MainSlider.BUTTONS_Y_SIZE, MainSlider.FONT_SIZE, this);
 		//button.addLeftListener(() -> mainSlider.getMenuStart().getSuperMenu().display(false));
 	}
 
 	private void createBackOption(float xPos, float yPos) {
-		GuiTextButton button = MainSlider.createButton("Back", xPos, yPos, MainSlider.BUTTONS_X_WIDTH, MainSlider.BUTTONS_Y_SIZE, MainSlider.FONT_SIZE, this);
+		GuiTextButton button = MainSlider.createButton("Back", TextAlign.LEFT, xPos, yPos, MainSlider.BUTTONS_X_WIDTH, MainSlider.BUTTONS_Y_SIZE, MainSlider.FONT_SIZE, this);
 		button.addLeftListener(mainSlider::closeSecondaryScreen);
 	}
 

@@ -16,7 +16,7 @@ public class ScreenAbout extends GuiComponent {
 
 		createTitleText("About");
 
-		createBackOption(MainSlider.BUTTONS_X_POS, 1.0f);
+		createBackOption(MainSlider.BUTTONS_X_POS_LEFT, 1.0f);
 
 		super.show(false);
 
@@ -34,11 +34,11 @@ public class ScreenAbout extends GuiComponent {
 	}
 
 	private void createTitleText(String title) {
-		Text titleText = MainSlider.createTitleText(title, this);
+		Text titleText = MainSlider.createTitleText(title, TextAlign.LEFT, this);
 	}
 
 	private void createBackOption(float xPos, float yPos) {
-		GuiTextButton button = MainSlider.createButton("Back", xPos, yPos, MainSlider.BUTTONS_X_WIDTH, MainSlider.BUTTONS_Y_SIZE, MainSlider.FONT_SIZE, this);
+		GuiTextButton button = MainSlider.createButton("Back", TextAlign.LEFT, xPos, yPos, MainSlider.BUTTONS_X_WIDTH, MainSlider.BUTTONS_Y_SIZE, MainSlider.FONT_SIZE, this);
 		button.addLeftListener(mainSlider::closeSecondaryScreen);
 	}
 

@@ -24,6 +24,9 @@ public class ScreenOptionsGraphics extends GuiComponent {
 		createAntialiasOption(MainSlider.BUTTONS_X_POS_LEFT, currentY += MainSlider.BUTTONS_Y_SEPARATION);
 		createVSyncOption(MainSlider.BUTTONS_X_POS_LEFT, currentY += MainSlider.BUTTONS_Y_SEPARATION);
 
+		currentY = -0.15f;
+		createSamplesOption(MainSlider.BUTTONS_X_POS_LEFT, currentY += MainSlider.BUTTONS_Y_SEPARATION);
+
 		createBackOption(MainSlider.BUTTONS_X_POS_LEFT, 1.0f);
 
 		super.show(false);
@@ -46,7 +49,7 @@ public class ScreenOptionsGraphics extends GuiComponent {
 	}
 
 	private void createFullscreenOption(float xPos, float yPos) {
-		GuiTextButton button = MainSlider.createButton("Fullscreen: " + (FlounderEngine.getDevices().getDisplay().isFullscreen() ? "On" : "Off"), TextAlign.LEFT, xPos, yPos, MainSlider.BUTTONS_X_WIDTH, MainSlider.BUTTONS_Y_SIZE, MainSlider.FONT_SIZE, this);
+		GuiTextButton button = MainSlider.createButton("Fullscreen: " + (FlounderEngine.getDevices().getDisplay().isFullscreen() ? "On" : "Off"), TextAlign.LEFT, yPos, this);
 		button.addLeftListener(() -> {
 			FlounderEngine.getDevices().getDisplay().setFullscreen(!FlounderEngine.getDevices().getDisplay().isFullscreen());
 		});
@@ -70,7 +73,7 @@ public class ScreenOptionsGraphics extends GuiComponent {
 	}
 
 	private void createAntialiasOption(float xPos, float yPos) {
-		GuiTextButton button = MainSlider.createButton("Antialiasing: " + (FlounderEngine.getDevices().getDisplay().isAntialiasing() ? "On" : "Off"), TextAlign.LEFT, xPos, yPos, MainSlider.BUTTONS_X_WIDTH, MainSlider.BUTTONS_Y_SIZE, MainSlider.FONT_SIZE, this);
+		GuiTextButton button = MainSlider.createButton("Antialiasing: " + (FlounderEngine.getDevices().getDisplay().isAntialiasing() ? "On" : "Off"), TextAlign.LEFT, yPos, this);
 		button.addLeftListener(() -> {
 			FlounderEngine.getDevices().getDisplay().setAntialiasing(!FlounderEngine.getDevices().getDisplay().isAntialiasing());
 		});
@@ -94,7 +97,7 @@ public class ScreenOptionsGraphics extends GuiComponent {
 	}
 
 	private void createVSyncOption(float xPos, float yPos) {
-		GuiTextButton button = MainSlider.createButton("VSync: " + (FlounderEngine.getDevices().getDisplay().isVSync() ? "On" : "Off"), TextAlign.LEFT, xPos, yPos, MainSlider.BUTTONS_X_WIDTH, MainSlider.BUTTONS_Y_SIZE, MainSlider.FONT_SIZE, this);
+		GuiTextButton button = MainSlider.createButton("VSync: " + (FlounderEngine.getDevices().getDisplay().isVSync() ? "On" : "Off"), TextAlign.LEFT, yPos, this);
 		button.addLeftListener(() -> {
 			FlounderEngine.getDevices().getDisplay().setVSync(!FlounderEngine.getDevices().getDisplay().isVSync());
 		});
@@ -117,8 +120,37 @@ public class ScreenOptionsGraphics extends GuiComponent {
 		});
 	}
 
+	private void createSamplesOption(float xPos, float yPos) {
+		GuiTextButton button = MainSlider.createButton("Samples: " + FlounderEngine.getDevices().getDisplay().getSamples(), TextAlign.RIGHT, yPos, this);
+		button.addLeftListener(() -> {
+			int newSamples = FlounderEngine.getDevices().getDisplay().getSamples() + 1;
+			FlounderEngine.getDevices().getDisplay().setSamples(Math.min(32, newSamples));
+		});
+		button.addRightListener(() -> {
+			int newSamples = FlounderEngine.getDevices().getDisplay().getSamples() - 1;
+			FlounderEngine.getDevices().getDisplay().setSamples(Math.max(0, newSamples));
+		});
+
+		FlounderEngine.getEvents().addEvent(new IEvent() {
+			private int samples = FlounderEngine.getDevices().getDisplay().getSamples();
+
+			@Override
+			public boolean eventTriggered() {
+				int newSamples = FlounderEngine.getDevices().getDisplay().getSamples();
+				boolean occurred = newSamples != samples;
+				samples = newSamples;
+				return occurred;
+			}
+
+			@Override
+			public void onEvent() {
+				button.getText().setText("Samples: " + FlounderEngine.getDevices().getDisplay().getSamples());
+			}
+		});
+	}
+
 	private void createBackOption(float xPos, float yPos) {
-		GuiTextButton button = MainSlider.createButton("Back", TextAlign.LEFT, xPos, yPos, MainSlider.BUTTONS_X_WIDTH, MainSlider.BUTTONS_Y_SIZE, MainSlider.FONT_SIZE, this);
+		GuiTextButton button = MainSlider.createButton("Back", TextAlign.LEFT, yPos, this);
 		button.addLeftListener(() -> mainSlider.setNewSecondaryScreen(screenOptions, false));
 	}
 

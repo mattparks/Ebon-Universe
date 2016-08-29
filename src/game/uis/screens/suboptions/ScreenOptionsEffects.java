@@ -47,7 +47,7 @@ public class ScreenOptionsEffects extends GuiComponent {
 	}
 
 	private void createPostEffectOption(float xPos, float yPos) {
-		GuiTextButton button = MainSlider.createButton("Post Effect: " + OptionsPost.POST_EFFECT, TextAlign.LEFT, xPos, yPos, MainSlider.BUTTONS_X_WIDTH, MainSlider.BUTTONS_Y_SIZE, MainSlider.FONT_SIZE, this);
+		GuiTextButton button = MainSlider.createButton("Post Effect: " + OptionsPost.POST_EFFECT, TextAlign.LEFT, yPos, this);
 		button.addLeftListener(() -> {
 			OptionsPost.POST_EFFECT += 1;
 
@@ -83,7 +83,7 @@ public class ScreenOptionsEffects extends GuiComponent {
 	}
 
 	private void createPostEnabledOption(float xPos, float yPos) {
-		GuiTextButton button = MainSlider.createButton("Post Enabled: " + (OptionsPost.POST_ENABLED ? "On" : "Off"), TextAlign.LEFT, xPos, yPos, MainSlider.BUTTONS_X_WIDTH, MainSlider.BUTTONS_Y_SIZE, MainSlider.FONT_SIZE, this);
+		GuiTextButton button = MainSlider.createButton("Post Enabled: " + (OptionsPost.POST_ENABLED ? "On" : "Off"), TextAlign.LEFT, yPos, this);
 		button.addLeftListener(() -> {
 			OptionsPost.POST_ENABLED = !OptionsPost.POST_ENABLED;
 		});
@@ -107,7 +107,7 @@ public class ScreenOptionsEffects extends GuiComponent {
 	}
 
 	private void createFilterFXAAOption(float xPos, float yPos) {
-		GuiTextButton button = MainSlider.createButton("FXAA: " + (OptionsPost.FILTER_FXAA ? "Enabled" : "Disabled"), TextAlign.LEFT, xPos, yPos, MainSlider.BUTTONS_X_WIDTH, MainSlider.BUTTONS_Y_SIZE, MainSlider.FONT_SIZE, this);
+		GuiTextButton button = MainSlider.createButton("FXAA: " + (OptionsPost.FILTER_FXAA ? "Enabled" : "Disabled"), TextAlign.LEFT, yPos, this);
 		button.addLeftListener(() -> {
 			OptionsPost.FILTER_FXAA = !OptionsPost.FILTER_FXAA;
 		});
@@ -131,7 +131,7 @@ public class ScreenOptionsEffects extends GuiComponent {
 	}
 
 	private void createBackOption(float xPos, float yPos) {
-		GuiTextButton button = MainSlider.createButton("Back", TextAlign.LEFT, xPos, yPos, MainSlider.BUTTONS_X_WIDTH, MainSlider.BUTTONS_Y_SIZE, MainSlider.FONT_SIZE, this);
+		GuiTextButton button = MainSlider.createButton("Back", TextAlign.LEFT, yPos, this);
 		button.addLeftListener(() -> mainSlider.setNewSecondaryScreen(screenOptionsGraphics, false));
 	}
 

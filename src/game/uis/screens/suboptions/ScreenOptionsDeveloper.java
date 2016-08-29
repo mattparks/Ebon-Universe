@@ -45,7 +45,7 @@ public class ScreenOptionsDeveloper extends GuiComponent {
 	}
 
 	private void createProfilerToggleOption(float xPos, float yPos) {
-		GuiTextButton button = MainSlider.createButton("Profiler: " + (FlounderEngine.getProfiler().isOpen() ? "Opened" : "Closed"), TextAlign.LEFT, xPos, yPos, MainSlider.BUTTONS_X_WIDTH, MainSlider.BUTTONS_Y_SIZE, MainSlider.FONT_SIZE, this);
+		GuiTextButton button = MainSlider.createButton("Profiler: " + (FlounderEngine.getProfiler().isOpen() ? "Opened" : "Closed"), TextAlign.LEFT, yPos, this);
 		button.addLeftListener(() -> {
 			FlounderEngine.getProfiler().toggle(!FlounderEngine.getProfiler().isOpen());
 		});
@@ -69,7 +69,7 @@ public class ScreenOptionsDeveloper extends GuiComponent {
 	}
 
 	private void createAABBToggleOption(float xPos, float yPos) {
-		GuiTextButton button = MainSlider.createButton("AABBs: " + (FlounderEngine.getAABBs().renders() ? "Enabled" : "Disabled"), TextAlign.LEFT, xPos, yPos, MainSlider.BUTTONS_X_WIDTH, MainSlider.BUTTONS_Y_SIZE, MainSlider.FONT_SIZE, this);
+		GuiTextButton button = MainSlider.createButton("AABBs: " + (FlounderEngine.getAABBs().renders() ? "Enabled" : "Disabled"), TextAlign.LEFT, yPos, this);
 		button.addLeftListener(() -> {
 			FlounderEngine.getAABBs().setRenders(!FlounderEngine.getAABBs().renders());
 		});
@@ -93,7 +93,7 @@ public class ScreenOptionsDeveloper extends GuiComponent {
 	}
 
 	private void createBackOption(float xPos, float yPos) {
-		GuiTextButton button = MainSlider.createButton("Back", TextAlign.LEFT, xPos, yPos, MainSlider.BUTTONS_X_WIDTH, MainSlider.BUTTONS_Y_SIZE, MainSlider.FONT_SIZE, this);
+		GuiTextButton button = MainSlider.createButton("Back", TextAlign.LEFT, yPos, this);
 		button.addLeftListener(() -> mainSlider.setNewSecondaryScreen(screenOptions, false));
 	}
 

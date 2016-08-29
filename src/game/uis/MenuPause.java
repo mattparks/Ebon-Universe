@@ -32,25 +32,25 @@ public class MenuPause extends GuiComponent {
 	}
 
 	private void createResumeButton(float yPos) {
-		GuiTextButton button = MainSlider.createButton("Resume Game", TextAlign.LEFT, MainSlider.BUTTONS_X_POS_LEFT, yPos, MainSlider.BUTTONS_X_WIDTH, MainSlider.BUTTONS_Y_SIZE, MainSlider.FONT_SIZE, this);
+		GuiTextButton button = MainSlider.createButton("Resume Game", TextAlign.LEFT, yPos, this);
 		button.addLeftListener(() -> superMenu.display(false));
 		button.addRightListener(null);
 	}
 
 	private void createOptionsButton(float yPos) {
-		GuiTextButton button = MainSlider.createButton("Options", TextAlign.LEFT, MainSlider.BUTTONS_X_POS_LEFT, yPos, MainSlider.BUTTONS_X_WIDTH, MainSlider.BUTTONS_Y_SIZE, MainSlider.FONT_SIZE, this);
+		GuiTextButton button = MainSlider.createButton("Options", TextAlign.LEFT, yPos, this);
 		button.addLeftListener(() -> mainSlider.setNewSecondaryScreen(screenOptions, true));
 		button.addRightListener(null);
 	}
 
 	private void createControlsButton(float yPos) {
-		GuiTextButton button = MainSlider.createButton("Controls", TextAlign.LEFT, MainSlider.BUTTONS_X_POS_LEFT, yPos, MainSlider.BUTTONS_X_WIDTH, MainSlider.BUTTONS_Y_SIZE, MainSlider.FONT_SIZE, this);
+		GuiTextButton button = MainSlider.createButton("Controls", TextAlign.LEFT, yPos, this);
 		button.addLeftListener(() -> mainSlider.setNewSecondaryScreen(screenControls, true));
 		button.addRightListener(null);
 	}
 
 	private void createQuitButton(float yPos) {
-		GuiTextButton button = MainSlider.createButton("Main Menu", TextAlign.LEFT, MainSlider.BUTTONS_X_POS_LEFT, yPos, MainSlider.BUTTONS_X_WIDTH, MainSlider.BUTTONS_Y_SIZE, MainSlider.FONT_SIZE, this);
+		GuiTextButton button = MainSlider.createButton("Main Menu", TextAlign.LEFT, yPos, this);
 		button.addLeftListener(() -> {
 			mainSlider.closeSecondaryScreen();
 			mainSlider.getSuperMenu().display(true);

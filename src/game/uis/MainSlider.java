@@ -198,14 +198,36 @@ public class MainSlider extends GuiComponent {
 		return titleText;
 	}
 
-	public static GuiTextButton createButton(String textString, TextAlign textAlign, float xPos, float yPos, float xBut, float yBut, float fontSize, GuiComponent component) {
-		Text text = Text.newText(textString, textAlign).setFontSize(fontSize).create();
+	public static GuiTextButton createButton(String textString, TextAlign textAlign, float yPos, GuiComponent component) {
+		float xPosition;
+		float xMargin;
+
+		switch (textAlign) {
+			case LEFT:
+				xPosition = 0.0f;
+				xMargin = MainSlider.BUTTONS_X_POS_LEFT;
+				break;
+			case CENTRE:
+				xPosition = 0.0f;
+				xMargin = MainSlider.BUTTONS_X_POS_LEFT;
+				break;
+			case RIGHT:
+				xPosition = 0.5f;
+				xMargin = 1.0f;
+				break;
+			default:
+				xPosition = 0.0f;
+				xMargin = 0.0f;
+				break;
+		}
+
+		Text text = Text.newText(textString, textAlign).setFontSize(MainSlider.FONT_SIZE).create();
 		text.setColour(MainSlider.TEXT_COLOUR);
 		text.setBorderColour(0.15f, 0.15f, 0.15f);
 		text.setBorder(new ConstantDriver(0.04f));
-		GuiTextButton button = new GuiTextButton(text, textAlign, xPos);
+		GuiTextButton button = new GuiTextButton(text, textAlign, xMargin);
 		button.setSounds(MainSlider.SOUND_MOUSE_HOVER, MainSlider.SOUND_MOUSE_LEFT, MainSlider.SOUND_MOUSE_RIGHT);
-		component.addComponent(button, 0.0f, yPos, xBut, yBut);
+		component.addComponent(button, xPosition, yPos, MainSlider.BUTTONS_X_WIDTH, MainSlider.BUTTONS_Y_SIZE);
 		return button;
 	}
 

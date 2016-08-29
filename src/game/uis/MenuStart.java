@@ -59,44 +59,37 @@ public class MenuStart extends GuiComponent {
 		createOptionsButton(currentY -= MainSlider.BUTTONS_Y_SEPARATION);
 		createPlayButton(currentY -= MainSlider.BUTTONS_Y_SEPARATION);
 
-		createTestingButton(currentY);
-
 		super.show(false);
 	}
 
 	private void createPlayButton(float yPos) {
-		GuiTextButton button = MainSlider.createButton("Play", TextAlign.LEFT, MainSlider.BUTTONS_X_POS_LEFT, yPos, MainSlider.BUTTONS_X_WIDTH, MainSlider.BUTTONS_Y_SIZE, MainSlider.FONT_SIZE, this);
+		GuiTextButton button = MainSlider.createButton("Play", TextAlign.LEFT, yPos, this);
 		button.addLeftListener(() -> mainSlider.setNewSecondaryScreen(screenPlay, true));
 		button.addRightListener(null);
 	}
 
 	private void createOptionsButton(float yPos) {
-		GuiTextButton button = MainSlider.createButton("Options", TextAlign.LEFT, MainSlider.BUTTONS_X_POS_LEFT, yPos, MainSlider.BUTTONS_X_WIDTH, MainSlider.BUTTONS_Y_SIZE, MainSlider.FONT_SIZE, this);
+		GuiTextButton button = MainSlider.createButton("Options", TextAlign.LEFT, yPos, this);
 		button.addLeftListener(() -> mainSlider.setNewSecondaryScreen(screenOptions, true));
 		button.addRightListener(null);
 	}
 
 	private void createAboutButton(float yPos) {
-		GuiTextButton button = MainSlider.createButton("About", TextAlign.LEFT, MainSlider.BUTTONS_X_POS_LEFT, yPos, MainSlider.BUTTONS_X_WIDTH, MainSlider.BUTTONS_Y_SIZE, MainSlider.FONT_SIZE, this);
+		GuiTextButton button = MainSlider.createButton("About", TextAlign.LEFT, yPos, this);
 		button.addLeftListener(() -> mainSlider.setNewSecondaryScreen(screenAbout, true));
 		button.addRightListener(null);
 	}
 
 	private void createModsButton(float yPos) {
-		GuiTextButton button = MainSlider.createButton("Mods", TextAlign.LEFT, MainSlider.BUTTONS_X_POS_LEFT, yPos, MainSlider.BUTTONS_X_WIDTH, MainSlider.BUTTONS_Y_SIZE, MainSlider.FONT_SIZE, this);
+		GuiTextButton button = MainSlider.createButton("Mods", TextAlign.LEFT, yPos, this);
 		//	button.addLeftListener(() -> mainSlider.setNewSecondaryScreen(screenMods, true));
 		button.addRightListener(null);
 	}
 
 	private void createQuitButton(float yPos) {
-		GuiTextButton button = MainSlider.createButton("Quit", TextAlign.LEFT, MainSlider.BUTTONS_X_POS_LEFT, yPos, MainSlider.BUTTONS_X_WIDTH, MainSlider.BUTTONS_Y_SIZE, MainSlider.FONT_SIZE, this);
+		GuiTextButton button = MainSlider.createButton("Quit", TextAlign.LEFT, yPos, this);
 		button.addLeftListener(FlounderEngine::requestClose);
 		button.addRightListener(null);
-	}
-
-	private void createTestingButton(float yPos) {
-	//	GuiTextButton button = MainSlider.createButton("Testing Button", TextAlign.RIGHT, MainSlider.BUTTONS_X_POS_RIGHT, yPos, MainSlider.BUTTONS_X_WIDTH, MainSlider.BUTTONS_Y_SIZE, MainSlider.FONT_SIZE, this);
-	//	GuiTextButton button1 = MainSlider.createButton("Testing", TextAlign.RIGHT, MainSlider.BUTTONS_X_POS_RIGHT, yPos + MainSlider.BUTTONS_Y_SEPARATION, MainSlider.BUTTONS_X_WIDTH, MainSlider.BUTTONS_Y_SIZE, MainSlider.FONT_SIZE, this);
 	}
 
 	public MainMenu getSuperMenu() {

@@ -20,10 +20,10 @@ public class ScreenOptionsDeveloper extends GuiComponent {
 		createTitleText("Developers");
 
 		float currentY = -0.15f;
-		createProfilerToggleOption(MainSlider.BUTTONS_X_POS_LEFT, currentY += MainSlider.BUTTONS_Y_SEPARATION);
-		createAABBToggleOption(MainSlider.BUTTONS_X_POS_LEFT, currentY += MainSlider.BUTTONS_Y_SEPARATION);
+		createProfilerToggleOption(MainSlider.BUTTONS_X_MAGIN_LEFT, currentY += MainSlider.BUTTONS_Y_SEPARATION);
+		createAABBToggleOption(MainSlider.BUTTONS_X_MAGIN_LEFT, currentY += MainSlider.BUTTONS_Y_SEPARATION);
 
-		createBackOption(MainSlider.BUTTONS_X_POS_LEFT, 1.0f);
+		createBackOption(MainSlider.BUTTONS_X_MAGIN_LEFT, 1.0f);
 
 		super.show(false);
 

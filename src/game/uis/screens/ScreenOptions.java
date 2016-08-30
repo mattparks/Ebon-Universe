@@ -28,13 +28,13 @@ public class ScreenOptions extends GuiComponent {
 		createTitleText("Options");
 
 		float currentY = -0.15f;
-		createAudioOption(MainSlider.BUTTONS_X_POS_LEFT, currentY += MainSlider.BUTTONS_Y_SEPARATION);
-		createDevelopersOption(MainSlider.BUTTONS_X_POS_LEFT, currentY += MainSlider.BUTTONS_Y_SEPARATION);
-		createGraphicsOption(MainSlider.BUTTONS_X_POS_LEFT, currentY += MainSlider.BUTTONS_Y_SEPARATION);
-		createEffectsOption(MainSlider.BUTTONS_X_POS_LEFT, currentY += MainSlider.BUTTONS_Y_SEPARATION);
-		createInputsOption(MainSlider.BUTTONS_X_POS_LEFT, currentY += MainSlider.BUTTONS_Y_SEPARATION);
+		createAudioOption(MainSlider.BUTTONS_X_MAGIN_LEFT, currentY += MainSlider.BUTTONS_Y_SEPARATION);
+		createDevelopersOption(MainSlider.BUTTONS_X_MAGIN_LEFT, currentY += MainSlider.BUTTONS_Y_SEPARATION);
+		createGraphicsOption(MainSlider.BUTTONS_X_MAGIN_LEFT, currentY += MainSlider.BUTTONS_Y_SEPARATION);
+		createEffectsOption(MainSlider.BUTTONS_X_MAGIN_LEFT, currentY += MainSlider.BUTTONS_Y_SEPARATION);
+		createInputsOption(MainSlider.BUTTONS_X_MAGIN_LEFT, currentY += MainSlider.BUTTONS_Y_SEPARATION);
 
-		createBackOption(MainSlider.BUTTONS_X_POS_LEFT, 1.0f);
+		createBackOption(MainSlider.BUTTONS_X_MAGIN_LEFT, 1.0f);
 
 		super.show(false);
 

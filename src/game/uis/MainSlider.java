@@ -19,8 +19,8 @@ public class MainSlider extends GuiComponent {
 
 	public static final float FONT_SIZE = 1.625f;
 
-	public static final float BUTTONS_X_POS_LEFT = 0.05f;
-	public static final float BUTTONS_X_POS_RIGHT = 0.6f;
+	public static final float BUTTONS_X_MAGIN_LEFT = 0.05f;
+	public static final float BUTTONS_X_MARGIN_RIGHT = 0.05f;
 	public static final float BUTTONS_X_WIDTH = 1.0f - 0.25f * 2.0f;
 	public static final float BUTTONS_Y_SEPARATION = 0.19f;
 	public static final float BUTTONS_Y_SIZE = 0.2f;
@@ -194,7 +194,7 @@ public class MainSlider extends GuiComponent {
 		titleText.setColour(0.15f, 0.15f, 0.15f);
 		titleText.setBorderColour(MainSlider.TEXT_COLOUR);
 		titleText.setBorder(new ConstantDriver(0.04f));
-		component.addText(titleText, MainSlider.BUTTONS_X_POS_LEFT, -0.30f, 1.0f);
+		component.addText(titleText, MainSlider.BUTTONS_X_MAGIN_LEFT, -0.30f, 1.0f);
 		return titleText;
 	}
 
@@ -205,15 +205,15 @@ public class MainSlider extends GuiComponent {
 		switch (textAlign) {
 			case LEFT:
 				xPosition = 0.0f;
-				xMargin = MainSlider.BUTTONS_X_POS_LEFT;
+				xMargin = MainSlider.BUTTONS_X_MAGIN_LEFT;
 				break;
 			case CENTRE:
 				xPosition = 0.0f;
-				xMargin = MainSlider.BUTTONS_X_POS_LEFT;
+				xMargin = MainSlider.BUTTONS_X_MAGIN_LEFT;
 				break;
 			case RIGHT:
 				xPosition = 0.5f;
-				xMargin = 1.0f;
+				xMargin = MainSlider.BUTTONS_X_MARGIN_RIGHT;
 				break;
 			default:
 				xPosition = 0.0f;

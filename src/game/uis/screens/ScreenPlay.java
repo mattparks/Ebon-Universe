@@ -18,10 +18,10 @@ public class ScreenPlay extends GuiComponent {
 		createTitleText("Play");
 
 		float currentY = -0.15f;
-		createSingleplayerOption(MainSlider.BUTTONS_X_POS_LEFT, currentY += MainSlider.BUTTONS_Y_SEPARATION);
-		createMultiplayerOption(MainSlider.BUTTONS_X_POS_LEFT, currentY += MainSlider.BUTTONS_Y_SEPARATION);
+		createSingleplayerOption(MainSlider.BUTTONS_X_MAGIN_LEFT, currentY += MainSlider.BUTTONS_Y_SEPARATION);
+		createMultiplayerOption(MainSlider.BUTTONS_X_MAGIN_LEFT, currentY += MainSlider.BUTTONS_Y_SEPARATION);
 
-		createBackOption(MainSlider.BUTTONS_X_POS_LEFT, 1.0f);
+		createBackOption(MainSlider.BUTTONS_X_MAGIN_LEFT, 1.0f);
 
 		super.show(false);
 

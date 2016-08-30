@@ -20,14 +20,14 @@ public class ScreenOptionsGraphics extends GuiComponent {
 		createTitleText("Graphics");
 
 		float currentY = -0.15f;
-		createFullscreenOption(MainSlider.BUTTONS_X_POS_LEFT, currentY += MainSlider.BUTTONS_Y_SEPARATION);
-		createAntialiasOption(MainSlider.BUTTONS_X_POS_LEFT, currentY += MainSlider.BUTTONS_Y_SEPARATION);
-		createVSyncOption(MainSlider.BUTTONS_X_POS_LEFT, currentY += MainSlider.BUTTONS_Y_SEPARATION);
+		createFullscreenOption(MainSlider.BUTTONS_X_MAGIN_LEFT, currentY += MainSlider.BUTTONS_Y_SEPARATION);
+		createAntialiasOption(MainSlider.BUTTONS_X_MAGIN_LEFT, currentY += MainSlider.BUTTONS_Y_SEPARATION);
+		createVSyncOption(MainSlider.BUTTONS_X_MAGIN_LEFT, currentY += MainSlider.BUTTONS_Y_SEPARATION);
 
 		currentY = -0.15f;
-		createSamplesOption(MainSlider.BUTTONS_X_POS_LEFT, currentY += MainSlider.BUTTONS_Y_SEPARATION);
+		createSamplesOption(MainSlider.BUTTONS_X_MAGIN_LEFT, currentY += MainSlider.BUTTONS_Y_SEPARATION);
 
-		createBackOption(MainSlider.BUTTONS_X_POS_LEFT, 1.0f);
+		createBackOption(MainSlider.BUTTONS_X_MAGIN_LEFT, 1.0f);
 
 		super.show(false);
 
@@ -121,7 +121,7 @@ public class ScreenOptionsGraphics extends GuiComponent {
 	}
 
 	private void createSamplesOption(float xPos, float yPos) {
-		GuiTextButton button = MainSlider.createButton("Samples: " + FlounderEngine.getDevices().getDisplay().getSamples(), TextAlign.RIGHT, yPos, this);
+		GuiTextButton button = MainSlider.createButton("Samples: " + FlounderEngine.getDevices().getDisplay().getSamples(), TextAlign.LEFT, yPos, this);
 		button.addLeftListener(() -> {
 			int newSamples = FlounderEngine.getDevices().getDisplay().getSamples() + 1;
 			FlounderEngine.getDevices().getDisplay().setSamples(Math.min(32, newSamples));

@@ -16,7 +16,7 @@ public class ScreenControls extends GuiComponent {
 
 		createTitleText("Controls");
 
-		createBackOption(MainSlider.BUTTONS_X_POS_LEFT, 1.0f);
+		createBackOption(MainSlider.BUTTONS_X_MAGIN_LEFT, 1.0f);
 
 		super.show(false);
 

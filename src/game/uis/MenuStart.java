@@ -48,7 +48,7 @@ public class MenuStart extends GuiComponent {
 		titleText.setColour(MainSlider.TEXT_COLOUR);
 		titleText.setBorderColour(MainSlider.TEXT_COLOUR.r, MainSlider.TEXT_COLOUR.g, MainSlider.TEXT_COLOUR.b);
 		titleText.setGlowing(new SinWaveDriver(0.075f, 0.100f, 2.320f));
-		addText(titleText, MainSlider.BUTTONS_X_POS_LEFT, -0.23f, 1.0f);
+		addText(titleText, MainSlider.BUTTONS_X_MAGIN_LEFT, -0.23f, 1.0f);
 
 		float currentY = 1.0f + MainSlider.BUTTONS_Y_SEPARATION;
 		createQuitButton(currentY -= MainSlider.BUTTONS_Y_SEPARATION);

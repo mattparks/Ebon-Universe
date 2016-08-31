@@ -12,7 +12,31 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="ac25c3f6-f322-4e75-a3fd-1beda46eaaa0" name="Default" comment="">
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/game/terrains/terrainFragment.glsl" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/game/terrains/terrainVertex.glsl" afterPath="" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/Flounder-Engine/src/flounder/particles/particleFragment.glsl" afterPath="$PROJECT_DIR$/Flounder-Engine/res/res/shaders/particles/particleFragment.glsl" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/Flounder-Engine/src/flounder/particles/particleVertex.glsl" afterPath="$PROJECT_DIR$/Flounder-Engine/res/res/shaders/particles/particleVertex.glsl" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/Flounder-Engine/src/flounder/post/filters/bloom1Fragment.glsl" afterPath="$PROJECT_DIR$/Flounder-Engine/res/res/shaders/filters/bloom1Fragment.glsl" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/Flounder-Engine/src/flounder/post/filters/bloom2Fragment.glsl" afterPath="$PROJECT_DIR$/Flounder-Engine/res/res/shaders/filters/bloom2Fragment.glsl" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/Flounder-Engine/src/flounder/post/filters/blurHorizontalFragment.glsl" afterPath="$PROJECT_DIR$/Flounder-Engine/res/res/shaders/filters/blurHorizontalFragment.glsl" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/Flounder-Engine/src/flounder/post/filters/blurVerticalFragment.glsl" afterPath="$PROJECT_DIR$/Flounder-Engine/res/res/shaders/filters/blurVerticalFragment.glsl" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/Flounder-Engine/src/flounder/post/filters/combineSlideFragment.glsl" afterPath="$PROJECT_DIR$/Flounder-Engine/res/res/shaders/filters/combineSlideFragment.glsl" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/Flounder-Engine/src/flounder/post/filters/darkenFragment.glsl" afterPath="$PROJECT_DIR$/Flounder-Engine/res/res/shaders/filters/darkenFragment.glsl" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/Flounder-Engine/src/flounder/post/filters/defaultVertex.glsl" afterPath="$PROJECT_DIR$/Flounder-Engine/res/res/shaders/filters/defaultVertex.glsl" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/Flounder-Engine/src/flounder/post/filters/dofFragment.glsl" afterPath="$PROJECT_DIR$/Flounder-Engine/res/res/shaders/filters/dofFragment.glsl" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/Flounder-Engine/src/flounder/post/filters/embossFragment.glsl" afterPath="$PROJECT_DIR$/Flounder-Engine/res/res/shaders/filters/embossFragment.glsl" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/Flounder-Engine/src/flounder/post/filters/fxaaFragment.glsl" afterPath="$PROJECT_DIR$/Flounder-Engine/res/res/shaders/filters/fxaaFragment.glsl" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/Flounder-Engine/src/flounder/post/filters/grayFragment.glsl" afterPath="$PROJECT_DIR$/Flounder-Engine/res/res/shaders/filters/grayFragment.glsl" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/Flounder-Engine/src/flounder/post/filters/lensFlareFragment.glsl" afterPath="$PROJECT_DIR$/Flounder-Engine/res/res/shaders/filters/lensFlareFragment.glsl" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/Flounder-Engine/src/flounder/post/filters/negativeFragment.glsl" afterPath="$PROJECT_DIR$/Flounder-Engine/res/res/shaders/filters/negativeFragment.glsl" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/Flounder-Engine/src/flounder/post/filters/pixelFragment.glsl" afterPath="$PROJECT_DIR$/Flounder-Engine/res/res/shaders/filters/pixelFragment.glsl" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/Flounder-Engine/src/flounder/post/filters/sepiaFragment.glsl" afterPath="$PROJECT_DIR$/Flounder-Engine/res/res/shaders/filters/sepiaFragment.glsl" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/Flounder-Engine/src/flounder/post/filters/toneFragment.glsl" afterPath="$PROJECT_DIR$/Flounder-Engine/res/res/shaders/filters/toneFragment.glsl" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/Flounder-Engine/src/flounder/post/filters/wobbleFragment.glsl" afterPath="$PROJECT_DIR$/Flounder-Engine/res/res/shaders/filters/wobbleFragment.glsl" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/flounder-engine" afterPath="$PROJECT_DIR$/flounder-engine" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Flounder-Engine/src/flounder/particles/ParticleRenderer.java" afterPath="$PROJECT_DIR$/Flounder-Engine/src/flounder/particles/ParticleRenderer.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Flounder-Engine/src/flounder/post/PostFilter.java" afterPath="$PROJECT_DIR$/Flounder-Engine/src/flounder/post/PostFilter.java" />
     </list>
     <ignored path="4Space Game.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -57,8 +81,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/src/game/post/deferred/deferredFragment.glsl" />
-        <option value="$PROJECT_DIR$/Flounder-Engine/src/flounder/physics/renderer/aabbFragment.glsl" />
         <option value="$PROJECT_DIR$/Flounder-Engine/src/flounder/physics/renderer/aabbVertex.glsl" />
         <option value="$PROJECT_DIR$/src/game/entities/entityFragment.glsl" />
         <option value="$PROJECT_DIR$/src/game/terrains/TerrainTexturePack.java" />
@@ -108,6 +130,8 @@
         <option value="$PROJECT_DIR$/Flounder-Engine/src/flounder/shaders/ShaderProgram.java" />
         <option value="$PROJECT_DIR$/res/res/shaders/terrains/terrainVertex.glsl" />
         <option value="$PROJECT_DIR$/Flounder-Engine/res/res/shaders/fonts/fontFragment.glsl" />
+        <option value="$PROJECT_DIR$/Flounder-Engine/src/flounder/particles/ParticleRenderer.java" />
+        <option value="$PROJECT_DIR$/Flounder-Engine/src/flounder/post/PostFilter.java" />
       </list>
     </option>
   </component>
@@ -220,11 +244,11 @@
       <recent name="editors.entity" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\mattp\OneDrive\4Space-Game\Flounder-Engine\res\res\shaders\filters" />
+      <recent name="C:\Users\mattp\OneDrive\4Space-Game\Flounder-Engine\res\res\shaders\particles" />
       <recent name="C:\Users\mattp\OneDrive\4Space-Game\Flounder-Engine\res\res\shaders\aabbs" />
       <recent name="C:\Users\mattp\OneDrive\4Space-Game\Flounder-Engine\res\res\shaders" />
       <recent name="C:\Users\mattp\OneDrive\4Space-Game\Flounder-Engine\res\res\shaders\guis" />
-      <recent name="C:\Users\mattp\OneDrive\4Space-Game\Flounder-Engine\res\res\shaders\fonts" />
-      <recent name="C:\Users\mattp\OneDrive\4Space-Game\res\res\shaders.terrains" />
     </key>
   </component>
   <component name="RunManager" selected="Application.Main">
@@ -770,7 +794,14 @@
       <option name="project" value="LOCAL" />
       <updated>1472661788833</updated>
     </task>
-    <option name="localTasksCounter" value="24" />
+    <task id="LOCAL-00024" summary="Moved shaders into new location and added new GUI things.">
+      <created>1472661805932</created>
+      <option name="number" value="00024" />
+      <option name="presentableId" value="LOCAL-00024" />
+      <option name="project" value="LOCAL" />
+      <updated>1472661805932</updated>
+    </task>
+    <option name="localTasksCounter" value="25" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -858,29 +889,6 @@
     <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/game/MainRenderer.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="381">
-          <caret line="64" column="29" selection-start-line="64" selection-start-column="29" selection-end-line="64" selection-end-column="29" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Flounder-Engine/src/flounder/fonts/TextAlign.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="85">
-          <caret line="5" column="21" selection-start-line="5" selection-start-column="12" selection-end-line="5" selection-end-column="21" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Flounder-Engine/src/flounder/fonts/TextBuilder.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="204">
-          <caret line="12" column="37" selection-start-line="12" selection-start-column="37" selection-end-line="12" selection-end-column="58" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/game/uis/OverlayStatus.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="25">
@@ -1243,6 +1251,30 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Flounder-Engine/src/flounder/particles/ParticleRenderer.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="285">
+          <caret line="20" column="88" selection-start-line="20" selection-start-column="88" selection-end-line="20" selection-end-column="88" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Flounder-Engine/src/flounder/post/filters/FilterBloom1.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="119">
+          <caret line="7" column="60" selection-start-line="7" selection-start-column="52" selection-end-line="7" selection-end-column="60" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Flounder-Engine/src/flounder/post/PostFilter.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="238">
+          <caret line="14" column="75" selection-start-line="14" selection-start-column="75" selection-end-line="14" selection-end-column="75" />
           <folding />
         </state>
       </provider>

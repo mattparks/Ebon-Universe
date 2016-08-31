@@ -12,33 +12,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="ac25c3f6-f322-4e75-a3fd-1beda46eaaa0" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Flounder-Engine/src/flounder/guis/GuiCheckbox.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Flounder-Engine/src/flounder/guis/GuiSlider.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Flounder-Engine/src/flounder/guis/GuiTextField.java" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/res/res/shaders.terrains/terrainFragment.glsl" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/res/res/shaders.terrains/terrainVertex.glsl" afterPath="" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/Flounder-Engine/src/flounder/fonts/fontFragment.glsl" afterPath="$PROJECT_DIR$/Flounder-Engine/res/res/shaders/fonts/fontFragment.glsl" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/Flounder-Engine/src/flounder/fonts/fontVertex.glsl" afterPath="$PROJECT_DIR$/Flounder-Engine/res/res/shaders/fonts/fontVertex.glsl" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/Flounder-Engine/src/flounder/guis/guiFragment.glsl" afterPath="$PROJECT_DIR$/Flounder-Engine/res/res/shaders/guis/guiFragment.glsl" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/Flounder-Engine/src/flounder/guis/guiVertex.glsl" afterPath="$PROJECT_DIR$/Flounder-Engine/res/res/shaders/guis/guiVertex.glsl" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/Flounder-Engine/src/flounder/physics/renderer/aabbFragment.glsl" afterPath="$PROJECT_DIR$/Flounder-Engine/res/res/shaders/aabbs/aabbFragment.glsl" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/Flounder-Engine/src/flounder/physics/renderer/aabbVertex.glsl" afterPath="$PROJECT_DIR$/Flounder-Engine/res/res/shaders/aabbs/aabbVertex.glsl" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/Flounder-Engine/src/flounder/shaders/maths.glsl" afterPath="$PROJECT_DIR$/Flounder-Engine/res/res/shaders/maths.glsl" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/game/entities/entityFragment.glsl" afterPath="$PROJECT_DIR$/res/res/shaders/entities/entityFragment.glsl" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/game/entities/entityVertex.glsl" afterPath="$PROJECT_DIR$/res/res/shaders/entities/entityVertex.glsl" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/flounder-engine" afterPath="$PROJECT_DIR$/flounder-engine" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Flounder-Engine/src/flounder/fonts/FontRenderer.java" afterPath="$PROJECT_DIR$/Flounder-Engine/src/flounder/fonts/FontRenderer.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Flounder-Engine/src/flounder/guis/GuiRenderer.java" afterPath="$PROJECT_DIR$/Flounder-Engine/src/flounder/guis/GuiRenderer.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Flounder-Engine/src/flounder/guis/GuiTextButton.java" afterPath="$PROJECT_DIR$/Flounder-Engine/src/flounder/guis/GuiTextButton.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Flounder-Engine/src/flounder/physics/renderer/AABBRenderer.java" afterPath="$PROJECT_DIR$/Flounder-Engine/src/flounder/physics/renderer/AABBRenderer.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Flounder-Engine/src/flounder/physics/renderer/FlounderAABBs.java" afterPath="$PROJECT_DIR$/Flounder-Engine/src/flounder/physics/renderer/FlounderAABBs.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Flounder-Engine/src/flounder/shaders/ShaderProgram.java" afterPath="$PROJECT_DIR$/Flounder-Engine/src/flounder/shaders/ShaderProgram.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/game/entities/EntityRenderer.java" afterPath="$PROJECT_DIR$/src/game/entities/EntityRenderer.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/game/terrains/TerrainRenderer.java" afterPath="$PROJECT_DIR$/src/game/terrains/TerrainRenderer.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/game/uis/MainSlider.java" afterPath="$PROJECT_DIR$/src/game/uis/MainSlider.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/game/uis/MenuStart.java" afterPath="$PROJECT_DIR$/src/game/uis/MenuStart.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/game/uis/screens/suboptions/ScreenOptionsGraphics.java" afterPath="$PROJECT_DIR$/src/game/uis/screens/suboptions/ScreenOptionsGraphics.java" />
     </list>
     <ignored path="4Space Game.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -789,7 +763,14 @@
       <option name="project" value="LOCAL" />
       <updated>1472568822074</updated>
     </task>
-    <option name="localTasksCounter" value="23" />
+    <task id="LOCAL-00023" summary="Moved shaders into new location and added new GUI things.">
+      <created>1472661788833</created>
+      <option name="number" value="00023" />
+      <option name="presentableId" value="LOCAL-00023" />
+      <option name="project" value="LOCAL" />
+      <updated>1472661788833</updated>
+    </task>
+    <option name="localTasksCounter" value="24" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -861,7 +842,10 @@
     <MESSAGE value="Fonts now aligned using a Enum, loading text aligned to the right is a WIP. Text buttons work better and are more modular." />
     <MESSAGE value="Some text improvements. Need to fix right and centred text." />
     <MESSAGE value="Added system logs, text centre works, right alight is close to working." />
-    <option name="LAST_COMMIT_MESSAGE" value="Added system logs, text centre works, right alight is close to working." />
+    <MESSAGE value="Moved shaders into new location and added new GUI things." />
+    <option name="LAST_COMMIT_MESSAGE" value="Moved shaders into new location and added new GUI things." />
+    <option name="OPTIMIZE_IMPORTS_BEFORE_PROJECT_COMMIT" value="true" />
+    <option name="REFORMAT_BEFORE_PROJECT_COMMIT" value="true" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -1044,6 +1028,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="678">
           <caret line="132" column="0" selection-start-line="92" selection-start-column="35" selection-end-line="132" selection-end-column="0" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -1051,6 +1036,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="85">
           <caret line="5" column="22" selection-start-line="5" selection-start-column="22" selection-end-line="5" selection-end-column="22" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -1058,6 +1044,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="85">
           <caret line="5" column="25" selection-start-line="5" selection-start-column="25" selection-end-line="5" selection-end-column="25" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -1065,6 +1052,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-10">
           <caret line="26" column="36" selection-start-line="26" selection-start-column="36" selection-end-line="26" selection-end-column="36" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -1072,6 +1060,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-342">
           <caret line="76" column="25" selection-start-line="76" selection-start-column="16" selection-end-line="76" selection-end-column="25" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -1079,6 +1068,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1581">
           <caret line="93" column="47" selection-start-line="93" selection-start-column="47" selection-end-line="94" selection-end-column="24" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -1086,6 +1076,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="586">
           <caret line="256" column="50" selection-start-line="256" selection-start-column="50" selection-end-line="256" selection-end-column="50" />
+          <folding />
         </state>
       </provider>
     </entry>

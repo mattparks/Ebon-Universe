@@ -1,13 +1,10 @@
 package game.uis;
 
-import flounder.devices.*;
 import flounder.engine.*;
 import flounder.fonts.*;
 import flounder.guis.*;
 import flounder.inputs.*;
 import flounder.maths.*;
-import flounder.resources.*;
-import flounder.sounds.*;
 import flounder.visual.*;
 import org.lwjgl.glfw.*;
 
@@ -24,10 +21,6 @@ public class MainSlider extends GuiComponent {
 	public static final float BUTTONS_X_WIDTH = 1.0f - 0.25f * 2.0f;
 	public static final float BUTTONS_Y_SEPARATION = 0.19f;
 	public static final float BUTTONS_Y_SIZE = 0.2f;
-
-	public static final Sound SOUND_MOUSE_HOVER = Sound.loadSoundInBackground(new MyFile(DeviceSound.SOUND_FOLDER, "button1.wav"), 0.8f);
-	public static final Sound SOUND_MOUSE_LEFT = Sound.loadSoundInBackground(new MyFile(DeviceSound.SOUND_FOLDER, "button2.wav"), 0.8f);
-	public static final Sound SOUND_MOUSE_RIGHT = Sound.loadSoundInBackground(new MyFile(DeviceSound.SOUND_FOLDER, "button3.wav"), 0.8f);
 
 	public static final float MAIN_TITLE_FONT_SIZE = 3.25f;
 	public static final float MAIN_MENU_Y_POS = 0.25f;
@@ -226,9 +219,40 @@ public class MainSlider extends GuiComponent {
 		text.setBorderColour(0.15f, 0.15f, 0.15f);
 		text.setBorder(new ConstantDriver(0.04f));
 		GuiTextButton button = new GuiTextButton(text, textAlign, xMargin);
-		button.setSounds(MainSlider.SOUND_MOUSE_HOVER, MainSlider.SOUND_MOUSE_LEFT, MainSlider.SOUND_MOUSE_RIGHT);
 		component.addComponent(button, xPosition, yPos, MainSlider.BUTTONS_X_WIDTH, MainSlider.BUTTONS_Y_SIZE);
 		return button;
+	}
+
+	public static GuiCheckbox createCheckbox(String textString, TextAlign textAlign, float yPos, boolean selected, GuiComponent component) {
+		float xPosition;
+		float xMargin;
+
+		switch (textAlign) {
+			case LEFT:
+				xPosition = 0.0f;
+				xMargin = MainSlider.BUTTONS_X_MAGIN_LEFT;
+				break;
+			case CENTRE:
+				xPosition = 0.0f;
+				xMargin = MainSlider.BUTTONS_X_MAGIN_LEFT;
+				break;
+			case RIGHT:
+				xPosition = 0.5f;
+				xMargin = MainSlider.BUTTONS_X_MARGIN_RIGHT;
+				break;
+			default:
+				xPosition = 0.0f;
+				xMargin = 0.0f;
+				break;
+		}
+
+		Text text = Text.newText(textString, TextAlign.LEFT).setFontSize(MainSlider.FONT_SIZE).create();
+		text.setColour(MainSlider.TEXT_COLOUR);
+		text.setBorderColour(0.15f, 0.15f, 0.15f);
+		text.setBorder(new ConstantDriver(0.04f));
+		GuiCheckbox checkbox = new GuiCheckbox(text, textAlign, xMargin, selected);
+		component.addComponent(checkbox, xPosition, yPos, MainSlider.BUTTONS_X_WIDTH, MainSlider.BUTTONS_Y_SIZE);
+		return checkbox;
 	}
 
 	public boolean onStartScreen() {

@@ -19,8 +19,8 @@ import static org.lwjgl.opengl.GL11.*;
 public class EntityRenderer extends IRenderer {
 	private static final int NUMBER_LIGHTS = 4;
 
-	private static final MyFile VERTEX_SHADER = new MyFile("game/entities", "entityVertex.glsl");
-	private static final MyFile FRAGMENT_SHADER = new MyFile("game/entities", "entityFragment.glsl");
+	private static final MyFile VERTEX_SHADER = new MyFile(ShaderProgram.SHADERS_LOC, "entities", "entityVertex.glsl");
+	private static final MyFile FRAGMENT_SHADER = new MyFile(ShaderProgram.SHADERS_LOC, "entities", "entityFragment.glsl");
 
 	private ShaderProgram shader;
 

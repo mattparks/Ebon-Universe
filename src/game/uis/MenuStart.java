@@ -63,6 +63,7 @@ public class MenuStart extends GuiComponent {
 	}
 
 	private void createPlayButton(float yPos) {
+		GuiCheckbox checkbox = MainSlider.createCheckbox("Testing", TextAlign.LEFT, yPos - MainSlider.BUTTONS_Y_SEPARATION, false, this);
 		GuiTextButton button = MainSlider.createButton("Play", TextAlign.LEFT, yPos, this);
 		button.addLeftListener(() -> mainSlider.setNewSecondaryScreen(screenPlay, true));
 		button.addRightListener(null);

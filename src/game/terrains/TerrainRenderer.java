@@ -8,8 +8,6 @@ import flounder.models.*;
 import flounder.resources.*;
 import flounder.shaders.*;
 import game.*;
-import game.entities.*;
-import game.entities.components.*;
 
 import java.util.*;
 
@@ -21,8 +19,8 @@ import static org.lwjgl.opengl.GL11.*;
 public class TerrainRenderer extends IRenderer {
 	private static final int NUMBER_LIGHTS = 4;
 
-	private static final MyFile VERTEX_SHADER = new MyFile("game/terrains", "terrainVertex.glsl");
-	private static final MyFile FRAGMENT_SHADER = new MyFile("game/terrains", "terrainFragment.glsl");
+	private static final MyFile VERTEX_SHADER = new MyFile(ShaderProgram.SHADERS_LOC, "terrains", "terrainVertex.glsl");
+	private static final MyFile FRAGMENT_SHADER = new MyFile(ShaderProgram.SHADERS_LOC, "terrains", "terrainFragment.glsl");
 
 	private ShaderProgram shader;
 

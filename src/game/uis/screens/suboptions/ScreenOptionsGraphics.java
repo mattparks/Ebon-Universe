@@ -121,7 +121,7 @@ public class ScreenOptionsGraphics extends GuiComponent {
 	}
 
 	private void createSamplesOption(float xPos, float yPos) {
-		GuiTextButton button = MainSlider.createButton("Samples: " + FlounderEngine.getDevices().getDisplay().getSamples(), TextAlign.LEFT, yPos, this);
+		GuiTextButton button = MainSlider.createButton("Samples: " + FlounderEngine.getDevices().getDisplay().getSamples(), TextAlign.RIGHT, yPos, this);
 		button.addLeftListener(() -> {
 			int newSamples = FlounderEngine.getDevices().getDisplay().getSamples() + 1;
 			FlounderEngine.getDevices().getDisplay().setSamples(Math.min(32, newSamples));

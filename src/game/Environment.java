@@ -3,20 +3,13 @@ package game;
 import flounder.lights.*;
 import flounder.space.*;
 import game.entities.*;
-import game.terrains.*;
 
 import java.util.*;
 
 public class Environment {
-	public static final float TERRAIN_SIZE = 5100f;
-	public static final int TERRAIN_VERTEX_COUNT = 156;
-
-	public static final float GRAVITY = -50.0f;
-
 	private static Fog fog;
 	private static List<Light> lights;
 	private static StructureBasic<Entity> entityQuadtree;
-	private static StructureBasic<Terrain> terrainQuadtree;
 
 	/**
 	 * Initializes the start game environment.
@@ -29,7 +22,6 @@ public class Environment {
 		Environment.lights = new ArrayList<>();
 		Environment.lights.add(sun);
 		Environment.entityQuadtree = new StructureBasic<>();
-		Environment.terrainQuadtree = new StructureBasic<>();
 	}
 
 	public static void update() {
@@ -52,10 +44,6 @@ public class Environment {
 		return entityQuadtree;
 	}
 
-	public static StructureBasic<Terrain> getTerrains() {
-		return terrainQuadtree;
-	}
-
 	public static void destroy() {
 		fog = null;
 
@@ -67,11 +55,6 @@ public class Environment {
 		if (entityQuadtree != null) {
 			entityQuadtree.clear();
 			entityQuadtree = null;
-		}
-
-		if (terrainQuadtree != null) {
-			terrainQuadtree.clear();
-			terrainQuadtree = null;
 		}
 	}
 }

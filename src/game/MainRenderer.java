@@ -13,7 +13,6 @@ import flounder.physics.renderer.*;
 import game.entities.*;
 import game.options.*;
 import game.post.*;
-import game.terrains.*;
 import game.uis.*;
 
 public class MainRenderer extends IRendererMaster {
@@ -23,7 +22,6 @@ public class MainRenderer extends IRendererMaster {
 	private Matrix4f projectionMatrix;
 
 	private EntityRenderer entityRenderer;
-	private TerrainRenderer terrainRenderer;
 	private ParticleRenderer particleRenderer;
 	private AABBRenderer aabbRenderer;
 	private GuiRenderer guiRenderer;
@@ -41,7 +39,6 @@ public class MainRenderer extends IRendererMaster {
 		this.projectionMatrix = new Matrix4f();
 
 		this.entityRenderer = new EntityRenderer();
-		this.terrainRenderer = new TerrainRenderer();
 		this.particleRenderer = new ParticleRenderer();
 		this.aabbRenderer = new AABBRenderer();
 		this.guiRenderer = new GuiRenderer(GuiRenderer.GuiRenderType.GUI);
@@ -106,7 +103,6 @@ public class MainRenderer extends IRendererMaster {
 
 		/* Renders each renderer. */
 		entityRenderer.render(clipPlane, camera);
-		terrainRenderer.render(clipPlane, camera);
 		particleRenderer.render(clipPlane, camera);
 		aabbRenderer.render(clipPlane, camera);
 	}
@@ -138,7 +134,6 @@ public class MainRenderer extends IRendererMaster {
 	@Override
 	public void dispose() {
 		entityRenderer.dispose();
-		terrainRenderer.dispose();
 		particleRenderer.dispose();
 		aabbRenderer.dispose();
 		cursorRenderer.dispose();

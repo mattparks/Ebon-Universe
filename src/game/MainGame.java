@@ -12,13 +12,8 @@ import flounder.parsing.*;
 import flounder.resources.*;
 import flounder.textures.*;
 import game.cameras.*;
-import game.celestial.*;
-import game.entities.loading.*;
 import game.options.*;
 import game.players.*;
-import game.terrains.*;
-
-import java.util.*;
 
 import static org.lwjgl.glfw.GLFW.*;
 
@@ -48,9 +43,6 @@ public class MainGame extends IGame {
 	}
 
 	public void generateWorlds() {
-		Environment.init(new Fog(new Colour(1.0f, 1.0f, 1.0f), 0.003f, 2.0f, 0.0f, 50.0f), new Light(new Colour(0.85f, 0.85f, 0.85f), new Vector3f(0.0f, 2000.0f, 2000.0f)));
-		TerrainTexturePack terrainTexturePack = new TerrainTexturePack(Texture.newTexture(new MyFile(Terrain.TERRAINS_LOC, "grass.png")).create(), Texture.newTexture(new MyFile(Terrain.TERRAINS_LOC, "mud.png")).create(), Texture.newTexture(new MyFile(Terrain.TERRAINS_LOC, "flowers.png")).create(), Texture.newTexture(new MyFile(Terrain.TERRAINS_LOC, "path.png")).create());
-		Environment.getTerrains().add(new Terrain(0, 0, terrainTexturePack));
 	}
 
 	public void generatePlayer() {

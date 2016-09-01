@@ -19,21 +19,21 @@ import static org.lwjgl.opengl.GL11.*;
 public class EntityRenderer extends IRenderer {
 	private static final int NUMBER_LIGHTS = 4;
 
-	private static final MyFile VERTEX_SHADER = new MyFile(ShaderProgram.SHADERS_LOC, "entities", "entityVertex.glsl");
-	private static final MyFile FRAGMENT_SHADER = new MyFile(ShaderProgram.SHADERS_LOC, "entities", "entityFragment.glsl");
+	private static final MyFile VERTEX_SHADER = new MyFile(Shader.SHADERS_LOC, "entities", "entityVertex.glsl");
+	private static final MyFile FRAGMENT_SHADER = new MyFile(Shader.SHADERS_LOC, "entities", "entityFragment.glsl");
 
-	private ShaderProgram shader;
+	private Shader shader;
 
 	/**
 	 * Creates a new entity renderer.
 	 */
 	public EntityRenderer() {
-		shader = new ShaderProgram("entity", VERTEX_SHADER, FRAGMENT_SHADER);
+		shader = Shader.newShader("entities").setVertex(VERTEX_SHADER).setFragment(FRAGMENT_SHADER).createInSecondThread();
 	}
 
 	@Override
 	public void renderObjects(Vector4f clipPlane, ICamera camera) {
-		if (Environment.getEntities() == null) {
+		if (!shader.isLoaded() || Environment.getEntities() == null) {
 			return;
 		}
 
@@ -48,8 +48,8 @@ public class EntityRenderer extends IRenderer {
 
 	@Override
 	public void profile() {
-		FlounderEngine.getProfiler().add("Entity", "Render Time", super.getRenderTimeMs());
-		//	FlounderEngine.getProfiler().add("Entity", "Objects", Environment.getEntities().size());
+		FlounderEngine.getProfiler().add("Entities", "Render Time", super.getRenderTimeMs());
+		//	FlounderEngine.getProfiler().add("Entities", "Objects", Environment.getEntities().size());
 	}
 
 	private void prepareRendering(Vector4f clipPlane, ICamera camera) {

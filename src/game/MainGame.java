@@ -10,10 +10,12 @@ import flounder.maths.*;
 import flounder.maths.vectors.*;
 import flounder.parsing.*;
 import flounder.resources.*;
-import flounder.textures.*;
 import game.cameras.*;
+import game.entities.loading.*;
 import game.options.*;
 import game.players.*;
+
+import java.util.*;
 
 import static org.lwjgl.glfw.GLFW.*;
 
@@ -43,6 +45,21 @@ public class MainGame extends IGame {
 	}
 
 	public void generateWorlds() {
+		Environment.init(new Fog(new Colour(1.0f, 1.0f, 1.0f), 0.003f, 2.0f, 0.0f, 50.0f), new Light(new Colour(0.85f, 0.85f, 0.85f), new Vector3f(0.0f, 2000.0f, 2000.0f)));
+
+		// EntityLoader.load("dragon").createEntity(Environment.getEntitys(), new Vector3f(30, 0, 0), new Vector3f());
+		EntityLoader.load("pane").createEntity(Environment.getEntities(), new Vector3f(), new Vector3f());
+		EntityLoader.load("sphere").createEntity(Environment.getEntities(), Environment.getLights().get(0).position, new Vector3f());
+
+		for (int n = 0; n < 32; n++) {
+			for (int p = 0; p < 32; p++) {
+				for (int q = 0; q < 32; q++) {
+					if (Maths.RANDOM.nextInt(10) == 1) {
+						EntityLoader.load("crate").createEntity(Environment.getEntities(), new Vector3f((n * 5) + 10, (p * 5) + 10, (q * 5) + 10), new Vector3f(0, Maths.RANDOM.nextInt(360), 0));
+					}
+				}
+			}
+		}
 	}
 
 	public void generatePlayer() {

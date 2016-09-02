@@ -12,6 +12,7 @@ import game.entities.components.*;
 import java.util.*;
 
 import static org.lwjgl.opengl.GL11.*;
+import static org.lwjgl.opengl.GL20.*;
 
 /**
  * A renderer that is used to render entity's.
@@ -28,7 +29,10 @@ public class EntityRenderer extends IRenderer {
 	 * Creates a new entity renderer.
 	 */
 	public EntityRenderer() {
-		shader = Shader.newShader("entities").setVertex(VERTEX_SHADER).setFragment(FRAGMENT_SHADER).createInSecondThread();
+		shader = Shader.newShader("entities").setShaderTypes(
+				new ShaderType(GL_VERTEX_SHADER, VERTEX_SHADER),
+				new ShaderType(GL_FRAGMENT_SHADER, FRAGMENT_SHADER)
+		).createInSecondThread();
 	}
 
 	@Override

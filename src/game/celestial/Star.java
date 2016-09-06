@@ -12,7 +12,7 @@ public class Star {
 	private String starName;
 	private Vector3f position;
 
-	private List<Celestial> celestials;
+	private List<Celestial> childObjects;
 
 	private float solarMasses; // The stars solar mass.
 	private float solarRadius; // The stars solar radius.
@@ -27,7 +27,7 @@ public class Star {
 
 	private float planetInnerLimit; // The inner limit for planet formation.
 	private float planetOuterLimit; // The outer limit for planet formation.
-	private float planetFrostLine; // The planetary frost line for celestials.
+	private float planetFrostLine; // The planetary frost line for childObjects.
 
 	private float habitableMin; // The habitable min distance in AU for carbon based life.
 	private float habitableMax; // The habitable max distance in AU for carbon based life.
@@ -38,12 +38,12 @@ public class Star {
 	 * @param starName The stars name.
 	 * @param solarMasses The stars mass in solar masses.
 	 * @param position The position for the static star.
-	 * @param celestials The list of objects orbiting the star.
+	 * @param childObjects The list of objects orbiting the star.
 	 */
-	public Star(String starName, float solarMasses, Vector3f position, List<Celestial> celestials) {
+	public Star(String starName, float solarMasses, Vector3f position, List<Celestial> childObjects) {
 		this.starName = starName;
 		this.solarMasses = solarMasses;
-		this.celestials = celestials;
+		this.childObjects = childObjects;
 
 		this.solarRadius = (float) Math.pow(solarMasses, solarMasses < 1.0f ? 0.8f : 0.5f);
 		this.solarLumino = (float) Math.pow(solarMasses, 3.5f);
@@ -138,8 +138,8 @@ public class Star {
 		return new Colour(red, green, blue, true);
 	}
 
-	public List<Celestial> getCelestials() {
-		return celestials;
+	public List<Celestial> getChildObjects() {
+		return childObjects;
 	}
 
 	@Override
@@ -160,7 +160,7 @@ public class Star {
 	}
 
 	public void update() {
-		celestials.forEach(Celestial::update);
+		childObjects.forEach(Celestial::update);
 	}
 
 	public String getStarName() {

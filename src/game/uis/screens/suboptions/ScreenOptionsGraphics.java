@@ -17,15 +17,13 @@ public class ScreenOptionsGraphics extends GuiComponent {
 		this.mainSlider = mainSlider;
 		this.screenOptions = screenOptions;
 
-		createTitleText("Graphics");
+		createTitleText(TextAlign.LEFT, "Graphics");
 
 		float currentY = -0.15f;
-		createFullscreenOption(MainSlider.BUTTONS_X_MAGIN_LEFT, currentY += MainSlider.BUTTONS_Y_SEPARATION);
-		createAntialiasOption(MainSlider.BUTTONS_X_MAGIN_LEFT, currentY += MainSlider.BUTTONS_Y_SEPARATION);
-		createVSyncOption(MainSlider.BUTTONS_X_MAGIN_LEFT, currentY += MainSlider.BUTTONS_Y_SEPARATION);
-
-		currentY = -0.15f;
-		createSamplesOption(MainSlider.BUTTONS_X_MAGIN_LEFT, currentY += MainSlider.BUTTONS_Y_SEPARATION);
+		createFullscreenOption(TextAlign.LEFT, currentY += MainSlider.BUTTONS_Y_SEPARATION);
+		createAntialiasOption(TextAlign.LEFT, currentY += MainSlider.BUTTONS_Y_SEPARATION);
+		createVSyncOption(TextAlign.LEFT, currentY += MainSlider.BUTTONS_Y_SEPARATION);
+		createSamplesOption(TextAlign.LEFT, currentY += MainSlider.BUTTONS_Y_SEPARATION);
 
 		createBackOption(MainSlider.BUTTONS_X_MAGIN_LEFT, 1.0f);
 
@@ -44,12 +42,12 @@ public class ScreenOptionsGraphics extends GuiComponent {
 		});
 	}
 
-	private void createTitleText(String title) {
-		Text titleText = MainSlider.createTitleText(title, TextAlign.LEFT, this);
+	private void createTitleText(TextAlign textAlign, String title) {
+		Text titleText = MainSlider.createTitleText(title, textAlign, this);
 	}
 
-	private void createFullscreenOption(float xPos, float yPos) {
-		GuiTextButton button = MainSlider.createButton("Fullscreen: " + (FlounderEngine.getDevices().getDisplay().isFullscreen() ? "On" : "Off"), TextAlign.LEFT, yPos, this);
+	private void createFullscreenOption(TextAlign textAlign, float yPos) {
+		GuiTextButton button = MainSlider.createButton("Fullscreen: " + (FlounderEngine.getDevices().getDisplay().isFullscreen() ? "On" : "Off"), textAlign, yPos, this);
 		button.addLeftListener(() -> {
 			FlounderEngine.getDevices().getDisplay().setFullscreen(!FlounderEngine.getDevices().getDisplay().isFullscreen());
 		});
@@ -72,8 +70,8 @@ public class ScreenOptionsGraphics extends GuiComponent {
 		});
 	}
 
-	private void createAntialiasOption(float xPos, float yPos) {
-		GuiTextButton button = MainSlider.createButton("Antialiasing: " + (FlounderEngine.getDevices().getDisplay().isAntialiasing() ? "On" : "Off"), TextAlign.LEFT, yPos, this);
+	private void createAntialiasOption(TextAlign textAlign, float yPos) {
+		GuiTextButton button = MainSlider.createButton("Antialiasing: " + (FlounderEngine.getDevices().getDisplay().isAntialiasing() ? "On" : "Off"), textAlign, yPos, this);
 		button.addLeftListener(() -> {
 			FlounderEngine.getDevices().getDisplay().setAntialiasing(!FlounderEngine.getDevices().getDisplay().isAntialiasing());
 		});
@@ -96,8 +94,8 @@ public class ScreenOptionsGraphics extends GuiComponent {
 		});
 	}
 
-	private void createVSyncOption(float xPos, float yPos) {
-		GuiTextButton button = MainSlider.createButton("VSync: " + (FlounderEngine.getDevices().getDisplay().isVSync() ? "On" : "Off"), TextAlign.LEFT, yPos, this);
+	private void createVSyncOption(TextAlign textAlign, float yPos) {
+		GuiTextButton button = MainSlider.createButton("VSync: " + (FlounderEngine.getDevices().getDisplay().isVSync() ? "On" : "Off"), textAlign, yPos, this);
 		button.addLeftListener(() -> {
 			FlounderEngine.getDevices().getDisplay().setVSync(!FlounderEngine.getDevices().getDisplay().isVSync());
 		});
@@ -120,8 +118,8 @@ public class ScreenOptionsGraphics extends GuiComponent {
 		});
 	}
 
-	private void createSamplesOption(float xPos, float yPos) {
-		GuiTextButton button = MainSlider.createButton("Samples: " + FlounderEngine.getDevices().getDisplay().getSamples(), TextAlign.RIGHT, yPos, this);
+	private void createSamplesOption(TextAlign textAlign, float yPos) {
+		GuiTextButton button = MainSlider.createButton("Samples: " + FlounderEngine.getDevices().getDisplay().getSamples(), textAlign, yPos, this);
 		button.addLeftListener(() -> {
 			int newSamples = FlounderEngine.getDevices().getDisplay().getSamples() + 1;
 			FlounderEngine.getDevices().getDisplay().setSamples(Math.min(32, newSamples));

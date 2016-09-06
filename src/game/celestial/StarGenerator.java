@@ -30,20 +30,54 @@ public class StarGenerator {
 	public static Star generateStar(Vector3f position) {
 		float spawnKey = Maths.RANDOM.nextFloat() * 100.0f; // TODO: Perlin noise.
 		Star.StarType starType = Star.StarType.getTypeMakeup(spawnKey);
-		Star star = new Star(FauxGenerator.getFauxSentance(2, 4, 7), starType.solarMasses, position, new ArrayList<>());
+		Star star = new Star(FauxGenerator.getFauxSentance(1, 6, 17), starType.solarMasses, position, new ArrayList<>());
+		FlounderEngine.getLogger().log("===== Star " + star.getStarName() + ". =====");
 		FlounderEngine.getLogger().log(star.toString());
-		generatePlanets(star);
+
+		float currentOrbit = star.getPlanetInnerLimit();
+
+		while (currentOrbit < star.getPlanetOuterLimit()) {
+			if (Maths.RANDOM.nextBoolean()) {
+				generateCelestial(new Pair<>(star, null), currentOrbit);
+			}
+
+			currentOrbit += Maths.randomInRange(2.4f, 3.0f);
+		}
+
+		FlounderEngine.getLogger().log("===== End of star " + star.getStarName() + ". =====\n");
+
 		return star;
 	}
 
-	public static void generatePlanets(Star star) {
+	private static void generateCelestial(Pair<Star, Celestial> parentTypes, float semiMajorAxis) {
+		Star star = null;
+
+		if (parentTypes.getFirst() != null) {
+			star = parentTypes.getFirst();
+		} else if (parentTypes.getSecond() != null) {
+			star = parentTypes.getSecond().getParentStar();
+		}
+
+		if (star == null) {
+			return;
+		}
+
 		Orbit orbit = new Orbit(
-				0.0934f, 1.524f, star.getSolarMasses(),
-				Maths.RANDOM.nextInt(30) / 10.0f, Maths.RANDOM.nextInt(3600) / 10.0f, Maths.RANDOM.nextInt(3600) / 10.0f);
-		Celestial celestial = new Celestial(
-				FauxGenerator.getFauxSentance(2, 4, 12), star, orbit,
-				0.1069f, 0.5319f, Maths.RANDOM.nextInt(400) * (Maths.RANDOM.nextBoolean() ? 1 : -1) / 10.0f);
+				Maths.RANDOM.nextInt(6000) / 10000.0f, 1.524f, star.getSolarMasses(),
+				semiMajorAxis, Maths.RANDOM.nextInt(3600) / 10.0f, Maths.RANDOM.nextInt(3600) / 10.0f
+		);
+
+		float earthRadius = (Maths.RANDOM.nextInt(50000) + Maths.RANDOM.nextInt(50000)) / 10000.0f;
+		float targetDensity = (Maths.RANDOM.nextFloat() + 0.25f) * 5.4950f;
+		float earthMasses = (targetDensity * (float) (4.0f * Math.PI * Math.pow(earthRadius * 6378.137f, 3)) / 3.0f) / (float) (5.9723f * Math.pow(10.0f, 12.0f));
+
+		Celestial celestial = new Celestial("Planet", star.getStarName() + " " + FauxGenerator.getFauxSentance(1, 4, 12),
+				parentTypes, orbit, earthMasses,
+				earthRadius, Maths.RANDOM.nextInt(400) * (Maths.RANDOM.nextBoolean() ? 1 : -1) / 10.0f, new ArrayList<>()
+		);
+
+
 		FlounderEngine.getLogger().log(celestial.toString());
-		star.getCelestials().add(celestial);
+		star.getChildObjects().add(celestial);
 	}
 }

@@ -9,8 +9,12 @@ import flounder.lights.*;
 import flounder.maths.*;
 import flounder.maths.vectors.*;
 import flounder.parsing.*;
+import flounder.particles.*;
+import flounder.particles.loading.*;
+import flounder.particles.spawns.*;
 import flounder.resources.*;
 import game.cameras.*;
+import game.celestial.*;
 import game.entities.loading.*;
 import game.options.*;
 import game.players.*;
@@ -60,6 +64,17 @@ public class MainGame extends IGame {
 				}
 			}
 		}
+
+		ParticleSystem particleSystem = new ParticleSystem(new ArrayList<>(), null, 1750.0f, 1.9f, -0.03f);
+		particleSystem.addParticleType(ParticleLoader.load("cosmic"));
+		particleSystem.addParticleType(ParticleLoader.load("cosmicHot"));
+		particleSystem.randomizeRotation();
+		particleSystem.setSpawn(new SpawnCircle(20, new Vector3f(0.0f, 1.0f, 0.0f)));
+		particleSystem.setSystemCentre(new Vector3f(0, 20, -10));
+
+		for (int i = 0; i < 1; i++) {
+			Star star = StarGenerator.generateStar(new Vector3f());
+		}
 	}
 
 	public void generatePlayer() {
@@ -76,6 +91,7 @@ public class MainGame extends IGame {
 
 	public void destroyWorld() {
 		player = null;
+		FlounderEngine.getParticles().clearAllParticles();
 		Environment.destroy();
 		System.gc();
 	}

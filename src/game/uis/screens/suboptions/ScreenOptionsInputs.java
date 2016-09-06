@@ -17,7 +17,7 @@ public class ScreenOptionsInputs extends GuiComponent {
 		this.mainSlider = mainSlider;
 		this.screenOptions = screenOptions;
 
-		createTitleText("Inputs");
+		createTitleText(TextAlign.LEFT, "Inputs");
 
 		float currentY = -0.15f;
 
@@ -38,8 +38,8 @@ public class ScreenOptionsInputs extends GuiComponent {
 		});
 	}
 
-	private void createTitleText(String title) {
-		Text titleText = MainSlider.createTitleText(title, TextAlign.LEFT, this);
+	private void createTitleText(TextAlign textAlign, String title) {
+		Text titleText = MainSlider.createTitleText(title, textAlign, this);
 	}
 
 	private void createBackOption(float xPos, float yPos) {

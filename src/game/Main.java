@@ -19,7 +19,7 @@ public class Main {
 		FlounderEngine engine = new FlounderEngine(implementation,
 				MainGame.CONFIG.getIntWithDefault("width", 1080, () -> FlounderEngine.getDevices().getDisplay().getWidth()),
 				MainGame.CONFIG.getIntWithDefault("height", 720, () -> FlounderEngine.getDevices().getDisplay().getHeight()),
-				"4Space Game",
+				"Open Skies",
 				MainGame.CONFIG.getBooleanWithDefault("vsync", true, () -> FlounderEngine.getDevices().getDisplay().isVSync()),
 				MainGame.CONFIG.getBooleanWithDefault("antialias", true, () -> FlounderEngine.getDevices().getDisplay().isAntialiasing()),
 				MainGame.CONFIG.getIntWithDefault("msaa_samples", 4, () -> FlounderEngine.getDevices().getDisplay().getSamples()),

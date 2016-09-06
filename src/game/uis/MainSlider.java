@@ -6,6 +6,7 @@ import flounder.guis.*;
 import flounder.inputs.*;
 import flounder.maths.*;
 import flounder.visual.*;
+import game.*;
 import org.lwjgl.glfw.*;
 
 import java.util.*;
@@ -56,13 +57,13 @@ public class MainSlider extends GuiComponent {
 		addComponent(menuStart, 0.0f, MAIN_MENU_Y_POS, 1.0f, MAIN_MENU_Y_SIZE);
 		addComponent(menuPause, 0.0f, MAIN_MENU_Y_POS, 1.0f, MAIN_MENU_Y_SIZE);
 
-		//	if (FlounderEngine.getLogger().inJar()) {
-		this.menuActive = menuStart;
-		//	} else {
-		//		this.menuActive = menuPause;
-		//		((MainGame) FlounderEngine.getGame()).generateWorlds();
-		//		((MainGame) FlounderEngine.getGame()).generatePlayer();
-		//	}
+		if (FlounderEngine.getLogger().inJar()) {
+			this.menuActive = menuStart;
+		} else {
+			this.menuActive = menuPause;
+			((MainGame) FlounderEngine.getGame()).generateWorlds();
+			((MainGame) FlounderEngine.getGame()).generatePlayer();
+		}
 
 		this.menuActive.show(true);
 

@@ -14,9 +14,9 @@ public class ScreenControls extends GuiComponent {
 	public ScreenControls(MainSlider mainSlider) {
 		this.mainSlider = mainSlider;
 
-		createTitleText("Controls");
+		createTitleText(TextAlign.LEFT, "Controls");
 
-		createBackOption(MainSlider.BUTTONS_X_MAGIN_LEFT, 1.0f);
+		createBackOption(TextAlign.LEFT, 1.0f);
 
 		super.show(false);
 
@@ -33,12 +33,12 @@ public class ScreenControls extends GuiComponent {
 		});
 	}
 
-	private void createTitleText(String title) {
-		Text titleText = MainSlider.createTitleText(title, TextAlign.LEFT, this);
+	private void createTitleText(TextAlign textAlign, String title) {
+		Text titleText = MainSlider.createTitleText(title, textAlign, this);
 	}
 
-	private void createBackOption(float xPos, float yPos) {
-		GuiTextButton button = MainSlider.createButton("Back", TextAlign.LEFT, yPos, this);
+	private void createBackOption(TextAlign textAlign, float yPos) {
+		GuiTextButton button = MainSlider.createButton("Back", textAlign, yPos, this);
 		button.addLeftListener(mainSlider::closeSecondaryScreen);
 	}
 

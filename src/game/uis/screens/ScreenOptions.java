@@ -25,16 +25,16 @@ public class ScreenOptions extends GuiComponent {
 		screenOptionsEffects = new ScreenOptionsEffects(this, mainSlider);
 		screenOptionsInputs = new ScreenOptionsInputs(this, mainSlider);
 
-		createTitleText("Options");
+		createTitleText(TextAlign.LEFT, "Options");
 
 		float currentY = -0.15f;
-		createAudioOption(MainSlider.BUTTONS_X_MAGIN_LEFT, currentY += MainSlider.BUTTONS_Y_SEPARATION);
-		createDevelopersOption(MainSlider.BUTTONS_X_MAGIN_LEFT, currentY += MainSlider.BUTTONS_Y_SEPARATION);
-		createGraphicsOption(MainSlider.BUTTONS_X_MAGIN_LEFT, currentY += MainSlider.BUTTONS_Y_SEPARATION);
-		createEffectsOption(MainSlider.BUTTONS_X_MAGIN_LEFT, currentY += MainSlider.BUTTONS_Y_SEPARATION);
-		createInputsOption(MainSlider.BUTTONS_X_MAGIN_LEFT, currentY += MainSlider.BUTTONS_Y_SEPARATION);
+		createAudioOption(TextAlign.LEFT, currentY += MainSlider.BUTTONS_Y_SEPARATION);
+		createDevelopersOption(TextAlign.LEFT, currentY += MainSlider.BUTTONS_Y_SEPARATION);
+		createGraphicsOption(TextAlign.LEFT, currentY += MainSlider.BUTTONS_Y_SEPARATION);
+		createEffectsOption(TextAlign.LEFT, currentY += MainSlider.BUTTONS_Y_SEPARATION);
+		createInputsOption(TextAlign.LEFT, currentY += MainSlider.BUTTONS_Y_SEPARATION);
 
-		createBackOption(MainSlider.BUTTONS_X_MAGIN_LEFT, 1.0f);
+		createBackOption(TextAlign.LEFT, 1.0f);
 
 		super.show(false);
 
@@ -51,37 +51,37 @@ public class ScreenOptions extends GuiComponent {
 		});
 	}
 
-	private void createTitleText(String title) {
-		Text titleText = MainSlider.createTitleText(title, TextAlign.LEFT, this);
+	private void createTitleText(TextAlign textAlign, String title) {
+		Text titleText = MainSlider.createTitleText(title, textAlign, this);
 	}
 
-	private void createAudioOption(float xPos, float yPos) {
-		GuiTextButton button = MainSlider.createButton("Audio", TextAlign.LEFT, yPos, this);
+	private void createAudioOption(TextAlign textAlign, float yPos) {
+		GuiTextButton button = MainSlider.createButton("Audio", textAlign, yPos, this);
 		button.addLeftListener(() -> mainSlider.setNewSecondaryScreen(screenOptionsAudio, true));
 	}
 
-	private void createDevelopersOption(float xPos, float yPos) {
-		GuiTextButton button = MainSlider.createButton("Developer", TextAlign.LEFT, yPos, this);
+	private void createDevelopersOption(TextAlign textAlign, float yPos) {
+		GuiTextButton button = MainSlider.createButton("Developer", textAlign, yPos, this);
 		button.addLeftListener(() -> mainSlider.setNewSecondaryScreen(screenOptionsDeveloper, true));
 	}
 
-	private void createGraphicsOption(float xPos, float yPos) {
-		GuiTextButton button = MainSlider.createButton("Graphics", TextAlign.LEFT, yPos, this);
+	private void createGraphicsOption(TextAlign textAlign, float yPos) {
+		GuiTextButton button = MainSlider.createButton("Graphics", textAlign, yPos, this);
 		button.addLeftListener(() -> mainSlider.setNewSecondaryScreen(screenOptionsGraphics, true));
 	}
 
-	private void createEffectsOption(float xPos, float yPos) {
-		GuiTextButton button = MainSlider.createButton("Effects", TextAlign.LEFT, yPos, this);
+	private void createEffectsOption(TextAlign textAlign, float yPos) {
+		GuiTextButton button = MainSlider.createButton("Effects", textAlign, yPos, this);
 		button.addLeftListener(() -> mainSlider.setNewSecondaryScreen(screenOptionsEffects, true));
 	}
 
-	private void createInputsOption(float xPos, float yPos) {
-		GuiTextButton button = MainSlider.createButton("Inputs", TextAlign.LEFT, yPos, this);
+	private void createInputsOption(TextAlign textAlign, float yPos) {
+		GuiTextButton button = MainSlider.createButton("Inputs", textAlign, yPos, this);
 		button.addLeftListener(() -> mainSlider.setNewSecondaryScreen(screenOptionsInputs, true));
 	}
 
-	private void createBackOption(float xPos, float yPos) {
-		GuiTextButton button = MainSlider.createButton("Back", TextAlign.LEFT, yPos, this);
+	private void createBackOption(TextAlign textAlign, float yPos) {
+		GuiTextButton button = MainSlider.createButton("Back", textAlign, yPos, this);
 		button.addLeftListener(mainSlider::closeSecondaryScreen);
 	}
 

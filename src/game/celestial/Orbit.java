@@ -86,7 +86,7 @@ public class Orbit {
 
 	@Override
 	public String toString() {
-		return "Orbit[ " +
+		return "    Orbit[ \n        " +
 				"eccentricity=" + eccentricity +
 				", semiMajorAxis=" + semiMajorAxis +
 				", semiMinorAxis=" + semiMinorAxis +
@@ -96,6 +96,6 @@ public class Orbit {
 				", velocity=" + velocity +
 				", pitch=" + pitch +
 				", yaw=" + yaw +
-				", roll=" + roll + "]";
+				", roll=" + roll + "\n    ]";
 	}
 }

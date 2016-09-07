@@ -16,8 +16,8 @@ public class Star {
 
 	private float solarMasses; // The stars solar mass.
 	private float solarRadius; // The stars solar radius.
-	private float solarLumino; // The stars solar luminosity.
-	private float surfaceTemp; // The stars surface temp in kelvin.
+	private float solarLuminosity; // The stars solar luminosity.
+	private float surfaceTemperature; // The stars surface temp in kelvin.
 
 	private float solarLifetime; // The stars lifetime.
 
@@ -46,8 +46,8 @@ public class Star {
 		this.childObjects = childObjects;
 
 		this.solarRadius = (float) Math.pow(solarMasses, solarMasses < 1.0f ? 0.8f : 0.5f);
-		this.solarLumino = (float) Math.pow(solarMasses, 3.5f);
-		this.surfaceTemp = (float) Math.pow(solarLumino / (solarRadius * solarRadius), 0.25f) * 5778.0f;
+		this.solarLuminosity = (float) Math.pow(solarMasses, 3.5f);
+		this.surfaceTemperature = (float) Math.pow(solarLuminosity / (solarRadius * solarRadius), 0.25f) * 5778.0f;
 
 		this.solarLifetime = (float) Math.pow(solarMasses, -2.5f);
 
@@ -57,10 +57,10 @@ public class Star {
 
 		this.planetInnerLimit = 0.1f * solarMasses;
 		this.planetOuterLimit = 40.0f * solarMasses;
-		this.planetFrostLine = 4.85f * (float) Math.sqrt(solarLumino);
+		this.planetFrostLine = 4.85f * (float) Math.sqrt(solarLuminosity);
 
-		this.habitableMin = (float) Math.sqrt(solarLumino / 1.10f);
-		this.habitableMax = (float) Math.sqrt(solarLumino / 0.53f);
+		this.habitableMin = (float) Math.sqrt(solarLuminosity / 1.10f);
+		this.habitableMax = (float) Math.sqrt(solarLuminosity / 0.53f);
 	}
 
 	/**
@@ -70,50 +70,29 @@ public class Star {
 	 * @return Generated colour for a star.
 	 */
 	private Colour getColour() {
-		float temperature = surfaceTemp / 100.0f;
+		float temperature = Maths.clamp(surfaceTemperature, 1000.0f, 40000.0f) / 100.0f;
 		float red;
 		float green;
 		float blue;
 
 		// Calculate Red.
 		if (temperature <= 66.0f) {
-			red = 255;
+			red = 255.0f;
 		} else {
 			red = temperature - 60.0f;
 			red = 329.698727446f * (float) Math.pow(red, -0.1332047592f);
-
-			if (red < 0.0f) {
-				red = 0.0f;
-			}
-
-			if (red > 255.0f) {
-				red = 255.0f;
-			}
+			red = Maths.clamp(red, 0.0f, 255.0f);
 		}
 
 		// Calculate Green.
 		if (temperature <= 66.0f) {
 			green = temperature;
-			green = 99.4708025861f * (float) (Math.log(green) / Math.log(10.0f)) - 161.1195681661f;
-
-			if (green < 0.0f) {
-				green = 0.0f;
-			}
-
-			if (green > 255.0f) {
-				green = 255.0f;
-			}
+			green = 99.4708025861f * (float) Math.log(green) - 161.1195681661f;
+			green = Maths.clamp(green, 0.0f, 255.0f);
 		} else {
 			green = temperature - 60.0f;
 			green = 288.1221695283f * (float) Math.pow(green, -0.0755148492f);
-
-			if (green < 0.0f) {
-				green = 0.0f;
-			}
-
-			if (green > 255.0f) {
-				green = 255.0f;
-			}
+			green = Maths.clamp(green, 0.0f, 255.0f);
 		}
 
 		// Calculate Blue.
@@ -124,14 +103,8 @@ public class Star {
 				blue = 0.0f;
 			} else {
 				blue = temperature - 10.0f;
-				blue = 138.5177312231f * (float) (Math.log(blue) / Math.log(10.0f)) - 305.0447927307f;
-
-				if (blue < 0.0f) {
-					blue = 0.0f;
-				}
-				if (blue > 255.0f) {
-					blue = 255.0f;
-				}
+				blue = 138.5177312231f * (float) Math.log(blue) - 305.0447927307f;
+				blue = Maths.clamp(blue, 0.0f, 255.0f);
 			}
 		}
 
@@ -144,19 +117,19 @@ public class Star {
 
 	@Override
 	public String toString() {
-		return "Star(" + starName + " | " + StarType.getTypeMass(solarMasses).name() + ")[ " +
+		return "Star(" + starName + " | " + StarType.getTypeMass(solarMasses).name() + ") [ \n   " +
 				"solarMasses=" + solarMasses +
 				", radius=" + solarRadius +
-				", luminosity=" + solarLumino +
-				", temperature=" + surfaceTemp +
-				", solarLifetime=" + solarLifetime +
+				", luminosity=" + solarLuminosity +
+				", temperature=" + surfaceTemperature +
+				", lifetime=" + solarLifetime +
 				", escapeVelocity=" + escapeVelocity +
 				", planetInnerLimit=" + planetInnerLimit +
 				", planetOuterLimit=" + planetOuterLimit +
 				", planetFrostLine=" + planetFrostLine +
 				", habitableMin=" + habitableMin +
 				", habitableMax=" + habitableMax +
-				", " + surfColour.toString() + "]";
+				", " + surfColour.toString() + "\n]";
 	}
 
 	public void update() {
@@ -179,12 +152,12 @@ public class Star {
 		return solarRadius;
 	}
 
-	public float getSolarLumino() {
-		return solarLumino;
+	public float getSolarLuminosity() {
+		return solarLuminosity;
 	}
 
-	public float getSurfaceTemp() {
-		return surfaceTemp;
+	public float getSurfaceTemperature() {
+		return surfaceTemperature;
 	}
 
 	public float getSolarLifetime() {
@@ -220,13 +193,13 @@ public class Star {
 	}
 
 	public enum StarType {
-		O(0.01f, 60.0f),
-		B(0.19f, 18.0f),
-		A(0.5f, 3.2f),
-		F(9.0f, 1.7f),
-		G(16.3f, 1.1f),
-		K(33.9f, 0.8f),
-		M(40.1f, 0.3f);
+		O(0.003f, 60.0f),
+		B(0.13f, 18.0f),
+		A(0.6f, 3.2f),
+		F(3.0f, 1.7f),
+		G(7.717f, 1.1f),
+		K(12.1f, 0.8f),
+		M(76.45f, 0.3f);
 
 		public float universeMakeup; // How much of the universe if made up of this star type.
 		public float solarMasses; // The stars solar mass.

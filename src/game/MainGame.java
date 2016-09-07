@@ -46,6 +46,12 @@ public class MainGame extends IGame {
 		this.toggleMusic = new CompoundButton(new KeyButton(GLFW_KEY_DOWN), new JoystickButton(OptionsControls.JOYSTICK_PORT, OptionsControls.JOYSTICK_MUSIC_PAUSE));
 		this.skipMusic = new CompoundButton(new KeyButton(GLFW_KEY_LEFT, GLFW_KEY_RIGHT), new JoystickButton(OptionsControls.JOYSTICK_PORT, OptionsControls.JOYSTICK_MUSIC_SKIP));
 		this.stillLoading = true;
+
+		System.out.println("");
+
+		for (int i = 0; i < 1; i++) {
+			Star star = StarGenerator.generateStar(new Vector3f());
+		}
 	}
 
 	public void generateWorlds() {
@@ -71,10 +77,6 @@ public class MainGame extends IGame {
 		particleSystem.randomizeRotation();
 		particleSystem.setSpawn(new SpawnCircle(20, new Vector3f(0.0f, 1.0f, 0.0f)));
 		particleSystem.setSystemCentre(new Vector3f(0, 20, -10));
-
-		for (int i = 0; i < 1; i++) {
-			Star star = StarGenerator.generateStar(new Vector3f());
-		}
 	}
 
 	public void generatePlayer() {

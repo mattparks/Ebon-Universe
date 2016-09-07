@@ -9,28 +9,30 @@ import java.util.*;
  * A realistic star object.
  */
 public class Star {
+	public static double SOL_MASS = 1.989 * Math.pow(10, 30);
+
 	private String starName;
 	private Vector3f position;
 
 	private List<Celestial> childObjects;
 
-	private float solarMasses; // The stars solar mass.
-	private float solarRadius; // The stars solar radius.
-	private float solarLuminosity; // The stars solar luminosity.
-	private float surfaceTemperature; // The stars surface temp in kelvin.
+	private double solarMasses; // The stars solar mass.
+	private double solarRadius; // The stars solar radius.
+	private double solarLuminosity; // The stars solar luminosity.
+	private double surfaceTemperature; // The stars surface temp in kelvin.
 
-	private float solarLifetime; // The stars lifetime.
+	private double solarLifetime; // The stars lifetime.
 
-	private Colour surfColour; // The stars surface colour.
+	private Colour surfaceColour; // The stars surface colour.
 
-	private float escapeVelocity; // The stars escape velocity (km/s).
+	private double escapeVelocity; // The stars escape velocity (km/s).
 
-	private float planetInnerLimit; // The inner limit for planet formation.
-	private float planetOuterLimit; // The outer limit for planet formation.
-	private float planetFrostLine; // The planetary frost line for childObjects.
+	private double planetInnerLimit; // The inner limit for planet formation.
+	private double planetOuterLimit; // The outer limit for planet formation.
+	private double planetFrostLine; // The planetary frost line for childObjects.
 
-	private float habitableMin; // The habitable min distance in AU for carbon based life.
-	private float habitableMax; // The habitable max distance in AU for carbon based life.
+	private double habitableMin; // The habitable min distance in AU for carbon based life.
+	private double habitableMax; // The habitable max distance in AU for carbon based life.
 
 	/**
 	 * Creates a new star from a solar mass and calculated characteristics.
@@ -40,27 +42,29 @@ public class Star {
 	 * @param position The position for the static star.
 	 * @param childObjects The list of objects orbiting the star.
 	 */
-	public Star(String starName, float solarMasses, Vector3f position, List<Celestial> childObjects) {
+	public Star(String starName, double solarMasses, Vector3f position, List<Celestial> childObjects) {
 		this.starName = starName;
-		this.solarMasses = solarMasses;
+		this.position = position;
+
 		this.childObjects = childObjects;
 
-		this.solarRadius = (float) Math.pow(solarMasses, solarMasses < 1.0f ? 0.8f : 0.5f);
-		this.solarLuminosity = (float) Math.pow(solarMasses, 3.5f);
-		this.surfaceTemperature = (float) Math.pow(solarLuminosity / (solarRadius * solarRadius), 0.25f) * 5778.0f;
+		this.solarMasses = solarMasses;
+		this.solarRadius = Math.pow(solarMasses, solarMasses < 1.0f ? 0.8f : 0.5f);
+		this.solarLuminosity = Math.pow(solarMasses, 3.5f);
+		this.surfaceTemperature = Math.pow(solarLuminosity / (solarRadius * solarRadius), 0.25f) * 5778.0f;
 
-		this.solarLifetime = (float) Math.pow(solarMasses, -2.5f);
+		this.solarLifetime = Math.pow(solarMasses, -2.5f);
 
-		this.surfColour = getColour();
+		this.surfaceColour = getColour();
 
-		this.escapeVelocity = (float) Math.sqrt(solarMasses / solarRadius) * 617.7f;
+		this.escapeVelocity = Math.sqrt(solarMasses / solarRadius) * 617.7f;
 
 		this.planetInnerLimit = 0.1f * solarMasses;
 		this.planetOuterLimit = 40.0f * solarMasses;
-		this.planetFrostLine = 4.85f * (float) Math.sqrt(solarLuminosity);
+		this.planetFrostLine = 4.85f * (double) Math.sqrt(solarLuminosity);
 
-		this.habitableMin = (float) Math.sqrt(solarLuminosity / 1.10f);
-		this.habitableMax = (float) Math.sqrt(solarLuminosity / 0.53f);
+		this.habitableMin = Math.sqrt(solarLuminosity / 1.10f);
+		this.habitableMax = Math.sqrt(solarLuminosity / 0.53f);
 	}
 
 	/**
@@ -70,45 +74,45 @@ public class Star {
 	 * @return Generated colour for a star.
 	 */
 	private Colour getColour() {
-		float temperature = Maths.clamp(surfaceTemperature, 1000.0f, 40000.0f) / 100.0f;
-		float red;
-		float green;
-		float blue;
+		double temperature = Maths.clamp(surfaceTemperature, 1000.0, 40000.0) / 100.0;
+		double red;
+		double green;
+		double blue;
 
 		// Calculate Red.
-		if (temperature <= 66.0f) {
-			red = 255.0f;
+		if (temperature <= 66.0) {
+			red = 255.0;
 		} else {
 			red = temperature - 60.0f;
-			red = 329.698727446f * (float) Math.pow(red, -0.1332047592f);
-			red = Maths.clamp(red, 0.0f, 255.0f);
+			red = 329.698727446 * Math.pow(red, -0.1332047592);
+			red = Maths.clamp(red, 0.0, 255.0);
 		}
 
 		// Calculate Green.
 		if (temperature <= 66.0f) {
 			green = temperature;
-			green = 99.4708025861f * (float) Math.log(green) - 161.1195681661f;
-			green = Maths.clamp(green, 0.0f, 255.0f);
+			green = 99.4708025861 * Math.log(green) - 161.1195681661;
+			green = Maths.clamp(green, 0.0, 255.0);
 		} else {
 			green = temperature - 60.0f;
-			green = 288.1221695283f * (float) Math.pow(green, -0.0755148492f);
-			green = Maths.clamp(green, 0.0f, 255.0f);
+			green = 288.1221695283 * Math.pow(green, -0.0755148492);
+			green = Maths.clamp(green, 0.0, 255.0);
 		}
 
 		// Calculate Blue.
-		if (temperature >= 66.0f) {
-			blue = 255.0f;
+		if (temperature >= 66.0) {
+			blue = 255.0;
 		} else {
-			if (temperature <= 19.0f) {
-				blue = 0.0f;
+			if (temperature <= 19.0) {
+				blue = 0.0;
 			} else {
-				blue = temperature - 10.0f;
-				blue = 138.5177312231f * (float) Math.log(blue) - 305.0447927307f;
-				blue = Maths.clamp(blue, 0.0f, 255.0f);
+				blue = temperature - 10.0;
+				blue = 138.5177312231 * (double) Math.log(blue) - 305.0447927307;
+				blue = Maths.clamp(blue, 0.0, 255.0);
 			}
 		}
 
-		return new Colour(red, green, blue, true);
+		return new Colour((float) (red / 255.0), (float) (green / 255.0), (float) (blue / 255.0));
 	}
 
 	public List<Celestial> getChildObjects() {
@@ -129,7 +133,7 @@ public class Star {
 				", planetFrostLine=" + planetFrostLine +
 				", habitableMin=" + habitableMin +
 				", habitableMax=" + habitableMax +
-				", " + surfColour.toString() + "\n]";
+				", " + surfaceColour.toString() + "\n]";
 	}
 
 	public void update() {
@@ -144,51 +148,51 @@ public class Star {
 		return position;
 	}
 
-	public float getSolarMasses() {
+	public double getSolarMasses() {
 		return solarMasses;
 	}
 
-	public float getSolarRadius() {
+	public double getSolarRadius() {
 		return solarRadius;
 	}
 
-	public float getSolarLuminosity() {
+	public double getSolarLuminosity() {
 		return solarLuminosity;
 	}
 
-	public float getSurfaceTemperature() {
+	public double getSurfaceTemperature() {
 		return surfaceTemperature;
 	}
 
-	public float getSolarLifetime() {
+	public double getSolarLifetime() {
 		return solarLifetime;
 	}
 
-	public Colour getSurfColour() {
-		return surfColour;
+	public Colour getSurfaceColour() {
+		return surfaceColour;
 	}
 
-	public float getEscapeVelocity() {
+	public double getEscapeVelocity() {
 		return escapeVelocity;
 	}
 
-	public float getPlanetInnerLimit() {
+	public double getPlanetInnerLimit() {
 		return planetInnerLimit;
 	}
 
-	public float getPlanetOuterLimit() {
+	public double getPlanetOuterLimit() {
 		return planetOuterLimit;
 	}
 
-	public float getPlanetFrostLine() {
+	public double getPlanetFrostLine() {
 		return planetFrostLine;
 	}
 
-	public float getHabitableMin() {
+	public double getHabitableMin() {
 		return habitableMin;
 	}
 
-	public float getHabitableMax() {
+	public double getHabitableMax() {
 		return habitableMax;
 	}
 
@@ -201,16 +205,16 @@ public class Star {
 		K(12.1f, 0.8f),
 		M(76.45f, 0.3f);
 
-		public float universeMakeup; // How much of the universe if made up of this star type.
-		public float solarMasses; // The stars solar mass.
+		public double universeMakeup; // How much of the universe if made up of this star type.
+		public double solarMasses; // The stars solar mass.
 
-		StarType(float universeMakeup, float solarMasses) {
+		StarType(double universeMakeup, double solarMasses) {
 			this.universeMakeup = universeMakeup;
 			this.solarMasses = solarMasses;
 		}
 
-		public static StarType getTypeMakeup(float solarMakeup) {
-			float currentMakeup = 0.0f;
+		public static StarType getTypeMakeup(double solarMakeup) {
+			double currentMakeup = 0.0f;
 
 			for (StarType type : StarType.values()) {
 				if (solarMakeup <= currentMakeup) {
@@ -223,7 +227,7 @@ public class Star {
 			return G;
 		}
 
-		public static StarType getTypeMass(float solarMasses) {
+		public static StarType getTypeMass(double solarMasses) {
 			for (StarType type : StarType.values()) {
 				if (solarMasses >= type.solarMasses) {
 					return type;

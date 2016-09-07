@@ -10,6 +10,9 @@ import java.util.*;
  * A realistic celestial object, like a planet / moon.
  */
 public class Celestial {
+	public static double PLANET_MASS = 5.9723 * Math.pow(10, 24);
+	public static double PLANET_RADIUS = 6378.137;
+
 	private String celestialType;
 
 	private String planetName;
@@ -22,20 +25,20 @@ public class Celestial {
 
 	private List<Celestial> childObjects;
 
-	private float earthMasses; // The planets earth mass.
-	private float earthRadius; // The planets earth radius.
-	private float density; // The planets density (g/cm^3).
-	private float gravity; // The planets gravity (m/s^2).
+	private double earthMasses; // The planets earth mass.
+	private double earthRadius; // The planets earth radius.
+	private double density; // The planets density (g/cm^3).
+	private double gravity; // The planets gravity (m/s^2).
 
-	private float axialTilt; // How tilted over the planet is, rotates prograde 0<i<90, rotates retrograde 90<i<180.
-	private float axialTropics; // The positions of the tropics, +/-.
-	private float axialPolar; // The positions of the polar caps, +/-.
+	private double axialTilt; // How tilted over the planet is, rotates prograde 0<i<90, rotates retrograde 90<i<180.
+	private double axialTropics; // The positions of the tropics, +/-.
+	private double axialPolar; // The positions of the polar caps, +/-.
 
-	private float minRingSpawns; // The ring rule min bounds (Earth radius) += 0.2.
-	private float maxRingSpawns; // The ring rule max bounds (Earth radius) += 0.2.
+	private double minRingSpawns; // The ring rule min bounds (Earth radius) += 0.2.
+	private double maxRingSpawns; // The ring rule max bounds (Earth radius) += 0.2.
 
-	private float sphereOfInfluence; // The max radius distance the object can influence (in AU).
-	private float escapeVelocity; // The planets escape velocity (km/s).
+	private double sphereOfInfluence; // The max radius distance the object can influence (in AU).
+	private double escapeVelocity; // The planets escape velocity (km/s).
 
 	/**
 	 * Creates a new celestial object from earth masses and radius. Then calculates characteristics.
@@ -49,7 +52,7 @@ public class Celestial {
 	 * @param axialTilt How tilted over the planet is, rotates prograde 0<i<90, rotates retrograde 90<i<180.
 	 * @param childObjects The list of objects orbiting the star.
 	 */
-	public Celestial(String celestialType, String planetName, Pair<Star, Celestial> parentTypes, Orbit orbit, float earthMasses, float earthRadius, float axialTilt, List<Celestial> childObjects) {
+	public Celestial(String celestialType, String planetName, Pair<Star, Celestial> parentTypes, Orbit orbit, double earthMasses, double earthRadius, double axialTilt, List<Celestial> childObjects) {
 		this.celestialType = celestialType;
 
 		this.planetName = planetName;
@@ -64,19 +67,18 @@ public class Celestial {
 
 		this.earthMasses = earthMasses;
 		this.earthRadius = earthRadius;
-		float sphereVolume = (float) (4.0f * Math.PI * Math.pow(earthRadius * 6378.137f, 3)) / 3.0f;
-		this.density = (float) (earthMasses * 5.9723f * Math.pow(10, 12)) / sphereVolume;
-		this.gravity = earthMasses / (earthRadius * earthRadius) * 9.798f;
+		this.density = (earthMasses * PLANET_MASS * Math.pow(10, -12)) / ((4.0 * Math.PI * Math.pow(earthRadius * PLANET_RADIUS, 3)) / 3.0);
+		this.gravity = earthMasses / (earthRadius * earthRadius) * 9.798;
 
 		this.axialTilt = axialTilt;
 		this.axialTropics = axialTilt;
-		this.axialPolar = 90.0f - axialTilt;
+		this.axialPolar = 90.0 - axialTilt;
 
-		this.minRingSpawns = 1.34f * earthRadius;
-		this.maxRingSpawns = 2.44f * earthRadius;
+		this.minRingSpawns = 1.34 * earthRadius;
+		this.maxRingSpawns = 2.44 * earthRadius;
 
-		this.sphereOfInfluence = (float) (orbit.getSemiMajorAxis() * (1.0f - orbit.getEccentricity()) * Math.pow((earthMasses * 5.9723f * Math.pow(10, 24)) / (getParentStar().getSolarMasses() * 1.989f * Math.pow(10, 30)), 2.0f / 5.0f));
-		this.escapeVelocity = (float) Math.sqrt(earthMasses / earthRadius) * 11.186f;
+		this.sphereOfInfluence = orbit.getSemiMajorAxis() * (1.0 - orbit.getEccentricity()) * Math.pow((earthMasses * PLANET_MASS) / (getParentStar().getSolarMasses() * Star.SOL_MASS), 2.0 / 5.0);
+		this.escapeVelocity = Math.sqrt(earthMasses / earthRadius) * 11.186;
 	}
 
 	public void update() {
@@ -100,7 +102,7 @@ public class Celestial {
 		return orbit;
 	}
 
-	public float getEarthMasses() {
+	public double getEarthMasses() {
 		return earthMasses;
 	}
 
@@ -114,35 +116,35 @@ public class Celestial {
 		return null;
 	}
 
-	public float getEarthRadius() {
+	public double getEarthRadius() {
 		return earthRadius;
 	}
 
-	public float getDensity() {
+	public double getDensity() {
 		return density;
 	}
 
-	public float getGravity() {
+	public double getGravity() {
 		return gravity;
 	}
 
-	public float getAxialTilt() {
+	public double getAxialTilt() {
 		return axialTilt;
 	}
 
-	public float getAxialTropics() {
+	public double getAxialTropics() {
 		return axialTropics;
 	}
 
-	public float getAxialPolar() {
+	public double getAxialPolar() {
 		return axialPolar;
 	}
 
-	public float getMinRingSpawns() {
+	public double getMinRingSpawns() {
 		return minRingSpawns;
 	}
 
-	public float getMaxRingSpawns() {
+	public double getMaxRingSpawns() {
 		return maxRingSpawns;
 	}
 
@@ -153,11 +155,11 @@ public class Celestial {
 	 *
 	 * @return The roche limit for the second object.
 	 */
-	public float getRocheLimit(float secondDensity) {
-		return (float) (1.26f * earthRadius * 6378137.0f * Math.cbrt(this.density / secondDensity)) / 6371000.0f;
+	public double getRocheLimit(float secondDensity) {
+		return (1.26 * earthRadius * 6378137.0 * Math.cbrt(this.density / secondDensity)) / 6371000.0;
 	}
 
-	public float getEscapeVelocity() {
+	public double getEscapeVelocity() {
 		return escapeVelocity;
 	}
 
@@ -197,21 +199,21 @@ public class Celestial {
 	}
 
 	public enum PlanetType {
-		GASEOUS(0.687f, 2.21f, 29.0f),
-		WATERY(2.21f, 5.52f, 5.0f),
-		ROCKY(5.52f, 13.56f, 0.0f);
+		GASEOUS(0.687, 2.21, 29.0),
+		WATERY(2.21, 5.52, 5.0),
+		ROCKY(5.52, 13.56, 0.0);
 
-		public float minDensity;
-		public float maxDensity;
-		public float minGravity;
+		public double minDensity;
+		public double maxDensity;
+		public double minGravity;
 
-		PlanetType(float minDensity, float maxDensity, float minGravity) {
+		PlanetType(double minDensity, double maxDensity, double minGravity) {
 			this.minDensity = minDensity;
 			this.maxDensity = maxDensity;
 			this.minGravity = minGravity;
 		}
 
-		public static PlanetType getType(float density, float gravity) {
+		public static PlanetType getType(double density, double gravity) {
 			for (PlanetType type : PlanetType.values()) {
 				if (density > type.minDensity && density <= type.maxDensity || gravity > type.minGravity) {
 					return type;

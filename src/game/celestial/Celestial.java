@@ -1,6 +1,5 @@
 package game.celestial;
 
-import flounder.engine.*;
 import flounder.helpers.*;
 import flounder.maths.vectors.*;
 
@@ -10,8 +9,12 @@ import java.util.*;
  * A realistic celestial object, like a planet / moon.
  */
 public class Celestial {
-	public static double PLANET_MASS = 5.9723 * Math.pow(10, 24);
-	public static double PLANET_RADIUS = 6378.137;
+	public static double AU_TO_KM = 1.496e+8; // The conversion from AU to KM.
+	public static double EARTH_MASS = 5.9723e+24; // The earths mass (kg).
+	public static double EARTH_RADIUS = 6378.137; // The earths radius (km).
+	public static double EARTH_ESCAPE_VELOCITY = 11.186; // The earths escape velocity (km/s).
+	public static double EARTH_DENSITY = 5.4950; // The earths density (g/cm^3).
+	public static double EARTH_GRAVITY = 9.798; // The earths gravity (m/s/s).
 
 	private String celestialType;
 
@@ -37,8 +40,8 @@ public class Celestial {
 	private double minRingSpawns; // The ring rule min bounds (Earth radius) += 0.2.
 	private double maxRingSpawns; // The ring rule max bounds (Earth radius) += 0.2.
 
-	private double sphereOfInfluence; // The max radius distance the object can influence (in AU).
 	private double escapeVelocity; // The planets escape velocity (km/s).
+	private double hillSphere; // The planets hill sphere (Planetary radii).
 
 	/**
 	 * Creates a new celestial object from earth masses and radius. Then calculates characteristics.
@@ -67,8 +70,8 @@ public class Celestial {
 
 		this.earthMasses = earthMasses;
 		this.earthRadius = earthRadius;
-		this.density = (earthMasses * PLANET_MASS * Math.pow(10, -12)) / ((4.0 * Math.PI * Math.pow(earthRadius * PLANET_RADIUS, 3)) / 3.0);
-		this.gravity = earthMasses / (earthRadius * earthRadius) * 9.798;
+		this.density = (earthMasses * EARTH_MASS * 1.0e-12) / ((4.0 * Math.PI * Math.pow(earthRadius * EARTH_RADIUS, 3)) / 3.0);
+		this.gravity = earthMasses / (earthRadius * earthRadius) * EARTH_GRAVITY;
 
 		this.axialTilt = axialTilt;
 		this.axialTropics = axialTilt;
@@ -77,8 +80,8 @@ public class Celestial {
 		this.minRingSpawns = 1.34 * earthRadius;
 		this.maxRingSpawns = 2.44 * earthRadius;
 
-		this.sphereOfInfluence = orbit.getSemiMajorAxis() * (1.0 - orbit.getEccentricity()) * Math.pow((earthMasses * PLANET_MASS) / (getParentStar().getSolarMasses() * Star.SOL_MASS), 2.0 / 5.0);
-		this.escapeVelocity = Math.sqrt(earthMasses / earthRadius) * 11.186;
+		this.escapeVelocity = Math.sqrt(earthMasses / earthRadius) * EARTH_ESCAPE_VELOCITY;
+		this.hillSphere = (orbit.getSemiMajorAxis() * AU_TO_KM * (1.0 - orbit.getEccentricity()) * Math.cbrt((earthMasses * EARTH_MASS) / (3.0 * getParentMass()))) / (earthRadius * EARTH_RADIUS);
 	}
 
 	public void update() {
@@ -106,6 +109,11 @@ public class Celestial {
 		return earthMasses;
 	}
 
+	/**
+	 * Gets the parent star.
+	 *
+	 * @return The parent star.
+	 */
 	public Star getParentStar() {
 		if (parentStar.isPresent()) {
 			return parentStar.get();
@@ -114,6 +122,21 @@ public class Celestial {
 		}
 
 		return null;
+	}
+
+	/**
+	 * Gets the mass of the parent object (Kg).
+	 *
+	 * @return The mass of the parent object.
+	 */
+	public double getParentMass() {
+		if (parentStar.isPresent()) {
+			return parentStar.get().getSolarMasses() * Star.SOL_MASS;
+		} else if (parentCelestial.isPresent()) {
+			return parentCelestial.get().getEarthMasses() * EARTH_MASS;
+		}
+
+		return 0.0;
 	}
 
 	public double getEarthRadius() {
@@ -148,6 +171,14 @@ public class Celestial {
 		return maxRingSpawns;
 	}
 
+	public double getEscapeVelocity() {
+		return escapeVelocity;
+	}
+
+	public double getHillSphere() {
+		return hillSphere;
+	}
+
 	/**
 	 * Calculates the roche limit (rigid) for a second object (Earth radius.)
 	 *
@@ -155,22 +186,23 @@ public class Celestial {
 	 *
 	 * @return The roche limit for the second object.
 	 */
-	public double getRocheLimit(float secondDensity) {
-		return (1.26 * earthRadius * 6378137.0 * Math.cbrt(this.density / secondDensity)) / 6371000.0;
+	public double getRocheLimit(double secondDensity) {
+		return 1.26 * earthRadius * Math.cbrt(this.density / secondDensity);
 	}
 
-	public double getEscapeVelocity() {
-		return escapeVelocity;
-	}
-
+	/**
+	 * Gets if the object could support life.
+	 *
+	 * @return If the object could support life.
+	 */
 	public boolean supportsLife() {
-		if (!PlanetType.getType(density, gravity).equals(PlanetType.WATERY)) {
-			return false;
-		}
+		//if (!PlanetType.getType(density, gravity).equals(PlanetType.WATERY)) {
+		//	return false;
+		//}
 
 		if (parentStar.isPresent()) {
 			Star star = parentStar.get();
-			return orbit.getSemiMajorAxis() >= star.getHabitableMin() && orbit.getSemiMajorAxis() <= star.getHabitableMax();
+			return (orbit.getSemiMajorAxis() >= star.getHabitableMin() && orbit.getSemiMajorAxis() <= star.getHabitableMax()) && (orbit.getEccentricity() > 0.0 && orbit.getEccentricity() <= 0.2);
 		} else if (parentCelestial.isPresent()) {
 			Celestial celestial = parentCelestial.get();
 			return celestial.supportsLife();
@@ -192,9 +224,9 @@ public class Celestial {
 				", axialPolar=" + axialPolar +
 				", minRingSpawns=" + minRingSpawns +
 				", maxRingSpawns=" + maxRingSpawns +
-				", rocheLimit(Lun)=" + getRocheLimit(3.34f) +
+				", rocheLimit(Lun)=" + getRocheLimit(3.34) +
+				", hillSphere=" + hillSphere +
 				", escapeVelocity=" + escapeVelocity +
-				", sphereOfInfluence=" + sphereOfInfluence +
 				", \n" + orbit.toString() + "\n]";
 	}
 

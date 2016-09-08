@@ -2,10 +2,10 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/4Space-Game.iml" filepath="$PROJECT_DIR$/4Space-Game.iml" />
       <module fileurl="file://$PROJECT_DIR$/Editor-Entity/Editor-Entity.iml" filepath="$PROJECT_DIR$/Editor-Entity/Editor-Entity.iml" />
       <module fileurl="file://$PROJECT_DIR$/Editor-Particle/Editor-Particle.iml" filepath="$PROJECT_DIR$/Editor-Particle/Editor-Particle.iml" />
       <module fileurl="file://$PROJECT_DIR$/Flounder-Engine/Flounder-Engine.iml" filepath="$PROJECT_DIR$/Flounder-Engine/Flounder-Engine.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Open Skies.iml" filepath="$PROJECT_DIR$/Open Skies.iml" />
     </modules>
   </component>
 </project>

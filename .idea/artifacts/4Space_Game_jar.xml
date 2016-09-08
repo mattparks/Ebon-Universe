@@ -2,7 +2,7 @@
   <artifact type="jar" name="4Space Game:jar">
     <output-path>$PROJECT_DIR$/out/artifacts</output-path>
     <root id="archive" name="4Space Game.jar">
-      <element id="module-output" name="4Space-Game" />
+      <element id="module-output" name="Open Skies" />
       <element id="module-output" name="Flounder-Engine" />
       <element id="extracted-dir" path="$PROJECT_DIR$/Flounder-Engine/libs/lwjgl/jar/lwjgl.jar" path-in-jar="/" />
       <element id="dir-copy" path="$PROJECT_DIR$/Flounder-Engine/libs/lwjgl/native" />

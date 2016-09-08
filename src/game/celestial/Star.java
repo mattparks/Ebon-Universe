@@ -9,7 +9,10 @@ import java.util.*;
  * A realistic star object.
  */
 public class Star {
-	public static double SOL_MASS = 1.989 * Math.pow(10, 30);
+	public static double SOL_MASS = 1.989e+30; // Our suns mass (kg).
+	public static double SOL_RADIUS = 696300.0; // Our suns radius (km).
+	public static double SOL_ESCAPE_VELOCITY = 617.7; // Our suns escape velocity (km/s).
+	public static double SOL_SURFACE_TEMP = 5778.0; // Our suns surface temp (kelvin).
 
 	private String starName;
 	private Vector3f position;
@@ -19,7 +22,7 @@ public class Star {
 	private double solarMasses; // The stars solar mass.
 	private double solarRadius; // The stars solar radius.
 	private double solarLuminosity; // The stars solar luminosity.
-	private double surfaceTemperature; // The stars surface temp in kelvin.
+	private double surfaceTemperature; // The stars surface temp (kelvin).
 
 	private double solarLifetime; // The stars lifetime.
 
@@ -49,22 +52,22 @@ public class Star {
 		this.childObjects = childObjects;
 
 		this.solarMasses = solarMasses;
-		this.solarRadius = Math.pow(solarMasses, solarMasses < 1.0f ? 0.8f : 0.5f);
-		this.solarLuminosity = Math.pow(solarMasses, 3.5f);
-		this.surfaceTemperature = Math.pow(solarLuminosity / (solarRadius * solarRadius), 0.25f) * 5778.0f;
+		this.solarRadius = Math.pow(solarMasses, solarMasses < 1.0 ? 0.8 : 0.5);
+		this.solarLuminosity = Math.pow(solarMasses, 3.5);
+		this.surfaceTemperature = Math.pow(solarLuminosity / (solarRadius * solarRadius), 0.25) * SOL_SURFACE_TEMP;
 
-		this.solarLifetime = Math.pow(solarMasses, -2.5f);
+		this.solarLifetime = Math.pow(solarMasses, -2.5);
 
 		this.surfaceColour = getColour();
 
-		this.escapeVelocity = Math.sqrt(solarMasses / solarRadius) * 617.7f;
+		this.escapeVelocity = Math.sqrt(solarMasses / solarRadius) * SOL_ESCAPE_VELOCITY;
 
-		this.planetInnerLimit = 0.1f * solarMasses;
-		this.planetOuterLimit = 40.0f * solarMasses;
-		this.planetFrostLine = 4.85f * (double) Math.sqrt(solarLuminosity);
+		this.planetInnerLimit = 0.1 * solarMasses;
+		this.planetOuterLimit = 40.0 * solarMasses;
+		this.planetFrostLine = 4.85 * Math.sqrt(solarLuminosity);
 
-		this.habitableMin = Math.sqrt(solarLuminosity / 1.10f);
-		this.habitableMax = Math.sqrt(solarLuminosity / 0.53f);
+		this.habitableMin = Math.sqrt(solarLuminosity / 1.11);
+		this.habitableMax = Math.sqrt(solarLuminosity / 0.53);
 	}
 
 	/**
@@ -83,18 +86,18 @@ public class Star {
 		if (temperature <= 66.0) {
 			red = 255.0;
 		} else {
-			red = temperature - 60.0f;
+			red = temperature - 60.0;
 			red = 329.698727446 * Math.pow(red, -0.1332047592);
 			red = Maths.clamp(red, 0.0, 255.0);
 		}
 
 		// Calculate Green.
-		if (temperature <= 66.0f) {
+		if (temperature <= 66.0) {
 			green = temperature;
 			green = 99.4708025861 * Math.log(green) - 161.1195681661;
 			green = Maths.clamp(green, 0.0, 255.0);
 		} else {
-			green = temperature - 60.0f;
+			green = temperature - 60.0;
 			green = 288.1221695283 * Math.pow(green, -0.0755148492);
 			green = Maths.clamp(green, 0.0, 255.0);
 		}
@@ -107,7 +110,7 @@ public class Star {
 				blue = 0.0;
 			} else {
 				blue = temperature - 10.0;
-				blue = 138.5177312231 * (double) Math.log(blue) - 305.0447927307;
+				blue = 138.5177312231 * Math.log(blue) - 305.0447927307;
 				blue = Maths.clamp(blue, 0.0, 255.0);
 			}
 		}
@@ -197,13 +200,13 @@ public class Star {
 	}
 
 	public enum StarType {
-		O(0.003f, 60.0f),
-		B(0.13f, 18.0f),
-		A(0.6f, 3.2f),
-		F(3.0f, 1.7f),
-		G(7.717f, 1.1f),
-		K(12.1f, 0.8f),
-		M(76.45f, 0.3f);
+		O(0.0003, 60.0),
+		B(0.1327, 18.0),
+		A(0.6, 3.2),
+		F(3.0, 1.7),
+		G(7.717, 1.1),
+		K(12.1, 0.8),
+		M(76.45, 0.3);
 
 		public double universeMakeup; // How much of the universe if made up of this star type.
 		public double solarMasses; // The stars solar mass.
@@ -214,7 +217,7 @@ public class Star {
 		}
 
 		public static StarType getTypeMakeup(double solarMakeup) {
-			double currentMakeup = 0.0f;
+			double currentMakeup = 0.0;
 
 			for (StarType type : StarType.values()) {
 				if (solarMakeup <= currentMakeup) {

@@ -47,8 +47,6 @@ public class MainGame extends IGame {
 		this.skipMusic = new CompoundButton(new KeyButton(GLFW_KEY_LEFT, GLFW_KEY_RIGHT), new JoystickButton(OptionsControls.JOYSTICK_PORT, OptionsControls.JOYSTICK_MUSIC_SKIP));
 		this.stillLoading = true;
 
-		System.out.println("");
-
 		for (int i = 0; i < 1; i++) {
 			Star star = StarGenerator.generateStar(new Vector3f());
 		}

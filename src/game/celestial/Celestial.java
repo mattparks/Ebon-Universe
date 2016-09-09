@@ -8,7 +8,7 @@ import java.util.*;
 /**
  * A realistic celestial object, like a planet / moon.
  */
-public class Celestial {
+public class Celestial implements Comparable<Celestial> {
 	public static double AU_TO_KM = 1.496e+8; // The conversion from AU to KM.
 	public static double EARTH_MASS = 5.9723e+24; // The earths mass (kg).
 	public static double EARTH_RADIUS = 6378.137; // The earths radius (km).
@@ -103,6 +103,10 @@ public class Celestial {
 
 	public Orbit getOrbit() {
 		return orbit;
+	}
+
+	public List<Celestial> getChildObjects() {
+		return childObjects;
 	}
 
 	public double getEarthMasses() {
@@ -213,7 +217,7 @@ public class Celestial {
 
 	@Override
 	public String toString() {
-		return celestialType + "(" + planetName + " | " + PlanetType.getType(density, gravity).name() + ") [ \n    " +
+		return celestialType + "(" + planetName + " | " + PlanetType.getType(density).name() + ") [ \n    " +
 				"earthMasses=" + earthMasses +
 				", earthRadius=" + earthRadius +
 				", density=" + density +
@@ -230,29 +234,44 @@ public class Celestial {
 				", \n" + orbit.toString() + "\n]";
 	}
 
+	@Override
+	public int compareTo(Celestial o) {
+		return ((Double) orbit.getSemiMajorAxis()).compareTo(o.orbit.getSemiMajorAxis());
+	}
+
 	public enum PlanetType {
-		GASEOUS(0.687, 2.21, 29.0),
-		WATERY(2.21, 5.52, 5.0),
-		ROCKY(5.52, 13.56, 0.0);
+		GASEOUS(0.687, 2.21),
+		WATERY(2.21, 5.52),
+		ROCKY(5.52, 13.56);
 
 		public double minDensity;
 		public double maxDensity;
-		public double minGravity;
 
-		PlanetType(double minDensity, double maxDensity, double minGravity) {
+		PlanetType(double minDensity, double maxDensity) {
 			this.minDensity = minDensity;
 			this.maxDensity = maxDensity;
-			this.minGravity = minGravity;
 		}
 
-		public static PlanetType getType(double density, double gravity) {
+		public static PlanetType getType(double density) {
 			for (PlanetType type : PlanetType.values()) {
-				if (density > type.minDensity && density <= type.maxDensity || gravity > type.minGravity) {
+				if (density > type.minDensity && density <= type.maxDensity) {
 					return type;
 				}
 			}
 
 			return ROCKY;
+		}
+	}
+
+	public enum PlanetMakeup {
+		WATER_ICE(1.00),
+		SILICATE(2.65),
+		IRON(7.87);
+
+		public double density;
+
+		PlanetMakeup(double density) {
+			this.density = density;
 		}
 	}
 }

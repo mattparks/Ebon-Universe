@@ -1,5 +1,7 @@
 package game.celestial;
 
+import flounder.helpers.*;
+import flounder.logger.*;
 import flounder.maths.*;
 import flounder.maths.vectors.*;
 
@@ -125,7 +127,7 @@ public class Star {
 	@Override
 	public String toString() {
 		return "Star(" + starName + " | " + StarType.getTypeMass(solarMasses).name() + ") [ \n   " +
-				"solarMasses=" + solarMasses +
+				"minSolarMasses=" + solarMasses +
 				", radius=" + solarRadius +
 				", luminosity=" + solarLuminosity +
 				", temperature=" + surfaceTemperature +
@@ -199,21 +201,47 @@ public class Star {
 		return habitableMax;
 	}
 
+	public static void printSystem(Star star) {
+		System.out.println("");
+		System.out.println(FlounderLogger.ANSI_RED + "===== Star " + star.getStarName() + ". =====" + FlounderLogger.ANSI_RESET);
+		System.out.println(FlounderLogger.ANSI_RED + star.toString() + FlounderLogger.ANSI_RESET);
+
+		ArraySorting.heapSort(star.childObjects);
+
+		star.childObjects.forEach(celestial -> {
+			if (celestial.supportsLife()) {
+				System.out.println(FlounderLogger.ANSI_PURPLE + celestial.toString() + FlounderLogger.ANSI_RESET);
+			} else {
+				System.out.println(FlounderLogger.ANSI_GREEN + celestial.toString() + FlounderLogger.ANSI_RESET);
+			}
+
+			ArraySorting.heapSort(celestial.getChildObjects());
+
+			celestial.getChildObjects().forEach(moon -> {
+				System.out.println(FlounderLogger.ANSI_BLUE + moon.toString() + FlounderLogger.ANSI_RESET);
+			});
+		});
+
+		System.out.println(FlounderLogger.ANSI_RED + "===== End of star " + star.getStarName() + ". =====\n" + FlounderLogger.ANSI_RESET);
+	}
+
 	public enum StarType {
-		O(0.0003, 60.0),
-		B(0.1327, 18.0),
-		A(0.6, 3.2),
-		F(3.0, 1.7),
-		G(7.717, 1.1),
-		K(12.1, 0.8),
-		M(76.45, 0.3);
+		O(0.0003, 30.0, 60.0),
+		B(0.1327, 18.0, 30.0),
+		A(0.6, 3.2, 18.0),
+		F(3.0, 1.7, 3.2),
+		G(7.717, 1.1, 1.7),
+		K(12.1, 0.8, 1.1),
+		M(76.45, 0.3, 0.8);
 
 		public double universeMakeup; // How much of the universe if made up of this star type.
-		public double solarMasses; // The stars solar mass.
+		public double minSolarMasses; // The stars min solar mass.
+		public double maxSolarMasses; // The stars max solar mass.
 
-		StarType(double universeMakeup, double solarMasses) {
+		StarType(double universeMakeup, double minSolarMasses, double maxSolarMasses) {
 			this.universeMakeup = universeMakeup;
-			this.solarMasses = solarMasses;
+			this.minSolarMasses = minSolarMasses;
+			this.maxSolarMasses = maxSolarMasses;
 		}
 
 		public static StarType getTypeMakeup(double solarMakeup) {
@@ -227,24 +255,25 @@ public class Star {
 				currentMakeup += type.universeMakeup;
 			}
 
-			return G;
+			return M;
 		}
 
 		public static StarType getTypeMass(double solarMasses) {
 			for (StarType type : StarType.values()) {
-				if (solarMasses >= type.solarMasses) {
+				if (solarMasses <= type.maxSolarMasses && solarMasses > type.minSolarMasses) {
 					return type;
 				}
 			}
 
-			return G;
+			return M;
 		}
 
 		@Override
 		public String toString() {
 			return "StarType(" + name() + ")[ " +
 					"universeMakeup=" + universeMakeup +
-					", solarMasses=" + solarMasses + " ]";
+					", minSolarMasses=" + minSolarMasses +
+					", maxSolarMasses=" + maxSolarMasses + " ]";
 		}
 	}
 }

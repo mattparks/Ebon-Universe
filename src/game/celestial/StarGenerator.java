@@ -26,32 +26,29 @@ public class StarGenerator {
 	public static Star generateStar(Vector3f position) {
 		double spawnKey = Maths.randomInRange(0.0, 100.0);
 		Star.StarType starType = Star.StarType.getTypeMakeup(spawnKey);
-		double solarMasses = starType.solarMasses;
+		double solarMasses = Maths.randomInRange(starType.minSolarMasses, starType.maxSolarMasses);
 		Star star = new Star(FauxGenerator.getFauxSentance(1, 6, 17), solarMasses, position, new ArrayList<>());
-		System.out.println(FlounderLogger.ANSI_RED + "===== Star (spawnKey=" + spawnKey + ") " + star.getStarName() + ". =====" + FlounderLogger.ANSI_RESET);
-		System.out.println(FlounderLogger.ANSI_RED + star.toString() + FlounderLogger.ANSI_RESET);
-
 		double currentOrbit = star.getPlanetFrostLine();
 
 		while (currentOrbit >= star.getPlanetInnerLimit()) {
-			if ((currentOrbit >= star.getHabitableMin() && currentOrbit <= star.getHabitableMax()) || Maths.RANDOM.nextDouble() > 0.5) {
+			if ((currentOrbit >= star.getHabitableMin() && currentOrbit <= star.getHabitableMax()) || Maths.RANDOM.nextBoolean()) {
 				generateCelestial("Planet", new Pair<>(star, null), currentOrbit);
 			}
 
-			currentOrbit /= Maths.randomInRange(1.4f, 2.0f);
+			currentOrbit /= Maths.randomInRange(1.4, 2.0);
 		}
-
-		System.out.println(FlounderLogger.ANSI_RED + "===== End inner system, start outer. =====" + FlounderLogger.ANSI_RESET);
 
 		currentOrbit = star.getPlanetFrostLine() + 1.0;
 
 		while (currentOrbit <= star.getPlanetOuterLimit()) {
-			generateCelestial("Planet", new Pair<>(star, null), currentOrbit);
-			currentOrbit *= Maths.randomInRange(1.4f, 2.0f);
+			if (Maths.RANDOM.nextBoolean()) {
+				generateCelestial("Planet", new Pair<>(star, null), currentOrbit);
+			}
+
+			currentOrbit *= Maths.randomInRange(1.4, 2.0);
 		}
 
-		System.out.println(FlounderLogger.ANSI_RED + "===== End of star " + star.getStarName() + ". =====\n" + FlounderLogger.ANSI_RESET);
-
+		Star.printSystem(star);
 		return star;
 	}
 
@@ -116,11 +113,7 @@ public class StarGenerator {
 
 				currentOrbit += Maths.randomInRange(2.4, 3.0);
 			}
-		} else {*/
-		System.out.println(FlounderLogger.ANSI_GREEN + celestial.toString() + FlounderLogger.ANSI_RESET);
-		//}
-
-		//System.out.println(FlounderLogger.ANSI_BLUE + moon.toString() + FlounderLogger.ANSI_RESET);
+		}*/
 
 		star.getChildObjects().add(celestial);
 	}

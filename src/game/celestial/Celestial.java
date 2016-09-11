@@ -129,6 +129,19 @@ public class Celestial implements Comparable<Celestial> {
 	}
 
 	/**
+	 * Gets the parent celestial object.
+	 *
+	 * @return The parent celestial object.
+	 */
+	public Celestial getParentCelestial() {
+		if (parentCelestial.isPresent()) {
+			return parentCelestial.get().getParentCelestial();
+		}
+
+		return this;
+	}
+
+	/**
 	 * Gets the mass of the parent object (Kg).
 	 *
 	 * @return The mass of the parent object.
@@ -200,24 +213,33 @@ public class Celestial implements Comparable<Celestial> {
 	 * @return If the object could support life.
 	 */
 	public boolean supportsLife() {
+		// Gets the parent star.
+		Star star = getParentStar();
+
+		// If the parent object is not habitable, this will not be either.
+		if (parentCelestial.isPresent()) {
+			Celestial celestial = getParentCelestial();
+
+			if (!orbitHabitable(celestial.orbit, star)) {
+				return false;
+			}
+		}
+
 		//if (!PlanetType.getType(density, gravity).equals(PlanetType.WATERY)) {
 		//	return false;
 		//}
 
-		if (parentStar.isPresent()) {
-			Star star = parentStar.get();
-			return (orbit.getSemiMajorAxis() >= star.getHabitableMin() && orbit.getSemiMajorAxis() <= star.getHabitableMax()) && (orbit.getEccentricity() > 0.0 && orbit.getEccentricity() <= 0.2);
-		} else if (parentCelestial.isPresent()) {
-			Celestial celestial = parentCelestial.get();
-			return celestial.supportsLife();
-		}
+		// Calculates if this object is habitable.
+		return orbitHabitable(orbit, star) && (earthMasses >= 0.1 && earthMasses <= 3.5) && (earthRadius >= 0.5 && earthRadius <= 1.5) && (gravity >= 3.923 && gravity <= 15.691);
+	}
 
-		return false;
+	private boolean orbitHabitable(Orbit orbit, Star star) {
+		return true; // orbit.getSemiMajorAxis() >= star.getHabitableMin() && orbit.getSemiMajorAxis() <= star.getHabitableMax() && orbit.getEccentricity() > 0.0 && orbit.getEccentricity() <= 0.3; // 0.2 is a better max eccentricity.
 	}
 
 	@Override
 	public String toString() {
-		return celestialType + "(" + planetName + " | " + PlanetType.getType(density).name() + ") [ \n    " +
+		return celestialType + "(" + planetName + " | " + PlanetType.getType(earthMasses, earthRadius).name() + ") [ \n    " +
 				"earthMasses=" + earthMasses +
 				", earthRadius=" + earthRadius +
 				", density=" + density +
@@ -240,32 +262,55 @@ public class Celestial implements Comparable<Celestial> {
 	}
 
 	public enum PlanetType {
-		GASEOUS(0.687, 2.21),
-		WATERY(2.21, 5.52),
-		ROCKY(5.52, 13.56);
+		BROWN_DWARF(0.75, 317.816, 25425.318, 15.0, 20.0),
+		DWARF(10.0, 0.0001, 0.1, 0.03, 0.125),
+		GASEOUS(44.625, 10.0, 317.816, 1.6, 15.0),
+		TERRESTRIAL(44.625, 0.1, 10.0, 0.125, 1.6);
 
-		public double minDensity;
-		public double maxDensity;
+		public double universeMakeup; // How much of the universe if made up of this celestial type.
+		public double minMass;
+		public double maxMass;
+		public double minRadius;
+		public double maxRadius;
 
-		PlanetType(double minDensity, double maxDensity) {
-			this.minDensity = minDensity;
-			this.maxDensity = maxDensity;
+		PlanetType(double universeMakeup, double minMass, double maxMass, double minRadius, double maxRadius) {
+			this.universeMakeup = universeMakeup;
+			this.minMass = minMass;
+			this.maxMass = maxMass;
+			this.minRadius = minRadius;
+			this.maxRadius = maxRadius;
 		}
 
-		public static PlanetType getType(double density) {
+		public static PlanetType getTypeMakeup(double celestialMakeup) {
+			double currentMakeup = 0.0;
+
 			for (PlanetType type : PlanetType.values()) {
-				if (density > type.minDensity && density <= type.maxDensity) {
+				if (celestialMakeup <= currentMakeup) {
+					return type;
+				}
+
+				currentMakeup += type.universeMakeup;
+			}
+
+			return TERRESTRIAL;
+		}
+
+		public static PlanetType getType(double mass, double radius) {
+			for (PlanetType type : PlanetType.values()) {
+				if (mass >= type.minMass && mass < type.maxMass && radius >= type.minRadius && radius < type.maxRadius) {
 					return type;
 				}
 			}
 
-			return ROCKY;
+			return TERRESTRIAL;
 		}
 	}
 
 	public enum PlanetMakeup {
-		WATER_ICE(1.00),
-		SILICATE(2.65),
+		HYDROGEN(0.090),
+		HELIUM(0.179),
+		WATER(1.0),
+		SILICATES(5.57),
 		IRON(7.87);
 
 		public double density;

@@ -47,9 +47,74 @@ public class MainGame extends IGame {
 		this.skipMusic = new CompoundButton(new KeyButton(GLFW_KEY_LEFT, GLFW_KEY_RIGHT), new JoystickButton(OptionsControls.JOYSTICK_PORT, OptionsControls.JOYSTICK_MUSIC_SKIP));
 		this.stillLoading = true;
 
-		for (int i = 0; i < 1; i++) {
-			Star star = StarGenerator.generateStar(new Vector3f());
+		final int GALAXY_STARS = 5;
+		final double GALAXY_VOLUME = GALAXY_STARS * 4.2;
+		final double GALAXY_RADIUS = Math.pow(3.0 * (GALAXY_VOLUME / (4.0 * Math.PI)), 0.25);
+		Star[] stars = new Star[GALAXY_STARS];
+
+		for (int i = 0; i < GALAXY_STARS; i++) {
+			Vector3f spawnPosition = new Vector3f();
+			Maths.generateRandomUnitVector(spawnPosition);
+			spawnPosition.scale((float) GALAXY_RADIUS);
+			double a = Maths.RANDOM.nextDouble();
+			double b = Maths.RANDOM.nextDouble();
+
+			if (a > b) {
+				double temp = a;
+				a = b;
+				b = temp;
+			}
+
+			double randX = b * Math.cos(6.283185307179586 * (a / b));
+			double randY = b * Math.sin(6.283185307179586 * (a / b));
+			float distance = new Vector2f((float) randX, (float) randY).length();
+			spawnPosition.scale(distance);
+			stars[i] = StarGenerator.generateStar(spawnPosition);
 		}
+
+		Arrays.sort(stars);
+
+		for (Star star : stars) {
+			Star.printSystem(star);
+		}
+
+		Star.StarType currentType = null;
+		int currentTypeCount = 0;
+		int currentTypePlanets = 0;
+		int currentTypeHabitable = 0;
+
+		int totalCount = 0;
+		int totalPlanets = 0;
+		int totalHabitable = 0;
+
+		for (int i = 0; i <= stars.length; i++) {
+			if (i >= stars.length || currentType != stars[i].getStarType()) {
+				if (currentType != null) {
+					System.err.println(currentType.name() + ": Stars=" + currentTypeCount + ", Planets=" + currentTypePlanets + ", Habitability=" + (Maths.roundToPlace(((double) currentTypeHabitable) / ((double) currentTypePlanets) * 100.0, 3)) + "%");
+					totalCount += currentTypeCount;
+					totalPlanets += currentTypePlanets;
+					totalHabitable += currentTypeHabitable;
+				}
+
+				currentTypeCount = 0;
+				currentTypePlanets = 0;
+				currentTypeHabitable = 0;
+			}
+
+			if (i < stars.length) {
+				currentType = stars[i].getStarType();
+				currentTypeCount++;
+				currentTypePlanets += stars[i].getChildObjects().size();
+
+				for (Celestial celestial : stars[i].getChildObjects()) {
+					if (celestial.supportsLife()) {
+						currentTypeHabitable++;
+					}
+				}
+			}
+		}
+
+		System.err.println("Total Stars=" + totalCount + ", Total Planets=" + totalPlanets + ", Total Habitability: " + (Maths.roundToPlace(((double) totalHabitable) / ((double) totalPlanets) * 100.0, 3)) + "%");
 	}
 
 	public void generateWorlds() {

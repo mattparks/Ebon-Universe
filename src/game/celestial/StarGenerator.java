@@ -24,10 +24,10 @@ public class StarGenerator {
 	}
 
 	public static Star generateStar(Vector3f position) {
-		double spawnKey = Maths.randomInRange(0.0, 100.0);
-		Star.StarType starType = Star.StarType.getTypeMakeup(spawnKey);
+		Star.StarType starType = Star.StarType.getTypeMakeup(Maths.randomInRange(0.0, 100.0));
 		double solarMasses = Maths.randomInRange(starType.minSolarMasses, starType.maxSolarMasses);
 		Star star = new Star(FauxGenerator.getFauxSentance(1, 6, 17), solarMasses, position, new ArrayList<>());
+
 		double currentOrbit = star.getPlanetFrostLine();
 
 		while (currentOrbit >= star.getPlanetInnerLimit()) {
@@ -48,29 +48,44 @@ public class StarGenerator {
 			currentOrbit *= Maths.randomInRange(1.4, 2.0);
 		}
 
-		Star.printSystem(star);
 		return star;
+	}
+
+	public static double logRandom(double lowerLimit, double upperLimit) {
+		double logLower = Math.log(lowerLimit);
+		double logUpper = Math.log(upperLimit);
+
+		double raw = Maths.RANDOM.nextDouble();
+		double result = Math.exp(raw * (logUpper - logLower) + logLower);
+
+		if (result < lowerLimit) {
+			result = lowerLimit;
+		} else if (result > upperLimit) {
+			result = upperLimit;
+		}
+
+		return result;
 	}
 
 	private static void generateCelestial(String celestialName, Pair<Star, Celestial> parentTypes, double semiMajorAxis) {
 		Star star = null;
 		String parentName = null;
-		double earthRadius = 0.0;
+		double earthMasses = 0.0;
 		double eccentricity = 0.0;
 
 		if (parentTypes.getFirst() != null) {
 			star = parentTypes.getFirst();
 			parentName = star.getStarName();
-			earthRadius = Maths.randomInRange(0.186, 1.75);
+			earthMasses = logRandom(0.1, 1000.0);
 			eccentricity = 0.584 * Math.pow(Math.max(star.getChildObjects().size(), 2), -1.2);
 
-			if (Maths.RANDOM.nextBoolean() && semiMajorAxis >= star.getPlanetFrostLine()) {
-				earthRadius *= Maths.randomInRange(0.15, 3.0);
-			}
+			//	if (Maths.RANDOM.nextBoolean() && semiMajorAxis >= star.getPlanetFrostLine()) {
+			//		earthRadius *= Maths.randomInRange(0.15, 3.0);
+			//	}
 		} else if (parentTypes.getSecond() != null) {
 			star = parentTypes.getSecond().getParentStar();
 			parentName = parentTypes.getSecond().getPlanetName();
-			earthRadius = Maths.randomInRange(0.0391, parentTypes.getSecond().getEarthRadius());
+			earthMasses = Maths.randomInRange(0.1, parentTypes.getSecond().getEarthMasses());
 			eccentricity = Maths.randomInRange(0.0, 0.2);
 		}
 
@@ -78,13 +93,12 @@ public class StarGenerator {
 			return;
 		}
 
+		double earthRadius = 1.0;
+
 		Orbit orbit = new Orbit(
 				eccentricity, semiMajorAxis, star.getSolarMasses(),
 				Maths.randomInRange(0.0, 180.0), Maths.randomInRange(0.0, 360.0), Maths.randomInRange(0.0, 360.0)
 		);
-
-		double targetDensity = (Maths.RANDOM.nextFloat() + 0.25) * Celestial.EARTH_DENSITY;
-		double earthMasses = (targetDensity * (float) (4.0 * Math.PI * Math.pow(earthRadius * Celestial.EARTH_RADIUS, 3.0)) / 3.0) / (Celestial.EARTH_MASS * 1.0e-12);
 
 		Celestial celestial = new Celestial(celestialName, parentName + " " + FauxGenerator.getFauxSentance(1, 4, 12),
 				parentTypes, orbit, earthMasses,

@@ -10,7 +10,7 @@ import java.util.*;
 /**
  * A realistic star object.
  */
-public class Star {
+public class Star implements Comparable<Star> {
 	public static double SOL_MASS = 1.989e+30; // Our suns mass (kg).
 	public static double SOL_RADIUS = 696300.0; // Our suns radius (km).
 	public static double SOL_ESCAPE_VELOCITY = 617.7; // Our suns escape velocity (km/s).
@@ -21,6 +21,7 @@ public class Star {
 
 	private List<Celestial> childObjects;
 
+	private StarType starType; // The type of this star.
 	private double solarMasses; // The stars solar mass.
 	private double solarRadius; // The stars solar radius.
 	private double solarLuminosity; // The stars solar luminosity.
@@ -53,6 +54,7 @@ public class Star {
 
 		this.childObjects = childObjects;
 
+		this.starType = StarType.getTypeMass(solarMasses);
 		this.solarMasses = solarMasses;
 		this.solarRadius = Math.pow(solarMasses, solarMasses < 1.0 ? 0.8 : 0.5);
 		this.solarLuminosity = Math.pow(solarMasses, 3.5);
@@ -126,8 +128,8 @@ public class Star {
 
 	@Override
 	public String toString() {
-		return "Star(" + starName + " | " + StarType.getTypeMass(solarMasses).name() + ") [ \n   " +
-				"minSolarMasses=" + solarMasses +
+		return "Star(" + starName + " | " + StarType.getTypeMass(solarMasses).name() + " | " + position.toString() + ") [ \n   " +
+				"solarMasses=" + solarMasses +
 				", radius=" + solarRadius +
 				", luminosity=" + solarLuminosity +
 				", temperature=" + surfaceTemperature +
@@ -138,7 +140,7 @@ public class Star {
 				", planetFrostLine=" + planetFrostLine +
 				", habitableMin=" + habitableMin +
 				", habitableMax=" + habitableMax +
-				", " + surfaceColour.toString() + "\n]";
+				", surfaceColour(" + Maths.roundToPlace(surfaceColour.r * 255.0f, 0) + ", " + Maths.roundToPlace(surfaceColour.g * 255.0f, 0) + ", " + Maths.roundToPlace(surfaceColour.b * 255.0f, 0) + ", " + ")\n]";
 	}
 
 	public void update() {
@@ -151,6 +153,10 @@ public class Star {
 
 	public Vector3f getPosition() {
 		return position;
+	}
+
+	public StarType getStarType() {
+		return starType;
 	}
 
 	public double getSolarMasses() {
@@ -225,14 +231,21 @@ public class Star {
 		System.out.println(FlounderLogger.ANSI_RED + "===== End of star " + star.getStarName() + ". =====\n" + FlounderLogger.ANSI_RESET);
 	}
 
+	@Override
+	public int compareTo(Star o) {
+		return starType.compareTo(o.starType);
+	}
+
 	public enum StarType {
-		O(0.0003, 30.0, 60.0),
-		B(0.1327, 18.0, 30.0),
-		A(0.6, 3.2, 18.0),
-		F(3.0, 1.7, 3.2),
-		G(7.717, 1.1, 1.7),
-		K(12.1, 0.8, 1.1),
+		O(0.01, 30.0, 60.0),
+		B(0.18, 18.0, 30.0),
+		A(0.60, 3.2, 18.0),
+		F(3.02, 1.7, 3.2),
+		G(7.64, 1.1, 1.7),
+		K(12.10, 0.8, 1.1),
 		M(76.45, 0.3, 0.8);
+
+		private static StarType[] VALUES = StarType.values();
 
 		public double universeMakeup; // How much of the universe if made up of this star type.
 		public double minSolarMasses; // The stars min solar mass.
@@ -247,12 +260,12 @@ public class Star {
 		public static StarType getTypeMakeup(double solarMakeup) {
 			double currentMakeup = 0.0;
 
-			for (StarType type : StarType.values()) {
+			for (StarType type : VALUES) {
+				currentMakeup += type.universeMakeup;
+
 				if (solarMakeup <= currentMakeup) {
 					return type;
 				}
-
-				currentMakeup += type.universeMakeup;
 			}
 
 			return M;

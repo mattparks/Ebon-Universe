@@ -18,7 +18,7 @@ public class Environment {
 	private static StructureBasic<Entity> entityQuadtree;
 	private static StructureBasic<Star> starsQuadtree;
 
-	private static final int GALAXY_STARS = 20000; // 27500
+	private static final int GALAXY_STARS = 27500;
 	private static final double GALAXY_RADIUS = 512;
 
 	/**

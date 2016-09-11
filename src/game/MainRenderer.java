@@ -13,7 +13,7 @@ import flounder.physics.renderer.*;
 import game.entities.*;
 import game.options.*;
 import game.post.*;
-import game.stars.*;
+import game.celestial.stars.*;
 import game.uis.*;
 
 public class MainRenderer extends IRendererMaster {

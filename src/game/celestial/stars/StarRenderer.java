@@ -1,4 +1,4 @@
-package game.stars;
+package game.celestial.stars;
 
 import flounder.engine.*;
 import flounder.engine.implementation.*;
@@ -27,8 +27,9 @@ public class StarRenderer extends IRenderer {
 	private static final float[] VERTICES = {-0.5f, 0.5f, -0.5f, -0.5f, 0.5f, 0.5f, 0.5f, -0.5f};
 	private static final int MAX_INSTANCES = 27500;
 	private static final int INSTANCE_DATA_LENGTH = 19;
+	private static final Vector3f REUSABLE_SCALE = new Vector3f();
 
-	private static final Texture STAR_TEXTURE = Texture.newTexture(new MyFile(FlounderParticles.PARTICLES_LOC, "starW.png")).create();
+	private static final Texture STAR_TEXTURE = Texture.newTexture(new MyFile(FlounderParticles.PARTICLES_LOC, "starW.png")).clampEdges().create();
 	private static final int VAO = FlounderEngine.getLoader().createInterleavedVAO(VERTICES, 2);
 	private static final FloatBuffer BUFFER = BufferUtils.createFloatBuffer(MAX_INSTANCES * INSTANCE_DATA_LENGTH);
 	private static final int VBO = FlounderEngine.getLoader().createEmptyVBO(INSTANCE_DATA_LENGTH * MAX_INSTANCES);
@@ -54,7 +55,7 @@ public class StarRenderer extends IRenderer {
 	}
 
 	@Override
-	public void renderObjects(final Vector4f clipPlane, final ICamera camera) {
+	public void renderObjects(Vector4f clipPlane, ICamera camera) {
 		if (!shader.isLoaded() || Environment.getStars() == null || Environment.getStars().getSize() < 1) {
 			return;
 		}
@@ -68,23 +69,16 @@ public class StarRenderer extends IRenderer {
 		Collections.reverse(stars); // Reverse as the sorted list should be close(small) -> far(big).
 
 		// Creates the data to be used when rendering.
-		final float[] vboData = new float[Math.min(stars.size(), MAX_INSTANCES) * INSTANCE_DATA_LENGTH];
-		boolean textureBound = false;
+		float[] vboData = new float[Math.min(stars.size(), MAX_INSTANCES) * INSTANCE_DATA_LENGTH];
 		pointer = 0;
 
 		for (Star star : stars) {
-			if (!textureBound) {
-				prepareTexturedModel(STAR_TEXTURE);
-				textureBound = true;
-			}
-
 			prepareInstance(star, camera, vboData);
 		}
 
 		// Renders the stars list.
 		FlounderEngine.getLoader().updateVBO(VBO, vboData, BUFFER);
 		glDrawArraysInstancedARB(GL_TRIANGLE_STRIP, 0, VERTICES.length, stars.size());
-		unbindTexturedModel();
 
 		endRendering();
 	}
@@ -101,10 +95,6 @@ public class StarRenderer extends IRenderer {
 		shader.getUniformVec4("clipPlane").loadVec4(clipPlane);
 
 		rendered = 0;
-	}
-
-	private void prepareTexturedModel(Texture starTexture) {
-		unbindTexturedModel();
 
 		OpenGlUtils.bindVAO(VAO, 0, 1, 2, 3, 4, 5);
 		OpenGlUtils.antialias(FlounderEngine.getDevices().getDisplay().isAntialiasing());
@@ -113,18 +103,12 @@ public class StarRenderer extends IRenderer {
 		OpenGlUtils.enableAlphaBlending();
 		glDepthMask(false); // Stops particles from being rendered to the depth BUFFER.
 
-		OpenGlUtils.bindTextureToBank(starTexture.getTextureID(), 0);
-	}
-
-	private void unbindTexturedModel() {
-		glDepthMask(true);
-		OpenGlUtils.disableBlending();
-		OpenGlUtils.unbindVAO(0, 1, 2, 3, 4, 5);
+		OpenGlUtils.bindTextureToBank(STAR_TEXTURE.getTextureID(), 0);
 	}
 
 	private void prepareInstance(Star star, ICamera camera, float[] vboData) {
 		if (rendered >= MAX_INSTANCES) {
-			FlounderEngine.getLogger().error("Particles overflow: " + rendered);
+			FlounderEngine.getLogger().error("Stars overflow: " + rendered);
 			return;
 		}
 
@@ -140,8 +124,7 @@ public class StarRenderer extends IRenderer {
 		modelMatrix.m20 = viewMatrix.m02;
 		modelMatrix.m21 = viewMatrix.m12;
 		modelMatrix.m22 = viewMatrix.m22;
-		Matrix4f.rotate(modelMatrix, new Vector3f(0.0f, 0.0f, 1.0f), 0.0f, modelMatrix);
-		Matrix4f.scale(modelMatrix, new Vector3f((float) star.getSolarRadius(), (float) star.getSolarRadius(), (float) star.getSolarRadius()), modelMatrix);
+		Matrix4f.scale(modelMatrix, REUSABLE_SCALE.set((float) star.getSolarRadius(), (float) star.getSolarRadius(), (float) star.getSolarRadius()), modelMatrix);
 
 		vboData[pointer++] = modelMatrix.m00;
 		vboData[pointer++] = modelMatrix.m01;
@@ -167,7 +150,9 @@ public class StarRenderer extends IRenderer {
 	}
 
 	private void endRendering() {
-		unbindTexturedModel();
+		glDepthMask(true);
+		OpenGlUtils.disableBlending();
+		OpenGlUtils.unbindVAO(0, 1, 2, 3, 4, 5);
 		shader.stop();
 	}
 

@@ -6,12 +6,12 @@ layout(location = 0) in vec3 in_position;
 layout(location = 1) in vec2 in_textureCoords;
 layout(location = 1) in vec3 in_normal;
 
-varying vec4 pass_positionRelativeToCam;
-varying vec2 pass_textureCoords;
-varying vec3 pass_surfaceNormal;
-varying vec3 pass_toCameraVector;
-varying vec3 pass_tilePosition;
-varying vec3 pass_toLightVector[4];
+out vec4 pass_positionRelativeToCam;
+out vec2 pass_textureCoords;
+out vec3 pass_surfaceNormal;
+out vec3 pass_toCameraVector;
+out vec3 pass_tilePosition;
+out vec3 pass_toLightVector[4];
 
 uniform mat4 projectionMatrix;
 uniform mat4 viewMatrix;

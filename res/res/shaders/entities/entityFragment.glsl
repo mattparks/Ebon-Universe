@@ -1,23 +1,20 @@
 #version 130
 
+in vec4 pass_positionRelativeToCam;
+in vec2 pass_textureCoords;
+in vec3 pass_surfaceNormal;
+in vec3 pass_toCameraVector;
+in vec3 pass_positionEyeSpace[4];
+in vec3 pass_toLightVector[4];
+
 layout(location = 0) out vec4 out_colour;
 
 layout(binding = 0) uniform sampler2D colourTexture;
 layout(binding = 1) uniform sampler2D normalMapTexture;
-
-varying vec4 pass_positionRelativeToCam;
-varying vec2 pass_textureCoords;
-varying vec3 pass_surfaceNormal;
-varying vec3 pass_toCameraVector;
-varying vec3 pass_positionEyeSpace[4];
-varying vec3 pass_toLightVector[4];
-
 uniform bool useNormalMap;
 uniform float transparency;
-
 uniform vec3 lightColour[4];
 uniform vec3 lightAttenuation[4];
-
 uniform vec3 fogColour;
 uniform float fogDensity;
 uniform float fogGradient;

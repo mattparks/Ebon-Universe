@@ -14,7 +14,7 @@ import static org.lwjgl.glfw.GLFW.*;
 
 public class CameraFPS implements ICamera {
 	private static final float NEAR_PLANE = 0.1f;
-	private static final float FAR_PLANE = 2000.0f;
+	private static final float FAR_PLANE = 3200.0f;
 	private static final float FIELD_OF_VIEW = 70.0f;
 
 	private static final float ROTATE_AGILITY = 6.0f;
@@ -60,8 +60,8 @@ public class CameraFPS implements ICamera {
 		this.viewFrustum = new Frustum();
 		this.viewMatrix = new Matrix4f();
 
-		this.joystickRotateX = new JoystickAxis(OptionsControls.JOYSTICK_PORT, OptionsControls.JOYSTICK_AXIS_X);
-		this.joystickRotateY = new JoystickAxis(OptionsControls.JOYSTICK_PORT, OptionsControls.JOYSTICK_AXIS_Y);
+		this.joystickRotateX = new JoystickAxis(OptionsControls.JOYSTICK_PORT, OptionsControls.JOYSTICK_ROTATE_X);
+		this.joystickRotateY = new JoystickAxis(OptionsControls.JOYSTICK_PORT, OptionsControls.JOYSTICK_ROTATE_Y);
 
 		this.angleOfElevation = 0.0f;
 		this.angleAroundPlayer = 0.0f;
@@ -115,7 +115,7 @@ public class CameraFPS implements ICamera {
 		if (!gamePaused && FlounderEngine.getDevices().getMouse().getMouse(toggleMouseMoveKey)) {
 			angleChange = FlounderEngine.getDevices().getMouse().getDeltaX() * INFLUENCE_OF_MOUSEDX;
 		} else if (!gamePaused && Math.abs(Maths.deadband(0.1f, joystickRotateX.getAmount())) > 0.0f) {
-			angleChange = joystickRotateX.getAmount() * delta * INFLUENCE_OF_JOYSTICKDX;
+			angleChange = -joystickRotateX.getAmount() * delta * INFLUENCE_OF_JOYSTICKDX;
 		}
 
 		if (angleChange > MAX_HORIZONTAL_CHANGE) {
@@ -140,7 +140,7 @@ public class CameraFPS implements ICamera {
 		if (!gamePaused && FlounderEngine.getDevices().getMouse().getMouse(toggleMouseMoveKey)) {
 			angleChange = -FlounderEngine.getDevices().getMouse().getDeltaY() * INFLUENCE_OF_MOUSEDY;
 		} else if (!gamePaused && Math.abs(Maths.deadband(0.1f, joystickRotateY.getAmount())) > 0.0f) {
-			angleChange = joystickRotateY.getAmount() * delta * INFLUENCE_OF_JOYSTICKDY;
+			angleChange = -joystickRotateY.getAmount() * delta * INFLUENCE_OF_JOYSTICKDY;
 		}
 
 		if (angleChange > MAX_VERTICAL_CHANGE) {

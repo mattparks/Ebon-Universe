@@ -10,10 +10,10 @@ import flounder.maths.matrices.*;
 import flounder.maths.vectors.*;
 import flounder.particles.*;
 import flounder.physics.renderer.*;
+import game.celestial.stars.*;
 import game.entities.*;
 import game.options.*;
 import game.post.*;
-import game.celestial.stars.*;
 import game.uis.*;
 
 public class MainRenderer extends IRendererMaster {

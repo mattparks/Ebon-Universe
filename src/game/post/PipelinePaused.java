@@ -29,8 +29,8 @@ public class PipelinePaused extends PostPipeline {
 		pipelineGaussian2.setScale(1.25f);
 		pipelineGaussian2.renderPipeline(pipelineGaussian1);
 
-		filterDarken.applyFilter(pipelineGaussian2.getOutput().getColourTexture(0));
 		filterDarken.setFactorValue(Math.max(Math.abs(1.0f - blurFactor), 0.45f));
+		filterDarken.applyFilter(pipelineGaussian2.getOutput().getColourTexture(0));
 
 		filterCombineSlide.setSlideSpace(blurFactor, 1.0f, 0.0f, 1.0f);
 		filterCombineSlide.applyFilter(startFBO.getColourTexture(0), filterDarken.fbo.getColourTexture(0));

@@ -5,19 +5,18 @@ layout(location = 1) in vec2 in_textureCoords;
 layout(location = 1) in vec3 in_normal;
 layout(location = 3) in vec3 in_tangent;
 
-varying vec4 pass_positionRelativeToCam;
-varying vec2 pass_textureCoords;
-varying vec3 pass_surfaceNormal;
-varying vec3 pass_toCameraVector;
-varying vec3 pass_positionEyeSpace[4];
-varying vec3 pass_toLightVector[4];
+out vec4 pass_positionRelativeToCam;
+out vec2 pass_textureCoords;
+out vec3 pass_surfaceNormal;
+out vec3 pass_toCameraVector;
+out vec3 pass_positionEyeSpace[4];
+out vec3 pass_toLightVector[4];
 
 uniform mat4 projectionMatrix;
 uniform mat4 viewMatrix;
 uniform vec4 clipPlane;
 uniform vec3 lightPosition[4];
 uniform mat4 modelMatrix;
-
 uniform float atlasRows;
 uniform vec2 atlasOffset;
 

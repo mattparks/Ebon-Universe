@@ -1,9 +1,9 @@
 #version 130
 
-layout(location = 0) out vec4 out_colour;
+in vec2 pass_textureCoords;
+in vec3 pass_colourOffset;
 
-varying vec2 pass_textureCoords;
-varying vec3 pass_colourOffset;
+layout(location = 0) out vec4 out_colour;
 
 layout(binding = 0) uniform sampler2D particleTexture;
 

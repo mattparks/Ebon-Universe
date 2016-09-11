@@ -18,7 +18,7 @@ public class PlayerFPS implements IPlayer {
 	private IAxis inputUp;
 	private IAxis inputRoll;
 	private IAxis inputSide;
-	private KeyButton inputSpeedBoost;
+	private CompoundButton inputSpeedBoost;
 
 	private Vector3f velocity;
 
@@ -36,11 +36,11 @@ public class PlayerFPS implements IPlayer {
 		IButton rollLeftButtons = new KeyButton(GLFW_KEY_Q);
 		IButton rollRightButtons = new KeyButton(GLFW_KEY_A);
 
-		this.inputForward = new CompoundAxis(new ButtonAxis(forwardsKeyButtons, backwardsKeyButtons), new JoystickAxis(OptionsControls.JOYSTICK_PORT, OptionsControls.JOYSTICK_AXIS_Y));
-		this.inputUp = new CompoundAxis(new ButtonAxis(downKeyButtons, upKeyButtons));
+		this.inputForward = new CompoundAxis(new ButtonAxis(backwardsKeyButtons, forwardsKeyButtons), new JoystickAxis(OptionsControls.JOYSTICK_PORT, OptionsControls.JOYSTICK_AXIS_Y));
+		this.inputUp = new CompoundAxis(new ButtonAxis(downKeyButtons, upKeyButtons), new ButtonAxis(new JoystickButton(OptionsControls.JOYSTICK_PORT, OptionsControls.JOYSTICK_CAMERA_ZOOM_IN), new JoystickButton(OptionsControls.JOYSTICK_PORT, OptionsControls.JOYSTICK_CAMERA_ZOOM_OUT)));
 		this.inputRoll = new CompoundAxis(new ButtonAxis(rollLeftButtons, rollRightButtons));
 		this.inputSide = new CompoundAxis(new ButtonAxis(leftKeyButtons, rightKeyButtons), new JoystickAxis(OptionsControls.JOYSTICK_PORT, OptionsControls.JOYSTICK_AXIS_X));
-		this.inputSpeedBoost = new KeyButton(GLFW_KEY_LEFT_SHIFT);
+		this.inputSpeedBoost = new CompoundButton(new KeyButton(GLFW_KEY_LEFT_SHIFT), new JoystickButton(OptionsControls.JOYSTICK_PORT, OptionsControls.JOYSTICK_GUI_LEFT));
 
 		this.velocity = new Vector3f(0, 0, 0);
 
@@ -55,7 +55,7 @@ public class PlayerFPS implements IPlayer {
 			rotation.set(0.0f, FlounderEngine.getCamera().getYaw(), 0.0f);
 			velocity.x = speedBoost * SIDE_SPEED * FlounderEngine.getDelta() * Maths.deadband(0.05f, inputSide.getAmount());
 			velocity.y = speedBoost * UP_SPEED * FlounderEngine.getDelta() * Maths.deadband(0.05f, inputUp.getAmount());
-			velocity.z = speedBoost * FRONT_SPEED * FlounderEngine.getDelta() * Maths.deadband(0.05f, inputForward.getAmount());
+			velocity.z = speedBoost * FRONT_SPEED * FlounderEngine.getDelta() * -Maths.deadband(0.05f, inputForward.getAmount());
 			Vector3f.rotate(velocity, rotation, velocity);
 
 			Vector3f.add(position, velocity, position);

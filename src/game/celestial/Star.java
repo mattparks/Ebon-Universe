@@ -131,6 +131,90 @@ public class Star implements Comparable<Star>, ISpatialObject {
 		return new Colour((float) (red / 255.0), (float) (green / 255.0), (float) (blue / 255.0));
 	}
 
+	public void loadChildren() {
+		double currentOrbit = planetFrostLine;
+
+		while (currentOrbit >= planetInnerLimit) {
+			if ((currentOrbit >= habitableMin && currentOrbit <= habitableMax) || Maths.RANDOM.nextBoolean()) {
+				generateCelestial("Planet", new Pair<>(this, null), currentOrbit);
+			}
+
+			currentOrbit /= Maths.randomInRange(1.4, 2.0);
+		}
+
+		currentOrbit = planetFrostLine + 1.0;
+
+		while (currentOrbit <= planetOuterLimit) {
+			if (Maths.RANDOM.nextBoolean()) {
+				generateCelestial("Planet", new Pair<>(this, null), currentOrbit);
+			}
+
+			currentOrbit *= Maths.randomInRange(1.4, 2.0);
+		}
+	}
+
+	private static void generateCelestial(String celestialName, Pair<Star, Celestial> parentTypes, double semiMajorAxis) {
+		Star star;
+		String parentName;
+		double parentSolarMasses;
+		double earthMasses;
+		double eccentricity;
+
+		if (parentTypes.getFirst() != null) {
+			star = parentTypes.getFirst();
+			parentName = star.getStarName();
+			parentSolarMasses = star.getSolarMasses();
+			earthMasses = Maths.logRandom(0.1, 1000.0);
+			eccentricity = 0.584 * Math.pow(Math.max(star.getChildObjects().size(), 2), -1.2);
+		} else if (parentTypes.getSecond() != null) {
+			star = parentTypes.getSecond().getParentStar();
+			parentName = parentTypes.getSecond().getPlanetName();
+			parentSolarMasses = (parentTypes.getSecond().getEarthMasses() * Celestial.EARTH_MASS) / Star.SOL_MASS;
+			earthMasses = Maths.randomInRange(0.1, parentTypes.getSecond().getEarthMasses());
+			eccentricity = Maths.randomInRange(0.0, 0.2);
+		} else {
+			return;
+		}
+
+		double earthRadius = 1.0;
+
+		Orbit orbit = new Orbit(
+				eccentricity, semiMajorAxis, parentSolarMasses,
+				Maths.randomInRange(0.0, 180.0), Maths.randomInRange(0.0, 360.0), Maths.randomInRange(0.0, 360.0)
+		);
+
+		Celestial celestial = new Celestial(celestialName, parentName + " " + FauxGenerator.getFauxSentance(1, 4, 12),
+				parentTypes, orbit, earthMasses,
+				earthRadius, Maths.randomInRange(0.0, 40.0) * (Maths.RANDOM.nextBoolean() ? 1.0 : -1.0), new ArrayList<>()
+		);
+
+		/*Orbit moonOrbit = new Orbit(
+				0.0549006, 0.00257188153, (float) (celestial.getEarthMasses() * 5.9723 * Math.pow(10, 24)) / (float) (1.989 * Math.pow(10, 30)), // Maths.RANDOM.nextInt(6000) / 10000.0f
+				0, 0, 0//Maths.RANDOM.nextInt(1800) / 10.0f, Maths.RANDOM.nextInt(3600) / 10.0f, Maths.RANDOM.nextInt(3600) / 10.0f
+		);
+
+		Celestial moon = new Celestial(celestialName, celestial.getPlanetName() + " " + FauxGenerator.getFauxSentance(1, 2, 4),
+				parentTypes, moonOrbit, 0.01230743469,
+				0.27264165751, Maths.RANDOM.nextInt(400) * (Maths.RANDOM.nextBoolean() ? 1 : -1) / 10.0, new ArrayList<>()
+		);*/
+
+		/*if (parentTypes.getFirst() != null) {
+			System.out.println(FlounderLogger.ANSI_BLUE + celestial.toString() + FlounderLogger.ANSI_RESET);
+
+			float currentOrbit = celestial.getMinRingSpawns();//star.getPlanetInnerLimit();
+
+			while (currentOrbit < celestial.getMaxRingSpawns()) {
+				if (Maths.RANDOM.nextBoolean()) {
+					generateCelestial("Moon", new Pair<>(null, celestial), currentOrbit);
+				}
+
+				currentOrbit += Maths.randomInRange(2.4, 3.0);
+			}
+		}*/
+
+		star.getChildObjects().add(celestial);
+	}
+
 	public List<Celestial> getChildObjects() {
 		return childObjects;
 	}
@@ -251,12 +335,12 @@ public class Star implements Comparable<Star>, ISpatialObject {
 	}
 
 	public enum StarType {
-		O(0.01, 30.0, 60.0),
-		B(0.18, 18.0, 30.0),
-		A(0.60, 3.2, 18.0),
-		F(3.02, 1.7, 3.2),
-		G(7.64, 1.1, 1.7),
-		K(12.10, 0.8, 1.1),
+		O(0.004, 30.0, 60.0),
+		B(0.116, 18.0, 30.0),
+		A(0.600, 3.2, 18.0),
+		F(3.000, 1.7, 3.2),
+		G(7.600, 1.1, 1.7),
+		K(12.23, 0.8, 1.1),
 		M(76.45, 0.3, 0.8);
 
 		private static StarType[] VALUES = StarType.values();

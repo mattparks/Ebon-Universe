@@ -1,25 +1,22 @@
 #version 130
 
-out vec4 out_colour;
+in vec4 pass_positionRelativeToCam;
+in vec2 pass_textureCoords;
+in vec3 pass_surfaceNormal;
+in vec3 pass_toCameraVector;
+in vec3 pass_tilePosition;
+in vec3 pass_toLightVector[4];
 
-varying vec4 pass_positionRelativeToCam;
-varying vec2 pass_textureCoords;
-varying vec3 pass_surfaceNormal;
-varying vec3 pass_toCameraVector;
-varying vec3 pass_tilePosition;
-varying vec3 pass_toLightVector[4];
+out vec4 out_colour;
 
 layout(binding = 0) uniform sampler2D backgroundTexture;
 layout(binding = 1) uniform sampler2D rTexture;
 layout(binding = 2) uniform sampler2D gTexture;
 layout(binding = 3) uniform sampler2D bTexture;
-
 uniform vec3 lightColour[4];
 uniform vec3 lightAttenuation[4];
-
 uniform float shineDamper;
 uniform float reflectivity;
-
 uniform vec3 fogColour;
 uniform float fogDensity;
 uniform float fogGradient;

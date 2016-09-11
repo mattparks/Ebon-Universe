@@ -25,7 +25,7 @@ public class StarRenderer extends IRenderer {
 	private static final MyFile FRAGMENT_SHADER = new MyFile(Shader.SHADERS_LOC, "stars", "starsFragment.glsl");
 
 	private static final float[] VERTICES = {-0.5f, 0.5f, -0.5f, -0.5f, 0.5f, 0.5f, 0.5f, -0.5f};
-	private static final int MAX_INSTANCES = 27500;
+	private static final int MAX_INSTANCES = Environment.GALAXY_STARS;
 	private static final int INSTANCE_DATA_LENGTH = 19;
 	private static final Vector3f REUSABLE_SCALE = new Vector3f();
 
@@ -65,8 +65,8 @@ public class StarRenderer extends IRenderer {
 		List<Star> stars = Environment.getStars().queryInFrustum(new ArrayList<>(), camera.getViewFrustum());
 
 		// Added to stars first -> last, so no initial reverse needed.
-		ArraySorting.heapSort(stars); // Sorts the list big to small.
-		Collections.reverse(stars); // Reverse as the sorted list should be close(small) -> far(big).
+		//	ArraySorting.heapSort(stars); // Sorts the list big to small.
+		//	Collections.reverse(stars); // Reverse as the sorted list should be close(small) -> far(big).
 
 		// Creates the data to be used when rendering.
 		float[] vboData = new float[Math.min(stars.size(), MAX_INSTANCES) * INSTANCE_DATA_LENGTH];
@@ -124,7 +124,7 @@ public class StarRenderer extends IRenderer {
 		modelMatrix.m20 = viewMatrix.m02;
 		modelMatrix.m21 = viewMatrix.m12;
 		modelMatrix.m22 = viewMatrix.m22;
-		Matrix4f.scale(modelMatrix, REUSABLE_SCALE.set((float) star.getSolarRadius(), (float) star.getSolarRadius(), (float) star.getSolarRadius()), modelMatrix);
+		Matrix4f.scale(modelMatrix, REUSABLE_SCALE.set((float) star.getSolarRadius() * 4, (float) star.getSolarRadius() * 4, (float) star.getSolarRadius() * 4), modelMatrix);
 
 		vboData[pointer++] = modelMatrix.m00;
 		vboData[pointer++] = modelMatrix.m01;

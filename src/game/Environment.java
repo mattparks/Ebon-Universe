@@ -1,11 +1,9 @@
 package game;
 
-import flounder.engine.*;
 import flounder.helpers.*;
 import flounder.lights.*;
 import flounder.maths.*;
 import flounder.maths.vectors.*;
-import flounder.particles.loading.*;
 import flounder.space.*;
 import game.celestial.*;
 import game.entities.*;
@@ -18,8 +16,8 @@ public class Environment {
 	private static StructureBasic<Entity> entityQuadtree;
 	private static StructureBasic<Star> starsQuadtree;
 
-	private static final int GALAXY_STARS = 27500;
-	private static final double GALAXY_RADIUS = 512;
+	public static final int GALAXY_STARS = 32000;
+	private static final double GALAXY_RADIUS = 1024;
 
 	/**
 	 * Initializes the start game environment.
@@ -39,71 +37,23 @@ public class Environment {
 
 	private static void generateGalaxy() {
 		for (int i = 0; i < GALAXY_STARS; i++) {
-			Vector3f spawnPosition = randomSpiralPoint();
-			Star star = StarGenerator.generateStar(spawnPosition);
+			Star.StarType starType = Star.StarType.getTypeMakeup(Maths.randomInRange(0.0, 100.0));
+			double solarMasses = Maths.randomInRange(starType.minSolarMasses, starType.maxSolarMasses);
+			Star star = new Star(FauxGenerator.getFauxSentance(1, 6, 17), solarMasses, randomSpiralPoint(), new ArrayList<>());
 			starsQuadtree.add(star);
-			//	FlounderEngine.getParticles().addParticle(ParticleLoader.load("starW"), spawnPosition, new Vector3f(), Float.POSITIVE_INFINITY, 0.0f, (float) star.getSolarRadius(), 0.0f);
 		}
-
-		List<Star> stars = starsQuadtree.getAll(new ArrayList<>());
-		ArraySorting.heapSort(stars);
-
-		if (GALAXY_STARS < 10) {
-			for (Star star : stars) {
-				Star.printSystem(star);
-			}
-		}
-
-		Star.StarType currentType = null;
-		int currentTypeCount = 0;
-		int currentTypePlanets = 0;
-		int currentTypeHabitable = 0;
-
-		int totalCount = 0;
-		int totalPlanets = 0;
-		int totalHabitable = 0;
-
-		for (int i = 0; i <= stars.size(); i++) {
-			if (i >= stars.size() || currentType != stars.get(i).getStarType()) {
-				if (currentType != null) {
-					System.err.println(currentType.name() + ": Stars=" + currentTypeCount + ", Planets=" + currentTypePlanets + ", Habitability=" + (Maths.roundToPlace(((double) currentTypeHabitable) / ((double) currentTypePlanets) * 100.0, 3)) + "%");
-					totalCount += currentTypeCount;
-					totalPlanets += currentTypePlanets;
-					totalHabitable += currentTypeHabitable;
-				}
-
-				currentTypeCount = 0;
-				currentTypePlanets = 0;
-				currentTypeHabitable = 0;
-			}
-
-			if (i < stars.size()) {
-				currentType = stars.get(i).getStarType();
-				currentTypeCount++;
-				currentTypePlanets += stars.get(i).getChildObjects().size();
-
-				for (Celestial celestial : stars.get(i).getChildObjects()) {
-					if (celestial.supportsLife()) {
-						currentTypeHabitable++;
-					}
-				}
-			}
-		}
-
-		System.err.println("Total Stars=" + totalCount + ", Total Planets=" + totalPlanets + ", Total Habitability: " + (Maths.roundToPlace(((double) totalHabitable) / ((double) totalPlanets) * 100.0, 3)) + "%");
 	}
 
 	private static Vector3f randomSpiralPoint() {
 		double random = Maths.RANDOM.nextDouble();
 
-		if (random < 0.40) {
-			return randomSpherePoint((float) GALAXY_RADIUS * 5.0f);
-		} else if (random < 0.30) {
-			return randomClusterPoint((float) GALAXY_RADIUS / 8.0f, (float) GALAXY_RADIUS / 20.0f, (float) GALAXY_RADIUS / 8.0f);
+		if (random < 0.82) {
+			return randomClusterPoint((float) GALAXY_RADIUS, (float) GALAXY_RADIUS / 10.0f, (float) GALAXY_RADIUS);
+		} else if (random < 0.95) {
+			return randomClusterPoint((float) GALAXY_RADIUS / 10.0f, (float) GALAXY_RADIUS / 10.0f, (float) GALAXY_RADIUS / 10.0f);
 		}
 
-		Vector3f spawnPosition = randomClusterPoint((float) GALAXY_RADIUS, (float) GALAXY_RADIUS, (float) GALAXY_RADIUS);
-		return spawnPosition;
+		return randomSpherePoint((float) GALAXY_RADIUS * 10.0f);
 	}
 
 	private static Vector3f randomSpherePoint(float radius) {

@@ -9,17 +9,10 @@ import flounder.lights.*;
 import flounder.maths.*;
 import flounder.maths.vectors.*;
 import flounder.parsing.*;
-import flounder.particles.*;
-import flounder.particles.loading.*;
-import flounder.particles.spawns.*;
 import flounder.resources.*;
 import game.cameras.*;
-import game.celestial.*;
-import game.entities.loading.*;
 import game.options.*;
 import game.players.*;
-
-import java.util.*;
 
 import static org.lwjgl.glfw.GLFW.*;
 
@@ -46,82 +39,13 @@ public class MainGame extends IGame {
 		this.toggleMusic = new CompoundButton(new KeyButton(GLFW_KEY_DOWN), new JoystickButton(OptionsControls.JOYSTICK_PORT, OptionsControls.JOYSTICK_MUSIC_PAUSE));
 		this.skipMusic = new CompoundButton(new KeyButton(GLFW_KEY_LEFT, GLFW_KEY_RIGHT), new JoystickButton(OptionsControls.JOYSTICK_PORT, OptionsControls.JOYSTICK_MUSIC_SKIP));
 		this.stillLoading = true;
-
-		final int GALAXY_STARS = 5;
-		final double GALAXY_VOLUME = GALAXY_STARS * 4.2;
-		final double GALAXY_RADIUS = Math.pow(3.0 * (GALAXY_VOLUME / (4.0 * Math.PI)), 0.25);
-		Star[] stars = new Star[GALAXY_STARS];
-
-		for (int i = 0; i < GALAXY_STARS; i++) {
-			Vector3f spawnPosition = new Vector3f();
-			Maths.generateRandomUnitVector(spawnPosition);
-			spawnPosition.scale((float) GALAXY_RADIUS);
-			double a = Maths.RANDOM.nextDouble();
-			double b = Maths.RANDOM.nextDouble();
-
-			if (a > b) {
-				double temp = a;
-				a = b;
-				b = temp;
-			}
-
-			double randX = b * Math.cos(6.283185307179586 * (a / b));
-			double randY = b * Math.sin(6.283185307179586 * (a / b));
-			float distance = new Vector2f((float) randX, (float) randY).length();
-			spawnPosition.scale(distance);
-			stars[i] = StarGenerator.generateStar(spawnPosition);
-		}
-
-		Arrays.sort(stars);
-
-		for (Star star : stars) {
-			Star.printSystem(star);
-		}
-
-		Star.StarType currentType = null;
-		int currentTypeCount = 0;
-		int currentTypePlanets = 0;
-		int currentTypeHabitable = 0;
-
-		int totalCount = 0;
-		int totalPlanets = 0;
-		int totalHabitable = 0;
-
-		for (int i = 0; i <= stars.length; i++) {
-			if (i >= stars.length || currentType != stars[i].getStarType()) {
-				if (currentType != null) {
-					System.err.println(currentType.name() + ": Stars=" + currentTypeCount + ", Planets=" + currentTypePlanets + ", Habitability=" + (Maths.roundToPlace(((double) currentTypeHabitable) / ((double) currentTypePlanets) * 100.0, 3)) + "%");
-					totalCount += currentTypeCount;
-					totalPlanets += currentTypePlanets;
-					totalHabitable += currentTypeHabitable;
-				}
-
-				currentTypeCount = 0;
-				currentTypePlanets = 0;
-				currentTypeHabitable = 0;
-			}
-
-			if (i < stars.length) {
-				currentType = stars[i].getStarType();
-				currentTypeCount++;
-				currentTypePlanets += stars[i].getChildObjects().size();
-
-				for (Celestial celestial : stars[i].getChildObjects()) {
-					if (celestial.supportsLife()) {
-						currentTypeHabitable++;
-					}
-				}
-			}
-		}
-
-		System.err.println("Total Stars=" + totalCount + ", Total Planets=" + totalPlanets + ", Total Habitability: " + (Maths.roundToPlace(((double) totalHabitable) / ((double) totalPlanets) * 100.0, 3)) + "%");
 	}
 
 	public void generateWorlds() {
-		Environment.init(new Fog(new Colour(1.0f, 1.0f, 1.0f), 0.003f, 2.0f, 0.0f, 50.0f), new Light(new Colour(0.85f, 0.85f, 0.85f), new Vector3f(0.0f, 2000.0f, 2000.0f)));
+		Environment.init(new Fog(new Colour(0.0f, 0.0f, 0.0f), 0.003f, 2.0f, 0.0f, 50.0f), new Light(new Colour(0.85f, 0.85f, 0.85f), new Vector3f(0.0f, 2000.0f, 2000.0f)));
 
 		// EntityLoader.load("dragon").createEntity(Environment.getEntitys(), new Vector3f(30, 0, 0), new Vector3f());
-		EntityLoader.load("pane").createEntity(Environment.getEntities(), new Vector3f(), new Vector3f());
+		/*EntityLoader.load("pane").createEntity(Environment.getEntities(), new Vector3f(), new Vector3f());
 		EntityLoader.load("sphere").createEntity(Environment.getEntities(), Environment.getLights().get(0).position, new Vector3f());
 
 		for (int n = 0; n < 32; n++) {
@@ -132,14 +56,7 @@ public class MainGame extends IGame {
 					}
 				}
 			}
-		}
-
-		ParticleSystem particleSystem = new ParticleSystem(new ArrayList<>(), null, 1750.0f, 1.9f, -0.03f);
-		particleSystem.addParticleType(ParticleLoader.load("cosmic"));
-		particleSystem.addParticleType(ParticleLoader.load("cosmicHot"));
-		particleSystem.randomizeRotation();
-		particleSystem.setSpawn(new SpawnCircle(20, new Vector3f(0.0f, 1.0f, 0.0f)));
-		particleSystem.setSystemCentre(new Vector3f(0, 20, -10));
+		}*/
 	}
 
 	public void generatePlayer() {

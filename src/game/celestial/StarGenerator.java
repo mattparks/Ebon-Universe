@@ -78,19 +78,11 @@ public class StarGenerator {
 			parentName = star.getStarName();
 			earthMasses = logRandom(0.1, 1000.0);
 			eccentricity = 0.584 * Math.pow(Math.max(star.getChildObjects().size(), 2), -1.2);
-
-			//	if (Maths.RANDOM.nextBoolean() && semiMajorAxis >= star.getPlanetFrostLine()) {
-			//		earthRadius *= Maths.randomInRange(0.15, 3.0);
-			//	}
 		} else if (parentTypes.getSecond() != null) {
 			star = parentTypes.getSecond().getParentStar();
 			parentName = parentTypes.getSecond().getPlanetName();
 			earthMasses = Maths.randomInRange(0.1, parentTypes.getSecond().getEarthMasses());
 			eccentricity = Maths.randomInRange(0.0, 0.2);
-		}
-
-		if (star == null) {
-			return;
 		}
 
 		double earthRadius = 1.0;
@@ -102,7 +94,7 @@ public class StarGenerator {
 
 		Celestial celestial = new Celestial(celestialName, parentName + " " + FauxGenerator.getFauxSentance(1, 4, 12),
 				parentTypes, orbit, earthMasses,
-				earthRadius, Maths.randomInRange(0.0, 40.0) * (Maths.RANDOM.nextBoolean() ? 1 : -1), new ArrayList<>()
+				earthRadius, Maths.randomInRange(0.0, 40.0) * (Maths.RANDOM.nextBoolean() ? 1.0 : -1.0), new ArrayList<>()
 		);
 
 		/*Orbit moonOrbit = new Orbit(

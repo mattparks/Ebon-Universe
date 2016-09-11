@@ -305,18 +305,4 @@ public class Celestial implements Comparable<Celestial> {
 			return TERRESTRIAL;
 		}
 	}
-
-	public enum PlanetMakeup {
-		HYDROGEN(0.090),
-		HELIUM(0.179),
-		WATER(1.0),
-		SILICATES(5.57),
-		IRON(7.87);
-
-		public double density;
-
-		PlanetMakeup(double density) {
-			this.density = density;
-		}
-	}
 }

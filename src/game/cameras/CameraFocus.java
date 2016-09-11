@@ -26,7 +26,7 @@ public class CameraFocus implements ICamera {
 	private final static float PITCH_OFFSET = 3.0f;
 	private final static float MINIMUM_ZOOM = -300.0f;
 	private final static float MAXIMUM_ZOOM = 300.0f;
-	private static final float NORMAL_ZOOM = 32.0f;
+	private static final float NORMAL_ZOOM = 64.0f;
 
 	private final static float MAX_HORIZONTAL_CHANGE = 500.0f;
 	private final static float MAX_VERTICAL_CHANGE = 5.0f;

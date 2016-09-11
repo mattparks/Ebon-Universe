@@ -61,7 +61,7 @@ public class MainSlider extends GuiComponent {
 			this.menuActive = menuStart;
 		//} else {
 		//	this.menuActive = menuPause;
-		//	((MainGame) FlounderEngine.getGame()).generateWorlds();
+		//		((MainGame) FlounderEngine.getGame()).generateWorlds();
 		//	((MainGame) FlounderEngine.getGame()).generatePlayer();
 		//}
 

@@ -4,13 +4,15 @@ import flounder.helpers.*;
 import flounder.logger.*;
 import flounder.maths.*;
 import flounder.maths.vectors.*;
+import flounder.physics.*;
+import flounder.space.*;
 
 import java.util.*;
 
 /**
  * A realistic star object.
  */
-public class Star implements Comparable<Star> {
+public class Star implements Comparable<Star>, ISpatialObject {
 	public static double SOL_MASS = 1.989e+30; // Our suns mass (kg).
 	public static double SOL_RADIUS = 696300.0; // Our suns radius (km).
 	public static double SOL_ESCAPE_VELOCITY = 617.7; // Our suns escape velocity (km/s).
@@ -39,6 +41,8 @@ public class Star implements Comparable<Star> {
 
 	private double habitableMin; // The habitable min distance in AU for carbon based life.
 	private double habitableMax; // The habitable max distance in AU for carbon based life.
+
+	private AABB starAABB;
 
 	/**
 	 * Creates a new star from a solar mass and calculated characteristics.
@@ -72,6 +76,11 @@ public class Star implements Comparable<Star> {
 
 		this.habitableMin = Math.sqrt(solarLuminosity / 1.11);
 		this.habitableMax = Math.sqrt(solarLuminosity / 0.53);
+
+		this.starAABB = new AABB();
+		float size = (float) (0.5f * this.solarRadius);
+		starAABB.getMinExtents().set(position.getX() - size, position.getY() - size, position.getZ() - size);
+		starAABB.getMaxExtents().set(position.getX() + size, position.getY() + size, position.getZ() + size);
 	}
 
 	/**
@@ -229,6 +238,11 @@ public class Star implements Comparable<Star> {
 		});
 
 		System.out.println(FlounderLogger.ANSI_RED + "===== End of star " + star.getStarName() + ". =====\n" + FlounderLogger.ANSI_RESET);
+	}
+
+	@Override
+	public AABB getAABB() {
+		return starAABB;
 	}
 
 	@Override

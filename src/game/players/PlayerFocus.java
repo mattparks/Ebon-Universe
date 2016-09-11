@@ -29,7 +29,7 @@ public class PlayerFocus implements IPlayer {
 	private Vector3f position;
 	private Vector3f rotation;
 
-	private Entity focusEntity;
+//	private Entity focusEntity;
 
 	@Override
 	public void init() {
@@ -48,10 +48,10 @@ public class PlayerFocus implements IPlayer {
 		this.velMove = new Vector3f(0, 0, 0);
 		this.velRoat = new Vector3f(0, 0, 0);
 
-		this.position = new Vector3f(0, 5, 0);
+		this.position = new Vector3f(0, 0, 0);
 		this.rotation = new Vector3f(0, 0, 0);
 
-		focusEntity = EntityLoader.load("barrel").createEntity(Environment.getEntities(), new Vector3f(position), new Vector3f(rotation));
+		//	focusEntity = EntityLoader.load("barrel").createEntity(Environment.getEntities(), new Vector3f(position), new Vector3f(rotation));
 	}
 
 	@Override
@@ -66,12 +66,14 @@ public class PlayerFocus implements IPlayer {
 
 			velRoat.y = speedBoost * -ROTATE_SPEED * FlounderEngine.getDelta() * Maths.deadband(0.05f, inputSide.getAmount());
 
-			if (Math.abs(velMove.x) > 0 || Math.abs(velMove.y) > 0 || Math.abs(velMove.z) > 0 || Math.abs(velRoat.y) > 0) {
-				focusEntity.move(velMove, velRoat);
-				// Vector3f.add(position, velMove, position);
-				position.set(focusEntity.getPosition());
-				rotation.set(focusEntity.getRotation());
-			}
+			//if (Math.abs(velMove.x) > 0 || Math.abs(velMove.y) > 0 || Math.abs(velMove.z) > 0 || Math.abs(velRoat.y) > 0) {
+			//	focusEntity.move(velMove, velRoat);
+			//	position.set(focusEntity.getPosition());
+			//	rotation.set(focusEntity.getRotation());
+			//}
+
+			Vector3f.add(position, velMove, position);
+			Vector3f.add(rotation, velRoat, rotation);
 		}
 	}
 

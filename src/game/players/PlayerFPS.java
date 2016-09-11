@@ -16,6 +16,7 @@ public class PlayerFPS implements IPlayer {
 
 	private IAxis inputForward;
 	private IAxis inputUp;
+	private IAxis inputRoll;
 	private IAxis inputSide;
 	private KeyButton inputSpeedBoost;
 
@@ -30,11 +31,14 @@ public class PlayerFPS implements IPlayer {
 		IButton rightKeyButtons = new KeyButton(GLFW_KEY_D, GLFW_KEY_RIGHT);
 		IButton forwardsKeyButtons = new KeyButton(GLFW_KEY_W, GLFW_KEY_UP);
 		IButton backwardsKeyButtons = new KeyButton(GLFW_KEY_S, GLFW_KEY_DOWN);
-		IButton upKeyButtons = new KeyButton(GLFW_KEY_SPACE);
 		IButton downKeyButtons = new KeyButton(GLFW_KEY_LEFT_CONTROL);
+		IButton upKeyButtons = new KeyButton(GLFW_KEY_SPACE);
+		IButton rollLeftButtons = new KeyButton(GLFW_KEY_Q);
+		IButton rollRightButtons = new KeyButton(GLFW_KEY_A);
 
 		this.inputForward = new CompoundAxis(new ButtonAxis(forwardsKeyButtons, backwardsKeyButtons), new JoystickAxis(OptionsControls.JOYSTICK_PORT, OptionsControls.JOYSTICK_AXIS_Y));
 		this.inputUp = new CompoundAxis(new ButtonAxis(downKeyButtons, upKeyButtons));
+		this.inputRoll = new CompoundAxis(new ButtonAxis(rollLeftButtons, rollRightButtons));
 		this.inputSide = new CompoundAxis(new ButtonAxis(leftKeyButtons, rightKeyButtons), new JoystickAxis(OptionsControls.JOYSTICK_PORT, OptionsControls.JOYSTICK_AXIS_X));
 		this.inputSpeedBoost = new KeyButton(GLFW_KEY_LEFT_SHIFT);
 

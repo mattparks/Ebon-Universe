@@ -1,9 +1,11 @@
 package game;
 
+import flounder.engine.*;
 import flounder.helpers.*;
 import flounder.lights.*;
 import flounder.maths.*;
 import flounder.maths.vectors.*;
+import flounder.physics.*;
 import flounder.space.*;
 import game.celestial.*;
 import game.entities.*;
@@ -14,10 +16,10 @@ public class Environment {
 	private static Fog fog;
 	private static List<Light> lights;
 	private static StructureBasic<Entity> entityQuadtree;
-	private static StructureBasic<Star> starsQuadtree;
+	private static StructureOctree<Star> starsQuadtree;
 
-	public static final int GALAXY_STARS = 32000;
-	private static final double GALAXY_RADIUS = 1024;
+	public static final int GALAXY_STARS = 25600;
+	public static final double GALAXY_RADIUS = 768;
 
 	/**
 	 * Initializes the start game environment.
@@ -30,7 +32,7 @@ public class Environment {
 		Environment.lights = new ArrayList<>();
 		Environment.lights.add(sun);
 		Environment.entityQuadtree = new StructureBasic<>();
-		Environment.starsQuadtree = new StructureBasic<>();
+		Environment.starsQuadtree = new StructureOctree<>(512);
 
 		generateGalaxy();
 	}
@@ -47,9 +49,9 @@ public class Environment {
 	private static Vector3f randomSpiralPoint() {
 		double random = Maths.RANDOM.nextDouble();
 
-		if (random < 0.82) {
+		if (random < 0.75) {
 			return randomClusterPoint((float) GALAXY_RADIUS, (float) GALAXY_RADIUS / 10.0f, (float) GALAXY_RADIUS);
-		} else if (random < 0.95) {
+		} else if (random < 0.82) {
 			return randomClusterPoint((float) GALAXY_RADIUS / 10.0f, (float) GALAXY_RADIUS / 10.0f, (float) GALAXY_RADIUS / 10.0f);
 		}
 
@@ -111,8 +113,12 @@ public class Environment {
 		return entityQuadtree;
 	}
 
-	public static StructureBasic<Star> getStars() {
+	public static ISpatialStructure<Star> getStars() {
 		return starsQuadtree;
+	}
+
+	public static boolean renderStars() {
+		return true;
 	}
 
 	public static void destroy() {

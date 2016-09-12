@@ -4,6 +4,10 @@ import flounder.engine.*;
 import flounder.inputs.*;
 import flounder.maths.*;
 import flounder.maths.vectors.*;
+import game.*;
+import game.entities.*;
+import game.entities.components.*;
+import game.entities.loading.*;
 import game.options.*;
 
 import static org.lwjgl.glfw.GLFW.*;
@@ -26,7 +30,7 @@ public class PlayerFocus implements IPlayer {
 	private Vector3f position;
 	private Vector3f rotation;
 
-//	private Entity focusEntity;
+	//private Entity focusEntity;
 
 	@Override
 	public void init() {
@@ -37,8 +41,8 @@ public class PlayerFocus implements IPlayer {
 		IButton upKeyButtons = new KeyButton(GLFW_KEY_SPACE);
 		IButton downKeyButtons = new KeyButton(GLFW_KEY_LEFT_CONTROL);
 
-		this.inputForward = new CompoundAxis(new ButtonAxis(forwardsKeyButtons, backwardsKeyButtons), new JoystickAxis(OptionsControls.JOYSTICK_PORT, OptionsControls.JOYSTICK_AXIS_Y));
-		this.inputVertical = new CompoundAxis(new ButtonAxis(downKeyButtons, upKeyButtons));
+		this.inputForward = new CompoundAxis(new ButtonAxis(backwardsKeyButtons, forwardsKeyButtons), new JoystickAxis(OptionsControls.JOYSTICK_PORT, OptionsControls.JOYSTICK_AXIS_Y));
+		this.inputVertical = new CompoundAxis(new ButtonAxis(downKeyButtons, upKeyButtons), new ButtonAxis(new JoystickButton(OptionsControls.JOYSTICK_PORT, OptionsControls.JOYSTICK_CAMERA_DOWN), new JoystickButton(OptionsControls.JOYSTICK_PORT, OptionsControls.JOYSTICK_CAMERA_UP)));
 		this.inputSide = new CompoundAxis(new ButtonAxis(leftKeyButtons, rightKeyButtons), new JoystickAxis(OptionsControls.JOYSTICK_PORT, OptionsControls.JOYSTICK_AXIS_X));
 		this.inputSpeedBoost = new KeyButton(GLFW_KEY_LEFT_SHIFT);
 
@@ -48,18 +52,19 @@ public class PlayerFocus implements IPlayer {
 		this.position = new Vector3f(0, 0, 0);
 		this.rotation = new Vector3f(0, 0, 0);
 
-		//	focusEntity = EntityLoader.load("barrel").createEntity(Environment.getEntities(), new Vector3f(position), new Vector3f(rotation));
+		//focusEntity = EntityLoader.load("tinyship").createEntity(Environment.getEntities(), new Vector3f(position), new Vector3f(rotation));
+		//((ComponentModel) focusEntity.getComponent(ComponentModel.ID)).setScale(0.1f);
 	}
 
 	@Override
 	public void update(boolean paused) {
 		if (!paused) {
 			float speedBoost = inputSpeedBoost.isDown() ? SPEED_BOOST_SCALE : 1.0f;
-			float distance = speedBoost * -FRONT_SPEED * inputForward.getAmount() * FlounderEngine.getDelta();
+			float distance = speedBoost * FRONT_SPEED * inputForward.getAmount() * FlounderEngine.getDelta();
 
 			velMove.x = (float) (distance * Math.sin(Math.toRadians(rotation.getY())));
 			velMove.z = (float) (distance * Math.cos(Math.toRadians(rotation.getY())));
-			velMove.y = speedBoost * UP_SPEED * inputVertical.getAmount() * FlounderEngine.getDelta();
+			velMove.y = speedBoost * -UP_SPEED * inputVertical.getAmount() * FlounderEngine.getDelta();
 
 			velRoat.y = speedBoost * -ROTATE_SPEED * FlounderEngine.getDelta() * Maths.deadband(0.05f, inputSide.getAmount());
 
@@ -82,5 +87,18 @@ public class PlayerFocus implements IPlayer {
 	@Override
 	public Vector3f getRotation() {
 		return rotation;
+	}
+
+	public void setPosition(Vector3f position) {
+		this.position = position;
+	}
+
+	public void setRotation(Vector3f rotation) {
+		this.rotation = rotation;
+	}
+
+	@Override
+	public void dispose() {
+	//	focusEntity.remove();
 	}
 }

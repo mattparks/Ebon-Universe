@@ -29,7 +29,7 @@ public class StarRenderer extends IRenderer {
 	private static final int INSTANCE_DATA_LENGTH = 19;
 	private static final Vector3f REUSABLE_SCALE = new Vector3f();
 
-	private static final Texture STAR_TEXTURE = Texture.newTexture(new MyFile(FlounderParticles.PARTICLES_LOC, "starW.png")).clampEdges().create();
+	private static final Texture STAR_TEXTURE = Texture.newTexture(new MyFile(MyFile.RES_FOLDER, "starTexture.png")).clampEdges().create();
 	private static final int VAO = FlounderEngine.getLoader().createInterleavedVAO(VERTICES, 2);
 	private static final FloatBuffer BUFFER = BufferUtils.createFloatBuffer(MAX_INSTANCES * INSTANCE_DATA_LENGTH);
 	private static final int VBO = FlounderEngine.getLoader().createEmptyVBO(INSTANCE_DATA_LENGTH * MAX_INSTANCES);
@@ -56,7 +56,7 @@ public class StarRenderer extends IRenderer {
 
 	@Override
 	public void renderObjects(Vector4f clipPlane, ICamera camera) {
-		if (!shader.isLoaded() || Environment.getStars() == null || Environment.getStars().getSize() < 1) {
+		if (!shader.isLoaded() || Environment.getStars() == null) {
 			return;
 		}
 
@@ -64,15 +64,18 @@ public class StarRenderer extends IRenderer {
 
 		List<Star> stars = Environment.getStars().queryInFrustum(new ArrayList<>(), camera.getViewFrustum());
 
+		// FIXME: To many stars in rendered area slows way down.
 		// Added to stars first -> last, so no initial reverse needed.
-		//	ArraySorting.heapSort(stars); // Sorts the list big to small.
-		//	Collections.reverse(stars); // Reverse as the sorted list should be close(small) -> far(big).
+		// ArraySorting.heapSort(stars); // Sorts the list big to small.
+		// stars = ArraySorting.quickSort(stars);
+		//Collections.reverse(stars); // Reverse as the sorted list should be close(small) -> far(big).
 
 		// Creates the data to be used when rendering.
 		float[] vboData = new float[Math.min(stars.size(), MAX_INSTANCES) * INSTANCE_DATA_LENGTH];
 		pointer = 0;
 
 		for (Star star : stars) {
+			FlounderEngine.getAABBs().addAABBRender(star.getAABB());
 			prepareInstance(star, camera, vboData);
 		}
 
@@ -124,7 +127,7 @@ public class StarRenderer extends IRenderer {
 		modelMatrix.m20 = viewMatrix.m02;
 		modelMatrix.m21 = viewMatrix.m12;
 		modelMatrix.m22 = viewMatrix.m22;
-		Matrix4f.scale(modelMatrix, REUSABLE_SCALE.set((float) star.getSolarRadius() * 4, (float) star.getSolarRadius() * 4, (float) star.getSolarRadius() * 4), modelMatrix);
+		Matrix4f.scale(modelMatrix, REUSABLE_SCALE.set((float) star.getSolarRadius(), (float) star.getSolarRadius(), (float) star.getSolarRadius()), modelMatrix);
 
 		vboData[pointer++] = modelMatrix.m00;
 		vboData[pointer++] = modelMatrix.m01;

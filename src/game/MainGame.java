@@ -26,6 +26,7 @@ public class MainGame extends IGame {
 	private KeyButton polygons;
 	private CompoundButton toggleMusic;
 	private CompoundButton skipMusic;
+	private CompoundButton switchCamera;
 
 	private IPlayer player;
 
@@ -38,6 +39,7 @@ public class MainGame extends IGame {
 		this.polygons = new KeyButton(GLFW_KEY_P);
 		this.toggleMusic = new CompoundButton(new KeyButton(GLFW_KEY_DOWN), new JoystickButton(OptionsControls.JOYSTICK_PORT, OptionsControls.JOYSTICK_MUSIC_PAUSE));
 		this.skipMusic = new CompoundButton(new KeyButton(GLFW_KEY_LEFT, GLFW_KEY_RIGHT), new JoystickButton(OptionsControls.JOYSTICK_PORT, OptionsControls.JOYSTICK_MUSIC_SKIP));
+		this.switchCamera = new CompoundButton(new KeyButton(GLFW_KEY_C), new JoystickButton(OptionsControls.JOYSTICK_PORT, OptionsControls.JOYSTICK_CAMERA_SWITCH));
 		this.stillLoading = true;
 	}
 
@@ -103,6 +105,28 @@ public class MainGame extends IGame {
 		if (skipMusic.wasDown()) {
 			MainSeed.randomize();
 			FlounderEngine.getDevices().getSound().getMusicPlayer().skipTrack();
+		}
+
+		if (switchCamera.wasDown()) {
+			if (FlounderEngine.getCamera() instanceof CameraFocus) {
+				CameraFPS newCamera = new CameraFPS();
+				PlayerFPS newPlayer = new PlayerFPS();
+				newPlayer.setPosition(player.getPosition());
+				newPlayer.setRotation(player.getRotation());
+				newPlayer.init();
+				player.dispose();
+				player = newPlayer;
+				FlounderEngine.setCamera(newCamera);
+			} else if (FlounderEngine.getCamera() instanceof CameraFPS) {
+				CameraFocus newCamera = new CameraFocus();
+				PlayerFocus newPlayer = new PlayerFocus();
+				newPlayer.setPosition(player.getPosition());
+				newPlayer.setRotation(player.getRotation());
+				newPlayer.init();
+				player.dispose();
+				player = newPlayer;
+				FlounderEngine.setCamera(newCamera);
+			}
 		}
 
 		if (FlounderEngine.getManagerGUI().isMenuIsOpen()) {

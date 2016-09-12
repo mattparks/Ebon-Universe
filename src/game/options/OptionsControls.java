@@ -34,12 +34,24 @@ public class OptionsControls {
 			JOYSTICK_TYPE == Joysticks.XBOX360 ? MainGame.CONTROLS_CONFIG.getIntWithDefault("xbox_rotateY", 3, () -> OptionsControls.JOYSTICK_ROTATE_Y) :
 					JOYSTICK_TYPE == Joysticks.F310 ? MainGame.CONTROLS_CONFIG.getIntWithDefault("f310_axisY", 1, () -> OptionsControls.JOYSTICK_ROTATE_Y) :
 							JOYSTICK_TYPE == Joysticks.LOGITECH3D ? MainGame.CONTROLS_CONFIG.getIntWithDefault("logitech3d_axisY", 1, () -> OptionsControls.JOYSTICK_ROTATE_Y) : 0;
+	public static int JOYSTICK_CAMERA_UP =
+			JOYSTICK_TYPE == Joysticks.XBOX360 ? MainGame.CONTROLS_CONFIG.getIntWithDefault("xbox_camera_up", 3, () -> OptionsControls.JOYSTICK_CAMERA_UP) :
+					JOYSTICK_TYPE == Joysticks.F310 ? MainGame.CONTROLS_CONFIG.getIntWithDefault("f310_camera_up", 0, () -> OptionsControls.JOYSTICK_CAMERA_UP) :
+							JOYSTICK_TYPE == Joysticks.LOGITECH3D ? MainGame.CONTROLS_CONFIG.getIntWithDefault("logitech3d_camera_up", 0, () -> OptionsControls.JOYSTICK_CAMERA_UP) : 0;
+	public static int JOYSTICK_CAMERA_DOWN =
+			JOYSTICK_TYPE == Joysticks.XBOX360 ? MainGame.CONTROLS_CONFIG.getIntWithDefault("xbox_camera_down", 2, () -> OptionsControls.JOYSTICK_CAMERA_DOWN) :
+					JOYSTICK_TYPE == Joysticks.F310 ? MainGame.CONTROLS_CONFIG.getIntWithDefault("f310_camera_down", 0, () -> OptionsControls.JOYSTICK_CAMERA_DOWN) :
+							JOYSTICK_TYPE == Joysticks.LOGITECH3D ? MainGame.CONTROLS_CONFIG.getIntWithDefault("logitech3d_camera_down", 0, () -> OptionsControls.JOYSTICK_CAMERA_DOWN) : 0;
+	public static int JOYSTICK_CAMERA_SWITCH =
+			JOYSTICK_TYPE == Joysticks.XBOX360 ? MainGame.CONTROLS_CONFIG.getIntWithDefault("xbox_axisY_zoom_in", 6, () -> OptionsControls.JOYSTICK_CAMERA_SWITCH) :
+					JOYSTICK_TYPE == Joysticks.F310 ? MainGame.CONTROLS_CONFIG.getIntWithDefault("f310_zoom_in", 0, () -> OptionsControls.JOYSTICK_CAMERA_SWITCH) :
+							JOYSTICK_TYPE == Joysticks.LOGITECH3D ? MainGame.CONTROLS_CONFIG.getIntWithDefault("logitech3d_zoom_in", 0, () -> OptionsControls.JOYSTICK_CAMERA_SWITCH) : 0;
 	public static int JOYSTICK_CAMERA_ZOOM_IN =
-			JOYSTICK_TYPE == Joysticks.XBOX360 ? MainGame.CONTROLS_CONFIG.getIntWithDefault("xbox_axisY_zoom_in", 4, () -> OptionsControls.JOYSTICK_CAMERA_ZOOM_IN) :
+			JOYSTICK_TYPE == Joysticks.XBOX360 ? MainGame.CONTROLS_CONFIG.getIntWithDefault("xbox_zoom_in", 4, () -> OptionsControls.JOYSTICK_CAMERA_ZOOM_IN) :
 					JOYSTICK_TYPE == Joysticks.F310 ? MainGame.CONTROLS_CONFIG.getIntWithDefault("f310_zoom_in", 1, () -> OptionsControls.JOYSTICK_CAMERA_ZOOM_IN) :
 							JOYSTICK_TYPE == Joysticks.LOGITECH3D ? MainGame.CONTROLS_CONFIG.getIntWithDefault("logitech3d_zoom_in", 5, () -> OptionsControls.JOYSTICK_CAMERA_ZOOM_IN) : 0;
 	public static int JOYSTICK_CAMERA_ZOOM_OUT =
-			JOYSTICK_TYPE == Joysticks.XBOX360 ? MainGame.CONTROLS_CONFIG.getIntWithDefault("xbox_axisY_zoom_out", 5, () -> OptionsControls.JOYSTICK_CAMERA_ZOOM_OUT) :
+			JOYSTICK_TYPE == Joysticks.XBOX360 ? MainGame.CONTROLS_CONFIG.getIntWithDefault("xbox_zoom_out", 5, () -> OptionsControls.JOYSTICK_CAMERA_ZOOM_OUT) :
 					JOYSTICK_TYPE == Joysticks.F310 ? MainGame.CONTROLS_CONFIG.getIntWithDefault("f310_zoom_out", 1, () -> OptionsControls.JOYSTICK_CAMERA_ZOOM_OUT) :
 							JOYSTICK_TYPE == Joysticks.LOGITECH3D ? MainGame.CONTROLS_CONFIG.getIntWithDefault("logitech3d_zoom_out", 4, () -> OptionsControls.JOYSTICK_CAMERA_ZOOM_OUT) : 0;
 	public static int JOYSTICK_MUSIC_PAUSE =

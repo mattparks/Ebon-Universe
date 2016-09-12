@@ -26,7 +26,7 @@ public class CameraFocus implements ICamera {
 	private final static float PITCH_OFFSET = 3.0f;
 	private final static float MINIMUM_ZOOM = -300.0f;
 	private final static float MAXIMUM_ZOOM = 300.0f;
-	private static final float NORMAL_ZOOM = 64.0f;
+	private static final float NORMAL_ZOOM = 2.0f;
 
 	private final static float MAX_HORIZONTAL_CHANGE = 500.0f;
 	private final static float MAX_VERTICAL_CHANGE = 5.0f;
@@ -36,7 +36,9 @@ public class CameraFocus implements ICamera {
 	private final static float INFLUENCE_OF_JOYSTICKDY = -1.0f;
 	private final static float INFLUENCE_OF_JOYSTICKDX = 100.0f * INFLUENCE_OF_JOYSTICKDY;
 	private final static float INFLUENCE_OF_MOUSE_WHEEL = 12.5f;
+
 	private static int toggleMouseMoveKey;
+
 	private Vector3f position;
 	private Frustum viewFrustum;
 	private Matrix4f viewMatrix;

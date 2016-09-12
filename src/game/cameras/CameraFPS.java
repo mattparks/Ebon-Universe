@@ -7,6 +7,7 @@ import flounder.maths.*;
 import flounder.maths.matrices.*;
 import flounder.maths.vectors.*;
 import flounder.space.*;
+import game.*;
 import game.options.*;
 import sun.reflect.generics.reflectiveObjects.*;
 
@@ -14,7 +15,7 @@ import static org.lwjgl.glfw.GLFW.*;
 
 public class CameraFPS implements ICamera {
 	private static final float NEAR_PLANE = 0.1f;
-	private static final float FAR_PLANE = 3200.0f;
+	private static final float FAR_PLANE = (float) Environment.GALAXY_RADIUS * 10.0f;// 3200.0f;
 	private static final float FIELD_OF_VIEW = 70.0f;
 
 	private static final float ROTATE_AGILITY = 6.0f;
@@ -112,10 +113,16 @@ public class CameraFPS implements ICamera {
 		float delta = FlounderEngine.getDelta();
 		float angleChange = 0.0f;
 
-		if (!gamePaused && FlounderEngine.getDevices().getMouse().getMouse(toggleMouseMoveKey)) {
-			angleChange = FlounderEngine.getDevices().getMouse().getDeltaX() * INFLUENCE_OF_MOUSEDX;
-		} else if (!gamePaused && Math.abs(Maths.deadband(0.1f, joystickRotateX.getAmount())) > 0.0f) {
-			angleChange = -joystickRotateX.getAmount() * delta * INFLUENCE_OF_JOYSTICKDX;
+		if (!gamePaused) {
+			if (FlounderEngine.getDevices().getJoysticks().isConnected(0)) {
+				if (Math.abs(Maths.deadband(0.01f, joystickRotateX.getAmount())) > 0.0f) {
+					angleChange = -joystickRotateX.getAmount() * delta * INFLUENCE_OF_JOYSTICKDX;
+				}
+			} else {
+				if (FlounderEngine.getDevices().getMouse().getMouse(toggleMouseMoveKey)) {
+					angleChange = FlounderEngine.getDevices().getMouse().getDeltaX() * INFLUENCE_OF_MOUSEDX;
+				}
+			}
 		}
 
 		if (angleChange > MAX_HORIZONTAL_CHANGE) {
@@ -137,10 +144,16 @@ public class CameraFPS implements ICamera {
 		float delta = FlounderEngine.getDelta();
 		float angleChange = 0.0f;
 
-		if (!gamePaused && FlounderEngine.getDevices().getMouse().getMouse(toggleMouseMoveKey)) {
-			angleChange = -FlounderEngine.getDevices().getMouse().getDeltaY() * INFLUENCE_OF_MOUSEDY;
-		} else if (!gamePaused && Math.abs(Maths.deadband(0.1f, joystickRotateY.getAmount())) > 0.0f) {
-			angleChange = -joystickRotateY.getAmount() * delta * INFLUENCE_OF_JOYSTICKDY;
+		if (!gamePaused) {
+			if (FlounderEngine.getDevices().getJoysticks().isConnected(0)) {
+				if (Math.abs(Maths.deadband(0.01f, joystickRotateY.getAmount())) > 0.0f) {
+					angleChange = -joystickRotateY.getAmount() * delta * INFLUENCE_OF_JOYSTICKDY;
+				}
+			} else {
+				if (FlounderEngine.getDevices().getMouse().getMouse(toggleMouseMoveKey)) {
+					angleChange = -FlounderEngine.getDevices().getMouse().getDeltaY() * INFLUENCE_OF_MOUSEDY;
+				}
+			}
 		}
 
 		if (angleChange > MAX_VERTICAL_CHANGE) {

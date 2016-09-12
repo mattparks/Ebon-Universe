@@ -1,5 +1,6 @@
 package game.celestial;
 
+import flounder.engine.*;
 import flounder.helpers.*;
 import flounder.logger.*;
 import flounder.maths.*;
@@ -331,7 +332,8 @@ public class Star implements Comparable<Star>, ISpatialObject {
 
 	@Override
 	public int compareTo(Star o) {
-		return starType.compareTo(o.starType);
+		// return starType.compareTo(o.starType);
+		return ((Float) Vector3f.subtract(FlounderEngine.getCamera().getPosition(), position, null).lengthSquared()).compareTo(Vector3f.subtract(FlounderEngine.getCamera().getPosition(), o.position, null).lengthSquared());
 	}
 
 	public enum StarType {

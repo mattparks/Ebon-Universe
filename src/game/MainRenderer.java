@@ -14,6 +14,7 @@ import game.celestial.stars.*;
 import game.entities.*;
 import game.options.*;
 import game.post.*;
+import game.skybox.*;
 import game.uis.*;
 
 public class MainRenderer extends IRendererMaster {
@@ -22,6 +23,7 @@ public class MainRenderer extends IRendererMaster {
 
 	private Matrix4f projectionMatrix;
 
+	private SkyboxRenderer skyboxRenderer;
 	private EntityRenderer entityRenderer;
 	private StarRenderer starRenderer;
 	private ParticleRenderer particleRenderer;
@@ -40,6 +42,7 @@ public class MainRenderer extends IRendererMaster {
 	public void init() {
 		this.projectionMatrix = new Matrix4f();
 
+		this.skyboxRenderer = new SkyboxRenderer();
 		this.entityRenderer = new EntityRenderer();
 		this.starRenderer = new StarRenderer();
 		this.particleRenderer = new ParticleRenderer();
@@ -105,8 +108,30 @@ public class MainRenderer extends IRendererMaster {
 		Matrix4f.perspectiveMatrix(camera.getFOV(), FlounderEngine.getDevices().getDisplay().getAspectRatio(), camera.getNearPlane(), camera.getFarPlane(), projectionMatrix);
 
 		/* Renders each renderer. */
+		if (Environment.renderStars()) {
+			starRenderer.render(clipPlane, camera);
+			skyboxRenderer.setSkyboxNull(true);
+		} else {
+			if (skyboxRenderer.isSkyboxNull()) {
+				unbindRelevantFBO();
+				Vector3f originalRotation = new Vector3f(camera.getPitch(), camera.getYaw(), camera.getRoll());
+
+				for (int s = 0; s < 6; s++) {
+					skyboxRenderer.bindSkyboxFBO(s);
+					skyboxRenderer.rotateCamera(camera, s);
+					starRenderer.render(clipPlane, camera);
+					skyboxRenderer.unbindSkyboxFBO(s);
+				}
+
+				bindRelevantFBO();
+				camera.getPosition().set(originalRotation);
+			}
+
+			skyboxRenderer.render(clipPlane, camera);
+			skyboxRenderer.setSkyboxNull(false);
+		}
+
 		entityRenderer.render(clipPlane, camera);
-		starRenderer.render(clipPlane, camera);
 		particleRenderer.render(clipPlane, camera);
 		aabbRenderer.render(clipPlane, camera);
 	}
@@ -137,6 +162,7 @@ public class MainRenderer extends IRendererMaster {
 
 	@Override
 	public void dispose() {
+		skyboxRenderer.dispose();
 		entityRenderer.dispose();
 		starRenderer.dispose();
 		particleRenderer.dispose();

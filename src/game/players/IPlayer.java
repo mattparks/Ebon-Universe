@@ -10,4 +10,6 @@ public interface IPlayer {
 	Vector3f getPosition();
 
 	Vector3f getRotation();
+
+	void dispose();
 }

@@ -12,6 +12,8 @@ import game.entities.*;
 
 import java.util.*;
 
+import static org.lwjgl.glfw.GLFW.GLFW_KEY_L;
+
 public class Environment {
 	private static Fog fog;
 	private static List<Light> lights;
@@ -20,6 +22,8 @@ public class Environment {
 
 	public static final int GALAXY_STARS = 25600;
 	public static final double GALAXY_RADIUS = 768;
+
+	private static boolean RENDER_STARS = true;
 
 	/**
 	 * Initializes the start game environment.
@@ -94,6 +98,12 @@ public class Environment {
 			}
 		}
 
+		if (FlounderEngine.getDevices().getKeyboard().getKey(GLFW_KEY_L)) {
+			RENDER_STARS = false;
+		} else {
+			RENDER_STARS = true;
+		}
+
 		//if (starsQuadtree != null) {
 		//	for (Star star : starsQuadtree.getAll(new ArrayList<>())) {
 		//		star.update();
@@ -118,7 +128,7 @@ public class Environment {
 	}
 
 	public static boolean renderStars() {
-		return true;
+		return RENDER_STARS;
 	}
 
 	public static void destroy() {

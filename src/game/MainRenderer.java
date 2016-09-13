@@ -6,6 +6,7 @@ import flounder.fbos.*;
 import flounder.fonts.*;
 import flounder.guis.*;
 import flounder.helpers.*;
+import flounder.maths.*;
 import flounder.maths.matrices.*;
 import flounder.maths.vectors.*;
 import flounder.particles.*;
@@ -16,6 +17,8 @@ import game.options.*;
 import game.post.*;
 import game.skybox.*;
 import game.uis.*;
+
+import static org.lwjgl.glfw.GLFW.*;
 
 public class MainRenderer extends IRendererMaster {
 	private static final Vector4f POSITIVE_INFINITY = new Vector4f(0.0f, 1.0f, 0.0f, Float.POSITIVE_INFINITY);
@@ -65,7 +68,7 @@ public class MainRenderer extends IRendererMaster {
 		bindRelevantFBO();
 
 		/* Scene rendering. */
-		renderScene(POSITIVE_INFINITY);
+		renderScene(POSITIVE_INFINITY, Environment.getFog() != null ? Environment.getFog().getFogColour() : MainSlider.FADE_COLOUR_STARTUP);
 
 		/* Post rendering. */
 		renderPost(FlounderEngine.isGamePaused(), FlounderEngine.getScreenBlur());
@@ -96,39 +99,39 @@ public class MainRenderer extends IRendererMaster {
 		}
 	}
 
-	private void renderScene(Vector4f clipPlane) {
+	private void renderScene(Vector4f clipPlane, Colour clearColour) {
 		/* Clear and update. */
-		if (Environment.getFog() != null) {
-			OpenGlUtils.prepareNewRenderParse(Environment.getFog().getFogColour());
-		} else {
-			OpenGlUtils.prepareNewRenderParse(MainSlider.FADE_COLOUR_STARTUP);
-		}
-
 		ICamera camera = FlounderEngine.getCamera();
+		OpenGlUtils.prepareNewRenderParse(clearColour);
 		Matrix4f.perspectiveMatrix(camera.getFOV(), FlounderEngine.getDevices().getDisplay().getAspectRatio(), camera.getNearPlane(), camera.getFarPlane(), projectionMatrix);
 
 		/* Renders each renderer. */
 		if (Environment.renderStars()) {
 			starRenderer.render(clipPlane, camera);
-			skyboxRenderer.setSkyboxNull(true);
+			skyboxRenderer.getSkyboxFBO().setLoaded(true);
 		} else {
-			if (skyboxRenderer.isSkyboxNull()) {
+			if (skyboxRenderer.getSkyboxFBO().isLoaded()) {
 				unbindRelevantFBO();
+				skyboxRenderer.getSkyboxFBO().bindFBO();
+
+				FlounderEngine.getLogger().log("Rendering to skybox cube map.");
 				Vector3f originalRotation = new Vector3f(camera.getPitch(), camera.getYaw(), camera.getRoll());
 
-				for (int s = 0; s < 6; s++) {
-					skyboxRenderer.bindSkyboxFBO(s);
-					skyboxRenderer.rotateCamera(camera, s);
+				for (int face = 0; face < 6; face++) {
+					skyboxRenderer.getSkyboxFBO().bindFace(face);
+					skyboxRenderer.rotateCamera(camera, face);
+					OpenGlUtils.prepareNewRenderParse(clearColour);
+					Matrix4f.perspectiveMatrix(90.0f, skyboxRenderer.getSkyboxFBO().getAspectRatio(), camera.getNearPlane(), camera.getFarPlane(), projectionMatrix);
 					starRenderer.render(clipPlane, camera);
-					skyboxRenderer.unbindSkyboxFBO(s);
 				}
 
+				skyboxRenderer.getSkyboxFBO().unbindFBO();
 				bindRelevantFBO();
-				camera.getPosition().set(originalRotation);
+				camera.setRotation(originalRotation.x, originalRotation.y, originalRotation.z);
 			}
 
 			skyboxRenderer.render(clipPlane, camera);
-			skyboxRenderer.setSkyboxNull(false);
+			skyboxRenderer.getSkyboxFBO().setLoaded(false);
 		}
 
 		entityRenderer.render(clipPlane, camera);

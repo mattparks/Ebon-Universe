@@ -10,6 +10,7 @@ import flounder.shaders.*;
 import game.*;
 
 import static org.lwjgl.opengl.GL11.*;
+import static org.lwjgl.opengl.GL13.*;
 import static org.lwjgl.opengl.GL20.*;
 
 public class SkyboxRenderer extends IRenderer {
@@ -31,7 +32,7 @@ public class SkyboxRenderer extends IRenderer {
 				new ShaderType(GL_FRAGMENT_SHADER, FRAGMENT_SHADER)
 		).create();
 		viewMatrix = new Matrix4f();
-		skyboxFBO = new SkyboxFBO();
+		skyboxFBO = new SkyboxFBO(1024, 1024);
 	}
 
 	@Override
@@ -42,9 +43,7 @@ public class SkyboxRenderer extends IRenderer {
 			OpenGlUtils.bindVAO(VAO, 0);
 			OpenGlUtils.antialias(FlounderEngine.getDevices().getDisplay().isAntialiasing());
 
-			for (int s = 0; s < 6; s++) {
-				OpenGlUtils.bindTextureToBank(skyboxFBO.getFBO(s).getColourTexture(0), s);
-			}
+			OpenGlUtils.bindCubemapToBank(skyboxFBO.getColourAttachment(), 0);
 
 			glDrawArrays(GL_TRIANGLES, 0, VERTICES.length);
 
@@ -56,13 +55,8 @@ public class SkyboxRenderer extends IRenderer {
 
 	private void prepareRendering(Vector4f clipPlane, ICamera camera) {
 		shader.start();
-
 		shader.getUniformMat4("projectionMatrix").loadMat4(FlounderEngine.getProjectionMatrix());
 		shader.getUniformMat4("viewMatrix").loadMat4(updateViewMatrix(camera.getViewMatrix()));
-
-		shader.getUniformFloat("lowerFogLimit").loadFloat(Environment.getFog().getSkyLowerLimit());
-		shader.getUniformFloat("upperFogLimit").loadFloat(Environment.getFog().getSkyUpperLimit());
-		shader.getUniformVec3("fogColour").loadVec3(Environment.getFog().getFogColour());
 	}
 
 	private Matrix4f updateViewMatrix(Matrix4f input) {
@@ -83,20 +77,8 @@ public class SkyboxRenderer extends IRenderer {
 		FlounderEngine.getProfiler().add("Skybox", "Render Time", super.getRenderTimeMs());
 	}
 
-	public boolean isSkyboxNull() {
-		return skyboxFBO.isFboLoaded();
-	}
-
-	public void setSkyboxNull(boolean isNull) {
-		skyboxFBO.setFboLoaded(isNull);
-	}
-
-	public void bindSkyboxFBO(int fboSide) {
-		OpenGlUtils.bindTextureToBank(skyboxFBO.getFBO(fboSide).getColourTexture(0), fboSide);
-	}
-
-	public void unbindSkyboxFBO(int fboSide) {
-		skyboxFBO.getFBO(fboSide).unbindFrameBuffer();
+	public SkyboxFBO getSkyboxFBO() {
+		return skyboxFBO;
 	}
 
 	public void rotateCamera(ICamera camera, int fboSide) {
@@ -106,48 +88,50 @@ public class SkyboxRenderer extends IRenderer {
 
 		switch (fboSide) {
 			case 0:
-				// fboFront
+				// POSITIVE_X, Right
 				pitch = 0.0f;
-				yaw = 0.0f;
+				yaw = 90.0f;
 				roll = 0.0f;
 				break;
 			case 1:
-				// fboBack
+				// NEGATIVE_X, Left
 				pitch = 0.0f;
-				yaw = 180.0f;
+				yaw = 270.0f;
 				roll = 0.0f;
 				break;
 			case 2:
-				// fboUp
+				// POSITIVE_Y, Top
 				pitch = 90.0f;
 				yaw = 0.0f;
 				roll = 0.0f;
 				break;
 			case 3:
-				// fboDown
-				pitch = 180.0f;
+				// NEGATIVE_Y, Bottom
+				pitch = 270.0f;
 				yaw = 0.0f;
 				roll = 0.0f;
+				// FIXME: May need roll...
 				break;
 			case 4:
-				// fboLeft
-				pitch = 0.0f;
-				yaw = 90.0f;
-				roll = 0.0f;
-				break;
-			case 5:
-				// fboRight
+				// POSITIVE_Z, Back
 				pitch = 0.0f;
 				yaw = 180.0f;
 				roll = 0.0f;
 				break;
+			case 5:
+				// NEGATIVE_Z, Front
+				pitch = 0.0f;
+				yaw = 0.0f;
+				roll = 0.0f;
+				break;
 		}
 
-		camera.getPosition().set(pitch, yaw, roll);
+		camera.setRotation(pitch, yaw, roll);
 	}
 
 	@Override
 	public void dispose() {
 		shader.dispose();
+		skyboxFBO.dispose();
 	}
 }

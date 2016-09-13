@@ -97,7 +97,6 @@ public class CameraFPS implements ICamera {
 		updateHorizontalAngle();
 		updatePitchAngle();
 		calculatePosition();
-		updateViewMatrix();
 
 		if (FlounderEngine.getProfiler().isOpen()) {
 			FlounderEngine.getProfiler().add("MainCamera", "Angle Of Elevation", angleOfElevation);
@@ -215,11 +214,12 @@ public class CameraFPS implements ICamera {
 		Matrix4f.rotate(viewMatrix, reusableViewVector.set(0.0f, 0.0f, 1.0f), (float) Math.toRadians(rotation.z), viewMatrix);
 		Matrix4f.translate(viewMatrix, position, viewMatrix);
 		position.negate();
-		viewFrustum.recalculateFrustum(FlounderEngine.getProjectionMatrix(), getViewMatrix());
+		viewFrustum.recalculateFrustum(FlounderEngine.getProjectionMatrix(), viewMatrix);
 	}
 
 	@Override
 	public Matrix4f getViewMatrix() {
+		updateViewMatrix();
 		return viewMatrix;
 	}
 
@@ -258,6 +258,13 @@ public class CameraFPS implements ICamera {
 	@Override
 	public float getRoll() {
 		return rotation.z;
+	}
+
+	@Override
+	public void setRotation(float pitch, float yaw, float roll) {
+		this.rotation.x = pitch;
+		this.rotation.y = yaw;
+		this.rotation.z = roll;
 	}
 
 	@Override

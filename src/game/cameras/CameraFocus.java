@@ -39,10 +39,12 @@ public class CameraFocus implements ICamera {
 
 	private static int toggleMouseMoveKey;
 
-	private Vector3f position;
 	private Frustum viewFrustum;
 	private Matrix4f viewMatrix;
-	private float pitch, yaw;
+
+	private Vector3f position;
+	private Vector3f rotation;
+
 	private JoystickAxis joystickRotateX;
 	private JoystickAxis joystickRotateY;
 	private JoystickButton joystickZoomIn;
@@ -63,11 +65,11 @@ public class CameraFocus implements ICamera {
 
 	@Override
 	public void init() {
-		this.position = new Vector3f();
 		this.viewFrustum = new Frustum();
 		this.viewMatrix = new Matrix4f();
-		this.pitch = 0.0f;
-		this.yaw = 0.0f;
+
+		this.position = new Vector3f();
+		this.rotation = new Vector3f();
 
 		this.toggleMouseMoveKey = GLFW_MOUSE_BUTTON_LEFT;
 		this.joystickRotateX = new JoystickAxis(OptionsControls.JOYSTICK_PORT, OptionsControls.JOYSTICK_ROTATE_X);
@@ -120,12 +122,10 @@ public class CameraFocus implements ICamera {
 		updatePitchAngle();
 		calculateDistances();
 		calculatePosition();
-		updateViewMatrix(position, pitch, yaw);
 
 		if (FlounderEngine.getProfiler().isOpen()) {
 			FlounderEngine.getProfiler().add("MainCamera", "Angle Of Elevation", angleOfElevation);
-			FlounderEngine.getProfiler().add("MainCamera", "Yaw", yaw);
-			FlounderEngine.getProfiler().add("MainCamera", "Pitch", pitch);
+			FlounderEngine.getProfiler().add("MainCamera", "Rotation", rotation);
 			FlounderEngine.getProfiler().add("MainCamera", "Angle Around MainPlayer", angleAroundPlayer);
 			FlounderEngine.getProfiler().add("MainCamera", "Actual Distance From Point", actualDistanceFromPoint);
 			FlounderEngine.getProfiler().add("MainCamera", "Target Zoom", targetZoom);
@@ -247,22 +247,24 @@ public class CameraFocus implements ICamera {
 		position.z = targetPosition.z - (float) (horizontalDistanceFromFocus * Math.cos(Math.toRadians(theta)));
 		position.y = targetPosition.y + (verticalDistanceFromFocus + CAMERA_AIM_OFFSET);
 
-		yaw = targetRotation.y + Maths.DEGREES_IN_HALF_CIRCLE + angleAroundPlayer;
-		pitch = (float) Math.toDegrees(angleOfElevation) - PITCH_OFFSET;
+		rotation.y = targetRotation.y + Maths.DEGREES_IN_HALF_CIRCLE + angleAroundPlayer;
+		rotation.x = (float) Math.toDegrees(angleOfElevation) - PITCH_OFFSET;
 	}
 
-	private void updateViewMatrix(final Vector3f position, final float pitch, final float yaw) {
+	private void updateViewMatrix() {
 		viewMatrix.setIdentity();
 		position.negate();
-		Matrix4f.rotate(viewMatrix, new Vector3f(1, 0, 0), (float) Math.toRadians(pitch), viewMatrix);
-		Matrix4f.rotate(viewMatrix, new Vector3f(0, 1, 0), (float) Math.toRadians(-yaw), viewMatrix);
+		Matrix4f.rotate(viewMatrix, new Vector3f(1, 0, 0), (float) Math.toRadians(rotation.x), viewMatrix);
+		Matrix4f.rotate(viewMatrix, new Vector3f(0, 1, 0), (float) Math.toRadians(-rotation.y), viewMatrix);
+		Matrix4f.rotate(viewMatrix, new Vector3f(0, 0, 1), (float) Math.toRadians(rotation.z), viewMatrix);
 		Matrix4f.translate(viewMatrix, position, viewMatrix);
 		position.negate();
-		viewFrustum.recalculateFrustum(FlounderEngine.getProjectionMatrix(), getViewMatrix());
+		viewFrustum.recalculateFrustum(FlounderEngine.getProjectionMatrix(), viewMatrix);
 	}
 
 	@Override
 	public Matrix4f getViewMatrix() {
+		updateViewMatrix();
 		return viewMatrix;
 	}
 
@@ -287,17 +289,24 @@ public class CameraFocus implements ICamera {
 
 	@Override
 	public float getPitch() {
-		return pitch;
+		return rotation.x;
 	}
 
 	@Override
 	public float getYaw() {
-		return yaw;
+		return rotation.y;
 	}
 
 	@Override
 	public float getRoll() {
-		return 0;
+		return rotation.z;
+	}
+
+	@Override
+	public void setRotation(float pitch, float yaw, float roll) {
+		this.rotation.x = pitch;
+		this.rotation.y = yaw;
+		this.rotation.z = roll;
 	}
 
 	@Override

@@ -80,7 +80,13 @@ public class PlayerFPS implements IPlayer {
 				}
 
 				Star star = touchingStars.get(0);
-				System.out.println("Colliding Star: " + star);
+
+				if (!star.isChildrenLoaded()) {
+					star.loadChildren();
+					Star.printSystem(star);
+				}// else {
+				 //	System.out.println(star);
+				 //}
 			}
 		}
 	}

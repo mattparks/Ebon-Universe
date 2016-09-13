@@ -44,6 +44,7 @@ public class Star implements Comparable<Star>, ISpatialObject {
 	private double habitableMax; // The habitable max distance in AU for carbon based life.
 
 	private AABB starAABB;
+	private boolean childrenLoaded;
 
 	/**
 	 * Creates a new star from a solar mass and calculated characteristics.
@@ -82,6 +83,7 @@ public class Star implements Comparable<Star>, ISpatialObject {
 		float size = (float) (0.5f * this.solarRadius);
 		starAABB.getMinExtents().set(position.getX() - size, position.getY() - size, position.getZ() - size);
 		starAABB.getMaxExtents().set(position.getX() + size, position.getY() + size, position.getZ() + size);
+		this.childrenLoaded = false;
 	}
 
 	/**
@@ -133,6 +135,10 @@ public class Star implements Comparable<Star>, ISpatialObject {
 	}
 
 	public void loadChildren() {
+		if (childrenLoaded) {
+			return;
+		}
+
 		double currentOrbit = planetFrostLine;
 
 		while (currentOrbit >= planetInnerLimit) {
@@ -152,6 +158,8 @@ public class Star implements Comparable<Star>, ISpatialObject {
 
 			currentOrbit *= Maths.randomInRange(1.4, 2.0);
 		}
+
+		childrenLoaded = true;
 	}
 
 	private static void generateCelestial(String celestialName, Pair<Star, Celestial> parentTypes, double semiMajorAxis) {
@@ -323,6 +331,10 @@ public class Star implements Comparable<Star>, ISpatialObject {
 		});
 
 		System.out.println(FlounderLogger.ANSI_RED + "===== End of star " + star.getStarName() + ". =====\n" + FlounderLogger.ANSI_RESET);
+	}
+
+	public boolean isChildrenLoaded() {
+		return childrenLoaded;
 	}
 
 	@Override

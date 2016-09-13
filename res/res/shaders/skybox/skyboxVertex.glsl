@@ -10,4 +10,6 @@ uniform mat4 viewMatrix;
 void main(void) {
 	gl_Position = projectionMatrix * viewMatrix * vec4(in_position, 1.0);
 	pass_textureCoords = in_position;
+	pass_textureCoords.x = -pass_textureCoords.x;
+	pass_textureCoords.y = -pass_textureCoords.y;
 }

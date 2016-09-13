@@ -18,8 +18,6 @@ import game.post.*;
 import game.skybox.*;
 import game.uis.*;
 
-import static org.lwjgl.glfw.GLFW.*;
-
 public class MainRenderer extends IRendererMaster {
 	private static final Vector4f POSITIVE_INFINITY = new Vector4f(0.0f, 1.0f, 0.0f, Float.POSITIVE_INFINITY);
 	private static final int FBO_ATTACHMENTS = 1;
@@ -108,30 +106,26 @@ public class MainRenderer extends IRendererMaster {
 		/* Renders each renderer. */
 		if (Environment.renderStars()) {
 			starRenderer.render(clipPlane, camera);
-			skyboxRenderer.getSkyboxFBO().setLoaded(true);
+			skyboxRenderer.getSkyboxFBO().setLoaded(false);
 		} else {
-			if (skyboxRenderer.getSkyboxFBO().isLoaded()) {
+			if (!skyboxRenderer.getSkyboxFBO().isLoaded()) {
 				unbindRelevantFBO();
 				skyboxRenderer.getSkyboxFBO().bindFBO();
-
-				FlounderEngine.getLogger().log("Rendering to skybox cube map.");
-				Vector3f originalRotation = new Vector3f(camera.getPitch(), camera.getYaw(), camera.getRoll());
 
 				for (int face = 0; face < 6; face++) {
 					skyboxRenderer.getSkyboxFBO().bindFace(face);
 					skyboxRenderer.rotateCamera(camera, face);
 					OpenGlUtils.prepareNewRenderParse(clearColour);
-					Matrix4f.perspectiveMatrix(90.0f, skyboxRenderer.getSkyboxFBO().getAspectRatio(), camera.getNearPlane(), camera.getFarPlane(), projectionMatrix);
+					Matrix4f.perspectiveMatrix(SkyboxFBO.CAMERA_FOV, 1.0f, SkyboxFBO.CAMERA_NEAR, SkyboxFBO.CAMERA_FAR, projectionMatrix);
 					starRenderer.render(clipPlane, camera);
 				}
 
 				skyboxRenderer.getSkyboxFBO().unbindFBO();
 				bindRelevantFBO();
-				camera.setRotation(originalRotation.x, originalRotation.y, originalRotation.z);
 			}
 
 			skyboxRenderer.render(clipPlane, camera);
-			skyboxRenderer.getSkyboxFBO().setLoaded(false);
+			skyboxRenderer.getSkyboxFBO().setLoaded(true);
 		}
 
 		entityRenderer.render(clipPlane, camera);

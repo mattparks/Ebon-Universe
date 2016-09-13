@@ -5,7 +5,6 @@ import flounder.engine.implementation.*;
 import flounder.helpers.*;
 import flounder.maths.matrices.*;
 import flounder.maths.vectors.*;
-import flounder.particles.*;
 import flounder.resources.*;
 import flounder.shaders.*;
 import flounder.textures.*;

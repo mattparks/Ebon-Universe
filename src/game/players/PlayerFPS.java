@@ -85,8 +85,8 @@ public class PlayerFPS implements IPlayer {
 					star.loadChildren();
 					Star.printSystem(star);
 				}// else {
-				 //	System.out.println(star);
-				 //}
+				//	System.out.println(star);
+				//}
 			}
 		}
 	}

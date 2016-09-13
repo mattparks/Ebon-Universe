@@ -4,10 +4,6 @@ import flounder.engine.*;
 import flounder.inputs.*;
 import flounder.maths.*;
 import flounder.maths.vectors.*;
-import game.*;
-import game.entities.*;
-import game.entities.components.*;
-import game.entities.loading.*;
 import game.options.*;
 
 import static org.lwjgl.glfw.GLFW.*;
@@ -99,6 +95,6 @@ public class PlayerFocus implements IPlayer {
 
 	@Override
 	public void dispose() {
-	//	focusEntity.remove();
+		//	focusEntity.remove();
 	}
 }

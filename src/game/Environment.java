@@ -5,14 +5,13 @@ import flounder.helpers.*;
 import flounder.lights.*;
 import flounder.maths.*;
 import flounder.maths.vectors.*;
-import flounder.physics.*;
 import flounder.space.*;
 import game.celestial.*;
 import game.entities.*;
 
 import java.util.*;
 
-import static org.lwjgl.glfw.GLFW.GLFW_KEY_L;
+import static org.lwjgl.glfw.GLFW.*;
 
 public class Environment {
 	private static Fog fog;

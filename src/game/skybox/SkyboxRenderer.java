@@ -7,10 +7,8 @@ import flounder.maths.matrices.*;
 import flounder.maths.vectors.*;
 import flounder.resources.*;
 import flounder.shaders.*;
-import game.*;
 
 import static org.lwjgl.opengl.GL11.*;
-import static org.lwjgl.opengl.GL13.*;
 import static org.lwjgl.opengl.GL20.*;
 
 public class SkyboxRenderer extends IRenderer {
@@ -32,7 +30,7 @@ public class SkyboxRenderer extends IRenderer {
 				new ShaderType(GL_FRAGMENT_SHADER, FRAGMENT_SHADER)
 		).create();
 		viewMatrix = new Matrix4f();
-		skyboxFBO = new SkyboxFBO(1024, 1024);
+		skyboxFBO = new SkyboxFBO();
 	}
 
 	@Override
@@ -102,13 +100,13 @@ public class SkyboxRenderer extends IRenderer {
 			case 2:
 				// POSITIVE_Y, Top
 				pitch = 90.0f;
-				yaw = 0.0f;
+				yaw = 180.0f;
 				roll = 0.0f;
 				break;
 			case 3:
 				// NEGATIVE_Y, Bottom
 				pitch = 270.0f;
-				yaw = 0.0f;
+				yaw = 180.0f;
 				roll = 0.0f;
 				// FIXME: May need roll...
 				break;

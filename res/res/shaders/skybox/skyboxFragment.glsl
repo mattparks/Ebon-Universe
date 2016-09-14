@@ -1,12 +1,16 @@
 #version 130
 
+//---------IN------------
+in vec4 pass_positionRelativeToCam;
 in vec3 pass_textureCoords;
 
-out vec4 out_colour;
-
+//---------UNIFORM------------
 layout(binding = 0) uniform samplerCube cubeMap;
 
+//---------OUT------------
+out vec4 out_colour;
+
+//---------MAIN------------
 void main(void) {
-	vec4 textureColour = texture(cubeMap, pass_textureCoords);
-	out_colour = textureColour;
+	out_colour = texture(cubeMap, pass_textureCoords);
 }

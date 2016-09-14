@@ -1,5 +1,6 @@
 #version 130
 
+//---------IN------------
 in vec4 pass_positionRelativeToCam;
 in vec2 pass_textureCoords;
 in vec3 pass_surfaceNormal;
@@ -7,8 +8,7 @@ in vec3 pass_toCameraVector;
 in vec3 pass_tilePosition;
 in vec3 pass_toLightVector[4];
 
-out vec4 out_colour;
-
+//---------UNIFORM------------
 layout(binding = 0) uniform sampler2D backgroundTexture;
 layout(binding = 1) uniform sampler2D rTexture;
 layout(binding = 2) uniform sampler2D gTexture;
@@ -21,8 +21,13 @@ uniform vec3 fogColour;
 uniform float fogDensity;
 uniform float fogGradient;
 
+//---------OUT------------
+out vec4 out_colour;
+
+//---------CONSTANT------------
 const float tileAmount = 50.0;
 
+//---------MAIN------------
 void main(void) {
 	vec4 blendMapColour = vec4(pass_tilePosition, 1.0);
 	blendMapColour = vec4(normalize(pass_surfaceNormal).x, 0, 0, 1); // TODO

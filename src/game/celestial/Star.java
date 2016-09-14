@@ -19,6 +19,9 @@ public class Star implements Comparable<Star>, ISpatialObject {
 	public static double SOL_ESCAPE_VELOCITY = 617.7; // Our suns escape velocity (km/s).
 	public static double SOL_SURFACE_TEMP = 5778.0; // Our suns surface temp (kelvin).
 
+	private static final Vector3f VECTOR_REUSABLE_1 = new Vector3f();
+	private static final Vector3f VECTOR_REUSABLE_2 = new Vector3f();
+
 	private String starName;
 	private Vector3f position;
 
@@ -81,8 +84,9 @@ public class Star implements Comparable<Star>, ISpatialObject {
 
 		this.starAABB = new AABB();
 		float size = (float) (0.5f * this.solarRadius);
-		starAABB.getMinExtents().set(position.getX() - size, position.getY() - size, position.getZ() - size);
-		starAABB.getMaxExtents().set(position.getX() + size, position.getY() + size, position.getZ() + size);
+		starAABB.getMinExtents().set(this.position.getX() - size, this.position.getY() - size, this.position.getZ() - size);
+		starAABB.getMaxExtents().set(this.position.getX() + size, this.position.getY() + size, this.position.getZ() + size);
+
 		this.childrenLoaded = false;
 	}
 
@@ -345,7 +349,12 @@ public class Star implements Comparable<Star>, ISpatialObject {
 	@Override
 	public int compareTo(Star o) {
 		// return starType.compareTo(o.starType);
-		return ((Float) Vector3f.subtract(FlounderEngine.getCamera().getPosition(), position, null).lengthSquared()).compareTo(Vector3f.subtract(FlounderEngine.getCamera().getPosition(), o.position, null).lengthSquared());
+
+		if (FlounderEngine.getCamera().getPosition() == null) {
+			return ((Float) position.lengthSquared()).compareTo(o.position.lengthSquared());
+		}
+
+		return ((Float) Vector3f.subtract(FlounderEngine.getCamera().getPosition(), position, VECTOR_REUSABLE_1).lengthSquared()).compareTo(Vector3f.subtract(FlounderEngine.getCamera().getPosition(), o.position, VECTOR_REUSABLE_2).lengthSquared());
 	}
 
 	public enum StarType {

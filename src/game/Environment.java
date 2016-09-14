@@ -5,8 +5,10 @@ import flounder.helpers.*;
 import flounder.lights.*;
 import flounder.maths.*;
 import flounder.maths.vectors.*;
+import flounder.particles.loading.*;
 import flounder.space.*;
 import game.celestial.*;
+import game.celestial.dust.*;
 import game.entities.*;
 
 import java.util.*;
@@ -18,9 +20,12 @@ public class Environment {
 	private static List<Light> lights;
 	private static StructureBasic<Entity> entityQuadtree;
 	private static StructureOctree<Star> starsQuadtree;
+	private static StructureOctree<Dust> dustQuadtree;
+
+	private static final Vector3f VECTOR_2_2_2 = new Vector3f(2.0f, 2.0f, 2.0f);
 
 	public static final int GALAXY_STARS = 25600;
-	public static final double GALAXY_RADIUS = 768;
+	public static final double GALAXY_RADIUS = 1792.0;
 
 	private static boolean RENDER_STARS = true;
 
@@ -35,17 +40,41 @@ public class Environment {
 		Environment.lights = new ArrayList<>();
 		Environment.lights.add(sun);
 		Environment.entityQuadtree = new StructureBasic<>();
-		Environment.starsQuadtree = new StructureOctree<>(512);
-
-		generateGalaxy();
+		Environment.starsQuadtree = new StructureOctree<>(1024);
+		Environment.dustQuadtree = new StructureOctree<>(512);
 	}
 
-	private static void generateGalaxy() {
+	public static void generateGalaxy() {
 		for (int i = 0; i < GALAXY_STARS; i++) {
 			Star.StarType starType = Star.StarType.getTypeMakeup(Maths.randomInRange(0.0, 100.0));
 			double solarMasses = Maths.randomInRange(starType.minSolarMasses, starType.maxSolarMasses);
 			Star star = new Star(FauxGenerator.getFauxSentance(1, 6, 17), solarMasses, randomSpiralPoint(), new ArrayList<>());
 			starsQuadtree.add(star);
+		}
+
+		List<Star> galaxyStars = starsQuadtree.getAll(new ArrayList<>());
+		galaxyStars = ArraySorting.quickSort(galaxyStars);
+		Vector3f minPosition = new Vector3f();
+		Vector3f maxPosition = new Vector3f();
+		int starCount = 0;
+
+		for (int i = 0; i < galaxyStars.size(); i++) {
+			if (starCount >= 25) {
+				dustQuadtree.add(new Dust(Vector3f.subtract(maxPosition,minPosition, maxPosition).length(), Vector3f.divide(Vector3f.subtract(minPosition, maxPosition, maxPosition), VECTOR_2_2_2, null), starCount));
+				minPosition.set(0.0f, 0.0f, 0.0f);
+				maxPosition.set(0.0f, 0.0f, 0.0f);
+				starCount = 0;
+			}
+
+			if (galaxyStars.get(i).getPosition().lengthSquared() < minPosition.lengthSquared()) {
+				minPosition.set(galaxyStars.get(i).getPosition());
+			}
+
+			if (galaxyStars.get(i).getPosition().lengthSquared() > maxPosition.lengthSquared()) {
+				maxPosition.set(galaxyStars.get(i).getPosition());
+			}
+
+			starCount++;
 		}
 	}
 
@@ -126,6 +155,10 @@ public class Environment {
 		return starsQuadtree;
 	}
 
+	public static ISpatialStructure<Dust> getDusts() {
+		return dustQuadtree;
+	}
+
 	public static boolean renderStars() {
 		return RENDER_STARS;
 	}
@@ -146,6 +179,11 @@ public class Environment {
 		if (starsQuadtree != null) {
 			starsQuadtree.clear();
 			starsQuadtree = null;
+		}
+
+		if (dustQuadtree != null) {
+			dustQuadtree.clear();
+			dustQuadtree = null;
 		}
 	}
 }

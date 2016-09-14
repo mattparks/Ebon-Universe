@@ -45,6 +45,7 @@ public class MainGame extends IGame {
 
 	public void generateWorlds() {
 		Environment.init(new Fog(new Colour(0.0f, 0.0f, 0.0f), 0.003f, 2.0f, 0.0f, 50.0f), new Light(new Colour(0.85f, 0.85f, 0.85f), new Vector3f(0.0f, 2000.0f, 2000.0f)));
+		Environment.generateGalaxy();
 
 		// EntityLoader.load("dragon").createEntity(Environment.getEntitys(), new Vector3f(30, 0, 0), new Vector3f());
 		/*EntityLoader.load("pane").createEntity(Environment.getEntities(), new Vector3f(), new Vector3f());
@@ -108,25 +109,7 @@ public class MainGame extends IGame {
 		}
 
 		if (switchCamera.wasDown()) {
-			if (FlounderEngine.getCamera() instanceof CameraFocus) {
-				CameraFPS newCamera = new CameraFPS();
-				PlayerFPS newPlayer = new PlayerFPS();
-				newPlayer.setPosition(player.getPosition());
-				newPlayer.setRotation(player.getRotation());
-				newPlayer.init();
-				player.dispose();
-				player = newPlayer;
-				FlounderEngine.setCamera(newCamera);
-			} else if (FlounderEngine.getCamera() instanceof CameraFPS) {
-				CameraFocus newCamera = new CameraFocus();
-				PlayerFocus newPlayer = new PlayerFocus();
-				newPlayer.setPosition(player.getPosition());
-				newPlayer.setRotation(player.getRotation());
-				newPlayer.init();
-				player.dispose();
-				player = newPlayer;
-				FlounderEngine.setCamera(newCamera);
-			}
+			switchCamera();
 		}
 
 		if (FlounderEngine.getManagerGUI().isMenuIsOpen()) {
@@ -145,6 +128,28 @@ public class MainGame extends IGame {
 		}
 
 		Environment.update();
+	}
+
+	public void switchCamera() {
+		if (FlounderEngine.getCamera() instanceof CameraFocus) {
+			CameraFPS newCamera = new CameraFPS();
+			PlayerFPS newPlayer = new PlayerFPS();
+			newPlayer.setPosition(player.getPosition());
+			newPlayer.setRotation(player.getRotation());
+			newPlayer.init();
+			player.dispose();
+			player = newPlayer;
+			FlounderEngine.setCamera(newCamera);
+		} else if (FlounderEngine.getCamera() instanceof CameraFPS) {
+			CameraFocus newCamera = new CameraFocus();
+			PlayerFocus newPlayer = new PlayerFocus();
+			newPlayer.setPosition(player.getPosition());
+			newPlayer.setRotation(player.getRotation());
+			newPlayer.init();
+			player.dispose();
+			player = newPlayer;
+			FlounderEngine.setCamera(newCamera);
+		}
 	}
 
 	@Override

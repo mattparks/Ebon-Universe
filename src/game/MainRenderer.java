@@ -109,6 +109,8 @@ public class MainRenderer extends IRendererMaster {
 			skyboxRenderer.getSkyboxFBO().setLoaded(false);
 		} else {
 			if (!skyboxRenderer.getSkyboxFBO().isLoaded()) {
+				starRenderer.render(clipPlane, camera);
+
 				unbindRelevantFBO();
 				skyboxRenderer.getSkyboxFBO().bindFBO();
 
@@ -121,11 +123,11 @@ public class MainRenderer extends IRendererMaster {
 				}
 
 				skyboxRenderer.getSkyboxFBO().unbindFBO();
+				skyboxRenderer.getSkyboxFBO().setLoaded(true);
 				bindRelevantFBO();
+			} else {
+				skyboxRenderer.render(clipPlane, camera);
 			}
-
-			skyboxRenderer.render(clipPlane, camera);
-			skyboxRenderer.getSkyboxFBO().setLoaded(true);
 		}
 
 		entityRenderer.render(clipPlane, camera);

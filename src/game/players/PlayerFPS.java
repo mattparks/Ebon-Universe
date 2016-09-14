@@ -84,6 +84,7 @@ public class PlayerFPS implements IPlayer {
 				if (!star.isChildrenLoaded()) {
 					star.loadChildren();
 					Star.printSystem(star);
+				//	((MainGame) FlounderEngine.getGame()).switchCamera();
 				}// else {
 				//	System.out.println(star);
 				//}

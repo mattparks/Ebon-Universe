@@ -59,8 +59,12 @@ public class PlayerFPS implements IPlayer {
 		this.rotation = new Vector3f(0, 0, 0);
 
 		this.starViewAABB = new AABB(new Vector3f(-50.0f, -50.0f, -50.0f), new Vector3f(50.0f, 50.0f, 50.0f));
-		this.starViewRay = new Ray(false, new Vector2f(0.5f, 0.5f));
+		this.starViewRay = new Ray(false, new Vector2f(0.0f, 0.0f));
 	}
+
+	private AABB aabb1 = new AABB();
+	private AABB aabb2 = new AABB();
+	private AABB aabb3 = new AABB();
 
 	@Override
 	public void update(boolean paused) {
@@ -79,10 +83,28 @@ public class PlayerFPS implements IPlayer {
 		//		FlounderEngine.getLogger().error(starViewRay.getPointAtDistance(i * 70));
 		//	}
 
+			aabb1.setMinExtents(starViewRay.getPointOnRay(10.0f, null).x - 0.5f, starViewRay.getPointOnRay(10.0f, null).y - 0.5f, starViewRay.getPointOnRay(10.0f, null).z - 0.5f);
+			aabb1.setMaxExtents(starViewRay.getPointOnRay(10.0f, null).x + 0.5f, starViewRay.getPointOnRay(10.0f, null).y + 0.5f, starViewRay.getPointOnRay(10.0f, null).z + 0.5f);
+			FlounderEngine.getAABBs().addAABBRender(aabb1);
+
+			aabb2.setMinExtents(starViewRay.getPointOnRay(20.0f, null).x - 0.5f, starViewRay.getPointOnRay(20.0f, null).y - 0.5f, starViewRay.getPointOnRay(20.0f, null).z - 0.5f);
+			aabb2.setMaxExtents(starViewRay.getPointOnRay(20.0f, null).x + 0.5f, starViewRay.getPointOnRay(20.0f, null).y + 0.5f, starViewRay.getPointOnRay(20.0f, null).z + 0.5f);
+			FlounderEngine.getAABBs().addAABBRender(aabb2);
+
+			aabb3.setMinExtents(starViewRay.getPointOnRay(30.0f, null).x - 0.5f, starViewRay.getPointOnRay(30.0f, null).y - 0.5f, starViewRay.getPointOnRay(30.0f, null).z - 0.5f);
+			aabb3.setMaxExtents(starViewRay.getPointOnRay(30.0f, null).x + 0.5f, starViewRay.getPointOnRay(30.0f, null).y + 0.5f, starViewRay.getPointOnRay(30.0f, null).z + 0.5f);
+			FlounderEngine.getAABBs().addAABBRender(aabb3);
+
+			//if (starViewAABB.intersectsRay(starViewRay)) {
+			//	FlounderEngine.getLogger().log("Star view and ray hit: " + starViewRay);
+			//}
+
 			for (Star star : Environment.getStars().queryInAABB(new ArrayList<>(), starViewAABB)) {
 				FlounderEngine.getAABBs().addAABBRender(star.getAABB());
 
-				if (star.getAABB().intersectsRay(starViewRay, 0.0f, 100.0f) != null) {
+				if (star.getAABB().intersectsRay(starViewRay)) {
+					//FlounderEngine.getLogger().error(starViewRay);
+
 					if (!star.equals(currentStar)) {
 						FlounderEngine.getLogger().log("Camera ray hit star: " + star);
 						currentStar = star;

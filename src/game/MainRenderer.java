@@ -11,6 +11,7 @@ import flounder.maths.matrices.*;
 import flounder.maths.vectors.*;
 import flounder.particles.*;
 import flounder.physics.renderer.*;
+import game.celestial.dust.*;
 import game.celestial.stars.*;
 import game.entities.*;
 import game.options.*;
@@ -26,8 +27,9 @@ public class MainRenderer extends IRendererMaster {
 
 	private SkyboxRenderer skyboxRenderer;
 	private EntityRenderer entityRenderer;
-	private StarRenderer starRenderer;
 	private ParticleRenderer particleRenderer;
+	private StarRenderer starRenderer;
+	private DustRenderer dustRenderer;
 	private AABBRenderer aabbRenderer;
 	private GuiRenderer guiRenderer;
 	private GuiRenderer cursorRenderer;
@@ -45,8 +47,9 @@ public class MainRenderer extends IRendererMaster {
 
 		this.skyboxRenderer = new SkyboxRenderer();
 		this.entityRenderer = new EntityRenderer();
-		this.starRenderer = new StarRenderer();
 		this.particleRenderer = new ParticleRenderer();
+		this.starRenderer = new StarRenderer();
+		this.dustRenderer = new DustRenderer();
 		this.aabbRenderer = new AABBRenderer();
 		this.guiRenderer = new GuiRenderer(GuiRenderer.GuiRenderType.GUI);
 		this.cursorRenderer = new GuiRenderer(GuiRenderer.GuiRenderType.CURSOR);
@@ -106,11 +109,12 @@ public class MainRenderer extends IRendererMaster {
 		/* Renders each renderer. */
 		if (Environment.renderStars()) {
 			starRenderer.render(clipPlane, camera);
+			dustRenderer.render(clipPlane, camera);
 			skyboxRenderer.getSkyboxFBO().setLoaded(false);
 		} else {
 			if (!skyboxRenderer.getSkyboxFBO().isLoaded()) {
 				starRenderer.render(clipPlane, camera);
-
+				dustRenderer.render(clipPlane, camera);
 				unbindRelevantFBO();
 				skyboxRenderer.getSkyboxFBO().bindFBO();
 
@@ -120,6 +124,7 @@ public class MainRenderer extends IRendererMaster {
 					OpenGlUtils.prepareNewRenderParse(clearColour);
 					Matrix4f.perspectiveMatrix(SkyboxFBO.CAMERA_FOV, 1.0f, SkyboxFBO.CAMERA_NEAR, SkyboxFBO.CAMERA_FAR, projectionMatrix);
 					starRenderer.render(clipPlane, camera);
+					dustRenderer.render(clipPlane, camera);
 				}
 
 				skyboxRenderer.getSkyboxFBO().unbindFBO();
@@ -163,8 +168,9 @@ public class MainRenderer extends IRendererMaster {
 	public void dispose() {
 		skyboxRenderer.dispose();
 		entityRenderer.dispose();
-		starRenderer.dispose();
 		particleRenderer.dispose();
+		starRenderer.dispose();
+		dustRenderer.dispose();
 		aabbRenderer.dispose();
 		cursorRenderer.dispose();
 		guiRenderer.dispose();

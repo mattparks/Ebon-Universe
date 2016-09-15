@@ -1,9 +1,9 @@
 package game.players;
 
 import flounder.engine.*;
-import flounder.helpers.*;
 import flounder.inputs.*;
 import flounder.maths.*;
+import flounder.maths.rays.*;
 import flounder.maths.vectors.*;
 import flounder.physics.*;
 import game.*;
@@ -32,7 +32,9 @@ public class PlayerFPS implements IPlayer {
 	private Vector3f position;
 	private Vector3f rotation;
 
-	private AABB playerAABB;
+	private AABB starViewAABB;
+	private Ray starViewRay;
+	private Star currentStar;
 
 	@Override
 	public void init() {
@@ -56,7 +58,8 @@ public class PlayerFPS implements IPlayer {
 		this.position = new Vector3f(0.0f, 0.0f, 0.0f);
 		this.rotation = new Vector3f(0, 0, 0);
 
-		this.playerAABB = new AABB();
+		this.starViewAABB = new AABB(new Vector3f(-50.0f, -50.0f, -50.0f), new Vector3f(50.0f, 50.0f, 50.0f));
+		this.starViewRay = new Ray(false, new Vector2f(0.5f, 0.5f));
 	}
 
 	@Override
@@ -70,8 +73,32 @@ public class PlayerFPS implements IPlayer {
 			Vector3f.rotate(velocity, rotation, velocity);
 			Vector3f.add(position, velocity, position);
 
-			AABB.recalculate(PLAYER_AABB, playerAABB, position, rotation, 1.0f);
-			List<Star> touchingStars = Environment.getStars().queryInAABB(new ArrayList<>(), playerAABB);
+			starViewRay.update(FlounderEngine.getCamera().getPosition());
+
+		//	for (int i = 0; i < 6; i++) {
+		//		FlounderEngine.getLogger().error(starViewRay.getPointAtDistance(i * 70));
+		//	}
+
+			for (Star star : Environment.getStars().queryInAABB(new ArrayList<>(), starViewAABB)) {
+				FlounderEngine.getAABBs().addAABBRender(star.getAABB());
+
+				if (star.getAABB().intersectsRay(starViewRay, 0.0f, 100.0f) != null) {
+					if (!star.equals(currentStar)) {
+						FlounderEngine.getLogger().log("Camera ray hit star: " + star);
+						currentStar = star;
+					}
+
+					if (!star.isChildrenLoaded()) {
+						star.loadChildren();
+					//	Star.printSystem(star);
+					}
+				}
+			}
+
+			FlounderEngine.getAABBs().addAABBRender(starViewAABB);
+
+			/*AABB.recalculate(PLAYER_AABB, starViewAABB, position, rotation, 1.0f);
+			List<Star> touchingStars = Environment.getStars().queryInAABB(new ArrayList<>(), starViewAABB);
 
 			if (!touchingStars.isEmpty()) {
 				if (touchingStars.size() > 0) {
@@ -88,7 +115,7 @@ public class PlayerFPS implements IPlayer {
 				}// else {
 				//	System.out.println(star);
 				//}
-			}
+			}*/
 		}
 	}
 

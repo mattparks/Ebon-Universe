@@ -3,19 +3,12 @@ package game.players;
 import flounder.engine.*;
 import flounder.inputs.*;
 import flounder.maths.*;
-import flounder.maths.rays.*;
 import flounder.maths.vectors.*;
-import flounder.physics.*;
-import game.*;
-import game.celestial.*;
 import game.options.*;
-
-import java.util.*;
 
 import static org.lwjgl.glfw.GLFW.*;
 
 public class PlayerFPS implements IPlayer {
-	private static final AABB PLAYER_AABB = new AABB(new Vector3f(-1, -1, -1), new Vector3f(1, 1, 1));
 	private static final float SPEED_BOOST_SCALE = 2.75f;
 	private static final float FRONT_SPEED = 60;
 	private static final float UP_SPEED = 40;
@@ -31,10 +24,6 @@ public class PlayerFPS implements IPlayer {
 
 	private Vector3f position;
 	private Vector3f rotation;
-
-	private AABB starViewAABB;
-	private Ray starViewRay;
-	private Star currentStar;
 
 	@Override
 	public void init() {
@@ -57,87 +46,18 @@ public class PlayerFPS implements IPlayer {
 
 		this.position = new Vector3f(0.0f, 0.0f, 0.0f);
 		this.rotation = new Vector3f(0, 0, 0);
-
-		this.starViewAABB = new AABB(new Vector3f(-50.0f, -50.0f, -50.0f), new Vector3f(50.0f, 50.0f, 50.0f));
-		this.starViewRay = new Ray(false, new Vector2f(0.0f, 0.0f));
 	}
-
-	private AABB aabb1 = new AABB();
-	private AABB aabb2 = new AABB();
-	private AABB aabb3 = new AABB();
 
 	@Override
 	public void update(boolean paused) {
 		if (!paused) {
 			float speedBoost = inputSpeedBoost.isDown() ? SPEED_BOOST_SCALE : 1.0f;
-			rotation.set(0.0f, FlounderEngine.getCamera().getYaw(), 0.0f);
+			rotation.set(0.0f, FlounderEngine.getCamera().getRotation().y, 0.0f);
 			velocity.x = speedBoost * SIDE_SPEED * FlounderEngine.getDelta() * Maths.deadband(0.05f, inputSide.getAmount());
 			velocity.y = speedBoost * UP_SPEED * FlounderEngine.getDelta() * Maths.deadband(0.05f, inputUp.getAmount());
 			velocity.z = speedBoost * FRONT_SPEED * FlounderEngine.getDelta() * -Maths.deadband(0.05f, inputForward.getAmount());
 			Vector3f.rotate(velocity, rotation, velocity);
 			Vector3f.add(position, velocity, position);
-
-			starViewRay.update(FlounderEngine.getCamera().getPosition());
-
-		//	for (int i = 0; i < 6; i++) {
-		//		FlounderEngine.getLogger().error(starViewRay.getPointAtDistance(i * 70));
-		//	}
-
-			aabb1.setMinExtents(starViewRay.getPointOnRay(10.0f, null).x - 0.5f, starViewRay.getPointOnRay(10.0f, null).y - 0.5f, starViewRay.getPointOnRay(10.0f, null).z - 0.5f);
-			aabb1.setMaxExtents(starViewRay.getPointOnRay(10.0f, null).x + 0.5f, starViewRay.getPointOnRay(10.0f, null).y + 0.5f, starViewRay.getPointOnRay(10.0f, null).z + 0.5f);
-			FlounderEngine.getAABBs().addAABBRender(aabb1);
-
-			aabb2.setMinExtents(starViewRay.getPointOnRay(20.0f, null).x - 0.5f, starViewRay.getPointOnRay(20.0f, null).y - 0.5f, starViewRay.getPointOnRay(20.0f, null).z - 0.5f);
-			aabb2.setMaxExtents(starViewRay.getPointOnRay(20.0f, null).x + 0.5f, starViewRay.getPointOnRay(20.0f, null).y + 0.5f, starViewRay.getPointOnRay(20.0f, null).z + 0.5f);
-			FlounderEngine.getAABBs().addAABBRender(aabb2);
-
-			aabb3.setMinExtents(starViewRay.getPointOnRay(30.0f, null).x - 0.5f, starViewRay.getPointOnRay(30.0f, null).y - 0.5f, starViewRay.getPointOnRay(30.0f, null).z - 0.5f);
-			aabb3.setMaxExtents(starViewRay.getPointOnRay(30.0f, null).x + 0.5f, starViewRay.getPointOnRay(30.0f, null).y + 0.5f, starViewRay.getPointOnRay(30.0f, null).z + 0.5f);
-			FlounderEngine.getAABBs().addAABBRender(aabb3);
-
-			//if (starViewAABB.intersectsRay(starViewRay)) {
-			//	FlounderEngine.getLogger().log("Star view and ray hit: " + starViewRay);
-			//}
-
-			for (Star star : Environment.getStars().queryInAABB(new ArrayList<>(), starViewAABB)) {
-				FlounderEngine.getAABBs().addAABBRender(star.getAABB());
-
-				if (star.getAABB().intersectsRay(starViewRay)) {
-					//FlounderEngine.getLogger().error(starViewRay);
-
-					if (!star.equals(currentStar)) {
-						FlounderEngine.getLogger().log("Camera ray hit star: " + star);
-						currentStar = star;
-					}
-
-					if (!star.isChildrenLoaded()) {
-						star.loadChildren();
-					//	Star.printSystem(star);
-					}
-				}
-			}
-
-			FlounderEngine.getAABBs().addAABBRender(starViewAABB);
-
-			/*AABB.recalculate(PLAYER_AABB, starViewAABB, position, rotation, 1.0f);
-			List<Star> touchingStars = Environment.getStars().queryInAABB(new ArrayList<>(), starViewAABB);
-
-			if (!touchingStars.isEmpty()) {
-				if (touchingStars.size() > 0) {
-					touchingStars = ArraySorting.quickSort(touchingStars);
-					Collections.reverse(touchingStars);
-				}
-
-				Star star = touchingStars.get(0);
-
-				if (!star.isChildrenLoaded()) {
-					star.loadChildren();
-					Star.printSystem(star);
-				//	((MainGame) FlounderEngine.getGame()).switchCamera();
-				}// else {
-				//	System.out.println(star);
-				//}
-			}*/
 		}
 	}
 

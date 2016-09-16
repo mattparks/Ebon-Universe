@@ -288,25 +288,13 @@ public class CameraFocus implements ICamera {
 	}
 
 	@Override
-	public float getPitch() {
-		return rotation.x;
+	public Vector3f getRotation() {
+		return rotation;
 	}
 
 	@Override
-	public float getYaw() {
-		return rotation.y;
-	}
-
-	@Override
-	public float getRoll() {
-		return rotation.z;
-	}
-
-	@Override
-	public void setRotation(float pitch, float yaw, float roll) {
-		this.rotation.x = pitch;
-		this.rotation.y = yaw;
-		this.rotation.z = roll;
+	public void setRotation(Vector3f rotation) {
+		this.rotation.set(rotation);
 	}
 
 	@Override

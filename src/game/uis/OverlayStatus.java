@@ -21,6 +21,8 @@ public class OverlayStatus extends GuiComponent {
 
 	private GuiTexture crossHair;
 
+	private GuiTexture starSelection;
+
 	public OverlayStatus() {
 		mainDriver = new ConstantDriver(-MainSlider.SLIDE_SCALAR);
 
@@ -30,6 +32,10 @@ public class OverlayStatus extends GuiComponent {
 		crossHair = new GuiTexture(Texture.newTexture(new MyFile(MyFile.RES_FOLDER, "crosshair.png")).clampEdges().create());
 		crossHair.getTexture().setNumberOfRows(4);
 		crossHair.setSelectedRow(MainGame.CONFIG.getIntWithDefault("crosshair", 1, () -> crossHair.getSelectedRow()));
+
+		starSelection = new GuiTexture(Texture.newTexture(new MyFile(MyFile.RES_FOLDER, "crosshair.png")).clampEdges().create());
+		starSelection.getTexture().setNumberOfRows(4);
+		starSelection.setSelectedRow(0);
 
 		Timer timer = new Timer();
 		timer.schedule(new TimerTask() {
@@ -73,6 +79,11 @@ public class OverlayStatus extends GuiComponent {
 		crossHair.update();
 		crossHair.setColourOffset(GuiTextButton.HOVER_COLOUR);
 
+		float selectionScale = 100.0f / Environment.starScreenPos.z;
+		starSelection.setPosition(Environment.starScreenPos.x - ((selectionScale * width) / 2.0f) + super.getPosition().x, Environment.starScreenPos.y - ((selectionScale * height) / 2.0f), (selectionScale * width), (selectionScale * height));
+		starSelection.update();
+		starSelection.setColourOffset(GuiTextButton.HOVER_COLOUR);
+
 		if (mainValue == -MainSlider.SLIDE_SCALAR) {
 			super.show(true);
 		} else {
@@ -85,5 +96,6 @@ public class OverlayStatus extends GuiComponent {
 	@Override
 	protected void getGuiTextures(List<GuiTexture> guiTextures) {
 		guiTextures.add(crossHair);
+		guiTextures.add(starSelection);
 	}
 }

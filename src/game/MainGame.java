@@ -83,6 +83,16 @@ public class MainGame extends IGame {
 
 	@Override
 	public void update() {
+		if (FlounderEngine.getManagerGUI().isMenuIsOpen()) {
+			// Pause the music for the start screen.
+			FlounderEngine.getDevices().getSound().getMusicPlayer().pauseTrack();
+		} else if (!FlounderEngine.getManagerGUI().isMenuIsOpen() && stillLoading) {
+			// Unpause the music for the main menu.
+			stillLoading = false;
+			//	FlounderEngine.getLogger().log("Starting main menu music.");
+			//	FlounderEngine.getDevices().getSound().getMusicPlayer().unpauseTrack();
+		}
+
 		if (screenshot.wasDown()) {
 			FlounderEngine.getDevices().getDisplay().screenshot();
 		}
@@ -110,16 +120,6 @@ public class MainGame extends IGame {
 
 		if (switchCamera.wasDown()) {
 			switchCamera();
-		}
-
-		if (FlounderEngine.getManagerGUI().isMenuIsOpen()) {
-			// Pause the music for the start screen.
-			FlounderEngine.getDevices().getSound().getMusicPlayer().pauseTrack();
-		} else if (!FlounderEngine.getManagerGUI().isMenuIsOpen() && stillLoading) {
-			// Unpause the music for the main menu.
-			stillLoading = false;
-			//	FlounderEngine.getLogger().log("Starting main menu music.");
-			//	FlounderEngine.getDevices().getSound().getMusicPlayer().unpauseTrack();
 		}
 
 		if (player != null) {

@@ -24,7 +24,7 @@ public class Dust implements Comparable<Dust>, ISpatialObject {
 		dustAABB.getMinExtents().set(this.position.getX() - size, this.position.getY() - size, this.position.getZ() - size);
 		dustAABB.getMaxExtents().set(this.position.getX() + size, this.position.getY() + size, this.position.getZ() + size);
 
-	//	FlounderEngine.getLogger().error(getStarDensity());
+		//	FlounderEngine.getLogger().error(getStarDensity());
 	}
 
 	public float getStarDensity() {

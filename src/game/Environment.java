@@ -4,8 +4,9 @@ import flounder.engine.*;
 import flounder.helpers.*;
 import flounder.lights.*;
 import flounder.maths.*;
+import flounder.maths.rays.*;
 import flounder.maths.vectors.*;
-import flounder.particles.loading.*;
+import flounder.physics.*;
 import flounder.space.*;
 import game.celestial.*;
 import game.celestial.dust.*;
@@ -28,6 +29,13 @@ public class Environment {
 	public static final double GALAXY_RADIUS = 1792.0;
 
 	private static boolean RENDER_STARS = true;
+
+	private static final AABB VIEW_AABB = new AABB(new Vector3f(-75.0f, -75.0f, -75.0f), new Vector3f(75.0f, 75.0f, 75.0f));
+	private static AABB starViewAABB = new AABB();
+	private static Ray starViewRay = new Ray(false, new Vector2f(0.0f, 0.0f));
+	private static Star starSelected = null;
+	public static Vector3f starScreenPos = new Vector3f();
+
 
 	/**
 	 * Initializes the start game environment.
@@ -60,7 +68,7 @@ public class Environment {
 
 		for (int i = 0; i < galaxyStars.size(); i++) {
 			if (starCount >= 25) {
-				dustQuadtree.add(new Dust(Vector3f.subtract(maxPosition,minPosition, maxPosition).length(), Vector3f.divide(Vector3f.subtract(minPosition, maxPosition, maxPosition), VECTOR_2_2_2, null), starCount));
+				dustQuadtree.add(new Dust(Vector3f.subtract(maxPosition, minPosition, maxPosition).length(), Vector3f.divide(Vector3f.subtract(minPosition, maxPosition, maxPosition), VECTOR_2_2_2, null), starCount));
 				minPosition.set(0.0f, 0.0f, 0.0f);
 				maxPosition.set(0.0f, 0.0f, 0.0f);
 				starCount = 0;
@@ -137,6 +145,33 @@ public class Environment {
 		//		star.update();
 		//	}
 		//}
+
+		if (starsQuadtree != null) {
+			AABB.recalculate(VIEW_AABB, starViewAABB, FlounderEngine.getCamera().getPosition(), FlounderEngine.getCamera().getRotation(), 1.0f);
+			starViewRay.update(FlounderEngine.getCamera().getPosition());
+
+			for (Star star : Environment.getStars().queryInAABB(new ArrayList<>(), starViewAABB)) {
+				FlounderEngine.getAABBs().addAABBRender(star.getAABB());
+
+				if (star.getAABB().intersectsRay(starViewRay)) {
+					if (!star.equals(starSelected)) {
+						FlounderEngine.getLogger().log("Camera ray hit star: " + star);
+						starSelected = star;
+					}
+
+					if (!star.isChildrenLoaded()) {
+						star.loadChildren();
+						//	Star.printSystem(star);
+					}
+				}
+			}
+
+			if (starSelected != null) {
+				starViewRay.convertToScreenSpace(starSelected.getPosition(), starScreenPos);
+			}
+
+			FlounderEngine.getAABBs().addAABBRender(starViewAABB);
+		}
 	}
 
 	public static Fog getFog() {

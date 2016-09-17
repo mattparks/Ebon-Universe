@@ -74,7 +74,7 @@ public class StarRenderer extends IRenderer {
 		pointer = 0;
 
 		for (Star star : stars) {
-			//	FlounderEngine.getAABBs().addAABBRender(star.getAABB());
+			//	FlounderEngine.getShapes().addAABBRender(star.getShape());
 			prepareInstance(star, camera, vboData);
 		}
 

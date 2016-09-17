@@ -252,7 +252,7 @@ public class Entity implements ISpatialObject {
 	}
 
 	@Override
-	public AABB getAABB() {
+	public AABB getShape() {
 		ComponentCollider ac = (ComponentCollider) getComponent(ComponentCollider.ID);
 
 		if (ac != null) {

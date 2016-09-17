@@ -4,7 +4,6 @@ import flounder.engine.*;
 import flounder.helpers.*;
 import flounder.lights.*;
 import flounder.maths.*;
-import flounder.maths.rays.*;
 import flounder.maths.vectors.*;
 import flounder.physics.*;
 import flounder.space.*;
@@ -19,9 +18,9 @@ import static org.lwjgl.glfw.GLFW.*;
 public class Environment {
 	private static Fog fog;
 	private static List<Light> lights;
-	private static StructureBasic<Entity> entityQuadtree;
-	private static StructureOctree<Star> starsQuadtree;
-	private static StructureOctree<Dust> dustQuadtree;
+	private static ISpatialStructure<Entity> entityQuadtree;
+	private static ISpatialStructure<Star> starsQuadtree;
+	private static ISpatialStructure<Dust> dustQuadtree;
 
 	private static final Vector3f VECTOR_2_2_2 = new Vector3f(2.0f, 2.0f, 2.0f);
 
@@ -30,12 +29,10 @@ public class Environment {
 
 	private static boolean RENDER_STARS = true;
 
-	private static final AABB VIEW_AABB = new AABB(new Vector3f(-75.0f, -75.0f, -75.0f), new Vector3f(75.0f, 75.0f, 75.0f));
-	private static AABB starViewAABB = new AABB();
-	private static Ray starViewRay = new Ray(false, new Vector2f(0.0f, 0.0f));
-	private static Star starSelected = null;
-	public static Vector3f starScreenPos = new Vector3f();
-
+	public static final Sphere STAR_VIEW = new Sphere(100.0f);
+	public static final Ray STAR_VIEW_RAY = new Ray(false, new Vector2f(0.0f, 0.0f));
+	public static final Vector3f STAR_SCREEN_POS = new Vector3f();
+	public static Star STAR_SELECTED = null;
 
 	/**
 	 * Initializes the start game environment.
@@ -48,8 +45,8 @@ public class Environment {
 		Environment.lights = new ArrayList<>();
 		Environment.lights.add(sun);
 		Environment.entityQuadtree = new StructureBasic<>();
-		Environment.starsQuadtree = new StructureOctree<>(1024);
-		Environment.dustQuadtree = new StructureOctree<>(512);
+		Environment.starsQuadtree = new StructureBasic<>();
+		Environment.dustQuadtree = new StructureBasic<>();
 	}
 
 	public static void generateGalaxy() {
@@ -147,30 +144,45 @@ public class Environment {
 		//}
 
 		if (starsQuadtree != null) {
-			AABB.recalculate(VIEW_AABB, starViewAABB, FlounderEngine.getCamera().getPosition(), FlounderEngine.getCamera().getRotation(), 1.0f);
-			starViewRay.update(FlounderEngine.getCamera().getPosition());
+			Sphere.recalculate(STAR_VIEW, FlounderEngine.getCamera().getPosition(), 1.0f, STAR_VIEW);
+			STAR_VIEW_RAY.update(FlounderEngine.getCamera().getPosition());
+			List<Star> selectedStars = null;
 
-			for (Star star : Environment.getStars().queryInAABB(new ArrayList<>(), starViewAABB)) {
-				FlounderEngine.getAABBs().addAABBRender(star.getAABB());
+			for (Star star : Environment.getStars().getAll(new ArrayList<>())) {
+				if (STAR_VIEW.intersects(star.getShape()).isIntersection()) {
+					FlounderEngine.getShapes().addShapeRender(star.getShape());
 
-				if (star.getAABB().intersectsRay(starViewRay)) {
-					if (!star.equals(starSelected)) {
-						FlounderEngine.getLogger().log("Camera ray hit star: " + star);
-						starSelected = star;
+					if (star.getShape().intersectsRay(STAR_VIEW_RAY)) {
+						if (selectedStars == null) {
+							selectedStars = new ArrayList<>();
+						}
+
+						selectedStars.add(star);
+					}
+				}
+			}
+
+			if (selectedStars != null) {
+				ArraySorting.heapSort(selectedStars);
+
+				if (!selectedStars.isEmpty()) {
+					if (!selectedStars.get(0).equals(STAR_SELECTED)) {
+						FlounderEngine.getLogger().log("Camera ray hit star: " + selectedStars.get(0));
+						STAR_SELECTED = selectedStars.get(0);
 					}
 
-					if (!star.isChildrenLoaded()) {
-						star.loadChildren();
+					if (!selectedStars.get(0).isChildrenLoaded()) {
+						selectedStars.get(0).loadChildren();
 						//	Star.printSystem(star);
 					}
 				}
 			}
 
-			if (starSelected != null) {
-				starViewRay.convertToScreenSpace(starSelected.getPosition(), starScreenPos);
+			if (STAR_SELECTED != null) {
+				STAR_VIEW_RAY.convertToScreenSpace(STAR_SELECTED.getPosition(), STAR_SCREEN_POS);
 			}
 
-			FlounderEngine.getAABBs().addAABBRender(starViewAABB);
+			FlounderEngine.getShapes().addShapeRender(STAR_VIEW);
 		}
 	}
 

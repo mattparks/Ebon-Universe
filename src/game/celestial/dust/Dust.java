@@ -35,7 +35,7 @@ public class Dust implements Comparable<Dust>, ISpatialObject {
 	}
 
 	@Override
-	public AABB getAABB() {
+	public AABB getShape() {
 		return dustAABB;
 	}
 

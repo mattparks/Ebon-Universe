@@ -79,8 +79,8 @@ public class OverlayStatus extends GuiComponent {
 		crossHair.update();
 		crossHair.setColourOffset(GuiTextButton.HOVER_COLOUR);
 
-		float selectionScale = 100.0f / Environment.starScreenPos.z;
-		starSelection.setPosition(Environment.starScreenPos.x - ((selectionScale * width) / 2.0f) + super.getPosition().x, Environment.starScreenPos.y - ((selectionScale * height) / 2.0f), (selectionScale * width), (selectionScale * height));
+		float selectionScale = Maths.clamp(Environment.STAR_SCREEN_POS.z / (float) Math.log(10.0), 0.1f, 1.1f);// Math.min(1.0f, Environment.STAR_SCREEN_POS.z);
+		starSelection.setPosition(Environment.STAR_SCREEN_POS.x - ((selectionScale * width) / 2.0f) + super.getPosition().x, Environment.STAR_SCREEN_POS.y - ((selectionScale * height) / 2.0f), (selectionScale * width), (selectionScale * height));
 		starSelection.update();
 		starSelection.setColourOffset(GuiTextButton.HOVER_COLOUR);
 

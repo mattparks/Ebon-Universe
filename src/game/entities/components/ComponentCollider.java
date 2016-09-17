@@ -72,13 +72,13 @@ public class ComponentCollider extends IEntityComponent {
 			ComponentModel modelComponent = (ComponentModel) getEntity().getComponent(ComponentModel.ID);
 
 			if (modelComponent != null && modelComponent.getModel() != null) {
-				AABB.recalculate(modelComponent.getModel().getAABB(), aabb, super.getEntity().getPosition(), super.getEntity().getRotation(), modelComponent.getScale());
+				AABB.recalculate(modelComponent.getModel().getAABB(), super.getEntity().getPosition(), super.getEntity().getRotation(), modelComponent.getScale(), aabb);
 				QuickHull.recalculate(modelComponent.getModel().getHull(), hull, super.getEntity().getPosition(), super.getEntity().getRotation(), modelComponent.getScale());
 			}
 		}
 
 		if (renderAABB) {
-			FlounderEngine.getAABBs().addAABBRender(aabb);
+			FlounderEngine.getShapes().addShapeRender(aabb);
 		}
 	}
 

@@ -30,7 +30,7 @@ public class MainRenderer extends IRendererMaster {
 	private ParticleRenderer particleRenderer;
 	private StarRenderer starRenderer;
 	private DustRenderer dustRenderer;
-	private AABBRenderer aabbRenderer;
+	private ShapesRenderer shapesRenderer;
 	private GuiRenderer guiRenderer;
 	private GuiRenderer cursorRenderer;
 	private FontRenderer fontRenderer;
@@ -50,7 +50,7 @@ public class MainRenderer extends IRendererMaster {
 		this.particleRenderer = new ParticleRenderer();
 		this.starRenderer = new StarRenderer();
 		this.dustRenderer = new DustRenderer();
-		this.aabbRenderer = new AABBRenderer();
+		this.shapesRenderer = new ShapesRenderer();
 		this.guiRenderer = new GuiRenderer(GuiRenderer.GuiRenderType.GUI);
 		this.cursorRenderer = new GuiRenderer(GuiRenderer.GuiRenderType.CURSOR);
 		this.fontRenderer = new FontRenderer();
@@ -137,7 +137,7 @@ public class MainRenderer extends IRendererMaster {
 
 		entityRenderer.render(clipPlane, camera);
 		particleRenderer.render(clipPlane, camera);
-		aabbRenderer.render(clipPlane, camera);
+		shapesRenderer.render(clipPlane, camera);
 	}
 
 	private void renderPost(boolean isPaused, float blurFactor) {
@@ -171,7 +171,7 @@ public class MainRenderer extends IRendererMaster {
 		particleRenderer.dispose();
 		starRenderer.dispose();
 		dustRenderer.dispose();
-		aabbRenderer.dispose();
+		shapesRenderer.dispose();
 		cursorRenderer.dispose();
 		guiRenderer.dispose();
 		fontRenderer.dispose();

@@ -46,7 +46,7 @@ public class Star implements Comparable<Star>, ISpatialObject {
 	private double habitableMin; // The habitable min distance in AU for carbon based life.
 	private double habitableMax; // The habitable max distance in AU for carbon based life.
 
-	private AABB starAABB;
+	private Sphere starAABB;
 	private boolean childrenLoaded;
 
 	/**
@@ -82,10 +82,11 @@ public class Star implements Comparable<Star>, ISpatialObject {
 		this.habitableMin = Math.sqrt(solarLuminosity / 1.11);
 		this.habitableMax = Math.sqrt(solarLuminosity / 0.53);
 
-		this.starAABB = new AABB();
-		float size = (float) (0.5f * this.solarRadius);
-		starAABB.getMinExtents().set(this.position.getX() - size, this.position.getY() - size, this.position.getZ() - size);
-		starAABB.getMaxExtents().set(this.position.getX() + size, this.position.getY() + size, this.position.getZ() + size);
+		//this.starAABB = new AABB();
+		//float size = (float) (0.5f * this.solarRadius);
+		//starAABB.getMinExtents().set(this.position.getX() - size, this.position.getY() - size, this.position.getZ() - size);
+		//starAABB.getMaxExtents().set(this.position.getX() + size, this.position.getY() + size, this.position.getZ() + size);
+		this.starAABB = new Sphere((float) this.solarRadius, this.position);
 
 		this.childrenLoaded = false;
 	}
@@ -342,7 +343,7 @@ public class Star implements Comparable<Star>, ISpatialObject {
 	}
 
 	@Override
-	public AABB getAABB() {
+	public Sphere getShape() {
 		return starAABB;
 	}
 

@@ -69,17 +69,17 @@ public class ScreenOptionsDeveloper extends GuiComponent {
 	}
 
 	private void createAABBToggleOption(TextAlign textAlign, float yPos) {
-		GuiTextButton button = MainSlider.createButton("AABBs: " + (FlounderEngine.getAABBs().renders() ? "Enabled" : "Disabled"), textAlign, yPos, this);
+		GuiTextButton button = MainSlider.createButton("AABBs: " + (FlounderEngine.getShapes().renders() ? "Enabled" : "Disabled"), textAlign, yPos, this);
 		button.addLeftListener(() -> {
-			FlounderEngine.getAABBs().setRenders(!FlounderEngine.getAABBs().renders());
+			FlounderEngine.getShapes().setRenders(!FlounderEngine.getShapes().renders());
 		});
 
 		FlounderEngine.getEvents().addEvent(new IEvent() {
-			private boolean renders = FlounderEngine.getAABBs().renders();
+			private boolean renders = FlounderEngine.getShapes().renders();
 
 			@Override
 			public boolean eventTriggered() {
-				boolean newRenders = FlounderEngine.getAABBs().renders();
+				boolean newRenders = FlounderEngine.getShapes().renders();
 				boolean occurred = newRenders != renders;
 				renders = newRenders;
 				return occurred;
@@ -87,7 +87,7 @@ public class ScreenOptionsDeveloper extends GuiComponent {
 
 			@Override
 			public void onEvent() {
-				button.getText().setText("AABBs: " + (FlounderEngine.getAABBs().renders() ? "Enabled" : "Disabled"));
+				button.getText().setText("AABBs: " + (FlounderEngine.getShapes().renders() ? "Enabled" : "Disabled"));
 			}
 		});
 	}

@@ -159,4 +159,3 @@ public class MainGame extends IGame {
 		CONFIG.dispose();
 	}
 }
-

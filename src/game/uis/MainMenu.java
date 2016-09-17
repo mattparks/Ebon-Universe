@@ -21,12 +21,15 @@ public class MainMenu extends GuiComponent {
 
 		slideDriver = new ConstantDriver(0.0f);
 		backgroundAlpha = 0.0f;
-		displayed = true;
+		displayed = false;
 
 		addComponent(mainSlider, 0.0f, 0.0f, 1.0f, 1.0f);
 	}
 
 	public void display(boolean display) {
+		if (displayed == display) {
+			return;
+		}
 		mainSlider.show(display);
 		displayed = display;
 

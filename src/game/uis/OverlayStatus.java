@@ -17,6 +17,7 @@ public class OverlayStatus extends GuiComponent {
 
 	private Text fpsText;
 	private Text positionText;
+	private Text velocityText;
 	private boolean updateText;
 
 	private GuiTexture crossHair;
@@ -28,14 +29,16 @@ public class OverlayStatus extends GuiComponent {
 
 		fpsText = createStatus("FPS: 0", 0.02f);
 		positionText = createStatus("POSITION: [0, 0, 0]", 0.05f);
+		velocityText = createStatus("VELOCITY: 0 km/s", 0.09f);
 
-		crossHair = new GuiTexture(Texture.newTexture(new MyFile(MyFile.RES_FOLDER, "crosshair.png")).clampEdges().create());
+		crossHair = new GuiTexture(Texture.newTexture(new MyFile(MyFile.RES_FOLDER, "crosshair.png")).create());
 		crossHair.getTexture().setNumberOfRows(4);
 		crossHair.setSelectedRow(MainGame.CONFIG.getIntWithDefault("crosshair", 1, () -> crossHair.getSelectedRow()));
 
-		starSelection = new GuiTexture(Texture.newTexture(new MyFile(MyFile.RES_FOLDER, "crosshair.png")).clampEdges().create());
+		starSelection = new GuiTexture(Texture.newTexture(new MyFile(MyFile.RES_FOLDER, "crosshair.png")).create());
 		starSelection.getTexture().setNumberOfRows(4);
-		starSelection.setSelectedRow(0);
+		starSelection.setSelectedRow(11);
+		starSelection.setColourOffset(new Colour(0.0f, 0.0f, 1.0f));
 
 		Timer timer = new Timer();
 		timer.schedule(new TimerTask() {
@@ -69,6 +72,7 @@ public class OverlayStatus extends GuiComponent {
 		if (updateText) {
 			fpsText.setText("FPS: " + Maths.roundToPlace(1.0f / FlounderEngine.getDelta(), 1));
 			positionText.setText("POSITION: [" + Maths.roundToPlace(FlounderEngine.getCamera().getPosition().x, 1) + ", " + Maths.roundToPlace(FlounderEngine.getCamera().getPosition().y, 1) + ", " + Maths.roundToPlace(FlounderEngine.getCamera().getPosition().z, 1) + "]");
+			velocityText.setText("VELOCITY: " + Environment.PLAYER_VELOCITY);
 			updateText = false;
 		}
 
@@ -79,10 +83,11 @@ public class OverlayStatus extends GuiComponent {
 		crossHair.update();
 		crossHair.setColourOffset(GuiTextButton.HOVER_COLOUR);
 
-		float selectionScale = Maths.clamp(Environment.STAR_SCREEN_POS.z / (float) Math.log(10.0), 0.1f, 1.1f);// Math.min(1.0f, Environment.STAR_SCREEN_POS.z);
-		starSelection.setPosition(Environment.STAR_SCREEN_POS.x - ((selectionScale * width) / 2.0f) + super.getPosition().x, Environment.STAR_SCREEN_POS.y - ((selectionScale * height) / 2.0f), (selectionScale * width), (selectionScale * height));
+		float selectionScale = 1.0f;
+		float selectionX = Maths.clamp(Environment.STAR_SCREEN_POS.x, 0.0f, 1.0f);
+		float selectionY = Maths.clamp(Environment.STAR_SCREEN_POS.y, 0.0f, 1.0f);
+		starSelection.setPosition(selectionX - ((selectionScale * width) / 2.0f) + super.getPosition().x, selectionY - ((selectionScale * height) / 2.0f), (selectionScale * width), (selectionScale * height));
 		starSelection.update();
-		starSelection.setColourOffset(GuiTextButton.HOVER_COLOUR);
 
 		if (mainValue == -MainSlider.SLIDE_SCALAR) {
 			super.show(true);
@@ -95,7 +100,7 @@ public class OverlayStatus extends GuiComponent {
 
 	@Override
 	protected void getGuiTextures(List<GuiTexture> guiTextures) {
-		guiTextures.add(crossHair);
 		guiTextures.add(starSelection);
+		guiTextures.add(crossHair);
 	}
 }

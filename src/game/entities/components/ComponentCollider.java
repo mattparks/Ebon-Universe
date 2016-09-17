@@ -78,7 +78,7 @@ public class ComponentCollider extends IEntityComponent {
 		}
 
 		if (renderAABB) {
-			FlounderEngine.getShapes().addShapeRender(aabb);
+			FlounderEngine.getBounding().addShapeRender(aabb);
 		}
 	}
 

@@ -3,6 +3,7 @@ package game.celestial.stars;
 import flounder.engine.*;
 import flounder.engine.implementation.*;
 import flounder.helpers.*;
+import flounder.maths.*;
 import flounder.maths.matrices.*;
 import flounder.maths.vectors.*;
 import flounder.resources.*;
@@ -61,20 +62,13 @@ public class StarRenderer extends IRenderer {
 
 		prepareRendering(clipPlane, camera);
 
-		List<Star> stars = Environment.getStars().queryInFrustum(new ArrayList<>(), camera.getViewFrustum());
-
-		// FIXME: To many stars in rendered area slows way down.
-		// Added to stars first -> last, so no initial reverse needed.
-		// ArraySorting.heapSort(stars); // Sorts the list big to small.
-		// stars = ArraySorting.quickSort(stars);
-		//Collections.reverse(stars); // Reverse as the sorted list should be close(small) -> far(big).
-
 		// Creates the data to be used when rendering.
+		List<Star> stars = Environment.getStars().queryInFrustum(new ArrayList<>(), camera.getViewFrustum());
+		stars.remove(Environment.IN_SYSTEM_STAR);
 		float[] vboData = new float[Math.min(stars.size(), MAX_INSTANCES) * INSTANCE_DATA_LENGTH];
 		pointer = 0;
 
 		for (Star star : stars) {
-			//	FlounderEngine.getShapes().addAABBRender(star.getShape());
 			prepareInstance(star, camera, vboData);
 		}
 
@@ -114,6 +108,14 @@ public class StarRenderer extends IRenderer {
 			return;
 		}
 
+		REUSABLE_SCALE.set((float) star.getSolarRadius(), (float) star.getSolarRadius(), (float) star.getSolarRadius());
+
+		float starCameraDistance = Vector3f.getDistance(camera.getPosition(), star.getPosition()) * (float)(1.0f / star.getSolarRadius());
+
+		if (starCameraDistance > 1000.0f) { // !Environment.renderStars() &&
+			REUSABLE_SCALE.scale(Math.min(starCameraDistance / 1000.0f, 3.0f));
+		}
+
 		Matrix4f viewMatrix = camera.getViewMatrix();
 		Matrix4f modelMatrix = new Matrix4f();
 		Matrix4f.translate(modelMatrix, star.getPosition(), modelMatrix);
@@ -126,7 +128,7 @@ public class StarRenderer extends IRenderer {
 		modelMatrix.m20 = viewMatrix.m02;
 		modelMatrix.m21 = viewMatrix.m12;
 		modelMatrix.m22 = viewMatrix.m22;
-		Matrix4f.scale(modelMatrix, REUSABLE_SCALE.set((float) star.getSolarRadius(), (float) star.getSolarRadius(), (float) star.getSolarRadius()), modelMatrix);
+		Matrix4f.scale(modelMatrix, REUSABLE_SCALE, modelMatrix);
 
 		vboData[pointer++] = modelMatrix.m00;
 		vboData[pointer++] = modelMatrix.m01;

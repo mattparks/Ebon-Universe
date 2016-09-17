@@ -10,9 +10,11 @@ import flounder.space.*;
 import game.celestial.*;
 import game.celestial.dust.*;
 import game.entities.*;
+import org.lwjgl.glfw.*;
 
 import java.util.*;
 
+import static java.awt.SystemColor.window;
 import static org.lwjgl.glfw.GLFW.*;
 
 public class Environment {
@@ -25,14 +27,18 @@ public class Environment {
 	private static final Vector3f VECTOR_2_2_2 = new Vector3f(2.0f, 2.0f, 2.0f);
 
 	public static final int GALAXY_STARS = 25600;
-	public static final double GALAXY_RADIUS = 1792.0;
+	public static final double GALAXY_RADIUS = GALAXY_STARS / 10.0;
 
-	private static boolean RENDER_STARS = true;
-
-	public static final Sphere STAR_VIEW = new Sphere(100.0f);
-	public static final Ray STAR_VIEW_RAY = new Ray(false, new Vector2f(0.0f, 0.0f));
+	private static final Sphere STAR_VIEW = new Sphere((float) (GALAXY_STARS / 100.0));
+	private static final Ray STAR_VIEW_RAY = new Ray(false, new Vector2f(0.0f, 0.0f));
+	private static Star STAR_WAYPOINT = null;
 	public static final Vector3f STAR_SCREEN_POS = new Vector3f();
-	public static Star STAR_SELECTED = null;
+
+	public static Star IN_SYSTEM_STAR = null;
+	public static Celestial IN_SYSTEM_CELESTIAL = null;
+
+	private static Vector3f LAST_POSIITON = new Vector3f();
+	public static String PLAYER_VELOCITY = "0 km/s";
 
 	/**
 	 * Initializes the start game environment.
@@ -61,13 +67,15 @@ public class Environment {
 		galaxyStars = ArraySorting.quickSort(galaxyStars);
 		Vector3f minPosition = new Vector3f();
 		Vector3f maxPosition = new Vector3f();
+		Colour currentColour = new Colour();
 		int starCount = 0;
 
 		for (int i = 0; i < galaxyStars.size(); i++) {
 			if (starCount >= 25) {
-				dustQuadtree.add(new Dust(Vector3f.subtract(maxPosition, minPosition, maxPosition).length(), Vector3f.divide(Vector3f.subtract(minPosition, maxPosition, maxPosition), VECTOR_2_2_2, null), starCount));
+				dustQuadtree.add(new Dust(Vector3f.subtract(maxPosition, minPosition, maxPosition).length(), Vector3f.divide(Vector3f.subtract(minPosition, maxPosition, maxPosition), VECTOR_2_2_2, null), starCount, Colour.divide(currentColour, new Colour(starCount, starCount, starCount), null)));
 				minPosition.set(0.0f, 0.0f, 0.0f);
 				maxPosition.set(0.0f, 0.0f, 0.0f);
+				currentColour.set(0.0f, 0.0f, 0.0f);
 				starCount = 0;
 			}
 
@@ -78,6 +86,8 @@ public class Environment {
 			if (galaxyStars.get(i).getPosition().lengthSquared() > maxPosition.lengthSquared()) {
 				maxPosition.set(galaxyStars.get(i).getPosition());
 			}
+
+			Colour.add(currentColour, galaxyStars.get(i).getSurfaceColour(), currentColour);
 
 			starCount++;
 		}
@@ -131,28 +141,25 @@ public class Environment {
 			}
 		}
 
-		if (FlounderEngine.getDevices().getKeyboard().getKey(GLFW_KEY_L)) {
-			RENDER_STARS = false;
-		} else {
-			RENDER_STARS = true;
-		}
+		Vector3f currentPosition = FlounderEngine.getCamera().getPosition();
+		float distanceLastCurrent = Vector3f.getDistance(currentPosition, LAST_POSIITON);
 
-		//if (starsQuadtree != null) {
-		//	for (Star star : starsQuadtree.getAll(new ArrayList<>())) {
-		//		star.update();
-		//	}
-		//}
+		IN_SYSTEM_STAR = null;
+		IN_SYSTEM_CELESTIAL = null;
 
 		if (starsQuadtree != null) {
 			Sphere.recalculate(STAR_VIEW, FlounderEngine.getCamera().getPosition(), 1.0f, STAR_VIEW);
 			STAR_VIEW_RAY.update(FlounderEngine.getCamera().getPosition());
 			List<Star> selectedStars = null;
 
-			for (Star star : Environment.getStars().getAll(new ArrayList<>())) {
-				if (STAR_VIEW.intersects(star.getShape()).isIntersection()) {
-					FlounderEngine.getShapes().addShapeRender(star.getShape());
+			for (Star star : Environment.getStars().queryInBounding(new ArrayList<>(), STAR_VIEW)) {
+				if (star.getBounding().contains(currentPosition)) {
+					IN_SYSTEM_STAR = star;
+					FlounderEngine.getBounding().addShapeRender(star.getBounding());
+				}
 
-					if (star.getShape().intersectsRay(STAR_VIEW_RAY)) {
+				if (FlounderEngine.getDevices().getMouse().getMouse(GLFW_MOUSE_BUTTON_1)) {
+					if (star.getBounding().intersectsRay(STAR_VIEW_RAY)) {
 						if (selectedStars == null) {
 							selectedStars = new ArrayList<>();
 						}
@@ -162,13 +169,25 @@ public class Environment {
 				}
 			}
 
+			if (IN_SYSTEM_STAR == null) {
+			//	FlounderEngine.getBounding().addShapeRender(STAR_VIEW);
+
+				for (Star star : Environment.getStars().queryInBounding(new ArrayList<>(), STAR_VIEW)) {
+					FlounderEngine.getBounding().addShapeRender(star.getBounding());
+				}
+			}
+
 			if (selectedStars != null) {
+				if (selectedStars.size() > 1 && IN_SYSTEM_STAR != null) {
+					selectedStars.remove(IN_SYSTEM_STAR);
+				}
+
 				ArraySorting.heapSort(selectedStars);
 
 				if (!selectedStars.isEmpty()) {
-					if (!selectedStars.get(0).equals(STAR_SELECTED)) {
+					if (!selectedStars.get(0).equals(STAR_WAYPOINT)) {
 						FlounderEngine.getLogger().log("Camera ray hit star: " + selectedStars.get(0));
-						STAR_SELECTED = selectedStars.get(0);
+						STAR_WAYPOINT = selectedStars.get(0);
 					}
 
 					if (!selectedStars.get(0).isChildrenLoaded()) {
@@ -178,11 +197,29 @@ public class Environment {
 				}
 			}
 
-			if (STAR_SELECTED != null) {
-				STAR_VIEW_RAY.convertToScreenSpace(STAR_SELECTED.getPosition(), STAR_SCREEN_POS);
+			if (STAR_WAYPOINT != null) {
+				STAR_VIEW_RAY.convertToScreenSpace(STAR_WAYPOINT.getPosition(), STAR_SCREEN_POS);
+			} else {
+				STAR_SCREEN_POS.set(-0.5f, -0.5f, 0.0f);
 			}
 
-			FlounderEngine.getShapes().addShapeRender(STAR_VIEW);
+			if (IN_SYSTEM_STAR != null) {
+				IN_SYSTEM_STAR.update();
+			}
+
+			if (IN_SYSTEM_CELESTIAL != null) {
+				if (distanceLastCurrent >= 10000) {
+					PLAYER_VELOCITY = distanceLastCurrent + " MM-km/s";
+				} else {
+					PLAYER_VELOCITY = distanceLastCurrent + " km/s";
+				}
+			} else if (IN_SYSTEM_STAR != null) {
+				PLAYER_VELOCITY = distanceLastCurrent + " au/s";
+			} else {
+				PLAYER_VELOCITY = distanceLastCurrent + " ly/s";
+			}
+
+			LAST_POSIITON.set(currentPosition);
 		}
 	}
 
@@ -207,7 +244,7 @@ public class Environment {
 	}
 
 	public static boolean renderStars() {
-		return RENDER_STARS;
+		return IN_SYSTEM_STAR == null;
 	}
 
 	public static void destroy() {

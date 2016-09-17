@@ -78,6 +78,8 @@ public class MainSlider extends GuiComponent {
 
 	@Override
 	public void show(boolean visible) {
+		FlounderEngine.getDevices().getMouse().setCursorHidden(!visible);
+
 		displayed = visible;
 		mainDriver = new SlideDriver(getRelativeX(), visible ? 0.0f : SLIDE_SCALAR, MainMenu.SLIDE_TIME);
 	}

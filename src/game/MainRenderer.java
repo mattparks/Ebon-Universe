@@ -29,8 +29,9 @@ public class MainRenderer extends IRendererMaster {
 	private EntityRenderer entityRenderer;
 	private ParticleRenderer particleRenderer;
 	private StarRenderer starRenderer;
+	private SunRenderer sunRenderer;
 	private DustRenderer dustRenderer;
-	private ShapesRenderer shapesRenderer;
+	private BoundingRenderer boundingRenderer;
 	private GuiRenderer guiRenderer;
 	private GuiRenderer cursorRenderer;
 	private FontRenderer fontRenderer;
@@ -49,8 +50,9 @@ public class MainRenderer extends IRendererMaster {
 		this.entityRenderer = new EntityRenderer();
 		this.particleRenderer = new ParticleRenderer();
 		this.starRenderer = new StarRenderer();
+		this.sunRenderer = new SunRenderer();
 		this.dustRenderer = new DustRenderer();
-		this.shapesRenderer = new ShapesRenderer();
+		this.boundingRenderer = new BoundingRenderer();
 		this.guiRenderer = new GuiRenderer(GuiRenderer.GuiRenderType.GUI);
 		this.cursorRenderer = new GuiRenderer(GuiRenderer.GuiRenderType.CURSOR);
 		this.fontRenderer = new FontRenderer();
@@ -113,6 +115,10 @@ public class MainRenderer extends IRendererMaster {
 			skyboxRenderer.getSkyboxFBO().setLoaded(false);
 		} else {
 			if (!skyboxRenderer.getSkyboxFBO().isLoaded()) {
+				if (Environment.IN_SYSTEM_STAR != null) {
+					camera.getPosition().set(Environment.IN_SYSTEM_STAR.getPosition());
+				}
+
 				starRenderer.render(clipPlane, camera);
 				dustRenderer.render(clipPlane, camera);
 				unbindRelevantFBO();
@@ -132,12 +138,13 @@ public class MainRenderer extends IRendererMaster {
 				bindRelevantFBO();
 			} else {
 				skyboxRenderer.render(clipPlane, camera);
+				sunRenderer.render(clipPlane, camera);
 			}
 		}
 
 		entityRenderer.render(clipPlane, camera);
 		particleRenderer.render(clipPlane, camera);
-		shapesRenderer.render(clipPlane, camera);
+		boundingRenderer.render(clipPlane, camera);
 	}
 
 	private void renderPost(boolean isPaused, float blurFactor) {
@@ -169,9 +176,10 @@ public class MainRenderer extends IRendererMaster {
 		skyboxRenderer.dispose();
 		entityRenderer.dispose();
 		particleRenderer.dispose();
+		sunRenderer.dispose();
 		starRenderer.dispose();
 		dustRenderer.dispose();
-		shapesRenderer.dispose();
+		boundingRenderer.dispose();
 		cursorRenderer.dispose();
 		guiRenderer.dispose();
 		fontRenderer.dispose();

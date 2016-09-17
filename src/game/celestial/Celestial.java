@@ -9,6 +9,7 @@ import java.util.*;
  * A realistic celestial object, like a planet / moon.
  */
 public class Celestial implements Comparable<Celestial> {
+	public static double KM_TO_AU = 6.68459e-9; // The conversion from KM to AU.
 	public static double AU_TO_KM = 1.496e+8; // The conversion from AU to KM.
 	public static double EARTH_MASS = 5.9723e+24; // The earths mass (kg).
 	public static double EARTH_RADIUS = 6378.137; // The earths radius (km).

@@ -31,7 +31,7 @@ public class MainGuis extends IManagerGUI {
 		FlounderEngine.getGuis().addComponent(mainMenu, 0, 0, 1, 1);
 		FlounderEngine.getGuis().addComponent(overlayStatus, 0, 0, 1, 1);
 		FlounderEngine.getGuis().getSelector().initJoysticks(OptionsControls.JOYSTICK_PORT, OptionsControls.JOYSTICK_GUI_LEFT, OptionsControls.JOYSTICK_GUI_RIGHT, OptionsControls.JOYSTICK_AXIS_X, OptionsControls.JOYSTICK_AXIS_Y);
-		FlounderEngine.getDevices().getDisplay().setCursorHidden(true);
+		FlounderEngine.getDevices().getMouse().setCursorHidden(false);
 	}
 
 	@Override

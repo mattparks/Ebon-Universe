@@ -33,7 +33,6 @@ public class CameraFPS implements ICamera {
 	private final static float INFLUENCE_OF_JOYSTICKDY = -1.0f;
 	private final static float INFLUENCE_OF_JOYSTICKDX = 100.0f * INFLUENCE_OF_JOYSTICKDY;
 
-	private int toggleMouseMoveKey;
 	private Vector3f reusableViewVector;
 
 	private Vector3f position;
@@ -53,7 +52,6 @@ public class CameraFPS implements ICamera {
 
 	@Override
 	public void init() {
-		this.toggleMouseMoveKey = GLFW_MOUSE_BUTTON_LEFT;
 		this.reusableViewVector = new Vector3f();
 
 		this.position = new Vector3f();
@@ -118,9 +116,7 @@ public class CameraFPS implements ICamera {
 					angleChange = -joystickRotateX.getAmount() * delta * INFLUENCE_OF_JOYSTICKDX;
 				}
 			} else {
-				if (FlounderEngine.getDevices().getMouse().getMouse(toggleMouseMoveKey)) {
-					angleChange = FlounderEngine.getDevices().getMouse().getDeltaX() * INFLUENCE_OF_MOUSEDX;
-				}
+				angleChange = FlounderEngine.getDevices().getMouse().getDeltaX() * INFLUENCE_OF_MOUSEDX;
 			}
 		}
 
@@ -149,9 +145,7 @@ public class CameraFPS implements ICamera {
 					angleChange = -joystickRotateY.getAmount() * delta * INFLUENCE_OF_JOYSTICKDY;
 				}
 			} else {
-				if (FlounderEngine.getDevices().getMouse().getMouse(toggleMouseMoveKey)) {
-					angleChange = -FlounderEngine.getDevices().getMouse().getDeltaY() * INFLUENCE_OF_MOUSEDY;
-				}
+				angleChange = -FlounderEngine.getDevices().getMouse().getDeltaY() * INFLUENCE_OF_MOUSEDY;
 			}
 		}
 

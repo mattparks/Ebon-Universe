@@ -1,6 +1,7 @@
 package game.celestial.dust;
 
 import flounder.engine.*;
+import flounder.maths.*;
 import flounder.maths.vectors.*;
 import flounder.physics.*;
 import flounder.space.*;
@@ -12,12 +13,14 @@ public class Dust implements Comparable<Dust>, ISpatialObject {
 	private float tileSpanSize;
 	private Vector3f position;
 	private float starCount;
+	private Colour averageColour;
 	private AABB dustAABB;
 
-	public Dust(float tileSpanSize, Vector3f position, float starCount) {
+	public Dust(float tileSpanSize, Vector3f position, float starCount, Colour averageColour) {
 		this.tileSpanSize = tileSpanSize;
 		this.position = position;
 		this.starCount = starCount;
+		this.averageColour = averageColour;
 
 		this.dustAABB = new AABB();
 		float size = 0.5f * tileSpanSize;
@@ -34,8 +37,12 @@ public class Dust implements Comparable<Dust>, ISpatialObject {
 		return (float) (width * height * depth) / starCount;
 	}
 
+	public Colour getAverageColour() {
+		return averageColour;
+	}
+
 	@Override
-	public AABB getShape() {
+	public AABB getBounding() {
 		return dustAABB;
 	}
 

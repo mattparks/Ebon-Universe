@@ -90,7 +90,7 @@ public class Entity implements ISpatialObject {
 	 * @param visitor The visitor that will be executed for every entity visited.
 	 */
 	public void visitInRange(int id, AABB range, IEntityVisitor visitor) {
-		for (Entity entity : structure.queryInAABB(new ArrayList<>(), range)) {
+		for (Entity entity : structure.queryInBounding(new ArrayList<>(), range)) {
 			if (entity.isRemoved) {
 				continue;
 			}
@@ -252,7 +252,7 @@ public class Entity implements ISpatialObject {
 	}
 
 	@Override
-	public AABB getShape() {
+	public AABB getBounding() {
 		ComponentCollider ac = (ComponentCollider) getComponent(ComponentCollider.ID);
 
 		if (ac != null) {

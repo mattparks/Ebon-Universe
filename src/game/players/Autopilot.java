@@ -54,10 +54,10 @@ public class Autopilot {
 
 			if (speedMagnitude < 0.0f && autopilotStopSpeed >= 0.0f) {
 				if (nextWaypoint != null) {
-					autopilot(true, nextWaypoint.getPosition());
+					autopilot(true, speedMagnitude, nextWaypoint.getPosition());
 					return;
 				} else {
-					autopilot(false, position);
+					autopilot(false, 0.0f, position);
 				}
 			}
 		} else {
@@ -69,7 +69,7 @@ public class Autopilot {
 		if (velocity.lengthSquared() > 0.02f) {
 			velocity.normalize();
 		} else {
-			autopilot(false, position);
+			autopilot(false, speedMagnitude, position);
 		}
 
 		velocity.scale(speedMagnitude);
@@ -89,7 +89,7 @@ public class Autopilot {
 
 		if (stopShip && autopilotEnabled) {
 			nextWaypoint = waypoint;
-			toggleAutopilot();
+			toggleAutopilot(speedMagnitude);
 		} else {
 			autopilotWaypoint.set(waypoint.getPosition());
 		}
@@ -107,10 +107,10 @@ public class Autopilot {
 	/**
 	 * Toggles on/off the autopilot.
 	 */
-	public void toggleAutopilot() {
+	public void toggleAutopilot(float starSpeed) {
 		if (!autopilotEnabled) {
 			((MainGuis) FlounderEngine.getManagerGUI()).getOverlayStatus().addMessage("Autopilot Enabled");
-			autopilot(true, Environment.getGalaxyManager().getWaypoint().getPosition());
+			autopilot(true, starSpeed, Environment.getGalaxyManager().getWaypoint().getPosition());
 		} else {
 			((MainGuis) FlounderEngine.getManagerGUI()).getOverlayStatus().addMessage("Autopilot Disabled");
 			autopilotForceStop = true;
@@ -118,12 +118,12 @@ public class Autopilot {
 		}
 	}
 
-	private void autopilot(boolean enable, Vector3f waypoint) {
+	private void autopilot(boolean enable, float starSpeed, Vector3f waypoint) {
 		if (!enable) {
 			((MainGuis) FlounderEngine.getManagerGUI()).getOverlayStatus().addMessage("Autopilot Disabled");
 		}
 
-		speedMagnitude = 0.0f;
+		speedMagnitude = starSpeed;
 		autopilotEnabled = enable;
 		autopilotForceStop = false;
 		autopilotStopSpeed = 0.0f;

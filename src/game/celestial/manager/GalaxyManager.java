@@ -3,6 +3,7 @@ package game.celestial.manager;
 import flounder.engine.*;
 import flounder.helpers.*;
 import flounder.inputs.*;
+import flounder.maths.*;
 import flounder.maths.vectors.*;
 import flounder.physics.*;
 import flounder.space.*;
@@ -135,6 +136,8 @@ public class GalaxyManager {
 			}
 
 			// Sets the player velocity text depending on speed units.
+			distanceLastCurrent = Maths.roundToPlace(distanceLastCurrent, 5);
+
 			if (inSystemCelestial != null) {
 				if (distanceLastCurrent >= 10000) {
 					playerVelocity = distanceLastCurrent + " MM-km/s";

@@ -12,6 +12,7 @@ import static org.lwjgl.glfw.GLFW.*;
 public class PlayerFPS implements IPlayer {
 	private static final float ACCELERATION = 0.05f;
 	private static final float DECELERATION = 0.10f;
+	private static final float AUTOPILOT_OFFSET = 0.10f;
 
 	private static final float X_SPEED = 50.0f;
 	private static final float Y_SPEED = 12.5f;
@@ -33,6 +34,9 @@ public class PlayerFPS implements IPlayer {
 	private Vector3f rotation;
 
 	private boolean autopilotEnabled;
+	private boolean autopilotForceStop;
+	private float autopilotStopSpeed;
+	private Vector3f autopilotWaypoint;
 
 	@Override
 	public void init() {
@@ -63,6 +67,11 @@ public class PlayerFPS implements IPlayer {
 
 		this.position = new Vector3f();
 		this.rotation = new Vector3f();
+
+		this.autopilotEnabled = false;
+		this.autopilotForceStop = false;
+		this.autopilotStopSpeed = 0.0f;
+		this.autopilotWaypoint = new Vector3f();
 	}
 
 	@Override
@@ -70,12 +79,15 @@ public class PlayerFPS implements IPlayer {
 		if (!paused) {
 			// Update multiplier and waypoint.
 			float multiplier = Environment.getGalaxyManager().getInSystemStar() != null ? (float) (Environment.getGalaxyManager().getInSystemStar().getSolarRadius() * 0.05f) : 1.0f;
-			Vector3f waypoint = Environment.getGalaxyManager().getWaypoint().getPosition();
 
 			// Update autopilot inputs.
-			if (inputAutopilot.wasDown() && waypoint != null) {
-				speedMagnatude = 0.0f;
-				autopilotEnabled = !autopilotEnabled;
+			if (inputAutopilot.wasDown() && Environment.getGalaxyManager().getWaypoint().getPosition() != null) {
+				if (!autopilotEnabled) {
+					autopilot(true, Environment.getGalaxyManager().getWaypoint().getPosition());
+				} else {
+					autopilotForceStop = true;
+					autopilotStopSpeed = speedMagnatude;
+				}
 			}
 
 			// Update roll rotations.
@@ -99,21 +111,25 @@ public class PlayerFPS implements IPlayer {
 				Vector3f.rotate(velocity, rotation, velocity);
 				Vector3f.add(position, velocity, position);
 			} else { // Update autopilot.
-				float arrivalTime = (Vector3f.getDistance(position, waypoint) / speedMagnatude) / 60.0f;
+				float arrivalTime = ((Vector3f.getDistance(position, autopilotWaypoint) - AUTOPILOT_OFFSET) / speedMagnatude) / 60.0f;
 				float stopTime = speedMagnatude / DECELERATION;
 
-				if (arrivalTime <= stopTime) {
+				if (arrivalTime <= stopTime || autopilotForceStop) {
 					speedMagnatude -= multiplier * DECELERATION * FlounderEngine.getDelta();
+
+					if (speedMagnatude < 0.0f && autopilotStopSpeed >= 0.0f) {
+						autopilot(false, position);
+					}
 				} else {
 					speedMagnatude += multiplier * ACCELERATION * FlounderEngine.getDelta() * (float) Math.abs(Math.log(speedMagnatude + 0.5f));
 				}
 
-				Vector3f.subtract(position, waypoint, velocity);
+				Vector3f.subtract(position, autopilotWaypoint, velocity);
 
 				if (velocity.lengthSquared() > 0.02f) {
 					velocity.normalize();
 				} else {
-					autopilotEnabled = false;
+					autopilot(false, position);
 				}
 
 				velocity.scale(speedMagnatude);
@@ -121,6 +137,14 @@ public class PlayerFPS implements IPlayer {
 				Vector3f.add(position, velocity, position);
 			}
 		}
+	}
+
+	private void autopilot(boolean enable, Vector3f waypoint) {
+		speedMagnatude = 0.0f;
+		autopilotEnabled = enable;
+		autopilotForceStop = false;
+		autopilotStopSpeed = 0.0f;
+		autopilotWaypoint.set(waypoint);
 	}
 
 	@Override

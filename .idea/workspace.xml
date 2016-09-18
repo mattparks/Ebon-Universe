@@ -12,24 +12,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="d5da382d-17aa-4da5-9b33-402233252004" name="Default" comment="">
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/game/cameras/CameraFocus.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/game/players/PlayerFocus.java" afterPath="" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Editor-Entity" afterPath="$PROJECT_DIR$/Editor-Entity" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Editor-Particle" afterPath="$PROJECT_DIR$/Editor-Particle" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/flounder-engine" afterPath="$PROJECT_DIR$/flounder-engine" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/dictionaries/mattp.xml" afterPath="$PROJECT_DIR$/.idea/dictionaries/mattp.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Editor-Entity/src/editors/entity/EditorEntity.java" afterPath="$PROJECT_DIR$/Editor-Entity/src/editors/entity/EditorEntity.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Editor-Particle/src/editors/particles/EditorParticle.java" afterPath="$PROJECT_DIR$/Editor-Particle/src/editors/particles/EditorParticle.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Flounder-Engine/src/flounder/lights/Light.java" afterPath="$PROJECT_DIR$/Flounder-Engine/src/flounder/lights/Light.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Flounder-Engine/src/flounder/maths/vectors/Vector2f.java" afterPath="$PROJECT_DIR$/Flounder-Engine/src/flounder/maths/vectors/Vector2f.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Flounder-Engine/src/flounder/maths/vectors/Vector3f.java" afterPath="$PROJECT_DIR$/Flounder-Engine/src/flounder/maths/vectors/Vector3f.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/game/Environment.java" afterPath="$PROJECT_DIR$/src/game/Environment.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/game/MainGame.java" afterPath="$PROJECT_DIR$/src/game/MainGame.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/game/cameras/CameraFPS.java" afterPath="$PROJECT_DIR$/src/game/cameras/CameraFPS.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/game/celestial/manager/GalaxyGenerator.java" afterPath="$PROJECT_DIR$/src/game/celestial/manager/GalaxyGenerator.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/game/celestial/manager/GalaxyManager.java" afterPath="$PROJECT_DIR$/src/game/celestial/manager/GalaxyManager.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/game/entities/EntityRenderer.java" afterPath="$PROJECT_DIR$/src/game/entities/EntityRenderer.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/game/players/PlayerFPS.java" afterPath="$PROJECT_DIR$/src/game/players/PlayerFPS.java" />
     </list>
     <ignored path="Open Skies.iws" />
@@ -59,11 +44,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="Celestial.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/game/celestial/Celestial.java">
+      <file leaf-file-name="GalaxyManager.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/game/celestial/manager/GalaxyManager.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="51">
-              <caret line="9" column="22" selection-start-line="9" selection-start-column="13" selection-end-line="9" selection-end-column="22" />
+            <state relative-caret-position="928">
+              <caret line="139" column="0" selection-start-line="139" selection-start-column="0" selection-end-line="139" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -72,8 +57,8 @@
       <file leaf-file-name="PlayerFPS.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/game/players/PlayerFPS.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-68">
-              <caret line="77" column="53" selection-start-line="77" selection-start-column="53" selection-end-line="77" selection-end-column="53" />
+            <state relative-caret-position="265">
+              <caret line="85" column="34" selection-start-line="85" selection-start-column="34" selection-end-line="85" selection-end-column="34" />
               <folding />
             </state>
           </provider>
@@ -132,7 +117,6 @@
         <option value="$PROJECT_DIR$/src/game/celestial/Star.java" />
         <option value="$PROJECT_DIR$/src/game/celestial/Celestial.java" />
         <option value="$PROJECT_DIR$/src/game/celestial/manager/Waypoint.java" />
-        <option value="$PROJECT_DIR$/src/game/uis/OverlayStatus.java" />
         <option value="$PROJECT_DIR$/src/game/celestial/stars/StarRenderer.java" />
         <option value="$PROJECT_DIR$/src/game/celestial/stars/SunRenderer.java" />
         <option value="$PROJECT_DIR$/src/game/MainRenderer.java" />
@@ -146,9 +130,10 @@
         <option value="$PROJECT_DIR$/src/game/cameras/CameraFPS.java" />
         <option value="$PROJECT_DIR$/Flounder-Engine/src/flounder/maths/vectors/Vector3f.java" />
         <option value="$PROJECT_DIR$/Flounder-Engine/src/flounder/maths/vectors/Vector2f.java" />
-        <option value="$PROJECT_DIR$/src/game/celestial/manager/GalaxyManager.java" />
         <option value="$PROJECT_DIR$/configs/settings.conf" />
         <option value="$PROJECT_DIR$/src/game/celestial/manager/GalaxyGenerator.java" />
+        <option value="$PROJECT_DIR$/src/game/uis/OverlayStatus.java" />
+        <option value="$PROJECT_DIR$/src/game/celestial/manager/GalaxyManager.java" />
         <option value="$PROJECT_DIR$/src/game/players/PlayerFPS.java" />
       </list>
     </option>
@@ -231,6 +216,28 @@
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="game" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Open Skies" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Open Skies" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="game" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="uis" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -713,7 +720,14 @@
       <option name="project" value="LOCAL" />
       <updated>1474162268967</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="Added autopilot, note: mass of ship is not in maths yet!">
+      <created>1474176154801</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1474176154801</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -767,7 +781,8 @@
     <MESSAGE value="Physics has been redone for more flexable support, better names and space object to come." />
     <MESSAGE value="Added sun renderer, changed a lot of star stuff." />
     <MESSAGE value="Galaxy managed in own classes." />
-    <option name="LAST_COMMIT_MESSAGE" value="Galaxy managed in own classes." />
+    <MESSAGE value="Added autopilot, note: mass of ship is not in maths yet!" />
+    <option name="LAST_COMMIT_MESSAGE" value="Added autopilot, note: mass of ship is not in maths yet!" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager />
@@ -993,14 +1008,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/game/uis/OverlayStatus.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-689">
-          <caret line="31" column="51" selection-start-line="31" selection-start-column="51" selection-end-line="31" selection-end-column="51" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/game/celestial/stars/SunRenderer.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="278">
@@ -1147,10 +1154,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/game/celestial/manager/GalaxyManager.java">
+    <entry file="file://$PROJECT_DIR$/Flounder-Engine/src/flounder/maths/vectors/Vector3f.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="524">
-          <caret line="55" column="88" selection-start-line="55" selection-start-column="88" selection-end-line="55" selection-end-column="88" />
+        <state relative-caret-position="221">
+          <caret line="462" column="0" selection-start-line="462" selection-start-column="0" selection-end-line="462" selection-end-column="0" />
           <folding />
         </state>
       </provider>
@@ -1163,18 +1170,26 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Flounder-Engine/src/flounder/maths/vectors/Vector3f.java">
+    <entry file="file://$PROJECT_DIR$/src/game/uis/OverlayStatus.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="221">
-          <caret line="462" column="0" selection-start-line="462" selection-start-column="0" selection-end-line="462" selection-end-column="0" />
+        <state relative-caret-position="187">
+          <caret line="74" column="48" selection-start-line="74" selection-start-column="48" selection-end-line="74" selection-end-column="48" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/game/celestial/manager/GalaxyManager.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="928">
+          <caret line="139" column="0" selection-start-line="139" selection-start-column="0" selection-end-line="139" selection-end-column="0" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/game/players/PlayerFPS.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-68">
-          <caret line="77" column="53" selection-start-line="77" selection-start-column="53" selection-end-line="77" selection-end-column="53" />
+        <state relative-caret-position="265">
+          <caret line="85" column="34" selection-start-line="85" selection-start-column="34" selection-end-line="85" selection-end-column="34" />
           <folding />
         </state>
       </provider>

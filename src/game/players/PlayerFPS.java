@@ -53,7 +53,7 @@ public class PlayerFPS implements IPlayer {
 	public void update(boolean paused) {
 		if (!paused) {
 			float speedBoost = inputSpeedBoost.isDown() ? SPEED_BOOST_SCALE : 1.0f;
-			speedBoost *= Environment.IN_SYSTEM_STAR != null ? (Environment.IN_SYSTEM_STAR.getSolarRadius() * 0.05) : 1.0f;
+			speedBoost *= Environment.getGalaxyManager().getInSystemStar() != null ? (Environment.getGalaxyManager().getInSystemStar().getSolarRadius() * 0.05) : 1.0f;
 			rotation.set(0.0f, FlounderEngine.getCamera().getRotation().y, 0.0f);
 			velocity.x = speedBoost * SIDE_SPEED * FlounderEngine.getDelta() * Maths.deadband(0.05f, inputSide.getAmount());
 			velocity.y = speedBoost * UP_SPEED * FlounderEngine.getDelta() * Maths.deadband(0.05f, inputUp.getAmount());

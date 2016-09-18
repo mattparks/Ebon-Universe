@@ -3,7 +3,6 @@ package game.celestial.stars;
 import flounder.engine.*;
 import flounder.engine.implementation.*;
 import flounder.helpers.*;
-import flounder.maths.*;
 import flounder.maths.matrices.*;
 import flounder.maths.vectors.*;
 import flounder.resources.*;
@@ -11,6 +10,7 @@ import flounder.shaders.*;
 import flounder.textures.*;
 import game.*;
 import game.celestial.*;
+import game.celestial.manager.*;
 import org.lwjgl.*;
 
 import java.nio.*;
@@ -25,11 +25,11 @@ public class StarRenderer extends IRenderer {
 	private static final MyFile FRAGMENT_SHADER = new MyFile(Shader.SHADERS_LOC, "stars", "starsFragment.glsl");
 
 	private static final float[] VERTICES = {-0.5f, 0.5f, -0.5f, -0.5f, 0.5f, 0.5f, 0.5f, -0.5f};
-	private static final int MAX_INSTANCES = Environment.GALAXY_STARS;
+	private static final int MAX_INSTANCES = GalaxyManager.GALAXY_STARS;
 	private static final int INSTANCE_DATA_LENGTH = 19;
 	private static final Vector3f REUSABLE_SCALE = new Vector3f();
 
-	private static final Texture STAR_TEXTURE = Texture.newTexture(new MyFile(MyFile.RES_FOLDER, "starTexture.png")).clampEdges().create();
+	private static final Texture STAR_TEXTURE = Texture.newTexture(new MyFile(MyFile.RES_FOLDER, "stars", "starTexture.png")).clampEdges().create();
 	private static final int VAO = FlounderEngine.getLoader().createInterleavedVAO(VERTICES, 2);
 	private static final FloatBuffer BUFFER = BufferUtils.createFloatBuffer(MAX_INSTANCES * INSTANCE_DATA_LENGTH);
 	private static final int VBO = FlounderEngine.getLoader().createEmptyVBO(INSTANCE_DATA_LENGTH * MAX_INSTANCES);
@@ -56,15 +56,15 @@ public class StarRenderer extends IRenderer {
 
 	@Override
 	public void renderObjects(Vector4f clipPlane, ICamera camera) {
-		if (!shader.isLoaded() || Environment.getStars() == null) {
+		if (!shader.isLoaded() || Environment.getGalaxyManager().getStars() == null) {
 			return;
 		}
 
 		prepareRendering(clipPlane, camera);
 
 		// Creates the data to be used when rendering.
-		List<Star> stars = Environment.getStars().queryInFrustum(new ArrayList<>(), camera.getViewFrustum());
-		stars.remove(Environment.IN_SYSTEM_STAR);
+		List<Star> stars = Environment.getGalaxyManager().getStars().queryInFrustum(new ArrayList<>(), camera.getViewFrustum());
+		stars.remove(Environment.getGalaxyManager().getInSystemStar());
 		float[] vboData = new float[Math.min(stars.size(), MAX_INSTANCES) * INSTANCE_DATA_LENGTH];
 		pointer = 0;
 
@@ -110,7 +110,7 @@ public class StarRenderer extends IRenderer {
 
 		REUSABLE_SCALE.set((float) star.getSolarRadius(), (float) star.getSolarRadius(), (float) star.getSolarRadius());
 
-		float starCameraDistance = Vector3f.getDistance(camera.getPosition(), star.getPosition()) * (float)(1.0f / star.getSolarRadius());
+		float starCameraDistance = Vector3f.getDistance(camera.getPosition(), star.getPosition()) * (float) (1.0f / star.getSolarRadius());
 
 		if (starCameraDistance > 1000.0f) { // !Environment.renderStars() &&
 			REUSABLE_SCALE.scale(Math.min(starCameraDistance / 1000.0f, 3.0f));

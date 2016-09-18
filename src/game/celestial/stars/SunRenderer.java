@@ -8,6 +8,7 @@ import flounder.maths.vectors.*;
 import flounder.models.*;
 import flounder.resources.*;
 import flounder.shaders.*;
+import flounder.textures.*;
 import game.*;
 import game.celestial.*;
 
@@ -22,10 +23,12 @@ public class SunRenderer extends IRenderer {
 	private static Matrix4f MODEL_MATRIX_REUSABLE = new Matrix4f();
 
 	private Model sunModel;
+	private Texture sunTexture;
 	private Shader shader;
 
 	public SunRenderer() {
-		sunModel = Model.newModel(new MyFile(MyFile.RES_FOLDER, "models", "sphere.obj")).create();
+		sunModel = Model.newModel(new MyFile(MyFile.RES_FOLDER, "stars", "sun.obj")).create();
+		sunTexture = Texture.newTexture(new MyFile(MyFile.RES_FOLDER, "stars", "sunMap.png")).create();
 
 		shader = Shader.newShader("sun").setShaderTypes(
 				new ShaderType(GL_VERTEX_SHADER, VERTEX_SHADER),
@@ -35,12 +38,12 @@ public class SunRenderer extends IRenderer {
 
 	@Override
 	public void renderObjects(Vector4f clipPlane, ICamera camera) {
-		if (!shader.isLoaded() || Environment.IN_SYSTEM_STAR == null) {
+		if (!shader.isLoaded() || Environment.getGalaxyManager().getInSystemStar() == null) {
 			return;
 		}
 
 		prepareRendering(clipPlane, camera);
-		renderStar(Environment.IN_SYSTEM_STAR);
+		renderStar(Environment.getGalaxyManager().getInSystemStar());
 		endRendering();
 	}
 
@@ -55,6 +58,7 @@ public class SunRenderer extends IRenderer {
 		OpenGlUtils.enableDepthTesting();
 
 		OpenGlUtils.bindVAO(sunModel.getVaoID(), 0, 1, 2, 3);
+		OpenGlUtils.bindTextureToBank(sunTexture.getTextureID(), 0);
 	}
 
 	private void renderStar(Star star) {

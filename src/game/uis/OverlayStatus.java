@@ -29,7 +29,7 @@ public class OverlayStatus extends GuiComponent {
 
 		fpsText = createStatus("FPS: 0", 0.02f);
 		positionText = createStatus("POSITION: [0, 0, 0]", 0.05f);
-		velocityText = createStatus("VELOCITY: 0 km/s", 0.09f);
+		velocityText = createStatus("VELOCITY: 0 ly/s", 0.09f);
 
 		crossHair = new GuiTexture(Texture.newTexture(new MyFile(MyFile.RES_FOLDER, "crosshair.png")).create());
 		crossHair.getTexture().setNumberOfRows(4);
@@ -72,7 +72,7 @@ public class OverlayStatus extends GuiComponent {
 		if (updateText) {
 			fpsText.setText("FPS: " + Maths.roundToPlace(1.0f / FlounderEngine.getDelta(), 1));
 			positionText.setText("POSITION: [" + Maths.roundToPlace(FlounderEngine.getCamera().getPosition().x, 1) + ", " + Maths.roundToPlace(FlounderEngine.getCamera().getPosition().y, 1) + ", " + Maths.roundToPlace(FlounderEngine.getCamera().getPosition().z, 1) + "]");
-			velocityText.setText("VELOCITY: " + Environment.PLAYER_VELOCITY);
+			velocityText.setText("VELOCITY: " + Environment.getGalaxyManager().getPlayerVelocity());
 			updateText = false;
 		}
 
@@ -84,8 +84,8 @@ public class OverlayStatus extends GuiComponent {
 		crossHair.setColourOffset(GuiTextButton.HOVER_COLOUR);
 
 		float selectionScale = 1.0f;
-		float selectionX = Maths.clamp(Environment.STAR_SCREEN_POS.x, 0.0f, 1.0f);
-		float selectionY = Maths.clamp(Environment.STAR_SCREEN_POS.y, 0.0f, 1.0f);
+		float selectionX = Maths.clamp(Environment.getGalaxyManager().getWaypoint().getScreenPosition().x, 0.0f, 1.0f);
+		float selectionY = Maths.clamp(Environment.getGalaxyManager().getWaypoint().getScreenPosition().y, 0.0f, 1.0f);
 		starSelection.setPosition(selectionX - ((selectionScale * width) / 2.0f) + super.getPosition().x, selectionY - ((selectionScale * height) / 2.0f), (selectionScale * width), (selectionScale * height));
 		starSelection.update();
 
@@ -100,7 +100,10 @@ public class OverlayStatus extends GuiComponent {
 
 	@Override
 	protected void getGuiTextures(List<GuiTexture> guiTextures) {
-		guiTextures.add(starSelection);
+		if (Environment.getGalaxyManager().getWaypoint().getScreenPosition().z >= 0) {
+			guiTextures.add(starSelection);
+		}
+
 		guiTextures.add(crossHair);
 	}
 }

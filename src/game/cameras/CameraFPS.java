@@ -7,15 +7,13 @@ import flounder.maths.*;
 import flounder.maths.matrices.*;
 import flounder.maths.vectors.*;
 import flounder.space.*;
-import game.*;
+import game.celestial.manager.*;
 import game.options.*;
 import sun.reflect.generics.reflectiveObjects.*;
 
-import static org.lwjgl.glfw.GLFW.*;
-
 public class CameraFPS implements ICamera {
 	private static final float NEAR_PLANE = 0.1f;
-	private static final float FAR_PLANE = (float) Environment.GALAXY_RADIUS * 10.0f;// 3200.0f;
+	private static final float FAR_PLANE = (float) GalaxyManager.GALAXY_RADIUS * 10.0f;// 3200.0f;
 	private static final float FIELD_OF_VIEW = 70.0f;
 
 	private static final float ROTATE_AGILITY = 6.0f;

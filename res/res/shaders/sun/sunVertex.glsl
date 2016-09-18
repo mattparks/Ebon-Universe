@@ -14,6 +14,7 @@ uniform mat4 modelMatrix;
 
 //---------OUT------------
 out vec4 pass_positionRelativeToCam;
+out vec2 pass_textureCoords;
 out vec3 pass_surfaceNormal;
 
 //---------MAIN------------
@@ -21,6 +22,7 @@ void main(void) {
     vec4 worldPosition = modelMatrix * vec4(in_position, 1.0);
 	mat4 modelViewMatrix = viewMatrix * modelMatrix;
 	pass_positionRelativeToCam = modelViewMatrix * vec4(in_position, 1.0);
+	pass_textureCoords = in_textureCoords;
 	pass_surfaceNormal = (modelMatrix * vec4(in_normal, 0.0)).xyz;
 
 	gl_ClipDistance[0] = dot(worldPosition, clipPlane);

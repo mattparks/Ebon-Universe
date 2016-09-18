@@ -109,14 +109,14 @@ public class MainRenderer extends IRendererMaster {
 		Matrix4f.perspectiveMatrix(camera.getFOV(), FlounderEngine.getDevices().getDisplay().getAspectRatio(), camera.getNearPlane(), camera.getFarPlane(), projectionMatrix);
 
 		/* Renders each renderer. */
-		if (Environment.renderStars()) {
+		if (Environment.getGalaxyManager().renderStars()) {
 			starRenderer.render(clipPlane, camera);
 			dustRenderer.render(clipPlane, camera);
 			skyboxRenderer.getSkyboxFBO().setLoaded(false);
 		} else {
 			if (!skyboxRenderer.getSkyboxFBO().isLoaded()) {
-				if (Environment.IN_SYSTEM_STAR != null) {
-					camera.getPosition().set(Environment.IN_SYSTEM_STAR.getPosition());
+				if (Environment.getGalaxyManager().getInSystemStar() != null) {
+					camera.getPosition().set(Environment.getGalaxyManager().getInSystemStar().getPosition());
 				}
 
 				starRenderer.render(clipPlane, camera);

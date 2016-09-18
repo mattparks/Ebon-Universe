@@ -1,6 +1,5 @@
 package game.celestial;
 
-import flounder.helpers.*;
 import flounder.maths.vectors.*;
 
 import java.util.*;
@@ -23,8 +22,8 @@ public class Celestial implements Comparable<Celestial> {
 	private Vector3f position;
 	private Vector3f rotation;
 
-	private Optional<Star> parentStar;
-	private Optional<Celestial> parentCelestial;
+	private Star parentStar;
+	private Celestial parentCelestial;
 	private Orbit orbit;
 
 	private List<Celestial> childObjects;
@@ -49,22 +48,42 @@ public class Celestial implements Comparable<Celestial> {
 	 *
 	 * @param celestialType The type of celestial body.
 	 * @param planetName The celestial objects name.
-	 * @param parentTypes The celestial objects parent star / celestial.
+	 * @param parentStar The celestial objects parent star.
 	 * @param orbit The orbit for the celestial object to follow.
 	 * @param earthMasses The mass of the object in earth masses.
 	 * @param earthRadius The radius of the object in earth radius.
 	 * @param axialTilt How tilted over the planet is, rotates prograde 0<i<90, rotates retrograde 90<i<180.
 	 * @param childObjects The list of objects orbiting the star.
 	 */
-	public Celestial(String celestialType, String planetName, Pair<Star, Celestial> parentTypes, Orbit orbit, double earthMasses, double earthRadius, double axialTilt, List<Celestial> childObjects) {
+	public Celestial(String celestialType, String planetName, Star parentStar, Orbit orbit, double earthMasses, double earthRadius, double axialTilt, List<Celestial> childObjects) {
+		this.parentStar = parentStar;
+		init(celestialType, planetName, orbit, earthMasses, earthRadius, axialTilt, childObjects);
+	}
+
+	/**
+	 * Creates a new celestial object from earth masses and radius. Then calculates characteristics.
+	 *
+	 * @param celestialType The type of celestial body.
+	 * @param planetName The celestial objects name.
+	 * @param parentCelestial The celestial objects parent celestial.
+	 * @param orbit The orbit for the celestial object to follow.
+	 * @param earthMasses The mass of the object in earth masses.
+	 * @param earthRadius The radius of the object in earth radius.
+	 * @param axialTilt How tilted over the planet is, rotates prograde 0<i<90, rotates retrograde 90<i<180.
+	 * @param childObjects The list of objects orbiting the star.
+	 */
+	public Celestial(String celestialType, String planetName, Celestial parentCelestial, Orbit orbit, double earthMasses, double earthRadius, double axialTilt, List<Celestial> childObjects) {
+		this.parentCelestial = parentCelestial;
+		init(celestialType, planetName, orbit, earthMasses, earthRadius, axialTilt, childObjects);
+	}
+
+	private void init(String celestialType, String planetName, Orbit orbit, double earthMasses, double earthRadius, double axialTilt, List<Celestial> childObjects) {
 		this.celestialType = celestialType;
 
 		this.planetName = planetName;
 		this.position = new Vector3f();
 		this.rotation = new Vector3f();
 
-		this.parentStar = Optional.ofNullable(parentTypes.getFirst());
-		this.parentCelestial = Optional.ofNullable(parentTypes.getSecond());
 		this.orbit = orbit;
 
 		this.childObjects = childObjects;
@@ -88,6 +107,17 @@ public class Celestial implements Comparable<Celestial> {
 	public void update() {
 		// Position is calculated around the parent star and using the amount of seconds sense an arbitrary date.
 		childObjects.forEach(Celestial::update);
+
+		Vector3f parentPosition;
+
+		if (parentStar != null) {
+			parentPosition = parentStar.getPosition();
+		} else {
+			parentPosition = parentCelestial.getPosition();
+		}
+
+		position.set(parentPosition); // TODO: DO ORBIT.
+		position.x += orbit.getSemiMajorAxis();
 	}
 
 	public String getPlanetName() {
@@ -120,10 +150,10 @@ public class Celestial implements Comparable<Celestial> {
 	 * @return The parent star.
 	 */
 	public Star getParentStar() {
-		if (parentStar.isPresent()) {
-			return parentStar.get();
-		} else if (parentCelestial.isPresent()) {
-			return parentCelestial.get().getParentStar();
+		if (parentStar != null) {
+			return parentStar;
+		} else if (parentCelestial != null) {
+			return parentCelestial.getParentStar();
 		}
 
 		return null;
@@ -135,8 +165,8 @@ public class Celestial implements Comparable<Celestial> {
 	 * @return The parent celestial object.
 	 */
 	public Celestial getParentCelestial() {
-		if (parentCelestial.isPresent()) {
-			return parentCelestial.get().getParentCelestial();
+		if (parentCelestial != null) {
+			return parentCelestial.getParentCelestial();
 		}
 
 		return this;
@@ -148,10 +178,10 @@ public class Celestial implements Comparable<Celestial> {
 	 * @return The mass of the parent object.
 	 */
 	public double getParentMass() {
-		if (parentStar.isPresent()) {
-			return parentStar.get().getSolarMasses() * Star.SOL_MASS;
-		} else if (parentCelestial.isPresent()) {
-			return parentCelestial.get().getEarthMasses() * EARTH_MASS;
+		if (parentStar != null) {
+			return parentStar.getSolarMasses() * Star.SOL_MASS;
+		} else if (parentCelestial != null) {
+			return parentCelestial.getEarthMasses() * EARTH_MASS;
 		}
 
 		return 0.0;
@@ -218,7 +248,7 @@ public class Celestial implements Comparable<Celestial> {
 		Star star = getParentStar();
 
 		// If the parent object is not habitable, this will not be either.
-		if (parentCelestial.isPresent()) {
+		if (parentCelestial != null) {
 			Celestial celestial = getParentCelestial();
 
 			if (!orbitHabitable(celestial.orbit, star)) {

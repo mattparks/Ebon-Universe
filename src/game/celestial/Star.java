@@ -187,16 +187,26 @@ public class Star implements Comparable<Star>, ISpatialObject {
 		}
 
 		double earthRadius = 1.0;
+		double axialTilt = Maths.randomInRange(0.0, 40.0) * (Maths.RANDOM.nextBoolean() ? 1.0 : -1.0);
 
 		Orbit orbit = new Orbit(
 				eccentricity, semiMajorAxis, parentSolarMasses,
 				Maths.randomInRange(0.0, 180.0), Maths.randomInRange(0.0, 360.0), Maths.randomInRange(0.0, 360.0)
 		);
 
-		Celestial celestial = new Celestial(celestialName, parentName + " " + FauxGenerator.getFauxSentance(1, 4, 12),
-				parentTypes, orbit, earthMasses,
-				earthRadius, Maths.randomInRange(0.0, 40.0) * (Maths.RANDOM.nextBoolean() ? 1.0 : -1.0), new ArrayList<>()
-		);
+		Celestial celestial;
+
+		if (parentTypes.getFirst() != null) {
+			celestial = new Celestial(celestialName, parentName + " " + FauxGenerator.getFauxSentance(1, 4, 12),
+					parentTypes.getFirst(), orbit, earthMasses,
+					earthRadius, axialTilt, new ArrayList<>()
+			);
+		} else {
+			celestial = new Celestial(celestialName, parentName + " " + FauxGenerator.getFauxSentance(1, 4, 12),
+					parentTypes.getSecond(), orbit, earthMasses,
+					earthRadius, axialTilt, new ArrayList<>()
+			);
+		}
 
 		/*Orbit moonOrbit = new Orbit(
 				0.0549006, 0.00257188153, (float) (celestial.getEarthMasses() * 5.9723 * Math.pow(10, 24)) / (float) (1.989 * Math.pow(10, 30)), // Maths.RANDOM.nextInt(6000) / 10000.0f

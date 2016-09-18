@@ -109,36 +109,38 @@ public class MainRenderer extends IRendererMaster {
 		Matrix4f.perspectiveMatrix(camera.getFOV(), FlounderEngine.getDevices().getDisplay().getAspectRatio(), camera.getNearPlane(), camera.getFarPlane(), projectionMatrix);
 
 		/* Renders each renderer. */
-		if (Environment.getGalaxyManager().renderStars()) {
-			starRenderer.render(clipPlane, camera);
-			dustRenderer.render(clipPlane, camera);
-			skyboxRenderer.getSkyboxFBO().setLoaded(false);
-		} else {
-			if (!skyboxRenderer.getSkyboxFBO().isLoaded()) {
-				if (Environment.getGalaxyManager().getInSystemStar() != null) {
-					camera.getPosition().set(Environment.getGalaxyManager().getInSystemStar().getPosition());
-				}
-
-				starRenderer.render(clipPlane, camera);
+		if (Environment.getGalaxyManager() != null) {
+			if (Environment.getGalaxyManager().renderStars()) {
 				dustRenderer.render(clipPlane, camera);
-				unbindRelevantFBO();
-				skyboxRenderer.getSkyboxFBO().bindFBO();
-
-				for (int face = 0; face < 6; face++) {
-					skyboxRenderer.getSkyboxFBO().bindFace(face);
-					skyboxRenderer.rotateCamera(camera, face);
-					OpenGlUtils.prepareNewRenderParse(clearColour);
-					Matrix4f.perspectiveMatrix(SkyboxFBO.CAMERA_FOV, 1.0f, SkyboxFBO.CAMERA_NEAR, SkyboxFBO.CAMERA_FAR, projectionMatrix);
-					starRenderer.render(clipPlane, camera);
-					dustRenderer.render(clipPlane, camera);
-				}
-
-				skyboxRenderer.getSkyboxFBO().unbindFBO();
-				skyboxRenderer.getSkyboxFBO().setLoaded(true);
-				bindRelevantFBO();
+				starRenderer.render(clipPlane, camera);
+				skyboxRenderer.getSkyboxFBO().setLoaded(false);
 			} else {
-				skyboxRenderer.render(clipPlane, camera);
-				sunRenderer.render(clipPlane, camera);
+				if (!skyboxRenderer.getSkyboxFBO().isLoaded()) {
+					if (Environment.getGalaxyManager().getInSystemStar() != null) {
+						camera.getPosition().set(Environment.getGalaxyManager().getInSystemStar().getPosition());
+					}
+
+					dustRenderer.render(clipPlane, camera);
+					starRenderer.render(clipPlane, camera);
+					unbindRelevantFBO();
+					skyboxRenderer.getSkyboxFBO().bindFBO();
+
+					for (int face = 0; face < 6; face++) {
+						skyboxRenderer.getSkyboxFBO().bindFace(face);
+						skyboxRenderer.rotateCamera(camera, face);
+						OpenGlUtils.prepareNewRenderParse(clearColour);
+						Matrix4f.perspectiveMatrix(SkyboxFBO.CAMERA_FOV, 1.0f, SkyboxFBO.CAMERA_NEAR, SkyboxFBO.CAMERA_FAR, projectionMatrix);
+						dustRenderer.render(clipPlane, camera);
+						starRenderer.render(clipPlane, camera);
+					}
+
+					skyboxRenderer.getSkyboxFBO().unbindFBO();
+					skyboxRenderer.getSkyboxFBO().setLoaded(true);
+					bindRelevantFBO();
+				} else {
+					skyboxRenderer.render(clipPlane, camera);
+					sunRenderer.render(clipPlane, camera);
+				}
 			}
 		}
 

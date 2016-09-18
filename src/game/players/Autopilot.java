@@ -1,15 +1,16 @@
-package game.celestial.manager;
+package game.players;
 
 import flounder.engine.*;
 import flounder.maths.vectors.*;
 import game.*;
+import game.celestial.manager.*;
 
 /**
  * A class that autopilots a ship/player.
  */
 public class Autopilot {
-	private static final float ACCELERATION = 0.05f;
-	private static final float DECELERATION = 0.08f;
+	private float acceleration;
+	private float deceleration;
 
 	private boolean autopilotEnabled;
 	private boolean autopilotForceStop;
@@ -24,7 +25,10 @@ public class Autopilot {
 	/**
 	 * Creates a new autopilot.
 	 */
-	public Autopilot() {
+	public Autopilot(float acceleration, float deceleration) {
+		this.acceleration = acceleration;
+		this.deceleration = deceleration;
+
 		this.autopilotEnabled = false;
 		this.autopilotForceStop = false;
 		this.autopilotStopSpeed = 0.0f;
@@ -43,10 +47,10 @@ public class Autopilot {
 	 */
 	public void update(Vector3f position) {
 		float arrivalTime = ((Vector3f.getDistance(position, autopilotWaypoint) - (float) Environment.getGalaxyManager().getWaypoint().getStellarRadii()) / speedMagnitude) / 60.0f;
-		float stopTime = speedMagnitude / DECELERATION;
+		float stopTime = speedMagnitude / deceleration;
 
 		if (arrivalTime <= stopTime || autopilotForceStop) {
-			speedMagnitude -= DECELERATION * FlounderEngine.getDelta();
+			speedMagnitude -= deceleration * FlounderEngine.getDelta();
 
 			if (speedMagnitude < 0.0f && autopilotStopSpeed >= 0.0f) {
 				if (nextWaypoint != null) {
@@ -57,7 +61,7 @@ public class Autopilot {
 				}
 			}
 		} else {
-			speedMagnitude += ACCELERATION * FlounderEngine.getDelta() * (float) Math.abs(Math.log(speedMagnitude + 0.5f));
+			speedMagnitude += acceleration * FlounderEngine.getDelta() * (float) Math.abs(Math.log(speedMagnitude + 0.5f));
 		}
 
 		Vector3f.subtract(position, autopilotWaypoint, velocity);
@@ -105,20 +109,30 @@ public class Autopilot {
 	 */
 	public void toggleAutopilot() {
 		if (!autopilotEnabled) {
+			((MainGuis) FlounderEngine.getManagerGUI()).getOverlayStatus().addMessage("Autopilot Enabled");
 			autopilot(true, Environment.getGalaxyManager().getWaypoint().getPosition());
 		} else {
+			((MainGuis) FlounderEngine.getManagerGUI()).getOverlayStatus().addMessage("Autopilot Disabled");
 			autopilotForceStop = true;
 			autopilotStopSpeed = speedMagnitude;
 		}
 	}
 
 	private void autopilot(boolean enable, Vector3f waypoint) {
+		if (!enable) {
+			((MainGuis) FlounderEngine.getManagerGUI()).getOverlayStatus().addMessage("Autopilot Disabled");
+		}
+
 		speedMagnitude = 0.0f;
 		autopilotEnabled = enable;
 		autopilotForceStop = false;
 		autopilotStopSpeed = 0.0f;
 		autopilotWaypoint.set(waypoint);
 		nextWaypoint = null;
+	}
+
+	public float getSpeedMagnitude() {
+		return speedMagnitude;
 	}
 
 	/**

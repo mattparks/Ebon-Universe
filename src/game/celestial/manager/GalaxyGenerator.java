@@ -1,8 +1,10 @@
 package game.celestial.manager;
 
+import flounder.engine.*;
 import flounder.helpers.*;
 import flounder.maths.*;
 import flounder.maths.vectors.*;
+import flounder.physics.*;
 import flounder.space.*;
 import game.celestial.*;
 import game.celestial.dust.*;
@@ -17,11 +19,12 @@ public class GalaxyGenerator {
 	 * Generates a galaxy of stars and dusts.
 	 *
 	 * @param starCount The amount of stars to create.
+	 * @param dustRatio The amount of stars per dust clump.
 	 * @param galaxyRadius The radius of the galaxy, (LY).
 	 * @param starsStructure The stars structure.
 	 * @param dustStructure The dust structure.
 	 */
-	public static void generateGalaxy(int starCount, double galaxyRadius, ISpatialStructure<Star> starsStructure, ISpatialStructure<Dust> dustStructure) {
+	public static void generateGalaxy(int starCount, int dustRatio, double galaxyRadius, ISpatialStructure<Star> starsStructure, ISpatialStructure<Dust> dustStructure) {
 		for (int i = 0; i < starCount; i++) {
 			Star.StarType starType = Star.StarType.getTypeMakeup(Maths.randomInRange(0.0, 100.0));
 			double solarMasses = Maths.randomInRange(starType.minSolarMasses, starType.maxSolarMasses);
@@ -29,33 +32,51 @@ public class GalaxyGenerator {
 			starsStructure.add(star);
 		}
 
-		List<Star> galaxyStars = starsStructure.getAll(new ArrayList<>());
-		galaxyStars = ArraySorting.quickSort(galaxyStars);
-		Vector3f minPosition = new Vector3f();
-		Vector3f maxPosition = new Vector3f();
-		Colour currentColour = new Colour();
-		int currentCount = 0;
+		List<Star> starsList = starsStructure.getAll(new ArrayList<>());
+		AABB g = new AABB();
 
-		for (int i = 0; i < galaxyStars.size(); i++) {
-			if (currentCount >= 25) {
-				dustStructure.add(new Dust(Vector3f.subtract(maxPosition, minPosition, maxPosition).length(), Vector3f.divide(Vector3f.subtract(minPosition, maxPosition, maxPosition), new Vector3f(2.0f, 2.0f, 2.0f), null), starCount, Colour.divide(currentColour, new Colour(starCount, starCount, starCount), null)));
-				minPosition.set(0.0f, 0.0f, 0.0f);
-				maxPosition.set(0.0f, 0.0f, 0.0f);
-				currentColour.set(0.0f, 0.0f, 0.0f);
-				currentCount = 0;
+		for (Star star : starsList) {
+			Vector3f s = star.getPosition();
+
+			if (s.x < g.getMinExtents().x) {
+				g.getMinExtents().x = s.x;
 			}
 
-			if (galaxyStars.get(i).getPosition().lengthSquared() < minPosition.lengthSquared()) {
-				minPosition.set(galaxyStars.get(i).getPosition());
+			if (s.y < g.getMinExtents().y) {
+				g.getMinExtents().y = s.y;
 			}
 
-			if (galaxyStars.get(i).getPosition().lengthSquared() > maxPosition.lengthSquared()) {
-				maxPosition.set(galaxyStars.get(i).getPosition());
+			if (s.z < g.getMinExtents().z) {
+				g.getMinExtents().z = s.z;
 			}
 
-			Colour.add(currentColour, galaxyStars.get(i).getSurfaceColour(), currentColour);
+			if (s.x > g.getMaxExtents().x) {
+				g.getMaxExtents().x = s.x;
+			}
 
-			currentCount++;
+			if (s.y > g.getMaxExtents().y) {
+				g.getMaxExtents().y = s.y;
+			}
+
+			if (s.z > g.getMaxExtents().z) {
+				g.getMaxExtents().z = s.z;
+			}
+		}
+
+		int dustCount = starCount / dustRatio;
+		float lengthX = (float) g.getWidth() / dustCount;
+		float lengthY = (float) g.getHeight() / dustCount;
+		float lengthZ = (float) g.getDepth() / dustCount;
+
+		float xPos = -lengthX;
+
+		for (int x = 0; x < dustCount / 2; x++) {
+			Vector3f min = new Vector3f(xPos, -lengthY, -lengthZ);
+			xPos += lengthX;
+			Vector3f max = new Vector3f(xPos, lengthY, lengthZ);
+
+			Dust dust = new Dust(min, max, 0, new Colour(1, 1, 1));
+			dustStructure.add(dust);
 		}
 	}
 

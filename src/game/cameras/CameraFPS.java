@@ -13,7 +13,7 @@ import sun.reflect.generics.reflectiveObjects.*;
 
 public class CameraFPS implements ICamera {
 	private static final float NEAR_PLANE = 0.1f;
-	private static final float FAR_PLANE = (float) GalaxyManager.GALAXY_RADIUS * 10.0f;// 3200.0f;
+	private static final float FAR_PLANE = (float) GalaxyManager.GALAXY_RADIUS * 4.0f;
 	private static final float FIELD_OF_VIEW = 70.0f;
 
 	private static final float ROTATE_AGILITY = 6.0f;
@@ -21,10 +21,6 @@ public class CameraFPS implements ICamera {
 
 	private final static float MAX_ANGLE_OF_ELEVATION = -1.0f;
 	private final static float MIN_ANGLE_OF_ELEVATION = 1.0f;
-	private final static float PITCH_OFFSET = 0.0f;
-
-	private final static float MAX_HORIZONTAL_CHANGE = 500.0f;
-	private final static float MAX_VERTICAL_CHANGE = 5.0f;
 
 	private final static float INFLUENCE_OF_MOUSEDY = -175.0f;
 	private final static float INFLUENCE_OF_MOUSEDX = INFLUENCE_OF_MOUSEDY * 92.0f;
@@ -108,26 +104,19 @@ public class CameraFPS implements ICamera {
 	}
 
 	private void calculateHorizontalAngle(boolean gamePaused) {
-		float delta = FlounderEngine.getDelta();
-		float angleChange = 0.0f;
+		float change = 0.0f;
 
 		if (!gamePaused) {
 			if (FlounderEngine.getDevices().getJoysticks().isConnected(0)) {
 				if (Math.abs(Maths.deadband(0.01f, joystickRotateX.getAmount())) > 0.0f) {
-					angleChange = -joystickRotateX.getAmount() * delta * INFLUENCE_OF_JOYSTICKDX;
+					change = INFLUENCE_OF_JOYSTICKDX * FlounderEngine.getDelta() * -joystickRotateX.getAmount();
 				}
 			} else {
-				angleChange = FlounderEngine.getDevices().getMouse().getDeltaX() * INFLUENCE_OF_MOUSEDX;
+				change = FlounderEngine.getDevices().getMouse().getDeltaX() * INFLUENCE_OF_MOUSEDX;
 			}
 		}
 
-		if (angleChange > MAX_HORIZONTAL_CHANGE) {
-			angleChange = MAX_HORIZONTAL_CHANGE;
-		} else if (angleChange < -MAX_HORIZONTAL_CHANGE) {
-			angleChange = -MAX_HORIZONTAL_CHANGE;
-		}
-
-		targetRotationAngle -= angleChange;
+		targetRotationAngle -= change;
 
 		if (targetRotationAngle >= Maths.DEGREES_IN_HALF_CIRCLE) {
 			targetRotationAngle -= Maths.DEGREES_IN_CIRCLE;
@@ -138,25 +127,19 @@ public class CameraFPS implements ICamera {
 
 	private void calculateVerticalAngle(boolean gamePaused) {
 		float delta = FlounderEngine.getDelta();
-		float angleChange = 0.0f;
+		float change = 0.0f;
 
 		if (!gamePaused) {
 			if (FlounderEngine.getDevices().getJoysticks().isConnected(0)) {
 				if (Math.abs(Maths.deadband(0.01f, joystickRotateY.getAmount())) > 0.0f) {
-					angleChange = -joystickRotateY.getAmount() * delta * INFLUENCE_OF_JOYSTICKDY;
+					change = -joystickRotateY.getAmount() * delta * INFLUENCE_OF_JOYSTICKDY;
 				}
 			} else {
-				angleChange = -FlounderEngine.getDevices().getMouse().getDeltaY() * INFLUENCE_OF_MOUSEDY;
+				change = -FlounderEngine.getDevices().getMouse().getDeltaY() * INFLUENCE_OF_MOUSEDY;
 			}
 		}
 
-		if (angleChange > MAX_VERTICAL_CHANGE) {
-			angleChange = MAX_VERTICAL_CHANGE;
-		} else if (angleChange < -MAX_VERTICAL_CHANGE) {
-			angleChange = -MAX_VERTICAL_CHANGE;
-		}
-
-		targetElevation -= angleChange;
+		targetElevation -= change;
 
 		if (targetElevation <= MAX_ANGLE_OF_ELEVATION) {
 			targetElevation = MAX_ANGLE_OF_ELEVATION;
@@ -166,7 +149,6 @@ public class CameraFPS implements ICamera {
 	}
 
 	private void updateHorizontalAngle() {
-		float delta = FlounderEngine.getDelta();
 		float offset = targetRotationAngle - angleAroundPlayer;
 
 		if (Math.abs(offset) > Maths.DEGREES_IN_HALF_CIRCLE) {
@@ -177,7 +159,7 @@ public class CameraFPS implements ICamera {
 			}
 		}
 
-		float change = offset * delta * ROTATE_AGILITY;
+		float change = ROTATE_AGILITY * FlounderEngine.getDelta() * offset;
 		angleAroundPlayer += change;
 
 		if (angleAroundPlayer >= Maths.DEGREES_IN_HALF_CIRCLE) {
@@ -188,17 +170,14 @@ public class CameraFPS implements ICamera {
 	}
 
 	private void updatePitchAngle() {
-		float delta = FlounderEngine.getDelta();
 		float offset = targetElevation - angleOfElevation;
-
-		float change = offset * delta * PITCH_AGILITY;
-
+		float change = PITCH_AGILITY * FlounderEngine.getDelta() * offset;
 		angleOfElevation += change;
 	}
 
 	private void calculatePosition() {
 		position.set(targetPosition);
-		rotation.set((float) Math.toDegrees(angleOfElevation) - PITCH_OFFSET, Maths.DEGREES_IN_HALF_CIRCLE + angleAroundPlayer, targetRotation.z);
+		rotation.set((float) Math.toDegrees(angleOfElevation), Maths.DEGREES_IN_HALF_CIRCLE + angleAroundPlayer, targetRotation.z);
 	}
 
 	private void updateViewMatrix() {

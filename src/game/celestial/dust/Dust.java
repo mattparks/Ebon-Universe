@@ -14,27 +14,30 @@ public class Dust implements Comparable<Dust>, ISpatialObject {
 	private Vector3f position;
 	private float starCount;
 	private Colour averageColour;
-	private AABB dustAABB;
+	private AABB dustBounding;
 
-	public Dust(float tileSpanSize, Vector3f position, float starCount, Colour averageColour) {
-		this.tileSpanSize = tileSpanSize;
-		this.position = position;
+	public Dust(Vector3f minPosition, Vector3f maxPosition, float starCount, Colour averageColour) {
+		this.tileSpanSize = Vector3f.subtract(maxPosition, minPosition, maxPosition).length();
+		this.position = Vector3f.divide(Vector3f.subtract(minPosition, maxPosition, this.position), new Vector3f(2.0f, 2.0f, 2.0f), this.position);
 		this.starCount = starCount;
 		this.averageColour = averageColour;
 
-		this.dustAABB = new AABB();
-		float size = 0.5f * tileSpanSize;
-		dustAABB.getMinExtents().set(this.position.getX() - size, this.position.getY() - size, this.position.getZ() - size);
-		dustAABB.getMaxExtents().set(this.position.getX() + size, this.position.getY() + size, this.position.getZ() + size);
-
-		//	FlounderEngine.getLogger().error(getStarDensity());
+		this.dustBounding = new AABB(new Vector3f(minPosition), new Vector3f(maxPosition));
 	}
 
 	public float getStarDensity() {
-		double width = dustAABB.getWidth();
-		double height = dustAABB.getHeight();
-		double depth = dustAABB.getDepth();
+		double width = dustBounding.getWidth();
+		double height = dustBounding.getHeight();
+		double depth = dustBounding.getDepth();
 		return (float) (width * height * depth) / starCount;
+	}
+
+	public float getRadius() {
+		return tileSpanSize;
+	}
+
+	public Vector3f getPosition() {
+		return position;
 	}
 
 	public Colour getAverageColour() {
@@ -43,7 +46,7 @@ public class Dust implements Comparable<Dust>, ISpatialObject {
 
 	@Override
 	public AABB getBounding() {
-		return dustAABB;
+		return dustBounding;
 	}
 
 	@Override

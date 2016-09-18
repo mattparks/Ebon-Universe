@@ -7,6 +7,7 @@ import flounder.maths.*;
 import flounder.maths.vectors.*;
 import flounder.physics.*;
 import flounder.space.*;
+import game.*;
 import game.celestial.*;
 import game.celestial.dust.*;
 
@@ -19,6 +20,7 @@ import static org.lwjgl.glfw.GLFW.*;
  */
 public class GalaxyManager {
 	public static final int GALAXY_STARS = 25600;
+	public static final int GALAXY_DUST_RATIO = 256;
 	public static final double GALAXY_RADIUS = GALAXY_STARS / 10.0;
 
 	private Sphere starView;
@@ -32,8 +34,8 @@ public class GalaxyManager {
 	private Vector3f lastPosition;
 	private String playerVelocity;
 
-	private ISpatialStructure<Star> starsQuadtree;
-	private ISpatialStructure<Dust> dustQuadtree;
+	private ISpatialStructure<Star> starsStructure;
+	private ISpatialStructure<Dust> dustStructure;
 
 	/**
 	 * Creates a new galaxy with a galaxy manager.
@@ -50,11 +52,11 @@ public class GalaxyManager {
 		lastPosition = new Vector3f();
 		playerVelocity = "0 ly/s";
 
-		starsQuadtree = new StructureBasic<>();
-		dustQuadtree = new StructureBasic<>();
-		GalaxyGenerator.generateGalaxy(GALAXY_STARS, GALAXY_RADIUS, starsQuadtree, dustQuadtree);
+		starsStructure = new StructureBasic<>();
+		dustStructure = new StructureBasic<>();
+		GalaxyGenerator.generateGalaxy(GALAXY_STARS, GALAXY_DUST_RATIO, GALAXY_RADIUS, starsStructure, dustStructure);
 
-		waypoint.setTargetStar(starsQuadtree.getAll(new ArrayList<>()).get(GALAXY_STARS - 1));
+		waypoint.setTargetStar(starsStructure.getAll(new ArrayList<>()).get(GALAXY_STARS - 1));
 	}
 
 	/**
@@ -62,11 +64,12 @@ public class GalaxyManager {
 	 */
 	public void update() {
 		// Nulls old values.
+		Star lastInStarSystem = inSystemStar;
 		inSystemStar = null;
 		inSystemCelestial = null;
 
 		// Updates stars if present.
-		if (starsQuadtree != null) {
+		if (starsStructure != null) {
 			// Updates and recalculations.
 			Vector3f currentPosition = FlounderEngine.getCamera().getPosition();
 			float distanceLastCurrent = Vector3f.getDistance(currentPosition, lastPosition);
@@ -77,12 +80,16 @@ public class GalaxyManager {
 			List<Star> selectedStars = null;
 
 			// Checks all stars if inside the star view, and updates them.
-			for (Star star : starsQuadtree.queryInBounding(new ArrayList<>(), starView)) {
+			for (Star star : starsStructure.queryInBounding(new ArrayList<>(), starView)) {
 				// If the stars sphere contains the camera.
 				if (star.getBounding().contains(currentPosition)) {
 					// Then this star is the current system.
 					FlounderEngine.getBounding().addShapeRender(star.getBounding());
 					inSystemStar = star;
+
+					if (!star.equals(lastInStarSystem)) {
+						((MainGuis) FlounderEngine.getManagerGUI()).getOverlayStatus().addMessage("Entering Star " + star.getStarName());
+					}
 
 					// Loads star children if not loaded.
 					if (!star.isChildrenLoaded()) {
@@ -103,7 +110,11 @@ public class GalaxyManager {
 
 			// If the player is in no star system render bounding spheres for stars in view.
 			if (inSystemStar == null) {
-				for (Star star : starsQuadtree.queryInBounding(new ArrayList<>(), starView)) {
+				if (lastInStarSystem != null) {
+					((MainGuis) FlounderEngine.getManagerGUI()).getOverlayStatus().addMessage("Exiting Star " + lastInStarSystem.getStarName());
+				}
+
+				for (Star star : starsStructure.queryInBounding(new ArrayList<>(), starView)) {
 					FlounderEngine.getBounding().addShapeRender(star.getBounding());
 				}
 			}
@@ -194,7 +205,7 @@ public class GalaxyManager {
 	 * @return A list of stars in the galaxy.
 	 */
 	public ISpatialStructure<Star> getStars() {
-		return starsQuadtree;
+		return starsStructure;
 	}
 
 	/**
@@ -203,7 +214,7 @@ public class GalaxyManager {
 	 * @return A list of galactic dusts.
 	 */
 	public ISpatialStructure<Dust> getDusts() {
-		return dustQuadtree;
+		return dustStructure;
 	}
 
 	/**
@@ -219,14 +230,14 @@ public class GalaxyManager {
 	 * Destroys the galaxy.
 	 */
 	public void destroy() {
-		if (starsQuadtree != null) {
-			starsQuadtree.clear();
-			starsQuadtree = null;
+		if (starsStructure != null) {
+			starsStructure.clear();
+			starsStructure = null;
 		}
 
-		if (dustQuadtree != null) {
-			dustQuadtree.clear();
-			dustQuadtree = null;
+		if (dustStructure != null) {
+			dustStructure.clear();
+			dustStructure = null;
 		}
 	}
 }

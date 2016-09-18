@@ -5,7 +5,6 @@ import flounder.inputs.*;
 import flounder.maths.*;
 import flounder.maths.vectors.*;
 import game.*;
-import game.celestial.manager.*;
 import game.options.*;
 
 import static org.lwjgl.glfw.GLFW.*;
@@ -64,12 +63,12 @@ public class PlayerFPS implements IPlayer {
 		this.position = new Vector3f();
 		this.rotation = new Vector3f();
 
-		this.autopilot = new Autopilot();
+		this.autopilot = new Autopilot(ACCELERATION, DECELERATION);
 	}
 
 	@Override
 	public void update(boolean paused) {
-		if (!paused) {
+	//	if (!paused) {
 			// Update multiplier and waypoint.
 			float multiplier = Environment.getGalaxyManager().getInSystemStar() != null ? (float) (Environment.getGalaxyManager().getInSystemStar().getSolarRadius() * 0.05f) : 1.0f;
 			autopilot.setWaypoint(Environment.getGalaxyManager().getWaypoint(), true);
@@ -93,17 +92,18 @@ public class PlayerFPS implements IPlayer {
 					speedMagnitude = Math.min(1.0f, Math.abs(speedMagnitude)) * (speedMagnitude < 0.0f ? -1.0f : 1.0f);
 				}
 
-				velocity.x = multiplier * X_SPEED * FlounderEngine.getDelta() * Maths.deadband(0.05f, inputX.getAmount());
-				velocity.y = multiplier * Y_SPEED * FlounderEngine.getDelta() * Maths.deadband(0.05f, inputY.getAmount());
-				velocity.z = multiplier * Z_SPEED * FlounderEngine.getDelta() * -Maths.deadband(0.05f, inputZ.getAmount());
+				velocity.x = X_SPEED * FlounderEngine.getDelta() * speedMagnitude;//multiplier * X_SPEED * FlounderEngine.getDelta() * Maths.deadband(0.05f, inputX.getAmount());
+				velocity.y = 0;//multiplier * Y_SPEED * FlounderEngine.getDelta() * Maths.deadband(0.05f, inputY.getAmount());
+				velocity.z = 0;//multiplier * Z_SPEED * FlounderEngine.getDelta() * -Maths.deadband(0.05f, inputZ.getAmount());
 
-				Vector3f.rotate(velocity, rotation, velocity);
+			//	Vector3f.rotate(velocity, rotation, velocity);
 				Vector3f.add(position, velocity, position);
 			} else { // Update autopilot.
 				autopilot.update(position);
+				speedMagnitude = autopilot.getSpeedMagnitude();
 				Vector3f.add(position, velocity.set(autopilot.getVelocity()), position);
 			}
-		}
+	//	}
 	}
 
 	@Override

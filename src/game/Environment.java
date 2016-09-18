@@ -7,10 +7,13 @@ import game.entities.*;
 
 import java.util.*;
 
+/**
+ * A class that represents the game environment.
+ */
 public class Environment {
 	private static Fog fog;
-	private static List<Light> lights;
-	private static ISpatialStructure<Entity> entityQuadtree;
+	private static StructureBasic<Light> lights;
+	private static StructureBasic<Entity> entityStructure;
 	private static GalaxyManager galaxyManager;
 
 	/**
@@ -21,17 +24,18 @@ public class Environment {
 	 */
 	public static void init(Fog fog, Light sun) {
 		Environment.fog = fog;
-		Environment.lights = new ArrayList<>();
-		Environment.lights.add(sun);
-		Environment.entityQuadtree = new StructureBasic<>();
+		Environment.lights = new StructureBasic<>();
+		Environment.entityStructure = new StructureBasic<>();
 		Environment.galaxyManager = new GalaxyManager();
+		Environment.lights.add(sun);
 	}
 
+	/**
+	 * Updates the environment.
+	 */
 	public static void update() {
-		if (entityQuadtree != null) {
-			for (Entity entity : entityQuadtree.getAll(new ArrayList<>())) {
-				entity.update();
-			}
+		if (entityStructure != null) {
+			entityStructure.getAll(new ArrayList<>()).forEach(Entity::update);
 		}
 
 		if (galaxyManager != null) {
@@ -43,18 +47,21 @@ public class Environment {
 		return fog;
 	}
 
-	public static List<Light> getLights() {
+	public static StructureBasic<Light> getLights() {
 		return lights;
 	}
 
-	public static ISpatialStructure<Entity> getEntities() {
-		return entityQuadtree;
+	public static StructureBasic<Entity> getEntities() {
+		return entityStructure;
 	}
 
 	public static GalaxyManager getGalaxyManager() {
 		return galaxyManager;
 	}
 
+	/**
+	 * Destroys the environment.
+	 */
 	public static void destroy() {
 		fog = null;
 
@@ -63,9 +70,9 @@ public class Environment {
 			lights = null;
 		}
 
-		if (entityQuadtree != null) {
-			entityQuadtree.clear();
-			entityQuadtree = null;
+		if (entityStructure != null) {
+			entityStructure.clear();
+			entityStructure = null;
 		}
 
 		if (galaxyManager != null) {

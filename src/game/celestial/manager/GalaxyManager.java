@@ -52,6 +52,8 @@ public class GalaxyManager {
 		starsQuadtree = new StructureBasic<>();
 		dustQuadtree = new StructureBasic<>();
 		GalaxyGenerator.generateGalaxy(GALAXY_STARS, GALAXY_RADIUS, starsQuadtree, dustQuadtree);
+
+		waypoint.setTargetStar(starsQuadtree.getAll(new ArrayList<>()).get(GALAXY_STARS - 1));
 	}
 
 	/**

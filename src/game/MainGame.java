@@ -62,9 +62,10 @@ public class MainGame extends IGame {
 	}
 
 	public void generatePlayer() {
-		if (FlounderEngine.getCamera() instanceof CameraFocus) {
-			this.player = new PlayerFocus();
-		} else if (FlounderEngine.getCamera() instanceof CameraFPS) {
+		//if (FlounderEngine.getCamera() instanceof CameraFocus) {
+		//	this.player = new PlayerFocus();
+		//} else
+		if (FlounderEngine.getCamera() instanceof CameraFPS) {
 			this.player = new PlayerFPS();
 		} else {
 			throw new FlounderRuntimeException("Could not find IPlayer implementation for ICamera!");
@@ -118,7 +119,7 @@ public class MainGame extends IGame {
 		}
 
 		if (switchCamera.wasDown()) {
-			switchCamera();
+		//	switchCamera();
 		}
 
 		if (player != null) {
@@ -129,7 +130,7 @@ public class MainGame extends IGame {
 		Environment.update();
 	}
 
-	public void switchCamera() {
+	/*public void switchCamera() {
 		if (FlounderEngine.getCamera() instanceof CameraFocus) {
 			CameraFPS newCamera = new CameraFPS();
 			PlayerFPS newPlayer = new PlayerFPS();
@@ -149,7 +150,7 @@ public class MainGame extends IGame {
 			player = newPlayer;
 			FlounderEngine.setCamera(newCamera);
 		}
-	}
+	}*/
 
 	@Override
 	public void dispose() {

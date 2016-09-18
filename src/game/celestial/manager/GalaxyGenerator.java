@@ -13,15 +13,23 @@ import java.util.*;
  * A class that generates a list of stars to create a galaxy.
  */
 public class GalaxyGenerator {
-	public static void generateGalaxy(int starCount, double galaxyRadius, ISpatialStructure<Star> starsQuadtree, ISpatialStructure<Dust> dustQuadtree) {
+	/**
+	 * Generates a galaxy of stars and dusts.
+	 *
+	 * @param starCount The amount of stars to create.
+	 * @param galaxyRadius The radius of the galaxy, (LY).
+	 * @param starsStructure The stars structure.
+	 * @param dustStructure The dust structure.
+	 */
+	public static void generateGalaxy(int starCount, double galaxyRadius, ISpatialStructure<Star> starsStructure, ISpatialStructure<Dust> dustStructure) {
 		for (int i = 0; i < starCount; i++) {
 			Star.StarType starType = Star.StarType.getTypeMakeup(Maths.randomInRange(0.0, 100.0));
 			double solarMasses = Maths.randomInRange(starType.minSolarMasses, starType.maxSolarMasses);
 			Star star = new Star(FauxGenerator.getFauxSentance(1, 6, 17), solarMasses, randomSpiralPoint(galaxyRadius), new ArrayList<>());
-			starsQuadtree.add(star);
+			starsStructure.add(star);
 		}
 
-		List<Star> galaxyStars = starsQuadtree.getAll(new ArrayList<>());
+		List<Star> galaxyStars = starsStructure.getAll(new ArrayList<>());
 		galaxyStars = ArraySorting.quickSort(galaxyStars);
 		Vector3f minPosition = new Vector3f();
 		Vector3f maxPosition = new Vector3f();
@@ -30,7 +38,7 @@ public class GalaxyGenerator {
 
 		for (int i = 0; i < galaxyStars.size(); i++) {
 			if (currentCount >= 25) {
-				dustQuadtree.add(new Dust(Vector3f.subtract(maxPosition, minPosition, maxPosition).length(), Vector3f.divide(Vector3f.subtract(minPosition, maxPosition, maxPosition), new Vector3f(2.0f, 2.0f, 2.0f), null), starCount, Colour.divide(currentColour, new Colour(starCount, starCount, starCount), null)));
+				dustStructure.add(new Dust(Vector3f.subtract(maxPosition, minPosition, maxPosition).length(), Vector3f.divide(Vector3f.subtract(minPosition, maxPosition, maxPosition), new Vector3f(2.0f, 2.0f, 2.0f), null), starCount, Colour.divide(currentColour, new Colour(starCount, starCount, starCount), null)));
 				minPosition.set(0.0f, 0.0f, 0.0f);
 				maxPosition.set(0.0f, 0.0f, 0.0f);
 				currentColour.set(0.0f, 0.0f, 0.0f);
@@ -60,7 +68,7 @@ public class GalaxyGenerator {
 			return randomClusterPoint((float) radius / 10.0f, (float) radius / 10.0f, (float) radius / 10.0f);
 		}
 
-		return randomSpherePoint((float) radius * 10.0f);
+		return randomSpherePoint((float) radius * 2.0f);
 	}
 
 	private static Vector3f randomSpherePoint(float radius) {

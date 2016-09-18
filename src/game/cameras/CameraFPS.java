@@ -35,9 +35,9 @@ public class CameraFPS implements ICamera {
 
 	private Vector3f position;
 	private Vector3f rotation;
-
 	private Frustum viewFrustum;
 	private Matrix4f viewMatrix;
+
 	private JoystickAxis joystickRotateX;
 	private JoystickAxis joystickRotateY;
 
@@ -45,6 +45,7 @@ public class CameraFPS implements ICamera {
 	private float angleAroundPlayer;
 
 	private Vector3f targetPosition;
+	private Vector3f targetRotation;
 	private float targetElevation;
 	private float targetRotationAngle;
 
@@ -64,6 +65,7 @@ public class CameraFPS implements ICamera {
 		this.angleAroundPlayer = 0.0f;
 
 		this.targetPosition = new Vector3f();
+		this.targetRotation = new Vector3f();
 		this.targetElevation = 0.0f;
 		this.targetRotationAngle = 0.0f;
 	}
@@ -89,6 +91,7 @@ public class CameraFPS implements ICamera {
 		calculateVerticalAngle(gamePaused);
 
 		this.targetPosition.set(focusPosition);
+		this.targetRotation.set(focusRotation);
 
 		updateHorizontalAngle();
 		updatePitchAngle();
@@ -195,7 +198,7 @@ public class CameraFPS implements ICamera {
 
 	private void calculatePosition() {
 		position.set(targetPosition);
-		rotation.set((float) Math.toDegrees(angleOfElevation) - PITCH_OFFSET, Maths.DEGREES_IN_HALF_CIRCLE + angleAroundPlayer, 0.0f);
+		rotation.set((float) Math.toDegrees(angleOfElevation) - PITCH_OFFSET, Maths.DEGREES_IN_HALF_CIRCLE + angleAroundPlayer, targetRotation.z);
 	}
 
 	private void updateViewMatrix() {

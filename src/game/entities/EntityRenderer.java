@@ -67,7 +67,7 @@ public class EntityRenderer extends IRenderer {
 		shader.getUniformFloat("fogGradient").loadFloat(Environment.getFog().getFogGradient());
 
 		for (int i = 0; i < NUMBER_LIGHTS; i++) {
-			if (i < Environment.getLights().size()) {
+			if (i < Environment.getLights().getSize()) {
 				shader.getUniformVec3("lightPosition[" + i + "]").loadVec3(Environment.getLights().get(i).getPosition());
 				shader.getUniformVec3("lightColour[" + i + "]").loadVec3(Environment.getLights().get(i).getColour());
 				shader.getUniformVec3("lightAttenuation[" + i + "]").loadVec3(Environment.getLights().get(i).getAttenuation());

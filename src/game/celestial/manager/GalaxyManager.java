@@ -9,7 +9,6 @@ import flounder.physics.*;
 import flounder.space.*;
 import game.*;
 import game.celestial.*;
-import game.celestial.dust.*;
 
 import java.util.*;
 
@@ -19,8 +18,7 @@ import static org.lwjgl.glfw.GLFW.*;
  * A class that creates and manages a galaxy and its processes.
  */
 public class GalaxyManager {
-	public static final int GALAXY_STARS = 25600;
-	public static final int GALAXY_DUST_RATIO = 256;
+	public static final int GALAXY_STARS = 12800;
 	public static final double GALAXY_RADIUS = GALAXY_STARS / 10.0;
 
 	private Sphere starView;
@@ -35,13 +33,12 @@ public class GalaxyManager {
 	private String playerVelocity;
 
 	private ISpatialStructure<Star> starsStructure;
-	private ISpatialStructure<Dust> dustStructure;
 
 	/**
 	 * Creates a new galaxy with a galaxy manager.
 	 */
 	public GalaxyManager() {
-		starView = new Sphere((float) (GALAXY_STARS / 100.0));
+		starView = new Sphere(256.0f);
 		starViewRay = new Ray(false, new Vector2f(0.0f, 0.0f));
 		waypoint = new Waypoint();
 		waypointSetButton = new CompoundButton(new KeyButton(GLFW_KEY_TAB), new MouseButton(GLFW_MOUSE_BUTTON_3));
@@ -53,8 +50,7 @@ public class GalaxyManager {
 		playerVelocity = "0 ly/s";
 
 		starsStructure = new StructureBasic<>();
-		dustStructure = new StructureBasic<>();
-		GalaxyGenerator.generateGalaxy(GALAXY_STARS, GALAXY_DUST_RATIO, GALAXY_RADIUS, starsStructure, dustStructure);
+		GalaxyGenerator.generateGalaxy(GALAXY_STARS, GALAXY_RADIUS, starsStructure);
 
 		waypoint.setTargetStar(starsStructure.getAll(new ArrayList<>()).get(GALAXY_STARS - 1));
 	}
@@ -70,6 +66,10 @@ public class GalaxyManager {
 
 		// Updates stars if present.
 		if (starsStructure != null) {
+			//for (AABB aabb : starsStructure.getAABBs()) {
+			//	FlounderEngine.getBounding().addShapeRender(aabb);
+			//}
+
 			// Updates and recalculations.
 			Vector3f currentPosition = FlounderEngine.getCamera().getPosition();
 			float distanceLastCurrent = Vector3f.getDistance(currentPosition, lastPosition);
@@ -209,15 +209,6 @@ public class GalaxyManager {
 	}
 
 	/**
-	 * Gets a list of galactic dusts.
-	 *
-	 * @return A list of galactic dusts.
-	 */
-	public ISpatialStructure<Dust> getDusts() {
-		return dustStructure;
-	}
-
-	/**
 	 * gets if the star renderer should be used.
 	 *
 	 * @return If the star renderer should be used.
@@ -233,11 +224,6 @@ public class GalaxyManager {
 		if (starsStructure != null) {
 			starsStructure.clear();
 			starsStructure = null;
-		}
-
-		if (dustStructure != null) {
-			dustStructure.clear();
-			dustStructure = null;
 		}
 	}
 }

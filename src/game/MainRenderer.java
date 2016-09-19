@@ -11,7 +11,6 @@ import flounder.maths.matrices.*;
 import flounder.maths.vectors.*;
 import flounder.particles.*;
 import flounder.physics.renderer.*;
-import game.celestial.dust.*;
 import game.celestial.stars.*;
 import game.entities.*;
 import game.options.*;
@@ -30,7 +29,6 @@ public class MainRenderer extends IRendererMaster {
 	private ParticleRenderer particleRenderer;
 	private StarRenderer starRenderer;
 	private SunRenderer sunRenderer;
-	private DustRenderer dustRenderer;
 	private BoundingRenderer boundingRenderer;
 	private GuiRenderer guiRenderer;
 	private GuiRenderer cursorRenderer;
@@ -51,7 +49,6 @@ public class MainRenderer extends IRendererMaster {
 		this.particleRenderer = new ParticleRenderer();
 		this.starRenderer = new StarRenderer();
 		this.sunRenderer = new SunRenderer();
-		this.dustRenderer = new DustRenderer();
 		this.boundingRenderer = new BoundingRenderer();
 		this.guiRenderer = new GuiRenderer(GuiRenderer.GuiRenderType.GUI);
 		this.cursorRenderer = new GuiRenderer(GuiRenderer.GuiRenderType.CURSOR);
@@ -111,7 +108,6 @@ public class MainRenderer extends IRendererMaster {
 		/* Renders each renderer. */
 		if (Environment.getGalaxyManager() != null) {
 			if (Environment.getGalaxyManager().renderStars()) {
-				dustRenderer.render(clipPlane, camera);
 				starRenderer.render(clipPlane, camera);
 				skyboxRenderer.getSkyboxFBO().setLoaded(false);
 			} else {
@@ -120,7 +116,6 @@ public class MainRenderer extends IRendererMaster {
 						camera.getPosition().set(Environment.getGalaxyManager().getInSystemStar().getPosition());
 					}
 
-					dustRenderer.render(clipPlane, camera);
 					starRenderer.render(clipPlane, camera);
 					unbindRelevantFBO();
 					skyboxRenderer.getSkyboxFBO().bindFBO();
@@ -130,7 +125,6 @@ public class MainRenderer extends IRendererMaster {
 						skyboxRenderer.rotateCamera(camera, face);
 						OpenGlUtils.prepareNewRenderParse(clearColour);
 						Matrix4f.perspectiveMatrix(SkyboxFBO.CAMERA_FOV, 1.0f, SkyboxFBO.CAMERA_NEAR, SkyboxFBO.CAMERA_FAR, projectionMatrix);
-						dustRenderer.render(clipPlane, camera);
 						starRenderer.render(clipPlane, camera);
 					}
 
@@ -180,7 +174,6 @@ public class MainRenderer extends IRendererMaster {
 		particleRenderer.dispose();
 		sunRenderer.dispose();
 		starRenderer.dispose();
-		dustRenderer.dispose();
 		boundingRenderer.dispose();
 		cursorRenderer.dispose();
 		guiRenderer.dispose();

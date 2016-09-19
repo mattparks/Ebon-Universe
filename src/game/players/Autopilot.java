@@ -83,7 +83,7 @@ public class Autopilot {
 	 * @param stopShip If the waypoint will redirect the current autopilot.
 	 */
 	public void setWaypoint(Waypoint waypoint, boolean stopShip) {
-		if (waypoint == null || waypoint.getPosition().equals(autopilotWaypoint)) {
+		if (waypoint == null || waypoint.getPosition() == null || waypoint.getPosition().equals(autopilotWaypoint)) {
 			return;
 		}
 

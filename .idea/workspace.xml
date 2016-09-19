@@ -15,18 +15,20 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="d5da382d-17aa-4da5-9b33-402233252004" name="Default" comment="">
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Flounder-Engine/src/flounder/space/StructureSplit.java" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/res/res/shaders/dust/dustFragment.glsl" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/res/res/shaders/dust/dustVertex.glsl" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/game/celestial/dust/Dust.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/game/celestial/dust/DustRenderer.java" afterPath="" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/flounder-engine" afterPath="$PROJECT_DIR$/flounder-engine" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Flounder-Engine/src/flounder/physics/AABB.java" afterPath="$PROJECT_DIR$/Flounder-Engine/src/flounder/physics/AABB.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Flounder-Engine/src/flounder/physics/IBounding.java" afterPath="$PROJECT_DIR$/Flounder-Engine/src/flounder/physics/IBounding.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Flounder-Engine/src/flounder/physics/Rectangle.java" afterPath="$PROJECT_DIR$/Flounder-Engine/src/flounder/physics/Rectangle.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Flounder-Engine/src/flounder/physics/Sphere.java" afterPath="$PROJECT_DIR$/Flounder-Engine/src/flounder/physics/Sphere.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/game/MainGame.java" afterPath="$PROJECT_DIR$/src/game/MainGame.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/game/MainRenderer.java" afterPath="$PROJECT_DIR$/src/game/MainRenderer.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/game/cameras/CameraFPS.java" afterPath="$PROJECT_DIR$/src/game/cameras/CameraFPS.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/game/celestial/dust/Dust.java" afterPath="$PROJECT_DIR$/src/game/celestial/dust/Dust.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/game/celestial/dust/DustRenderer.java" afterPath="$PROJECT_DIR$/src/game/celestial/dust/DustRenderer.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/game/celestial/manager/GalaxyGenerator.java" afterPath="$PROJECT_DIR$/src/game/celestial/manager/GalaxyGenerator.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/game/celestial/manager/GalaxyManager.java" afterPath="$PROJECT_DIR$/src/game/celestial/manager/GalaxyManager.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/game/players/Autopilot.java" afterPath="$PROJECT_DIR$/src/game/players/Autopilot.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/game/players/PlayerFPS.java" afterPath="$PROJECT_DIR$/src/game/players/PlayerFPS.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/game/uis/GuiNotification.java" afterPath="$PROJECT_DIR$/src/game/uis/GuiNotification.java" />
     </list>
     <ignored path="Open Skies.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -54,28 +56,7 @@
     <favorites_list name="Open Skies" />
   </component>
   <component name="FileEditorManager">
-    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="GalaxyManager.java" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/game/celestial/manager/GalaxyManager.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="357">
-              <caret line="21" column="43" selection-start-line="21" selection-start-column="43" selection-end-line="21" selection-end-column="43" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="DustRenderer.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/game/celestial/dust/DustRenderer.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="214">
-              <caret line="106" column="141" selection-start-line="106" selection-start-column="141" selection-end-line="106" selection-end-column="141" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-    </leaf>
+    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300" />
   </component>
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
@@ -95,7 +76,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/Flounder-Engine/src/flounder/space/StructureBasic.java" />
         <option value="$PROJECT_DIR$/Flounder-Engine/src/flounder/space/ISpatialStructure.java" />
         <option value="$PROJECT_DIR$/Flounder-Engine/src/flounder/physics/package-info.java" />
         <option value="$PROJECT_DIR$/Flounder-Engine/src/flounder/physics/IntersectData.java" />
@@ -120,32 +100,33 @@
         <option value="$PROJECT_DIR$/src/game/entities/EntityRenderer.java" />
         <option value="$PROJECT_DIR$/src/game/Environment.java" />
         <option value="$PROJECT_DIR$/Flounder-Engine/src/flounder/lights/Light.java" />
-        <option value="$PROJECT_DIR$/src/game/MainGame.java" />
         <option value="$PROJECT_DIR$/Editor-Particle/src/editors/particles/EditorParticle.java" />
         <option value="$PROJECT_DIR$/Editor-Entity/src/editors/entity/EditorEntity.java" />
         <option value="$PROJECT_DIR$/Flounder-Engine/src/flounder/maths/vectors/Vector3f.java" />
         <option value="$PROJECT_DIR$/Flounder-Engine/src/flounder/maths/vectors/Vector2f.java" />
-        <option value="$PROJECT_DIR$/configs/settings.conf" />
         <option value="$PROJECT_DIR$/src/game/celestial/manager/Autopilot.java" />
         <option value="$PROJECT_DIR$/Flounder-Engine/src/flounder/guis/GuiComponent.java" />
         <option value="$PROJECT_DIR$/src/game/uis/OverlayStatus.java" />
         <option value="$PROJECT_DIR$/Flounder-Engine/res/res/shaders/fonts/fontFragment.glsl" />
-        <option value="$PROJECT_DIR$/src/game/MainRenderer.java" />
         <option value="$PROJECT_DIR$/Flounder-Engine/src/flounder/engine/implementation/Implementation.java" />
         <option value="$PROJECT_DIR$/Flounder-Engine/src/flounder/devices/DeviceMouse.java" />
         <option value="$PROJECT_DIR$/Flounder-Engine/src/flounder/engine/FlounderEngine.java" />
-        <option value="$PROJECT_DIR$/src/game/players/Autopilot.java" />
         <option value="$PROJECT_DIR$/src/game/uis/GuiNotification.java" />
-        <option value="$PROJECT_DIR$/src/game/players/PlayerFPS.java" />
-        <option value="$PROJECT_DIR$/src/game/cameras/CameraFPS.java" />
         <option value="$PROJECT_DIR$/src/game/celestial/dust/Dust.java" />
-        <option value="$PROJECT_DIR$/src/game/celestial/manager/GalaxyGenerator.java" />
         <option value="$PROJECT_DIR$/Flounder-Engine/src/flounder/physics/AABB.java" />
         <option value="$PROJECT_DIR$/Flounder-Engine/src/flounder/physics/Rectangle.java" />
         <option value="$PROJECT_DIR$/Flounder-Engine/src/flounder/physics/Sphere.java" />
         <option value="$PROJECT_DIR$/Flounder-Engine/src/flounder/physics/IBounding.java" />
         <option value="$PROJECT_DIR$/src/game/celestial/dust/DustRenderer.java" />
+        <option value="$PROJECT_DIR$/src/game/cameras/CameraFPS.java" />
+        <option value="$PROJECT_DIR$/src/game/celestial/manager/GalaxyGenerator.java" />
+        <option value="$PROJECT_DIR$/src/game/MainRenderer.java" />
+        <option value="$PROJECT_DIR$/src/game/players/Autopilot.java" />
+        <option value="$PROJECT_DIR$/Flounder-Engine/src/flounder/space/StructureSplit.java" />
         <option value="$PROJECT_DIR$/src/game/celestial/manager/GalaxyManager.java" />
+        <option value="$PROJECT_DIR$/configs/settings.conf" />
+        <option value="$PROJECT_DIR$/src/game/MainGame.java" />
+        <option value="$PROJECT_DIR$/src/game/players/PlayerFPS.java" />
       </list>
     </option>
   </component>
@@ -279,72 +260,6 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Open Skies" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Open Skies" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="game" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="celestial" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="dust" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Open Skies" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Open Skies" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="game" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="cameras" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Open Skies" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Open Skies" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="res" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="res" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
         </subPane>
       </pane>
       <pane id="Scope" />
@@ -360,6 +275,9 @@
     <property name="settings.editor.splitter.proportion" value="0.2" />
   </component>
   <component name="RecentsManager">
+    <key name="CopyClassDialog.RECENTS_KEY">
+      <recent name="flounder.space" />
+    </key>
     <key name="CopyFile.RECENT_KEYS">
       <recent name="D:\Workspaces\Open Skies\res\res\shaders" />
       <recent name="D:\Workspaces\Open Skies\Flounder-Engine\src\flounder\physics\shapes" />
@@ -752,7 +670,14 @@
       <option name="project" value="LOCAL" />
       <updated>1474240538547</updated>
     </task>
-    <option name="localTasksCounter" value="8" />
+    <task id="LOCAL-00008" summary="Failed galactic dust.">
+      <created>1474246828761</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1474246828761</updated>
+    </task>
+    <option name="localTasksCounter" value="9" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -811,7 +736,8 @@
     <MESSAGE value="Autopilot gets its own class and radii offset." />
     <MESSAGE value="Polish to the mouse and game. TODO: Player movement and dust." />
     <MESSAGE value="Conservation of momentum and gravity roll." />
-    <option name="LAST_COMMIT_MESSAGE" value="Conservation of momentum and gravity roll." />
+    <MESSAGE value="Failed galactic dust." />
+    <option name="LAST_COMMIT_MESSAGE" value="Failed galactic dust." />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager />
@@ -822,25 +748,11 @@
     <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/res/res/shaders/sun/sunFragment.glsl">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="272">
-          <caret line="16" column="61" selection-start-line="16" selection-start-column="61" selection-end-line="16" selection-end-column="61" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/game/skybox/SkyboxFBO.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="202">
           <caret line="20" column="81" selection-start-line="20" selection-start-column="81" selection-end-line="20" selection-end-column="81" />
           <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/game/celestial/manager/SpaceConversions.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="833">
-          <caret line="49" column="59" selection-start-line="49" selection-start-column="59" selection-end-line="49" selection-end-column="59" />
         </state>
       </provider>
     </entry>
@@ -871,14 +783,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="629">
           <caret line="37" column="234" selection-start-line="37" selection-start-column="234" selection-end-line="37" selection-end-column="234" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/game/MainGame.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="440">
-          <caret line="121" column="10" selection-start-line="121" selection-start-column="10" selection-end-line="121" selection-end-column="10" />
           <folding />
         </state>
       </provider>
@@ -921,13 +825,6 @@
           <folding>
             <element signature="imports" expanded="false" />
           </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/configs/settings.conf">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="34">
-          <caret line="2" column="16" selection-start-line="2" selection-start-column="11" selection-end-line="2" selection-end-column="16" />
         </state>
       </provider>
     </entry>
@@ -1051,14 +948,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/game/MainRenderer.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="376">
-          <caret line="129" column="66" selection-start-line="129" selection-start-column="66" selection-end-line="129" selection-end-column="66" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/game/celestial/stars/StarRenderer.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="146">
@@ -1107,26 +996,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/game/players/Autopilot.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="391">
-          <caret line="110" column="32" selection-start-line="110" selection-start-column="32" selection-end-line="111" selection-end-column="107" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/game/uis/GuiNotification.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="316">
           <caret line="35" column="64" selection-start-line="35" selection-start-column="64" selection-end-line="35" selection-end-column="64" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/game/players/PlayerFPS.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="170">
-          <caret line="92" column="0" selection-start-line="92" selection-start-column="0" selection-end-line="92" selection-end-column="0" />
           <folding />
         </state>
       </provider>
@@ -1147,26 +1020,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/game/cameras/CameraFPS.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-882">
-          <caret line="15" column="55" selection-start-line="15" selection-start-column="55" selection-end-line="15" selection-end-column="55" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/game/celestial/dust/Dust.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="374">
           <caret line="38" column="45" selection-start-line="38" selection-start-column="45" selection-end-line="38" selection-end-column="45" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/game/celestial/manager/GalaxyGenerator.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="418">
-          <caret line="96" column="13" selection-start-line="96" selection-start-column="13" selection-end-line="96" selection-end-column="13" />
           <folding />
         </state>
       </provider>
@@ -1219,10 +1076,82 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/game/celestial/manager/SpaceConversions.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="631">
+          <caret line="49" column="59" selection-start-line="49" selection-start-column="59" selection-end-line="49" selection-end-column="59" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/game/MainRenderer.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="253">
+          <caret line="175" column="31" selection-start-line="175" selection-start-column="31" selection-end-line="175" selection-end-column="31" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/game/players/Autopilot.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="425">
+          <caret line="85" column="62" selection-start-line="85" selection-start-column="62" selection-end-line="85" selection-end-column="62" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/game/cameras/CameraFPS.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="255">
+          <caret line="15" column="43" selection-start-line="15" selection-start-column="43" selection-end-line="15" selection-end-column="43" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Flounder-Engine/src/flounder/space/StructureSplit.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1455">
+          <caret line="113" column="40" selection-start-line="113" selection-start-column="40" selection-end-line="113" selection-end-column="40" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/configs/settings.conf">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="170">
+          <caret line="10" column="0" selection-start-line="10" selection-start-column="0" selection-end-line="10" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/game/celestial/manager/GalaxyGenerator.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="306">
+          <caret line="18" column="54" selection-start-line="18" selection-start-column="54" selection-end-line="18" selection-end-column="54" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/game/celestial/manager/GalaxyManager.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="357">
-          <caret line="21" column="43" selection-start-line="21" selection-start-column="43" selection-end-line="21" selection-end-column="43" />
+        <state relative-caret-position="332">
+          <caret line="89" column="57" selection-start-line="89" selection-start-column="57" selection-end-line="90" selection-end-column="137" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/game/players/PlayerFPS.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="374">
+          <caret line="101" column="9" selection-start-line="101" selection-start-column="9" selection-end-line="101" selection-end-column="9" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/game/MainGame.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="287">
+          <caret line="97" column="105" selection-start-line="97" selection-start-column="105" selection-end-line="97" selection-end-column="105" />
           <folding />
         </state>
       </provider>

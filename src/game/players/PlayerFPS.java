@@ -99,8 +99,6 @@ public class PlayerFPS implements IPlayer {
 		if (gravityEnabled && rotation.z != gravityPitch) {
 			rotation.z += (W_SPEED / 15.25f) * FlounderEngine.getDelta() * (gravityPitch - rotation.z);
 			rotation.z = Maths.deadband(0.2f, rotation.z - gravityPitch) + gravityPitch;
-		} else {
-			rotation.z = Maths.normalizeAngle(rotation.z);
 		}
 
 		// Update normal flying camera.

@@ -95,6 +95,7 @@ public class MainGame extends IGame {
 
 		if (screenshot.wasDown()) {
 			FlounderEngine.getDevices().getDisplay().screenshot();
+			((MainGuis) FlounderEngine.getManagerGUI()).getOverlayStatus().addMessage("Taking screenshot!");
 		}
 
 		if (fullscreen.wasDown()) {

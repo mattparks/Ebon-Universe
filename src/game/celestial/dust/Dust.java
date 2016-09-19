@@ -10,19 +10,18 @@ public class Dust implements Comparable<Dust>, ISpatialObject {
 	private static final Vector3f VECTOR_REUSABLE_1 = new Vector3f();
 	private static final Vector3f VECTOR_REUSABLE_2 = new Vector3f();
 
-	private float tileSpanSize;
 	private Vector3f position;
 	private float starCount;
 	private Colour averageColour;
 	private AABB dustBounding;
 
 	public Dust(Vector3f minPosition, Vector3f maxPosition, float starCount, Colour averageColour) {
-		this.tileSpanSize = Vector3f.subtract(maxPosition, minPosition, maxPosition).length();
-		this.position = Vector3f.divide(Vector3f.subtract(minPosition, maxPosition, this.position), new Vector3f(2.0f, 2.0f, 2.0f), this.position);
+		this.position = new Vector3f();
 		this.starCount = starCount;
 		this.averageColour = averageColour;
 
 		this.dustBounding = new AABB(new Vector3f(minPosition), new Vector3f(maxPosition));
+		this.dustBounding.getRenderCentre(this.position);
 	}
 
 	public float getStarDensity() {
@@ -32,8 +31,12 @@ public class Dust implements Comparable<Dust>, ISpatialObject {
 		return (float) (width * height * depth) / starCount;
 	}
 
-	public float getRadius() {
-		return tileSpanSize;
+	public void setStarCount(float starCount) {
+		this.starCount = starCount;
+	}
+
+	public void setAverageColour(Colour averageColour) {
+		this.averageColour.set(averageColour);
 	}
 
 	public Vector3f getPosition() {

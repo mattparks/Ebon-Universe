@@ -33,7 +33,7 @@ public class GuiNotification extends GuiComponent {
 	}
 
 	public void resetFade() {
-		fadeDriver = new SlideDriver(0.0f, 1.0f, FADE_TIME);
+		fadeDriver = new SlideDriver(0.0f, 1.0f, FADE_TIME * 0.7f);
 		background.setAlphaDriver(fadeDriver);
 		text.setAlphaDriver(fadeDriver);
 	}

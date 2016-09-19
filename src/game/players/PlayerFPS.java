@@ -34,6 +34,7 @@ public class PlayerFPS implements IPlayer {
 
 	private Autopilot autopilot;
 	private boolean gravityEnabled;
+	private float gravityPitch;
 
 	@Override
 	public void init() {
@@ -69,6 +70,7 @@ public class PlayerFPS implements IPlayer {
 
 		this.autopilot = new Autopilot(ACCELERATION, DECELERATION);
 		this.gravityEnabled = false;
+		this.gravityPitch = 0.0f;
 	}
 
 	@Override
@@ -86,14 +88,19 @@ public class PlayerFPS implements IPlayer {
 		// Update gravity inputs.
 		if (inputGravity.wasDown()) {
 			gravityEnabled = !gravityEnabled;
+			((MainGuis) FlounderEngine.getManagerGUI()).getOverlayStatus().addMessage("Gravity " + (gravityEnabled ? "Enabled" : "Disabled"));
 		}
 
 		// Update roll rotations.
 		rotation.set(FlounderEngine.getCamera().getRotation());
-		rotation.z += multiplier * W_SPEED * FlounderEngine.getDelta() * Maths.deadband(0.05f, inputW.getAmount());
+		rotation.z += W_SPEED * FlounderEngine.getDelta() * Maths.deadband(0.05f, inputW.getAmount());
 
-		if (gravityEnabled) {
-			rotation.z += (W_SPEED / 10.0f) * FlounderEngine.getDelta() * -rotation.z;
+		// Updates gravity effects.
+		if (gravityEnabled && rotation.z != gravityPitch) {
+			rotation.z += (W_SPEED / 15.25f) * FlounderEngine.getDelta() * (gravityPitch - rotation.z);
+			rotation.z = Maths.deadband(0.2f, rotation.z - gravityPitch) + gravityPitch;
+		} else {
+			rotation.z = Maths.normalizeAngle(rotation.z);
 		}
 
 		// Update normal flying camera.

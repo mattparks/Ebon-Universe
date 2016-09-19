@@ -98,7 +98,7 @@ public class GalaxyManager {
 				}
 
 				// If the user is selecting a waypoint and this star is hit by the ray,
-				if (selectingWaypoint && star.getBounding().intersectsRay(starViewRay)) {
+				if (selectingWaypoint && star.getBounding().intersects(starViewRay).isIntersection()) {
 					// Create a temp selected list.
 					if (selectedStars == null) {
 						selectedStars = new ArrayList<>();

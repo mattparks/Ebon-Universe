@@ -1,6 +1,5 @@
 package game.celestial.manager;
 
-import flounder.engine.*;
 import flounder.helpers.*;
 import flounder.maths.*;
 import flounder.maths.vectors.*;
@@ -33,50 +32,73 @@ public class GalaxyGenerator {
 		}
 
 		List<Star> starsList = starsStructure.getAll(new ArrayList<>());
+		float maxRadius = 0.0f;
 		AABB g = new AABB();
 
 		for (Star star : starsList) {
 			Vector3f s = star.getPosition();
 
+			if (star.getSolarRadius() > maxRadius) {
+				maxRadius = (float) star.getSolarRadius();
+			}
+
 			if (s.x < g.getMinExtents().x) {
 				g.getMinExtents().x = s.x;
+			} else if (s.x > g.getMaxExtents().x) {
+				g.getMaxExtents().x = s.x;
 			}
 
 			if (s.y < g.getMinExtents().y) {
 				g.getMinExtents().y = s.y;
+			} else if (s.y > g.getMaxExtents().y) {
+				g.getMaxExtents().y = s.y;
 			}
 
 			if (s.z < g.getMinExtents().z) {
 				g.getMinExtents().z = s.z;
-			}
-
-			if (s.x > g.getMaxExtents().x) {
-				g.getMaxExtents().x = s.x;
-			}
-
-			if (s.y > g.getMaxExtents().y) {
-				g.getMaxExtents().y = s.y;
-			}
-
-			if (s.z > g.getMaxExtents().z) {
+			} else if (s.z > g.getMaxExtents().z) {
 				g.getMaxExtents().z = s.z;
 			}
 		}
 
+		Vector3f.subtract(g.getMinExtents(), new Vector3f(maxRadius, maxRadius, maxRadius), g.getMinExtents());
+		Vector3f.add(g.getMaxExtents(), new Vector3f(maxRadius, maxRadius, maxRadius), g.getMaxExtents());
+
 		int dustCount = starCount / dustRatio;
-		float lengthX = (float) g.getWidth() / dustCount;
-		float lengthY = (float) g.getHeight() / dustCount;
-		float lengthZ = (float) g.getDepth() / dustCount;
 
-		float xPos = -lengthX;
+		for (int k = 0; k < dustCount; k++) {
+			for (int j = 0; j < dustCount; j++) {
+				for (int i = 0; i < dustCount; i++) {
+					Vector3f minInnerAABB = new Vector3f(
+							g.getMinExtents().getX() + i * (float) (g.getWidth() / dustCount),
+							g.getMinExtents().getY() + j * (float) (g.getHeight() / dustCount),
+							g.getMinExtents().getZ() + k * (float) (g.getDepth() / dustCount)
+					);
 
-		for (int x = 0; x < dustCount / 2; x++) {
-			Vector3f min = new Vector3f(xPos, -lengthY, -lengthZ);
-			xPos += lengthX;
-			Vector3f max = new Vector3f(xPos, lengthY, lengthZ);
+					Vector3f maxInnerAABB = new Vector3f(
+							minInnerAABB.getX() + (float) (g.getWidth() / dustCount),
+							minInnerAABB.getY() + (float) (g.getHeight() / dustCount),
+							minInnerAABB.getZ() + (float) (g.getDepth() / dustCount)
+					);
 
-			Dust dust = new Dust(min, max, 0, new Colour(1, 1, 1));
-			dustStructure.add(dust);
+					Dust dust = new Dust(minInnerAABB, maxInnerAABB, 0, new Colour(1, 1, 1));
+					dustStructure.add(dust);
+				}
+			}
+		}
+
+		for (Dust dust : dustStructure.getAll(new ArrayList<>())) {
+			Colour averageColour = new Colour();
+			int dustStarCount = 0;
+
+			for (Star star : starsStructure.queryInBounding(new ArrayList<>(), dust.getBounding())) {
+				Colour.add(averageColour, star.getSurfaceColour(), averageColour);
+				dustStarCount++;
+			}
+
+			Colour.divide(averageColour, new Colour(dustStarCount, dustStarCount, dustStarCount), averageColour);
+			dust.setAverageColour(averageColour);
+			dust.setStarCount(dustStarCount);
 		}
 	}
 

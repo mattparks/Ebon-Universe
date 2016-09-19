@@ -25,7 +25,7 @@ public class DustRenderer extends IRenderer {
 	private static final MyFile FRAGMENT_SHADER = new MyFile(Shader.SHADERS_LOC, "dust", "dustFragment.glsl");
 
 	private static final float[] VERTICES = {-0.5f, 0.5f, -0.5f, -0.5f, 0.5f, 0.5f, 0.5f, -0.5f};
-	private static final int MAX_INSTANCES = GalaxyManager.GALAXY_STARS / GalaxyManager.GALAXY_DUST_RATIO;
+	private static final int MAX_INSTANCES = GalaxyManager.GALAXY_DUST_RATIO; // GalaxyManager.GALAXY_STARS / GalaxyManager.GALAXY_DUST_RATIO
 	private static final int INSTANCE_DATA_LENGTH = 19;
 	private static final Vector3f REUSABLE_SCALE = new Vector3f();
 
@@ -60,7 +60,7 @@ public class DustRenderer extends IRenderer {
 			return;
 		}
 
-	/*	prepareRendering(clipPlane, camera);
+		prepareRendering(clipPlane, camera);
 
 		// Creates the data to be used when rendering.
 		List<Dust> dusts = Environment.getGalaxyManager().getDusts().getAll(new ArrayList<>()); // Environment.getGalaxyManager().getDusts().queryInFrustum(new ArrayList<>(), camera.getViewFrustum());
@@ -69,19 +69,15 @@ public class DustRenderer extends IRenderer {
 		pointer = 0;
 
 		for (Dust dust : dusts) {
-			// FlounderEngine.getBounding().addShapeRender(dust.getBounding());
-			// prepareInstance(dust, camera, vboData);
-
-			//if (pointer > 50) {
-			//	break;
-			//}
+			FlounderEngine.getBounding().addShapeRender(dust.getBounding());
+			prepareInstance(dust, camera, vboData);
 		}
 
 		// Renders the stars list.
 		FlounderEngine.getLoader().updateVBO(VBO, vboData, BUFFER);
 		glDrawArraysInstancedARB(GL_TRIANGLE_STRIP, 0, VERTICES.length, dusts.size());
 
-		endRendering();*/
+		endRendering();
 	}
 
 	private void prepareRendering(Vector4f clipPlane, ICamera camera) {
@@ -108,9 +104,11 @@ public class DustRenderer extends IRenderer {
 			return;
 		}
 
-		REUSABLE_SCALE.set(dust.getRadius(), dust.getRadius(), dust.getRadius());
+		float radius = (float) Math.max(dust.getBounding().getWidth(), Math.max(dust.getBounding().getHeight(), dust.getBounding().getDepth()));
 
-		float starCameraDistance = Vector3f.getDistance(camera.getPosition(), dust.getPosition()) * (1.0f / dust.getRadius());
+		REUSABLE_SCALE.set(radius, radius, radius);
+
+		float starCameraDistance = Vector3f.getDistance(camera.getPosition(), dust.getPosition());
 
 		if (starCameraDistance > 1000.0f) { // !Environment.renderStars() &&
 			REUSABLE_SCALE.scale(Math.min(starCameraDistance / 1000.0f, 3.0f));

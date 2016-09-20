@@ -120,7 +120,7 @@ public class MainGame extends IGame {
 		}
 
 		if (switchCamera.wasDown()) {
-		//	switchCamera();
+			//	switchCamera();
 		}
 
 		if (player != null) {

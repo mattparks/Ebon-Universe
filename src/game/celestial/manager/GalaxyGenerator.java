@@ -3,7 +3,6 @@ package game.celestial.manager;
 import flounder.helpers.*;
 import flounder.maths.*;
 import flounder.maths.vectors.*;
-import flounder.physics.*;
 import flounder.space.*;
 import game.celestial.*;
 

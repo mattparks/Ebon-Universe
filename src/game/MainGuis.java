@@ -39,7 +39,6 @@ public class MainGuis extends IManagerGUI {
 		if (forceOpenGUIs) {
 			mainMenu.display(true);
 			overlayStatus.show(false);
-			FlounderEngine.getCursor().show(true);
 			forceOpenGUIs = false;
 		}
 
@@ -48,11 +47,6 @@ public class MainGuis extends IManagerGUI {
 		if (openMenuKey.wasDown() && (!menuIsOpen || !mainMenu.getMainSlider().onStartScreen())) {
 			mainMenu.display(!mainMenu.isDisplayed());
 			overlayStatus.show(!mainMenu.isDisplayed());
-			FlounderEngine.getCursor().show(true);
-		}
-
-		if (!mainMenu.getSlideDriver().equals(FlounderEngine.getCursor().getCursorTexture().getAlphaDriver())) {
-			FlounderEngine.getCursor().setAlphaDriver(mainMenu.getSlideDriver());
 		}
 	}
 

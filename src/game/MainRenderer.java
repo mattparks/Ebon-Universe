@@ -31,7 +31,6 @@ public class MainRenderer extends IRendererMaster {
 	private SunRenderer sunRenderer;
 	private BoundingRenderer boundingRenderer;
 	private GuiRenderer guiRenderer;
-	private GuiRenderer cursorRenderer;
 	private FontRenderer fontRenderer;
 
 	private FBO multisamplingFBO;
@@ -50,8 +49,7 @@ public class MainRenderer extends IRendererMaster {
 		this.starRenderer = new StarRenderer();
 		this.sunRenderer = new SunRenderer();
 		this.boundingRenderer = new BoundingRenderer();
-		this.guiRenderer = new GuiRenderer(GuiRenderer.GuiRenderType.GUI);
-		this.cursorRenderer = new GuiRenderer(GuiRenderer.GuiRenderType.CURSOR);
+		this.guiRenderer = new GuiRenderer();
 		this.fontRenderer = new FontRenderer();
 
 		// Diffuse, Depth, Normals
@@ -76,7 +74,6 @@ public class MainRenderer extends IRendererMaster {
 		/* Scene independents. */
 		guiRenderer.render(POSITIVE_INFINITY, null);
 		fontRenderer.render(POSITIVE_INFINITY, null);
-		cursorRenderer.render(POSITIVE_INFINITY, null);
 
 		/* Unbinds the FBO. */
 		unbindRelevantFBO();
@@ -175,7 +172,6 @@ public class MainRenderer extends IRendererMaster {
 		sunRenderer.dispose();
 		starRenderer.dispose();
 		boundingRenderer.dispose();
-		cursorRenderer.dispose();
 		guiRenderer.dispose();
 		fontRenderer.dispose();
 

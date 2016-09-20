@@ -1,6 +1,7 @@
 package game.celestial;
 
 import flounder.maths.vectors.*;
+import game.celestial.manager.*;
 
 import java.util.*;
 
@@ -8,8 +9,6 @@ import java.util.*;
  * A realistic celestial object, like a planet / moon.
  */
 public class Celestial implements Comparable<Celestial> {
-	public static double KM_TO_AU = 6.68459e-9; // The conversion from KM to AU.
-	public static double AU_TO_KM = 1.496e+8; // The conversion from AU to KM.
 	public static double EARTH_MASS = 5.9723e+24; // The earths mass (kg).
 	public static double EARTH_RADIUS = 6378.137; // The earths radius (km).
 	public static double EARTH_ESCAPE_VELOCITY = 11.186; // The earths escape velocity (km/s).
@@ -101,7 +100,7 @@ public class Celestial implements Comparable<Celestial> {
 		this.maxRingSpawns = 2.44 * earthRadius;
 
 		this.escapeVelocity = Math.sqrt(earthMasses / earthRadius) * EARTH_ESCAPE_VELOCITY;
-		this.hillSphere = (orbit.getSemiMajorAxis() * AU_TO_KM * (1.0 - orbit.getEccentricity()) * Math.cbrt((earthMasses * EARTH_MASS) / (3.0 * getParentMass()))) / (earthRadius * EARTH_RADIUS);
+		this.hillSphere = (orbit.getSemiMajorAxis() * SpaceConversions.AU_TO_KM * (1.0 - orbit.getEccentricity()) * Math.cbrt((earthMasses * EARTH_MASS) / (3.0 * getParentMass()))) / (earthRadius * EARTH_RADIUS);
 	}
 
 	public void update() {

@@ -14,11 +14,11 @@ public class Main {
 				new CameraFPS(),
 				new MainRenderer(),
 				new MainGuis(),
-				MainGame.CONFIG.getIntWithDefault("fps_target", -1, FlounderEngine::getTargetFPS)
+				MainGame.CONFIG.getIntWithDefault("fps_target", 60, FlounderEngine::getTargetFPS)
 		);
 		FlounderEngine engine = new FlounderEngine(implementation,
-				MainGame.CONFIG.getIntWithDefault("width", 1080, () -> FlounderEngine.getDevices().getDisplay().getWidth()),
-				MainGame.CONFIG.getIntWithDefault("height", 720, () -> FlounderEngine.getDevices().getDisplay().getHeight()),
+				MainGame.CONFIG.getIntWithDefault("width", 1080, () -> FlounderEngine.getDevices().getDisplay().getWindowWidth()),
+				MainGame.CONFIG.getIntWithDefault("height", 720, () -> FlounderEngine.getDevices().getDisplay().getWindowHeight()),
 				"Open Skies",
 				MainGame.CONFIG.getBooleanWithDefault("vsync", true, () -> FlounderEngine.getDevices().getDisplay().isVSync()),
 				MainGame.CONFIG.getBooleanWithDefault("antialias", true, () -> FlounderEngine.getDevices().getDisplay().isAntialiasing()),

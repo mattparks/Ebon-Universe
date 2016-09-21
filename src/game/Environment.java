@@ -31,6 +31,13 @@ public class Environment {
 	}
 
 	/**
+	 * Called when the game world is needed to be created.
+	 */
+	public static void createWorld() {
+		galaxyManager.generateGalaxy();
+	}
+
+	/**
 	 * Updates the environment.
 	 */
 	public static void update() {

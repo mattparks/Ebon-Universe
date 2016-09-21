@@ -50,8 +50,13 @@ public class GalaxyManager {
 		playerVelocity = "0 ly/s";
 
 		starsStructure = new StructureBasic<>();
-		GalaxyGenerator.generateGalaxy(GALAXY_STARS, GALAXY_RADIUS, starsStructure);
+	}
 
+	/**
+	 * Called when the galaxy is needed to be created.
+	 */
+	public void generateGalaxy() {
+		GalaxyGenerator.generateGalaxy(GALAXY_STARS, GALAXY_RADIUS, starsStructure);
 		waypoint.setTargetStar(starsStructure.getAll(new ArrayList<>()).get(GALAXY_STARS - 1));
 	}
 

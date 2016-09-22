@@ -17,9 +17,9 @@ import game.players.*;
 import static org.lwjgl.glfw.GLFW.*;
 
 public class MainGame extends IGame {
-	public static final Config CONFIG = new Config(new MyFile("configs", "settings.conf"));
-	public static final Config POST_CONFIG = new Config(new MyFile("configs", "post.conf"));
-	public static final Config CONTROLS_CONFIG = new Config(new MyFile("configs", "controls_joystick.conf"));
+	public static final Config CONFIG = new Config(new MyFile(FlounderEngine.getRoamingFolder(), "configs", "settings.conf"));
+	public static final Config POST_CONFIG = new Config(new MyFile(FlounderEngine.getRoamingFolder(), "configs", "post.conf"));
+	public static final Config CONTROLS_CONFIG = new Config(new MyFile(FlounderEngine.getRoamingFolder(), "configs", "controls_joystick.conf"));
 
 	private KeyButton screenshot;
 	private KeyButton fullscreen;

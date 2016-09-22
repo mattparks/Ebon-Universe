@@ -57,7 +57,7 @@ public class MainSlider extends GuiComponent {
 		addComponent(menuStart, 0.0f, MAIN_MENU_Y_POS, 1.0f, MAIN_MENU_Y_SIZE);
 		addComponent(menuPause, 0.0f, MAIN_MENU_Y_POS, 1.0f, MAIN_MENU_Y_SIZE);
 
-		if (FlounderEngine.getLogger().inJar()) {
+		if (FlounderEngine.isRunningFromJar()) {
 			this.menuActive = menuStart;
 		} else {
 			this.menuActive = menuPause;

@@ -5,8 +5,6 @@
       <element id="module-output" name="Editor-Entity" />
       <element id="module-output" name="Open Skies" />
       <element id="module-output" name="Flounder-Engine" />
-      <element id="extracted-dir" path="$PROJECT_DIR$/Flounder-Engine/libs/lwjgl/jar/lwjgl.jar" path-in-jar="/" />
-      <element id="dir-copy" path="$PROJECT_DIR$/Flounder-Engine/libs/lwjgl/native" />
     </root>
   </artifact>
 </component>

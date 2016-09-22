@@ -75,25 +75,42 @@ public class PlayerFPS implements IPlayer {
 
 	@Override
 	public void update(boolean paused) {
-		//	if (!paused) {
+		float xInput = 0.0f;
+		float yInput = 0.0f;
+		float zInput = 0.0f;
+		float wInput = 0.0f;
+		boolean slowInput = false;
+		boolean autopilotInput = false;
+		boolean gravityInput = false;
+
+		if (!paused) {
+			xInput = Maths.deadband(0.05f, inputX.getAmount());
+			yInput = Maths.deadband(0.05f, inputY.getAmount());
+			zInput = Maths.deadband(0.05f, inputZ.getAmount());
+			wInput = Maths.deadband(0.05f, inputW.getAmount());
+			slowInput = inputSlow.isDown();
+			autopilotInput = inputAutopilot.isDown();
+			gravityInput = inputGravity.isDown();
+		}
+
 		// Update multiplier and waypoint.
 		float multiplier = Environment.getGalaxyManager().getInSystemStar() != null ? (float) (Environment.getGalaxyManager().getInSystemStar().getSolarRadius() * 0.05f) : 1.0f;
 		autopilot.setWaypoint(Environment.getGalaxyManager().getWaypoint(), true);
 
 		// Update autopilot inputs.
-		if (inputAutopilot.wasDown() && Environment.getGalaxyManager().getWaypoint().getPosition() != null) {
+		if (autopilotInput && Environment.getGalaxyManager().getWaypoint().getPosition() != null) {
 			autopilot.toggleAutopilot(speedMagnitude);
 		}
 
 		// Update gravity inputs.
-		if (inputGravity.wasDown()) {
+		if (gravityInput) {
 			gravityEnabled = !gravityEnabled;
 			((MainGuis) FlounderEngine.getManagerGUI()).getOverlayStatus().addMessage("Gravity " + (gravityEnabled ? "Enabled" : "Disabled"));
 		}
 
 		// Update roll rotations.
 		rotation.set(FlounderEngine.getCamera().getRotation());
-		rotation.z += W_SPEED * FlounderEngine.getDelta() * Maths.deadband(0.05f, inputW.getAmount());
+		rotation.z += W_SPEED * FlounderEngine.getDelta() * wInput;
 
 		// Updates gravity effects.
 		if (gravityEnabled && rotation.z != gravityPitch) {
@@ -103,18 +120,17 @@ public class PlayerFPS implements IPlayer {
 
 		// Update normal flying camera.
 		if (!autopilot.isEnabled()) {
-			if (inputSlow.isDown()) {
+			if (slowInput) {
 				speedMagnitude -= multiplier * DECELERATION * FlounderEngine.getDelta();
 				speedMagnitude = Math.max(0.0f, speedMagnitude);
 			} else {
-				speedMagnitude += multiplier * ACCELERATION * FlounderEngine.getDelta() * (float) Math.abs(Math.log(speedMagnitude + 0.5f)) * Maths.deadband(0.05f, inputZ.getAmount());
+				speedMagnitude += multiplier * ACCELERATION * FlounderEngine.getDelta() * (float) Math.abs(Math.log(speedMagnitude + 0.5f)) * Math.abs(zInput);
 				speedMagnitude = Math.min(1.0f, Math.abs(speedMagnitude)) * (speedMagnitude < 0.0f ? -1.0f : 1.0f);
 			}
 
 			velocity.x = 0;//multiplier * X_SPEED * FlounderEngine.getDelta() * Maths.deadband(0.05f, inputX.getAmount());
 			velocity.y = 0;//multiplier * Y_SPEED * FlounderEngine.getDelta() * Maths.deadband(0.05f, inputY.getAmount());
 			velocity.z = -speedMagnitude;//multiplier * Z_SPEED * FlounderEngine.getDelta() * -Maths.deadband(0.05f, inputZ.getAmount());
-
 			Vector3f.rotate(velocity, rotation, velocity);
 			Vector3f.add(position, velocity, position);
 		} else { // Update autopilot.
@@ -122,7 +138,6 @@ public class PlayerFPS implements IPlayer {
 			speedMagnitude = autopilot.getSpeedMagnitude();
 			Vector3f.add(position, velocity.set(autopilot.getVelocity()), position);
 		}
-		//	}
 	}
 
 	@Override

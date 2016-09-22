@@ -2,11 +2,14 @@ package game;
 
 import flounder.engine.*;
 import flounder.engine.implementation.*;
+import flounder.resources.*;
 import flounder.sounds.*;
 import game.cameras.*;
 
 public class Main {
 	public static void main(String[] args) {
+		FlounderEngine.loadEngineStatics("Open Skies");
+		MyFile[] displayIcons = new MyFile[]{new MyFile(MyFile.RES_FOLDER, "icon.png")};
 		MusicPlayer.SOUND_VOLUME = (float) MainGame.CONFIG.getDoubleWithDefault("sound_volume", 0.75f, () -> MusicPlayer.SOUND_VOLUME);
 
 		Implementation implementation = new Implementation(
@@ -19,7 +22,7 @@ public class Main {
 		FlounderEngine engine = new FlounderEngine(implementation,
 				MainGame.CONFIG.getIntWithDefault("width", 1080, () -> FlounderEngine.getDevices().getDisplay().getWindowWidth()),
 				MainGame.CONFIG.getIntWithDefault("height", 720, () -> FlounderEngine.getDevices().getDisplay().getWindowHeight()),
-				"Open Skies",
+				"Open Skies", displayIcons,
 				MainGame.CONFIG.getBooleanWithDefault("vsync", true, () -> FlounderEngine.getDevices().getDisplay().isVSync()),
 				MainGame.CONFIG.getBooleanWithDefault("antialias", true, () -> FlounderEngine.getDevices().getDisplay().isAntialiasing()),
 				MainGame.CONFIG.getIntWithDefault("msaa_samples", 4, () -> FlounderEngine.getDevices().getDisplay().getSamples()),

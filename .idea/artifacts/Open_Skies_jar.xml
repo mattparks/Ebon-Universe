@@ -4,8 +4,11 @@
     <root id="archive" name="Open Skies.jar">
       <element id="module-output" name="Open Skies" />
       <element id="module-output" name="Flounder-Engine" />
-      <element id="extracted-dir" path="$PROJECT_DIR$/Flounder-Engine/libs/lwjgl/jar/lwjgl.jar" path-in-jar="/" />
-      <element id="dir-copy" path="$PROJECT_DIR$/Flounder-Engine/libs/lwjgl/native" />
+      <element id="dir-copy" path="$PROJECT_DIR$/Flounder-Engine/libs/natives" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/Flounder-Engine/libs/lwjgl/lwjgl.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/Flounder-Engine/libs/lwjgl-glfw/lwjgl-glfw.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/Flounder-Engine/libs/lwjgl-openal/lwjgl-openal.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/Flounder-Engine/libs/lwjgl-opengl/lwjgl-opengl.jar" path-in-jar="/" />
     </root>
   </artifact>
 </component>

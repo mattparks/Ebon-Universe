@@ -44,7 +44,7 @@ public class OverlayStatus extends GuiComponent {
 		starSelection.setColourOffset(new Colour(0.0f, 0.0f, 1.0f));
 
 		quedMessages = new ArrayList<>();
-		message = new GuiNotification(Text.newText("Hello World", TextAlign.CENTRE).create());
+		message = new GuiNotification(Text.newText("Hello World").create());
 		message.getText().setColour(MainSlider.TEXT_COLOUR);
 		addComponent(message, 0.3f, 0.05f, 0.5f, 0.2f);
 
@@ -60,7 +60,7 @@ public class OverlayStatus extends GuiComponent {
 	}
 
 	private Text createStatus(String content, float yPos) {
-		Text text = Text.newText(content, TextAlign.LEFT).setFontSize(0.75f).create();
+		Text text = Text.newText(content).setFontSize(0.75f).create();
 		text.setColour(MainSlider.TEXT_COLOUR);
 		text.setBorderColour(0.15f, 0.15f, 0.15f);
 		text.setBorder(new ConstantDriver(0.04f));

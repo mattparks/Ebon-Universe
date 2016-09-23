@@ -185,8 +185,8 @@ public class MainSlider extends GuiComponent {
 		menuActive.show(true);
 	}
 
-	public static Text createTitleText(String title, TextAlign textAlign, GuiComponent component) {
-		Text titleText = Text.newText(title, textAlign).setFontSize(MainSlider.MAIN_TITLE_FONT_SIZE).create();
+	public static Text createTitleText(String title, GuiAlign guiAlign, GuiComponent component) {
+		Text titleText = Text.newText(title).setFontSize(MainSlider.MAIN_TITLE_FONT_SIZE).create();
 		titleText.setColour(0.15f, 0.15f, 0.15f);
 		titleText.setBorderColour(MainSlider.TEXT_COLOUR);
 		titleText.setBorder(new ConstantDriver(0.04f));
@@ -194,11 +194,11 @@ public class MainSlider extends GuiComponent {
 		return titleText;
 	}
 
-	public static GuiTextButton createButton(String textString, TextAlign textAlign, float yPos, GuiComponent component) {
+	public static GuiTextButton createButton(String textString, GuiAlign guiAlign, float yPos, GuiComponent component) {
 		float xPosition;
 		float xMargin;
 
-		switch (textAlign) {
+		switch (guiAlign) {
 			case LEFT:
 				xPosition = 0.0f;
 				xMargin = MainSlider.BUTTONS_X_MAGIN_LEFT;
@@ -217,45 +217,13 @@ public class MainSlider extends GuiComponent {
 				break;
 		}
 
-		Text text = Text.newText(textString, textAlign).setFontSize(MainSlider.FONT_SIZE).create();
+		Text text = Text.newText(textString).setFontSize(MainSlider.FONT_SIZE).create();
 		text.setColour(MainSlider.TEXT_COLOUR);
 		text.setBorderColour(0.15f, 0.15f, 0.15f);
 		text.setBorder(new ConstantDriver(0.04f));
-		GuiTextButton button = new GuiTextButton(text, textAlign, xMargin);
+		GuiTextButton button = new GuiTextButton(text, guiAlign, xMargin);
 		component.addComponent(button, xPosition, yPos, MainSlider.BUTTONS_X_WIDTH, MainSlider.BUTTONS_Y_SIZE);
 		return button;
-	}
-
-	public static GuiCheckbox createCheckbox(String textString, TextAlign textAlign, float yPos, boolean selected, GuiComponent component) {
-		float xPosition;
-		float xMargin;
-
-		switch (textAlign) {
-			case LEFT:
-				xPosition = 0.0f;
-				xMargin = MainSlider.BUTTONS_X_MAGIN_LEFT;
-				break;
-			case CENTRE:
-				xPosition = 0.0f;
-				xMargin = MainSlider.BUTTONS_X_MAGIN_LEFT;
-				break;
-			case RIGHT:
-				xPosition = 0.5f;
-				xMargin = MainSlider.BUTTONS_X_MARGIN_RIGHT;
-				break;
-			default:
-				xPosition = 0.0f;
-				xMargin = 0.0f;
-				break;
-		}
-
-		Text text = Text.newText(textString, TextAlign.LEFT).setFontSize(MainSlider.FONT_SIZE).create();
-		text.setColour(MainSlider.TEXT_COLOUR);
-		text.setBorderColour(0.15f, 0.15f, 0.15f);
-		text.setBorder(new ConstantDriver(0.04f));
-		GuiCheckbox checkbox = new GuiCheckbox(text, textAlign, xMargin, selected);
-		component.addComponent(checkbox, xPosition, yPos, MainSlider.BUTTONS_X_WIDTH, MainSlider.BUTTONS_Y_SIZE);
-		return checkbox;
 	}
 
 	public boolean onStartScreen() {

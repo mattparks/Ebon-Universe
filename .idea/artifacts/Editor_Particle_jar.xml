@@ -3,7 +3,7 @@
     <output-path>$PROJECT_DIR$/out/artifacts</output-path>
     <root id="archive" name="Editor Particle.jar">
       <element id="module-output" name="Editor-Particle" />
-      <element id="module-output" name="Open Skies" />
+      <element id="module-output" name="Ebon Universe" />
       <element id="module-output" name="Flounder-Engine" />
     </root>
   </artifact>

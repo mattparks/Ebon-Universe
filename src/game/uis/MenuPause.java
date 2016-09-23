@@ -1,7 +1,6 @@
 package game.uis;
 
 import flounder.engine.*;
-import flounder.fonts.*;
 import flounder.guis.*;
 import game.*;
 import game.uis.screens.*;
@@ -23,34 +22,34 @@ public class MenuPause extends GuiComponent {
 		this.screenControls = new ScreenControls(mainSlider);
 
 		float currentY = -MainSlider.BUTTONS_Y_SEPARATION * 2.0f;
-		createResumeButton(TextAlign.LEFT, currentY += MainSlider.BUTTONS_Y_SEPARATION);
-		createOptionsButton(TextAlign.LEFT, currentY += MainSlider.BUTTONS_Y_SEPARATION);
-		createControlsButton(TextAlign.LEFT, currentY += MainSlider.BUTTONS_Y_SEPARATION);
-		createQuitButton(TextAlign.LEFT, currentY += MainSlider.BUTTONS_Y_SEPARATION);
+		createResumeButton(GuiAlign.LEFT, currentY += MainSlider.BUTTONS_Y_SEPARATION);
+		createOptionsButton(GuiAlign.LEFT, currentY += MainSlider.BUTTONS_Y_SEPARATION);
+		createControlsButton(GuiAlign.LEFT, currentY += MainSlider.BUTTONS_Y_SEPARATION);
+		createQuitButton(GuiAlign.LEFT, currentY += MainSlider.BUTTONS_Y_SEPARATION);
 
 		super.show(false);
 	}
 
-	private void createResumeButton(TextAlign textAlign, float yPos) {
-		GuiTextButton button = MainSlider.createButton("Resume Game", textAlign, yPos, this);
+	private void createResumeButton(GuiAlign guiAlign, float yPos) {
+		GuiTextButton button = MainSlider.createButton("Resume Game", guiAlign, yPos, this);
 		button.addLeftListener(() -> superMenu.display(false));
 		button.addRightListener(null);
 	}
 
-	private void createOptionsButton(TextAlign textAlign, float yPos) {
-		GuiTextButton button = MainSlider.createButton("Options", textAlign, yPos, this);
+	private void createOptionsButton(GuiAlign guiAlign, float yPos) {
+		GuiTextButton button = MainSlider.createButton("Options", guiAlign, yPos, this);
 		button.addLeftListener(() -> mainSlider.setNewSecondaryScreen(screenOptions, true));
 		button.addRightListener(null);
 	}
 
-	private void createControlsButton(TextAlign textAlign, float yPos) {
-		GuiTextButton button = MainSlider.createButton("Controls", textAlign, yPos, this);
+	private void createControlsButton(GuiAlign guiAlign, float yPos) {
+		GuiTextButton button = MainSlider.createButton("Controls", guiAlign, yPos, this);
 		button.addLeftListener(() -> mainSlider.setNewSecondaryScreen(screenControls, true));
 		button.addRightListener(null);
 	}
 
-	private void createQuitButton(TextAlign textAlign, float yPos) {
-		GuiTextButton button = MainSlider.createButton("Main Menu", textAlign, yPos, this);
+	private void createQuitButton(GuiAlign guiAlign, float yPos) {
+		GuiTextButton button = MainSlider.createButton("Main Menu", guiAlign, yPos, this);
 		button.addLeftListener(() -> {
 			mainSlider.closeSecondaryScreen();
 			mainSlider.getSuperMenu().display(true);

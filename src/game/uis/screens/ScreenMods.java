@@ -16,7 +16,7 @@ public class ScreenMods extends GuiComponent {
 
 		createTitleText("Mods");
 
-		createBackOption(TextAlign.LEFT, 1.0f);
+		createBackOption(GuiAlign.LEFT, 1.0f);
 
 		super.show(false);
 
@@ -34,11 +34,11 @@ public class ScreenMods extends GuiComponent {
 	}
 
 	private void createTitleText(String title) {
-		Text titleText = MainSlider.createTitleText(title, TextAlign.LEFT, this);
+		Text titleText = MainSlider.createTitleText(title, GuiAlign.LEFT, this);
 	}
 
-	private void createBackOption(TextAlign textAlign, float yPos) {
-		GuiTextButton button = MainSlider.createButton("Back", textAlign, yPos, this);
+	private void createBackOption(GuiAlign guiAlign, float yPos) {
+		GuiTextButton button = MainSlider.createButton("Back", guiAlign, yPos, this);
 		button.addLeftListener(mainSlider::closeSecondaryScreen);
 	}
 

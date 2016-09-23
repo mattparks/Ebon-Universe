@@ -17,7 +17,7 @@ public class ScreenOptionsInputs extends GuiComponent {
 		this.mainSlider = mainSlider;
 		this.screenOptions = screenOptions;
 
-		createTitleText(TextAlign.LEFT, "Inputs");
+		createTitleText(GuiAlign.LEFT, "Inputs");
 
 		float currentY = -0.15f;
 
@@ -38,12 +38,12 @@ public class ScreenOptionsInputs extends GuiComponent {
 		});
 	}
 
-	private void createTitleText(TextAlign textAlign, String title) {
-		Text titleText = MainSlider.createTitleText(title, textAlign, this);
+	private void createTitleText(GuiAlign guiAlign, String title) {
+		Text titleText = MainSlider.createTitleText(title, guiAlign, this);
 	}
 
 	private void createBackOption(float xPos, float yPos) {
-		GuiTextButton button = MainSlider.createButton("Back", TextAlign.LEFT, yPos, this);
+		GuiTextButton button = MainSlider.createButton("Back", GuiAlign.LEFT, yPos, this);
 		button.addLeftListener(() -> mainSlider.setNewSecondaryScreen(screenOptions, false));
 	}
 

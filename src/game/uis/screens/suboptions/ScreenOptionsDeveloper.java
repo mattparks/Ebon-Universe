@@ -17,11 +17,11 @@ public class ScreenOptionsDeveloper extends GuiComponent {
 		this.mainSlider = mainSlider;
 		this.screenOptions = screenOptions;
 
-		createTitleText(TextAlign.LEFT, "Developers");
+		createTitleText(GuiAlign.LEFT, "Developers");
 
 		float currentY = -0.15f;
-		createProfilerToggleOption(TextAlign.LEFT, currentY += MainSlider.BUTTONS_Y_SEPARATION);
-		createAABBToggleOption(TextAlign.LEFT, currentY += MainSlider.BUTTONS_Y_SEPARATION);
+		createProfilerToggleOption(GuiAlign.LEFT, currentY += MainSlider.BUTTONS_Y_SEPARATION);
+		createAABBToggleOption(GuiAlign.LEFT, currentY += MainSlider.BUTTONS_Y_SEPARATION);
 
 		createBackOption(MainSlider.BUTTONS_X_MAGIN_LEFT, 1.0f);
 
@@ -40,12 +40,12 @@ public class ScreenOptionsDeveloper extends GuiComponent {
 		});
 	}
 
-	private void createTitleText(TextAlign textAlign, String title) {
-		Text titleText = MainSlider.createTitleText(title, textAlign, this);
+	private void createTitleText(GuiAlign guiAlign, String title) {
+		Text titleText = MainSlider.createTitleText(title, guiAlign, this);
 	}
 
-	private void createProfilerToggleOption(TextAlign textAlign, float yPos) {
-		GuiTextButton button = MainSlider.createButton("Profiler: " + (FlounderEngine.getProfiler().isOpen() ? "Opened" : "Closed"), textAlign, yPos, this);
+	private void createProfilerToggleOption(GuiAlign guiAlign, float yPos) {
+		GuiTextButton button = MainSlider.createButton("Profiler: " + (FlounderEngine.getProfiler().isOpen() ? "Opened" : "Closed"), guiAlign, yPos, this);
 		button.addLeftListener(() -> {
 			FlounderEngine.getProfiler().toggle(!FlounderEngine.getProfiler().isOpen());
 		});
@@ -68,8 +68,8 @@ public class ScreenOptionsDeveloper extends GuiComponent {
 		});
 	}
 
-	private void createAABBToggleOption(TextAlign textAlign, float yPos) {
-		GuiTextButton button = MainSlider.createButton("AABBs: " + (FlounderEngine.getBounding().renders() ? "Enabled" : "Disabled"), textAlign, yPos, this);
+	private void createAABBToggleOption(GuiAlign guiAlign, float yPos) {
+		GuiTextButton button = MainSlider.createButton("AABBs: " + (FlounderEngine.getBounding().renders() ? "Enabled" : "Disabled"), guiAlign, yPos, this);
 		button.addLeftListener(() -> {
 			FlounderEngine.getBounding().setRenders(!FlounderEngine.getBounding().renders());
 		});
@@ -93,7 +93,7 @@ public class ScreenOptionsDeveloper extends GuiComponent {
 	}
 
 	private void createBackOption(float xPos, float yPos) {
-		GuiTextButton button = MainSlider.createButton("Back", TextAlign.LEFT, yPos, this);
+		GuiTextButton button = MainSlider.createButton("Back", GuiAlign.LEFT, yPos, this);
 		button.addLeftListener(() -> mainSlider.setNewSecondaryScreen(screenOptions, false));
 	}
 

@@ -25,16 +25,16 @@ public class ScreenOptions extends GuiComponent {
 		screenOptionsEffects = new ScreenOptionsEffects(this, mainSlider);
 		screenOptionsInputs = new ScreenOptionsInputs(this, mainSlider);
 
-		createTitleText(TextAlign.LEFT, "Options");
+		createTitleText(GuiAlign.LEFT, "Options");
 
 		float currentY = -0.15f;
-		createAudioOption(TextAlign.LEFT, currentY += MainSlider.BUTTONS_Y_SEPARATION);
-		createDevelopersOption(TextAlign.LEFT, currentY += MainSlider.BUTTONS_Y_SEPARATION);
-		createGraphicsOption(TextAlign.LEFT, currentY += MainSlider.BUTTONS_Y_SEPARATION);
-		createEffectsOption(TextAlign.LEFT, currentY += MainSlider.BUTTONS_Y_SEPARATION);
-		createInputsOption(TextAlign.LEFT, currentY += MainSlider.BUTTONS_Y_SEPARATION);
+		createAudioOption(GuiAlign.LEFT, currentY += MainSlider.BUTTONS_Y_SEPARATION);
+		createDevelopersOption(GuiAlign.LEFT, currentY += MainSlider.BUTTONS_Y_SEPARATION);
+		createGraphicsOption(GuiAlign.LEFT, currentY += MainSlider.BUTTONS_Y_SEPARATION);
+		createEffectsOption(GuiAlign.LEFT, currentY += MainSlider.BUTTONS_Y_SEPARATION);
+		createInputsOption(GuiAlign.LEFT, currentY += MainSlider.BUTTONS_Y_SEPARATION);
 
-		createBackOption(TextAlign.LEFT, 1.0f);
+		createBackOption(GuiAlign.LEFT, 1.0f);
 
 		super.show(false);
 
@@ -51,37 +51,37 @@ public class ScreenOptions extends GuiComponent {
 		});
 	}
 
-	private void createTitleText(TextAlign textAlign, String title) {
-		Text titleText = MainSlider.createTitleText(title, textAlign, this);
+	private void createTitleText(GuiAlign guiAlign, String title) {
+		Text titleText = MainSlider.createTitleText(title, guiAlign, this);
 	}
 
-	private void createAudioOption(TextAlign textAlign, float yPos) {
-		GuiTextButton button = MainSlider.createButton("Audio", textAlign, yPos, this);
+	private void createAudioOption(GuiAlign guiAlign, float yPos) {
+		GuiTextButton button = MainSlider.createButton("Audio", guiAlign, yPos, this);
 		button.addLeftListener(() -> mainSlider.setNewSecondaryScreen(screenOptionsAudio, true));
 	}
 
-	private void createDevelopersOption(TextAlign textAlign, float yPos) {
-		GuiTextButton button = MainSlider.createButton("Developer", textAlign, yPos, this);
+	private void createDevelopersOption(GuiAlign guiAlign, float yPos) {
+		GuiTextButton button = MainSlider.createButton("Developer", guiAlign, yPos, this);
 		button.addLeftListener(() -> mainSlider.setNewSecondaryScreen(screenOptionsDeveloper, true));
 	}
 
-	private void createGraphicsOption(TextAlign textAlign, float yPos) {
-		GuiTextButton button = MainSlider.createButton("Graphics", textAlign, yPos, this);
+	private void createGraphicsOption(GuiAlign guiAlign, float yPos) {
+		GuiTextButton button = MainSlider.createButton("Graphics", guiAlign, yPos, this);
 		button.addLeftListener(() -> mainSlider.setNewSecondaryScreen(screenOptionsGraphics, true));
 	}
 
-	private void createEffectsOption(TextAlign textAlign, float yPos) {
-		GuiTextButton button = MainSlider.createButton("Effects", textAlign, yPos, this);
+	private void createEffectsOption(GuiAlign guiAlign, float yPos) {
+		GuiTextButton button = MainSlider.createButton("Effects", guiAlign, yPos, this);
 		button.addLeftListener(() -> mainSlider.setNewSecondaryScreen(screenOptionsEffects, true));
 	}
 
-	private void createInputsOption(TextAlign textAlign, float yPos) {
-		GuiTextButton button = MainSlider.createButton("Inputs", textAlign, yPos, this);
+	private void createInputsOption(GuiAlign guiAlign, float yPos) {
+		GuiTextButton button = MainSlider.createButton("Inputs", guiAlign, yPos, this);
 		button.addLeftListener(() -> mainSlider.setNewSecondaryScreen(screenOptionsInputs, true));
 	}
 
-	private void createBackOption(TextAlign textAlign, float yPos) {
-		GuiTextButton button = MainSlider.createButton("Back", textAlign, yPos, this);
+	private void createBackOption(GuiAlign guiAlign, float yPos) {
+		GuiTextButton button = MainSlider.createButton("Back", guiAlign, yPos, this);
 		button.addLeftListener(mainSlider::closeSecondaryScreen);
 	}
 

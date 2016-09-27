@@ -2,12 +2,14 @@ package ebon.cameras;
 
 import ebon.celestial.manager.*;
 import ebon.options.*;
+import flounder.devices.*;
 import flounder.engine.*;
 import flounder.engine.entrance.*;
 import flounder.inputs.*;
 import flounder.maths.*;
 import flounder.maths.matrices.*;
 import flounder.maths.vectors.*;
+import flounder.profiling.*;
 import flounder.space.*;
 import sun.reflect.generics.reflectiveObjects.*;
 
@@ -93,13 +95,13 @@ public class CameraFPS implements ICamera {
 		updatePitchAngle();
 		calculatePosition();
 
-		if (FlounderEngine.getProfiler().isOpen()) {
-			FlounderEngine.getProfiler().add("MainCamera", "Angle Of Elevation", angleOfElevation);
-			FlounderEngine.getProfiler().add("MainCamera", "Rotation", rotation);
-			FlounderEngine.getProfiler().add("MainCamera", "Position", position);
-			FlounderEngine.getProfiler().add("MainCamera", "Angle Around MainPlayer", angleAroundPlayer);
-			FlounderEngine.getProfiler().add("MainCamera", "Target Elevation", targetElevation);
-			FlounderEngine.getProfiler().add("MainCamera", "Target Rotation Angle", targetRotationAngle);
+		if (FlounderProfiler.isOpen()) {
+			FlounderProfiler.add("MainCamera", "Angle Of Elevation", angleOfElevation);
+			FlounderProfiler.add("MainCamera", "Rotation", rotation);
+			FlounderProfiler.add("MainCamera", "Position", position);
+			FlounderProfiler.add("MainCamera", "Angle Around MainPlayer", angleAroundPlayer);
+			FlounderProfiler.add("MainCamera", "Target Elevation", targetElevation);
+			FlounderProfiler.add("MainCamera", "Target Rotation Angle", targetRotationAngle);
 		}
 	}
 
@@ -107,12 +109,12 @@ public class CameraFPS implements ICamera {
 		float change = 0.0f;
 
 		if (!gamePaused) {
-			if (FlounderEngine.getDevices().getJoysticks().isConnected(0)) {
+			if (FlounderJoysticks.isConnected(0)) {
 				if (Math.abs(Maths.deadband(0.01f, joystickRotateX.getAmount())) > 0.0f) {
 					change = INFLUENCE_OF_JOYSTICKDX * FlounderEngine.getDelta() * -joystickRotateX.getAmount();
 				}
 			} else {
-				change = FlounderEngine.getDevices().getMouse().getDeltaX() * INFLUENCE_OF_MOUSEDX;
+				change = FlounderMouse.getDeltaX() * INFLUENCE_OF_MOUSEDX;
 			}
 		}
 
@@ -130,12 +132,12 @@ public class CameraFPS implements ICamera {
 		float change = 0.0f;
 
 		if (!gamePaused) {
-			if (FlounderEngine.getDevices().getJoysticks().isConnected(0)) {
+			if (FlounderJoysticks.isConnected(0)) {
 				if (Math.abs(Maths.deadband(0.01f, joystickRotateY.getAmount())) > 0.0f) {
 					change = -joystickRotateY.getAmount() * delta * INFLUENCE_OF_JOYSTICKDY;
 				}
 			} else {
-				change = -FlounderEngine.getDevices().getMouse().getDeltaY() * INFLUENCE_OF_MOUSEDY;
+				change = -FlounderMouse.getDeltaY() * INFLUENCE_OF_MOUSEDY;
 			}
 		}
 

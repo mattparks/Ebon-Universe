@@ -8,6 +8,7 @@ import flounder.inputs.*;
 import flounder.maths.*;
 import flounder.maths.vectors.*;
 import flounder.physics.*;
+import flounder.physics.bounding.*;
 import flounder.space.*;
 
 import java.util.*;
@@ -72,7 +73,7 @@ public class GalaxyManager {
 		// Updates stars if present.
 		if (starsStructure != null) {
 			//for (AABB aabb : starsStructure.getAABBs()) {
-			//	FlounderEngine.getBounding().addShapeRender(aabb);
+			//	FlounderBounding.addShapeRender(aabb);
 			//}
 
 			// Updates and recalculations.
@@ -89,7 +90,7 @@ public class GalaxyManager {
 				// If the stars sphere contains the camera.
 				if (star.getBounding().contains(currentPosition)) {
 					// Then this star is the current system.
-					FlounderEngine.getBounding().addShapeRender(star.getBounding());
+					FlounderBounding.addShapeRender(star.getBounding());
 					inSystemStar = star;
 
 					if (!star.equals(lastInStarSystem)) {
@@ -120,7 +121,7 @@ public class GalaxyManager {
 				}
 
 				for (Star star : starsStructure.queryInBounding(new ArrayList<>(), starView)) {
-					FlounderEngine.getBounding().addShapeRender(star.getBounding());
+					FlounderBounding.addShapeRender(star.getBounding());
 				}
 			}
 

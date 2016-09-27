@@ -2,10 +2,11 @@ package ebon.uis.screens.suboptions;
 
 import ebon.uis.*;
 import ebon.uis.screens.*;
-import flounder.engine.*;
 import flounder.events.*;
 import flounder.fonts.*;
 import flounder.guis.*;
+import flounder.physics.bounding.*;
+import flounder.profiling.*;
 
 import java.util.*;
 
@@ -27,7 +28,7 @@ public class ScreenOptionsDeveloper extends GuiComponent {
 
 		super.show(false);
 
-		FlounderEngine.getEvents().addEvent(new IEvent() {
+		FlounderEvents.addEvent(new IEvent() {
 			@Override
 			public boolean eventTriggered() {
 				return ScreenOptionsDeveloper.super.isShown() && MainSlider.BACK_KEY.wasDown();
@@ -45,17 +46,17 @@ public class ScreenOptionsDeveloper extends GuiComponent {
 	}
 
 	private void createProfilerToggleOption(GuiAlign guiAlign, float yPos) {
-		GuiTextButton button = MainSlider.createButton("Profiler: " + (FlounderEngine.getProfiler().isOpen() ? "Opened" : "Closed"), guiAlign, yPos, this);
+		GuiTextButton button = MainSlider.createButton("Profiler: " + (FlounderProfiler.isOpen() ? "Opened" : "Closed"), guiAlign, yPos, this);
 		button.addLeftListener(() -> {
-			FlounderEngine.getProfiler().toggle(!FlounderEngine.getProfiler().isOpen());
+			FlounderProfiler.toggle(!FlounderProfiler.isOpen());
 		});
 
-		FlounderEngine.getEvents().addEvent(new IEvent() {
-			private boolean isOpen = FlounderEngine.getProfiler().isOpen();
+		FlounderEvents.addEvent(new IEvent() {
+			private boolean isOpen = FlounderProfiler.isOpen();
 
 			@Override
 			public boolean eventTriggered() {
-				boolean newIsOpen = FlounderEngine.getProfiler().isOpen();
+				boolean newIsOpen = FlounderProfiler.isOpen();
 				boolean occurred = newIsOpen != isOpen;
 				isOpen = newIsOpen;
 				return occurred;
@@ -69,17 +70,17 @@ public class ScreenOptionsDeveloper extends GuiComponent {
 	}
 
 	private void createAABBToggleOption(GuiAlign guiAlign, float yPos) {
-		GuiTextButton button = MainSlider.createButton("AABBs: " + (FlounderEngine.getBounding().renders() ? "Enabled" : "Disabled"), guiAlign, yPos, this);
+		GuiTextButton button = MainSlider.createButton("AABBs: " + (FlounderBounding.renders() ? "Enabled" : "Disabled"), guiAlign, yPos, this);
 		button.addLeftListener(() -> {
-			FlounderEngine.getBounding().setRenders(!FlounderEngine.getBounding().renders());
+			FlounderBounding.setRenders(!FlounderBounding.renders());
 		});
 
-		FlounderEngine.getEvents().addEvent(new IEvent() {
-			private boolean renders = FlounderEngine.getBounding().renders();
+		FlounderEvents.addEvent(new IEvent() {
+			private boolean renders = FlounderBounding.renders();
 
 			@Override
 			public boolean eventTriggered() {
-				boolean newRenders = FlounderEngine.getBounding().renders();
+				boolean newRenders = FlounderBounding.renders();
 				boolean occurred = newRenders != renders;
 				renders = newRenders;
 				return occurred;
@@ -87,7 +88,7 @@ public class ScreenOptionsDeveloper extends GuiComponent {
 
 			@Override
 			public void onEvent() {
-				button.getText().setText("AABBs: " + (FlounderEngine.getBounding().renders() ? "Enabled" : "Disabled"));
+				button.getText().setText("AABBs: " + (FlounderBounding.renders() ? "Enabled" : "Disabled"));
 			}
 		});
 	}

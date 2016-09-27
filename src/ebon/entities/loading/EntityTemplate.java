@@ -2,8 +2,8 @@ package ebon.entities.loading;
 
 import ebon.entities.*;
 import ebon.entities.components.*;
-import flounder.engine.*;
 import flounder.helpers.*;
+import flounder.logger.*;
 import flounder.maths.vectors.*;
 import flounder.resources.*;
 import flounder.space.*;
@@ -51,8 +51,8 @@ public class EntityTemplate {
 				Object[] componentParameters = new Object[]{instance, this};
 				componentConstructor.newInstance(componentParameters);
 			} catch (ClassNotFoundException | IllegalAccessException | InstantiationException | InvocationTargetException | NoSuchMethodException e) {
-				FlounderEngine.getLogger().error("While loading " + entityName + "'s components " + k.classpath + " constructor could not be found!");
-				FlounderEngine.getLogger().exception(e);
+				FlounderLogger.error("While loading " + entityName + "'s components " + k.classpath + " constructor could not be found!");
+				FlounderLogger.exception(e);
 			}
 		}
 

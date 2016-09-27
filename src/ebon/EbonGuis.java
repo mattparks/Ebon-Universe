@@ -2,8 +2,9 @@ package ebon;
 
 import ebon.options.*;
 import ebon.uis.*;
-import flounder.engine.*;
+import flounder.devices.*;
 import flounder.engine.entrance.*;
+import flounder.guis.*;
 import flounder.inputs.*;
 
 import static org.lwjgl.glfw.GLFW.*;
@@ -28,10 +29,10 @@ public class EbonGuis extends IManagerGUI {
 		this.menuIsOpen = true;
 		this.forceOpenGUIs = true;
 
-		FlounderEngine.getGuis().addComponent(mainMenu, 0, 0, 1, 1);
-		FlounderEngine.getGuis().addComponent(overlayStatus, 0, 0, 1, 1);
-		FlounderEngine.getGuis().getSelector().initJoysticks(OptionsControls.JOYSTICK_PORT, OptionsControls.JOYSTICK_GUI_LEFT, OptionsControls.JOYSTICK_GUI_RIGHT, OptionsControls.JOYSTICK_AXIS_X, OptionsControls.JOYSTICK_AXIS_Y);
-		FlounderEngine.getDevices().getMouse().setCursorHidden(false);
+		FlounderGuis.addComponent(mainMenu, 0, 0, 1, 1);
+		FlounderGuis.addComponent(overlayStatus, 0, 0, 1, 1);
+		FlounderGuis.getSelector().initJoysticks(OptionsControls.JOYSTICK_PORT, OptionsControls.JOYSTICK_GUI_LEFT, OptionsControls.JOYSTICK_GUI_RIGHT, OptionsControls.JOYSTICK_AXIS_X, OptionsControls.JOYSTICK_AXIS_Y);
+		FlounderMouse.setCursorHidden(false);
 	}
 
 	@Override

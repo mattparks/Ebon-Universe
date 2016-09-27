@@ -1,11 +1,13 @@
 package ebon.skybox;
 
+import flounder.devices.*;
 import flounder.engine.*;
 import flounder.engine.entrance.*;
 import flounder.helpers.*;
 import flounder.maths.matrices.*;
 import flounder.maths.vectors.*;
 import flounder.models.*;
+import flounder.profiling.*;
 import flounder.resources.*;
 import flounder.shaders.*;
 
@@ -54,7 +56,7 @@ public class SkyboxRenderer extends IRenderer {
 		shader.getUniformMat4("modelMatrix").loadMat4(updateModelMatrix(camera));
 
 		OpenGlUtils.bindVAO(skyboxModel.getVaoID(), 0);
-		OpenGlUtils.antialias(FlounderEngine.getDevices().getDisplay().isAntialiasing());
+		OpenGlUtils.antialias(FlounderDisplay.isAntialiasing());
 		OpenGlUtils.cullBackFaces(false);
 
 		OpenGlUtils.bindCubemapToBank(skyboxFBO.getColourAttachment(), 0);
@@ -81,7 +83,7 @@ public class SkyboxRenderer extends IRenderer {
 
 	@Override
 	public void profile() {
-		FlounderEngine.getProfiler().add("Skybox", "Render Time", super.getRenderTimeMs());
+		FlounderProfiler.add("Skybox", "Render Time", super.getRenderTimeMs());
 	}
 
 	public SkyboxFBO getSkyboxFBO() {

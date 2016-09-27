@@ -2,8 +2,8 @@ package ebon.entities.components;
 
 import ebon.entities.*;
 import ebon.entities.loading.*;
-import flounder.engine.*;
 import flounder.physics.*;
+import flounder.physics.bounding.*;
 
 /**
  * Gives an object a collider for spatial interaction. Note that a collider doesn't necessarily need to be used for collision. A collider component can be used for any spatial interaction.
@@ -78,7 +78,7 @@ public class ComponentCollider extends IEntityComponent {
 		}
 
 		if (renderAABB) {
-			FlounderEngine.getBounding().addShapeRender(aabb);
+			FlounderBounding.addShapeRender(aabb);
 		}
 	}
 

@@ -2,12 +2,14 @@ package ebon.celestial.stars;
 
 import ebon.*;
 import ebon.celestial.*;
+import flounder.devices.*;
 import flounder.engine.*;
 import flounder.engine.entrance.*;
 import flounder.helpers.*;
 import flounder.maths.matrices.*;
 import flounder.maths.vectors.*;
 import flounder.models.*;
+import flounder.profiling.*;
 import flounder.resources.*;
 import flounder.shaders.*;
 import flounder.textures.*;
@@ -53,7 +55,7 @@ public class SunRenderer extends IRenderer {
 		shader.getUniformMat4("viewMatrix").loadMat4(camera.getViewMatrix());
 		shader.getUniformVec4("clipPlane").loadVec4(clipPlane);
 
-		OpenGlUtils.antialias(FlounderEngine.getDevices().getDisplay().isAntialiasing());
+		OpenGlUtils.antialias(FlounderDisplay.isAntialiasing());
 		OpenGlUtils.cullBackFaces(true);
 		OpenGlUtils.enableDepthTesting();
 
@@ -77,7 +79,7 @@ public class SunRenderer extends IRenderer {
 
 	@Override
 	public void profile() {
-		FlounderEngine.getProfiler().add("Sun", "Render Time", super.getRenderTimeMs());
+		FlounderProfiler.add("Sun", "Render Time", super.getRenderTimeMs());
 	}
 
 	@Override

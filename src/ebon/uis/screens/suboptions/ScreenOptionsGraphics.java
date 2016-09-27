@@ -2,7 +2,7 @@ package ebon.uis.screens.suboptions;
 
 import ebon.uis.*;
 import ebon.uis.screens.*;
-import flounder.engine.*;
+import flounder.devices.*;
 import flounder.events.*;
 import flounder.fonts.*;
 import flounder.guis.*;
@@ -29,7 +29,7 @@ public class ScreenOptionsGraphics extends GuiComponent {
 
 		super.show(false);
 
-		FlounderEngine.getEvents().addEvent(new IEvent() {
+		FlounderEvents.addEvent(new IEvent() {
 			@Override
 			public boolean eventTriggered() {
 				return ScreenOptionsGraphics.super.isShown() && MainSlider.BACK_KEY.wasDown();
@@ -47,17 +47,17 @@ public class ScreenOptionsGraphics extends GuiComponent {
 	}
 
 	private void createFullscreenOption(GuiAlign guiAlign, float yPos) {
-		GuiTextButton button = MainSlider.createButton("Fullscreen: " + (FlounderEngine.getDevices().getDisplay().isFullscreen() ? "On" : "Off"), guiAlign, yPos, this);
+		GuiTextButton button = MainSlider.createButton("Fullscreen: " + (FlounderDisplay.isFullscreen() ? "On" : "Off"), guiAlign, yPos, this);
 		button.addLeftListener(() -> {
-			FlounderEngine.getDevices().getDisplay().setFullscreen(!FlounderEngine.getDevices().getDisplay().isFullscreen());
+			FlounderDisplay.setFullscreen(!FlounderDisplay.isFullscreen());
 		});
 
-		FlounderEngine.getEvents().addEvent(new IEvent() {
-			private boolean isFullscreen = FlounderEngine.getDevices().getDisplay().isFullscreen();
+		FlounderEvents.addEvent(new IEvent() {
+			private boolean isFullscreen = FlounderDisplay.isFullscreen();
 
 			@Override
 			public boolean eventTriggered() {
-				boolean newIsFullscreen = FlounderEngine.getDevices().getDisplay().isFullscreen();
+				boolean newIsFullscreen = FlounderDisplay.isFullscreen();
 				boolean occurred = newIsFullscreen != isFullscreen;
 				isFullscreen = newIsFullscreen;
 				return occurred;
@@ -71,17 +71,17 @@ public class ScreenOptionsGraphics extends GuiComponent {
 	}
 
 	private void createAntialiasOption(GuiAlign guiAlign, float yPos) {
-		GuiTextButton button = MainSlider.createButton("Antialiasing: " + (FlounderEngine.getDevices().getDisplay().isAntialiasing() ? "On" : "Off"), guiAlign, yPos, this);
+		GuiTextButton button = MainSlider.createButton("Antialiasing: " + (FlounderDisplay.isAntialiasing() ? "On" : "Off"), guiAlign, yPos, this);
 		button.addLeftListener(() -> {
-			FlounderEngine.getDevices().getDisplay().setAntialiasing(!FlounderEngine.getDevices().getDisplay().isAntialiasing());
+			FlounderDisplay.setAntialiasing(!FlounderDisplay.isAntialiasing());
 		});
 
-		FlounderEngine.getEvents().addEvent(new IEvent() {
-			private boolean isAntialiasing = FlounderEngine.getDevices().getDisplay().isAntialiasing();
+		FlounderEvents.addEvent(new IEvent() {
+			private boolean isAntialiasing = FlounderDisplay.isAntialiasing();
 
 			@Override
 			public boolean eventTriggered() {
-				boolean newIsAntialiasing = FlounderEngine.getDevices().getDisplay().isAntialiasing();
+				boolean newIsAntialiasing = FlounderDisplay.isAntialiasing();
 				boolean occurred = newIsAntialiasing != isAntialiasing;
 				isAntialiasing = newIsAntialiasing;
 				return occurred;
@@ -95,17 +95,17 @@ public class ScreenOptionsGraphics extends GuiComponent {
 	}
 
 	private void createVSyncOption(GuiAlign guiAlign, float yPos) {
-		GuiTextButton button = MainSlider.createButton("VSync: " + (FlounderEngine.getDevices().getDisplay().isVSync() ? "On" : "Off"), guiAlign, yPos, this);
+		GuiTextButton button = MainSlider.createButton("VSync: " + (FlounderDisplay.isVSync() ? "On" : "Off"), guiAlign, yPos, this);
 		button.addLeftListener(() -> {
-			FlounderEngine.getDevices().getDisplay().setVSync(!FlounderEngine.getDevices().getDisplay().isVSync());
+			FlounderDisplay.setVSync(!FlounderDisplay.isVSync());
 		});
 
-		FlounderEngine.getEvents().addEvent(new IEvent() {
-			private boolean isVSync = FlounderEngine.getDevices().getDisplay().isVSync();
+		FlounderEvents.addEvent(new IEvent() {
+			private boolean isVSync = FlounderDisplay.isVSync();
 
 			@Override
 			public boolean eventTriggered() {
-				boolean newIsVSync = FlounderEngine.getDevices().getDisplay().isVSync();
+				boolean newIsVSync = FlounderDisplay.isVSync();
 				boolean occurred = newIsVSync != isVSync;
 				isVSync = newIsVSync;
 				return occurred;
@@ -119,22 +119,22 @@ public class ScreenOptionsGraphics extends GuiComponent {
 	}
 
 	private void createSamplesOption(GuiAlign guiAlign, float yPos) {
-		GuiTextButton button = MainSlider.createButton("Samples: " + FlounderEngine.getDevices().getDisplay().getSamples(), guiAlign, yPos, this);
+		GuiTextButton button = MainSlider.createButton("Samples: " + FlounderDisplay.getSamples(), guiAlign, yPos, this);
 		button.addLeftListener(() -> {
-			int newSamples = FlounderEngine.getDevices().getDisplay().getSamples() + 1;
-			FlounderEngine.getDevices().getDisplay().setSamples(Math.min(32, newSamples));
+			int newSamples = FlounderDisplay.getSamples() + 1;
+			FlounderDisplay.setSamples(Math.min(32, newSamples));
 		});
 		button.addRightListener(() -> {
-			int newSamples = FlounderEngine.getDevices().getDisplay().getSamples() - 1;
-			FlounderEngine.getDevices().getDisplay().setSamples(Math.max(0, newSamples));
+			int newSamples = FlounderDisplay.getSamples() - 1;
+			FlounderDisplay.setSamples(Math.max(0, newSamples));
 		});
 
-		FlounderEngine.getEvents().addEvent(new IEvent() {
-			private int samples = FlounderEngine.getDevices().getDisplay().getSamples();
+		FlounderEvents.addEvent(new IEvent() {
+			private int samples = FlounderDisplay.getSamples();
 
 			@Override
 			public boolean eventTriggered() {
-				int newSamples = FlounderEngine.getDevices().getDisplay().getSamples();
+				int newSamples = FlounderDisplay.getSamples();
 				boolean occurred = newSamples != samples;
 				samples = newSamples;
 				return occurred;
@@ -142,7 +142,7 @@ public class ScreenOptionsGraphics extends GuiComponent {
 
 			@Override
 			public void onEvent() {
-				button.getText().setText("Samples: " + FlounderEngine.getDevices().getDisplay().getSamples());
+				button.getText().setText("Samples: " + FlounderDisplay.getSamples());
 			}
 		});
 	}

@@ -3,17 +3,26 @@ package ebon;
 import ebon.cameras.*;
 import ebon.options.*;
 import ebon.players.*;
+import flounder.devices.*;
 import flounder.engine.*;
 import flounder.engine.entrance.*;
 import flounder.exceptions.*;
+import flounder.fonts.*;
+import flounder.guis.*;
 import flounder.helpers.*;
 import flounder.inputs.*;
 import flounder.lights.*;
+import flounder.logger.*;
 import flounder.maths.*;
 import flounder.maths.vectors.*;
+import flounder.models.*;
 import flounder.parsing.*;
+import flounder.particles.*;
+import flounder.profiling.*;
 import flounder.resources.*;
+import flounder.shaders.*;
 import flounder.sounds.*;
+import flounder.textures.*;
 
 import static org.lwjgl.glfw.GLFW.*;
 
@@ -44,20 +53,21 @@ public class Ebon extends FlounderEntrance {
 				new EbonRenderer(),
 				new EbonGuis()
 		);
-		instance.startEngine(FlounderEngine.getFonts().fffForward);
+		instance.startEngine(FlounderFonts.FFF_FORWARD);
 		System.exit(1);
 	}
 
 	private Ebon(ICamera camera, IRendererMaster renderer, IManagerGUI managerGUI) {
 		super(camera, renderer, managerGUI,
-				configMain.getIntWithDefault("width", 1080, () -> FlounderEngine.getDevices().getDisplay().getWindowWidth()),
-				configMain.getIntWithDefault("height", 720, () -> FlounderEngine.getDevices().getDisplay().getWindowHeight()),
+				configMain.getIntWithDefault("width", 1080, FlounderDisplay::getWindowWidth),
+				configMain.getIntWithDefault("height", 720, FlounderDisplay::getWindowHeight),
 				"Ebon Universe", new MyFile[]{new MyFile(MyFile.RES_FOLDER, "icon.png")},
-				configMain.getBooleanWithDefault("vsync", true, () -> FlounderEngine.getDevices().getDisplay().isVSync()),
-				configMain.getBooleanWithDefault("antialias", true, () -> FlounderEngine.getDevices().getDisplay().isAntialiasing()),
-				configMain.getIntWithDefault("msaa_samples", 4, () -> FlounderEngine.getDevices().getDisplay().getSamples()),
-				configMain.getBooleanWithDefault("fullscreen", false, () -> FlounderEngine.getDevices().getDisplay().isFullscreen()),
-				configMain.getIntWithDefault("fps_target", 60, FlounderEngine::getTargetFPS)
+				configMain.getBooleanWithDefault("vsync", true, FlounderDisplay::isVSync),
+				configMain.getBooleanWithDefault("antialias", true, FlounderDisplay::isAntialiasing),
+				configMain.getIntWithDefault("msaa_samples", 4, FlounderDisplay::getSamples),
+				configMain.getBooleanWithDefault("fullscreen", false, FlounderDisplay::isFullscreen),
+				configMain.getIntWithDefault("fps_target", 60, FlounderEngine::getTargetFPS),
+				FlounderLogger.class, FlounderProfiler.class, FlounderKeyboard.class, FlounderTextures.class, FlounderModels.class, FlounderParticles.class, FlounderShaders.class, FlounderGuis.class
 		);
 	}
 
@@ -106,7 +116,7 @@ public class Ebon extends FlounderEntrance {
 
 	public void destroyWorld() {
 		player = null;
-		FlounderEngine.getParticles().clearAllParticles();
+		FlounderParticles.clear();
 		Environment.destroy();
 		System.gc();
 	}
@@ -115,21 +125,21 @@ public class Ebon extends FlounderEntrance {
 	public void update() {
 		if (FlounderEngine.getManagerGUI().isMenuIsOpen()) {
 			// Pause the music for the start screen.
-			FlounderEngine.getDevices().getSound().getMusicPlayer().pauseTrack();
+			FlounderSound.getMusicPlayer().pauseTrack();
 		} else if (!FlounderEngine.getManagerGUI().isMenuIsOpen() && stillLoading) {
 			// Unpause the music for the main menu.
 			stillLoading = false;
-			//	FlounderEngine.getLogger().log("Starting main menu music.");
-			//	FlounderEngine.getDevices().getSound().getMusicPlayer().unpauseTrack();
+			//	FlounderLogger.log("Starting main menu music.");
+			//	FlounderSound.getMusicPlayer().unpauseTrack();
 		}
 
 		if (screenshot.wasDown()) {
-			FlounderEngine.getDevices().getDisplay().screenshot();
+			FlounderDisplay.screenshot();
 			((EbonGuis) FlounderEngine.getManagerGUI()).getOverlayStatus().addMessage("Taking screenshot!");
 		}
 
 		if (fullscreen.wasDown()) {
-			FlounderEngine.getDevices().getDisplay().setFullscreen(!FlounderEngine.getDevices().getDisplay().isFullscreen());
+			FlounderDisplay.setFullscreen(!FlounderDisplay.isFullscreen());
 		}
 
 		if (polygons.wasDown()) {
@@ -137,16 +147,16 @@ public class Ebon extends FlounderEntrance {
 		}
 
 		if (toggleMusic.wasDown()) {
-			if (FlounderEngine.getDevices().getSound().getMusicPlayer().isPaused()) {
-				FlounderEngine.getDevices().getSound().getMusicPlayer().unpauseTrack();
+			if (FlounderSound.getMusicPlayer().isPaused()) {
+				FlounderSound.getMusicPlayer().unpauseTrack();
 			} else {
-				FlounderEngine.getDevices().getSound().getMusicPlayer().pauseTrack();
+				FlounderSound.getMusicPlayer().pauseTrack();
 			}
 		}
 
 		if (skipMusic.wasDown()) {
 			EbonSeed.randomize();
-			FlounderEngine.getDevices().getSound().getMusicPlayer().skipTrack();
+			FlounderSound.getMusicPlayer().skipTrack();
 		}
 
 		if (switchCamera.wasDown()) {

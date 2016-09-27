@@ -1,7 +1,7 @@
 package ebon.skybox;
 
 import ebon.*;
-import flounder.engine.*;
+import flounder.devices.*;
 
 import java.nio.*;
 
@@ -99,7 +99,7 @@ public class SkyboxFBO {
 	 */
 	public void unbindFBO() {
 		glBindFramebuffer(GL_FRAMEBUFFER, 0);
-		glViewport(0, 0, FlounderEngine.getDevices().getDisplay().getWidth(), FlounderEngine.getDevices().getDisplay().getHeight());
+		glViewport(0, 0, FlounderDisplay.getWidth(), FlounderDisplay.getHeight());
 	}
 
 	/**

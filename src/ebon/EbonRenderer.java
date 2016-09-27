@@ -6,6 +6,7 @@ import ebon.options.*;
 import ebon.post.*;
 import ebon.skybox.*;
 import ebon.uis.*;
+import flounder.devices.*;
 import flounder.engine.*;
 import flounder.engine.entrance.*;
 import flounder.fbos.*;
@@ -16,7 +17,7 @@ import flounder.maths.*;
 import flounder.maths.matrices.*;
 import flounder.maths.vectors.*;
 import flounder.particles.*;
-import flounder.physics.renderer.*;
+import flounder.physics.bounding.*;
 
 public class EbonRenderer extends IRendererMaster {
 	private static final Vector4f POSITIVE_INFINITY = new Vector4f(0.0f, 1.0f, 0.0f, Float.POSITIVE_INFINITY);
@@ -53,7 +54,7 @@ public class EbonRenderer extends IRendererMaster {
 		this.fontRenderer = new FontRenderer();
 
 		// Diffuse, Depth, Normals
-		this.multisamplingFBO = FBO.newFBO(1.0f).attachments(FBO_ATTACHMENTS).depthBuffer(DepthBufferType.TEXTURE).antialias(FlounderEngine.getDevices().getDisplay().getSamples()).create();
+		this.multisamplingFBO = FBO.newFBO(1.0f).attachments(FBO_ATTACHMENTS).depthBuffer(DepthBufferType.TEXTURE).antialias(FlounderDisplay.getSamples()).create();
 		this.nonsampledFBO = FBO.newFBO(1.0f).attachments(FBO_ATTACHMENTS).depthBuffer(DepthBufferType.TEXTURE).create();
 
 		this.pipelineDemo = new PipelineDemo();
@@ -80,7 +81,7 @@ public class EbonRenderer extends IRendererMaster {
 	}
 
 	private void bindRelevantFBO() {
-		if (FlounderEngine.getDevices().getDisplay().isAntialiasing()) {
+		if (FlounderDisplay.isAntialiasing()) {
 			multisamplingFBO.bindFrameBuffer();
 		} else {
 			nonsampledFBO.bindFrameBuffer();
@@ -88,7 +89,7 @@ public class EbonRenderer extends IRendererMaster {
 	}
 
 	private void unbindRelevantFBO() {
-		if (FlounderEngine.getDevices().getDisplay().isAntialiasing()) {
+		if (FlounderDisplay.isAntialiasing()) {
 			multisamplingFBO.unbindFrameBuffer();
 			multisamplingFBO.resolveFBO(nonsampledFBO);
 		} else {
@@ -100,7 +101,7 @@ public class EbonRenderer extends IRendererMaster {
 		/* Clear and update. */
 		ICamera camera = FlounderEngine.getCamera();
 		OpenGlUtils.prepareNewRenderParse(clearColour);
-		Matrix4f.perspectiveMatrix(camera.getFOV(), FlounderEngine.getDevices().getDisplay().getAspectRatio(), camera.getNearPlane(), camera.getFarPlane(), projectionMatrix);
+		Matrix4f.perspectiveMatrix(camera.getFOV(), FlounderDisplay.getAspectRatio(), camera.getNearPlane(), camera.getFarPlane(), projectionMatrix);
 
 		/* Renders each renderer. */
 		if (Environment.getGalaxyManager() != null) {

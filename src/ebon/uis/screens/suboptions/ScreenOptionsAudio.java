@@ -2,7 +2,7 @@ package ebon.uis.screens.suboptions;
 
 import ebon.uis.*;
 import ebon.uis.screens.*;
-import flounder.engine.*;
+import flounder.devices.*;
 import flounder.events.*;
 import flounder.fonts.*;
 import flounder.guis.*;
@@ -30,7 +30,7 @@ public class ScreenOptionsAudio extends GuiComponent {
 
 		super.show(false);
 
-		FlounderEngine.getEvents().addEvent(new IEvent() {
+		FlounderEvents.addEvent(new IEvent() {
 			@Override
 			public boolean eventTriggered() {
 				return ScreenOptionsAudio.super.isShown() && MainSlider.BACK_KEY.wasDown();
@@ -48,7 +48,7 @@ public class ScreenOptionsAudio extends GuiComponent {
 	}
 
 	private void createMusicOption(GuiAlign guiAlign, float yPos) {
-		MusicPlayer mPlayer = FlounderEngine.getDevices().getSound().getMusicPlayer();
+		MusicPlayer mPlayer = FlounderSound.getMusicPlayer();
 		GuiTextButton button = MainSlider.createButton("Music: " + (!mPlayer.isPaused() ? "On" : "Off"), guiAlign, yPos, this);
 		button.addLeftListener(() -> {
 			if (mPlayer.isPaused()) {
@@ -58,7 +58,7 @@ public class ScreenOptionsAudio extends GuiComponent {
 			}
 		});
 
-		FlounderEngine.getEvents().addEvent(new IEvent() {
+		FlounderEvents.addEvent(new IEvent() {
 			private boolean paused = mPlayer.isPaused();
 			private boolean wasPaused = false;
 
@@ -104,7 +104,7 @@ public class ScreenOptionsAudio extends GuiComponent {
 			}
 		});
 
-		FlounderEngine.getEvents().addEvent(new IEvent() {
+		FlounderEvents.addEvent(new IEvent() {
 			private float volume = MusicPlayer.SOUND_VOLUME;
 
 			@Override
@@ -140,7 +140,7 @@ public class ScreenOptionsAudio extends GuiComponent {
 			}
 		});
 
-		FlounderEngine.getEvents().addEvent(new IEvent() {
+		FlounderEvents.addEvent(new IEvent() {
 			private float volume = MusicPlayer.SOUND_VOLUME;
 
 			@Override

@@ -1,7 +1,7 @@
 package ebon.entities.loading;
 
-import flounder.engine.*;
 import flounder.helpers.*;
+import flounder.logger.*;
 import flounder.resources.*;
 
 import java.io.*;
@@ -19,7 +19,7 @@ public class EntityLoader {
 		EntityTemplate data = ref == null ? null : ref.get();
 
 		if (data == null) {
-			FlounderEngine.getLogger().log(name + " is being loaded into a entity template right now!");
+			FlounderLogger.log(name + " is being loaded into a entity template right now!");
 			loadedTemplates.remove(name);
 
 			// Creates the file reader.
@@ -29,7 +29,7 @@ public class EntityLoader {
 				BufferedReader fileReader = saveFile.getReader();
 
 				if (fileReader == null) {
-					FlounderEngine.getLogger().error("Error creating reader the entity file: " + saveFile);
+					FlounderLogger.error("Error creating reader the entity file: " + saveFile);
 					return null;
 				}
 
@@ -108,8 +108,8 @@ public class EntityLoader {
 
 				data = new EntityTemplate(entityName, componentsData);
 			} catch (IOException e) {
-				FlounderEngine.getLogger().error("File reader for entity " + saveFile.getPath() + " did not execute successfully!");
-				FlounderEngine.getLogger().exception(e);
+				FlounderLogger.error("File reader for entity " + saveFile.getPath() + " did not execute successfully!");
+				FlounderLogger.exception(e);
 				return null;
 			}
 

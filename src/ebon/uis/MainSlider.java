@@ -1,6 +1,7 @@
 package ebon.uis;
 
 import ebon.*;
+import flounder.devices.*;
 import flounder.engine.*;
 import flounder.fonts.*;
 import flounder.guis.*;
@@ -78,7 +79,7 @@ public class MainSlider extends GuiComponent {
 
 	@Override
 	public void show(boolean visible) {
-		FlounderEngine.getDevices().getMouse().setCursorHidden(!visible);
+		FlounderMouse.setCursorHidden(!visible);
 
 		displayed = visible;
 		mainDriver = new SlideDriver(getRelativeX(), visible ? 0.0f : SLIDE_SCALAR, MainMenu.SLIDE_TIME);

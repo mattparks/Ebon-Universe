@@ -3,7 +3,6 @@ package ebon.uis.screens.suboptions;
 import ebon.options.*;
 import ebon.uis.*;
 import ebon.uis.screens.*;
-import flounder.engine.*;
 import flounder.events.*;
 import flounder.fonts.*;
 import flounder.guis.*;
@@ -29,7 +28,7 @@ public class ScreenOptionsEffects extends GuiComponent {
 
 		super.show(false);
 
-		FlounderEngine.getEvents().addEvent(new IEvent() {
+		FlounderEvents.addEvent(new IEvent() {
 			@Override
 			public boolean eventTriggered() {
 				return ScreenOptionsEffects.super.isShown() && MainSlider.BACK_KEY.wasDown();
@@ -64,7 +63,7 @@ public class ScreenOptionsEffects extends GuiComponent {
 			}
 		});
 
-		FlounderEngine.getEvents().addEvent(new IEvent() {
+		FlounderEvents.addEvent(new IEvent() {
 			private int currentEffect = OptionsPost.POST_EFFECT;
 
 			@Override
@@ -88,7 +87,7 @@ public class ScreenOptionsEffects extends GuiComponent {
 			OptionsPost.POST_ENABLED = !OptionsPost.POST_ENABLED;
 		});
 
-		FlounderEngine.getEvents().addEvent(new IEvent() {
+		FlounderEvents.addEvent(new IEvent() {
 			private boolean postEnabled = OptionsPost.POST_ENABLED;
 
 			@Override
@@ -112,7 +111,7 @@ public class ScreenOptionsEffects extends GuiComponent {
 			OptionsPost.FILTER_FXAA = !OptionsPost.FILTER_FXAA;
 		});
 
-		FlounderEngine.getEvents().addEvent(new IEvent() {
+		FlounderEvents.addEvent(new IEvent() {
 			private boolean fxaaEnabled = OptionsPost.FILTER_FXAA;
 
 			@Override

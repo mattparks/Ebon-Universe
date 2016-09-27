@@ -2,7 +2,7 @@ package ebon.entities.components;
 
 import ebon.entities.*;
 import ebon.entities.loading.*;
-import flounder.engine.*;
+import flounder.logger.*;
 import flounder.maths.vectors.*;
 import flounder.particles.*;
 import flounder.particles.loading.*;
@@ -48,8 +48,8 @@ public class ComponentParticleSystem extends IEntityComponent {
 			Object object = componentConstructor.newInstance(componentParameters);
 			particleSpawn = (IParticleSpawn) object;
 		} catch (ClassNotFoundException | IllegalAccessException | InstantiationException | InvocationTargetException | NoSuchMethodException e) {
-			FlounderEngine.getLogger().error("While loading a particle spawn type, " + spawnClasspath + ", constructor could not be found!");
-			FlounderEngine.getLogger().exception(e);
+			FlounderLogger.error("While loading a particle spawn type, " + spawnClasspath + ", constructor could not be found!");
+			FlounderLogger.exception(e);
 		}
 
 		particleSystem = new ParticleSystem(templateList, particleSpawn, Float.parseFloat(template.getValue(this, "PPS")), Float.parseFloat(template.getValue(this, "Speed")), Float.parseFloat(template.getValue(this, "GravityEffect")));
@@ -91,7 +91,7 @@ public class ComponentParticleSystem extends IEntityComponent {
 
 	@Override
 	public void dispose() {
-		FlounderEngine.getParticles().removeSystem(particleSystem);
+		FlounderParticles.removeSystem(particleSystem);
 		particleSystem = null;
 	}
 }

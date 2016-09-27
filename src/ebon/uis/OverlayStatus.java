@@ -1,6 +1,7 @@
 package ebon.uis;
 
 import ebon.*;
+import flounder.devices.*;
 import flounder.engine.*;
 import flounder.fonts.*;
 import flounder.guis.*;
@@ -94,9 +95,9 @@ public class OverlayStatus extends GuiComponent {
 			updateText = false;
 		}
 
-		float averageArea = (FlounderEngine.getDevices().getDisplay().getWidth() + FlounderEngine.getDevices().getDisplay().getHeight()) / 2.0f;
+		float averageArea = (FlounderDisplay.getWidth() + FlounderDisplay.getHeight()) / 2.0f;
 		float width = (33.3f / averageArea);
-		float height = width * FlounderEngine.getDevices().getDisplay().getAspectRatio();
+		float height = width * FlounderDisplay.getAspectRatio();
 		crossHair.setPosition(0.5f - (width / 2.0f) + super.getPosition().x, 0.5f - (height / 2.0f), width, height);
 		crossHair.update();
 		crossHair.setColourOffset(GuiTextButton.HOVER_COLOUR);

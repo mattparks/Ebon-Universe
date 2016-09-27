@@ -1,6 +1,7 @@
 package ebon.uis;
 
 import ebon.uis.screens.*;
+import flounder.devices.*;
 import flounder.engine.*;
 import flounder.fonts.*;
 import flounder.guis.*;
@@ -36,7 +37,7 @@ public class MenuStart extends GuiComponent {
 		this.screenAbout = new ScreenAbout(mainSlider);
 		this.screenMods = new ScreenMods(mainSlider);
 
-		titleText = Text.newText(FlounderEngine.getDevices().getDisplay().getTitle()).setFontSize(MainSlider.MAIN_TITLE_FONT_SIZE).create();
+		titleText = Text.newText(FlounderDisplay.getTitle()).setFontSize(MainSlider.MAIN_TITLE_FONT_SIZE).create();
 		titleText.setColour(MainSlider.TEXT_COLOUR);
 		titleText.setBorderColour(MainSlider.TEXT_COLOUR.r, MainSlider.TEXT_COLOUR.g, MainSlider.TEXT_COLOUR.b);
 		titleText.setGlowing(new SinWaveDriver(0.075f, 0.100f, 2.320f));
@@ -107,7 +108,7 @@ public class MenuStart extends GuiComponent {
 		}
 
 		// TODO: Use aspect ratio to create image width.
-		float aspectRatio = FlounderEngine.getDevices().getDisplay().getAspectRatio();
+		float aspectRatio = FlounderDisplay.getAspectRatio();
 		float progression = slideshowDriver.update(FlounderEngine.getDelta());
 		float imageWidth = SLIDESHOW_ASPECT / aspectRatio;
 

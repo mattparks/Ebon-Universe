@@ -1,7 +1,7 @@
 package ebon.entities;
 
 import ebon.entities.components.*;
-import flounder.engine.*;
+import flounder.logger.*;
 import flounder.maths.matrices.*;
 import flounder.maths.vectors.*;
 import flounder.physics.*;
@@ -127,7 +127,7 @@ public class Entity implements ISpatialObject {
 		try {
 			components.forEach(IEntityComponent::update);
 		} catch (ConcurrentModificationException e) {
-			FlounderEngine.getLogger().exception(e);
+			FlounderLogger.exception(e);
 		}
 
 		hasMoved = false;

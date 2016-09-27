@@ -2,10 +2,12 @@ package ebon.entities;
 
 import ebon.*;
 import ebon.entities.components.*;
+import flounder.devices.*;
 import flounder.engine.*;
 import flounder.engine.entrance.*;
 import flounder.helpers.*;
 import flounder.maths.vectors.*;
+import flounder.profiling.*;
 import flounder.resources.*;
 import flounder.shaders.*;
 
@@ -52,8 +54,8 @@ public class EntityRenderer extends IRenderer {
 
 	@Override
 	public void profile() {
-		FlounderEngine.getProfiler().add("Entities", "Render Time", super.getRenderTimeMs());
-		//	FlounderEngine.getProfiler().add("Entities", "Objects", Environment.getEntities().size());
+		FlounderProfiler.add("Entities", "Render Time", super.getRenderTimeMs());
+		//	FlounderProfiler.add("Entities", "Objects", Environment.getEntities().size());
 	}
 
 	private void prepareRendering(Vector4f clipPlane, ICamera camera) {
@@ -78,7 +80,7 @@ public class EntityRenderer extends IRenderer {
 			}
 		}
 
-		OpenGlUtils.antialias(FlounderEngine.getDevices().getDisplay().isAntialiasing());
+		OpenGlUtils.antialias(FlounderDisplay.isAntialiasing());
 		OpenGlUtils.enableDepthTesting();
 		OpenGlUtils.enableAlphaBlending();
 	}

@@ -1,5 +1,6 @@
 package ebon.uis;
 
+import flounder.devices.*;
 import flounder.engine.*;
 import flounder.fonts.*;
 import flounder.guis.*;
@@ -52,7 +53,7 @@ public class GuiNotification extends GuiComponent {
 			text.setAlphaDriver(fadeDriver);
 		}
 
-		float width = (text.getMaxLineSize() / FlounderEngine.getDevices().getDisplay().getAspectRatio()) * text.getScale();
+		float width = (text.getMaxLineSize() / FlounderDisplay.getAspectRatio()) * text.getScale();
 		float height = text.getCurrentHeight();
 		background.getPosition().x = super.getPosition().x;
 		background.getPosition().y = super.getPosition().y - (BACKGROUND_PADDING * text.getScale());

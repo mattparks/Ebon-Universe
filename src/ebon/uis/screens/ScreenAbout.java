@@ -1,7 +1,6 @@
 package ebon.uis.screens;
 
 import ebon.uis.*;
-import flounder.engine.*;
 import flounder.events.*;
 import flounder.fonts.*;
 import flounder.guis.*;
@@ -20,7 +19,7 @@ public class ScreenAbout extends GuiComponent {
 
 		super.show(false);
 
-		FlounderEngine.getEvents().addEvent(new IEvent() {
+		FlounderEvents.addEvent(new IEvent() {
 			@Override
 			public boolean eventTriggered() {
 				return ScreenAbout.super.isShown() && MainSlider.BACK_KEY.wasDown();

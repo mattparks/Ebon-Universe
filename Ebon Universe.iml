@@ -14,7 +14,6 @@
       <excludeFolder url="file://$MODULE_DIR$/res/res/entities" />
       <excludeFolder url="file://$MODULE_DIR$/res/res/terrain" />
       <excludeFolder url="file://$MODULE_DIR$/screenshots" />
-      <excludeFolder url="file://$MODULE_DIR$/src/ebon" />
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />

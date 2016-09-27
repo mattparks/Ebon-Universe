@@ -18,7 +18,9 @@ import static org.lwjgl.glfw.GLFW.*;
 /**
  * A class that creates and manages a galaxy and its processes.
  */
-public class GalaxyManager {
+public class GalaxyManager extends IModule {
+	private static final GalaxyManager instance = new GalaxyManager();
+
 	public static final int GALAXY_STARS = 12800;
 	public static final double GALAXY_RADIUS = GALAXY_STARS / 10.0;
 
@@ -39,6 +41,11 @@ public class GalaxyManager {
 	 * Creates a new galaxy with a galaxy manager.
 	 */
 	public GalaxyManager() {
+		super(FlounderBounding.class);
+	}
+
+	@Override
+	public void init() {
 		starView = new Sphere(256.0f);
 		starViewRay = new Ray(false, new Vector2f(0.0f, 0.0f));
 		waypoint = new Waypoint();
@@ -53,17 +60,7 @@ public class GalaxyManager {
 		starsStructure = new StructureBasic<>();
 	}
 
-	/**
-	 * Called when the galaxy is needed to be created.
-	 */
-	public void generateGalaxy() {
-		GalaxyGenerator.generateGalaxy(GALAXY_STARS, GALAXY_RADIUS, starsStructure);
-		waypoint.setTargetStar(starsStructure.getAll(new ArrayList<>()).get(GALAXY_STARS - 1));
-	}
-
-	/**
-	 * Updates the galaxy manager.
-	 */
+	@Override
 	public void update() {
 		// Nulls old values.
 		Star lastInStarSystem = inSystemStar;
@@ -169,13 +166,35 @@ public class GalaxyManager {
 		}
 	}
 
+	@Override
+	public void profile() {
+
+	}
+
+	/**
+	 * Called when the galaxy is needed to be created.
+	 */
+	public static void generateGalaxy() {
+		GalaxyGenerator.generateGalaxy(GALAXY_STARS, GALAXY_RADIUS, instance.starsStructure);
+		instance.waypoint.setTargetStar(instance.starsStructure.getAll(new ArrayList<>()).get(GALAXY_STARS - 1));
+	}
+
+	/**
+	 * Clears the instance of all stars.
+	 */
+	public static void clear() {
+		if (instance.starsStructure != null) {
+			instance.starsStructure.clear();
+		}
+	}
+
 	/**
 	 * Gets a galactic waypoint set by the player.
 	 *
 	 * @return A galactic waypoint set by the player.
 	 */
-	public Waypoint getWaypoint() {
-		return waypoint;
+	public static Waypoint getWaypoint() {
+		return instance.waypoint;
 	}
 
 	/**
@@ -183,8 +202,8 @@ public class GalaxyManager {
 	 *
 	 * @return The current system star system the player is in.
 	 */
-	public Star getInSystemStar() {
-		return inSystemStar;
+	public static Star getInSystemStar() {
+		return instance.inSystemStar;
 	}
 
 	/**
@@ -192,8 +211,8 @@ public class GalaxyManager {
 	 *
 	 * @return The current system celestial the player is in.
 	 */
-	public Celestial getInSystemCelestial() {
-		return inSystemCelestial;
+	public static Celestial getInSystemCelestial() {
+		return instance.inSystemCelestial;
 	}
 
 	/**
@@ -201,8 +220,8 @@ public class GalaxyManager {
 	 *
 	 * @return A string for the players velocity.
 	 */
-	public String getPlayerVelocity() {
-		return playerVelocity;
+	public static String getPlayerVelocity() {
+		return instance.playerVelocity;
 	}
 
 	/**
@@ -210,8 +229,8 @@ public class GalaxyManager {
 	 *
 	 * @return A list of stars in the galaxy.
 	 */
-	public ISpatialStructure<Star> getStars() {
-		return starsStructure;
+	public static ISpatialStructure<Star> getStars() {
+		return instance.starsStructure;
 	}
 
 	/**
@@ -219,17 +238,17 @@ public class GalaxyManager {
 	 *
 	 * @return If the star renderer should be used.
 	 */
-	public boolean renderStars() {
-		return inSystemStar == null;
+	public static boolean renderStars() {
+		return instance.inSystemStar == null;
 	}
 
-	/**
-	 * Destroys the galaxy.
-	 */
-	public void destroy() {
-		if (starsStructure != null) {
-			starsStructure.clear();
-			starsStructure = null;
-		}
+	@Override
+	public IModule getInstance() {
+		return instance;
+	}
+
+	@Override
+	public void dispose() {
+		clear();
 	}
 }

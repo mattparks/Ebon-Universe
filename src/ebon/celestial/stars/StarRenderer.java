@@ -60,15 +60,15 @@ public class StarRenderer extends IRenderer {
 
 	@Override
 	public void renderObjects(Vector4f clipPlane, ICamera camera) {
-		if (!shader.isLoaded() || Environment.getGalaxyManager().getStars() == null) {
+		if (!shader.isLoaded() || GalaxyManager.getStars() == null) {
 			return;
 		}
 
 		prepareRendering(clipPlane, camera);
 
 		// Creates the data to be used when rendering.
-		List<Star> stars = Environment.getGalaxyManager().getStars().queryInFrustum(new ArrayList<>(), camera.getViewFrustum());
-		stars.remove(Environment.getGalaxyManager().getInSystemStar());
+		List<Star> stars = GalaxyManager.getStars().queryInFrustum(new ArrayList<>(), camera.getViewFrustum());
+		stars.remove(GalaxyManager.getInSystemStar());
 		float[] vboData = new float[Math.min(stars.size(), MAX_INSTANCES) * INSTANCE_DATA_LENGTH];
 		pointer = 0;
 

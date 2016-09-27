@@ -1,6 +1,7 @@
 package ebon;
 
 import ebon.cameras.*;
+import ebon.celestial.manager.*;
 import ebon.options.*;
 import ebon.players.*;
 import flounder.devices.*;
@@ -18,6 +19,7 @@ import flounder.maths.vectors.*;
 import flounder.models.*;
 import flounder.parsing.*;
 import flounder.particles.*;
+import flounder.physics.bounding.*;
 import flounder.profiling.*;
 import flounder.resources.*;
 import flounder.shaders.*;
@@ -67,7 +69,7 @@ public class Ebon extends FlounderEntrance {
 				configMain.getIntWithDefault("msaa_samples", 4, FlounderDisplay::getSamples),
 				configMain.getBooleanWithDefault("fullscreen", false, FlounderDisplay::isFullscreen),
 				configMain.getIntWithDefault("fps_target", 60, FlounderEngine::getTargetFPS),
-				FlounderLogger.class, FlounderProfiler.class, FlounderKeyboard.class, FlounderTextures.class, FlounderModels.class, FlounderParticles.class, FlounderShaders.class, FlounderGuis.class
+				FlounderDisplay.class, FlounderFonts.class, FlounderGuis.class, FlounderModels.class, FlounderParticles.class, GalaxyManager.class, FlounderShaders.class
 		);
 	}
 

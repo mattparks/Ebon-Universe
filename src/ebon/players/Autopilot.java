@@ -46,7 +46,7 @@ public class Autopilot {
 	 * @param position The ship/players current position.
 	 */
 	public void update(Vector3f position) {
-		float arrivalTime = ((Vector3f.getDistance(position, autopilotWaypoint) - (float) Environment.getGalaxyManager().getWaypoint().getStellarRadii()) / speedMagnitude) / 60.0f;
+		float arrivalTime = ((Vector3f.getDistance(position, autopilotWaypoint) - (float) GalaxyManager.getWaypoint().getStellarRadii()) / speedMagnitude) / 60.0f;
 		float stopTime = speedMagnitude / deceleration;
 
 		if (arrivalTime <= stopTime || autopilotForceStop) {
@@ -110,7 +110,7 @@ public class Autopilot {
 	public void toggleAutopilot(float starSpeed) {
 		if (!autopilotEnabled) {
 			((EbonGuis) FlounderEngine.getManagerGUI()).getOverlayStatus().addMessage("Autopilot Enabled");
-			autopilot(true, starSpeed, Environment.getGalaxyManager().getWaypoint().getPosition());
+			autopilot(true, starSpeed, GalaxyManager.getWaypoint().getPosition());
 		} else {
 			((EbonGuis) FlounderEngine.getManagerGUI()).getOverlayStatus().addMessage("Autopilot Disabled");
 			autopilotForceStop = true;

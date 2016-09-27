@@ -14,7 +14,6 @@ public class Environment {
 	private static Fog fog;
 	private static StructureBasic<Light> lights;
 	private static StructureBasic<Entity> entityStructure;
-	private static GalaxyManager galaxyManager;
 
 	/**
 	 * Initializes the start game environment.
@@ -26,7 +25,6 @@ public class Environment {
 		Environment.fog = fog;
 		Environment.lights = new StructureBasic<>();
 		Environment.entityStructure = new StructureBasic<>();
-		Environment.galaxyManager = new GalaxyManager();
 		Environment.lights.add(sun);
 	}
 
@@ -34,7 +32,7 @@ public class Environment {
 	 * Called when the game world is needed to be created.
 	 */
 	public static void createWorld() {
-		galaxyManager.generateGalaxy();
+		GalaxyManager.generateGalaxy();
 	}
 
 	/**
@@ -43,10 +41,6 @@ public class Environment {
 	public static void update() {
 		if (entityStructure != null) {
 			entityStructure.getAll(new ArrayList<>()).forEach(Entity::update);
-		}
-
-		if (galaxyManager != null) {
-			galaxyManager.update();
 		}
 	}
 
@@ -60,10 +54,6 @@ public class Environment {
 
 	public static StructureBasic<Entity> getEntities() {
 		return entityStructure;
-	}
-
-	public static GalaxyManager getGalaxyManager() {
-		return galaxyManager;
 	}
 
 	/**
@@ -82,9 +72,6 @@ public class Environment {
 			entityStructure = null;
 		}
 
-		if (galaxyManager != null) {
-			galaxyManager.destroy();
-			galaxyManager = null;
-		}
+		GalaxyManager.clear();
 	}
 }

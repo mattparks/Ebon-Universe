@@ -1,6 +1,7 @@
 package ebon.players;
 
 import ebon.*;
+import ebon.celestial.manager.*;
 import ebon.options.*;
 import flounder.engine.*;
 import flounder.inputs.*;
@@ -94,11 +95,11 @@ public class PlayerFPS implements IPlayer {
 		}
 
 		// Update multiplier and waypoint.
-		float multiplier = Environment.getGalaxyManager().getInSystemStar() != null ? (float) (Environment.getGalaxyManager().getInSystemStar().getSolarRadius() * 0.05f) : 1.0f;
-		autopilot.setWaypoint(Environment.getGalaxyManager().getWaypoint(), true);
+		float multiplier = GalaxyManager.getInSystemStar() != null ? (float) (GalaxyManager.getInSystemStar().getSolarRadius() * 0.05f) : 1.0f;
+		autopilot.setWaypoint(GalaxyManager.getWaypoint(), true);
 
 		// Update autopilot inputs.
-		if (autopilotInput && Environment.getGalaxyManager().getWaypoint().getPosition() != null) {
+		if (autopilotInput && GalaxyManager.getWaypoint().getPosition() != null) {
 			autopilot.toggleAutopilot(speedMagnitude);
 		}
 

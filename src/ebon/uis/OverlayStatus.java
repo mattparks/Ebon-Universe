@@ -1,6 +1,7 @@
 package ebon.uis;
 
 import ebon.*;
+import ebon.celestial.manager.*;
 import flounder.devices.*;
 import flounder.engine.*;
 import flounder.fonts.*;
@@ -87,10 +88,7 @@ public class OverlayStatus extends GuiComponent {
 		if (updateText) {
 			updatesText.setText("FPS: " + Maths.roundToPlace(1.0f / FlounderEngine.getDelta(), 1) + " | UPS: " + Maths.roundToPlace(1.0f / FlounderEngine.getDelta(), 1));
 			positionText.setText("POSITION: [" + Maths.roundToPlace(FlounderEngine.getCamera().getPosition().x, 1) + ", " + Maths.roundToPlace(FlounderEngine.getCamera().getPosition().y, 1) + ", " + Maths.roundToPlace(FlounderEngine.getCamera().getPosition().z, 1) + "]");
-
-			if (Environment.getGalaxyManager() != null) {
-				velocityText.setText("VELOCITY: " + Environment.getGalaxyManager().getPlayerVelocity());
-			}
+			velocityText.setText("VELOCITY: " + GalaxyManager.getPlayerVelocity());
 
 			updateText = false;
 		}
@@ -102,10 +100,10 @@ public class OverlayStatus extends GuiComponent {
 		crossHair.update();
 		crossHair.setColourOffset(GuiTextButton.HOVER_COLOUR);
 
-		if (Environment.getGalaxyManager() != null) {
+		if (GalaxyManager.getWaypoint() != null) {
 			float selectionScale = 1.0f;
-			float selectionX = Maths.clamp(Environment.getGalaxyManager().getWaypoint().getScreenPosition().x, 0.0f, 1.0f);
-			float selectionY = Maths.clamp(Environment.getGalaxyManager().getWaypoint().getScreenPosition().y, 0.0f, 1.0f);
+			float selectionX = Maths.clamp(GalaxyManager.getWaypoint().getScreenPosition().x, 0.0f, 1.0f);
+			float selectionY = Maths.clamp(GalaxyManager.getWaypoint().getScreenPosition().y, 0.0f, 1.0f);
 			starSelection.setPosition(selectionX - ((selectionScale * width) / 2.0f) + super.getPosition().x, selectionY - ((selectionScale * height) / 2.0f), (selectionScale * width), (selectionScale * height));
 			starSelection.update();
 		}
@@ -133,7 +131,7 @@ public class OverlayStatus extends GuiComponent {
 
 	@Override
 	protected void getGuiTextures(List<GuiTexture> guiTextures) {
-		if (Environment.getGalaxyManager() != null && Environment.getGalaxyManager().getWaypoint().getScreenPosition().z >= 0) {
+		if (GalaxyManager.getWaypoint() != null && GalaxyManager.getWaypoint().getScreenPosition().z >= 0) {
 			guiTextures.add(starSelection);
 		}
 

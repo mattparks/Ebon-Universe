@@ -1,5 +1,6 @@
 package ebon;
 
+import ebon.celestial.manager.*;
 import ebon.celestial.stars.*;
 import ebon.entities.*;
 import ebon.options.*;
@@ -104,14 +105,14 @@ public class EbonRenderer extends IRendererMaster {
 		Matrix4f.perspectiveMatrix(camera.getFOV(), FlounderDisplay.getAspectRatio(), camera.getNearPlane(), camera.getFarPlane(), projectionMatrix);
 
 		/* Renders each renderer. */
-		if (Environment.getGalaxyManager() != null) {
-			if (Environment.getGalaxyManager().renderStars()) {
+		if (GalaxyManager.getStars() != null) {
+			if (GalaxyManager.renderStars()) {
 				starRenderer.render(clipPlane, camera);
 				skyboxRenderer.getSkyboxFBO().setLoaded(false);
 			} else {
 				if (!skyboxRenderer.getSkyboxFBO().isLoaded()) {
-					if (Environment.getGalaxyManager().getInSystemStar() != null) {
-						camera.getPosition().set(Environment.getGalaxyManager().getInSystemStar().getPosition());
+					if (GalaxyManager.getInSystemStar() != null) {
+						camera.getPosition().set(GalaxyManager.getInSystemStar().getPosition());
 					}
 
 					starRenderer.render(clipPlane, camera);

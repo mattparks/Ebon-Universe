@@ -7,6 +7,7 @@ import ebon.options.*;
 import ebon.post.*;
 import ebon.skybox.*;
 import ebon.uis.*;
+import ebon.world.*;
 import flounder.devices.*;
 import flounder.engine.*;
 import flounder.engine.entrance.*;
@@ -68,7 +69,7 @@ public class EbonRenderer extends IRendererMaster {
 		bindRelevantFBO();
 
 		/* Scene rendering. */
-		renderScene(POSITIVE_INFINITY, Environment.getFog() != null ? Environment.getFog().getFogColour() : MainSlider.FADE_COLOUR_STARTUP);
+		renderScene(POSITIVE_INFINITY, EbonWorld.getFog() != null ? EbonWorld.getFog().getFogColour() : MainSlider.FADE_COLOUR_STARTUP);
 
 		/* Post rendering. */
 		renderPost(FlounderEngine.isGamePaused(), FlounderEngine.getScreenBlur());
@@ -99,20 +100,20 @@ public class EbonRenderer extends IRendererMaster {
 	}
 
 	private void renderScene(Vector4f clipPlane, Colour clearColour) {
-		/* Clear and update. */
+		/* Clear and run. */
 		ICamera camera = FlounderEngine.getCamera();
 		OpenGlUtils.prepareNewRenderParse(clearColour);
 		Matrix4f.perspectiveMatrix(camera.getFOV(), FlounderDisplay.getAspectRatio(), camera.getNearPlane(), camera.getFarPlane(), projectionMatrix);
 
 		/* Renders each renderer. */
-		if (GalaxyManager.getStars() != null) {
-			if (GalaxyManager.renderStars()) {
+		if (EbonGalaxies.getStars() != null) {
+			if (EbonGalaxies.renderStars()) {
 				starRenderer.render(clipPlane, camera);
 				skyboxRenderer.getSkyboxFBO().setLoaded(false);
 			} else {
 				if (!skyboxRenderer.getSkyboxFBO().isLoaded()) {
-					if (GalaxyManager.getInSystemStar() != null) {
-						camera.getPosition().set(GalaxyManager.getInSystemStar().getPosition());
+					if (EbonGalaxies.getInSystemStar() != null) {
+						camera.getPosition().set(EbonGalaxies.getInSystemStar().getPosition());
 					}
 
 					starRenderer.render(clipPlane, camera);

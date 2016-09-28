@@ -1,6 +1,5 @@
 package ebon.celestial.stars;
 
-import ebon.*;
 import ebon.celestial.*;
 import ebon.celestial.manager.*;
 import flounder.devices.*;
@@ -41,12 +40,12 @@ public class SunRenderer extends IRenderer {
 
 	@Override
 	public void renderObjects(Vector4f clipPlane, ICamera camera) {
-		if (!shader.isLoaded() || GalaxyManager.getInSystemStar() == null) {
+		if (!shader.isLoaded() || EbonGalaxies.getInSystemStar() == null) {
 			return;
 		}
 
 		prepareRendering(clipPlane, camera);
-		renderStar(GalaxyManager.getInSystemStar());
+		renderStar(EbonGalaxies.getInSystemStar());
 		endRendering();
 	}
 

@@ -1,6 +1,5 @@
 package ebon.celestial.stars;
 
-import ebon.*;
 import ebon.celestial.*;
 import ebon.celestial.manager.*;
 import flounder.devices.*;
@@ -29,7 +28,7 @@ public class StarRenderer extends IRenderer {
 	private static final MyFile FRAGMENT_SHADER = new MyFile(Shader.SHADERS_LOC, "stars", "starsFragment.glsl");
 
 	private static final float[] VERTICES = {-0.5f, 0.5f, -0.5f, -0.5f, 0.5f, 0.5f, 0.5f, -0.5f};
-	private static final int MAX_INSTANCES = GalaxyManager.GALAXY_STARS;
+	private static final int MAX_INSTANCES = EbonGalaxies.GALAXY_STARS;
 	private static final int INSTANCE_DATA_LENGTH = 19;
 	private static final Vector3f REUSABLE_SCALE = new Vector3f();
 
@@ -60,15 +59,15 @@ public class StarRenderer extends IRenderer {
 
 	@Override
 	public void renderObjects(Vector4f clipPlane, ICamera camera) {
-		if (!shader.isLoaded() || GalaxyManager.getStars() == null) {
+		if (!shader.isLoaded() || EbonGalaxies.getStars() == null) {
 			return;
 		}
 
 		prepareRendering(clipPlane, camera);
 
 		// Creates the data to be used when rendering.
-		List<Star> stars = GalaxyManager.getStars().queryInFrustum(new ArrayList<>(), camera.getViewFrustum());
-		stars.remove(GalaxyManager.getInSystemStar());
+		List<Star> stars = EbonGalaxies.getStars().queryInFrustum(new ArrayList<>(), camera.getViewFrustum());
+		stars.remove(EbonGalaxies.getInSystemStar());
 		float[] vboData = new float[Math.min(stars.size(), MAX_INSTANCES) * INSTANCE_DATA_LENGTH];
 		pointer = 0;
 

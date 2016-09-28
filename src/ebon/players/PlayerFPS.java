@@ -95,11 +95,11 @@ public class PlayerFPS implements IPlayer {
 		}
 
 		// Update multiplier and waypoint.
-		float multiplier = GalaxyManager.getInSystemStar() != null ? (float) (GalaxyManager.getInSystemStar().getSolarRadius() * 0.05f) : 1.0f;
-		autopilot.setWaypoint(GalaxyManager.getWaypoint(), true);
+		float multiplier = EbonGalaxies.getInSystemStar() != null ? (float) (EbonGalaxies.getInSystemStar().getSolarRadius() * 0.05f) : 1.0f;
+		autopilot.setWaypoint(EbonGalaxies.getWaypoint(), true);
 
 		// Update autopilot inputs.
-		if (autopilotInput && GalaxyManager.getWaypoint().getPosition() != null) {
+		if (autopilotInput && EbonGalaxies.getWaypoint().getPosition() != null) {
 			autopilot.toggleAutopilot(speedMagnitude);
 		}
 

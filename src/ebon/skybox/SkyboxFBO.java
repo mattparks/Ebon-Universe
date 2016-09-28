@@ -19,7 +19,7 @@ public class SkyboxFBO {
 	public static final int FBO_SIZE = Ebon.configMain.getIntWithDefault("skybox_res", 2048, () -> SkyboxFBO.FBO_SIZE);
 	public static final float CAMERA_FOV = 90.0f;
 	public static final float CAMERA_NEAR = 0.1f;
-	public static final float CAMERA_FAR = (float) GalaxyManager.GALAXY_RADIUS * 100.0f;
+	public static final float CAMERA_FAR = (float) EbonGalaxies.GALAXY_RADIUS * 100.0f;
 
 	private int cubemapFBO;
 	private int cubemapColour;

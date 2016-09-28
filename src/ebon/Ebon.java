@@ -4,6 +4,7 @@ import ebon.cameras.*;
 import ebon.celestial.manager.*;
 import ebon.options.*;
 import ebon.players.*;
+import ebon.world.*;
 import flounder.devices.*;
 import flounder.engine.*;
 import flounder.engine.entrance.*;
@@ -13,18 +14,11 @@ import flounder.guis.*;
 import flounder.helpers.*;
 import flounder.inputs.*;
 import flounder.lights.*;
-import flounder.logger.*;
 import flounder.maths.*;
 import flounder.maths.vectors.*;
-import flounder.models.*;
 import flounder.parsing.*;
-import flounder.particles.*;
-import flounder.physics.bounding.*;
-import flounder.profiling.*;
 import flounder.resources.*;
-import flounder.shaders.*;
 import flounder.sounds.*;
-import flounder.textures.*;
 
 import static org.lwjgl.glfw.GLFW.*;
 
@@ -69,7 +63,7 @@ public class Ebon extends FlounderEntrance {
 				configMain.getIntWithDefault("msaa_samples", 4, FlounderDisplay::getSamples),
 				configMain.getBooleanWithDefault("fullscreen", false, FlounderDisplay::isFullscreen),
 				configMain.getIntWithDefault("fps_target", 60, FlounderEngine::getTargetFPS),
-				FlounderDisplay.class, FlounderFonts.class, FlounderGuis.class, FlounderModels.class, FlounderParticles.class, GalaxyManager.class, FlounderShaders.class
+				FlounderDisplay.class, FlounderFonts.class, FlounderGuis.class, EbonWorld.class
 		);
 	}
 
@@ -85,8 +79,9 @@ public class Ebon extends FlounderEntrance {
 	}
 
 	public void generateWorlds() {
-		Environment.init(new Fog(new Colour(0.0f, 0.0f, 0.0f), 0.003f, 2.0f, 0.0f, 50.0f), new Light(new Colour(0.85f, 0.85f, 0.85f), new Vector3f(0.0f, 2000.0f, 2000.0f)));
-		Environment.createWorld();
+		EbonWorld.addFog(new Fog(new Colour(0.0f, 0.0f, 0.0f), 0.003f, 2.0f, 0.0f, 50.0f));
+		EbonWorld.addSun(new Light(new Colour(0.85f, 0.85f, 0.85f), new Vector3f(0.0f, 2000.0f, 2000.0f)));
+		EbonGalaxies.generateGalaxy();
 
 		// EntityLoader.load("dragon").createEntity(Environment.getEntitys(), new Vector3f(30, 0, 0), new Vector3f());
 		/*EntityLoader.load("pane").createEntity(Environment.getEntities(), new Vector3f(), new Vector3f());
@@ -118,8 +113,7 @@ public class Ebon extends FlounderEntrance {
 
 	public void destroyWorld() {
 		player = null;
-		FlounderParticles.clear();
-		Environment.destroy();
+		EbonWorld.clear();
 		System.gc();
 	}
 
@@ -169,8 +163,6 @@ public class Ebon extends FlounderEntrance {
 			player.update(FlounderEngine.getManagerGUI().isMenuIsOpen());
 			update(player.getPosition(), player.getRotation());
 		}
-
-		Environment.update();
 	}
 
 	/*public void switchCamera() {

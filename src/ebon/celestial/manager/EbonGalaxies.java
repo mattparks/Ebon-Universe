@@ -5,10 +5,15 @@ import ebon.celestial.*;
 import flounder.engine.*;
 import flounder.helpers.*;
 import flounder.inputs.*;
+import flounder.loaders.*;
+import flounder.logger.*;
 import flounder.maths.*;
 import flounder.maths.vectors.*;
+import flounder.models.*;
 import flounder.physics.*;
 import flounder.physics.bounding.*;
+import flounder.profiling.*;
+import flounder.shaders.*;
 import flounder.space.*;
 
 import java.util.*;
@@ -18,8 +23,8 @@ import static org.lwjgl.glfw.GLFW.*;
 /**
  * A class that creates and manages a galaxy and its processes.
  */
-public class GalaxyManager extends IModule {
-	private static final GalaxyManager instance = new GalaxyManager();
+public class EbonGalaxies extends IModule {
+	private static final EbonGalaxies instance = new EbonGalaxies();
 
 	public static final int GALAXY_STARS = 12800;
 	public static final double GALAXY_RADIUS = GALAXY_STARS / 10.0;
@@ -40,8 +45,8 @@ public class GalaxyManager extends IModule {
 	/**
 	 * Creates a new galaxy with a galaxy manager.
 	 */
-	public GalaxyManager() {
-		super(FlounderBounding.class);
+	public EbonGalaxies() {
+		super(ModuleUpdate.AFTER_ENTRANCE, FlounderLogger.class, FlounderProfiler.class, FlounderLoader.class, FlounderModels.class, FlounderBounding.class, FlounderShaders.class);
 	}
 
 	@Override
@@ -61,7 +66,7 @@ public class GalaxyManager extends IModule {
 	}
 
 	@Override
-	public void update() {
+	public void run() {
 		// Nulls old values.
 		Star lastInStarSystem = inSystemStar;
 		inSystemStar = null;
@@ -168,7 +173,8 @@ public class GalaxyManager extends IModule {
 
 	@Override
 	public void profile() {
-
+		FlounderProfiler.add("Galaxies", "Stars", GALAXY_STARS);
+		FlounderProfiler.add("Galaxies", "Radius", GALAXY_RADIUS);
 	}
 
 	/**

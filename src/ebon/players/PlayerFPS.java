@@ -90,8 +90,8 @@ public class PlayerFPS implements IPlayer {
 			zInput = Maths.deadband(0.05f, inputZ.getAmount());
 			wInput = Maths.deadband(0.05f, inputW.getAmount());
 			slowInput = inputSlow.isDown();
-			autopilotInput = inputAutopilot.isDown();
-			gravityInput = inputGravity.isDown();
+			autopilotInput = inputAutopilot.wasDown();
+			gravityInput = inputGravity.wasDown();
 		}
 
 		// Update multiplier and waypoint.

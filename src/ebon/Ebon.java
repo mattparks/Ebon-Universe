@@ -54,16 +54,17 @@ public class Ebon extends FlounderEntrance {
 	}
 
 	private Ebon(ICamera camera, IRendererMaster renderer, IManagerGUI managerGUI) {
-		super(camera, renderer, managerGUI,
-				configMain.getIntWithDefault("width", 1080, FlounderDisplay::getWindowWidth),
-				configMain.getIntWithDefault("height", 720, FlounderDisplay::getWindowHeight),
-				"Ebon Universe", new MyFile[]{new MyFile(MyFile.RES_FOLDER, "icon.png")},
-				configMain.getBooleanWithDefault("vsync", true, FlounderDisplay::isVSync),
-				configMain.getBooleanWithDefault("antialias", true, FlounderDisplay::isAntialiasing),
-				configMain.getIntWithDefault("msaa_samples", 4, FlounderDisplay::getSamples),
-				configMain.getBooleanWithDefault("fullscreen", false, FlounderDisplay::isFullscreen),
-				configMain.getIntWithDefault("fps_target", 60, FlounderEngine::getTargetFPS),
+		super(
+				camera, renderer, managerGUI,
 				FlounderDisplay.class, FlounderFonts.class, FlounderGuis.class, EbonWorld.class
+		);
+		FlounderDisplay.setup(configMain.getIntWithDefault("width", 1080, FlounderDisplay::getWindowWidth),
+					configMain.getIntWithDefault("height", 720, FlounderDisplay::getWindowHeight),
+					"Ebon Universe", new MyFile[]{new MyFile(MyFile.RES_FOLDER, "icon.png")},
+					configMain.getBooleanWithDefault("vsync", false, FlounderDisplay::isVSync),
+					configMain.getBooleanWithDefault("antialias", true, FlounderDisplay::isAntialiasing),
+					configMain.getIntWithDefault("msaa_samples", 2, FlounderDisplay::getSamples),
+					configMain.getBooleanWithDefault("fullscreen", false, FlounderDisplay::isFullscreen)
 		);
 	}
 

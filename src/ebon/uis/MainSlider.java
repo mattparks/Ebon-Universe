@@ -16,7 +16,7 @@ public class MainSlider extends GuiComponent {
 	public static final Colour TEXT_COLOUR = new Colour(0.85f, 0.85f, 0.85f);
 	public static KeyButton BACK_KEY = new KeyButton(GLFW.GLFW_KEY_BACKSPACE);
 
-	public static final float FONT_SIZE = 1.625f;
+	public static final float FONT_SIZE = 1.475f;
 
 	public static final float BUTTONS_X_MAGIN_LEFT = 0.05f;
 	public static final float BUTTONS_X_MARGIN_RIGHT = 0.05f;
@@ -26,7 +26,7 @@ public class MainSlider extends GuiComponent {
 
 	public static final float MAIN_TITLE_FONT_SIZE = 3.25f;
 	public static final float MAIN_MENU_Y_POS = 0.25f;
-	public static final float MAIN_MENU_Y_SIZE = 0.6f;
+	public static final float MAIN_MENU_Y_SIZE = 0.575f;
 
 	public static final Colour FADE_COLOUR_STARTUP = new Colour(0.2f, 0.2f, 0.2f);
 

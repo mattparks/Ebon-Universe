@@ -17,7 +17,8 @@ import java.util.Timer;
 public class OverlayStatus extends GuiComponent {
 	private ValueDriver mainDriver;
 
-	private Text updatesText;
+	private Text fpsText;
+	private Text upsText;
 	private Text positionText;
 	private Text velocityText;
 	private boolean updateText;
@@ -32,15 +33,16 @@ public class OverlayStatus extends GuiComponent {
 	public OverlayStatus() {
 		mainDriver = new ConstantDriver(-MainSlider.SLIDE_SCALAR);
 
-		updatesText = createStatus("FPS: 0 | UPS: 0", 0.02f);
-		positionText = createStatus("POSITION: [0, 0, 0]", 0.06f);
-		velocityText = createStatus("VELOCITY: 0 ly/s", 0.10f);
+		fpsText = createStatus("FPS: 0", 0.02f);
+		upsText = createStatus("UPS: 0", 0.06f);
+		positionText = createStatus("POSITION: [0, 0, 0]", 0.11f);
+		velocityText = createStatus("VELOCITY: 0 ly/s", 0.15f);
 
-		crossHair = new GuiTexture(Texture.newTexture(new MyFile(MyFile.RES_FOLDER, "crosshair.png")).create());
+		crossHair = new GuiTexture(Texture.newTexture(new MyFile(MyFile.RES_FOLDER, "guis", "crosshair.png")).create());
 		crossHair.getTexture().setNumberOfRows(4);
 		crossHair.setSelectedRow(Ebon.configMain.getIntWithDefault("crosshair", 1, () -> crossHair.getSelectedRow()));
 
-		starSelection = new GuiTexture(Texture.newTexture(new MyFile(MyFile.RES_FOLDER, "crosshair.png")).create());
+		starSelection = new GuiTexture(Texture.newTexture(new MyFile(MyFile.RES_FOLDER, "guis", "crosshair.png")).create());
 		starSelection.getTexture().setNumberOfRows(4);
 		starSelection.setSelectedRow(11);
 		starSelection.setColourOffset(new Colour(0.0f, 0.0f, 1.0f));
@@ -86,7 +88,8 @@ public class OverlayStatus extends GuiComponent {
 		float mainValue = mainDriver.update(FlounderEngine.getDelta());
 
 		if (updateText) {
-			updatesText.setText("FPS: " + Maths.roundToPlace(1.0f / FlounderEngine.getDelta(), 1) + " | UPS: " + Maths.roundToPlace(1.0f / FlounderEngine.getDelta(), 1));
+			fpsText.setText("FPS: " + Maths.roundToPlace(1.0f / FlounderEngine.getDeltaRender(), 1));
+			upsText.setText("UPS: " + Maths.roundToPlace(1.0f / FlounderEngine.getDelta(), 1));
 			positionText.setText("POSITION: [" + Maths.roundToPlace(FlounderEngine.getCamera().getPosition().x, 1) + ", " + Maths.roundToPlace(FlounderEngine.getCamera().getPosition().y, 1) + ", " + Maths.roundToPlace(FlounderEngine.getCamera().getPosition().z, 1) + "]");
 			velocityText.setText("VELOCITY: " + EbonGalaxies.getPlayerVelocity());
 

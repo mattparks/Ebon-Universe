@@ -23,7 +23,7 @@ public class GuiNotification extends GuiComponent {
 		fadeDriver = new SlideDriver(1.0f, 0.0f, FADE_TIME);
 
 		this.text = text;
-		this.background = new GuiTexture(Texture.newTexture(new MyFile(MyFile.RES_FOLDER, "message.png")).clampEdges().create());
+		this.background = new GuiTexture(Texture.newTexture(new MyFile(MyFile.RES_FOLDER, "guis", "message.png")).clampEdges().create());
 		background.setAlphaDriver(fadeDriver);
 		text.setAlphaDriver(fadeDriver);
 		addText(text, (1.0f / 3.0f), 0.0f, 1.0f);

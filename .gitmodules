@@ -1,6 +1,6 @@
 [submodule "Flounder-Engine"]
 	path = Flounder-Engine
-	url = https://github.com/EquilibriumGames/Flounder-Engine
+	url = https://github.com/EquilibriumGames/Flounder-Engine.git
 [submodule "Ebon-Editors"]
 	path = Ebon-Editors
-	url = https://github.com/EquilibriumGames/Ebon-Editors
+	url = https://github.com/EquilibriumGames/Ebon-Editors.git

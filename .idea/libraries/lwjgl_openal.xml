@@ -1,0 +1,18 @@
+<component name="libraryTable">
+  <library name="lwjgl-openal">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/Flounder-Engine/libs/lwjgl-openal/lwjgl-openal.jar!/" />
+    </CLASSES>
+    <JAVADOC>
+      <root url="jar://$PROJECT_DIR$/Flounder-Engine/libs/lwjgl-openal/lwjgl-openal-javadoc.jar!/" />
+    </JAVADOC>
+    <NATIVE>
+      <root url="jar://$PROJECT_DIR$/Flounder-Engine/libs/lwjgl-openal/lwjgl-openal-natives-linux.jar!/" />
+      <root url="jar://$PROJECT_DIR$/Flounder-Engine/libs/lwjgl-openal/lwjgl-openal-natives-windows.jar!/" />
+      <root url="jar://$PROJECT_DIR$/Flounder-Engine/libs/lwjgl-openal/lwjgl-openal-natives-macos.jar!/" />
+    </NATIVE>
+    <SOURCES>
+      <root url="jar://$PROJECT_DIR$/Flounder-Engine/libs/lwjgl-openal/lwjgl-openal-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

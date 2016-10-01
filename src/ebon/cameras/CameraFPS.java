@@ -1,5 +1,6 @@
 package ebon.cameras;
 
+import ebon.*;
 import ebon.celestial.manager.*;
 import ebon.options.*;
 import flounder.devices.*;
@@ -56,8 +57,10 @@ public class CameraFPS implements ICamera {
 		this.viewFrustum = new Frustum();
 		this.viewMatrix = new Matrix4f();
 
-		this.joystickRotateX = new JoystickAxis(OptionsControls.JOYSTICK_PORT, OptionsControls.JOYSTICK_ROTATE_X);
-		this.joystickRotateY = new JoystickAxis(OptionsControls.JOYSTICK_PORT, OptionsControls.JOYSTICK_ROTATE_Y);
+		if (Ebon.configControls != null) {
+			this.joystickRotateX = new JoystickAxis(OptionsControls.JOYSTICK_PORT, OptionsControls.JOYSTICK_ROTATE_X);
+			this.joystickRotateY = new JoystickAxis(OptionsControls.JOYSTICK_PORT, OptionsControls.JOYSTICK_ROTATE_Y);
+		}
 
 		this.angleOfElevation = 0.0f;
 		this.angleAroundPlayer = 0.0f;
@@ -109,7 +112,7 @@ public class CameraFPS implements ICamera {
 		float change = 0.0f;
 
 		if (!gamePaused) {
-			if (FlounderJoysticks.isConnected(0)) {
+			if (FlounderJoysticks.isConnected(0) && joystickRotateX != null) {
 				if (Math.abs(Maths.deadband(0.01f, joystickRotateX.getAmount())) > 0.0f) {
 					change = INFLUENCE_OF_JOYSTICKDX * FlounderEngine.getDelta() * -joystickRotateX.getAmount();
 				}
@@ -132,7 +135,7 @@ public class CameraFPS implements ICamera {
 		float change = 0.0f;
 
 		if (!gamePaused) {
-			if (FlounderJoysticks.isConnected(0)) {
+			if (FlounderJoysticks.isConnected(0) && joystickRotateY != null) {
 				if (Math.abs(Maths.deadband(0.01f, joystickRotateY.getAmount())) > 0.0f) {
 					change = -joystickRotateY.getAmount() * delta * INFLUENCE_OF_JOYSTICKDY;
 				}

@@ -3,6 +3,7 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/Ebon Universe.iml" filepath="$PROJECT_DIR$/Ebon Universe.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Ebon-Editors/Ebon-Editor.iml" filepath="$PROJECT_DIR$/Ebon-Editors/Ebon-Editor.iml" />
       <module fileurl="file://$PROJECT_DIR$/Flounder-Engine/Flounder-Engine.iml" filepath="$PROJECT_DIR$/Flounder-Engine/Flounder-Engine.iml" />
     </modules>
   </component>

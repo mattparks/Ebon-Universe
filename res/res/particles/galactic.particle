@@ -1,0 +1,12 @@
+/**
+ * Date Generated: 12.9.2016 - 10:12
+ * Created By: null
+ */
+ParticleData {
+	Name: galactic;
+	Texture: res/particles/galactic.png;
+	NumberOfRows: 1;
+	LifeLength: 10.0;
+	Scale: 2.0;
+};
+

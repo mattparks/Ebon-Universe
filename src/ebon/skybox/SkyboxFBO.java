@@ -16,11 +16,11 @@ import static org.lwjgl.opengl.GL30.*;
  * A object that holds a skybox FBO.
  */
 public class SkyboxFBO {
-	public static final int FBO_SIZE = Ebon.configMain.getIntWithDefault("skybox_res", 2048, () -> SkyboxFBO.FBO_SIZE);
 	public static final float CAMERA_FOV = 90.0f;
 	public static final float CAMERA_NEAR = 0.1f;
 	public static final float CAMERA_FAR = (float) EbonGalaxies.GALAXY_RADIUS * 100.0f;
 
+	private static int fboSize;
 	private int cubemapFBO;
 	private int cubemapColour;
 	private int cubemapDepth;
@@ -31,6 +31,12 @@ public class SkyboxFBO {
 	 * Creates a new skybox fbo.
 	 */
 	protected SkyboxFBO() {
+		if (Ebon.configMain != null) {
+			fboSize = Ebon.configMain.getIntWithDefault("skybox_res", 2048, () -> SkyboxFBO.fboSize);
+		} else {
+			fboSize = 2048;
+		}
+
 		// Create the cubemap FBO.
 		cubemapFBO = glGenFramebuffers();
 		glBindFramebuffer(GL_FRAMEBUFFER, cubemapFBO);
@@ -39,7 +45,7 @@ public class SkyboxFBO {
 		cubemapColour = glGenTextures();
 		glBindTexture(GL_TEXTURE_CUBE_MAP, cubemapColour);
 		for (int face = 0; face < 6; face++) {
-			glTexImage2D(GL_TEXTURE_CUBE_MAP_POSITIVE_X + face, 0, GL_RGBA, FBO_SIZE, FBO_SIZE, 0, GL_BGRA, GL_UNSIGNED_BYTE, (ByteBuffer) null);
+			glTexImage2D(GL_TEXTURE_CUBE_MAP_POSITIVE_X + face, 0, GL_RGBA, fboSize, fboSize, 0, GL_BGRA, GL_UNSIGNED_BYTE, (ByteBuffer) null);
 		}
 		glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
 		glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
@@ -50,7 +56,7 @@ public class SkyboxFBO {
 		// Create the uniform depth buffer.
 		cubemapDepth = glGenRenderbuffers();
 		glBindRenderbuffer(GL_RENDERBUFFER, cubemapDepth);
-		glRenderbufferStorage(GL_RENDERBUFFER, GL_DEPTH_COMPONENT24, FBO_SIZE, FBO_SIZE);
+		glRenderbufferStorage(GL_RENDERBUFFER, GL_DEPTH_COMPONENT24, fboSize, fboSize);
 		glBindRenderbuffer(GL_RENDERBUFFER, 0);
 		glFramebufferRenderbuffer(GL_FRAMEBUFFER, GL_DEPTH_ATTACHMENT, GL_RENDERBUFFER, cubemapFBO);
 
@@ -83,7 +89,7 @@ public class SkyboxFBO {
 	 */
 	public void bindFBO() {
 		glBindFramebuffer(GL_FRAMEBUFFER, cubemapFBO);
-		glViewport(0, 0, FBO_SIZE, FBO_SIZE);
+		glViewport(0, 0, fboSize, fboSize);
 	}
 
 	/**

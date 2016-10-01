@@ -1,0 +1,18 @@
+<component name="libraryTable">
+  <library name="lwjgl-glfw">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/Flounder-Engine/libs/lwjgl-glfw/lwjgl-glfw.jar!/" />
+    </CLASSES>
+    <JAVADOC>
+      <root url="jar://$PROJECT_DIR$/Flounder-Engine/libs/lwjgl-glfw/lwjgl-glfw-javadoc.jar!/" />
+    </JAVADOC>
+    <NATIVE>
+      <root url="jar://$PROJECT_DIR$/Flounder-Engine/libs/lwjgl-glfw/lwjgl-glfw-natives-linux.jar!/" />
+      <root url="jar://$PROJECT_DIR$/Flounder-Engine/libs/lwjgl-glfw/lwjgl-glfw-natives-windows.jar!/" />
+      <root url="jar://$PROJECT_DIR$/Flounder-Engine/libs/lwjgl-glfw/lwjgl-glfw-natives-macos.jar!/" />
+    </NATIVE>
+    <SOURCES>
+      <root url="jar://$PROJECT_DIR$/Flounder-Engine/libs/lwjgl-glfw/lwjgl-glfw-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

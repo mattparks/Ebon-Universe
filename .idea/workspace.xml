@@ -9,52 +9,61 @@
     </artifacts-to-build>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="d5da382d-17aa-4da5-9b33-402233252004" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Editor-Entity" afterPath="$PROJECT_DIR$/Editor-Entity" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Editor-Particle" afterPath="$PROJECT_DIR$/Editor-Particle" />
+    <list default="true" id="d5da382d-17aa-4da5-9b33-402233252004" name="Default" comment="Workng on reimplementing things.">
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Ebon-Editors/Ebon-Editors.iml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Ebon-Editors/README.md" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Ebon-Editors/src/editor/EbonEditor.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Ebon-Editors/src/editor/EditorCamera.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Ebon-Editors/src/editor/EditorGuis.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Ebon-Editors/src/editor/EditorRenderer.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Ebon-Editors/src/editor/entities/EditorEntities.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Ebon-Editors/src/editor/entities/EntitiesFrame.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Ebon-Editors/src/editor/entities/EntitiesSaver.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Ebon-Editors/src/editor/entities/components/EditorCollider.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Ebon-Editors/src/editor/entities/components/EditorCollision.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Ebon-Editors/src/editor/entities/components/EditorModel.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Ebon-Editors/src/editor/entities/components/EditorParticleSystem.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Ebon-Editors/src/editor/entities/components/EditorRemoveFade.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Ebon-Editors/src/editor/entities/components/IEditorComponent.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Ebon-Editors/src/editor/entities/particles/EditorCircle.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Ebon-Editors/src/editor/entities/particles/EditorLine.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Ebon-Editors/src/editor/entities/particles/EditorPoint.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Ebon-Editors/src/editor/entities/particles/EditorSphere.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Ebon-Editors/src/editor/entities/particles/IEditorParticleSpawn.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Ebon-Editors/src/editor/particles/EditorParticles.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Ebon-Editors/src/editor/particles/ParticlesFrame.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Ebon-Editors/src/editor/particles/ParticlesSaver.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/ebon/entities/loading/EntityIndividualData.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/ebon/entities/loading/EntitySectionData.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/ebon/options/controller/F310.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/ebon/options/controller/IController.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/ebon/options/controller/Logitech3D.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/ebon/options/controller/XBox360.java" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/Editor-Entity" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/Editor-Particle" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/Flounder-Engine/src/flounder/particles/loading/ParticleLoader.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/ebon/entities/loading/EntityLoader.java" afterPath="" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/flounder-engine" afterPath="$PROJECT_DIR$/flounder-engine" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gitmodules" afterPath="$PROJECT_DIR$/.gitmodules" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/modules.xml" afterPath="$PROJECT_DIR$/.idea/modules.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/vcs.xml" afterPath="$PROJECT_DIR$/.idea/vcs.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Editor-Entity/src/editors/entity/EditorEntity.java" afterPath="$PROJECT_DIR$/Editor-Entity/src/editors/entity/EditorEntity.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Editor-Entity/src/editors/entity/EntityFrame.java" afterPath="$PROJECT_DIR$/Editor-Entity/src/editors/entity/EntityFrame.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Editor-Entity/src/editors/entity/EntityGame.java" afterPath="$PROJECT_DIR$/Editor-Entity/src/editors/entity/EntityGame.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Editor-Entity/src/editors/entity/EntityGuis.java" afterPath="$PROJECT_DIR$/Editor-Entity/src/editors/entity/EntityGuis.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Editor-Entity/src/editors/entity/EntitySaver.java" afterPath="$PROJECT_DIR$/Editor-Entity/src/editors/entity/EntitySaver.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Editor-Entity/src/editors/entity/components/EditorCollider.java" afterPath="$PROJECT_DIR$/Editor-Entity/src/editors/entity/components/EditorCollider.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Editor-Entity/src/editors/entity/components/EditorCollision.java" afterPath="$PROJECT_DIR$/Editor-Entity/src/editors/entity/components/EditorCollision.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Editor-Entity/src/editors/entity/components/EditorModel.java" afterPath="$PROJECT_DIR$/Editor-Entity/src/editors/entity/components/EditorModel.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Editor-Entity/src/editors/entity/components/EditorParticleSystem.java" afterPath="$PROJECT_DIR$/Editor-Entity/src/editors/entity/components/EditorParticleSystem.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Editor-Entity/src/editors/entity/components/EditorRemoveFade.java" afterPath="$PROJECT_DIR$/Editor-Entity/src/editors/entity/components/EditorRemoveFade.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Editor-Entity/src/editors/entity/components/IEditorComponent.java" afterPath="$PROJECT_DIR$/Editor-Entity/src/editors/entity/components/IEditorComponent.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Editor-Entity/src/editors/entity/particles/EditorCircle.java" afterPath="$PROJECT_DIR$/Editor-Entity/src/editors/entity/particles/EditorCircle.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Editor-Entity/src/editors/entity/particles/EditorLine.java" afterPath="$PROJECT_DIR$/Editor-Entity/src/editors/entity/particles/EditorLine.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Editor-Entity/src/editors/entity/particles/EditorPoint.java" afterPath="$PROJECT_DIR$/Editor-Entity/src/editors/entity/particles/EditorPoint.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Editor-Entity/src/editors/entity/particles/EditorSphere.java" afterPath="$PROJECT_DIR$/Editor-Entity/src/editors/entity/particles/EditorSphere.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Editor-Entity/src/editors/entity/particles/IEditorParticleSpawn.java" afterPath="$PROJECT_DIR$/Editor-Entity/src/editors/entity/particles/IEditorParticleSpawn.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Editor-Particle/src/editors/particles/EditorParticle.java" afterPath="$PROJECT_DIR$/Editor-Particle/src/editors/particles/EditorParticle.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Editor-Particle/src/editors/particles/ParticleFrame.java" afterPath="$PROJECT_DIR$/Editor-Particle/src/editors/particles/ParticleFrame.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Editor-Particle/src/editors/particles/ParticleGame.java" afterPath="$PROJECT_DIR$/Editor-Particle/src/editors/particles/ParticleGame.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Editor-Particle/src/editors/particles/ParticleGuis.java" afterPath="$PROJECT_DIR$/Editor-Particle/src/editors/particles/ParticleGuis.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Editor-Particle/src/editors/particles/ParticleSaver.java" afterPath="$PROJECT_DIR$/Editor-Particle/src/editors/particles/ParticleSaver.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Flounder-Engine/src/flounder/devices/FlounderDisplay.java" afterPath="$PROJECT_DIR$/Flounder-Engine/src/flounder/devices/FlounderDisplay.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Flounder-Engine/src/flounder/devices/FlounderJoysticks.java" afterPath="$PROJECT_DIR$/Flounder-Engine/src/flounder/devices/FlounderJoysticks.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Flounder-Engine/src/flounder/devices/FlounderKeyboard.java" afterPath="$PROJECT_DIR$/Flounder-Engine/src/flounder/devices/FlounderKeyboard.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Flounder-Engine/src/flounder/devices/FlounderMouse.java" afterPath="$PROJECT_DIR$/Flounder-Engine/src/flounder/devices/FlounderMouse.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Flounder-Engine/src/flounder/devices/FlounderSound.java" afterPath="$PROJECT_DIR$/Flounder-Engine/src/flounder/devices/FlounderSound.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Flounder-Engine/src/flounder/engine/FlounderEngine.java" afterPath="$PROJECT_DIR$/Flounder-Engine/src/flounder/engine/FlounderEngine.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Flounder-Engine/src/flounder/engine/FlounderEntrance.java" afterPath="$PROJECT_DIR$/Flounder-Engine/src/flounder/engine/FlounderEntrance.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Flounder-Engine/src/flounder/guis/GuiTextButton.java" afterPath="$PROJECT_DIR$/Flounder-Engine/src/flounder/guis/GuiTextButton.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Flounder-Engine/src/flounder/logger/FlounderLogger.java" afterPath="$PROJECT_DIR$/Flounder-Engine/src/flounder/logger/FlounderLogger.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Flounder-Engine/src/flounder/networking/FlounderNetwork.java" afterPath="$PROJECT_DIR$/Flounder-Engine/src/flounder/networking/FlounderNetwork.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Flounder-Engine/src/flounder/particles/FlounderParticles.java" afterPath="$PROJECT_DIR$/Flounder-Engine/src/flounder/particles/FlounderParticles.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Flounder-Engine/src/flounder/profiling/FlounderProfiler.java" afterPath="$PROJECT_DIR$/Flounder-Engine/src/flounder/profiling/FlounderProfiler.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Flounder-Engine/src/flounder/shaders/FlounderShaders.java" afterPath="$PROJECT_DIR$/Flounder-Engine/src/flounder/shaders/FlounderShaders.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Flounder-Engine/test/Testing1.java" afterPath="$PROJECT_DIR$/Flounder-Engine/test/Testing1.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/ebon/Ebon.java" afterPath="$PROJECT_DIR$/src/ebon/Ebon.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/ebon/players/PlayerFPS.java" afterPath="$PROJECT_DIR$/src/ebon/players/PlayerFPS.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/ebon/uis/GuiNotification.java" afterPath="$PROJECT_DIR$/src/ebon/uis/GuiNotification.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/ebon/uis/MainSlider.java" afterPath="$PROJECT_DIR$/src/ebon/uis/MainSlider.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/ebon/uis/OverlayStatus.java" afterPath="$PROJECT_DIR$/src/ebon/uis/OverlayStatus.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/Flounder-Engine/res/res/button.png" afterPath="$PROJECT_DIR$/Flounder-Engine/res/res/guis/button.png" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/Flounder-Engine/res/res/checkbox.png" afterPath="$PROJECT_DIR$/Flounder-Engine/res/res/guis/checkbox.png" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/Flounder-Engine/res/res/crosshair.png" afterPath="$PROJECT_DIR$/Flounder-Engine/res/res/guis/crosshair.png" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/Flounder-Engine/res/res/cursor.png" afterPath="$PROJECT_DIR$/Flounder-Engine/res/res/guis/cursor.png" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/ebon/cameras/CameraFPS.java" afterPath="$PROJECT_DIR$/src/ebon/cameras/CameraFPS.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/ebon/entities/EbonEntities.java" afterPath="$PROJECT_DIR$/src/ebon/entities/EbonEntities.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/ebon/entities/EntityRenderer.java" afterPath="$PROJECT_DIR$/src/ebon/entities/EntityRenderer.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/ebon/entities/components/ComponentParticleSystem.java" afterPath="$PROJECT_DIR$/src/ebon/entities/components/ComponentParticleSystem.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/ebon/entities/loading/EntityTemplate.java" afterPath="$PROJECT_DIR$/src/ebon/entities/loading/EntityTemplate.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/ebon/skybox/SkyboxFBO.java" afterPath="$PROJECT_DIR$/src/ebon/skybox/SkyboxFBO.java" />
     </list>
     <ignored path="Open Skies.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -82,18 +91,7 @@
     <favorites_list name="Open Skies" />
   </component>
   <component name="FileEditorManager">
-    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="FlounderDisplay.java" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/Flounder-Engine/src/flounder/devices/FlounderDisplay.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="322">
-              <caret line="351" column="48" selection-start-line="351" selection-start-column="48" selection-end-line="351" selection-end-column="48" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-    </leaf>
+    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300" />
   </component>
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
@@ -105,7 +103,7 @@
   </component>
   <component name="Git.Settings">
     <option name="UPDATE_TYPE" value="MERGE" />
-    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/Flounder-Engine" />
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="GradleLocalSettings">
     <option name="externalProjectsViewState">
@@ -115,58 +113,65 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/src/ebon/entities/Entity.java" />
-        <option value="$PROJECT_DIR$/src/ebon/skybox/SkyboxRenderer.java" />
-        <option value="$PROJECT_DIR$/src/ebon/uis/MenuStart.java" />
-        <option value="$PROJECT_DIR$/src/ebon/uis/screens/ScreenAbout.java" />
-        <option value="$PROJECT_DIR$/src/ebon/uis/screens/suboptions/ScreenOptionsAudio.java" />
-        <option value="$PROJECT_DIR$/src/ebon/uis/screens/suboptions/ScreenOptionsDeveloper.java" />
-        <option value="$PROJECT_DIR$/src/ebon/uis/screens/suboptions/ScreenOptionsGraphics.java" />
-        <option value="$PROJECT_DIR$/src/ebon/celestial/manager/GalaxyManager.java" />
-        <option value="$PROJECT_DIR$/src/ebon/celestial/stars/StarRenderer.java" />
-        <option value="$PROJECT_DIR$/src/ebon/skybox/SkyboxFBO.java" />
-        <option value="$PROJECT_DIR$/src/ebon/celestial/stars/SunRenderer.java" />
-        <option value="$PROJECT_DIR$/src/ebon/Environment.java" />
-        <option value="$PROJECT_DIR$/src/ebon/EbonRenderer.java" />
-        <option value="$PROJECT_DIR$/src/ebon/entities/EntityRenderer.java" />
-        <option value="$PROJECT_DIR$/Flounder-Engine/src/flounder/profiling/ProfileTimer.java" />
-        <option value="$PROJECT_DIR$/Flounder-Engine/src/flounder/fonts/FontRenderer.java" />
-        <option value="$PROJECT_DIR$/Flounder-Engine/src/flounder/guis/GuiRenderer.java" />
-        <option value="$PROJECT_DIR$/Flounder-Engine/src/flounder/engine/IModule.java" />
-        <option value="$PROJECT_DIR$/Flounder-Engine/src/flounder/events/FlounderEvents.java" />
-        <option value="$PROJECT_DIR$/Flounder-Engine/src/flounder/fonts/FlounderFonts.java" />
-        <option value="$PROJECT_DIR$/Flounder-Engine/src/flounder/loaders/FlounderLoader.java" />
-        <option value="$PROJECT_DIR$/Flounder-Engine/src/flounder/materials/FlounderMaterials.java" />
-        <option value="$PROJECT_DIR$/Flounder-Engine/src/flounder/models/FlounderModels.java" />
-        <option value="$PROJECT_DIR$/Flounder-Engine/src/flounder/networking/FlounderNetwork.java" />
-        <option value="$PROJECT_DIR$/Flounder-Engine/src/flounder/particles/FlounderParticles.java" />
-        <option value="$PROJECT_DIR$/Flounder-Engine/src/flounder/physics/bounding/FlounderBounding.java" />
-        <option value="$PROJECT_DIR$/Flounder-Engine/src/flounder/processing/FlounderProcessors.java" />
-        <option value="$PROJECT_DIR$/Flounder-Engine/src/flounder/shaders/FlounderShaders.java" />
-        <option value="$PROJECT_DIR$/Flounder-Engine/src/flounder/textures/FlounderTextures.java" />
-        <option value="$PROJECT_DIR$/src/ebon/entities/EbonEntities.java" />
-        <option value="$PROJECT_DIR$/src/ebon/world/EbonWorld.java" />
-        <option value="$PROJECT_DIR$/Flounder-Engine/src/flounder/logger/FlounderLogger.java" />
-        <option value="$PROJECT_DIR$/Flounder-Engine/src/flounder/engine/FlounderEntrance.java" />
-        <option value="$PROJECT_DIR$/Flounder-Engine/test/Testing1.java" />
-        <option value="$PROJECT_DIR$/Flounder-Engine/src/flounder/profiling/FlounderProfiler.java" />
-        <option value="$PROJECT_DIR$/Flounder-Engine/src/flounder/guis/GuiTextButton.java" />
-        <option value="$PROJECT_DIR$/src/ebon/uis/GuiNotification.java" />
-        <option value="$PROJECT_DIR$/src/ebon/players/PlayerFPS.java" />
-        <option value="$PROJECT_DIR$/src/ebon/uis/OverlayStatus.java" />
-        <option value="$PROJECT_DIR$/Flounder-Engine/src/flounder/devices/FlounderMouse.java" />
-        <option value="$PROJECT_DIR$/Flounder-Engine/src/flounder/devices/FlounderSound.java" />
-        <option value="$PROJECT_DIR$/Flounder-Engine/src/flounder/devices/FlounderKeyboard.java" />
-        <option value="$PROJECT_DIR$/Flounder-Engine/src/flounder/devices/FlounderJoysticks.java" />
-        <option value="$PROJECT_DIR$/Flounder-Engine/src/flounder/guis/GuiComponent.java" />
-        <option value="$PROJECT_DIR$/src/ebon/uis/MainSlider.java" />
-        <option value="$PROJECT_DIR$/src/ebon/players/Autopilot.java" />
-        <option value="$PROJECT_DIR$/Flounder-Engine/src/flounder/engine/FlounderEngine.java" />
-        <option value="$PROJECT_DIR$/src/ebon/Ebon.java" />
         <option value="$PROJECT_DIR$/Flounder-Engine/src/flounder/guis/FlounderGuis.java" />
         <option value="$PROJECT_DIR$/src/ebon/celestial/manager/EbonGalaxies.java" />
+        <option value="$PROJECT_DIR$/Flounder-Engine/src/flounder/logger/FlounderLogger.java" />
+        <option value="$PROJECT_DIR$/Flounder-Engine/src/flounder/networking/FlounderNetwork.java" />
+        <option value="$PROJECT_DIR$/src/ebon/entities/loading/EntitySectionData.java" />
+        <option value="$PROJECT_DIR$/src/ebon/entities/loading/EntityIndividualData.java" />
+        <option value="$PROJECT_DIR$/src/ebon/entities/loading/EntityTemplate.java" />
+        <option value="$PROJECT_DIR$/src/ebon/entities/EbonEntities.java" />
+        <option value="$PROJECT_DIR$/Flounder-Engine/src/flounder/particles/FlounderParticles.java" />
+        <option value="$PROJECT_DIR$/Flounder-Engine/src/flounder/particles/ParticleTemplate.java" />
+        <option value="$PROJECT_DIR$/src/ebon/entities/components/ComponentParticleSystem.java" />
+        <option value="$PROJECT_DIR$/src/ebon/options/controller/IController.java" />
+        <option value="$PROJECT_DIR$/Editor-Particle/src/editors/particles/ParticleSaver.java" />
+        <option value="$PROJECT_DIR$/Editor-Particle/src/editors/particles/ParticleGuis.java" />
+        <option value="$PROJECT_DIR$/Editor-Particle/src/editors/particles/ParticleFrame.java" />
+        <option value="$PROJECT_DIR$/Editor-Particle/src/editors/particles/ParticleGame.java" />
+        <option value="$PROJECT_DIR$/Flounder-Engine/test/Testing1.java" />
+        <option value="$PROJECT_DIR$/src/ebon/skybox/SkyboxFBO.java" />
+        <option value="$PROJECT_DIR$/src/ebon/cameras/CameraFPS.java" />
+        <option value="$PROJECT_DIR$/Editor-Particle/src/editors/particles/EditorParticle.java" />
+        <option value="$PROJECT_DIR$/Flounder-Engine/src/flounder/exceptions/FlounderRuntimeException.java" />
+        <option value="$PROJECT_DIR$/Flounder-Engine/src/flounder/shaders/FlounderShaders.java" />
+        <option value="$PROJECT_DIR$/Flounder-Editor/README.md" />
+        <option value="$PROJECT_DIR$/Flounder-Editor/src/editor/FlounderEditor.java" />
+        <option value="$PROJECT_DIR$/Ebon-Editor/src/editor/CameraEditor.java" />
+        <option value="$PROJECT_DIR$/Ebon-Editor/src/editor/EbonParticles.java" />
+        <option value="$PROJECT_DIR$/Ebon-Editor/src/editor/FlounderEditor.java" />
+        <option value="$PROJECT_DIR$/Ebon-Editor/src/editor/particles/EbonParticles.java" />
+        <option value="$PROJECT_DIR$/Ebon-Editor/src/editor/EditorRenderer.java" />
+        <option value="$PROJECT_DIR$/Ebon-Editor/src/editor/EbonEditor.java" />
         <option value="$PROJECT_DIR$/Flounder-Engine/src/flounder/devices/FlounderDisplay.java" />
+        <option value="$PROJECT_DIR$/Flounder-Engine/src/flounder/engine/FlounderEngine.java" />
+        <option value="$PROJECT_DIR$/Ebon-Editor/src/editor/EditorGuis.java" />
+        <option value="$PROJECT_DIR$/Ebon-Editor/src/editor/particles/ParticlesSaver.java" />
+        <option value="$PROJECT_DIR$/Ebon-Editor/src/editor/entities/components/IEditorComponent.java" />
+        <option value="$PROJECT_DIR$/Ebon-Editor/src/editor/entities/components/EditorCollision.java" />
+        <option value="$PROJECT_DIR$/Ebon-Editor/src/editor/entities/components/EditorCollider.java" />
+        <option value="$PROJECT_DIR$/Ebon-Editor/src/editor/entities/components/EditorRemoveFade.java" />
+        <option value="$PROJECT_DIR$/Ebon-Editor/src/editor/entities/particles/EditorCircle.java" />
+        <option value="$PROJECT_DIR$/Ebon-Editor/src/editor/entities/particles/IEditorParticleSpawn.java" />
+        <option value="$PROJECT_DIR$/Ebon-Editor/src/editor/entities/particles/EditorLine.java" />
+        <option value="$PROJECT_DIR$/Ebon-Editor/src/editor/entities/particles/EditorPoint.java" />
+        <option value="$PROJECT_DIR$/Ebon-Editor/src/editor/entities/particles/EditorSphere.java" />
+        <option value="$PROJECT_DIR$/Ebon-Editor/src/editor/entities/components/EditorModel.java" />
+        <option value="$PROJECT_DIR$/Ebon-Editor/src/editor/entities/EntitiesSaver.java" />
+        <option value="$PROJECT_DIR$/Ebon-Editor/src/editor/particles/ParticlesFrame.java" />
+        <option value="$PROJECT_DIR$/Ebon-Editor/src/editor/particles/EditorParticles.java" />
+        <option value="$PROJECT_DIR$/Ebon-Editor/src/editor/entities/EditorEntities.java" />
+        <option value="$PROJECT_DIR$/Ebon-Editor/src/editor/entities/components/EditorParticleSystem.java" />
+        <option value="$PROJECT_DIR$/Ebon-Editor/src/editor/entities/EntitiesFrame.java" />
+        <option value="$PROJECT_DIR$/src/ebon/entities/EntityRenderer.java" />
       </list>
+    </option>
+  </component>
+  <component name="MavenImportPreferences">
+    <option name="generalSettings">
+      <MavenGeneralSettings>
+        <option name="mavenHome" value="Bundled (Maven 3)" />
+      </MavenGeneralSettings>
     </option>
   </component>
   <component name="ProjectFrameBounds">
@@ -200,7 +205,7 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scope" />
+      <pane id="Scratches" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -261,15 +266,7 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="ebon" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="celestial" />
+              <option name="myItemId" value="Ebon-Editors" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -283,65 +280,7 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="ebon" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="celestial" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="manager" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Ebon Universe" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Ebon Universe" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Flounder-Engine" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Ebon Universe" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Ebon Universe" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Flounder-Engine" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="test" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Ebon Universe" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Ebon Universe" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Flounder-Engine" />
+              <option name="myItemId" value="Ebon-Editors" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
@@ -349,7 +288,7 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="flounder" />
+              <option name="myItemId" value="editor" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -363,85 +302,25 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="Flounder-Engine" />
+              <option name="myItemId" value="Ebon-Editors" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="flounder" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="guis" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Ebon Universe" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Ebon Universe" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Flounder-Engine" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="flounder" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="engine" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Ebon Universe" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Ebon Universe" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Flounder-Engine" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="flounder" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="devices" />
+              <option name="myItemId" value="res" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
         </subPane>
       </pane>
-      <pane id="Scratches" />
       <pane id="PackagesPane" />
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
     <property name="project.structure.last.edited" value="Modules" />
     <property name="project.structure.proportion" value="0.15" />
     <property name="project.structure.side.proportion" value="0.2" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/Ebon-Editor/Ebon-Editor.iml" />
     <property name="settings.editor.selected.configurable" value="preferences.lookFeel" />
     <property name="settings.editor.splitter.proportion" value="0.2" />
   </component>
@@ -450,14 +329,19 @@
       <recent name="D:\Workspaces\Ebon Universe\Flounder-Engine\res\res\guis" />
     </key>
     <key name="CopyClassDialog.RECENTS_KEY">
+      <recent name="editor.entities" />
+      <recent name="editor" />
       <recent name="flounder.space" />
     </key>
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="D:\Workspaces\Ebon Universe\Ebon-Editor\src\editor\entities" />
+      <recent name="D:\Workspaces\Ebon Universe\Ebon-Editor\src\editor\particles" />
+      <recent name="$PROJECT_DIR$/Flounder-Editor" />
       <recent name="D:\Workspaces\Open Skies\res\res\shaders" />
       <recent name="D:\Workspaces\Open Skies\Flounder-Engine\src\flounder\physics\shapes" />
     </key>
   </component>
-  <component name="RunManager" selected="Application.Ebon">
+  <component name="RunManager" selected="Application.EbonEditor">
     <configuration default="false" name="Ebon" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea">
         <pattern>
@@ -476,14 +360,16 @@
       <option name="PASS_PARENT_ENVS" value="true" />
       <module name="Ebon Universe" />
       <envs />
-      <RunnerSettings RunnerId="JProfiler">
-        <option name="WINDOW" value="false" />
-      </RunnerSettings>
       <method />
     </configuration>
-    <configuration default="false" name="Testing1" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
-      <option name="MAIN_CLASS_NAME" value="Testing1" />
+    <configuration default="false" name="EbonEditor" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea">
+        <pattern>
+          <option name="PATTERN" value="editor.particles.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="MAIN_CLASS_NAME" value="editor.EbonEditor" />
       <option name="VM_PARAMETERS" />
       <option name="PROGRAM_PARAMETERS" />
       <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
@@ -492,7 +378,7 @@
       <option name="ENABLE_SWING_INSPECTOR" value="false" />
       <option name="ENV_VARIABLES" />
       <option name="PASS_PARENT_ENVS" value="true" />
-      <module name="Flounder-Engine" />
+      <module name="Ebon-Editor" />
       <envs />
       <method />
     </configuration>
@@ -787,12 +673,12 @@
     </configuration>
     <list size="2">
       <item index="0" class="java.lang.String" itemvalue="Application.Ebon" />
-      <item index="1" class="java.lang.String" itemvalue="Application.Testing1" />
+      <item index="1" class="java.lang.String" itemvalue="Application.EbonEditor" />
     </list>
     <recent_temporary>
       <list size="2">
-        <item index="0" class="java.lang.String" itemvalue="Application.Ebon" />
-        <item index="1" class="java.lang.String" itemvalue="Application.Testing1" />
+        <item index="0" class="java.lang.String" itemvalue="Application.EbonEditor" />
+        <item index="1" class="java.lang.String" itemvalue="Application.Ebon" />
       </list>
     </recent_temporary>
   </component>
@@ -969,27 +855,34 @@
       <option name="project" value="LOCAL" />
       <updated>1475032112051</updated>
     </task>
-    <option name="localTasksCounter" value="23" />
+    <task id="LOCAL-00023" summary="Fixed screenshots, FPS seperate updates.">
+      <created>1475113492644</created>
+      <option name="number" value="00023" />
+      <option name="presentableId" value="LOCAL-00023" />
+      <option name="project" value="LOCAL" />
+      <updated>1475113492644</updated>
+    </task>
+    <option name="localTasksCounter" value="24" />
     <servers />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="2576" height="1056" extended-state="6" />
-    <editor active="true" />
+    <editor active="false" />
     <layout>
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3255814" sideWeight="0.5" order="13" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3251282" sideWeight="0.5" order="13" side_tool="false" content_ui="tabs" />
       <window_info id="Palette&#9;" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Analysis" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.31501058" sideWeight="0.503125" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.31501058" sideWeight="0.496875" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.29386893" sideWeight="0.496875" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="IntelliGuard" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.203125" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.20234375" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="JProfiler" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.20824525" sideWeight="0.5" order="12" side_tool="false" content_ui="tabs" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32980973" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
@@ -1019,8 +912,9 @@
   <component name="VcsManagerConfiguration">
     <option name="CHECK_CODE_SMELLS_BEFORE_PROJECT_COMMIT" value="false" />
     <option name="CHECK_NEW_TODO" value="false" />
-    <MESSAGE value="A lot of tweaks, rays work well and inverse world pos." />
-    <MESSAGE value="Physics has been redone for more flexable support, better names and space object to come." />
+    <ignored-roots>
+      <path value="$PROJECT_DIR$/Editor-Particle" />
+    </ignored-roots>
     <MESSAGE value="Added sun renderer, changed a lot of star stuff." />
     <MESSAGE value="Galaxy managed in own classes." />
     <MESSAGE value="Added autopilot, note: mass of ship is not in maths yet!" />
@@ -1044,7 +938,9 @@
     <MESSAGE value="Even more tweaks, currently broken." />
     <MESSAGE value="Ebon Universe galaxy manager runs on engines new system." />
     <MESSAGE value="Working on limiting update and render cycles, along with placement for updating." />
-    <option name="LAST_COMMIT_MESSAGE" value="Working on limiting update and render cycles, along with placement for updating." />
+    <MESSAGE value="Fixed screenshots, FPS seperate updates." />
+    <MESSAGE value="Workng on reimplementing things." />
+    <option name="LAST_COMMIT_MESSAGE" value="Workng on reimplementing things." />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager />
@@ -1055,277 +951,52 @@
     <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/Flounder-Engine/src/flounder/profiling/FlounderProfilerTab.java">
+    <entry file="file://$PROJECT_DIR$/src/ebon/options/controller/XBox360.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="136">
-          <caret line="8" column="13" selection-start-line="8" selection-start-column="13" selection-end-line="8" selection-end-column="13" />
+        <state relative-caret-position="75">
+          <caret line="5" column="20" selection-start-line="5" selection-start-column="20" selection-end-line="5" selection-end-column="20" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Flounder-Engine/src/flounder/profiling/package-info.java">
+    <entry file="file://$PROJECT_DIR$/src/ebon/options/controller/Logitech3D.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="75">
+          <caret line="5" column="23" selection-start-line="5" selection-start-column="23" selection-end-line="5" selection-end-column="23" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/ebon/options/controller/IController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="15">
+          <caret line="1" column="0" selection-start-line="1" selection-start-column="0" selection-end-line="1" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Editor-Particle/Editor-Particle.iml">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Flounder-Engine/src/flounder/profiling/FlounderTabMenu.java">
+    <entry file="file://$PROJECT_DIR$/Editor-Particle/src/editors/particles/ParticleSaver.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-137">
-          <caret line="8" column="13" selection-start-line="8" selection-start-column="13" selection-end-line="8" selection-end-column="13" />
-          <folding />
+        <state relative-caret-position="748">
+          <caret line="51" column="31" selection-start-line="51" selection-start-column="31" selection-end-line="51" selection-end-column="31" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Flounder-Engine/src/flounder/profiling/ProfileTimer.java">
+    <entry file="file://$PROJECT_DIR$/Editor-Particle/src/editors/particles/ParticleFrame.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="180">
-          <caret line="18" column="25" selection-start-line="18" selection-start-column="25" selection-end-line="18" selection-end-column="25" />
+        <state relative-caret-position="283">
+          <caret line="31" column="80" selection-start-line="31" selection-start-column="80" selection-end-line="31" selection-end-column="80" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Flounder-Engine/src/flounder/fonts/FontType.java">
+    <entry file="file://$PROJECT_DIR$/Editor-Particle/src/editors/particles/EditorParticle.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="170">
-          <caret line="10" column="13" selection-start-line="10" selection-start-column="13" selection-end-line="10" selection-end-column="13" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Flounder-Engine/src/flounder/fonts/FontRenderer.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="492">
-          <caret line="40" column="0" selection-start-line="40" selection-start-column="0" selection-end-line="40" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Flounder-Engine/src/flounder/guis/GuiRenderer.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="560">
-          <caret line="80" column="0" selection-start-line="80" selection-start-column="0" selection-end-line="80" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Flounder-Engine/src/flounder/physics/bounding/BoundingRenderer.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-426">
-          <caret line="64" column="20" selection-start-line="64" selection-start-column="8" selection-end-line="64" selection-end-column="20" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Flounder-Engine/src/flounder/engine/IModule.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="306">
-          <caret line="50" column="47" selection-start-line="50" selection-start-column="47" selection-end-line="50" selection-end-column="47" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Flounder-Engine/src/flounder/fonts/FlounderFonts.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="391">
-          <caret line="39" column="44" selection-start-line="39" selection-start-column="44" selection-end-line="39" selection-end-column="44" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Flounder-Engine/src/flounder/loaders/FlounderLoader.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="359">
-          <caret line="29" column="44" selection-start-line="29" selection-start-column="44" selection-end-line="29" selection-end-column="44" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Flounder-Engine/src/flounder/materials/FlounderMaterials.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="359">
-          <caret line="23" column="44" selection-start-line="23" selection-start-column="44" selection-end-line="23" selection-end-column="44" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Flounder-Engine/src/flounder/models/FlounderModels.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="359">
-          <caret line="28" column="44" selection-start-line="28" selection-start-column="44" selection-end-line="28" selection-end-column="44" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Flounder-Engine/src/flounder/networking/FlounderNetwork.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="391">
-          <caret line="23" column="41" selection-start-line="23" selection-start-column="41" selection-end-line="23" selection-end-column="41" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Flounder-Engine/src/flounder/particles/FlounderParticles.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="410">
-          <caret line="31" column="7" selection-start-line="31" selection-start-column="7" selection-end-line="31" selection-end-column="7" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Flounder-Engine/src/flounder/physics/bounding/FlounderBounding.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="255">
-          <caret line="26" column="42" selection-start-line="26" selection-start-column="42" selection-end-line="26" selection-end-column="42" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Flounder-Engine/src/flounder/processing/FlounderProcessors.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="340">
-          <caret line="20" column="44" selection-start-line="20" selection-start-column="44" selection-end-line="20" selection-end-column="44" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Flounder-Engine/src/flounder/shaders/FlounderShaders.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="359">
-          <caret line="30" column="44" selection-start-line="30" selection-start-column="44" selection-end-line="30" selection-end-column="44" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Flounder-Engine/src/flounder/textures/FlounderTextures.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="359">
-          <caret line="32" column="44" selection-start-line="32" selection-start-column="44" selection-end-line="32" selection-end-column="44" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/ebon/entities/EbonEntities.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="359">
-          <caret line="25" column="41" selection-start-line="25" selection-start-column="41" selection-end-line="25" selection-end-column="41" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Flounder-Engine/src/flounder/logger/FlounderLogger.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="169">
-          <caret line="32" column="7" selection-start-line="32" selection-start-column="7" selection-end-line="32" selection-end-column="7" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/ebon/world/EbonWorld.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="306">
-          <caret line="18" column="41" selection-start-line="18" selection-start-column="41" selection-end-line="18" selection-end-column="41" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Flounder-Engine/src/flounder/events/FlounderEvents.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="241">
-          <caret line="15" column="42" selection-start-line="15" selection-start-column="42" selection-end-line="15" selection-end-column="42" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Flounder-Engine/src/flounder/sounds/StreamManager.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="170">
-          <caret line="10" column="13" selection-start-line="10" selection-start-column="13" selection-end-line="10" selection-end-column="13" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Flounder-Engine/src/flounder/sounds/Streamer.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-833">
-          <caret line="11" column="13" selection-start-line="11" selection-start-column="13" selection-end-line="11" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Flounder-Engine/test/Testing1.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="210">
-          <caret line="197" column="25" selection-start-line="197" selection-start-column="25" selection-end-line="197" selection-end-column="25" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Flounder-Engine/src/flounder/profiling/FlounderProfiler.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="323">
-          <caret line="31" column="0" selection-start-line="31" selection-start-column="0" selection-end-line="31" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Flounder-Engine/res/res/guis/message.png">
-      <provider selected="true" editor-type-id="images">
-        <state />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Flounder-Engine/src/flounder/guis/GuiTextButton.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="291">
-          <caret line="58" column="96" selection-start-line="58" selection-start-column="96" selection-end-line="58" selection-end-column="96" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/ebon/uis/GuiNotification.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="425">
-          <caret line="25" column="96" selection-start-line="25" selection-start-column="96" selection-end-line="25" selection-end-column="96" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/ebon/celestial/manager/GalaxyGenerator.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="206">
-          <caret line="13" column="13" selection-start-line="13" selection-start-column="13" selection-end-line="13" selection-end-column="13" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/ebon/players/PlayerFPS.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="323">
-          <caret line="93" column="47" selection-start-line="93" selection-start-column="47" selection-end-line="93" selection-end-column="47" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/ebon/cameras/CameraFPS.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="390">
-          <caret line="187" column="86" selection-start-line="187" selection-start-column="86" selection-end-line="187" selection-end-column="101" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Flounder-Engine/src/flounder/devices/FlounderMouse.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="206">
-          <caret line="46" column="27" selection-start-line="46" selection-start-column="27" selection-end-line="46" selection-end-column="42" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Flounder-Engine/src/flounder/devices/FlounderSound.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="461">
-          <caret line="37" column="42" selection-start-line="37" selection-start-column="42" selection-end-line="37" selection-end-column="42" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Flounder-Engine/src/flounder/devices/FlounderKeyboard.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="86">
-          <caret line="22" column="42" selection-start-line="22" selection-start-column="42" selection-end-line="22" selection-end-column="42" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Flounder-Engine/src/flounder/devices/FlounderJoysticks.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="189">
-          <caret line="24" column="42" selection-start-line="24" selection-start-column="42" selection-end-line="24" selection-end-column="42" />
-          <folding />
+        <state relative-caret-position="300">
+          <caret line="30" column="57" selection-start-line="30" selection-start-column="57" selection-end-line="30" selection-end-column="57" />
         </state>
       </provider>
     </entry>
@@ -1333,110 +1004,339 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="206">
           <caret line="14" column="13" selection-start-line="14" selection-start-column="13" selection-end-line="14" selection-end-column="13" />
-          <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Flounder-Engine/src/flounder/guis/GuiComponent.java">
+    <entry file="file://$PROJECT_DIR$/src/ebon/skybox/SkyboxRenderer.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="262">
-          <caret line="248" column="130" selection-start-line="248" selection-start-column="130" selection-end-line="248" selection-end-column="130" />
-          <folding />
+        <state relative-caret-position="392">
+          <caret line="38" column="0" selection-start-line="38" selection-start-column="0" selection-end-line="38" selection-end-column="0" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/ebon/uis/MainMenu.java">
+    <entry file="file://$PROJECT_DIR$/src/ebon/options/OptionsControls.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="153">
-          <caret line="9" column="13" selection-start-line="9" selection-start-column="13" selection-end-line="9" selection-end-column="13" />
-          <folding />
+        <state relative-caret-position="90">
+          <caret line="6" column="0" selection-start-line="6" selection-start-column="0" selection-end-line="6" selection-end-column="0" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/ebon/uis/MainSlider.java">
+    <entry file="file://$PROJECT_DIR$/src/ebon/skybox/SkyboxFBO.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="257">
-          <caret line="17" column="0" selection-start-line="17" selection-start-column="0" selection-end-line="17" selection-end-column="0" />
-          <folding />
+        <state relative-caret-position="137">
+          <caret line="22" column="31" selection-start-line="22" selection-start-column="31" selection-end-line="22" selection-end-column="31" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/ebon/uis/OverlayStatus.java">
+    <entry file="file://$PROJECT_DIR$/src/ebon/cameras/CameraFPS.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="376">
-          <caret line="38" column="60" selection-start-line="38" selection-start-column="60" selection-end-line="38" selection-end-column="60" />
-          <folding />
+        <state relative-caret-position="-148">
+          <caret line="137" column="75" selection-start-line="137" selection-start-column="75" selection-end-line="137" selection-end-column="75" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/ebon/players/Autopilot.java">
+    <entry file="file://$PROJECT_DIR$/Flounder-Engine/src/flounder/shaders/Shader.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="357">
-          <caret line="63" column="42" selection-start-line="63" selection-start-column="42" selection-end-line="63" selection-end-column="70" />
-          <folding />
+        <state relative-caret-position="-3954">
+          <caret line="13" column="13" selection-start-line="13" selection-start-column="13" selection-end-line="13" selection-end-column="13" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Flounder-Engine/src/flounder/maths/Delta.java">
+    <entry file="file://$PROJECT_DIR$/Flounder-Engine/src/flounder/exceptions/FlounderRuntimeException.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="254">
-          <caret line="30" column="13" selection-start-line="30" selection-start-column="8" selection-end-line="30" selection-end-column="13" />
-          <folding />
+        <state relative-caret-position="315">
+          <caret line="21" column="17" selection-start-line="21" selection-start-column="17" selection-end-line="21" selection-end-column="17" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Flounder-Engine/src/flounder/guis/FlounderGuis.java">
+    <entry file="file://$PROJECT_DIR$/Flounder-Engine/src/flounder/shaders/FlounderShaders.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="238">
-          <caret line="29" column="7" selection-start-line="29" selection-start-column="7" selection-end-line="29" selection-end-column="7" />
-          <folding />
+        <state relative-caret-position="913">
+          <caret line="173" column="12" selection-start-line="173" selection-start-column="12" selection-end-line="173" selection-end-column="12" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/ebon/Ebon.java">
+    <entry file="file://$PROJECT_DIR$/src/ebon/EbonRenderer.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="250">
-          <caret line="65" column="66" selection-start-line="65" selection-start-column="66" selection-end-line="65" selection-end-column="66" />
-          <folding />
+        <state relative-caret-position="418">
+          <caret line="31" column="28" selection-start-line="31" selection-start-column="21" selection-end-line="31" selection-end-column="28" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/ebon/celestial/manager/Waypoint.java">
+    <entry file="file://$PROJECT_DIR$/Ebon-Editors/README.md">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="323">
-          <caret line="46" column="30" selection-start-line="46" selection-start-column="27" selection-end-line="46" selection-end-column="30" />
-          <folding />
+        <state relative-caret-position="0">
+          <caret line="0" column="17" selection-start-line="0" selection-start-column="17" selection-end-line="0" selection-end-column="17" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/ebon/celestial/manager/EbonGalaxies.java">
+    <entry file="file://$PROJECT_DIR$/Flounder-Engine/src/flounder/profiling/FlounderProfiler.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-729">
-          <caret line="42" column="36" selection-start-line="42" selection-start-column="36" selection-end-line="42" selection-end-column="36" />
-          <folding />
+        <state relative-caret-position="-330">
+          <caret line="14" column="43" selection-start-line="14" selection-start-column="43" selection-end-line="15" selection-end-column="33" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Flounder-Engine/src/flounder/engine/FlounderEntrance.java">
+    <entry file="file://$PROJECT_DIR$/Flounder-Engine/src/flounder/maths/vectors/Vector4f.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="186">
-          <caret line="24" column="69" selection-start-line="24" selection-start-column="69" selection-end-line="24" selection-end-column="69" />
+        <state relative-caret-position="119">
+          <caret line="7" column="13" selection-start-line="7" selection-start-column="13" selection-end-line="7" selection-end-column="13" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Flounder-Engine/src/flounder/engine/FlounderEngine.java">
+    <entry file="file://$PROJECT_DIR$/Flounder-Engine/src/flounder/maths/vectors/Vector2f.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="238">
-          <caret line="251" column="0" selection-start-line="251" selection-start-column="0" selection-end-line="256" selection-end-column="13" />
+          <caret line="14" column="32" selection-start-line="14" selection-start-column="32" selection-end-line="14" selection-end-column="32" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Ebon-Editors/src/editor/EditorCamera.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="272">
+          <caret line="179" column="9" selection-start-line="179" selection-start-column="9" selection-end-line="179" selection-end-column="9" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Flounder-Engine/test/Testing1.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-2992">
+          <caret line="19" column="13" selection-start-line="19" selection-start-column="13" selection-end-line="19" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Ebon-Editors/src/editor/EditorRenderer.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="570">
+          <caret line="84" column="0" selection-start-line="84" selection-start-column="0" selection-end-line="84" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Ebon-Editors/src/editor/EbonEditor.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="468">
+          <caret line="71" column="42" selection-start-line="71" selection-start-column="42" selection-end-line="71" selection-end-column="42" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Flounder-Engine/src/flounder/engine/IModule.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="121">
+          <caret line="70" column="33" selection-start-line="70" selection-start-column="19" selection-end-line="70" selection-end-column="33" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$PROJECT_DIR$/Flounder-Engine/libs/lwjgl-opengl/lwjgl-opengl-sources.jar!/org/lwjgl/opengl/GL.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="213">
+          <caret line="319" column="0" selection-start-line="319" selection-start-column="0" selection-end-line="319" selection-end-column="0" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/Flounder-Engine/src/flounder/devices/FlounderDisplay.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="322">
-          <caret line="351" column="48" selection-start-line="351" selection-start-column="48" selection-end-line="351" selection-end-column="48" />
+        <state relative-caret-position="2066">
+          <caret line="137" column="18" selection-start-line="137" selection-start-column="12" selection-end-line="137" selection-end-column="18" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Flounder-Engine/src/flounder/engine/FlounderEngine.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="379">
+          <caret line="448" column="43" selection-start-line="448" selection-start-column="43" selection-end-line="448" selection-end-column="43" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Editor-Particle/src/editors/particles/ParticleGuis.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="120">
+          <caret line="8" column="0" selection-start-line="8" selection-start-column="0" selection-end-line="8" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Ebon-Editors/src/editor/EditorGuis.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="85">
+          <caret line="5" column="25" selection-start-line="5" selection-start-column="25" selection-end-line="5" selection-end-column="25" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Editor-Particle/src/editors/particles/EditorParticle.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="70">
+          <caret line="71" column="26" selection-start-line="71" selection-start-column="26" selection-end-line="83" selection-end-column="9" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Ebon-Editors/src/editor/entities/components/EditorCollision.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="34">
+          <caret line="2" column="0" selection-start-line="2" selection-start-column="0" selection-end-line="7" selection-end-column="21" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Ebon-Editors/src/editor/entities/components/EditorCollider.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="170">
+          <caret line="12" column="34" selection-start-line="12" selection-start-column="34" selection-end-line="12" selection-end-column="34" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Ebon-Editors/src/editor/entities/components/IEditorComponent.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="153">
+          <caret line="9" column="31" selection-start-line="9" selection-start-column="31" selection-end-line="9" selection-end-column="31" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Ebon-Editors/src/editor/entities/particles/IEditorParticleSpawn.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="119">
+          <caret line="7" column="40" selection-start-line="7" selection-start-column="40" selection-end-line="7" selection-end-column="40" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Ebon-Editors/src/editor/entities/particles/EditorCircle.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="221">
+          <caret line="19" column="0" selection-start-line="19" selection-start-column="0" selection-end-line="19" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Ebon-Editors/src/editor/entities/particles/EditorLine.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="204">
+          <caret line="18" column="5" selection-start-line="18" selection-start-column="5" selection-end-line="18" selection-end-column="5" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Ebon-Editors/src/editor/entities/particles/EditorPoint.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="238">
+          <caret line="14" column="32" selection-start-line="14" selection-start-column="32" selection-end-line="14" selection-end-column="32" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Ebon-Editors/src/editor/entities/particles/EditorSphere.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="195">
+          <caret line="17" column="5" selection-start-line="17" selection-start-column="5" selection-end-line="17" selection-end-column="5" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Ebon-Editors/src/editor/entities/components/EditorModel.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1810">
+          <caret line="116" column="21" selection-start-line="116" selection-start-column="21" selection-end-line="116" selection-end-column="21" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Ebon-Editors/src/editor/entities/components/EditorRemoveFade.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="255">
+          <caret line="45" column="52" selection-start-line="45" selection-start-column="52" selection-end-line="45" selection-end-column="52" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Ebon-Editors/src/editor/entities/EntitiesSaver.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="238">
+          <caret line="14" column="26" selection-start-line="14" selection-start-column="13" selection-end-line="14" selection-end-column="26" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Ebon-Editors/src/editor/particles/ParticlesSaver.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="141">
+          <caret line="13" column="7" selection-start-line="13" selection-start-column="7" selection-end-line="13" selection-end-column="7" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Ebon-Editors/src/editor/particles/ParticlesFrame.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="459">
+          <caret line="27" column="10" selection-start-line="27" selection-start-column="10" selection-end-line="27" selection-end-column="10" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Editor-Entity/src/editors/entity/EntityGame.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="238">
+          <caret line="50" column="26" selection-start-line="50" selection-start-column="26" selection-end-line="50" selection-end-column="26" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Ebon-Editors/src/editor/particles/EditorParticles.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="119">
+          <caret line="16" column="10" selection-start-line="16" selection-start-column="10" selection-end-line="16" selection-end-column="10" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Ebon-Editors/src/editor/entities/components/EditorParticleSystem.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="527">
+          <caret line="220" column="49" selection-start-line="220" selection-start-column="49" selection-end-line="220" selection-end-column="49" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Ebon-Editors/src/editor/entities/EditorEntities.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="374">
+          <caret line="22" column="13" selection-start-line="22" selection-start-column="13" selection-end-line="22" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Ebon-Editors/src/editor/entities/EntitiesFrame.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="238">
+          <caret line="31" column="0" selection-start-line="31" selection-start-column="0" selection-end-line="31" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/ebon/Ebon.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="223">
+          <caret line="82" column="69" selection-start-line="82" selection-start-column="63" selection-end-line="82" selection-end-column="69" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/ebon/entities/EntityRenderer.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="306">
+          <caret line="77" column="49" selection-start-line="77" selection-start-column="49" selection-end-line="77" selection-end-column="49" />
           <folding />
         </state>
       </provider>
@@ -1495,12 +1395,11 @@
       </state>
       <state key="ModuleStructureConfigurable.UI">
         <settings>
-          <last-edited>Flounder-Engine</last-edited>
+          <last-edited>Ebon-Editor</last-edited>
           <splitter-proportions>
             <option name="proportions">
               <list>
                 <option value="0.2" />
-                <option value="0.6" />
               </list>
             </option>
           </splitter-proportions>

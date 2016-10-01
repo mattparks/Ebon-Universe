@@ -18,7 +18,7 @@ public class EntityTemplate {
 	public static final MyFile ENTITIES_FOLDER = new MyFile(MyFile.RES_FOLDER, "entities");
 
 	private String entityName;
-	private Map<EntityLoader.IndividualData, List<EntityLoader.SectionData>> componentsData;
+	private Map<EntityIndividualData, List<EntitySectionData>> componentsData;
 
 	/**
 	 * Creates a new template from loaded data.
@@ -26,7 +26,7 @@ public class EntityTemplate {
 	 * @param entityName The name of the loaded entity.
 	 * @param componentsData A HashMap of loaded component data to be parsed when attaching the component to the new entity.
 	 */
-	public EntityTemplate(String entityName, Map<EntityLoader.IndividualData, List<EntityLoader.SectionData>> componentsData) {
+	public EntityTemplate(String entityName, Map<EntityIndividualData, List<EntitySectionData>> componentsData) {
 		this.entityName = entityName;
 		this.componentsData = componentsData;
 	}
@@ -43,7 +43,7 @@ public class EntityTemplate {
 	public Entity createEntity(ISpatialStructure<Entity> structure, Vector3f position, Vector3f rotation) {
 		Entity instance = new Entity(structure, position, rotation);
 
-		for (EntityLoader.IndividualData k : componentsData.keySet()) {
+		for (EntityIndividualData k : componentsData.keySet()) {
 			try {
 				Class componentClass = Class.forName(k.classpath);
 				Class[] componentTypes = new Class[]{instance.getClass(), this.getClass()};
@@ -68,7 +68,7 @@ public class EntityTemplate {
 	 * @return Returns string of parsable data.
 	 */
 	public String getValue(IEntityComponent component, String key) {
-		for (EntityLoader.IndividualData data : componentsData.keySet()) {
+		for (EntityIndividualData data : componentsData.keySet()) {
 			if (data.classpath.equals(component.getClass().getName())) {
 				for (Pair<String, String> pair : data.individualData) {
 					if (pair.getFirst().equals(key)) {
@@ -90,9 +90,9 @@ public class EntityTemplate {
 	 * @return The sections data.
 	 */
 	public String[] getSectionData(IEntityComponent component, String sectionName) {
-		for (EntityLoader.IndividualData data : componentsData.keySet()) {
+		for (EntityIndividualData data : componentsData.keySet()) {
 			if (data.classpath.equals(component.getClass().getName())) {
-				for (EntityLoader.SectionData section : componentsData.get(data)) {
+				for (EntitySectionData section : componentsData.get(data)) {
 					if (section.name.equals(sectionName)) {
 						return section.lines;
 					}

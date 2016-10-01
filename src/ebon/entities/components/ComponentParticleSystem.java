@@ -32,7 +32,7 @@ public class ComponentParticleSystem extends IEntityComponent {
 		List<ParticleTemplate> templateList = new ArrayList<>();
 
 		for (int t = 0; t < templates.length; t++) {
-			templateList.add(ParticleLoader.load(templates[t]));
+			templateList.add(FlounderParticles.load(templates[t]));
 		}
 
 		String spawnClasspath = template.getValue(this, "Spawn");
@@ -63,8 +63,8 @@ public class ComponentParticleSystem extends IEntityComponent {
 	public void update() {
 		if (particleSystem != null) {
 			if (particleSystem.getTypes().isEmpty()) {
-				particleSystem.addParticleType(ParticleLoader.load("cosmic"));
-				particleSystem.addParticleType(ParticleLoader.load("cosmicHot"));
+				particleSystem.addParticleType(FlounderParticles.load("cosmic"));
+				particleSystem.addParticleType(FlounderParticles.load("cosmicHot"));
 			}
 
 			if (super.getEntity().hasMoved()) {

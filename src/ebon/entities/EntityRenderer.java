@@ -64,12 +64,18 @@ public class EntityRenderer extends IRenderer {
 		shader.getUniformMat4("viewMatrix").loadMat4(camera.getViewMatrix());
 		shader.getUniformVec4("clipPlane").loadVec4(clipPlane);
 
-		shader.getUniformVec3("fogColour").loadVec3(EbonWorld.getFog().getFogColour());
-		shader.getUniformFloat("fogDensity").loadFloat(EbonWorld.getFog().getFogDensity());
-		shader.getUniformFloat("fogGradient").loadFloat(EbonWorld.getFog().getFogGradient());
+		if (EbonWorld.getFog() != null) {
+			shader.getUniformVec3("fogColour").loadVec3(EbonWorld.getFog().getFogColour());
+			shader.getUniformFloat("fogDensity").loadFloat(EbonWorld.getFog().getFogDensity());
+			shader.getUniformFloat("fogGradient").loadFloat(EbonWorld.getFog().getFogGradient());
+		} else {
+			shader.getUniformVec3("fogColour").loadVec3(1.0f, 1.0f, 1.0f);
+			shader.getUniformFloat("fogDensity").loadFloat(0.003f);
+			shader.getUniformFloat("fogGradient").loadFloat(2.0f);
+		}
 
 		for (int i = 0; i < NUMBER_LIGHTS; i++) {
-			if (i < EbonWorld.getLights().getSize()) {
+			if (EbonWorld.getLights() != null && i < EbonWorld.getLights().getSize()) {
 				shader.getUniformVec3("lightPosition[" + i + "]").loadVec3(EbonWorld.getLights().get(i).getPosition());
 				shader.getUniformVec3("lightColour[" + i + "]").loadVec3(EbonWorld.getLights().get(i).getColour());
 				shader.getUniformVec3("lightAttenuation[" + i + "]").loadVec3(EbonWorld.getLights().get(i).getAttenuation());

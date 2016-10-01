@@ -4,9 +4,9 @@ import ebon.entities.*;
 import ebon.entities.loading.*;
 import flounder.logger.*;
 import flounder.maths.vectors.*;
-import flounder.particles.*;
-import flounder.particles.loading.*;
-import flounder.particles.spawns.*;
+import ebon.particles.*;
+import ebon.particles.loading.*;
+import ebon.particles.spawns.*;
 
 import java.lang.reflect.*;
 import java.util.*;
@@ -32,7 +32,7 @@ public class ComponentParticleSystem extends IEntityComponent {
 		List<ParticleTemplate> templateList = new ArrayList<>();
 
 		for (int t = 0; t < templates.length; t++) {
-			templateList.add(FlounderParticles.load(templates[t]));
+			templateList.add(EbonParticles.load(templates[t]));
 		}
 
 		String spawnClasspath = template.getValue(this, "Spawn");
@@ -63,8 +63,8 @@ public class ComponentParticleSystem extends IEntityComponent {
 	public void update() {
 		if (particleSystem != null) {
 			if (particleSystem.getTypes().isEmpty()) {
-				particleSystem.addParticleType(FlounderParticles.load("cosmic"));
-				particleSystem.addParticleType(FlounderParticles.load("cosmicHot"));
+				particleSystem.addParticleType(EbonParticles.load("cosmic"));
+				particleSystem.addParticleType(EbonParticles.load("cosmicHot"));
 			}
 
 			if (super.getEntity().hasMoved()) {
@@ -91,7 +91,7 @@ public class ComponentParticleSystem extends IEntityComponent {
 
 	@Override
 	public void dispose() {
-		FlounderParticles.removeSystem(particleSystem);
+		EbonParticles.removeSystem(particleSystem);
 		particleSystem = null;
 	}
 }

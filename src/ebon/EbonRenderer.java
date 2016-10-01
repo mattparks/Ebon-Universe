@@ -18,7 +18,7 @@ import flounder.helpers.*;
 import flounder.maths.*;
 import flounder.maths.matrices.*;
 import flounder.maths.vectors.*;
-import flounder.particles.*;
+import ebon.particles.*;
 import flounder.physics.bounding.*;
 
 public class EbonRenderer extends IRendererMaster {

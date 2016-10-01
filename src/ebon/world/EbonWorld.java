@@ -5,7 +5,7 @@ import ebon.entities.*;
 import flounder.engine.*;
 import flounder.lights.*;
 import flounder.maths.*;
-import flounder.particles.*;
+import ebon.particles.*;
 import flounder.space.*;
 
 public class EbonWorld extends IModule {
@@ -15,7 +15,7 @@ public class EbonWorld extends IModule {
 	private Fog fog;
 
 	public EbonWorld() {
-		super(ModuleUpdate.AFTER_ENTRANCE, FlounderParticles.class, EbonEntities.class, EbonGalaxies.class);
+		super(ModuleUpdate.AFTER_ENTRANCE, EbonParticles.class, EbonEntities.class, EbonGalaxies.class);
 	}
 
 	@Override
@@ -35,7 +35,7 @@ public class EbonWorld extends IModule {
 	}
 
 	public static void clear() {
-		FlounderParticles.clear();
+		EbonParticles.clear();
 		EbonEntities.clear();
 		EbonGalaxies.clear();
 

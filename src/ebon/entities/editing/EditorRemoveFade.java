@@ -71,9 +71,9 @@ public class EditorRemoveFade extends IEditorComponent {
 	}
 
 	@Override
-	public void update(Entity testEntity) {
-		if (testRemove) {
-			testEntity.remove();
+	public void update() {
+		if (component.getEntity() != null) {
+			component.getEntity().remove();
 			component.activate();
 			testRemove = false;
 		}

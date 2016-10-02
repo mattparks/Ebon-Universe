@@ -208,7 +208,7 @@ public class EditorParticleSystem extends IEditorComponent {
 
 				if (component.getParticleSystem().getSpawn() != null) {
 					String classname = component.getParticleSystem().getSpawn().getClass().getName();
-				//	EditorEntities.instance.frame.removeSideTab(ComponentParticleSystem.class.getName().split("\\.")[ByteWork.getCharCount(ComponentParticleSystem.class.getName(), '.')].replace("Component", "") + " (" + classname.split("\\.")[ByteWork.getCharCount(classname, '.')].replace("Spawn", "") + ")");
+					IEditorComponent.REMOVE_SIDE_TAB.add(getTabName() + " (" + classname.split("\\.")[ByteWork.getCharCount(classname, '.')].replace("Spawn", "") + ")");
 				}
 
 				if (particleSpawn != null) {
@@ -217,7 +217,7 @@ public class EditorParticleSystem extends IEditorComponent {
 
 					JPanel panel = IEditorComponent.makeTextPanel();
 					particleSpawn.addToPanel(panel);
-				//	EditorEntities.instance.frame.addSideTab(getTabName() + " (" + particleSpawn.getTabName() + ")", panel);
+					IEditorComponent.ADD_SIDE_TAB.add(new Pair<>(getTabName() + " (" + particleSpawn.getTabName() + ")", panel));
 				}
 			}
 		});
@@ -225,8 +225,7 @@ public class EditorParticleSystem extends IEditorComponent {
 	}
 
 	@Override
-	public void update(Entity testEntity) {
-
+	public void update() {
 	}
 
 	@Override

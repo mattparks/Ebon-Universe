@@ -33,7 +33,7 @@ public class EditorCollision extends IEditorComponent {
 	}
 
 	@Override
-	public void update(Entity testEntity) {
+	public void update() {
 	}
 
 	@Override

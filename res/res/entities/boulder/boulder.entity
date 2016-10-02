@@ -7,15 +7,15 @@ EntityData {
 };
 
 Components {
-	game.entities.components.ComponentCollider {
+	ebon.entities.components.ComponentCollider {
 		RenderAABB: true;
 	};
 
-	game.entities.components.ComponentCollision {
+	ebon.entities.components.ComponentCollision {
 
 	};
 
-	game.entities.components.ComponentModel {
+	ebon.entities.components.ComponentModel {
 		Texture: res/entities/boulder/boulder.png;
 		TextureNumRows: 1;
 		NormalMap: res/entities/boulder/boulderNormals.png;

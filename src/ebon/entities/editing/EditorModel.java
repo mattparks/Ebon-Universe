@@ -133,39 +133,23 @@ public class EditorModel extends IEditorComponent {
 	}
 
 	@Override
-	public void update(Entity testEntity) {
-		if (testEntity == null) {
-			return;
-		}
-
-		ComponentModel modelComponent = (ComponentModel) testEntity.getComponent(ComponentModel.ID);
-
-	/*	if (modelComponent != null) {
-			pathModel = modelComponent.getModel() != null ? new MyFile(modelComponent.getModel().getFile()) : null;
-			pathTexture = modelComponent.getTexture() != null ? modelComponent.getTexture().getFile() : null;
-			pathNormalMap = modelComponent.getNormalMap() != null ? modelComponent.getNormalMap().getFile() : null;
-		} else {
-			pathModel = null;
-			pathTexture = null;
-			pathNormalMap = null;
-		}*/
-
-		if (modelComponent != null) {
-			if (pathModel != null && (modelComponent.getModel() == null || !modelComponent.getModel().getFile().equals(pathModel.getPath()))) {
+	public void update() {
+		if (component != null) {
+			if (pathModel != null && (component.getModel() == null || !component.getModel().getFile().equals(pathModel.getPath()))) {
 				if (pathModel.getPath().contains(".obj")) {
 					Model model = Model.newModel(pathModel).create();
-					modelComponent.setModel(model);
+					component.setModel(model);
 				}
 			}
 
-			if (pathTexture != null && (modelComponent.getTexture() == null || !modelComponent.getTexture().getFile().getPath().equals(pathTexture.getPath()))) {
+			if (pathTexture != null && (component.getTexture() == null || !component.getTexture().getFile().getPath().equals(pathTexture.getPath()))) {
 				Texture texture = Texture.newTexture(pathTexture).create();
-				modelComponent.setTexture(texture);
+				component.setTexture(texture);
 			}
 
-			if (pathNormalMap != null && (modelComponent.getNormalMap() == null || !modelComponent.getNormalMap().getFile().getPath().equals(pathNormalMap.getPath()))) {
+			if (pathNormalMap != null && (component.getNormalMap() == null || !component.getNormalMap().getFile().getPath().equals(pathNormalMap.getPath()))) {
 				Texture normalTexture = Texture.newTexture(pathNormalMap).create();
-				modelComponent.setNormalMap(normalTexture);
+				component.setNormalMap(normalTexture);
 			}
 		}
 	}

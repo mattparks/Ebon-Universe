@@ -46,7 +46,7 @@ vec4 lighting(vec4 inColour, vec3 unitNormal) {
     }
 
     totalDiffuse = max(totalDiffuse, 0.2);
-    return vec4(totalDiffuse, 1.0) * inColour + vec4(totalSpecular, 1.0);
+    return vec4(inColour); // vec4(totalDiffuse, 1.0) * inColour + vec4(totalSpecular, 1.0);
 }
 
 //---------VISIBILITY------------

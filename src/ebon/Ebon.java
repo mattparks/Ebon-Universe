@@ -2,6 +2,7 @@ package ebon;
 
 import ebon.cameras.*;
 import ebon.celestial.manager.*;
+import ebon.entities.*;
 import ebon.options.*;
 import ebon.players.*;
 import ebon.world.*;
@@ -77,6 +78,8 @@ public class Ebon extends FlounderEntrance {
 		this.skipMusic = new CompoundButton(new KeyButton(GLFW_KEY_LEFT, GLFW_KEY_RIGHT), new JoystickButton(OptionsControls.JOYSTICK_PORT, OptionsControls.JOYSTICK_MUSIC_SKIP));
 		this.switchCamera = new CompoundButton(new KeyButton(GLFW_KEY_C), new JoystickButton(OptionsControls.JOYSTICK_PORT, OptionsControls.JOYSTICK_CAMERA_SWITCH));
 		this.stillLoading = true;
+
+		EbonEntities.load("barrel").createEntity(EbonEntities.getEntities(), new Vector3f(), new Vector3f());
 	}
 
 	public void generateWorlds() {

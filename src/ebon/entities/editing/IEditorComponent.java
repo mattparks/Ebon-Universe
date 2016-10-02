@@ -7,6 +7,8 @@ import flounder.helpers.*;
 
 import javax.swing.*;
 import java.awt.*;
+import java.util.*;
+import java.util.List;
 
 public abstract class IEditorComponent {
 	public static final IEditorComponent[] EDITOR_COMPONENTS = new IEditorComponent[]{
@@ -16,6 +18,8 @@ public abstract class IEditorComponent {
 			new EditorModel((Entity) null),
 			new EditorParticleSystem((Entity) null)
 	};
+	public static final List<Pair<String, JPanel>> ADD_SIDE_TAB = new ArrayList<>();
+	public static final List<String> REMOVE_SIDE_TAB = new ArrayList<>();
 
 	public abstract String getTabName();
 
@@ -23,7 +27,7 @@ public abstract class IEditorComponent {
 
 	public abstract void addToPanel(JPanel panel);
 
-	public abstract void update(Entity testEntity);
+	public abstract void update();
 
 	/**
 	 * @return Returns a list of values that are saved with the component.

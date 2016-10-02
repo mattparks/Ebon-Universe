@@ -44,8 +44,7 @@ public class EditorCollider extends IEditorComponent {
 	}
 
 	@Override
-	public void update(Entity testEntity) {
-
+	public void update() {
 	}
 
 	@Override

@@ -11,7 +11,6 @@
       <excludeFolder url="file://$MODULE_DIR$/configs" />
       <excludeFolder url="file://$MODULE_DIR$/entities" />
       <excludeFolder url="file://$MODULE_DIR$/logs" />
-      <excludeFolder url="file://$MODULE_DIR$/res/res/entities" />
       <excludeFolder url="file://$MODULE_DIR$/res/res/terrain" />
       <excludeFolder url="file://$MODULE_DIR$/screenshots" />
     </content>

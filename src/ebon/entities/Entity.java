@@ -30,7 +30,7 @@ public class Entity implements ISpatialObject {
 	 */
 	public Entity(ISpatialStructure<Entity> structure, Vector3f position, Vector3f rotation) {
 		this.structure = structure;
-		components = new ArrayList<>();
+		this.components = new ArrayList<>();
 		this.position = position;
 		this.rotation = rotation;
 		this.modelMatrix = new Matrix4f();

@@ -46,7 +46,7 @@ public class EntityTemplate {
 		for (EntityIndividualData k : componentsData.keySet()) {
 			try {
 				Class componentClass = Class.forName(k.classpath);
-				Class[] componentTypes = new Class[]{instance.getClass(), this.getClass()};
+				Class[] componentTypes = new Class[]{Entity.class, EntityTemplate.class};
 				@SuppressWarnings("unchecked") Constructor componentConstructor = componentClass.getConstructor(componentTypes);
 				Object[] componentParameters = new Object[]{instance, this};
 				componentConstructor.newInstance(componentParameters);

@@ -1,5 +1,6 @@
 package ebon.particles;
 
+import ebon.particles.loading.*;
 import flounder.devices.*;
 import flounder.engine.*;
 import flounder.engine.entrance.*;
@@ -8,7 +9,6 @@ import flounder.loaders.*;
 import flounder.logger.*;
 import flounder.maths.matrices.*;
 import flounder.maths.vectors.*;
-import ebon.particles.loading.*;
 import flounder.profiling.*;
 import flounder.resources.*;
 import flounder.shaders.*;

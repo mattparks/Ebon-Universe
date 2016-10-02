@@ -2,11 +2,11 @@ package ebon.entities.components;
 
 import ebon.entities.*;
 import ebon.entities.loading.*;
-import flounder.logger.*;
-import flounder.maths.vectors.*;
 import ebon.particles.*;
 import ebon.particles.loading.*;
 import ebon.particles.spawns.*;
+import flounder.logger.*;
+import flounder.maths.vectors.*;
 
 import java.lang.reflect.*;
 import java.util.*;

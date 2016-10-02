@@ -1,12 +1,12 @@
 package ebon.particles;
 
+import ebon.particles.loading.*;
 import flounder.devices.*;
 import flounder.engine.*;
 import flounder.helpers.*;
 import flounder.loaders.*;
 import flounder.logger.*;
 import flounder.maths.vectors.*;
-import ebon.particles.loading.*;
 import flounder.profiling.*;
 import flounder.resources.*;
 import flounder.space.*;

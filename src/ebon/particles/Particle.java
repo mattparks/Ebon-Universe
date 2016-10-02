@@ -1,8 +1,8 @@
 package ebon.particles;
 
+import ebon.particles.loading.*;
 import flounder.engine.*;
 import flounder.maths.vectors.*;
-import ebon.particles.loading.*;
 import flounder.physics.*;
 import flounder.space.*;
 

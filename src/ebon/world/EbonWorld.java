@@ -2,10 +2,10 @@ package ebon.world;
 
 import ebon.celestial.manager.*;
 import ebon.entities.*;
+import ebon.particles.*;
 import flounder.engine.*;
 import flounder.lights.*;
 import flounder.maths.*;
-import ebon.particles.*;
 import flounder.space.*;
 
 public class EbonWorld extends IModule {

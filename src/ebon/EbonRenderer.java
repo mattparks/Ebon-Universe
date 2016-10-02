@@ -4,6 +4,7 @@ import ebon.celestial.manager.*;
 import ebon.celestial.stars.*;
 import ebon.entities.*;
 import ebon.options.*;
+import ebon.particles.*;
 import ebon.post.*;
 import ebon.skybox.*;
 import ebon.uis.*;
@@ -18,7 +19,6 @@ import flounder.helpers.*;
 import flounder.maths.*;
 import flounder.maths.matrices.*;
 import flounder.maths.vectors.*;
-import ebon.particles.*;
 import flounder.physics.bounding.*;
 
 public class EbonRenderer extends IRendererMaster {

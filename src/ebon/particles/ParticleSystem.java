@@ -1,11 +1,11 @@
 package ebon.particles;
 
+import ebon.particles.loading.*;
+import ebon.particles.spawns.*;
 import flounder.engine.*;
 import flounder.maths.*;
 import flounder.maths.matrices.*;
 import flounder.maths.vectors.*;
-import ebon.particles.loading.*;
-import ebon.particles.spawns.*;
 
 import java.util.*;
 

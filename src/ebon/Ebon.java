@@ -50,7 +50,7 @@ public class Ebon extends FlounderEntrance {
 				new EbonGuis()
 		);
 		instance.startEngine(FlounderFonts.FFF_FORWARD);
-		System.exit(1);
+		System.exit(0);
 	}
 
 	private Ebon(ICamera camera, IRendererMaster renderer, IManagerGUI managerGUI) {

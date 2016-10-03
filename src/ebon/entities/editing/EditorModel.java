@@ -46,22 +46,20 @@ public class EditorModel extends IEditorComponent {
 	public void addToPanel(JPanel panel) {
 		// Load Texture.
 		JButton loadModel = new JButton("Select Model");
-		loadModel.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent ae) {
-				JFileChooser fileChooser = new JFileChooser();
-				File workingDirectory = new File(System.getProperty("user.dir"));
-				fileChooser.setCurrentDirectory(workingDirectory);
-				int returnValue = fileChooser.showOpenDialog(null);
+		loadModel.addActionListener((ActionEvent ae) -> {
+			JFileChooser fileChooser = new JFileChooser();
+			File workingDirectory = new File(System.getProperty("user.dir"));
+			fileChooser.setCurrentDirectory(workingDirectory);
+			int returnValue = fileChooser.showOpenDialog(null);
 
-				if (returnValue == JFileChooser.APPROVE_OPTION) {
-					String selectedFile = fileChooser.getSelectedFile().getPath().replace("\\", "/");
+			if (returnValue == JFileChooser.APPROVE_OPTION) {
+				String selectedFile = fileChooser.getSelectedFile().getPath().replace("\\", "/");
 
-					if (selectedFile.contains("res/entities")) {
-						String[] filepath = selectedFile.split("/");
-						EditorModel.this.pathModel = new MyFile(MyFile.RES_FOLDER, "entities", filepath[filepath.length - 1].replace(".obj", ""), filepath[filepath.length - 1]);
-					} else {
-						FlounderLogger.error("The selected texture path is not inside the res/entities folder!");
-					}
+				if (selectedFile.contains("res/entities")) {
+					String[] filepath = selectedFile.split("/");
+					EditorModel.this.pathModel = new MyFile(MyFile.RES_FOLDER, "entities", filepath[filepath.length - 1].replace(".obj", ""), filepath[filepath.length - 1]);
+				} else {
+					FlounderLogger.error("The selected texture path is not inside the res/entities folder!");
 				}
 			}
 		});
@@ -69,22 +67,20 @@ public class EditorModel extends IEditorComponent {
 
 		// Load Texture.
 		JButton loadTexture = new JButton("Select Texture");
-		loadTexture.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent ae) {
-				JFileChooser fileChooser = new JFileChooser();
-				File workingDirectory = new File(System.getProperty("user.dir"));
-				fileChooser.setCurrentDirectory(workingDirectory);
-				int returnValue = fileChooser.showOpenDialog(null);
+		loadModel.addActionListener((ActionEvent ae) -> {
+			JFileChooser fileChooser = new JFileChooser();
+			File workingDirectory = new File(System.getProperty("user.dir"));
+			fileChooser.setCurrentDirectory(workingDirectory);
+			int returnValue = fileChooser.showOpenDialog(null);
 
-				if (returnValue == JFileChooser.APPROVE_OPTION) {
-					String selectedFile = fileChooser.getSelectedFile().getPath().replace("\\", "/");
+			if (returnValue == JFileChooser.APPROVE_OPTION) {
+				String selectedFile = fileChooser.getSelectedFile().getPath().replace("\\", "/");
 
-					if (selectedFile.contains("res/entities")) {
-						String[] filepath = selectedFile.split("/");
-						EditorModel.this.pathTexture = new MyFile(MyFile.RES_FOLDER, "entities", filepath[filepath.length - 1].replace(".png", ""), filepath[filepath.length - 1]);
-					} else {
-						FlounderLogger.error("The selected texture path is not inside the res/entities folder!");
-					}
+				if (selectedFile.contains("res/entities")) {
+					String[] filepath = selectedFile.split("/");
+					EditorModel.this.pathTexture = new MyFile(MyFile.RES_FOLDER, "entities", filepath[filepath.length - 1].replace(".png", ""), filepath[filepath.length - 1]);
+				} else {
+					FlounderLogger.error("The selected texture path is not inside the res/entities folder!");
 				}
 			}
 		});
@@ -92,22 +88,20 @@ public class EditorModel extends IEditorComponent {
 
 		// Load Normal Map.
 		JButton loadNormalMap = new JButton("Select Normal Map");
-		loadNormalMap.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent ae) {
-				JFileChooser fileChooser = new JFileChooser();
-				File workingDirectory = new File(System.getProperty("user.dir"));
-				fileChooser.setCurrentDirectory(workingDirectory);
-				int returnValue = fileChooser.showOpenDialog(null);
+		loadNormalMap.addActionListener((ActionEvent ae) -> {
+			JFileChooser fileChooser = new JFileChooser();
+			File workingDirectory = new File(System.getProperty("user.dir"));
+			fileChooser.setCurrentDirectory(workingDirectory);
+			int returnValue = fileChooser.showOpenDialog(null);
 
-				if (returnValue == JFileChooser.APPROVE_OPTION) {
-					String selectedFile = fileChooser.getSelectedFile().getPath().replace("\\", "/");
+			if (returnValue == JFileChooser.APPROVE_OPTION) {
+				String selectedFile = fileChooser.getSelectedFile().getPath().replace("\\", "/");
 
-					if (selectedFile.contains("res/entities")) {
-						String[] filepath = selectedFile.split("/");
-						EditorModel.this.pathNormalMap = new MyFile(MyFile.RES_FOLDER, "entities", filepath[filepath.length - 1].replace("Normals.png", ""), filepath[filepath.length - 1]);
-					} else {
-						FlounderLogger.error("The selected texture path is not inside the res/entities folder!");
-					}
+				if (selectedFile.contains("res/entities")) {
+					String[] filepath = selectedFile.split("/");
+					EditorModel.this.pathNormalMap = new MyFile(MyFile.RES_FOLDER, "entities", filepath[filepath.length - 1].replace("Normals.png", ""), filepath[filepath.length - 1]);
+				} else {
+					FlounderLogger.error("The selected texture path is not inside the res/entities folder!");
 				}
 			}
 		});
@@ -116,15 +110,11 @@ public class EditorModel extends IEditorComponent {
 		// Scale Slider.
 		//	panel.add(new JLabel("Scale Slider: "));
 		JSlider scaleSlider = new JSlider(JSlider.HORIZONTAL, 0, 150, (int) (component.getScale() * 25.0f));
-		scaleSlider.addChangeListener(new ChangeListener() {
-			@Override
-			public void stateChanged(ChangeEvent e) {
-				JSlider source = (JSlider) e.getSource();
-				int reading = source.getValue();
-				component.setScale(reading / 25.0f);
-			}
+		scaleSlider.addChangeListener((ChangeEvent e) -> {
+			JSlider source = (JSlider) e.getSource();
+			int reading = source.getValue();
+			component.setScale(reading / 25.0f);
 		});
-		//Turn on labels at major tick marks.
 		scaleSlider.setMajorTickSpacing(25);
 		scaleSlider.setMinorTickSpacing(10);
 		scaleSlider.setPaintTicks(true);

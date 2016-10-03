@@ -113,11 +113,11 @@ public class StarRenderer extends IRenderer {
 
 		REUSABLE_SCALE.set((float) star.getSolarRadius(), (float) star.getSolarRadius(), (float) star.getSolarRadius());
 
-		float starCameraDistance = Vector3f.getDistance(camera.getPosition(), star.getPosition()) * (float) (1.0f / star.getSolarRadius());
+	//	float starCameraDistance = Vector3f.getDistance(camera.getPosition(), star.getPosition()) * (float) (1.0f / star.getSolarRadius());
 
-		if (starCameraDistance > 1000.0f) { // !Environment.renderStars() &&
-			REUSABLE_SCALE.scale(Math.min(starCameraDistance / 1000.0f, 3.0f));
-		}
+	//	if (starCameraDistance > 1000.0f) {
+	//		REUSABLE_SCALE.scale(Math.min(starCameraDistance / 1000.0f, 3.0f));
+	//	}
 
 		Matrix4f viewMatrix = camera.getViewMatrix();
 		Matrix4f modelMatrix = new Matrix4f();

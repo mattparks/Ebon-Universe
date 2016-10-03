@@ -66,7 +66,7 @@ public class PlayerFPS implements IPlayer {
 
 		this.velocity = new Vector3f();
 
-		this.position = new Vector3f();
+		this.position = new Vector3f(0.0f, 30.0f, 30.0f);
 		this.rotation = new Vector3f();
 
 		this.autopilot = new Autopilot(ACCELERATION, DECELERATION);
@@ -129,10 +129,8 @@ public class PlayerFPS implements IPlayer {
 				speedMagnitude = Math.min(1.0f, Math.abs(speedMagnitude)) * (speedMagnitude < 0.0f ? -1.0f : 1.0f);
 			}
 
-			velocity.x = 0;//multiplier * X_SPEED * FlounderEngine.getDelta() * Maths.deadband(0.05f, inputX.getAmount());
-			velocity.y = 0;//multiplier * Y_SPEED * FlounderEngine.getDelta() * Maths.deadband(0.05f, inputY.getAmount());
-			velocity.z = -speedMagnitude;//multiplier * Z_SPEED * FlounderEngine.getDelta() * -Maths.deadband(0.05f, inputZ.getAmount());
-			Vector3f.rotate(velocity, rotation, velocity);
+			velocity.set(EbonGalaxies.getStarViewRay().getCurrentRay());
+			velocity.scale(speedMagnitude);
 			Vector3f.add(position, velocity, position);
 		} else { // Update autopilot.
 			autopilot.update(position);

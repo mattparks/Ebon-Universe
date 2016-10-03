@@ -18,6 +18,8 @@ import flounder.lights.*;
 import flounder.maths.*;
 import flounder.maths.vectors.*;
 import flounder.parsing.*;
+import flounder.physics.bounding.*;
+import flounder.profiling.*;
 import flounder.resources.*;
 import flounder.sounds.*;
 
@@ -64,7 +66,7 @@ public class Ebon extends FlounderEntrance {
 				"Ebon Universe", new MyFile[]{new MyFile(MyFile.RES_FOLDER, "icon.png")},
 				configMain.getBooleanWithDefault("vsync", false, FlounderDisplay::isVSync),
 				configMain.getBooleanWithDefault("antialias", true, FlounderDisplay::isAntialiasing),
-				configMain.getIntWithDefault("msaa_samples", 2, FlounderDisplay::getSamples),
+				0,
 				configMain.getBooleanWithDefault("fullscreen", false, FlounderDisplay::isFullscreen)
 		);
 	}
@@ -79,13 +81,15 @@ public class Ebon extends FlounderEntrance {
 		this.switchCamera = new CompoundButton(new KeyButton(GLFW_KEY_C), new JoystickButton(OptionsControls.JOYSTICK_PORT, OptionsControls.JOYSTICK_CAMERA_SWITCH));
 		this.stillLoading = true;
 
-		EbonEntities.load("barrel").createEntity(EbonEntities.getEntities(), new Vector3f(), new Vector3f());
+		FlounderBounding.setRenders(Ebon.configMain.getBooleanWithDefault("boundings_render", false, FlounderBounding::renders));
+		FlounderProfiler.toggle(Ebon.configMain.getBooleanWithDefault("profiler_open", false, FlounderProfiler::isOpen));
 	}
 
 	public void generateWorlds() {
 		EbonWorld.addFog(new Fog(new Colour(0.0f, 0.0f, 0.0f), 0.003f, 2.0f, 0.0f, 50.0f));
 		EbonWorld.addSun(new Light(new Colour(0.85f, 0.85f, 0.85f), new Vector3f(0.0f, 2000.0f, 2000.0f)));
 		EbonGalaxies.generateGalaxy();
+		// EbonEntities.load("barrel").createEntity(EbonEntities.getEntities(), new Vector3f(), new Vector3f());
 
 		// EntityLoader.load("dragon").createEntity(Environment.getEntitys(), new Vector3f(30, 0, 0), new Vector3f());
 		/*EntityLoader.load("pane").createEntity(Environment.getEntities(), new Vector3f(), new Vector3f());

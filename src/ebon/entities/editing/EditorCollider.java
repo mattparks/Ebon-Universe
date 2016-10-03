@@ -34,11 +34,8 @@ public class EditorCollider extends IEditorComponent {
 	public void addToPanel(JPanel panel) {
 		JCheckBox renderAABB = new JCheckBox("Render AABB");
 		renderAABB.setSelected(FlounderBounding.renders());
-		renderAABB.addItemListener(new ItemListener() {
-			@Override
-			public void itemStateChanged(ItemEvent e) {
-				component.setRenderAABB(renderAABB.isSelected());
-			}
+		renderAABB.addItemListener((ItemEvent e) -> {
+			component.setRenderAABB(renderAABB.isSelected());
 		});
 		panel.add(renderAABB);
 	}

@@ -17,7 +17,7 @@ import sun.reflect.generics.reflectiveObjects.*;
 public class CameraFPS implements ICamera {
 	private static final float NEAR_PLANE = 0.1f;
 	private static final float FAR_PLANE = (float) EbonGalaxies.GALAXY_RADIUS * 4.0f;
-	private static final float FIELD_OF_VIEW = 70.0f;
+	private static final float FIELD_OF_VIEW = 72.0f;
 
 	private static final float ROTATE_AGILITY = 6.0f;
 	private static final float PITCH_AGILITY = 8.0f;

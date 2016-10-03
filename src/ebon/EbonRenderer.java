@@ -56,7 +56,9 @@ public class EbonRenderer extends IRendererMaster {
 		this.fontRenderer = new FontRenderer();
 
 		// Diffuse, Depth, Normals
-		this.multisamplingFBO = FBO.newFBO(1.0f).attachments(FBO_ATTACHMENTS).depthBuffer(DepthBufferType.TEXTURE).antialias(FlounderDisplay.getSamples()).create();
+		this.multisamplingFBO = FBO.newFBO(1.0f).attachments(FBO_ATTACHMENTS).depthBuffer(DepthBufferType.TEXTURE).antialias(
+				Ebon.configMain.getIntWithDefault("msaa_samples", 4, () -> multisamplingFBO.getSamples())
+		).create();
 		this.nonsampledFBO = FBO.newFBO(1.0f).attachments(FBO_ATTACHMENTS).depthBuffer(DepthBufferType.TEXTURE).create();
 
 		this.pipelineDemo = new PipelineDemo();
@@ -97,6 +99,14 @@ public class EbonRenderer extends IRendererMaster {
 		} else {
 			nonsampledFBO.unbindFrameBuffer();
 		}
+	}
+
+	public int getSamples() {
+		return multisamplingFBO.getSamples();
+	}
+
+	public void setSamples(int samples) {
+		multisamplingFBO.setSamples(samples);
 	}
 
 	private void renderScene(Vector4f clipPlane, Colour clearColour) {

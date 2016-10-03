@@ -27,7 +27,7 @@ public class EbonGalaxies extends IModule {
 	private static final EbonGalaxies instance = new EbonGalaxies();
 
 	public static final int GALAXY_STARS = 12800;
-	public static final double GALAXY_RADIUS = GALAXY_STARS / 10.0;
+	public static final double GALAXY_RADIUS = GALAXY_STARS / 5.0;
 
 	private Sphere starView;
 	private Ray starViewRay;
@@ -192,6 +192,10 @@ public class EbonGalaxies extends IModule {
 		if (instance.starsStructure != null) {
 			instance.starsStructure.clear();
 		}
+	}
+
+	public static Ray getStarViewRay() {
+		return instance.starViewRay;
 	}
 
 	/**

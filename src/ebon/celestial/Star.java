@@ -161,6 +161,7 @@ public class Star implements Comparable<Star>, ISpatialObject {
 		}
 
 		childrenLoaded = true;
+		printSystem(this);
 	}
 
 	private static void generateCelestial(String celestialName, Pair<Star, Celestial> parentTypes, double semiMajorAxis) {
@@ -186,7 +187,20 @@ public class Star implements Comparable<Star>, ISpatialObject {
 			return;
 		}
 
-		double earthRadius = 1.0;
+		double earthRadius;
+		Celestial.Composition composition;
+
+		if (semiMajorAxis <= star.getPlanetFrostLine()) {
+			int round = Math.round(Maths.randomInRange(0, 6));
+			composition = Celestial.Composition.values()[round];
+			earthRadius = composition.getRadius(earthMasses);
+			FlounderLogger.log(round + ": " + composition);
+		} else {
+			int round = Math.round(Maths.randomInRange(7, 8));
+			composition = Celestial.Composition.values()[round];
+			earthRadius = composition.getRadius(earthMasses);
+			FlounderLogger.log(round + ": " + composition);
+		}
 		double axialTilt = Maths.randomInRange(0.0, 40.0) * (Maths.RANDOM.nextBoolean() ? 1.0 : -1.0);
 
 		Orbit orbit = new Orbit(

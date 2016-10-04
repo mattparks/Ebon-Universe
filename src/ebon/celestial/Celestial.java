@@ -272,6 +272,7 @@ public class Celestial implements Comparable<Celestial> {
 		return celestialType + "(" + planetName + " | " + PlanetType.getType(earthMasses, earthRadius).name() + ") [ \n    " +
 				"earthMasses=" + earthMasses +
 				", earthRadius=" + earthRadius +
+				", composition=" + Composition.getComposition(earthMasses, earthRadius) +
 				", density=" + density +
 				", gravity=" + gravity +
 				", supportsLife=" + supportsLife() +
@@ -333,6 +334,75 @@ public class Celestial implements Comparable<Celestial> {
 			}
 
 			return TERRESTRIAL;
+		}
+
+		public static double[] getRadii(double earthMasses) {
+			double[] radii = new double[Composition.values().length];
+
+			for (int r = 0; r < radii.length; r++) {
+				radii[r] = Composition.values()[r].getRadius(earthMasses);
+			}
+
+			return radii;
+		}
+	}
+
+	public enum Composition {
+		Fe(0.5588549741, 0.3679471704),
+		Fe_MgSiO3_1(0.8429768852, 0.3564968015),
+		Fe_MgSiO3_2(0.8949542412, 0.4201178571),
+		MgSiO3(0.9981114932, 0.4650799771),
+		Fe_MgSiO3_H2O_1(1.287108367, 0.480649125),
+		Fe_MgSiO3_H2O_2(1.420413916, 0.5123430495),
+		H2O(1.554507269, 0.5196821954),
+		H_He(2.937566453, 1.337881668),
+		H(3.160781167, 1.400102741),
+		NULL(0.0, 1.0);
+
+		public double a;
+		public double b;
+
+		/**
+		 * A composition for a celestial body.
+		 *
+		 * @param a The a value in the equation (a + b * ln(x))
+		 * @param b The b value in the equation (a + b * ln(x))
+		 */
+		Composition(double a, double b) {
+			this.a = a;
+			this.b = b;
+		}
+
+		public static Composition getComposition(double earthMasses, double earthRadii) {
+			for (Composition c : Composition.values()) {
+				if (c.getMass(earthRadii) == earthMasses) {
+					return c;
+				}
+			}
+
+			return Composition.NULL;
+		}
+
+		/**
+		 * Calculates a radius from a mass in earth masses.
+		 *
+		 * @param earthMasses The mass in earth masses.
+		 *
+		 * @return The radius in earth radii.
+		 */
+		public double getRadius(double earthMasses) {
+			return a + (b * Math.log(earthMasses));
+		}
+
+		/**
+		 * Calculates a mass from a radius in earth radii.
+		 *
+		 * @param earthRadii The mass in earth radii.
+		 *
+		 * @return The radius in earth masses.
+		 */
+		public double getMass(double earthRadii) {
+			return Math.pow(Math.E, (earthRadii - a) / b);
 		}
 	}
 }

@@ -13,4 +13,8 @@ layout(location = 0) out vec4 out_colour;
 //---------MAIN------------
 void main(void) {
 	out_colour = texture(particleTexture, pass_textureCoords) + vec4(pass_colourOffset, 0.0);
+
+	if (out_colour.a <= 0.05) {
+	    discard;
+	}
 }

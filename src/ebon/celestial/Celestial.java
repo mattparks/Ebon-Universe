@@ -269,10 +269,9 @@ public class Celestial implements Comparable<Celestial> {
 
 	@Override
 	public String toString() {
-		return celestialType + "(" + planetName + " | " + PlanetType.getType(earthMasses, earthRadius).name() + ") [ \n    " +
+		return celestialType + "(" + planetName + " | " + PlanetType.getType(earthMasses).name() + " | " + Composition.getComposition(earthMasses, earthRadius) + ") [ \n    " +
 				"earthMasses=" + earthMasses +
 				", earthRadius=" + earthRadius +
-				", composition=" + Composition.getComposition(earthMasses, earthRadius) +
 				", density=" + density +
 				", gravity=" + gravity +
 				", supportsLife=" + supportsLife() +
@@ -293,23 +292,19 @@ public class Celestial implements Comparable<Celestial> {
 	}
 
 	public enum PlanetType {
-		BROWN_DWARF(0.75, 317.816, 25425.318, 15.0, 20.0),
-		DWARF(10.0, 0.0001, 0.1, 0.03, 0.125),
-		GASEOUS(44.625, 10.0, 317.816, 1.6, 15.0),
-		TERRESTRIAL(44.625, 0.1, 10.0, 0.125, 1.6);
+		BROWN_DWARF(0.75, 317.816, 25425.318),
+		DWARF(10.0, 0.0001, 0.1),
+		GASEOUS(44.625, 10.0, 317.816),
+		TERRESTRIAL(44.625, 0.1, 10.0);
 
-		public double universeMakeup; // How much of the universe if made up of this celestial type.
-		public double minMass;
-		public double maxMass;
-		public double minRadius;
-		public double maxRadius;
+		public final double universeMakeup; // How much of the universe if made up of this celestial type.
+		public final double minMass;
+		public final double maxMass;
 
-		PlanetType(double universeMakeup, double minMass, double maxMass, double minRadius, double maxRadius) {
+		PlanetType(double universeMakeup, double minMass, double maxMass) {
 			this.universeMakeup = universeMakeup;
 			this.minMass = minMass;
 			this.maxMass = maxMass;
-			this.minRadius = minRadius;
-			this.maxRadius = maxRadius;
 		}
 
 		public static PlanetType getTypeMakeup(double celestialMakeup) {
@@ -326,41 +321,36 @@ public class Celestial implements Comparable<Celestial> {
 			return TERRESTRIAL;
 		}
 
-		public static PlanetType getType(double mass, double radius) {
+		public static PlanetType getType(double mass) {
 			for (PlanetType type : PlanetType.values()) {
-				if (mass >= type.minMass && mass < type.maxMass && radius >= type.minRadius && radius < type.maxRadius) {
+				if (mass >= type.minMass && mass < type.maxMass) {
 					return type;
 				}
 			}
 
 			return TERRESTRIAL;
 		}
-
-		public static double[] getRadii(double earthMasses) {
-			double[] radii = new double[Composition.values().length];
-
-			for (int r = 0; r < radii.length; r++) {
-				radii[r] = Composition.values()[r].getRadius(earthMasses);
-			}
-
-			return radii;
-		}
 	}
 
 	public enum Composition {
 		Fe(0.5588549741, 0.3679471704),
-		Fe_MgSiO3_1(0.8429768852, 0.3564968015),
-		Fe_MgSiO3_2(0.8949542412, 0.4201178571),
+		Fe_MgSiO3(0.8689655632, 0.3883073293),
 		MgSiO3(0.9981114932, 0.4650799771),
-		Fe_MgSiO3_H2O_1(1.287108367, 0.480649125),
-		Fe_MgSiO3_H2O_2(1.420413916, 0.5123430495),
+		Fe_MgSiO3_H2O(1.3537611415, 0.49649608725),
 		H2O(1.554507269, 0.5196821954),
 		H_He(2.937566453, 1.337881668),
 		H(3.160781167, 1.400102741),
 		NULL(0.0, 1.0);
 
-		public double a;
-		public double b;
+		public static final Composition[] VALUES = Composition.values();
+
+		public static final int INNER_START = 0;
+		public static final int INNER_END = 4;
+		public static final int OUTER_START = 5;
+		public static final int OUTER_END = 6;
+
+		public final double a;
+		public final double b;
 
 		/**
 		 * A composition for a celestial body.
@@ -373,9 +363,17 @@ public class Celestial implements Comparable<Celestial> {
 			this.b = b;
 		}
 
+		/**
+		 * Gets the composition that matches the planets mass and radii the most.
+		 *
+		 * @param earthMasses The planets mass in earth masses.
+		 * @param earthRadii The planets radius in earth radii.
+		 *
+		 * @return The composition that matches the planet the most.
+		 */
 		public static Composition getComposition(double earthMasses, double earthRadii) {
-			for (Composition c : Composition.values()) {
-				if (c.getMass(earthRadii) == earthMasses) {
+			for (Composition c : VALUES) {
+				if (c.getRadius(earthMasses) == earthRadii) { // TODO
 					return c;
 				}
 			}

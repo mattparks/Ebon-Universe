@@ -191,16 +191,17 @@ public class Star implements Comparable<Star>, ISpatialObject {
 		Celestial.Composition composition;
 
 		if (semiMajorAxis <= star.getPlanetFrostLine()) {
-			int round = Math.round(Maths.randomInRange(0, 6));
+			int round = Math.round(Maths.randomInRange(Celestial.Composition.INNER_START, Celestial.Composition.INNER_END));
 			composition = Celestial.Composition.values()[round];
 			earthRadius = composition.getRadius(earthMasses);
 			FlounderLogger.log(round + ": " + composition);
 		} else {
-			int round = Math.round(Maths.randomInRange(7, 8));
+			int round = Math.round(Maths.randomInRange(Celestial.Composition.OUTER_START, Celestial.Composition.OUTER_END));
 			composition = Celestial.Composition.values()[round];
 			earthRadius = composition.getRadius(earthMasses);
 			FlounderLogger.log(round + ": " + composition);
 		}
+
 		double axialTilt = Maths.randomInRange(0.0, 40.0) * (Maths.RANDOM.nextBoolean() ? 1.0 : -1.0);
 
 		Orbit orbit = new Orbit(
@@ -387,11 +388,11 @@ public class Star implements Comparable<Star>, ISpatialObject {
 		K(12.23, 0.8, 1.1),
 		M(76.45, 0.3, 0.8);
 
-		private static StarType[] VALUES = StarType.values();
+		public static final StarType[] VALUES = StarType.values();
 
-		public double universeMakeup; // How much of the universe if made up of this star type.
-		public double minSolarMasses; // The stars min solar mass.
-		public double maxSolarMasses; // The stars max solar mass.
+		public final double universeMakeup; // How much of the universe if made up of this star type.
+		public final double minSolarMasses; // The stars min solar mass.
+		public final double maxSolarMasses; // The stars max solar mass.
 
 		StarType(double universeMakeup, double minSolarMasses, double maxSolarMasses) {
 			this.universeMakeup = universeMakeup;

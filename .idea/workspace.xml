@@ -11,10 +11,6 @@
   <component name="ChangeListManager">
     <list default="true" id="d5da382d-17aa-4da5-9b33-402233252004" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/res/res/shaders/stars/starsFragment.glsl" afterPath="$PROJECT_DIR$/res/res/shaders/stars/starsFragment.glsl" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/ebon/celestial/Celestial.java" afterPath="$PROJECT_DIR$/src/ebon/celestial/Celestial.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/ebon/celestial/Star.java" afterPath="$PROJECT_DIR$/src/ebon/celestial/Star.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/ebon/celestial/manager/GalaxyGenerator.java" afterPath="$PROJECT_DIR$/src/ebon/celestial/manager/GalaxyGenerator.java" />
     </list>
     <ignored path="Open Skies.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -869,7 +865,14 @@
       <option name="project" value="LOCAL" />
       <updated>1475495449275</updated>
     </task>
-    <option name="localTasksCounter" value="29" />
+    <task id="LOCAL-00029" summary="Cool galaxys!">
+      <created>1475667631187</created>
+      <option name="number" value="00029" />
+      <option name="presentableId" value="LOCAL-00029" />
+      <option name="project" value="LOCAL" />
+      <updated>1475667631187</updated>
+    </task>
+    <option name="localTasksCounter" value="30" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -922,7 +925,6 @@
     <ignored-roots>
       <path value="$PROJECT_DIR$/Editor-Particle" />
     </ignored-roots>
-    <MESSAGE value="Conservation of momentum and gravity roll." />
     <MESSAGE value="Failed galactic dust." />
     <MESSAGE value="No more galactic dust. More tweaks with AABBs." />
     <MESSAGE value="Changed cursor and tried to add display icon." />
@@ -947,7 +949,8 @@
     <MESSAGE value="Editors now only have a JFrame really, Ebon Universe contains implementations. Engine polish for registration and disposal." />
     <MESSAGE value="Optimised entities and fixed .entity files." />
     <MESSAGE value="Cool galaxy arms!&#10;" />
-    <option name="LAST_COMMIT_MESSAGE" value="Cool galaxy arms!&#10;" />
+    <MESSAGE value="Cool galaxys!" />
+    <option name="LAST_COMMIT_MESSAGE" value="Cool galaxys!" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager />

@@ -1,7 +1,8 @@
-package ebon.celestial.manager;
+package ebon.universe.galaxies;
 
 import ebon.*;
-import ebon.celestial.*;
+import ebon.universe.celestials.*;
+import ebon.universe.stars.*;
 import flounder.engine.*;
 import flounder.helpers.*;
 import flounder.inputs.*;
@@ -27,7 +28,6 @@ public class EbonGalaxies extends IModule {
 	private static final EbonGalaxies instance = new EbonGalaxies();
 
 	public static final int GALAXY_STARS = 12800;
-	public static final double GALAXY_RADIUS = GALAXY_STARS / 5.0;
 
 	private Sphere starView;
 	private Ray starViewRay;
@@ -40,7 +40,7 @@ public class EbonGalaxies extends IModule {
 	private Vector3f lastPosition;
 	private String playerVelocity;
 
-	private ISpatialStructure<Star> starsStructure;
+	private Galaxy galaxy;
 
 	/**
 	 * Creates a new galaxy with a galaxy manager.
@@ -62,7 +62,11 @@ public class EbonGalaxies extends IModule {
 		lastPosition = new Vector3f();
 		playerVelocity = "0 ly/s";
 
-		starsStructure = new StructureBasic<>();
+		galaxy = new Galaxy(
+				FauxGenerator.getFauxSentance(1, 3, 7), new Vector3f(),
+				GALAXY_STARS / 20.0,    // Radius of the galaxy.
+				GALAXY_STARS            // Total number of stars.
+		);
 	}
 
 	@Override
@@ -73,10 +77,12 @@ public class EbonGalaxies extends IModule {
 		inSystemCelestial = null;
 
 		// Updates stars if present.
-		if (starsStructure != null) {
+		if (galaxy != null) {
 			//for (AABB aabb : starsStructure.getAABBs()) {
 			//	FlounderBounding.addShapeRender(aabb);
 			//}
+
+			galaxy.update();
 
 			// Updates and recalculations.
 			Vector3f currentPosition = FlounderEngine.getCamera().getPosition();
@@ -88,7 +94,7 @@ public class EbonGalaxies extends IModule {
 			List<Star> selectedStars = null;
 
 			// Checks all stars if inside the star view, and updates them.
-			for (Star star : starsStructure.queryInBounding(new ArrayList<>(), starView)) {
+			for (Star star : galaxy.getStars().queryInBounding(new ArrayList<>(), starView)) {
 				// If the stars sphere contains the camera.
 				if (star.getBounding().contains(currentPosition)) {
 					// Then this star is the current system.
@@ -122,7 +128,7 @@ public class EbonGalaxies extends IModule {
 					((EbonGuis) FlounderEngine.getManagerGUI()).getOverlayStatus().addMessage("Exiting Star " + lastInStarSystem.getStarName());
 				}
 
-				for (Star star : starsStructure.queryInBounding(new ArrayList<>(), starView)) {
+				for (Star star : galaxy.getStars().queryInBounding(new ArrayList<>(), starView)) {
 					FlounderBounding.addShapeRender(star.getBounding());
 				}
 			}
@@ -174,23 +180,22 @@ public class EbonGalaxies extends IModule {
 	@Override
 	public void profile() {
 		FlounderProfiler.add("Galaxies", "Stars", GALAXY_STARS);
-		FlounderProfiler.add("Galaxies", "Radius", GALAXY_RADIUS);
 	}
 
 	/**
 	 * Called when the galaxy is needed to be created.
 	 */
 	public static void generateGalaxy() {
-		GalaxyGenerator.generateGalaxy(GALAXY_STARS, GALAXY_RADIUS, instance.starsStructure);
-		instance.waypoint.setTargetStar(instance.starsStructure.getAll(new ArrayList<>()).get(GALAXY_STARS - 1));
+		instance.galaxy.reset();
+		instance.waypoint.setTargetStar(instance.galaxy.getStars().getAll(new ArrayList<>()).get(GALAXY_STARS - 1));
 	}
 
 	/**
 	 * Clears the instance of all stars.
 	 */
 	public static void clear() {
-		if (instance.starsStructure != null) {
-			instance.starsStructure.clear();
+		if (instance.galaxy != null) {
+			instance.galaxy.reset();
 		}
 	}
 
@@ -240,7 +245,7 @@ public class EbonGalaxies extends IModule {
 	 * @return A list of stars in the galaxy.
 	 */
 	public static ISpatialStructure<Star> getStars() {
-		return instance.starsStructure;
+		return instance.galaxy.getStars();
 	}
 
 	/**

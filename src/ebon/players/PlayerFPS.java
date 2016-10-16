@@ -1,8 +1,8 @@
 package ebon.players;
 
 import ebon.*;
-import ebon.celestial.manager.*;
 import ebon.options.*;
+import ebon.universe.galaxies.*;
 import flounder.engine.*;
 import flounder.inputs.*;
 import flounder.maths.*;
@@ -66,7 +66,7 @@ public class PlayerFPS implements IPlayer {
 
 		this.velocity = new Vector3f();
 
-		this.position = new Vector3f(0.0f, 30.0f, 30.0f);
+		this.position = new Vector3f();
 		this.rotation = new Vector3f();
 
 		this.autopilot = new Autopilot(ACCELERATION, DECELERATION);

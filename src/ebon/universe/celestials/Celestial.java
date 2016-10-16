@@ -1,6 +1,8 @@
-package ebon.celestial;
+package ebon.universe.celestials;
 
-import ebon.celestial.manager.*;
+import ebon.universe.*;
+import ebon.universe.orbits.*;
+import ebon.universe.stars.*;
 import flounder.maths.vectors.*;
 
 import java.util.*;
@@ -17,7 +19,7 @@ public class Celestial implements Comparable<Celestial> {
 
 	private String celestialType;
 
-	private String planetName;
+	private String celestialName;
 	private Vector3f position;
 	private Vector3f rotation;
 
@@ -46,7 +48,7 @@ public class Celestial implements Comparable<Celestial> {
 	 * Creates a new celestial object from earth masses and radius. Then calculates characteristics.
 	 *
 	 * @param celestialType The type of celestial body.
-	 * @param planetName The celestial objects name.
+	 * @param celestialName The celestial objects name.
 	 * @param parentStar The celestial objects parent star.
 	 * @param orbit The orbit for the celestial object to follow.
 	 * @param earthMasses The mass of the object in earth masses.
@@ -54,16 +56,16 @@ public class Celestial implements Comparable<Celestial> {
 	 * @param axialTilt How tilted over the planet is, rotates prograde 0<i<90, rotates retrograde 90<i<180.
 	 * @param childObjects The list of objects orbiting the star.
 	 */
-	public Celestial(String celestialType, String planetName, Star parentStar, Orbit orbit, double earthMasses, double earthRadius, double axialTilt, List<Celestial> childObjects) {
+	public Celestial(String celestialType, String celestialName, Star parentStar, Orbit orbit, double earthMasses, double earthRadius, double axialTilt, List<Celestial> childObjects) {
 		this.parentStar = parentStar;
-		init(celestialType, planetName, orbit, earthMasses, earthRadius, axialTilt, childObjects);
+		init(celestialType, celestialName, orbit, earthMasses, earthRadius, axialTilt, childObjects);
 	}
 
 	/**
 	 * Creates a new celestial object from earth masses and radius. Then calculates characteristics.
 	 *
 	 * @param celestialType The type of celestial body.
-	 * @param planetName The celestial objects name.
+	 * @param celestialName The celestial objects name.
 	 * @param parentCelestial The celestial objects parent celestial.
 	 * @param orbit The orbit for the celestial object to follow.
 	 * @param earthMasses The mass of the object in earth masses.
@@ -71,15 +73,15 @@ public class Celestial implements Comparable<Celestial> {
 	 * @param axialTilt How tilted over the planet is, rotates prograde 0<i<90, rotates retrograde 90<i<180.
 	 * @param childObjects The list of objects orbiting the star.
 	 */
-	public Celestial(String celestialType, String planetName, Celestial parentCelestial, Orbit orbit, double earthMasses, double earthRadius, double axialTilt, List<Celestial> childObjects) {
+	public Celestial(String celestialType, String celestialName, Celestial parentCelestial, Orbit orbit, double earthMasses, double earthRadius, double axialTilt, List<Celestial> childObjects) {
 		this.parentCelestial = parentCelestial;
-		init(celestialType, planetName, orbit, earthMasses, earthRadius, axialTilt, childObjects);
+		init(celestialType, celestialName, orbit, earthMasses, earthRadius, axialTilt, childObjects);
 	}
 
 	private void init(String celestialType, String planetName, Orbit orbit, double earthMasses, double earthRadius, double axialTilt, List<Celestial> childObjects) {
 		this.celestialType = celestialType;
 
-		this.planetName = planetName;
+		this.celestialName = planetName;
 		this.position = new Vector3f();
 		this.rotation = new Vector3f();
 
@@ -119,8 +121,8 @@ public class Celestial implements Comparable<Celestial> {
 		position.x += orbit.getSemiMajorAxis();
 	}
 
-	public String getPlanetName() {
-		return planetName;
+	public String getCelestialName() {
+		return celestialName;
 	}
 
 	public Vector3f getPosition() {
@@ -269,7 +271,7 @@ public class Celestial implements Comparable<Celestial> {
 
 	@Override
 	public String toString() {
-		return celestialType + "(" + planetName + " | " + PlanetType.getType(earthMasses).name() + " | " + Composition.getComposition(earthMasses, earthRadius) + ") [ \n    " +
+		return celestialType + "(" + celestialName + " | " + PlanetType.getType(earthMasses).name() + " | " + Composition.getComposition(earthMasses, earthRadius) + ") [ \n    " +
 				"earthMasses=" + earthMasses +
 				", earthRadius=" + earthRadius +
 				", density=" + density +

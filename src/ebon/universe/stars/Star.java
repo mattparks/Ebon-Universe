@@ -1,5 +1,8 @@
-package ebon.celestial;
+package ebon.universe.stars;
 
+import ebon.universe.celestials.*;
+import ebon.universe.galaxies.*;
+import ebon.universe.orbits.*;
 import flounder.engine.*;
 import flounder.helpers.*;
 import flounder.logger.*;
@@ -21,6 +24,8 @@ public class Star implements Comparable<Star>, ISpatialObject {
 
 	private static final Vector3f VECTOR_REUSABLE_1 = new Vector3f();
 	private static final Vector3f VECTOR_REUSABLE_2 = new Vector3f();
+
+	private Galaxy parentGalaxy;
 
 	private String starName;
 	private Vector3f position;
@@ -52,12 +57,14 @@ public class Star implements Comparable<Star>, ISpatialObject {
 	/**
 	 * Creates a new star from a solar mass and calculated characteristics.
 	 *
+	 * @param parentGalaxy The stars parent galaxy.
 	 * @param starName The stars name.
 	 * @param solarMasses The stars mass in solar masses.
 	 * @param position The position for the static star.
 	 * @param childObjects The list of objects orbiting the star.
 	 */
-	public Star(String starName, double solarMasses, Vector3f position, List<Celestial> childObjects) {
+	public Star(Galaxy parentGalaxy, String starName, double solarMasses, Vector3f position, List<Celestial> childObjects) {
+		this.parentGalaxy = parentGalaxy;
 		this.starName = starName;
 		this.position = position;
 
@@ -166,20 +173,17 @@ public class Star implements Comparable<Star>, ISpatialObject {
 
 	private static void generateCelestial(String celestialName, Pair<Star, Celestial> parentTypes, double semiMajorAxis) {
 		Star star;
-		String parentName;
 		double parentSolarMasses;
 		double earthMasses;
 		double eccentricity;
 
 		if (parentTypes.getFirst() != null) {
 			star = parentTypes.getFirst();
-			parentName = star.getStarName();
 			parentSolarMasses = star.getSolarMasses();
 			earthMasses = Maths.logRandom(0.1, 1000.0);
 			eccentricity = 0.584 * Math.pow(Math.max(star.getChildObjects().size(), 2), -1.2);
 		} else if (parentTypes.getSecond() != null) {
 			star = parentTypes.getSecond().getParentStar();
-			parentName = parentTypes.getSecond().getPlanetName();
 			parentSolarMasses = (parentTypes.getSecond().getEarthMasses() * Celestial.EARTH_MASS) / Star.SOL_MASS;
 			earthMasses = Maths.randomInRange(0.1, parentTypes.getSecond().getEarthMasses());
 			eccentricity = Maths.randomInRange(0.0, 0.2);
@@ -194,12 +198,12 @@ public class Star implements Comparable<Star>, ISpatialObject {
 			int round = Math.round(Maths.randomInRange(Celestial.Composition.INNER_START, Celestial.Composition.INNER_END));
 			composition = Celestial.Composition.values()[round];
 			earthRadius = composition.getRadius(earthMasses);
-			FlounderLogger.log(round + ": " + composition);
+			//	FlounderLogger.log(round + ": " + composition);
 		} else {
 			int round = Math.round(Maths.randomInRange(Celestial.Composition.OUTER_START, Celestial.Composition.OUTER_END));
 			composition = Celestial.Composition.values()[round];
 			earthRadius = composition.getRadius(earthMasses);
-			FlounderLogger.log(round + ": " + composition);
+			//	FlounderLogger.log(round + ": " + composition);
 		}
 
 		double axialTilt = Maths.randomInRange(0.0, 40.0) * (Maths.RANDOM.nextBoolean() ? 1.0 : -1.0);
@@ -212,12 +216,12 @@ public class Star implements Comparable<Star>, ISpatialObject {
 		Celestial celestial;
 
 		if (parentTypes.getFirst() != null) {
-			celestial = new Celestial(celestialName, parentName + " " + FauxGenerator.getFauxSentance(1, 4, 12),
+			celestial = new Celestial(celestialName, FauxGenerator.getFauxSentance(1, 4, 12),
 					parentTypes.getFirst(), orbit, earthMasses,
 					earthRadius, axialTilt, new ArrayList<>()
 			);
 		} else {
-			celestial = new Celestial(celestialName, parentName + " " + FauxGenerator.getFauxSentance(1, 4, 12),
+			celestial = new Celestial(celestialName, FauxGenerator.getFauxSentance(1, 4, 12),
 					parentTypes.getSecond(), orbit, earthMasses,
 					earthRadius, axialTilt, new ArrayList<>()
 			);
@@ -228,7 +232,7 @@ public class Star implements Comparable<Star>, ISpatialObject {
 				0, 0, 0//Maths.RANDOM.nextInt(1800) / 10.0f, Maths.RANDOM.nextInt(3600) / 10.0f, Maths.RANDOM.nextInt(3600) / 10.0f
 		);
 
-		Celestial moon = new Celestial(celestialName, celestial.getPlanetName() + " " + FauxGenerator.getFauxSentance(1, 2, 4),
+		Celestial moon = new Celestial(celestialName, celestial.getCelestialName() + " " + FauxGenerator.getFauxSentance(1, 2, 4),
 				parentTypes, moonOrbit, 0.01230743469,
 				0.27264165751, Maths.RANDOM.nextInt(400) * (Maths.RANDOM.nextBoolean() ? 1 : -1) / 10.0, new ArrayList<>()
 		);*/
@@ -256,7 +260,7 @@ public class Star implements Comparable<Star>, ISpatialObject {
 
 	@Override
 	public String toString() {
-		return "Star(" + starName + " | " + StarType.getTypeMass(solarMasses).name() + " | " + position.toString() + ") [ \n   " +
+		return "Star(" + starName + " | " + parentGalaxy.getGalaxyName() + " | " + StarType.getTypeMass(solarMasses).name() + " | " + position.toString() + ") [ \n   " +
 				"solarMasses=" + solarMasses +
 				", radius=" + solarRadius +
 				", luminosity=" + solarLuminosity +
@@ -273,6 +277,10 @@ public class Star implements Comparable<Star>, ISpatialObject {
 
 	public void update() {
 		childObjects.forEach(Celestial::update);
+	}
+
+	public Galaxy getParentGalaxy() {
+		return parentGalaxy;
 	}
 
 	public String getStarName() {
@@ -381,10 +389,10 @@ public class Star implements Comparable<Star>, ISpatialObject {
 
 	public enum StarType {
 		O(0.001, 30.0, 60.0),
-		B(0.100, 18.0, 30.0),
-		A(0.300, 3.2, 18.0),
-		F(3.303, 1.7, 3.2),
-		G(7.616, 1.1, 1.7),
+		B(0.020, 18.0, 30.0),
+		A(0.100, 3.2, 18.0),
+		F(3.333, 1.7, 3.2),
+		G(7.866, 1.1, 1.7),
 		K(12.23, 0.8, 1.1),
 		M(76.45, 0.3, 0.8);
 

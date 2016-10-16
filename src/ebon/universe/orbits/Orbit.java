@@ -1,4 +1,14 @@
-package ebon.celestial;
+package ebon.universe.orbits;
+
+import flounder.maths.*;
+import flounder.maths.vectors.*;
+
+import static org.lwjgl.opengl.GL11.GL_LINES;
+import static org.lwjgl.opengl.GL11.glDrawArrays;
+import static org.lwjgl.opengl.GL15.GL_ARRAY_BUFFER;
+import static org.lwjgl.opengl.GL15.GL_DYNAMIC_DRAW;
+import static org.lwjgl.opengl.GL15.glGenBuffers;
+import static org.lwjgl.opengl.GL30.glBindVertexArray;
 
 /**
  * A realistic orbit object.
@@ -17,6 +27,10 @@ public class Orbit {
 	private double pitch; // The orbits inclination, orbits prograde 0<i<90, orbits retrograde 90<i<180.
 	private double yaw; // The orbits longitude of the ascending node from 0-360 degrees.
 	private double roll; // The orbits argument of periapsis from 0-360 degrees.
+
+	private LineSegment[] segments;
+	private int segmentsFBO;
+	private int vertices;
 
 	/**
 	 * A object that represents a realistic orbit.
@@ -42,6 +56,16 @@ public class Orbit {
 		this.pitch = pitch;
 		this.yaw = yaw;
 		this.roll = roll;
+
+		this.segments = new LineSegment[2];
+		// TODO: Generate segments.
+		segmentsFBO = glGenBuffers();
+		vertices = segments.length * 3;
+
+	//	glBindVertexArray( segmentsFBO ); // setup for the layout of LineSegment_t
+	//	glBindBuffer(GL_ARRAY_BUFFER, LineBufferObject);
+	///	glBufferData(GL_ARRAY_BUFFER, segments.length * segmentsFBO, &lines[0], GL_DYNAMIC_DRAW);
+		//glDrawArrays(GL_LINES, 0, vertices );
 	}
 
 	public double getEccentricity() {
@@ -97,5 +121,20 @@ public class Orbit {
 				", pitch=" + pitch +
 				", yaw=" + yaw +
 				", roll=" + roll + "\n    ]";
+	}
+
+	public static class LineSegment {
+		public Vector3f position1;
+		public Colour colour1;
+
+		public Vector3f position2;
+		public Colour colour2;
+
+		public LineSegment(Vector3f position1, Colour colour1, Vector3f posision2, Colour colour2) {
+			this.position1 = position1;
+			this.colour1 = colour1;
+			this.position2 = posision2;
+			this.colour2 = colour2;
+		}
 	}
 }

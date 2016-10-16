@@ -1,7 +1,7 @@
 package ebon.uis;
 
 import ebon.*;
-import ebon.celestial.manager.*;
+import ebon.universe.galaxies.*;
 import flounder.devices.*;
 import flounder.engine.*;
 import flounder.fonts.*;

@@ -1,7 +1,6 @@
 package ebon.skybox;
 
 import ebon.*;
-import ebon.celestial.manager.*;
 import flounder.devices.*;
 
 import java.nio.*;
@@ -18,7 +17,7 @@ import static org.lwjgl.opengl.GL30.*;
 public class SkyboxFBO {
 	public static final float CAMERA_FOV = 90.0f;
 	public static final float CAMERA_NEAR = 0.1f;
-	public static final float CAMERA_FAR = (float) EbonGalaxies.GALAXY_RADIUS * 100.0f;
+	public static final float CAMERA_FAR = (float) (2560) * 100.0f;
 
 	private static int fboSize;
 	private int cubemapFBO;

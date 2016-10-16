@@ -1,7 +1,8 @@
 package ebon.players;
 
 import ebon.*;
-import ebon.celestial.manager.*;
+import ebon.universe.celestials.*;
+import ebon.universe.galaxies.*;
 import flounder.engine.*;
 import flounder.maths.vectors.*;
 

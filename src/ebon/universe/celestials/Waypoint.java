@@ -1,6 +1,6 @@
-package ebon.celestial.manager;
+package ebon.universe.celestials;
 
-import ebon.celestial.*;
+import ebon.universe.stars.*;
 import flounder.maths.vectors.*;
 import flounder.physics.*;
 
@@ -113,7 +113,7 @@ public class Waypoint {
 		if (targetStar != null) {
 			return targetStar.getStarName();
 		} else if (targetCelestial != null) {
-			return targetCelestial.getPlanetName();
+			return targetCelestial.getCelestialName();
 		}
 
 		return null;

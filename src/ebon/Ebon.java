@@ -1,10 +1,10 @@
 package ebon;
 
 import ebon.cameras.*;
-import ebon.celestial.manager.*;
-import ebon.entities.*;
 import ebon.options.*;
 import ebon.players.*;
+import ebon.universe.celestials.*;
+import ebon.universe.galaxies.*;
 import ebon.world.*;
 import flounder.devices.*;
 import flounder.engine.*;
@@ -52,6 +52,7 @@ public class Ebon extends FlounderEntrance {
 				new EbonRenderer(),
 				new EbonGuis()
 		);
+		Element.setup();
 		instance.startEngine(FlounderFonts.FFF_FORWARD);
 		System.exit(0);
 	}

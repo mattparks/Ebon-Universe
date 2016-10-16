@@ -1,7 +1,6 @@
-package ebon.celestial.stars;
+package ebon.universe.stars;
 
-import ebon.celestial.*;
-import ebon.celestial.manager.*;
+import ebon.universe.galaxies.*;
 import flounder.devices.*;
 import flounder.engine.*;
 import flounder.engine.entrance.*;
@@ -19,9 +18,9 @@ import org.lwjgl.*;
 import java.nio.*;
 import java.util.*;
 
-import static org.lwjgl.opengl.ARBDrawInstanced.*;
 import static org.lwjgl.opengl.GL11.*;
 import static org.lwjgl.opengl.GL20.*;
+import static org.lwjgl.opengl.GL31.*;
 
 public class StarRenderer extends IRenderer {
 	private static final MyFile VERTEX_SHADER = new MyFile(Shader.SHADERS_LOC, "stars", "starsVertex.glsl");
@@ -77,14 +76,9 @@ public class StarRenderer extends IRenderer {
 
 		// Renders the stars list.
 		FlounderLoader.updateVBO(VBO, vboData, BUFFER);
-		glDrawArraysInstancedARB(GL_TRIANGLE_STRIP, 0, VERTICES.length, stars.size());
+		glDrawArraysInstanced(GL_TRIANGLE_STRIP, 0, VERTICES.length, stars.size());
 
 		endRendering();
-	}
-
-	@Override
-	public void profile() {
-		FlounderProfiler.add("Stars", "Render Time", super.getRenderTimeMs());
 	}
 
 	private void prepareRendering(Vector4f clipPlane, ICamera camera) {
@@ -100,7 +94,7 @@ public class StarRenderer extends IRenderer {
 		OpenGlUtils.cullBackFaces(true);
 		OpenGlUtils.enableDepthTesting();
 		OpenGlUtils.enableAlphaBlending();
-		glDepthMask(false); // Stops particles from being rendered to the depth BUFFER.
+		glDepthMask(false); // Stops stars from being rendered to the depth buffer.
 
 		OpenGlUtils.bindTextureToBank(STAR_TEXTURE.getTextureID(), 0);
 	}
@@ -113,11 +107,11 @@ public class StarRenderer extends IRenderer {
 
 		REUSABLE_SCALE.set((float) star.getSolarRadius(), (float) star.getSolarRadius(), (float) star.getSolarRadius());
 
-	//	float starCameraDistance = Vector3f.getDistance(camera.getPosition(), star.getPosition()) * (float) (1.0f / star.getSolarRadius());
+		//	float starCameraDistance = Vector3f.getDistance(camera.getPosition(), star.getPosition()) * (float) (1.0f / star.getSolarRadius());
 
-	//	if (starCameraDistance > 1000.0f) {
-	//		REUSABLE_SCALE.scale(Math.min(starCameraDistance / 1000.0f, 3.0f));
-	//	}
+		//	if (starCameraDistance > 1000.0f) {
+		//		REUSABLE_SCALE.scale(Math.min(starCameraDistance / 1000.0f, 3.0f));
+		//	}
 
 		Matrix4f viewMatrix = camera.getViewMatrix();
 		Matrix4f modelMatrix = new Matrix4f();
@@ -161,6 +155,11 @@ public class StarRenderer extends IRenderer {
 		OpenGlUtils.disableBlending();
 		OpenGlUtils.unbindVAO(0, 1, 2, 3, 4, 5);
 		shader.stop();
+	}
+
+	@Override
+	public void profile() {
+		FlounderProfiler.add("Stars", "Render Time", super.getRenderTimeMs());
 	}
 
 	@Override

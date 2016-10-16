@@ -1,13 +1,14 @@
 package ebon;
 
-import ebon.celestial.manager.*;
-import ebon.celestial.stars.*;
 import ebon.entities.*;
 import ebon.options.*;
 import ebon.particles.*;
 import ebon.post.*;
 import ebon.skybox.*;
 import ebon.uis.*;
+import ebon.universe.galaxies.*;
+import ebon.universe.orbits.*;
+import ebon.universe.stars.*;
 import ebon.world.*;
 import flounder.devices.*;
 import flounder.engine.*;
@@ -32,6 +33,7 @@ public class EbonRenderer extends IRendererMaster {
 	private ParticleRenderer particleRenderer;
 	private StarRenderer starRenderer;
 	private SunRenderer sunRenderer;
+	private OrbitsRenderer orbitsRenderer;
 	private BoundingRenderer boundingRenderer;
 	private GuiRenderer guiRenderer;
 	private FontRenderer fontRenderer;
@@ -51,6 +53,7 @@ public class EbonRenderer extends IRendererMaster {
 		this.particleRenderer = new ParticleRenderer();
 		this.starRenderer = new StarRenderer();
 		this.sunRenderer = new SunRenderer();
+		this.orbitsRenderer = new OrbitsRenderer();
 		this.boundingRenderer = new BoundingRenderer();
 		this.guiRenderer = new GuiRenderer();
 		this.fontRenderer = new FontRenderer();
@@ -150,6 +153,7 @@ public class EbonRenderer extends IRendererMaster {
 
 		entityRenderer.render(clipPlane, camera);
 		particleRenderer.render(clipPlane, camera);
+		orbitsRenderer.render(clipPlane, camera);
 		boundingRenderer.render(clipPlane, camera);
 	}
 
@@ -184,6 +188,7 @@ public class EbonRenderer extends IRendererMaster {
 		particleRenderer.dispose();
 		sunRenderer.dispose();
 		starRenderer.dispose();
+		orbitsRenderer.dispose();
 		boundingRenderer.dispose();
 		guiRenderer.dispose();
 		fontRenderer.dispose();

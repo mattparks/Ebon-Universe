@@ -1,8 +1,8 @@
 package ebon.world;
 
-import ebon.celestial.manager.*;
 import ebon.entities.*;
 import ebon.particles.*;
+import ebon.universe.galaxies.*;
 import flounder.engine.*;
 import flounder.lights.*;
 import flounder.maths.*;

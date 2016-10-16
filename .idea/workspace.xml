@@ -6,11 +6,492 @@
   <component name="ArtifactsWorkspaceSettings">
     <artifacts-to-build>
       <artifact name="Ebon Editors:jar" />
+      <artifact name="Ebon Universe:jar" />
     </artifacts-to-build>
   </component>
   <component name="ChangeListManager">
     <list default="true" id="d5da382d-17aa-4da5-9b33-402233252004" name="Default" comment="">
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/ebon/universe/celestials/Element.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/ebon/universe/galaxies/Galaxy.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/ebon/universe/orbits/OrbitsRenderer.java" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/Flounder-Engine/res/res/Flounder.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/ebon/celestial/manager/GalaxyGenerator.java" afterPath="" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/src/ebon/celestial/Celestial.java" afterPath="$PROJECT_DIR$/src/ebon/universe/celestials/Celestial.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/src/ebon/celestial/Orbit.java" afterPath="$PROJECT_DIR$/src/ebon/universe/orbits/Orbit.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/src/ebon/celestial/Star.java" afterPath="$PROJECT_DIR$/src/ebon/universe/stars/Star.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/src/ebon/celestial/manager/EbonGalaxies.java" afterPath="$PROJECT_DIR$/src/ebon/universe/galaxies/EbonGalaxies.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/src/ebon/celestial/manager/SpaceConversions.java" afterPath="$PROJECT_DIR$/src/ebon/universe/SpaceConversions.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/src/ebon/celestial/manager/Waypoint.java" afterPath="$PROJECT_DIR$/src/ebon/universe/celestials/Waypoint.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/src/ebon/celestial/stars/StarRenderer.java" afterPath="$PROJECT_DIR$/src/ebon/universe/stars/StarRenderer.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/src/ebon/celestial/stars/SunRenderer.java" afterPath="$PROJECT_DIR$/src/ebon/universe/stars/SunRenderer.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/src/ebon/celestial/stars/package-info.java" afterPath="$PROJECT_DIR$/src/ebon/universe/stars/package-info.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Ebon-Editors" afterPath="$PROJECT_DIR$/Ebon-Editors" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Flounder-Engine" afterPath="$PROJECT_DIR$/Flounder-Engine" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/res/res/stars/starTexture.png" afterPath="$PROJECT_DIR$/res/res/stars/starTexture.png" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gitignore" afterPath="$PROJECT_DIR$/.gitignore" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/artifacts/Ebon_Editors_jar.xml" afterPath="$PROJECT_DIR$/.idea/artifacts/Ebon_Editors_jar.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/artifacts/Ebon_Universe_jar.xml" afterPath="$PROJECT_DIR$/.idea/artifacts/Ebon_Universe_jar.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/compiler.xml" afterPath="$PROJECT_DIR$/.idea/compiler.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/copyright/profiles_settings.xml" afterPath="$PROJECT_DIR$/.idea/copyright/profiles_settings.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/dictionaries/mattp.xml" afterPath="$PROJECT_DIR$/.idea/dictionaries/mattp.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/encodings.xml" afterPath="$PROJECT_DIR$/.idea/encodings.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/libraries/lwjgl.xml" afterPath="$PROJECT_DIR$/.idea/libraries/lwjgl.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/libraries/lwjgl_glfw.xml" afterPath="$PROJECT_DIR$/.idea/libraries/lwjgl_glfw.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/libraries/lwjgl_openal.xml" afterPath="$PROJECT_DIR$/.idea/libraries/lwjgl_openal.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/libraries/lwjgl_opengl.xml" afterPath="$PROJECT_DIR$/.idea/libraries/lwjgl_opengl.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/misc.xml" afterPath="$PROJECT_DIR$/.idea/misc.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/modules.xml" afterPath="$PROJECT_DIR$/.idea/modules.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/uiDesigner.xml" afterPath="$PROJECT_DIR$/.idea/uiDesigner.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/vcs.xml" afterPath="$PROJECT_DIR$/.idea/vcs.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Ebon Universe.iml" afterPath="$PROJECT_DIR$/Ebon Universe.iml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Ebon-Editors/.gitignore" afterPath="$PROJECT_DIR$/Ebon-Editors/.gitignore" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Ebon-Editors/Ebon-Editors.iml" afterPath="$PROJECT_DIR$/Ebon-Editors/Ebon-Editors.iml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Ebon-Editors/LICENSE" afterPath="$PROJECT_DIR$/Ebon-Editors/LICENSE" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Ebon-Editors/README.md" afterPath="$PROJECT_DIR$/Ebon-Editors/README.md" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Ebon-Editors/src/META-INF/MANIFEST.MF" afterPath="$PROJECT_DIR$/Ebon-Editors/src/META-INF/MANIFEST.MF" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Ebon-Editors/src/editor/EbonEditor.java" afterPath="$PROJECT_DIR$/Ebon-Editors/src/editor/EbonEditor.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Ebon-Editors/src/editor/EditorCamera.java" afterPath="$PROJECT_DIR$/Ebon-Editors/src/editor/EditorCamera.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Ebon-Editors/src/editor/EditorGuis.java" afterPath="$PROJECT_DIR$/Ebon-Editors/src/editor/EditorGuis.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Ebon-Editors/src/editor/EditorRenderer.java" afterPath="$PROJECT_DIR$/Ebon-Editors/src/editor/EditorRenderer.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Ebon-Editors/src/editor/entities/EditorEntities.java" afterPath="$PROJECT_DIR$/Ebon-Editors/src/editor/entities/EditorEntities.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Ebon-Editors/src/editor/entities/EntitiesFrame.java" afterPath="$PROJECT_DIR$/Ebon-Editors/src/editor/entities/EntitiesFrame.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Ebon-Editors/src/editor/particles/EditorParticles.java" afterPath="$PROJECT_DIR$/Ebon-Editors/src/editor/particles/EditorParticles.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Ebon-Editors/src/editor/particles/ParticlesFrame.java" afterPath="$PROJECT_DIR$/Ebon-Editors/src/editor/particles/ParticlesFrame.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Flounder-Engine/Flounder-Engine.iml" afterPath="$PROJECT_DIR$/Flounder-Engine/Flounder-Engine.iml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Flounder-Engine/LICENSE" afterPath="$PROJECT_DIR$/Flounder-Engine/LICENSE" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Flounder-Engine/README.md" afterPath="$PROJECT_DIR$/Flounder-Engine/README.md" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Flounder-Engine/libs/lwjgl-glfw/glfw_license.txt" afterPath="$PROJECT_DIR$/Flounder-Engine/libs/lwjgl-glfw/glfw_license.txt" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Flounder-Engine/libs/lwjgl-openal/openal_soft_license.txt" afterPath="$PROJECT_DIR$/Flounder-Engine/libs/lwjgl-openal/openal_soft_license.txt" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Flounder-Engine/libs/lwjgl-opengl/khronos_license.txt" afterPath="$PROJECT_DIR$/Flounder-Engine/libs/lwjgl-opengl/khronos_license.txt" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Flounder-Engine/libs/lwjgl/dyncall_license.txt" afterPath="$PROJECT_DIR$/Flounder-Engine/libs/lwjgl/dyncall_license.txt" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Flounder-Engine/res/res/fonts/brushScript.fnt" afterPath="$PROJECT_DIR$/Flounder-Engine/res/res/fonts/brushScript.fnt" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Flounder-Engine/res/res/fonts/bungee.fnt" afterPath="$PROJECT_DIR$/Flounder-Engine/res/res/fonts/bungee.fnt" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Flounder-Engine/res/res/fonts/comicSans.fnt" afterPath="$PROJECT_DIR$/Flounder-Engine/res/res/fonts/comicSans.fnt" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Flounder-Engine/res/res/fonts/fffForward.fnt" afterPath="$PROJECT_DIR$/Flounder-Engine/res/res/fonts/fffForward.fnt" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Flounder-Engine/res/res/fonts/forte.fnt" afterPath="$PROJECT_DIR$/Flounder-Engine/res/res/fonts/forte.fnt" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Flounder-Engine/res/res/fonts/nexaBold.fnt" afterPath="$PROJECT_DIR$/Flounder-Engine/res/res/fonts/nexaBold.fnt" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Flounder-Engine/res/res/fonts/segoeUI.fnt" afterPath="$PROJECT_DIR$/Flounder-Engine/res/res/fonts/segoeUI.fnt" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Flounder-Engine/res/res/fonts/segoeUIBlack.fnt" afterPath="$PROJECT_DIR$/Flounder-Engine/res/res/fonts/segoeUIBlack.fnt" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Flounder-Engine/res/res/fonts/serif.fnt" afterPath="$PROJECT_DIR$/Flounder-Engine/res/res/fonts/serif.fnt" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Flounder-Engine/res/res/fonts/trebuchet.fnt" afterPath="$PROJECT_DIR$/Flounder-Engine/res/res/fonts/trebuchet.fnt" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Flounder-Engine/res/res/models/aabb.mtl" afterPath="$PROJECT_DIR$/Flounder-Engine/res/res/models/aabb.mtl" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Flounder-Engine/res/res/models/aabb.obj" afterPath="$PROJECT_DIR$/Flounder-Engine/res/res/models/aabb.obj" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Flounder-Engine/res/res/models/rectangle.mtl" afterPath="$PROJECT_DIR$/Flounder-Engine/res/res/models/rectangle.mtl" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Flounder-Engine/res/res/models/rectangle.obj" afterPath="$PROJECT_DIR$/Flounder-Engine/res/res/models/rectangle.obj" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Flounder-Engine/res/res/models/sphere.mtl" afterPath="$PROJECT_DIR$/Flounder-Engine/res/res/models/sphere.mtl" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Flounder-Engine/res/res/models/sphere.obj" afterPath="$PROJECT_DIR$/Flounder-Engine/res/res/models/sphere.obj" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Flounder-Engine/res/res/shaders/bounding/boundingFragment.glsl" afterPath="$PROJECT_DIR$/Flounder-Engine/res/res/shaders/bounding/boundingFragment.glsl" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Flounder-Engine/res/res/shaders/bounding/boundingVertex.glsl" afterPath="$PROJECT_DIR$/Flounder-Engine/res/res/shaders/bounding/boundingVertex.glsl" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Flounder-Engine/res/res/shaders/filters/bloom1Fragment.glsl" afterPath="$PROJECT_DIR$/Flounder-Engine/res/res/shaders/filters/bloom1Fragment.glsl" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Flounder-Engine/res/res/shaders/filters/bloom2Fragment.glsl" afterPath="$PROJECT_DIR$/Flounder-Engine/res/res/shaders/filters/bloom2Fragment.glsl" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Flounder-Engine/res/res/shaders/filters/blurHorizontalFragment.glsl" afterPath="$PROJECT_DIR$/Flounder-Engine/res/res/shaders/filters/blurHorizontalFragment.glsl" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Flounder-Engine/res/res/shaders/filters/blurVerticalFragment.glsl" afterPath="$PROJECT_DIR$/Flounder-Engine/res/res/shaders/filters/blurVerticalFragment.glsl" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Flounder-Engine/res/res/shaders/filters/combineSlideFragment.glsl" afterPath="$PROJECT_DIR$/Flounder-Engine/res/res/shaders/filters/combineSlideFragment.glsl" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Flounder-Engine/res/res/shaders/filters/darkenFragment.glsl" afterPath="$PROJECT_DIR$/Flounder-Engine/res/res/shaders/filters/darkenFragment.glsl" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Flounder-Engine/res/res/shaders/filters/defaultVertex.glsl" afterPath="$PROJECT_DIR$/Flounder-Engine/res/res/shaders/filters/defaultVertex.glsl" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Flounder-Engine/res/res/shaders/filters/dofFragment.glsl" afterPath="$PROJECT_DIR$/Flounder-Engine/res/res/shaders/filters/dofFragment.glsl" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Flounder-Engine/res/res/shaders/filters/embossFragment.glsl" afterPath="$PROJECT_DIR$/Flounder-Engine/res/res/shaders/filters/embossFragment.glsl" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Flounder-Engine/res/res/shaders/filters/fxaaFragment.glsl" afterPath="$PROJECT_DIR$/Flounder-Engine/res/res/shaders/filters/fxaaFragment.glsl" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Flounder-Engine/res/res/shaders/filters/grayFragment.glsl" afterPath="$PROJECT_DIR$/Flounder-Engine/res/res/shaders/filters/grayFragment.glsl" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Flounder-Engine/res/res/shaders/filters/lensFlareFragment.glsl" afterPath="$PROJECT_DIR$/Flounder-Engine/res/res/shaders/filters/lensFlareFragment.glsl" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Flounder-Engine/res/res/shaders/filters/negativeFragment.glsl" afterPath="$PROJECT_DIR$/Flounder-Engine/res/res/shaders/filters/negativeFragment.glsl" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Flounder-Engine/res/res/shaders/filters/pixelFragment.glsl" afterPath="$PROJECT_DIR$/Flounder-Engine/res/res/shaders/filters/pixelFragment.glsl" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Flounder-Engine/res/res/shaders/filters/sepiaFragment.glsl" afterPath="$PROJECT_DIR$/Flounder-Engine/res/res/shaders/filters/sepiaFragment.glsl" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Flounder-Engine/res/res/shaders/filters/toneFragment.glsl" afterPath="$PROJECT_DIR$/Flounder-Engine/res/res/shaders/filters/toneFragment.glsl" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Flounder-Engine/res/res/shaders/filters/wobbleFragment.glsl" afterPath="$PROJECT_DIR$/Flounder-Engine/res/res/shaders/filters/wobbleFragment.glsl" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Flounder-Engine/res/res/shaders/fonts/fontFragment.glsl" afterPath="$PROJECT_DIR$/Flounder-Engine/res/res/shaders/fonts/fontFragment.glsl" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Flounder-Engine/res/res/shaders/fonts/fontVertex.glsl" afterPath="$PROJECT_DIR$/Flounder-Engine/res/res/shaders/fonts/fontVertex.glsl" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Flounder-Engine/res/res/shaders/guis/guiFragment.glsl" afterPath="$PROJECT_DIR$/Flounder-Engine/res/res/shaders/guis/guiFragment.glsl" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Flounder-Engine/res/res/shaders/guis/guiVertex.glsl" afterPath="$PROJECT_DIR$/Flounder-Engine/res/res/shaders/guis/guiVertex.glsl" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Flounder-Engine/res/res/shaders/maths.glsl" afterPath="$PROJECT_DIR$/Flounder-Engine/res/res/shaders/maths.glsl" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Flounder-Engine/res/res/shaders/particles/particleFragment.glsl" afterPath="$PROJECT_DIR$/Flounder-Engine/res/res/shaders/particles/particleFragment.glsl" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Flounder-Engine/res/res/shaders/particles/particleVertex.glsl" afterPath="$PROJECT_DIR$/Flounder-Engine/res/res/shaders/particles/particleVertex.glsl" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Flounder-Engine/src/flounder/devices/FlounderDisplay.java" afterPath="$PROJECT_DIR$/Flounder-Engine/src/flounder/devices/FlounderDisplay.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Flounder-Engine/src/flounder/devices/FlounderJoysticks.java" afterPath="$PROJECT_DIR$/Flounder-Engine/src/flounder/devices/FlounderJoysticks.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Flounder-Engine/src/flounder/devices/FlounderKeyboard.java" afterPath="$PROJECT_DIR$/Flounder-Engine/src/flounder/devices/FlounderKeyboard.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Flounder-Engine/src/flounder/devices/FlounderMouse.java" afterPath="$PROJECT_DIR$/Flounder-Engine/src/flounder/devices/FlounderMouse.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Flounder-Engine/src/flounder/devices/FlounderSound.java" afterPath="$PROJECT_DIR$/Flounder-Engine/src/flounder/devices/FlounderSound.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Flounder-Engine/src/flounder/devices/package-info.java" afterPath="$PROJECT_DIR$/Flounder-Engine/src/flounder/devices/package-info.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Flounder-Engine/src/flounder/engine/FlounderEngine.java" afterPath="$PROJECT_DIR$/Flounder-Engine/src/flounder/engine/FlounderEngine.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Flounder-Engine/src/flounder/engine/FlounderEntrance.java" afterPath="$PROJECT_DIR$/Flounder-Engine/src/flounder/engine/FlounderEntrance.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Flounder-Engine/src/flounder/engine/IModule.java" afterPath="$PROJECT_DIR$/Flounder-Engine/src/flounder/engine/IModule.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Flounder-Engine/src/flounder/engine/Version.java" afterPath="$PROJECT_DIR$/Flounder-Engine/src/flounder/engine/Version.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Flounder-Engine/src/flounder/engine/entrance/ICamera.java" afterPath="$PROJECT_DIR$/Flounder-Engine/src/flounder/engine/entrance/ICamera.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Flounder-Engine/src/flounder/engine/entrance/IManagerGUI.java" afterPath="$PROJECT_DIR$/Flounder-Engine/src/flounder/engine/entrance/IManagerGUI.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Flounder-Engine/src/flounder/engine/entrance/IRenderer.java" afterPath="$PROJECT_DIR$/Flounder-Engine/src/flounder/engine/entrance/IRenderer.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Flounder-Engine/src/flounder/engine/entrance/IRendererMaster.java" afterPath="$PROJECT_DIR$/Flounder-Engine/src/flounder/engine/entrance/IRendererMaster.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Flounder-Engine/src/flounder/engine/entrance/package-info.java" afterPath="$PROJECT_DIR$/Flounder-Engine/src/flounder/engine/entrance/package-info.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Flounder-Engine/src/flounder/engine/package-info.java" afterPath="$PROJECT_DIR$/Flounder-Engine/src/flounder/engine/package-info.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Flounder-Engine/src/flounder/events/FlounderEvents.java" afterPath="$PROJECT_DIR$/Flounder-Engine/src/flounder/events/FlounderEvents.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Flounder-Engine/src/flounder/events/IEvent.java" afterPath="$PROJECT_DIR$/Flounder-Engine/src/flounder/events/IEvent.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Flounder-Engine/src/flounder/events/package-info.java" afterPath="$PROJECT_DIR$/Flounder-Engine/src/flounder/events/package-info.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Flounder-Engine/src/flounder/exceptions/FlounderRuntimeException.java" afterPath="$PROJECT_DIR$/Flounder-Engine/src/flounder/exceptions/FlounderRuntimeException.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Flounder-Engine/src/flounder/exceptions/package-info.java" afterPath="$PROJECT_DIR$/Flounder-Engine/src/flounder/exceptions/package-info.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Flounder-Engine/src/flounder/fbos/DepthBufferType.java" afterPath="$PROJECT_DIR$/Flounder-Engine/src/flounder/fbos/DepthBufferType.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Flounder-Engine/src/flounder/fbos/FBO.java" afterPath="$PROJECT_DIR$/Flounder-Engine/src/flounder/fbos/FBO.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Flounder-Engine/src/flounder/fbos/FBOBuilder.java" afterPath="$PROJECT_DIR$/Flounder-Engine/src/flounder/fbos/FBOBuilder.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Flounder-Engine/src/flounder/fbos/package-info.java" afterPath="$PROJECT_DIR$/Flounder-Engine/src/flounder/fbos/package-info.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Flounder-Engine/src/flounder/fonts/Character.java" afterPath="$PROJECT_DIR$/Flounder-Engine/src/flounder/fonts/Character.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Flounder-Engine/src/flounder/fonts/FlounderFonts.java" afterPath="$PROJECT_DIR$/Flounder-Engine/src/flounder/fonts/FlounderFonts.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Flounder-Engine/src/flounder/fonts/FontRenderer.java" afterPath="$PROJECT_DIR$/Flounder-Engine/src/flounder/fonts/FontRenderer.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Flounder-Engine/src/flounder/fonts/FontType.java" afterPath="$PROJECT_DIR$/Flounder-Engine/src/flounder/fonts/FontType.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Flounder-Engine/src/flounder/fonts/Line.java" afterPath="$PROJECT_DIR$/Flounder-Engine/src/flounder/fonts/Line.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Flounder-Engine/src/flounder/fonts/MetaFile.java" afterPath="$PROJECT_DIR$/Flounder-Engine/src/flounder/fonts/MetaFile.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Flounder-Engine/src/flounder/fonts/Text.java" afterPath="$PROJECT_DIR$/Flounder-Engine/src/flounder/fonts/Text.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Flounder-Engine/src/flounder/fonts/TextBuilder.java" afterPath="$PROJECT_DIR$/Flounder-Engine/src/flounder/fonts/TextBuilder.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Flounder-Engine/src/flounder/fonts/TextLoader.java" afterPath="$PROJECT_DIR$/Flounder-Engine/src/flounder/fonts/TextLoader.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Flounder-Engine/src/flounder/fonts/Word.java" afterPath="$PROJECT_DIR$/Flounder-Engine/src/flounder/fonts/Word.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Flounder-Engine/src/flounder/fonts/package-info.java" afterPath="$PROJECT_DIR$/Flounder-Engine/src/flounder/fonts/package-info.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Flounder-Engine/src/flounder/guis/FlounderGuis.java" afterPath="$PROJECT_DIR$/Flounder-Engine/src/flounder/guis/FlounderGuis.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Flounder-Engine/src/flounder/guis/GuiAlign.java" afterPath="$PROJECT_DIR$/Flounder-Engine/src/flounder/guis/GuiAlign.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Flounder-Engine/src/flounder/guis/GuiComponent.java" afterPath="$PROJECT_DIR$/Flounder-Engine/src/flounder/guis/GuiComponent.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Flounder-Engine/src/flounder/guis/GuiEvent.java" afterPath="$PROJECT_DIR$/Flounder-Engine/src/flounder/guis/GuiEvent.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Flounder-Engine/src/flounder/guis/GuiRenderer.java" afterPath="$PROJECT_DIR$/Flounder-Engine/src/flounder/guis/GuiRenderer.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Flounder-Engine/src/flounder/guis/GuiScreenContainer.java" afterPath="$PROJECT_DIR$/Flounder-Engine/src/flounder/guis/GuiScreenContainer.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Flounder-Engine/src/flounder/guis/GuiSelector.java" afterPath="$PROJECT_DIR$/Flounder-Engine/src/flounder/guis/GuiSelector.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Flounder-Engine/src/flounder/guis/GuiTextButton.java" afterPath="$PROJECT_DIR$/Flounder-Engine/src/flounder/guis/GuiTextButton.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Flounder-Engine/src/flounder/guis/GuiTexture.java" afterPath="$PROJECT_DIR$/Flounder-Engine/src/flounder/guis/GuiTexture.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Flounder-Engine/src/flounder/guis/ListenerBasic.java" afterPath="$PROJECT_DIR$/Flounder-Engine/src/flounder/guis/ListenerBasic.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Flounder-Engine/src/flounder/guis/package-info.java" afterPath="$PROJECT_DIR$/Flounder-Engine/src/flounder/guis/package-info.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Flounder-Engine/src/flounder/helpers/ArraySorting.java" afterPath="$PROJECT_DIR$/Flounder-Engine/src/flounder/helpers/ArraySorting.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Flounder-Engine/src/flounder/helpers/ArrayUtils.java" afterPath="$PROJECT_DIR$/Flounder-Engine/src/flounder/helpers/ArrayUtils.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Flounder-Engine/src/flounder/helpers/ByteWork.java" afterPath="$PROJECT_DIR$/Flounder-Engine/src/flounder/helpers/ByteWork.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Flounder-Engine/src/flounder/helpers/CompressionUtils.java" afterPath="$PROJECT_DIR$/Flounder-Engine/src/flounder/helpers/CompressionUtils.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Flounder-Engine/src/flounder/helpers/FauxGenerator.java" afterPath="$PROJECT_DIR$/Flounder-Engine/src/flounder/helpers/FauxGenerator.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Flounder-Engine/src/flounder/helpers/FlounderFileWriter.java" afterPath="$PROJECT_DIR$/Flounder-Engine/src/flounder/helpers/FlounderFileWriter.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Flounder-Engine/src/flounder/helpers/OpenGlUtils.java" afterPath="$PROJECT_DIR$/Flounder-Engine/src/flounder/helpers/OpenGlUtils.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Flounder-Engine/src/flounder/helpers/Pair.java" afterPath="$PROJECT_DIR$/Flounder-Engine/src/flounder/helpers/Pair.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Flounder-Engine/src/flounder/helpers/package-info.java" afterPath="$PROJECT_DIR$/Flounder-Engine/src/flounder/helpers/package-info.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Flounder-Engine/src/flounder/inputs/BaseButton.java" afterPath="$PROJECT_DIR$/Flounder-Engine/src/flounder/inputs/BaseButton.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Flounder-Engine/src/flounder/inputs/ButtonAxis.java" afterPath="$PROJECT_DIR$/Flounder-Engine/src/flounder/inputs/ButtonAxis.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Flounder-Engine/src/flounder/inputs/CompoundAxis.java" afterPath="$PROJECT_DIR$/Flounder-Engine/src/flounder/inputs/CompoundAxis.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Flounder-Engine/src/flounder/inputs/CompoundButton.java" afterPath="$PROJECT_DIR$/Flounder-Engine/src/flounder/inputs/CompoundButton.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Flounder-Engine/src/flounder/inputs/IAxis.java" afterPath="$PROJECT_DIR$/Flounder-Engine/src/flounder/inputs/IAxis.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Flounder-Engine/src/flounder/inputs/IButton.java" afterPath="$PROJECT_DIR$/Flounder-Engine/src/flounder/inputs/IButton.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Flounder-Engine/src/flounder/inputs/JoystickAxis.java" afterPath="$PROJECT_DIR$/Flounder-Engine/src/flounder/inputs/JoystickAxis.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Flounder-Engine/src/flounder/inputs/JoystickButton.java" afterPath="$PROJECT_DIR$/Flounder-Engine/src/flounder/inputs/JoystickButton.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Flounder-Engine/src/flounder/inputs/KeyButton.java" afterPath="$PROJECT_DIR$/Flounder-Engine/src/flounder/inputs/KeyButton.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Flounder-Engine/src/flounder/inputs/MouseButton.java" afterPath="$PROJECT_DIR$/Flounder-Engine/src/flounder/inputs/MouseButton.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Flounder-Engine/src/flounder/inputs/package-info.java" afterPath="$PROJECT_DIR$/Flounder-Engine/src/flounder/inputs/package-info.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Flounder-Engine/src/flounder/lights/Attenuation.java" afterPath="$PROJECT_DIR$/Flounder-Engine/src/flounder/lights/Attenuation.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Flounder-Engine/src/flounder/lights/Fog.java" afterPath="$PROJECT_DIR$/Flounder-Engine/src/flounder/lights/Fog.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Flounder-Engine/src/flounder/lights/Light.java" afterPath="$PROJECT_DIR$/Flounder-Engine/src/flounder/lights/Light.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Flounder-Engine/src/flounder/lights/package-info.java" afterPath="$PROJECT_DIR$/Flounder-Engine/src/flounder/lights/package-info.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Flounder-Engine/src/flounder/loaders/FlounderLoader.java" afterPath="$PROJECT_DIR$/Flounder-Engine/src/flounder/loaders/FlounderLoader.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Flounder-Engine/src/flounder/loaders/package-info.java" afterPath="$PROJECT_DIR$/Flounder-Engine/src/flounder/loaders/package-info.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Flounder-Engine/src/flounder/logger/FlounderLogger.java" afterPath="$PROJECT_DIR$/Flounder-Engine/src/flounder/logger/FlounderLogger.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Flounder-Engine/src/flounder/logger/package-info.java" afterPath="$PROJECT_DIR$/Flounder-Engine/src/flounder/logger/package-info.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Flounder-Engine/src/flounder/materials/FlounderMaterials.java" afterPath="$PROJECT_DIR$/Flounder-Engine/src/flounder/materials/FlounderMaterials.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Flounder-Engine/src/flounder/materials/Material.java" afterPath="$PROJECT_DIR$/Flounder-Engine/src/flounder/materials/Material.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Flounder-Engine/src/flounder/materials/package-info.java" afterPath="$PROJECT_DIR$/Flounder-Engine/src/flounder/materials/package-info.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Flounder-Engine/src/flounder/maths/Colour.java" afterPath="$PROJECT_DIR$/Flounder-Engine/src/flounder/maths/Colour.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Flounder-Engine/src/flounder/maths/Delta.java" afterPath="$PROJECT_DIR$/Flounder-Engine/src/flounder/maths/Delta.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Flounder-Engine/src/flounder/maths/Maths.java" afterPath="$PROJECT_DIR$/Flounder-Engine/src/flounder/maths/Maths.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Flounder-Engine/src/flounder/maths/Timer.java" afterPath="$PROJECT_DIR$/Flounder-Engine/src/flounder/maths/Timer.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Flounder-Engine/src/flounder/maths/matrices/Matrix2f.java" afterPath="$PROJECT_DIR$/Flounder-Engine/src/flounder/maths/matrices/Matrix2f.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Flounder-Engine/src/flounder/maths/matrices/Matrix3f.java" afterPath="$PROJECT_DIR$/Flounder-Engine/src/flounder/maths/matrices/Matrix3f.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Flounder-Engine/src/flounder/maths/matrices/Matrix4f.java" afterPath="$PROJECT_DIR$/Flounder-Engine/src/flounder/maths/matrices/Matrix4f.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Flounder-Engine/src/flounder/maths/matrices/package-info.java" afterPath="$PROJECT_DIR$/Flounder-Engine/src/flounder/maths/matrices/package-info.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Flounder-Engine/src/flounder/maths/package-info.java" afterPath="$PROJECT_DIR$/Flounder-Engine/src/flounder/maths/package-info.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Flounder-Engine/src/flounder/maths/vectors/Quaternion.java" afterPath="$PROJECT_DIR$/Flounder-Engine/src/flounder/maths/vectors/Quaternion.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Flounder-Engine/src/flounder/maths/vectors/Vector2f.java" afterPath="$PROJECT_DIR$/Flounder-Engine/src/flounder/maths/vectors/Vector2f.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Flounder-Engine/src/flounder/maths/vectors/Vector3f.java" afterPath="$PROJECT_DIR$/Flounder-Engine/src/flounder/maths/vectors/Vector3f.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Flounder-Engine/src/flounder/maths/vectors/Vector4f.java" afterPath="$PROJECT_DIR$/Flounder-Engine/src/flounder/maths/vectors/Vector4f.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Flounder-Engine/src/flounder/maths/vectors/package-info.java" afterPath="$PROJECT_DIR$/Flounder-Engine/src/flounder/maths/vectors/package-info.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Flounder-Engine/src/flounder/models/FlounderModels.java" afterPath="$PROJECT_DIR$/Flounder-Engine/src/flounder/models/FlounderModels.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Flounder-Engine/src/flounder/models/Model.java" afterPath="$PROJECT_DIR$/Flounder-Engine/src/flounder/models/Model.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Flounder-Engine/src/flounder/models/ModelBuilder.java" afterPath="$PROJECT_DIR$/Flounder-Engine/src/flounder/models/ModelBuilder.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Flounder-Engine/src/flounder/models/ModelData.java" afterPath="$PROJECT_DIR$/Flounder-Engine/src/flounder/models/ModelData.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Flounder-Engine/src/flounder/models/ModelDeleteRequest.java" afterPath="$PROJECT_DIR$/Flounder-Engine/src/flounder/models/ModelDeleteRequest.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Flounder-Engine/src/flounder/models/ModelLoadRequest.java" afterPath="$PROJECT_DIR$/Flounder-Engine/src/flounder/models/ModelLoadRequest.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Flounder-Engine/src/flounder/models/VertexData.java" afterPath="$PROJECT_DIR$/Flounder-Engine/src/flounder/models/VertexData.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Flounder-Engine/src/flounder/models/package-info.java" afterPath="$PROJECT_DIR$/Flounder-Engine/src/flounder/models/package-info.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Flounder-Engine/src/flounder/networking/Client.java" afterPath="$PROJECT_DIR$/Flounder-Engine/src/flounder/networking/Client.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Flounder-Engine/src/flounder/networking/ClientInfo.java" afterPath="$PROJECT_DIR$/Flounder-Engine/src/flounder/networking/ClientInfo.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Flounder-Engine/src/flounder/networking/FlounderNetwork.java" afterPath="$PROJECT_DIR$/Flounder-Engine/src/flounder/networking/FlounderNetwork.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Flounder-Engine/src/flounder/networking/Server.java" afterPath="$PROJECT_DIR$/Flounder-Engine/src/flounder/networking/Server.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Flounder-Engine/src/flounder/networking/package-info.java" afterPath="$PROJECT_DIR$/Flounder-Engine/src/flounder/networking/package-info.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Flounder-Engine/src/flounder/networking/packets/Packet.java" afterPath="$PROJECT_DIR$/Flounder-Engine/src/flounder/networking/packets/Packet.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Flounder-Engine/src/flounder/networking/packets/PacketDisconnect.java" afterPath="$PROJECT_DIR$/Flounder-Engine/src/flounder/networking/packets/PacketDisconnect.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Flounder-Engine/src/flounder/networking/packets/PacketLogin.java" afterPath="$PROJECT_DIR$/Flounder-Engine/src/flounder/networking/packets/PacketLogin.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Flounder-Engine/src/flounder/networking/packets/package-info.java" afterPath="$PROJECT_DIR$/Flounder-Engine/src/flounder/networking/packets/package-info.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Flounder-Engine/src/flounder/noise/OpenSimplexNoise.java" afterPath="$PROJECT_DIR$/Flounder-Engine/src/flounder/noise/OpenSimplexNoise.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Flounder-Engine/src/flounder/noise/PerlinNoise.java" afterPath="$PROJECT_DIR$/Flounder-Engine/src/flounder/noise/PerlinNoise.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Flounder-Engine/src/flounder/noise/package-info.java" afterPath="$PROJECT_DIR$/Flounder-Engine/src/flounder/noise/package-info.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Flounder-Engine/src/flounder/package-info.java" afterPath="$PROJECT_DIR$/Flounder-Engine/src/flounder/package-info.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Flounder-Engine/src/flounder/parsing/Config.java" afterPath="$PROJECT_DIR$/Flounder-Engine/src/flounder/parsing/Config.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Flounder-Engine/src/flounder/parsing/TokenReader.java" afterPath="$PROJECT_DIR$/Flounder-Engine/src/flounder/parsing/TokenReader.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Flounder-Engine/src/flounder/parsing/json/JSON.java" afterPath="$PROJECT_DIR$/Flounder-Engine/src/flounder/parsing/json/JSON.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Flounder-Engine/src/flounder/parsing/json/JSONArray.java" afterPath="$PROJECT_DIR$/Flounder-Engine/src/flounder/parsing/json/JSONArray.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Flounder-Engine/src/flounder/parsing/json/JSONLiteral.java" afterPath="$PROJECT_DIR$/Flounder-Engine/src/flounder/parsing/json/JSONLiteral.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Flounder-Engine/src/flounder/parsing/json/JSONNumber.java" afterPath="$PROJECT_DIR$/Flounder-Engine/src/flounder/parsing/json/JSONNumber.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Flounder-Engine/src/flounder/parsing/json/JSONObject.java" afterPath="$PROJECT_DIR$/Flounder-Engine/src/flounder/parsing/json/JSONObject.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Flounder-Engine/src/flounder/parsing/json/JSONString.java" afterPath="$PROJECT_DIR$/Flounder-Engine/src/flounder/parsing/json/JSONString.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Flounder-Engine/src/flounder/parsing/json/JSONValue.java" afterPath="$PROJECT_DIR$/Flounder-Engine/src/flounder/parsing/json/JSONValue.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Flounder-Engine/src/flounder/parsing/json/package-info.java" afterPath="$PROJECT_DIR$/Flounder-Engine/src/flounder/parsing/json/package-info.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Flounder-Engine/src/flounder/parsing/package-info.java" afterPath="$PROJECT_DIR$/Flounder-Engine/src/flounder/parsing/package-info.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Flounder-Engine/src/flounder/physics/AABB.java" afterPath="$PROJECT_DIR$/Flounder-Engine/src/flounder/physics/AABB.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Flounder-Engine/src/flounder/physics/IBounding.java" afterPath="$PROJECT_DIR$/Flounder-Engine/src/flounder/physics/IBounding.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Flounder-Engine/src/flounder/physics/IntersectData.java" afterPath="$PROJECT_DIR$/Flounder-Engine/src/flounder/physics/IntersectData.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Flounder-Engine/src/flounder/physics/QuickHull.java" afterPath="$PROJECT_DIR$/Flounder-Engine/src/flounder/physics/QuickHull.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Flounder-Engine/src/flounder/physics/Ray.java" afterPath="$PROJECT_DIR$/Flounder-Engine/src/flounder/physics/Ray.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Flounder-Engine/src/flounder/physics/Rectangle.java" afterPath="$PROJECT_DIR$/Flounder-Engine/src/flounder/physics/Rectangle.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Flounder-Engine/src/flounder/physics/Sphere.java" afterPath="$PROJECT_DIR$/Flounder-Engine/src/flounder/physics/Sphere.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Flounder-Engine/src/flounder/physics/bounding/BoundingRenderer.java" afterPath="$PROJECT_DIR$/Flounder-Engine/src/flounder/physics/bounding/BoundingRenderer.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Flounder-Engine/src/flounder/physics/bounding/FlounderBounding.java" afterPath="$PROJECT_DIR$/Flounder-Engine/src/flounder/physics/bounding/FlounderBounding.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Flounder-Engine/src/flounder/physics/bounding/package-info.java" afterPath="$PROJECT_DIR$/Flounder-Engine/src/flounder/physics/bounding/package-info.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Flounder-Engine/src/flounder/physics/package-info.java" afterPath="$PROJECT_DIR$/Flounder-Engine/src/flounder/physics/package-info.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Flounder-Engine/src/flounder/post/PostFilter.java" afterPath="$PROJECT_DIR$/Flounder-Engine/src/flounder/post/PostFilter.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Flounder-Engine/src/flounder/post/PostPipeline.java" afterPath="$PROJECT_DIR$/Flounder-Engine/src/flounder/post/PostPipeline.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Flounder-Engine/src/flounder/post/filters/FilterBloom1.java" afterPath="$PROJECT_DIR$/Flounder-Engine/src/flounder/post/filters/FilterBloom1.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Flounder-Engine/src/flounder/post/filters/FilterBloom2.java" afterPath="$PROJECT_DIR$/Flounder-Engine/src/flounder/post/filters/FilterBloom2.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Flounder-Engine/src/flounder/post/filters/FilterBlurHorizontal.java" afterPath="$PROJECT_DIR$/Flounder-Engine/src/flounder/post/filters/FilterBlurHorizontal.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Flounder-Engine/src/flounder/post/filters/FilterBlurVertical.java" afterPath="$PROJECT_DIR$/Flounder-Engine/src/flounder/post/filters/FilterBlurVertical.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Flounder-Engine/src/flounder/post/filters/FilterCombineSlide.java" afterPath="$PROJECT_DIR$/Flounder-Engine/src/flounder/post/filters/FilterCombineSlide.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Flounder-Engine/src/flounder/post/filters/FilterDOF.java" afterPath="$PROJECT_DIR$/Flounder-Engine/src/flounder/post/filters/FilterDOF.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Flounder-Engine/src/flounder/post/filters/FilterDarken.java" afterPath="$PROJECT_DIR$/Flounder-Engine/src/flounder/post/filters/FilterDarken.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Flounder-Engine/src/flounder/post/filters/FilterEmboss.java" afterPath="$PROJECT_DIR$/Flounder-Engine/src/flounder/post/filters/FilterEmboss.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Flounder-Engine/src/flounder/post/filters/FilterFXAA.java" afterPath="$PROJECT_DIR$/Flounder-Engine/src/flounder/post/filters/FilterFXAA.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Flounder-Engine/src/flounder/post/filters/FilterGray.java" afterPath="$PROJECT_DIR$/Flounder-Engine/src/flounder/post/filters/FilterGray.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Flounder-Engine/src/flounder/post/filters/FilterLensFlare.java" afterPath="$PROJECT_DIR$/Flounder-Engine/src/flounder/post/filters/FilterLensFlare.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Flounder-Engine/src/flounder/post/filters/FilterNegative.java" afterPath="$PROJECT_DIR$/Flounder-Engine/src/flounder/post/filters/FilterNegative.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Flounder-Engine/src/flounder/post/filters/FilterPixel.java" afterPath="$PROJECT_DIR$/Flounder-Engine/src/flounder/post/filters/FilterPixel.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Flounder-Engine/src/flounder/post/filters/FilterSepia.java" afterPath="$PROJECT_DIR$/Flounder-Engine/src/flounder/post/filters/FilterSepia.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Flounder-Engine/src/flounder/post/filters/FilterTone.java" afterPath="$PROJECT_DIR$/Flounder-Engine/src/flounder/post/filters/FilterTone.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Flounder-Engine/src/flounder/post/filters/FilterWobble.java" afterPath="$PROJECT_DIR$/Flounder-Engine/src/flounder/post/filters/FilterWobble.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Flounder-Engine/src/flounder/post/filters/package-info.java" afterPath="$PROJECT_DIR$/Flounder-Engine/src/flounder/post/filters/package-info.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Flounder-Engine/src/flounder/post/package-info.java" afterPath="$PROJECT_DIR$/Flounder-Engine/src/flounder/post/package-info.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Flounder-Engine/src/flounder/post/piplines/PipelineBloom.java" afterPath="$PROJECT_DIR$/Flounder-Engine/src/flounder/post/piplines/PipelineBloom.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Flounder-Engine/src/flounder/post/piplines/PipelineDepthOfField.java" afterPath="$PROJECT_DIR$/Flounder-Engine/src/flounder/post/piplines/PipelineDepthOfField.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Flounder-Engine/src/flounder/post/piplines/PipelineGaussian.java" afterPath="$PROJECT_DIR$/Flounder-Engine/src/flounder/post/piplines/PipelineGaussian.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Flounder-Engine/src/flounder/post/piplines/package-info.java" afterPath="$PROJECT_DIR$/Flounder-Engine/src/flounder/post/piplines/package-info.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Flounder-Engine/src/flounder/processing/FlounderProcessors.java" afterPath="$PROJECT_DIR$/Flounder-Engine/src/flounder/processing/FlounderProcessors.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Flounder-Engine/src/flounder/processing/RequestProcessor.java" afterPath="$PROJECT_DIR$/Flounder-Engine/src/flounder/processing/RequestProcessor.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Flounder-Engine/src/flounder/processing/RequestQueue.java" afterPath="$PROJECT_DIR$/Flounder-Engine/src/flounder/processing/RequestQueue.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Flounder-Engine/src/flounder/processing/ResourceRequest.java" afterPath="$PROJECT_DIR$/Flounder-Engine/src/flounder/processing/ResourceRequest.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Flounder-Engine/src/flounder/processing/glProcessing/GlRequest.java" afterPath="$PROJECT_DIR$/Flounder-Engine/src/flounder/processing/glProcessing/GlRequest.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Flounder-Engine/src/flounder/processing/glProcessing/GlRequestProcessor.java" afterPath="$PROJECT_DIR$/Flounder-Engine/src/flounder/processing/glProcessing/GlRequestProcessor.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Flounder-Engine/src/flounder/processing/glProcessing/GlRequestQueue.java" afterPath="$PROJECT_DIR$/Flounder-Engine/src/flounder/processing/glProcessing/GlRequestQueue.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Flounder-Engine/src/flounder/processing/glProcessing/package-info.java" afterPath="$PROJECT_DIR$/Flounder-Engine/src/flounder/processing/glProcessing/package-info.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Flounder-Engine/src/flounder/processing/package-info.java" afterPath="$PROJECT_DIR$/Flounder-Engine/src/flounder/processing/package-info.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Flounder-Engine/src/flounder/profiling/FlounderProfiler.java" afterPath="$PROJECT_DIR$/Flounder-Engine/src/flounder/profiling/FlounderProfiler.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Flounder-Engine/src/flounder/profiling/FlounderProfilerLabel.java" afterPath="$PROJECT_DIR$/Flounder-Engine/src/flounder/profiling/FlounderProfilerLabel.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Flounder-Engine/src/flounder/profiling/FlounderProfilerTab.java" afterPath="$PROJECT_DIR$/Flounder-Engine/src/flounder/profiling/FlounderProfilerTab.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Flounder-Engine/src/flounder/profiling/FlounderTabMenu.java" afterPath="$PROJECT_DIR$/Flounder-Engine/src/flounder/profiling/FlounderTabMenu.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Flounder-Engine/src/flounder/profiling/ProfileTimer.java" afterPath="$PROJECT_DIR$/Flounder-Engine/src/flounder/profiling/ProfileTimer.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Flounder-Engine/src/flounder/profiling/package-info.java" afterPath="$PROJECT_DIR$/Flounder-Engine/src/flounder/profiling/package-info.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Flounder-Engine/src/flounder/resources/MyFile.java" afterPath="$PROJECT_DIR$/Flounder-Engine/src/flounder/resources/MyFile.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Flounder-Engine/src/flounder/resources/package-info.java" afterPath="$PROJECT_DIR$/Flounder-Engine/src/flounder/resources/package-info.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Flounder-Engine/src/flounder/shaders/FlounderShaders.java" afterPath="$PROJECT_DIR$/Flounder-Engine/src/flounder/shaders/FlounderShaders.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Flounder-Engine/src/flounder/shaders/Shader.java" afterPath="$PROJECT_DIR$/Flounder-Engine/src/flounder/shaders/Shader.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Flounder-Engine/src/flounder/shaders/ShaderBuilder.java" afterPath="$PROJECT_DIR$/Flounder-Engine/src/flounder/shaders/ShaderBuilder.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Flounder-Engine/src/flounder/shaders/ShaderData.java" afterPath="$PROJECT_DIR$/Flounder-Engine/src/flounder/shaders/ShaderData.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Flounder-Engine/src/flounder/shaders/ShaderDeleteRequest.java" afterPath="$PROJECT_DIR$/Flounder-Engine/src/flounder/shaders/ShaderDeleteRequest.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Flounder-Engine/src/flounder/shaders/ShaderLoadRequest.java" afterPath="$PROJECT_DIR$/Flounder-Engine/src/flounder/shaders/ShaderLoadRequest.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Flounder-Engine/src/flounder/shaders/ShaderType.java" afterPath="$PROJECT_DIR$/Flounder-Engine/src/flounder/shaders/ShaderType.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Flounder-Engine/src/flounder/shaders/Uniform.java" afterPath="$PROJECT_DIR$/Flounder-Engine/src/flounder/shaders/Uniform.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Flounder-Engine/src/flounder/shaders/UniformBool.java" afterPath="$PROJECT_DIR$/Flounder-Engine/src/flounder/shaders/UniformBool.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Flounder-Engine/src/flounder/shaders/UniformFloat.java" afterPath="$PROJECT_DIR$/Flounder-Engine/src/flounder/shaders/UniformFloat.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Flounder-Engine/src/flounder/shaders/UniformMat2.java" afterPath="$PROJECT_DIR$/Flounder-Engine/src/flounder/shaders/UniformMat2.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Flounder-Engine/src/flounder/shaders/UniformMat3.java" afterPath="$PROJECT_DIR$/Flounder-Engine/src/flounder/shaders/UniformMat3.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Flounder-Engine/src/flounder/shaders/UniformMat4.java" afterPath="$PROJECT_DIR$/Flounder-Engine/src/flounder/shaders/UniformMat4.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Flounder-Engine/src/flounder/shaders/UniformSampler2D.java" afterPath="$PROJECT_DIR$/Flounder-Engine/src/flounder/shaders/UniformSampler2D.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Flounder-Engine/src/flounder/shaders/UniformVec2.java" afterPath="$PROJECT_DIR$/Flounder-Engine/src/flounder/shaders/UniformVec2.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Flounder-Engine/src/flounder/shaders/UniformVec3.java" afterPath="$PROJECT_DIR$/Flounder-Engine/src/flounder/shaders/UniformVec3.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Flounder-Engine/src/flounder/shaders/UniformVec4.java" afterPath="$PROJECT_DIR$/Flounder-Engine/src/flounder/shaders/UniformVec4.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Flounder-Engine/src/flounder/shaders/package-info.java" afterPath="$PROJECT_DIR$/Flounder-Engine/src/flounder/shaders/package-info.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Flounder-Engine/src/flounder/sounds/AmbientNode.java" afterPath="$PROJECT_DIR$/Flounder-Engine/src/flounder/sounds/AmbientNode.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Flounder-Engine/src/flounder/sounds/AudioController.java" afterPath="$PROJECT_DIR$/Flounder-Engine/src/flounder/sounds/AudioController.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Flounder-Engine/src/flounder/sounds/IAudioListener.java" afterPath="$PROJECT_DIR$/Flounder-Engine/src/flounder/sounds/IAudioListener.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Flounder-Engine/src/flounder/sounds/MusicPlayer.java" afterPath="$PROJECT_DIR$/Flounder-Engine/src/flounder/sounds/MusicPlayer.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Flounder-Engine/src/flounder/sounds/PlayRequest.java" afterPath="$PROJECT_DIR$/Flounder-Engine/src/flounder/sounds/PlayRequest.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Flounder-Engine/src/flounder/sounds/Playlist.java" afterPath="$PROJECT_DIR$/Flounder-Engine/src/flounder/sounds/Playlist.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Flounder-Engine/src/flounder/sounds/Sound.java" afterPath="$PROJECT_DIR$/Flounder-Engine/src/flounder/sounds/Sound.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Flounder-Engine/src/flounder/sounds/SoundEffect.java" afterPath="$PROJECT_DIR$/Flounder-Engine/src/flounder/sounds/SoundEffect.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Flounder-Engine/src/flounder/sounds/SoundEmitter.java" afterPath="$PROJECT_DIR$/Flounder-Engine/src/flounder/sounds/SoundEmitter.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Flounder-Engine/src/flounder/sounds/SoundLoader.java" afterPath="$PROJECT_DIR$/Flounder-Engine/src/flounder/sounds/SoundLoader.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Flounder-Engine/src/flounder/sounds/SoundSource.java" afterPath="$PROJECT_DIR$/Flounder-Engine/src/flounder/sounds/SoundSource.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Flounder-Engine/src/flounder/sounds/SourcePoolManager.java" afterPath="$PROJECT_DIR$/Flounder-Engine/src/flounder/sounds/SourcePoolManager.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Flounder-Engine/src/flounder/sounds/StreamManager.java" afterPath="$PROJECT_DIR$/Flounder-Engine/src/flounder/sounds/StreamManager.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Flounder-Engine/src/flounder/sounds/Streamer.java" afterPath="$PROJECT_DIR$/Flounder-Engine/src/flounder/sounds/Streamer.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Flounder-Engine/src/flounder/sounds/WavDataStream.java" afterPath="$PROJECT_DIR$/Flounder-Engine/src/flounder/sounds/WavDataStream.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Flounder-Engine/src/flounder/sounds/package-info.java" afterPath="$PROJECT_DIR$/Flounder-Engine/src/flounder/sounds/package-info.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Flounder-Engine/src/flounder/space/Frustum.java" afterPath="$PROJECT_DIR$/Flounder-Engine/src/flounder/space/Frustum.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Flounder-Engine/src/flounder/space/ISpatialObject.java" afterPath="$PROJECT_DIR$/Flounder-Engine/src/flounder/space/ISpatialObject.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Flounder-Engine/src/flounder/space/ISpatialStructure.java" afterPath="$PROJECT_DIR$/Flounder-Engine/src/flounder/space/ISpatialStructure.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Flounder-Engine/src/flounder/space/StructureBasic.java" afterPath="$PROJECT_DIR$/Flounder-Engine/src/flounder/space/StructureBasic.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Flounder-Engine/src/flounder/space/StructureSplit.java" afterPath="$PROJECT_DIR$/Flounder-Engine/src/flounder/space/StructureSplit.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Flounder-Engine/src/flounder/space/package-info.java" afterPath="$PROJECT_DIR$/Flounder-Engine/src/flounder/space/package-info.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Flounder-Engine/src/flounder/textures/FlounderTextures.java" afterPath="$PROJECT_DIR$/Flounder-Engine/src/flounder/textures/FlounderTextures.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Flounder-Engine/src/flounder/textures/Texture.java" afterPath="$PROJECT_DIR$/Flounder-Engine/src/flounder/textures/Texture.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Flounder-Engine/src/flounder/textures/TextureBuilder.java" afterPath="$PROJECT_DIR$/Flounder-Engine/src/flounder/textures/TextureBuilder.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Flounder-Engine/src/flounder/textures/TextureData.java" afterPath="$PROJECT_DIR$/Flounder-Engine/src/flounder/textures/TextureData.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Flounder-Engine/src/flounder/textures/TextureDecoder.java" afterPath="$PROJECT_DIR$/Flounder-Engine/src/flounder/textures/TextureDecoder.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Flounder-Engine/src/flounder/textures/TextureDeleteRequest.java" afterPath="$PROJECT_DIR$/Flounder-Engine/src/flounder/textures/TextureDeleteRequest.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Flounder-Engine/src/flounder/textures/TextureLoadRequest.java" afterPath="$PROJECT_DIR$/Flounder-Engine/src/flounder/textures/TextureLoadRequest.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Flounder-Engine/src/flounder/textures/TextureTessellatorAtlas.java" afterPath="$PROJECT_DIR$/Flounder-Engine/src/flounder/textures/TextureTessellatorAtlas.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Flounder-Engine/src/flounder/textures/package-info.java" afterPath="$PROJECT_DIR$/Flounder-Engine/src/flounder/textures/package-info.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Flounder-Engine/src/flounder/visual/ConstantDriver.java" afterPath="$PROJECT_DIR$/Flounder-Engine/src/flounder/visual/ConstantDriver.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Flounder-Engine/src/flounder/visual/FadeDriver.java" afterPath="$PROJECT_DIR$/Flounder-Engine/src/flounder/visual/FadeDriver.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Flounder-Engine/src/flounder/visual/KeyFrame.java" afterPath="$PROJECT_DIR$/Flounder-Engine/src/flounder/visual/KeyFrame.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Flounder-Engine/src/flounder/visual/KeyFrameDriver.java" afterPath="$PROJECT_DIR$/Flounder-Engine/src/flounder/visual/KeyFrameDriver.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Flounder-Engine/src/flounder/visual/LinearDriver.java" afterPath="$PROJECT_DIR$/Flounder-Engine/src/flounder/visual/LinearDriver.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Flounder-Engine/src/flounder/visual/SinWaveDriver.java" afterPath="$PROJECT_DIR$/Flounder-Engine/src/flounder/visual/SinWaveDriver.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Flounder-Engine/src/flounder/visual/SlideDriver.java" afterPath="$PROJECT_DIR$/Flounder-Engine/src/flounder/visual/SlideDriver.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Flounder-Engine/src/flounder/visual/ValueDriver.java" afterPath="$PROJECT_DIR$/Flounder-Engine/src/flounder/visual/ValueDriver.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Flounder-Engine/src/flounder/visual/interpolation/SmoothFloat.java" afterPath="$PROJECT_DIR$/Flounder-Engine/src/flounder/visual/interpolation/SmoothFloat.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Flounder-Engine/src/flounder/visual/interpolation/package-info.java" afterPath="$PROJECT_DIR$/Flounder-Engine/src/flounder/visual/interpolation/package-info.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Flounder-Engine/src/flounder/visual/package-info.java" afterPath="$PROJECT_DIR$/Flounder-Engine/src/flounder/visual/package-info.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Flounder-Engine/test/Testing1.java" afterPath="$PROJECT_DIR$/Flounder-Engine/test/Testing1.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/LICENSE" afterPath="$PROJECT_DIR$/LICENSE" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/README.md" afterPath="$PROJECT_DIR$/README.md" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/res/res/entities/barrel/barrel.entity" afterPath="$PROJECT_DIR$/res/res/entities/barrel/barrel.entity" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/res/res/entities/barrel/barrel.mtl" afterPath="$PROJECT_DIR$/res/res/entities/barrel/barrel.mtl" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/res/res/entities/barrel/barrel.obj" afterPath="$PROJECT_DIR$/res/res/entities/barrel/barrel.obj" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/res/res/entities/boulder/boulder.entity" afterPath="$PROJECT_DIR$/res/res/entities/boulder/boulder.entity" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/res/res/entities/boulder/boulder.mtl" afterPath="$PROJECT_DIR$/res/res/entities/boulder/boulder.mtl" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/res/res/entities/boulder/boulder.obj" afterPath="$PROJECT_DIR$/res/res/entities/boulder/boulder.obj" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/res/res/entities/crate/crate.entity" afterPath="$PROJECT_DIR$/res/res/entities/crate/crate.entity" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/res/res/entities/crate/crate.mtl" afterPath="$PROJECT_DIR$/res/res/entities/crate/crate.mtl" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/res/res/entities/crate/crate.obj" afterPath="$PROJECT_DIR$/res/res/entities/crate/crate.obj" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/res/res/entities/dragon/dragon.entity" afterPath="$PROJECT_DIR$/res/res/entities/dragon/dragon.entity" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/res/res/entities/dragon/dragon.mtl" afterPath="$PROJECT_DIR$/res/res/entities/dragon/dragon.mtl" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/res/res/entities/dragon/dragon.obj" afterPath="$PROJECT_DIR$/res/res/entities/dragon/dragon.obj" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/res/res/entities/grass/grass.entity" afterPath="$PROJECT_DIR$/res/res/entities/grass/grass.entity" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/res/res/entities/grass/grass.mtl" afterPath="$PROJECT_DIR$/res/res/entities/grass/grass.mtl" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/res/res/entities/grass/grass.obj" afterPath="$PROJECT_DIR$/res/res/entities/grass/grass.obj" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/res/res/entities/laserrifle/laserrifle.entity" afterPath="$PROJECT_DIR$/res/res/entities/laserrifle/laserrifle.entity" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/res/res/entities/laserrifle/laserrifle.mtl" afterPath="$PROJECT_DIR$/res/res/entities/laserrifle/laserrifle.mtl" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/res/res/entities/laserrifle/laserrifle.obj" afterPath="$PROJECT_DIR$/res/res/entities/laserrifle/laserrifle.obj" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/res/res/entities/pane/pane.entity" afterPath="$PROJECT_DIR$/res/res/entities/pane/pane.entity" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/res/res/entities/pane/pane.mtl" afterPath="$PROJECT_DIR$/res/res/entities/pane/pane.mtl" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/res/res/entities/pane/pane.obj" afterPath="$PROJECT_DIR$/res/res/entities/pane/pane.obj" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/res/res/entities/person/person.entity" afterPath="$PROJECT_DIR$/res/res/entities/person/person.entity" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/res/res/entities/person/person.mtl" afterPath="$PROJECT_DIR$/res/res/entities/person/person.mtl" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/res/res/entities/person/person.obj" afterPath="$PROJECT_DIR$/res/res/entities/person/person.obj" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/res/res/entities/pine/pine.entity" afterPath="$PROJECT_DIR$/res/res/entities/pine/pine.entity" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/res/res/entities/pine/pine.mtl" afterPath="$PROJECT_DIR$/res/res/entities/pine/pine.mtl" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/res/res/entities/pine/pine.obj" afterPath="$PROJECT_DIR$/res/res/entities/pine/pine.obj" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/res/res/entities/rock-large/rock-large.entity" afterPath="$PROJECT_DIR$/res/res/entities/rock-large/rock-large.entity" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/res/res/entities/rock-large/rock-large.mtl" afterPath="$PROJECT_DIR$/res/res/entities/rock-large/rock-large.mtl" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/res/res/entities/rock-large/rock-large.obj" afterPath="$PROJECT_DIR$/res/res/entities/rock-large/rock-large.obj" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/res/res/entities/rock-medium/rock-medium.entity" afterPath="$PROJECT_DIR$/res/res/entities/rock-medium/rock-medium.entity" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/res/res/entities/rock-medium/rock-medium.mtl" afterPath="$PROJECT_DIR$/res/res/entities/rock-medium/rock-medium.mtl" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/res/res/entities/rock-medium/rock-medium.obj" afterPath="$PROJECT_DIR$/res/res/entities/rock-medium/rock-medium.obj" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/res/res/entities/rock-small/rock-small.entity" afterPath="$PROJECT_DIR$/res/res/entities/rock-small/rock-small.entity" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/res/res/entities/rock-small/rock-small.mtl" afterPath="$PROJECT_DIR$/res/res/entities/rock-small/rock-small.mtl" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/res/res/entities/rock-small/rock-small.obj" afterPath="$PROJECT_DIR$/res/res/entities/rock-small/rock-small.obj" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/res/res/entities/sphere/sphere.entity" afterPath="$PROJECT_DIR$/res/res/entities/sphere/sphere.entity" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/res/res/entities/sphere/sphere.mtl" afterPath="$PROJECT_DIR$/res/res/entities/sphere/sphere.mtl" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/res/res/entities/sphere/sphere.obj" afterPath="$PROJECT_DIR$/res/res/entities/sphere/sphere.obj" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/res/res/entities/tinyship/tinyship.entity" afterPath="$PROJECT_DIR$/res/res/entities/tinyship/tinyship.entity" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/res/res/entities/tinyship/tinyship.mtl" afterPath="$PROJECT_DIR$/res/res/entities/tinyship/tinyship.mtl" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/res/res/entities/tinyship/tinyship.obj" afterPath="$PROJECT_DIR$/res/res/entities/tinyship/tinyship.obj" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/res/res/entities/tree-bare/tree-bare.entity" afterPath="$PROJECT_DIR$/res/res/entities/tree-bare/tree-bare.entity" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/res/res/entities/tree-bare/tree-bare.mtl" afterPath="$PROJECT_DIR$/res/res/entities/tree-bare/tree-bare.mtl" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/res/res/entities/tree-bare/tree-bare.obj" afterPath="$PROJECT_DIR$/res/res/entities/tree-bare/tree-bare.obj" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/res/res/entities/tree-full/tree-full.entity" afterPath="$PROJECT_DIR$/res/res/entities/tree-full/tree-full.entity" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/res/res/entities/tree-full/tree-full.mtl" afterPath="$PROJECT_DIR$/res/res/entities/tree-full/tree-full.mtl" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/res/res/entities/tree-full/tree-full.obj" afterPath="$PROJECT_DIR$/res/res/entities/tree-full/tree-full.obj" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/res/res/particles/coins.particle" afterPath="$PROJECT_DIR$/res/res/particles/coins.particle" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/res/res/particles/cosmic.particle" afterPath="$PROJECT_DIR$/res/res/particles/cosmic.particle" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/res/res/particles/cosmicHot.particle" afterPath="$PROJECT_DIR$/res/res/particles/cosmicHot.particle" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/res/res/particles/flowers.particle" afterPath="$PROJECT_DIR$/res/res/particles/flowers.particle" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/res/res/particles/galactic.particle" afterPath="$PROJECT_DIR$/res/res/particles/galactic.particle" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/res/res/shaders/entities/entityFragment.glsl" afterPath="$PROJECT_DIR$/res/res/shaders/entities/entityFragment.glsl" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/res/res/shaders/entities/entityVertex.glsl" afterPath="$PROJECT_DIR$/res/res/shaders/entities/entityVertex.glsl" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/res/res/shaders/skybox/skyboxFragment.glsl" afterPath="$PROJECT_DIR$/res/res/shaders/skybox/skyboxFragment.glsl" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/res/res/shaders/skybox/skyboxVertex.glsl" afterPath="$PROJECT_DIR$/res/res/shaders/skybox/skyboxVertex.glsl" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/res/res/shaders/stars/starsFragment.glsl" afterPath="$PROJECT_DIR$/res/res/shaders/stars/starsFragment.glsl" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/res/res/shaders/stars/starsVertex.glsl" afterPath="$PROJECT_DIR$/res/res/shaders/stars/starsVertex.glsl" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/res/res/shaders/sun/sunFragment.glsl" afterPath="$PROJECT_DIR$/res/res/shaders/sun/sunFragment.glsl" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/res/res/shaders/sun/sunVertex.glsl" afterPath="$PROJECT_DIR$/res/res/shaders/sun/sunVertex.glsl" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/res/res/shaders/terrains/terrainFragment.glsl" afterPath="$PROJECT_DIR$/res/res/shaders/terrains/terrainFragment.glsl" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/res/res/shaders/terrains/terrainVertex.glsl" afterPath="$PROJECT_DIR$/res/res/shaders/terrains/terrainVertex.glsl" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/res/res/skybox/skybox.mtl" afterPath="$PROJECT_DIR$/res/res/skybox/skybox.mtl" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/res/res/skybox/skybox.obj" afterPath="$PROJECT_DIR$/res/res/skybox/skybox.obj" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/res/res/stars/sun.mtl" afterPath="$PROJECT_DIR$/res/res/stars/sun.mtl" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/res/res/stars/sun.obj" afterPath="$PROJECT_DIR$/res/res/stars/sun.obj" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/META-INF/MANIFEST.MF" afterPath="$PROJECT_DIR$/src/META-INF/MANIFEST.MF" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/ebon/Ebon.java" afterPath="$PROJECT_DIR$/src/ebon/Ebon.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/ebon/EbonGuis.java" afterPath="$PROJECT_DIR$/src/ebon/EbonGuis.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/ebon/EbonRenderer.java" afterPath="$PROJECT_DIR$/src/ebon/EbonRenderer.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/ebon/EbonSeed.java" afterPath="$PROJECT_DIR$/src/ebon/EbonSeed.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/ebon/cameras/CameraFPS.java" afterPath="$PROJECT_DIR$/src/ebon/cameras/CameraFPS.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/ebon/entities/EbonEntities.java" afterPath="$PROJECT_DIR$/src/ebon/entities/EbonEntities.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/ebon/entities/Entity.java" afterPath="$PROJECT_DIR$/src/ebon/entities/Entity.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/ebon/entities/EntityIDAssigner.java" afterPath="$PROJECT_DIR$/src/ebon/entities/EntityIDAssigner.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/ebon/entities/EntityRenderer.java" afterPath="$PROJECT_DIR$/src/ebon/entities/EntityRenderer.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/ebon/entities/components/ComponentCollider.java" afterPath="$PROJECT_DIR$/src/ebon/entities/components/ComponentCollider.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/ebon/entities/components/ComponentCollision.java" afterPath="$PROJECT_DIR$/src/ebon/entities/components/ComponentCollision.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/ebon/entities/components/ComponentModel.java" afterPath="$PROJECT_DIR$/src/ebon/entities/components/ComponentModel.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/ebon/entities/components/ComponentParticleSystem.java" afterPath="$PROJECT_DIR$/src/ebon/entities/components/ComponentParticleSystem.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/ebon/entities/components/ComponentRemove.java" afterPath="$PROJECT_DIR$/src/ebon/entities/components/ComponentRemove.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/ebon/entities/components/ComponentRemoveFade.java" afterPath="$PROJECT_DIR$/src/ebon/entities/components/ComponentRemoveFade.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/ebon/entities/components/IEntityComponent.java" afterPath="$PROJECT_DIR$/src/ebon/entities/components/IEntityComponent.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/ebon/entities/components/IEntityVisitor.java" afterPath="$PROJECT_DIR$/src/ebon/entities/components/IEntityVisitor.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/ebon/entities/components/package-info.java" afterPath="$PROJECT_DIR$/src/ebon/entities/components/package-info.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/ebon/entities/editing/EditorCollider.java" afterPath="$PROJECT_DIR$/src/ebon/entities/editing/EditorCollider.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/ebon/entities/editing/EditorCollision.java" afterPath="$PROJECT_DIR$/src/ebon/entities/editing/EditorCollision.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/ebon/entities/editing/EditorModel.java" afterPath="$PROJECT_DIR$/src/ebon/entities/editing/EditorModel.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/ebon/entities/editing/EditorParticleSystem.java" afterPath="$PROJECT_DIR$/src/ebon/entities/editing/EditorParticleSystem.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/ebon/entities/editing/EditorRemoveFade.java" afterPath="$PROJECT_DIR$/src/ebon/entities/editing/EditorRemoveFade.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/ebon/entities/editing/IEditorComponent.java" afterPath="$PROJECT_DIR$/src/ebon/entities/editing/IEditorComponent.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/ebon/entities/editing/particles/EditorParticleCircle.java" afterPath="$PROJECT_DIR$/src/ebon/entities/editing/particles/EditorParticleCircle.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/ebon/entities/editing/particles/EditorParticleLine.java" afterPath="$PROJECT_DIR$/src/ebon/entities/editing/particles/EditorParticleLine.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/ebon/entities/editing/particles/EditorParticlePoint.java" afterPath="$PROJECT_DIR$/src/ebon/entities/editing/particles/EditorParticlePoint.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/ebon/entities/editing/particles/EditorParticleSphere.java" afterPath="$PROJECT_DIR$/src/ebon/entities/editing/particles/EditorParticleSphere.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/ebon/entities/editing/particles/IEditorParticleSpawn.java" afterPath="$PROJECT_DIR$/src/ebon/entities/editing/particles/IEditorParticleSpawn.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/ebon/entities/loading/EntityIndividualData.java" afterPath="$PROJECT_DIR$/src/ebon/entities/loading/EntityIndividualData.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/ebon/entities/loading/EntitySaverFunction.java" afterPath="$PROJECT_DIR$/src/ebon/entities/loading/EntitySaverFunction.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/ebon/entities/loading/EntitySectionData.java" afterPath="$PROJECT_DIR$/src/ebon/entities/loading/EntitySectionData.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/ebon/entities/loading/EntityTemplate.java" afterPath="$PROJECT_DIR$/src/ebon/entities/loading/EntityTemplate.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/ebon/entities/package-info.java" afterPath="$PROJECT_DIR$/src/ebon/entities/package-info.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/ebon/options/OptionsControls.java" afterPath="$PROJECT_DIR$/src/ebon/options/OptionsControls.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/ebon/options/OptionsPost.java" afterPath="$PROJECT_DIR$/src/ebon/options/OptionsPost.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/ebon/options/controller/F310.java" afterPath="$PROJECT_DIR$/src/ebon/options/controller/F310.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/ebon/options/controller/IController.java" afterPath="$PROJECT_DIR$/src/ebon/options/controller/IController.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/ebon/options/controller/Logitech3D.java" afterPath="$PROJECT_DIR$/src/ebon/options/controller/Logitech3D.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/ebon/options/controller/XBox360.java" afterPath="$PROJECT_DIR$/src/ebon/options/controller/XBox360.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/ebon/particles/EbonParticles.java" afterPath="$PROJECT_DIR$/src/ebon/particles/EbonParticles.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/ebon/particles/Particle.java" afterPath="$PROJECT_DIR$/src/ebon/particles/Particle.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/ebon/particles/ParticleRenderer.java" afterPath="$PROJECT_DIR$/src/ebon/particles/ParticleRenderer.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/ebon/particles/ParticleSystem.java" afterPath="$PROJECT_DIR$/src/ebon/particles/ParticleSystem.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/ebon/particles/loading/ParticleTemplate.java" afterPath="$PROJECT_DIR$/src/ebon/particles/loading/ParticleTemplate.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/ebon/particles/loading/package-info.java" afterPath="$PROJECT_DIR$/src/ebon/particles/loading/package-info.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/ebon/particles/package-info.java" afterPath="$PROJECT_DIR$/src/ebon/particles/package-info.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/ebon/particles/spawns/IParticleSpawn.java" afterPath="$PROJECT_DIR$/src/ebon/particles/spawns/IParticleSpawn.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/ebon/particles/spawns/SpawnCircle.java" afterPath="$PROJECT_DIR$/src/ebon/particles/spawns/SpawnCircle.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/ebon/particles/spawns/SpawnLine.java" afterPath="$PROJECT_DIR$/src/ebon/particles/spawns/SpawnLine.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/ebon/particles/spawns/SpawnPoint.java" afterPath="$PROJECT_DIR$/src/ebon/particles/spawns/SpawnPoint.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/ebon/particles/spawns/SpawnSphere.java" afterPath="$PROJECT_DIR$/src/ebon/particles/spawns/SpawnSphere.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/ebon/particles/spawns/package-info.java" afterPath="$PROJECT_DIR$/src/ebon/particles/spawns/package-info.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/ebon/players/Autopilot.java" afterPath="$PROJECT_DIR$/src/ebon/players/Autopilot.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/ebon/players/IPlayer.java" afterPath="$PROJECT_DIR$/src/ebon/players/IPlayer.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/ebon/players/PlayerFPS.java" afterPath="$PROJECT_DIR$/src/ebon/players/PlayerFPS.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/ebon/post/PipelineDemo.java" afterPath="$PROJECT_DIR$/src/ebon/post/PipelineDemo.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/ebon/post/PipelinePaused.java" afterPath="$PROJECT_DIR$/src/ebon/post/PipelinePaused.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/ebon/skybox/SkyboxFBO.java" afterPath="$PROJECT_DIR$/src/ebon/skybox/SkyboxFBO.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/ebon/skybox/SkyboxRenderer.java" afterPath="$PROJECT_DIR$/src/ebon/skybox/SkyboxRenderer.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/ebon/skybox/package-info.java" afterPath="$PROJECT_DIR$/src/ebon/skybox/package-info.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/ebon/uis/GuiNotification.java" afterPath="$PROJECT_DIR$/src/ebon/uis/GuiNotification.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/ebon/uis/MainMenu.java" afterPath="$PROJECT_DIR$/src/ebon/uis/MainMenu.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/ebon/uis/MainSlider.java" afterPath="$PROJECT_DIR$/src/ebon/uis/MainSlider.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/ebon/uis/MenuPause.java" afterPath="$PROJECT_DIR$/src/ebon/uis/MenuPause.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/ebon/uis/MenuStart.java" afterPath="$PROJECT_DIR$/src/ebon/uis/MenuStart.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/ebon/uis/OverlayStatus.java" afterPath="$PROJECT_DIR$/src/ebon/uis/OverlayStatus.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/ebon/uis/screens/ScreenAbout.java" afterPath="$PROJECT_DIR$/src/ebon/uis/screens/ScreenAbout.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/ebon/uis/screens/ScreenControls.java" afterPath="$PROJECT_DIR$/src/ebon/uis/screens/ScreenControls.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/ebon/uis/screens/ScreenMods.java" afterPath="$PROJECT_DIR$/src/ebon/uis/screens/ScreenMods.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/ebon/uis/screens/ScreenOptions.java" afterPath="$PROJECT_DIR$/src/ebon/uis/screens/ScreenOptions.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/ebon/uis/screens/ScreenPlay.java" afterPath="$PROJECT_DIR$/src/ebon/uis/screens/ScreenPlay.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/ebon/uis/screens/suboptions/ScreenOptionsAudio.java" afterPath="$PROJECT_DIR$/src/ebon/uis/screens/suboptions/ScreenOptionsAudio.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/ebon/uis/screens/suboptions/ScreenOptionsDeveloper.java" afterPath="$PROJECT_DIR$/src/ebon/uis/screens/suboptions/ScreenOptionsDeveloper.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/ebon/uis/screens/suboptions/ScreenOptionsEffects.java" afterPath="$PROJECT_DIR$/src/ebon/uis/screens/suboptions/ScreenOptionsEffects.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/ebon/uis/screens/suboptions/ScreenOptionsGraphics.java" afterPath="$PROJECT_DIR$/src/ebon/uis/screens/suboptions/ScreenOptionsGraphics.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/ebon/uis/screens/suboptions/ScreenOptionsInputs.java" afterPath="$PROJECT_DIR$/src/ebon/uis/screens/suboptions/ScreenOptionsInputs.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/ebon/world/EbonWorld.java" afterPath="$PROJECT_DIR$/src/ebon/world/EbonWorld.java" />
     </list>
     <ignored path="Open Skies.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -39,21 +520,31 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="GalaxyGenerator.java" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/ebon/celestial/manager/GalaxyGenerator.java">
+      <file leaf-file-name="Element.java" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/ebon/universe/celestials/Element.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="122">
-              <caret line="35" column="22" selection-start-line="35" selection-start-column="22" selection-end-line="35" selection-end-column="22" />
+            <state relative-caret-position="-846">
+              <caret line="7" column="19" selection-start-line="7" selection-start-column="19" selection-end-line="7" selection-end-column="19" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Celestial.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/ebon/celestial/Celestial.java">
+      <file leaf-file-name="Ebon.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/ebon/Ebon.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="377">
-              <caret line="347" column="46" selection-start-line="347" selection-start-column="46" selection-end-line="347" selection-end-column="46" />
+            <state relative-caret-position="972">
+              <caret line="54" column="24" selection-start-line="54" selection-start-column="24" selection-end-line="54" selection-end-column="24" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Star.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/ebon/universe/stars/Star.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="7164">
+              <caret line="398" column="0" selection-start-line="398" selection-start-column="0" selection-end-line="398" selection-end-column="66" />
               <folding />
             </state>
           </provider>
@@ -71,6 +562,7 @@
   </component>
   <component name="Git.Settings">
     <option name="UPDATE_TYPE" value="MERGE" />
+    <option name="ROOT_SYNC" value="SYNC" />
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="GradleLocalSettings">
@@ -81,26 +573,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/Flounder-Engine/src/flounder/guis/FlounderGuis.java" />
-        <option value="$PROJECT_DIR$/Flounder-Engine/src/flounder/fonts/FlounderFonts.java" />
-        <option value="$PROJECT_DIR$/Flounder-Engine/src/flounder/events/FlounderEvents.java" />
-        <option value="$PROJECT_DIR$/Flounder-Engine/src/flounder/profiling/FlounderTabMenu.java" />
-        <option value="$PROJECT_DIR$/Flounder-Engine/src/flounder/profiling/FlounderProfiler.java" />
-        <option value="$PROJECT_DIR$/Ebon-Editors/src/editor/particles/ParticlesFrame.java" />
-        <option value="$PROJECT_DIR$/src/ebon/entities/editing/particles/EditorParticleCircle.java" />
-        <option value="$PROJECT_DIR$/src/ebon/entities/editing/particles/EditorParticleLine.java" />
-        <option value="$PROJECT_DIR$/Flounder-Engine/src/flounder/devices/FlounderDisplay.java" />
-        <option value="$PROJECT_DIR$/Flounder-Engine/src/flounder/logger/FlounderLogger.java" />
-        <option value="$PROJECT_DIR$/src/ebon/uis/OverlayStatus.java" />
-        <option value="$PROJECT_DIR$/res/res/entities/barrel/barrel.entity" />
-        <option value="$PROJECT_DIR$/res/res/entities/boulder/boulder.entity" />
-        <option value="$PROJECT_DIR$/res/res/entities/crate/crate.entity" />
-        <option value="$PROJECT_DIR$/res/res/entities/dragon/dragon.entity" />
-        <option value="$PROJECT_DIR$/res/res/entities/grass/grass.entity" />
-        <option value="$PROJECT_DIR$/res/res/entities/laserrifle/laserrifle.entity" />
-        <option value="$PROJECT_DIR$/res/res/entities/pane/pane.entity" />
-        <option value="$PROJECT_DIR$/res/res/entities/person/person.entity" />
-        <option value="$PROJECT_DIR$/res/res/entities/pine/pine.entity" />
         <option value="$PROJECT_DIR$/res/res/entities/rock-large/rock-large.entity" />
         <option value="$PROJECT_DIR$/res/res/entities/rock-medium/rock-medium.entity" />
         <option value="$PROJECT_DIR$/res/res/entities/rock-small/rock-small.entity" />
@@ -119,19 +591,39 @@
         <option value="$PROJECT_DIR$/Ebon-Editors/src/editor/EditorRenderer.java" />
         <option value="$PROJECT_DIR$/Ebon-Editors/src/editor/particles/EditorParticles.java" />
         <option value="$PROJECT_DIR$/Ebon-Editors/src/editor/entities/EditorEntities.java" />
-        <option value="$PROJECT_DIR$/Flounder-Engine/src/flounder/engine/FlounderEngine.java" />
-        <option value="$PROJECT_DIR$/src/ebon/celestial/manager/EbonGalaxies.java" />
         <option value="$PROJECT_DIR$/src/ebon/uis/screens/suboptions/ScreenOptionsGraphics.java" />
         <option value="$PROJECT_DIR$/Flounder-Engine/src/flounder/fbos/FBO.java" />
-        <option value="$PROJECT_DIR$/src/ebon/EbonRenderer.java" />
-        <option value="$PROJECT_DIR$/src/ebon/Ebon.java" />
-        <option value="$PROJECT_DIR$/src/ebon/cameras/CameraFPS.java" />
-        <option value="$PROJECT_DIR$/src/ebon/celestial/stars/StarRenderer.java" />
-        <option value="$PROJECT_DIR$/res/res/shaders/stars/starsFragment.glsl" />
-        <option value="$PROJECT_DIR$/src/ebon/celestial/Star.java" />
-        <option value="$PROJECT_DIR$/src/ebon/celestial/Celestial.java" />
-        <option value="$PROJECT_DIR$/src/ebon/players/PlayerFPS.java" />
         <option value="$PROJECT_DIR$/src/ebon/celestial/manager/GalaxyGenerator.java" />
+        <option value="$PROJECT_DIR$/src/ebon/skybox/SkyboxFBO.java" />
+        <option value="$PROJECT_DIR$/src/ebon/cameras/CameraFPS.java" />
+        <option value="$PROJECT_DIR$/src/ebon/celestial/Celestial.java" />
+        <option value="$PROJECT_DIR$/Flounder-Engine/src/flounder/engine/FlounderEngine.java" />
+        <option value="$PROJECT_DIR$/Flounder-Engine/src/flounder/loaders/FlounderLoader.java" />
+        <option value="$PROJECT_DIR$/src/ebon/celestial/manager/Galaxy.java" />
+        <option value="$PROJECT_DIR$/src/ebon/players/PlayerFPS.java" />
+        <option value="$PROJECT_DIR$/src/ebon/celestial/Star.java" />
+        <option value="$PROJECT_DIR$/res/res/shaders/stars/starsFragment.glsl" />
+        <option value="$PROJECT_DIR$/src/ebon/celestial/manager/EbonGalaxies.java" />
+        <option value="$PROJECT_DIR$/src/ebon/particles/ParticleRenderer.java" />
+        <option value="$PROJECT_DIR$/src/ebon/celestial/stars/StarRenderer.java" />
+        <option value="$PROJECT_DIR$/src/ebon/celestial/stars/OrbitsRenderer.java" />
+        <option value="$PROJECT_DIR$/src/ebon/EbonRenderer.java" />
+        <option value="$PROJECT_DIR$/src/ebon/celestial/Waypoint.java" />
+        <option value="$PROJECT_DIR$/src/ebon/celestial/Galaxy.java" />
+        <option value="$PROJECT_DIR$/src/ebon/celestial/galaxies/Galaxy.java" />
+        <option value="$PROJECT_DIR$/src/ebon/universe/celestials/Celestial.java" />
+        <option value="$PROJECT_DIR$/src/ebon/universe/stars/Waypoint.java" />
+        <option value="$PROJECT_DIR$/src/ebon/universe/celestials/Waypoint.java" />
+        <option value="$PROJECT_DIR$/src/ebon/universe/SpaceConversions.java" />
+        <option value="$PROJECT_DIR$/res/res/shaders/orbits/orbitsFragment.glsl" />
+        <option value="$PROJECT_DIR$/res/res/shaders/orbits/orbitsVertex.glsl" />
+        <option value="$PROJECT_DIR$/src/ebon/universe/orbits/OrbitsRenderer.java" />
+        <option value="$PROJECT_DIR$/src/ebon/universe/orbits/Orbit.java" />
+        <option value="$PROJECT_DIR$/src/ebon/universe/galaxies/EbonGalaxies.java" />
+        <option value="$PROJECT_DIR$/src/ebon/universe/celestials/Elements.java" />
+        <option value="$PROJECT_DIR$/src/ebon/Ebon.java" />
+        <option value="$PROJECT_DIR$/src/testing.txt" />
+        <option value="$PROJECT_DIR$/src/ebon/universe/celestials/Element.java" />
       </list>
     </option>
   </component>
@@ -143,10 +635,10 @@
     </option>
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="-8" />
-    <option name="y" value="-8" />
-    <option name="width" value="2576" />
-    <option name="height" value="1056" />
+    <option name="x" value="74" />
+    <option name="y" value="25" />
+    <option name="width" value="1846" />
+    <option name="height" value="1055" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="true">
     <OptionsSetting value="true" id="Add" />
@@ -173,8 +665,6 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scratches" />
-      <pane id="PackagesPane" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -243,7 +733,7 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="players" />
+              <option name="myItemId" value="universe" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -265,29 +755,7 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="celestial" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Ebon Universe" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Ebon Universe" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="ebon" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="celestial" />
+              <option name="myItemId" value="universe" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
@@ -313,42 +781,118 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="celestial" />
+              <option name="myItemId" value="universe" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="manager" />
+              <option name="myItemId" value="orbits" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Ebon Universe" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Ebon Universe" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="ebon" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="universe" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="galaxies" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Ebon Universe" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Ebon Universe" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="ebon" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="universe" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="celestials" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Ebon Universe" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Ebon Universe" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="ebon" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="entities" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
         </subPane>
       </pane>
       <pane id="Scope" />
+      <pane id="PackagesPane" />
+      <pane id="Scratches" />
     </panes>
   </component>
   <component name="PropertiesComponent">
-    <property name="project.structure.last.edited" value="Modules" />
+    <property name="project.structure.last.edited" value="Project" />
     <property name="project.structure.proportion" value="0.15" />
     <property name="project.structure.side.proportion" value="0.2" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/Flounder-Engine/libs/natives" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="settings.editor.selected.configurable" value="ics" />
     <property name="settings.editor.splitter.proportion" value="0.2" />
   </component>
   <component name="RecentsManager">
-    <key name="CopyFile.RECENT_KEYS">
-      <recent name="D:\Workspaces\Ebon Universe\src\ebon\entities\editing\particles" />
-      <recent name="D:\Workspaces\Ebon Universe\src\ebon\entities\editing" />
-      <recent name="D:\Workspaces\Ebon Universe\Ebon-Editor\src\editor\entities" />
-      <recent name="D:\Workspaces\Ebon Universe\Ebon-Editor\src\editor\particles" />
-      <recent name="$PROJECT_DIR$/Flounder-Editor" />
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="D:\Workspaces\Ebon Universe\Flounder-Engine\res\res\guis" />
     </key>
     <key name="CopyClassDialog.RECENTS_KEY">
       <recent name="editor.entities" />
       <recent name="editor" />
       <recent name="flounder.space" />
     </key>
-    <key name="MoveFile.RECENT_KEYS">
-      <recent name="D:\Workspaces\Ebon Universe\Flounder-Engine\res\res\guis" />
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="D:\Workspaces\Ebon Universe\res\res\shaders\orbits" />
+      <recent name="D:\Workspaces\Ebon Universe\src\ebon\entities\editing\particles" />
+      <recent name="D:\Workspaces\Ebon Universe\src\ebon\entities\editing" />
+      <recent name="D:\Workspaces\Ebon Universe\Ebon-Editor\src\editor\entities" />
+      <recent name="D:\Workspaces\Ebon Universe\Ebon-Editor\src\editor\particles" />
     </key>
   </component>
   <component name="RunManager" selected="Application.Ebon">
@@ -583,6 +1127,36 @@
       <option name="PORT" value="5005" />
       <method />
     </configuration>
+    <configuration default="true" type="ScalaTestRunConfiguration" factoryName="ScalaTest">
+      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
+      <module name="" />
+      <setting name="path" value="" />
+      <setting name="package" value="" />
+      <setting name="vmparams" value="" />
+      <setting name="params" value="" />
+      <setting name="workingDirectory" value="" />
+      <setting name="searchForTest" value="Across module dependencies" />
+      <setting name="testName" value="" />
+      <setting name="testKind" value="Class" />
+      <setting name="showProgressMessages" value="true" />
+      <envs />
+      <method />
+    </configuration>
+    <configuration default="true" type="Specs2RunConfiguration" factoryName="Specs2">
+      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
+      <module name="" />
+      <setting name="path" value="" />
+      <setting name="package" value="" />
+      <setting name="vmparams" value="" />
+      <setting name="params" value="" />
+      <setting name="workingDirectory" value="" />
+      <setting name="searchForTest" value="Across module dependencies" />
+      <setting name="testName" value="" />
+      <setting name="testKind" value="Class" />
+      <setting name="showProgressMessages" value="true" />
+      <envs />
+      <method />
+    </configuration>
     <configuration default="true" type="TestNG" factoryName="TestNG">
       <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
       <module name="" />
@@ -637,6 +1211,21 @@
       <envs />
       <properties />
       <listeners />
+      <method />
+    </configuration>
+    <configuration default="true" type="uTestRunConfiguration" factoryName="utest">
+      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
+      <module name="" />
+      <setting name="path" value="" />
+      <setting name="package" value="" />
+      <setting name="vmparams" value="" />
+      <setting name="params" value="" />
+      <setting name="workingDirectory" value="" />
+      <setting name="searchForTest" value="Across module dependencies" />
+      <setting name="testName" value="" />
+      <setting name="testKind" value="Class" />
+      <setting name="showProgressMessages" value="true" />
+      <envs />
       <method />
     </configuration>
     <list size="2">
@@ -872,27 +1461,34 @@
       <option name="project" value="LOCAL" />
       <updated>1475667631187</updated>
     </task>
-    <option name="localTasksCounter" value="30" />
+    <task id="LOCAL-00030" summary="Cool galaxys!">
+      <created>1475667635814</created>
+      <option name="number" value="00030" />
+      <option name="presentableId" value="LOCAL-00030" />
+      <option name="project" value="LOCAL" />
+      <updated>1475667635814</updated>
+    </task>
+    <option name="localTasksCounter" value="31" />
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-8" y="-8" width="2576" height="1056" extended-state="6" />
+    <frame x="74" y="25" width="1846" height="1055" extended-state="6" />
     <editor active="true" />
     <layout>
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32410255" sideWeight="0.5" order="13" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32234043" sideWeight="0.5" order="13" side_tool="false" content_ui="tabs" />
       <window_info id="Palette&#9;" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Analysis" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.29386893" sideWeight="0.5046875" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.29281184" sideWeight="0.4953125" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.2925532" sideWeight="0.4953125" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="IntelliGuard" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.20195313" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.16793066" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="JProfiler" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.20824525" sideWeight="0.5" order="12" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
@@ -961,329 +1557,345 @@
     <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/res/res/entities/rock-medium/rock-medium.entity">
+    <entry file="file://$PROJECT_DIR$/src/ebon/players/PlayerFPS.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="289">
-          <caret line="17" column="8" selection-start-line="17" selection-start-column="8" selection-end-line="17" selection-end-column="8" />
+        <state relative-caret-position="204">
+          <caret line="12" column="13" selection-start-line="12" selection-start-column="13" selection-end-line="12" selection-end-column="13" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/res/res/entities/rock-small/rock-small.entity">
+    <entry file="file://$PROJECT_DIR$/src/ebon/universe/stars/Star.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="255">
-          <caret line="15" column="6" selection-start-line="15" selection-start-column="6" selection-end-line="15" selection-end-column="6" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/res/res/entities/sphere/sphere.entity">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="289">
-          <caret line="17" column="8" selection-start-line="17" selection-start-column="8" selection-end-line="17" selection-end-column="8" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/res/res/entities/tinyship/tinyship.entity">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="340">
-          <caret line="164" column="31" selection-start-line="164" selection-start-column="28" selection-end-line="164" selection-end-column="31" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/res/res/entities/tree-bare/tree-bare.entity">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="153">
-          <caret line="9" column="8" selection-start-line="9" selection-start-column="8" selection-end-line="9" selection-end-column="8" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/res/res/entities/tree-full/tree-full.entity">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="207">
-          <caret line="59" column="33" selection-start-line="59" selection-start-column="33" selection-end-line="59" selection-end-column="33" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/ebon/world/EbonWorld.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="170">
-          <caret line="10" column="13" selection-start-line="10" selection-start-column="13" selection-end-line="10" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/res/res/shaders/entities/entityFragment.glsl">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="402">
-          <caret line="46" column="0" selection-start-line="46" selection-start-column="0" selection-end-line="46" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/ebon/entities/EntityRenderer.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="246">
-          <caret line="21" column="13" selection-start-line="21" selection-start-column="13" selection-end-line="21" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/ebon/entities/EntityIDAssigner.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="85">
-          <caret line="5" column="13" selection-start-line="5" selection-start-column="13" selection-end-line="5" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/ebon/entities/editing/EditorParticleSystem.java" />
-    <entry file="file://$PROJECT_DIR$/src/ebon/entities/editing/EditorRemoveFade.java" />
-    <entry file="file://$PROJECT_DIR$/src/ebon/entities/editing/IEditorComponent.java" />
-    <entry file="file://$PROJECT_DIR$/Flounder-Engine/src/flounder/physics/AABB.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-51">
-          <caret line="216" column="84" selection-start-line="216" selection-start-column="76" selection-end-line="216" selection-end-column="84" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Ebon-Editors/src/editor/entities/EntitiesFrame.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="202">
-          <caret line="116" column="11" selection-start-line="116" selection-start-column="11" selection-end-line="116" selection-end-column="11" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Flounder-Engine/src/flounder/helpers/ByteWork.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="202">
-          <caret line="54" column="7" selection-start-line="54" selection-start-column="7" selection-end-line="54" selection-end-column="7" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Flounder-Engine/src/flounder/lights/Light.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="202">
-          <caret line="37" column="216" selection-start-line="37" selection-start-column="216" selection-end-line="37" selection-end-column="216" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Flounder-Engine/src/flounder/materials/FlounderMaterials.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="436">
-          <caret line="152" column="11" selection-start-line="152" selection-start-column="11" selection-end-line="152" selection-end-column="11" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Flounder-Engine/src/flounder/models/FlounderModels.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="436">
-          <caret line="243" column="11" selection-start-line="243" selection-start-column="11" selection-end-line="243" selection-end-column="11" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Flounder-Engine/src/flounder/physics/QuickHull.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="202">
-          <caret line="294" column="11" selection-start-line="294" selection-start-column="11" selection-end-line="294" selection-end-column="11" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Flounder-Engine/src/flounder/post/filters/FilterLensFlare.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="340">
-          <caret line="20" column="11" selection-start-line="20" selection-start-column="11" selection-end-line="20" selection-end-column="11" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Flounder-Engine/src/flounder/shaders/FlounderShaders.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="436">
-          <caret line="283" column="11" selection-start-line="283" selection-start-column="11" selection-end-line="283" selection-end-column="11" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Flounder-Engine/src/flounder/textures/TextureTessellatorAtlas.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="266">
-          <caret line="56" column="11" selection-start-line="56" selection-start-column="11" selection-end-line="56" selection-end-column="11" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/ebon/entities/components/ComponentCollision.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="202">
-          <caret line="69" column="23" selection-start-line="69" selection-start-column="23" selection-end-line="69" selection-end-column="23" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/ebon/entities/components/ComponentModel.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="202">
-          <caret line="83" column="44" selection-start-line="83" selection-start-column="44" selection-end-line="83" selection-end-column="44" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/ebon/uis/MenuStart.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="202">
-          <caret line="109" column="11" selection-start-line="109" selection-start-column="11" selection-end-line="109" selection-end-column="11" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/ebon/entities/editing/EditorCollider.java" />
-    <entry file="file://$PROJECT_DIR$/src/ebon/entities/editing/EditorCollision.java" />
-    <entry file="file://$PROJECT_DIR$/src/ebon/entities/editing/EditorModel.java" />
-    <entry file="file://$PROJECT_DIR$/Flounder-Engine/src/flounder/maths/vectors/Vector3f.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="213">
-          <caret line="462" column="0" selection-start-line="462" selection-start-column="0" selection-end-line="462" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/ebon/celestial/stars/SunRenderer.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="213">
-          <caret line="19" column="13" selection-start-line="19" selection-start-column="13" selection-end-line="19" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Ebon-Editors/src/editor/EbonEditor.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-1011">
+        <state relative-caret-position="272">
           <caret line="16" column="13" selection-start-line="16" selection-start-column="13" selection-end-line="16" selection-end-column="13" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Ebon-Editors/src/editor/particles/EditorParticles.java">
+    <entry file="file://$PROJECT_DIR$/src/ebon/universe/galaxies/EbonGalaxies.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="298">
-          <caret line="30" column="139" selection-start-line="30" selection-start-column="139" selection-end-line="30" selection-end-column="139" />
+        <state relative-caret-position="1105">
+          <caret line="65" column="28" selection-start-line="65" selection-start-column="28" selection-end-line="65" selection-end-column="35" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Ebon-Editors/src/editor/EditorRenderer.java">
+    <entry file="file://$PROJECT_DIR$/src/ebon/universe/galaxies/Galaxy.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="357">
-          <caret line="41" column="126" selection-start-line="41" selection-start-column="126" selection-end-line="41" selection-end-column="126" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Ebon-Editors/src/editor/entities/EditorEntities.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="442">
-          <caret line="39" column="139" selection-start-line="39" selection-start-column="139" selection-end-line="39" selection-end-column="139" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Flounder-Engine/src/flounder/fbos/DepthBufferType.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="85">
-          <caret line="5" column="12" selection-start-line="5" selection-start-column="12" selection-end-line="5" selection-end-column="12" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Flounder-Engine/src/flounder/engine/FlounderEngine.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="417">
-          <caret line="33" column="0" selection-start-line="33" selection-start-column="0" selection-end-line="34" selection-end-column="32" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Flounder-Engine/src/flounder/fbos/FBO.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="325">
-          <caret line="309" column="8" selection-start-line="309" selection-start-column="8" selection-end-line="309" selection-end-column="8" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/ebon/EbonRenderer.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="238">
-          <caret line="59" column="105" selection-start-line="59" selection-start-column="16" selection-end-line="59" selection-end-column="105" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/ebon/uis/screens/suboptions/ScreenOptionsGraphics.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="510">
-          <caret line="145" column="109" selection-start-line="145" selection-start-column="109" selection-end-line="145" selection-end-column="109" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/ebon/celestial/manager/Waypoint.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="153">
-          <caret line="9" column="13" selection-start-line="9" selection-start-column="13" selection-end-line="9" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/ebon/cameras/CameraFPS.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="323">
-          <caret line="19" column="49" selection-start-line="19" selection-start-column="49" selection-end-line="19" selection-end-column="49" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/ebon/Ebon.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="425">
-          <caret line="91" column="11" selection-start-line="91" selection-start-column="11" selection-end-line="91" selection-end-column="11" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/ebon/celestial/manager/EbonGalaxies.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="476">
-          <caret line="28" column="48" selection-start-line="28" selection-start-column="43" selection-end-line="28" selection-end-column="48" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Flounder-Engine/src/flounder/maths/Maths.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="408">
-          <caret line="495" column="16" selection-start-line="495" selection-start-column="16" selection-end-line="495" selection-end-column="16" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/ebon/celestial/stars/StarRenderer.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="215">
-          <caret line="100" column="38" selection-start-line="100" selection-start-column="20" selection-end-line="100" selection-end-column="38" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/res/res/shaders/stars/starsFragment.glsl">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="240">
-          <caret line="16" column="28" selection-start-line="16" selection-start-column="28" selection-end-line="16" selection-end-column="28" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/ebon/celestial/Star.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="3468">
-          <caret line="204" column="0" selection-start-line="204" selection-start-column="0" selection-end-line="204" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/ebon/celestial/Celestial.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="377">
-          <caret line="347" column="46" selection-start-line="347" selection-start-column="46" selection-end-line="347" selection-end-column="46" />
-          <folding />
+        <state relative-caret-position="0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/ebon/players/PlayerFPS.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="301">
-          <caret line="68" column="43" selection-start-line="68" selection-start-column="43" selection-end-line="68" selection-end-column="45" />
+        <state relative-caret-position="204">
+          <caret line="12" column="13" selection-start-line="12" selection-start-column="13" selection-end-line="12" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/ebon/universe/stars/Star.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="272">
+          <caret line="16" column="13" selection-start-line="16" selection-start-column="13" selection-end-line="16" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/ebon/universe/galaxies/EbonGalaxies.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1105">
+          <caret line="65" column="28" selection-start-line="65" selection-start-column="28" selection-end-line="65" selection-end-column="35" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/ebon/universe/galaxies/Galaxy.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/ebon/universe/stars/Star.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="272">
+          <caret line="16" column="13" selection-start-line="16" selection-start-column="13" selection-end-line="16" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/ebon/universe/galaxies/EbonGalaxies.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="476">
+          <caret line="28" column="46" selection-start-line="28" selection-start-column="46" selection-end-line="28" selection-end-column="46" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/ebon/universe/galaxies/Galaxy.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/ebon/universe/stars/Star.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="272">
+          <caret line="16" column="13" selection-start-line="16" selection-start-column="13" selection-end-line="16" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/ebon/universe/galaxies/EbonGalaxies.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="476">
+          <caret line="28" column="46" selection-start-line="28" selection-start-column="46" selection-end-line="28" selection-end-column="46" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/ebon/universe/galaxies/Galaxy.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/ebon/universe/galaxies/EbonGalaxies.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="420">
+          <caret line="28" column="46" selection-start-line="28" selection-start-column="46" selection-end-line="28" selection-end-column="46" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/ebon/universe/galaxies/Galaxy.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/ebon/universe/galaxies/EbonGalaxies.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="420">
+          <caret line="28" column="46" selection-start-line="28" selection-start-column="46" selection-end-line="28" selection-end-column="46" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/ebon/universe/galaxies/Galaxy.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/ebon/universe/galaxies/EbonGalaxies.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="420">
+          <caret line="28" column="46" selection-start-line="28" selection-start-column="46" selection-end-line="28" selection-end-column="46" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/ebon/universe/galaxies/Galaxy.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/ebon/universe/galaxies/EbonGalaxies.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="420">
+          <caret line="28" column="46" selection-start-line="28" selection-start-column="46" selection-end-line="28" selection-end-column="46" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/ebon/universe/galaxies/Galaxy.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1785">
+          <caret line="119" column="61" selection-start-line="119" selection-start-column="61" selection-end-line="119" selection-end-column="61" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/ebon/universe/galaxies/EbonGalaxies.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1020">
+          <caret line="68" column="5" selection-start-line="68" selection-start-column="5" selection-end-line="68" selection-end-column="5" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/ebon/players/PlayerFPS.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1020">
+          <caret line="68" column="49" selection-start-line="68" selection-start-column="49" selection-end-line="68" selection-end-column="49" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/ebon/universe/stars/SunRenderer.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-206">
+          <caret line="19" column="13" selection-start-line="19" selection-start-column="13" selection-end-line="19" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Flounder-Engine/src/flounder/engine/FlounderEngine.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-1050">
+          <caret line="149" column="24" selection-start-line="149" selection-start-column="24" selection-end-line="149" selection-end-column="24" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Flounder-Engine/src/flounder/loaders/FlounderLoader.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="555">
+          <caret line="274" column="83" selection-start-line="274" selection-start-column="83" selection-end-line="274" selection-end-column="83" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/ebon/players/PlayerFPS.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="289">
+          <caret line="68" column="37" selection-start-line="68" selection-start-column="37" selection-end-line="68" selection-end-column="37" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/res/res/shaders/stars/starsFragment.glsl">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="238">
+          <caret line="14" column="93" selection-start-line="14" selection-start-column="93" selection-end-line="14" selection-end-column="93" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/res/res/shaders/orbits/starsFragment.glsl" />
+    <entry file="file://$PROJECT_DIR$/src/ebon/particles/EbonParticles.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="357">
+          <caret line="21" column="13" selection-start-line="21" selection-start-column="13" selection-end-line="21" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/ebon/particles/ParticleRenderer.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="384">
+          <caret line="88" column="0" selection-start-line="88" selection-start-column="0" selection-end-line="88" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/ebon/EbonRenderer.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1390">
+          <caret line="189" column="33" selection-start-line="189" selection-start-column="33" selection-end-line="189" selection-end-column="33" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/ebon/universe/stars/StarRenderer.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="225">
+          <caret line="153" column="33" selection-start-line="153" selection-start-column="33" selection-end-line="154" selection-end-column="26" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/ebon/universe/galaxies/Galaxy.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="238">
+          <caret line="14" column="13" selection-start-line="14" selection-start-column="13" selection-end-line="14" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/ebon/universe/celestials/Celestial.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="187">
+          <caret line="12" column="13" selection-start-line="12" selection-start-column="13" selection-end-line="12" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/ebon/universe/celestials/Waypoint.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="153">
+          <caret line="10" column="13" selection-start-line="10" selection-start-column="13" selection-end-line="10" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/ebon/universe/SpaceConversions.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="119">
+          <caret line="7" column="13" selection-start-line="7" selection-start-column="13" selection-end-line="7" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/res/res/shaders/entities/entityVertex.glsl">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/res/res/shaders/sun/sunVertex.glsl">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/res/res/shaders/sun/sunFragment.glsl">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/ebon/entities/Entity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-3750">
+          <caret line="14" column="13" selection-start-line="14" selection-start-column="13" selection-end-line="14" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/res/res/shaders/orbits/orbitsVertex.glsl" />
+    <entry file="file://$PROJECT_DIR$/res/res/shaders/orbits/orbitsFragment.glsl" />
+    <entry file="file://$PROJECT_DIR$/src/ebon/universe/orbits/OrbitsRenderer.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="969">
+          <caret line="57" column="90" selection-start-line="57" selection-start-column="90" selection-end-line="57" selection-end-column="90" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/ebon/universe/orbits/Orbit.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="119">
+          <caret line="67" column="10" selection-start-line="67" selection-start-column="10" selection-end-line="67" selection-end-column="10" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/ebon/universe/galaxies/EbonGalaxies.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="268">
+          <caret line="66" column="33" selection-start-line="66" selection-start-column="33" selection-end-line="66" selection-end-column="33" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/ebon/universe/stars/Star.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="7164">
+          <caret line="398" column="0" selection-start-line="398" selection-start-column="0" selection-end-line="398" selection-end-column="66" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/ebon/celestial/manager/GalaxyGenerator.java">
+    <entry file="file://$PROJECT_DIR$/src/ebon/Ebon.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="122">
-          <caret line="35" column="22" selection-start-line="35" selection-start-column="22" selection-end-line="35" selection-end-column="22" />
+        <state relative-caret-position="972">
+          <caret line="54" column="24" selection-start-line="54" selection-start-column="24" selection-end-line="54" selection-end-column="24" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/testing.txt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="574" selection-start-line="0" selection-start-column="565" selection-end-line="0" selection-end-column="574" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/ebon/universe/celestials/Element.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-846">
+          <caret line="7" column="19" selection-start-line="7" selection-start-column="19" selection-end-line="7" selection-end-column="19" />
           <folding />
         </state>
       </provider>
@@ -1347,6 +1959,7 @@
             <option name="proportions">
               <list>
                 <option value="0.2" />
+                <option value="0.6" />
               </list>
             </option>
           </splitter-proportions>

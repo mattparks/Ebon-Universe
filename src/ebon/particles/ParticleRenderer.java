@@ -18,9 +18,9 @@ import org.lwjgl.*;
 import java.nio.*;
 import java.util.*;
 
-import static org.lwjgl.opengl.ARBDrawInstanced.*;
 import static org.lwjgl.opengl.GL11.*;
 import static org.lwjgl.opengl.GL20.*;
+import static org.lwjgl.opengl.GL31.*;
 
 public class ParticleRenderer extends IRenderer {
 	private static final MyFile VERTEX_SHADER = new MyFile(Shader.SHADERS_LOC, "particles", "particleVertex.glsl");
@@ -89,7 +89,7 @@ public class ParticleRenderer extends IRenderer {
 
 				// Renders the particles list.
 				FlounderLoader.updateVBO(VBO, vboData, BUFFER);
-				glDrawArraysInstancedARB(GL_TRIANGLE_STRIP, 0, VERTICES.length, particles.size());
+				glDrawArraysInstanced(GL_TRIANGLE_STRIP, 0, VERTICES.length, particles.size());
 				unbindTexturedModel();
 			}
 		}

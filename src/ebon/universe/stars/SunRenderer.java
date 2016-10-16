@@ -1,7 +1,6 @@
-package ebon.celestial.stars;
+package ebon.universe.stars;
 
-import ebon.celestial.*;
-import ebon.celestial.manager.*;
+import ebon.universe.galaxies.*;
 import flounder.devices.*;
 import flounder.engine.*;
 import flounder.engine.entrance.*;

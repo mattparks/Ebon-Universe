@@ -1,4 +1,4 @@
-package ebon.celestial.manager;
+package ebon.universe;
 
 import flounder.maths.vectors.*;
 

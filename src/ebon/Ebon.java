@@ -52,7 +52,7 @@ public class Ebon extends FlounderEntrance {
 				new EbonRenderer(),
 				new EbonGuis()
 		);
-		Element.setup();
+		Element.createTemp();
 		instance.startEngine(FlounderFonts.FFF_FORWARD);
 		System.exit(0);
 	}

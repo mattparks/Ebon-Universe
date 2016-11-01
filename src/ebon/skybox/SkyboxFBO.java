@@ -1,12 +1,11 @@
 package ebon.skybox;
 
 import ebon.*;
+import ebon.cameras.*;
 import flounder.devices.*;
-
-import java.nio.*;
+import flounder.textures.*;
 
 import static org.lwjgl.opengl.GL11.*;
-import static org.lwjgl.opengl.GL12.*;
 import static org.lwjgl.opengl.GL13.*;
 import static org.lwjgl.opengl.GL14.*;
 import static org.lwjgl.opengl.GL30.*;
@@ -15,10 +14,10 @@ import static org.lwjgl.opengl.GL30.*;
  * A object that holds a skybox FBO.
  */
 public class SkyboxFBO {
-	private static int fboSize;
-	private int cubemapFBO;
-	private int cubemapColour;
-	private int cubemapDepth;
+	private static int cubemapSize;
+	private Texture cubemapTexture;
+	private int fbo;
+	private int depthBuffer;
 
 	private boolean textureLoaded;
 
@@ -27,48 +26,34 @@ public class SkyboxFBO {
 	 */
 	protected SkyboxFBO() {
 		if (Ebon.configMain != null) {
-			fboSize = Ebon.configMain.getIntWithDefault("skybox_res", 2048, () -> SkyboxFBO.fboSize);
+			cubemapSize = Ebon.configMain.getIntWithDefault("skybox_res", 2048, () -> SkyboxFBO.cubemapSize);
 		} else {
-			fboSize = 2048;
+			cubemapSize = 2048;
 		}
 
-		// Create the cubemap FBO.
-		cubemapFBO = glGenFramebuffers();
-		glBindFramebuffer(GL_FRAMEBUFFER, cubemapFBO);
+		cubemapTexture = Texture.newEmptyCubeMap(cubemapSize);
 
-		// Create the colour cubemap.
-		cubemapColour = glGenTextures();
-		glBindTexture(GL_TEXTURE_CUBE_MAP, cubemapColour);
-		for (int face = 0; face < 6; face++) {
-			glTexImage2D(GL_TEXTURE_CUBE_MAP_POSITIVE_X + face, 0, GL_RGBA, fboSize, fboSize, 0, GL_BGRA, GL_UNSIGNED_BYTE, (ByteBuffer) null);
-		}
-		glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-		glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
-		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
-		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
-		glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_CUBE_MAP_POSITIVE_X, cubemapColour, 0);
+		//create fbo
+		fbo = glGenFramebuffers();
+		glBindFramebuffer(GL_FRAMEBUFFER, fbo);
+		glDrawBuffer(GL_COLOR_ATTACHMENT0);
 
-		// Create the uniform depth buffer.
-		cubemapDepth = glGenRenderbuffers();
-		glBindRenderbuffer(GL_RENDERBUFFER, cubemapDepth);
-		glRenderbufferStorage(GL_RENDERBUFFER, GL_DEPTH_COMPONENT24, fboSize, fboSize);
-		glBindRenderbuffer(GL_RENDERBUFFER, 0);
-		glFramebufferRenderbuffer(GL_FRAMEBUFFER, GL_DEPTH_ATTACHMENT, GL_RENDERBUFFER, cubemapFBO);
-
-		// Disable the newly create FBO.
-		glBindFramebuffer(GL_FRAMEBUFFER, 0);
-		glBindTexture(GL_TEXTURE_CUBE_MAP, 0);
+		//attach depth buffer
+		depthBuffer = glGenRenderbuffers();
+		glBindRenderbuffer(GL_RENDERBUFFER, depthBuffer);
+		glRenderbufferStorage(GL_RENDERBUFFER, GL_DEPTH_COMPONENT24, cubemapSize, cubemapSize);
+		glFramebufferRenderbuffer(GL_FRAMEBUFFER, GL_DEPTH_ATTACHMENT, GL_RENDERBUFFER, depthBuffer);
 
 		// Sets the image to not be loaded.
 		textureLoaded = false;
 	}
 
-	public int getDepthAttachment() {
-		return cubemapDepth;
+	public int getDepthBuffer() {
+		return depthBuffer;
 	}
 
-	public int getColourAttachment() {
-		return cubemapColour;
+	public Texture getTexture() {
+		return cubemapTexture;
 	}
 
 	public boolean isLoaded() {
@@ -83,8 +68,8 @@ public class SkyboxFBO {
 	 * Binds the cubemap FBO.
 	 */
 	public void bindFBO() {
-		glBindFramebuffer(GL_FRAMEBUFFER, cubemapFBO);
-		glViewport(0, 0, fboSize, fboSize);
+		glBindFramebuffer(GL_FRAMEBUFFER, fbo);
+		glViewport(0, 0, cubemapSize, cubemapSize);
 	}
 
 	/**
@@ -92,8 +77,9 @@ public class SkyboxFBO {
 	 *
 	 * @param face The face to bind to.
 	 */
-	public void bindFace(int face) {
-		glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_CUBE_MAP_POSITIVE_X + face, cubemapColour, 0);
+	public void bindFace(int face, CameraCubeMap camera) {
+		glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_CUBE_MAP_POSITIVE_X + face, cubemapTexture.getTextureID(), 0);
+		camera.switchToFace(face);
 	}
 
 	/**
@@ -108,8 +94,8 @@ public class SkyboxFBO {
 	 * Deletes the FBO from memory.
 	 */
 	public void dispose() {
-		glDeleteFramebuffers(cubemapFBO);
-		glDeleteTextures(cubemapColour);
-		glDeleteRenderbuffers(cubemapDepth);
+		glDeleteRenderbuffers(depthBuffer);
+		glDeleteFramebuffers(fbo);
+		cubemapTexture.delete();
 	}
 }

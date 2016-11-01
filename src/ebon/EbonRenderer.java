@@ -134,8 +134,7 @@ public class EbonRenderer extends IRendererMaster {
 					skyboxRenderer.getSkyboxFBO().bindFBO();
 
 					for (int face = 0; face < 6; face++) {
-						skyboxRenderer.getSkyboxFBO().bindFace(face);
-						((CameraCubeMap) camera).switchToFace(face);
+						skyboxRenderer.getSkyboxFBO().bindFace(face, (CameraCubeMap) camera);
 						OpenGlUtils.prepareNewRenderParse(clearColour);
 						starRenderer.render(clipPlane, camera);
 					}

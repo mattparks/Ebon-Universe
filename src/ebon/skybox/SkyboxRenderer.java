@@ -59,7 +59,7 @@ public class SkyboxRenderer extends IRenderer {
 		OpenGlUtils.antialias(FlounderDisplay.isAntialiasing());
 		OpenGlUtils.cullBackFaces(false);
 
-		OpenGlUtils.bindCubemapToBank(skyboxFBO.getColourAttachment(), 0);
+		OpenGlUtils.bindCubemapToBank(skyboxFBO.getTexture().getTextureID(), 0);
 	}
 
 	private Matrix4f updateViewMatrix(ICamera camera) {

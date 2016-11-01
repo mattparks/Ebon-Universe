@@ -3,7 +3,6 @@ package ebon;
 import ebon.cameras.*;
 import ebon.options.*;
 import ebon.players.*;
-import ebon.universe.celestials.*;
 import ebon.universe.galaxies.*;
 import ebon.world.*;
 import flounder.devices.*;
@@ -52,7 +51,7 @@ public class Ebon extends FlounderEntrance {
 				new EbonRenderer(),
 				new EbonGuis()
 		);
-		Element.createTemp();
+		// Element.createTemp();
 		instance.startEngine(FlounderFonts.FFF_FORWARD);
 		System.exit(0);
 	}

@@ -56,7 +56,7 @@ public class OrbitsRenderer extends IRenderer {
 
 	private void prepareInstance(Orbit orbit, ICamera camera) {
 		Matrix4f modelMatrix = Matrix4f.transformationMatrix(new Vector3f(0.0f, 0.0f, 0.0f), new Vector3f((float) orbit.getPitch(), (float) orbit.getYaw(), (float) orbit.getRoll()), new Vector3f(1.0f, 1.0f, 1.0f), null);
-		Vector3f colour = new Vector3f(1,0,0);
+		Vector3f colour = new Vector3f(1, 0, 0);
 
 		shader.getUniformMat4("modelMatrix").loadMat4(modelMatrix);
 		shader.getUniformVec3("colour").loadVec3(colour);

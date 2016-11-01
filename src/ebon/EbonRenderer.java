@@ -1,5 +1,6 @@
 package ebon;
 
+import ebon.cameras.*;
 import ebon.entities.*;
 import ebon.options.*;
 import ebon.particles.*;
@@ -18,15 +19,12 @@ import flounder.fonts.*;
 import flounder.guis.*;
 import flounder.helpers.*;
 import flounder.maths.*;
-import flounder.maths.matrices.*;
 import flounder.maths.vectors.*;
 import flounder.physics.bounding.*;
 
 public class EbonRenderer extends IRendererMaster {
 	private static final Vector4f POSITIVE_INFINITY = new Vector4f(0.0f, 1.0f, 0.0f, Float.POSITIVE_INFINITY);
 	private static final int FBO_ATTACHMENTS = 1;
-
-	private Matrix4f projectionMatrix;
 
 	private SkyboxRenderer skyboxRenderer;
 	private EntityRenderer entityRenderer;
@@ -46,8 +44,6 @@ public class EbonRenderer extends IRendererMaster {
 
 	@Override
 	public void init() {
-		this.projectionMatrix = new Matrix4f();
-
 		this.skyboxRenderer = new SkyboxRenderer();
 		this.entityRenderer = new EntityRenderer();
 		this.particleRenderer = new ParticleRenderer();
@@ -116,7 +112,6 @@ public class EbonRenderer extends IRendererMaster {
 		/* Clear and run. */
 		ICamera camera = FlounderEngine.getCamera();
 		OpenGlUtils.prepareNewRenderParse(clearColour);
-		Matrix4f.perspectiveMatrix(camera.getFOV(), FlounderDisplay.getAspectRatio(), camera.getNearPlane(), camera.getFarPlane(), projectionMatrix);
 
 		/* Renders each renderer. */
 		if (EbonGalaxies.getStars() != null) {
@@ -125,8 +120,13 @@ public class EbonRenderer extends IRendererMaster {
 				skyboxRenderer.getSkyboxFBO().setLoaded(false);
 			} else {
 				if (!skyboxRenderer.getSkyboxFBO().isLoaded()) {
+					ICamera previousCamera = camera;
+					camera = new CameraCubeMap();
+					camera.init();
+					FlounderEngine.setCamera(camera);
+
 					if (EbonGalaxies.getInSystemStar() != null) {
-						camera.getPosition().set(EbonGalaxies.getInSystemStar().getPosition());
+						((CameraCubeMap) camera).setCentre(EbonGalaxies.getInSystemStar().getPosition());
 					}
 
 					starRenderer.render(clipPlane, camera);
@@ -135,15 +135,17 @@ public class EbonRenderer extends IRendererMaster {
 
 					for (int face = 0; face < 6; face++) {
 						skyboxRenderer.getSkyboxFBO().bindFace(face);
-						skyboxRenderer.rotateCamera(camera, face);
+						((CameraCubeMap) camera).switchToFace(face);
 						OpenGlUtils.prepareNewRenderParse(clearColour);
-						Matrix4f.perspectiveMatrix(SkyboxFBO.CAMERA_FOV, 1.0f, SkyboxFBO.CAMERA_NEAR, SkyboxFBO.CAMERA_FAR, projectionMatrix);
 						starRenderer.render(clipPlane, camera);
 					}
 
 					skyboxRenderer.getSkyboxFBO().unbindFBO();
 					skyboxRenderer.getSkyboxFBO().setLoaded(true);
 					bindRelevantFBO();
+
+					camera = previousCamera;
+					FlounderEngine.setCamera(camera);
 				} else {
 					skyboxRenderer.render(clipPlane, camera);
 					sunRenderer.render(clipPlane, camera);
@@ -174,11 +176,6 @@ public class EbonRenderer extends IRendererMaster {
 		}
 
 		output.blitToScreen();
-	}
-
-	@Override
-	public Matrix4f getProjectionMatrix() {
-		return projectionMatrix;
 	}
 
 	@Override

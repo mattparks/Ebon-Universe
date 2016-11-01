@@ -90,45 +90,6 @@ public class SkyboxRenderer extends IRenderer {
 		return skyboxFBO;
 	}
 
-	public void rotateCamera(ICamera camera, int fboSide) {
-		Vector3f newRotation = new Vector3f();
-
-		switch (fboSide) {
-			case 0:
-				// POSITIVE_X, Right
-				newRotation.x = 0.0f;
-				newRotation.y = 90.0f;
-				break;
-			case 1:
-				// NEGATIVE_X, Left
-				newRotation.x = 0.0f;
-				newRotation.y = 270.0f;
-				break;
-			case 2:
-				// POSITIVE_Y, Top
-				newRotation.x = 90.0f;
-				newRotation.y = 180.0f;
-				break;
-			case 3:
-				// NEGATIVE_Y, Bottom
-				newRotation.x = 270.0f;
-				newRotation.y = 180.0f;
-				break;
-			case 4:
-				// POSITIVE_Z, Back
-				newRotation.x = 0.0f;
-				newRotation.y = 180.0f;
-				break;
-			case 5:
-				// NEGATIVE_Z, Front
-				newRotation.x = 0.0f;
-				newRotation.y = 0.0f;
-				break;
-		}
-
-		camera.setRotation(newRotation);
-	}
-
 	@Override
 	public void dispose() {
 		shader.dispose();

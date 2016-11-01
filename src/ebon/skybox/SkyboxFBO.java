@@ -15,10 +15,6 @@ import static org.lwjgl.opengl.GL30.*;
  * A object that holds a skybox FBO.
  */
 public class SkyboxFBO {
-	public static final float CAMERA_FOV = 90.0f;
-	public static final float CAMERA_NEAR = 0.1f;
-	public static final float CAMERA_FAR = (float) (2560) * 100.0f;
-
 	private static int fboSize;
 	private int cubemapFBO;
 	private int cubemapColour;

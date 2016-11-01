@@ -11,7 +11,6 @@ import flounder.maths.matrices.*;
 import flounder.maths.vectors.*;
 import flounder.profiling.*;
 import flounder.space.*;
-import sun.reflect.generics.reflectiveObjects.*;
 
 public class CameraFPS implements ICamera {
 	private static final float NEAR_PLANE = 0.1f;
@@ -33,8 +32,10 @@ public class CameraFPS implements ICamera {
 
 	private Vector3f position;
 	private Vector3f rotation;
+
 	private Frustum viewFrustum;
 	private Matrix4f viewMatrix;
+	private Matrix4f projectionMatrix;
 
 	private JoystickAxis joystickRotateX;
 	private JoystickAxis joystickRotateY;
@@ -53,8 +54,10 @@ public class CameraFPS implements ICamera {
 
 		this.position = new Vector3f();
 		this.rotation = new Vector3f();
+
 		this.viewFrustum = new Frustum();
 		this.viewMatrix = new Matrix4f();
+		this.projectionMatrix = new Matrix4f();
 
 		if (Ebon.configControls != null) {
 			this.joystickRotateX = new JoystickAxis(OptionsControls.JOYSTICK_PORT, OptionsControls.JOYSTICK_ROTATE_X);
@@ -195,10 +198,8 @@ public class CameraFPS implements ICamera {
 		viewFrustum.recalculateFrustum(FlounderEngine.getProjectionMatrix(), viewMatrix);
 	}
 
-	@Override
-	public Matrix4f getViewMatrix() {
-		updateViewMatrix();
-		return viewMatrix;
+	private void updateProjectionMatrix() {
+		Matrix4f.perspectiveMatrix(FIELD_OF_VIEW, FlounderDisplay.getAspectRatio(), NEAR_PLANE, FAR_PLANE, projectionMatrix);
 	}
 
 	@Override
@@ -207,8 +208,15 @@ public class CameraFPS implements ICamera {
 	}
 
 	@Override
-	public Matrix4f getReflectionViewMatrix(float planeHeight) {
-		throw new NotImplementedException();
+	public Matrix4f getViewMatrix() {
+		updateViewMatrix();
+		return viewMatrix;
+	}
+
+	@Override
+	public Matrix4f getProjectionMatrix() {
+		updateProjectionMatrix();
+		return projectionMatrix;
 	}
 
 	@Override
@@ -231,10 +239,5 @@ public class CameraFPS implements ICamera {
 	@Override
 	public void setRotation(Vector3f rotation) {
 		this.rotation.set(rotation);
-	}
-
-	@Override
-	public float getAimDistance() {
-		throw new NotImplementedException();
 	}
 }

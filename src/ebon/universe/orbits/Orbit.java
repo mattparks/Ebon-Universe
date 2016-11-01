@@ -3,12 +3,7 @@ package ebon.universe.orbits;
 import flounder.maths.*;
 import flounder.maths.vectors.*;
 
-import static org.lwjgl.opengl.GL11.GL_LINES;
-import static org.lwjgl.opengl.GL11.glDrawArrays;
-import static org.lwjgl.opengl.GL15.GL_ARRAY_BUFFER;
-import static org.lwjgl.opengl.GL15.GL_DYNAMIC_DRAW;
-import static org.lwjgl.opengl.GL15.glGenBuffers;
-import static org.lwjgl.opengl.GL30.glBindVertexArray;
+import static org.lwjgl.opengl.GL15.*;
 
 /**
  * A realistic orbit object.
@@ -62,9 +57,9 @@ public class Orbit {
 		segmentsFBO = glGenBuffers();
 		vertices = segments.length * 3;
 
-	//	glBindVertexArray( segmentsFBO ); // setup for the layout of LineSegment_t
-	//	glBindBuffer(GL_ARRAY_BUFFER, LineBufferObject);
-	///	glBufferData(GL_ARRAY_BUFFER, segments.length * segmentsFBO, &lines[0], GL_DYNAMIC_DRAW);
+		//	glBindVertexArray( segmentsFBO ); // setup for the layout of LineSegment_t
+		//	glBindBuffer(GL_ARRAY_BUFFER, LineBufferObject);
+		///	glBufferData(GL_ARRAY_BUFFER, segments.length * segmentsFBO, &lines[0], GL_DYNAMIC_DRAW);
 		//glDrawArrays(GL_LINES, 0, vertices );
 	}
 

@@ -5,6 +5,7 @@
       <module fileurl="file://$PROJECT_DIR$/Ebon Universe.iml" filepath="$PROJECT_DIR$/Ebon Universe.iml" />
       <module fileurl="file://$PROJECT_DIR$/Ebon-Editors/Ebon-Editors.iml" filepath="$PROJECT_DIR$/Ebon-Editors/Ebon-Editors.iml" />
       <module fileurl="file://$PROJECT_DIR$/Flounder-Engine/Flounder-Engine.iml" filepath="$PROJECT_DIR$/Flounder-Engine/Flounder-Engine.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Flounder-Framework/Flounder-Framework.iml" filepath="$PROJECT_DIR$/Flounder-Framework/Flounder-Framework.iml" />
     </modules>
   </component>
 </project>

@@ -1,10 +1,13 @@
 <component name="ProjectDictionaryState">
   <dictionary name="mattp">
     <words>
+      <w>antialiased</w>
       <w>bohrium</w>
       <w>copernicium</w>
+      <w>cubemap</w>
       <w>darmstadtium</w>
       <w>dubnium</w>
+      <w>ebon</w>
       <w>flerovium</w>
       <w>hassium</w>
       <w>meitnerium</w>
@@ -12,6 +15,8 @@
       <w>nonsampled</w>
       <w>roentgenium</w>
       <w>seaborgium</w>
+      <w>skybox</w>
+      <w>unlogged</w>
       <w>ununbium</w>
       <w>ununhexium</w>
       <w>ununoctium</w>

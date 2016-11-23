@@ -1,8 +1,7 @@
 package ebon.skybox;
 
 import flounder.devices.*;
-import flounder.engine.*;
-import flounder.engine.entrance.*;
+import flounder.framework.entrance.*;
 import flounder.helpers.*;
 import flounder.maths.matrices.*;
 import flounder.maths.vectors.*;

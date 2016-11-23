@@ -12,10 +12,9 @@ import ebon.universe.orbits.*;
 import ebon.universe.stars.*;
 import ebon.world.*;
 import flounder.devices.*;
-import flounder.engine.*;
-import flounder.engine.entrance.*;
 import flounder.fbos.*;
 import flounder.fonts.*;
+import flounder.framework.entrance.*;
 import flounder.guis.*;
 import flounder.helpers.*;
 import flounder.maths.*;
@@ -23,8 +22,8 @@ import flounder.maths.vectors.*;
 import flounder.physics.bounding.*;
 
 public class EbonRenderer extends IRendererMaster {
-	private static final Vector4f POSITIVE_INFINITY = new Vector4f(0.0f, 1.0f, 0.0f, Float.POSITIVE_INFINITY);
-	private static final int FBO_ATTACHMENTS = 1;
+	public static final Vector4f POSITIVE_INFINITY = new Vector4f(0.0f, 1.0f, 0.0f, Float.POSITIVE_INFINITY);
+	public static final int FBO_ATTACHMENTS = 1;
 
 	private SkyboxRenderer skyboxRenderer;
 	private EntityRenderer entityRenderer;
@@ -134,7 +133,8 @@ public class EbonRenderer extends IRendererMaster {
 					skyboxRenderer.getSkyboxFBO().bindFBO();
 
 					for (int face = 0; face < 6; face++) {
-						skyboxRenderer.getSkyboxFBO().bindFace(face, (CameraCubeMap) camera);
+						skyboxRenderer.getSkyboxFBO().bindFace(face);
+						((CameraCubeMap) camera).switchToFace(face);
 						OpenGlUtils.prepareNewRenderParse(clearColour);
 						starRenderer.render(clipPlane, camera);
 					}

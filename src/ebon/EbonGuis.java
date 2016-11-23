@@ -3,7 +3,6 @@ package ebon;
 import ebon.options.*;
 import ebon.uis.*;
 import flounder.devices.*;
-import flounder.engine.entrance.*;
 import flounder.guis.*;
 import flounder.inputs.*;
 
@@ -12,7 +11,7 @@ import static org.lwjgl.glfw.GLFW.*;
 /**
  * Class in charge of the main GUIs in the test game.
  */
-public class EbonGuis extends IManagerGUI {
+public class EbonGuis extends IGuiMaster {
 	private MainMenu mainMenu;
 	private OverlayStatus overlayStatus;
 

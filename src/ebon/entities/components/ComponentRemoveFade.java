@@ -2,7 +2,6 @@ package ebon.entities.components;
 
 import ebon.entities.*;
 import ebon.entities.loading.*;
-import flounder.engine.*;
 
 /**
  * A ComponentRemove that fades out until the entity disappears.

@@ -3,7 +3,7 @@ package ebon.universe.galaxies;
 import ebon.*;
 import ebon.universe.celestials.*;
 import ebon.universe.stars.*;
-import flounder.engine.*;
+import flounder.framework.*;
 import flounder.helpers.*;
 import flounder.inputs.*;
 import flounder.loaders.*;

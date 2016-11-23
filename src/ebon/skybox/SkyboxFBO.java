@@ -3,6 +3,10 @@ package ebon.skybox;
 import ebon.*;
 import ebon.cameras.*;
 import flounder.devices.*;
+import flounder.framework.entrance.*;
+import flounder.helpers.*;
+import flounder.maths.*;
+import flounder.maths.vectors.*;
 import flounder.textures.*;
 
 import static org.lwjgl.opengl.GL11.*;
@@ -44,8 +48,31 @@ public class SkyboxFBO {
 		glRenderbufferStorage(GL_RENDERBUFFER, GL_DEPTH_COMPONENT24, cubemapSize, cubemapSize);
 		glFramebufferRenderbuffer(GL_FRAMEBUFFER, GL_DEPTH_ATTACHMENT, GL_RENDERBUFFER, depthBuffer);
 
+		unbindFBO();
+
 		// Sets the image to not be loaded.
 		textureLoaded = false;
+	}
+
+	public void renderScene(Vector3f centre, SkyboxRenderer sceneRender, Colour clearColour) {
+		ICamera previousCamera = FlounderEngine.getCamera();
+		CameraCubeMap camera = new CameraCubeMap();
+		camera.init();
+		camera.setCentre(centre);
+		FlounderEngine.setCamera(camera);
+		bindFBO();
+
+		for (int face = 0; face < 6; face++) {
+			bindFace(face);
+			camera.switchToFace(face);
+			OpenGlUtils.prepareNewRenderParse(clearColour);
+			sceneRender.render(EbonRenderer.POSITIVE_INFINITY, camera);
+		}
+
+		unbindFBO();
+		setLoaded(true);
+		FlounderEngine.setCamera(previousCamera);
+		camera = null;
 	}
 
 	public int getDepthBuffer() {
@@ -77,9 +104,8 @@ public class SkyboxFBO {
 	 *
 	 * @param face The face to bind to.
 	 */
-	public void bindFace(int face, CameraCubeMap camera) {
+	public void bindFace(int face) {
 		glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_CUBE_MAP_POSITIVE_X + face, cubemapTexture.getTextureID(), 0);
-		camera.switchToFace(face);
 	}
 
 	/**

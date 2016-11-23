@@ -1,7 +1,6 @@
 package ebon.uis;
 
 import ebon.*;
-import flounder.engine.*;
 import flounder.guis.*;
 import flounder.visual.*;
 

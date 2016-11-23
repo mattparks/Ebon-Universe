@@ -3,7 +3,6 @@ package ebon.players;
 import ebon.*;
 import ebon.options.*;
 import ebon.universe.galaxies.*;
-import flounder.engine.*;
 import flounder.inputs.*;
 import flounder.maths.*;
 import flounder.maths.vectors.*;

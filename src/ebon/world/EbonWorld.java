@@ -3,7 +3,7 @@ package ebon.world;
 import ebon.entities.*;
 import ebon.particles.*;
 import ebon.universe.galaxies.*;
-import flounder.engine.*;
+import flounder.framework.*;
 import flounder.lights.*;
 import flounder.maths.*;
 import flounder.space.*;

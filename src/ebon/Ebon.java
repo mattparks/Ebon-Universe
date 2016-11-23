@@ -6,10 +6,9 @@ import ebon.players.*;
 import ebon.universe.galaxies.*;
 import ebon.world.*;
 import flounder.devices.*;
-import flounder.engine.*;
-import flounder.engine.entrance.*;
 import flounder.exceptions.*;
 import flounder.fonts.*;
+import flounder.framework.entrance.*;
 import flounder.guis.*;
 import flounder.helpers.*;
 import flounder.inputs.*;
@@ -56,7 +55,7 @@ public class Ebon extends FlounderEntrance {
 		System.exit(0);
 	}
 
-	private Ebon(ICamera camera, IRendererMaster renderer, IManagerGUI managerGUI) {
+	private Ebon(ICamera camera, IRendererMaster renderer, IGuiMaster managerGUI) {
 		super(
 				camera, renderer, managerGUI,
 				FlounderDisplay.class, FlounderFonts.class, FlounderGuis.class, EbonWorld.class

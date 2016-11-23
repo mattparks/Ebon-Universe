@@ -1,7 +1,7 @@
 package ebon.cameras;
 
 import flounder.devices.*;
-import flounder.engine.entrance.*;
+import flounder.framework.entrance.*;
 import flounder.maths.matrices.*;
 import flounder.maths.vectors.*;
 import flounder.space.*;

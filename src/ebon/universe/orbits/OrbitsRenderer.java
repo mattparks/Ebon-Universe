@@ -1,8 +1,7 @@
 package ebon.universe.orbits;
 
 import flounder.devices.*;
-import flounder.engine.*;
-import flounder.engine.entrance.*;
+import flounder.framework.entrance.*;
 import flounder.helpers.*;
 import flounder.logger.*;
 import flounder.maths.matrices.*;

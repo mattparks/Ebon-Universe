@@ -2,8 +2,7 @@ package ebon.particles;
 
 import ebon.particles.loading.*;
 import flounder.devices.*;
-import flounder.engine.*;
-import flounder.engine.entrance.*;
+import flounder.framework.entrance.*;
 import flounder.helpers.*;
 import flounder.loaders.*;
 import flounder.logger.*;

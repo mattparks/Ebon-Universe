@@ -1,6 +1,7 @@
 package ebon.particles;
 
 import ebon.particles.loading.*;
+import flounder.camera.*;
 import flounder.devices.*;
 import flounder.framework.*;
 import flounder.helpers.*;
@@ -35,7 +36,7 @@ public class EbonParticles extends IModule {
 	 * Creates a new particle systems manager.
 	 */
 	public EbonParticles() {
-		super(ModuleUpdate.AFTER_ENTRANCE, FlounderLogger.class, FlounderProfiler.class, FlounderDisplay.class, FlounderLoader.class, FlounderTextures.class);
+		super(ModuleUpdate.UPDATE_POST, FlounderLogger.class, FlounderProfiler.class, FlounderDisplay.class, FlounderLoader.class, FlounderTextures.class);
 	}
 
 	@Override
@@ -49,7 +50,7 @@ public class EbonParticles extends IModule {
 
 	@Override
 	public void run() {
-		if (FlounderEngine.isGamePaused()) {
+		if (FlounderCamera.isGamePaused()) {
 			return;
 		}
 
@@ -212,7 +213,7 @@ public class EbonParticles extends IModule {
 			File saveFile = new File(saveFolder.getPath() + "/" + particle.getName() + ".particle");
 			saveFile.createNewFile();
 			FileWriter fileWriter = new FileWriter(saveFile);
-			FlounderFileWriter entityFileWriter = new FlounderFileWriter(fileWriter);
+			FileWriterHelper entityFileWriter = new FileWriterHelper(fileWriter);
 
 			// Date and save info.
 			String savedDate = Calendar.getInstance().get(Calendar.DAY_OF_MONTH) + "." + (Calendar.getInstance().get(Calendar.MONTH) + 1) + "." + Calendar.getInstance().get(Calendar.YEAR) + " - " + Calendar.getInstance().get(Calendar.HOUR) + ":" + Calendar.getInstance().get(Calendar.MINUTE);

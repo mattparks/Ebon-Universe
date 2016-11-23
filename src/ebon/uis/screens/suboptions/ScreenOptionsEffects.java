@@ -1,11 +1,11 @@
 package ebon.uis.screens.suboptions;
 
-import ebon.options.*;
 import ebon.uis.*;
 import ebon.uis.screens.*;
 import flounder.events.*;
 import flounder.fonts.*;
 import flounder.guis.*;
+import tester.options.*;
 
 import java.util.*;
 

@@ -2,6 +2,7 @@ package ebon.entities.components;
 
 import ebon.entities.*;
 import ebon.entities.loading.*;
+import flounder.framework.*;
 
 /**
  * A ComponentRemove that fades out until the entity disappears.
@@ -50,7 +51,7 @@ public class ComponentRemoveFade extends ComponentRemove {
 
 	@Override
 	public void removeUpdate() {
-		timer += FlounderEngine.getDelta();
+		timer += FlounderFramework.getDelta();
 		double fadeAmount = (duration - timer) / duration;
 
 		ComponentModel mc = (ComponentModel) super.getEntity().getComponent(ComponentModel.ID);

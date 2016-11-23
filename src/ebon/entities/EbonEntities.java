@@ -30,7 +30,7 @@ public class EbonEntities extends IModule {
 	 * Creates a new game manager for entities.
 	 */
 	public EbonEntities() {
-		super(ModuleUpdate.AFTER_ENTRANCE, FlounderLogger.class, FlounderProfiler.class, FlounderModels.class, FlounderBounding.class, FlounderShaders.class, FlounderTextures.class);
+		super(ModuleUpdate.UPDATE_PRE, FlounderLogger.class, FlounderProfiler.class, FlounderModels.class, FlounderBounding.class, FlounderShaders.class, FlounderTextures.class);
 	}
 
 	@Override
@@ -192,54 +192,54 @@ public class EbonEntities extends IModule {
 			File saveFile = new File(saveFolder.getPath() + "/" + name + ".entity");
 			saveFile.createNewFile();
 			FileWriter fileWriter = new FileWriter(saveFile);
-			FlounderFileWriter flounderFileWriter = new FlounderFileWriter(fileWriter);
+			FileWriterHelper FileWriterHelper = new FileWriterHelper(fileWriter);
 
 			// Date and save info.
 			String savedDate = Calendar.getInstance().get(Calendar.DAY_OF_MONTH) + "." + (Calendar.getInstance().get(Calendar.MONTH) + 1) + "." + Calendar.getInstance().get(Calendar.YEAR) + " - " + Calendar.getInstance().get(Calendar.HOUR) + ":" + Calendar.getInstance().get(Calendar.MINUTE);
 			FlounderLogger.log("Entity " + name + " is being saved at: " + savedDate);
-			flounderFileWriter.addComment("Date Generated: " + savedDate, "Created By: " + System.getProperty("user.classpath"));
+			FileWriterHelper.addComment("Date Generated: " + savedDate, "Created By: " + System.getProperty("user.classpath"));
 
 			// Entity General Data.
-			flounderFileWriter.beginNewSegment("EntityData");
+			FileWriterHelper.beginNewSegment("EntityData");
 			{
-				flounderFileWriter.writeSegmentData("Name: " + name + ";", true);
+				FileWriterHelper.writeSegmentData("Name: " + name + ";", true);
 			}
-			flounderFileWriter.endSegment(false);
+			FileWriterHelper.endSegment(false);
 
 			// Components.
-			flounderFileWriter.beginNewSegment("Components");
+			FileWriterHelper.beginNewSegment("Components");
 			{
 				for (int i = 0; i < editorComponents.size(); i++) {
-					flounderFileWriter.beginNewSegment(entity.getComponents().get(i).getClass().getName());
+					FileWriterHelper.beginNewSegment(entity.getComponents().get(i).getClass().getName());
 
 					Pair<String[], EntitySaverFunction[]> saveableValues = editorComponents.get(i).getSavableValues();
 
 					// Individual data components.
 					for (String s : saveableValues.getFirst()) {
-						flounderFileWriter.writeSegmentData(s + ";", true);
+						FileWriterHelper.writeSegmentData(s + ";", true);
 					}
 
 					// Blank area between both sections.
 					if (saveableValues.getSecond().length > 0) {
-						flounderFileWriter.enterBlankLine();
-						flounderFileWriter.enterBlankLine();
+						FileWriterHelper.enterBlankLine();
+						FileWriterHelper.enterBlankLine();
 					}
 
 					// Segmented data components.
 					int fi = 0;
 
 					for (EntitySaverFunction f : saveableValues.getSecond()) {
-						flounderFileWriter.beginNewSegment(f.getSectionName());
+						FileWriterHelper.beginNewSegment(f.getSectionName());
 						{
-							f.writeIntoSection(flounderFileWriter);
+							f.writeIntoSection(FileWriterHelper);
 						}
-						flounderFileWriter.endSegment(fi++ == saveableValues.getSecond().length - 1);
+						FileWriterHelper.endSegment(fi++ == saveableValues.getSecond().length - 1);
 					}
 
-					flounderFileWriter.endSegment(i == entity.getComponents().size() - 1);
+					FileWriterHelper.endSegment(i == entity.getComponents().size() - 1);
 				}
 			}
-			flounderFileWriter.endSegment(false);
+			FileWriterHelper.endSegment(false);
 
 			// Closes the file for writing.
 			fileWriter.close();

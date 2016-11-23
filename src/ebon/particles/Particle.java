@@ -1,6 +1,8 @@
 package ebon.particles;
 
 import ebon.particles.loading.*;
+import flounder.camera.*;
+import flounder.framework.*;
 import flounder.maths.vectors.*;
 import flounder.physics.*;
 import flounder.space.*;
@@ -84,22 +86,22 @@ public class Particle implements ISpatialObject, Comparable<Particle> {
 	 * Updates the particle.
 	 */
 	protected void update() {
-		velocity.y += -10.0f * gravityEffect * FlounderEngine.getDelta();
+		velocity.y += -10.0f * gravityEffect * FlounderFramework.getDelta();
 		change.set(velocity);
-		change.scale(FlounderEngine.getDelta());
+		change.scale(FlounderFramework.getDelta());
 
 		Vector3f.add(change, position, position);
-		elapsedTime += FlounderEngine.getDelta();
+		elapsedTime += FlounderFramework.getDelta();
 
 		if (elapsedTime > lifeLength) {
-			transparency += 1.0f * FlounderEngine.getDelta();
+			transparency += 1.0f * FlounderFramework.getDelta();
 		}
 
 		if (!isAlive()) {
 			return;
 		}
 
-		distanceToCamera = Vector3f.subtract(FlounderEngine.getCamera().getPosition(), position, null).lengthSquared();
+		distanceToCamera = Vector3f.subtract(FlounderCamera.getCamera().getPosition(), position, null).lengthSquared();
 
 		float size = 0.5f * particleTemplate.getScale();
 		aabb.getMinExtents().set(position.getX() - size, position.getY() - size, position.getZ() - size);

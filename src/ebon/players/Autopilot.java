@@ -3,6 +3,8 @@ package ebon.players;
 import ebon.*;
 import ebon.universe.celestials.*;
 import ebon.universe.galaxies.*;
+import flounder.framework.*;
+import flounder.guis.*;
 import flounder.maths.vectors.*;
 
 /**
@@ -50,7 +52,7 @@ public class Autopilot {
 		float stopTime = speedMagnitude / deceleration;
 
 		if (arrivalTime <= stopTime || autopilotForceStop) {
-			speedMagnitude -= deceleration * FlounderEngine.getDelta();
+			speedMagnitude -= deceleration * FlounderFramework.getDelta();
 
 			if (speedMagnitude < 0.0f && autopilotStopSpeed >= 0.0f) {
 				if (nextWaypoint != null) {
@@ -61,7 +63,7 @@ public class Autopilot {
 				}
 			}
 		} else {
-			speedMagnitude += acceleration * FlounderEngine.getDelta() * (float) Math.abs(Math.log(speedMagnitude + 0.5f));
+			speedMagnitude += acceleration * FlounderFramework.getDelta() * (float) Math.abs(Math.log(speedMagnitude + 0.5f));
 		}
 
 		Vector3f.subtract(position, autopilotWaypoint, velocity);
@@ -109,10 +111,10 @@ public class Autopilot {
 	 */
 	public void toggleAutopilot(float starSpeed) {
 		if (!autopilotEnabled) {
-			((EbonGuis) FlounderEngine.getManagerGUI()).getOverlayStatus().addMessage("Autopilot Enabled");
+			((EbonGuis) FlounderGuis.getGuiMaster()).getOverlayStatus().addMessage("Autopilot Enabled");
 			autopilot(true, starSpeed, EbonGalaxies.getWaypoint().getPosition());
 		} else {
-			((EbonGuis) FlounderEngine.getManagerGUI()).getOverlayStatus().addMessage("Autopilot Disabled");
+			((EbonGuis) FlounderGuis.getGuiMaster()).getOverlayStatus().addMessage("Autopilot Disabled");
 			autopilotForceStop = true;
 			autopilotStopSpeed = speedMagnitude;
 		}
@@ -120,7 +122,7 @@ public class Autopilot {
 
 	private void autopilot(boolean enable, float starSpeed, Vector3f waypoint) {
 		if (!enable) {
-			((EbonGuis) FlounderEngine.getManagerGUI()).getOverlayStatus().addMessage("Autopilot Disabled");
+			((EbonGuis) FlounderGuis.getGuiMaster()).getOverlayStatus().addMessage("Autopilot Disabled");
 		}
 
 		speedMagnitude = starSpeed;

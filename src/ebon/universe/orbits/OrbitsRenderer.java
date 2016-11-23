@@ -1,11 +1,12 @@
 package ebon.universe.orbits;
 
+import flounder.camera.*;
 import flounder.devices.*;
-import flounder.framework.entrance.*;
 import flounder.helpers.*;
 import flounder.logger.*;
 import flounder.maths.matrices.*;
 import flounder.maths.vectors.*;
+import flounder.renderer.*;
 import flounder.resources.*;
 import flounder.shaders.*;
 
@@ -43,7 +44,7 @@ public class OrbitsRenderer extends IRenderer {
 
 	private void prepareRendering(Vector4f clipPlane, ICamera camera) {
 		shader.start();
-		shader.getUniformMat4("projectionMatrix").loadMat4(FlounderEngine.getProjectionMatrix());
+		shader.getUniformMat4("projectionMatrix").loadMat4(camera.getProjectionMatrix());
 		shader.getUniformMat4("viewMatrix").loadMat4(camera.getViewMatrix());
 		shader.getUniformVec4("clipPlane").loadVec4(clipPlane);
 

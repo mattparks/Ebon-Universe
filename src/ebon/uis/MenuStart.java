@@ -3,6 +3,7 @@ package ebon.uis;
 import ebon.uis.screens.*;
 import flounder.devices.*;
 import flounder.fonts.*;
+import flounder.framework.*;
 import flounder.guis.*;
 import flounder.resources.*;
 import flounder.textures.*;
@@ -81,7 +82,7 @@ public class MenuStart extends GuiComponent {
 
 	private void createQuitButton(GuiAlign guiAlign, float yPos) {
 		GuiTextButton button = MainSlider.createButton("Quit", guiAlign, yPos, this);
-		button.addLeftListener(FlounderEngine::requestClose);
+		button.addLeftListener(FlounderFramework::requestClose);
 		button.addRightListener(null);
 	}
 
@@ -108,7 +109,7 @@ public class MenuStart extends GuiComponent {
 
 		// TODO: Use aspect ratio to create image width.
 		float aspectRatio = FlounderDisplay.getAspectRatio();
-		float progression = slideshowDriver.update(FlounderEngine.getDelta());
+		float progression = slideshowDriver.update(FlounderFramework.getDelta());
 		float imageWidth = SLIDESHOW_ASPECT / aspectRatio;
 
 		if (progression >= slideshow.length - 1.0f) {

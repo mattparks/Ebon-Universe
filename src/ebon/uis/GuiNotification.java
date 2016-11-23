@@ -2,6 +2,7 @@ package ebon.uis;
 
 import flounder.devices.*;
 import flounder.fonts.*;
+import flounder.framework.*;
 import flounder.guis.*;
 import flounder.resources.*;
 import flounder.textures.*;
@@ -39,12 +40,12 @@ public class GuiNotification extends GuiComponent {
 	}
 
 	public boolean isAlive() {
-		return fadeDriver.update(FlounderEngine.getDelta()) > 0.0f;
+		return fadeDriver.update(FlounderFramework.getDelta()) > 0.0f;
 	}
 
 	@Override
 	protected void updateSelf() {
-		float fade = fadeDriver.update(FlounderEngine.getDelta());
+		float fade = fadeDriver.update(FlounderFramework.getDelta());
 
 		if (fade >= 1.0f) {
 			fadeDriver = new SlideDriver(1.0f, 0.0f, FADE_TIME);

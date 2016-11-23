@@ -232,7 +232,7 @@ public class EditorParticleSystem extends IEditorComponent {
 	public Pair<String[], EntitySaverFunction[]> getSavableValues() {
 		EntitySaverFunction saveTemplates = new EntitySaverFunction("Templates") {
 			@Override
-			public void writeIntoSection(FlounderFileWriter entityFileWriter) throws IOException {
+			public void writeIntoSection(FileWriterHelper entityFileWriter) throws IOException {
 				for (ParticleTemplate template : component.getParticleSystem().getTypes()) {
 					String s = template.getName() + ",";
 					entityFileWriter.writeSegmentData(s);
@@ -242,7 +242,7 @@ public class EditorParticleSystem extends IEditorComponent {
 
 		EntitySaverFunction saveSpawnValues = new EntitySaverFunction("SpawnValues") {
 			@Override
-			public void writeIntoSection(FlounderFileWriter entityFileWriter) throws IOException {
+			public void writeIntoSection(FileWriterHelper entityFileWriter) throws IOException {
 				if (component.getParticleSystem().getSpawn() != null) {
 					for (String values : systemSpawn.getSavableValues()) {
 						String s = values + ",";

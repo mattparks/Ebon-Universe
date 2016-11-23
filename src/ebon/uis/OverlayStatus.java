@@ -1,14 +1,15 @@
 package ebon.uis;
 
-import ebon.*;
-import ebon.universe.galaxies.*;
+import flounder.camera.*;
 import flounder.devices.*;
 import flounder.fonts.*;
+import flounder.framework.*;
 import flounder.guis.*;
 import flounder.maths.*;
 import flounder.resources.*;
 import flounder.textures.*;
 import flounder.visual.*;
+import tester.*;
 
 import java.util.*;
 import java.util.Timer;
@@ -39,7 +40,7 @@ public class OverlayStatus extends GuiComponent {
 
 		crossHair = new GuiTexture(Texture.newTexture(new MyFile(MyFile.RES_FOLDER, "guis", "crosshair.png")).create());
 		crossHair.getTexture().setNumberOfRows(4);
-		crossHair.setSelectedRow(Ebon.configMain.getIntWithDefault("crosshair", 1, () -> crossHair.getSelectedRow()));
+		crossHair.setSelectedRow(FlounderTester.configMain.getIntWithDefault("crosshair", 1, () -> crossHair.getSelectedRow()));
 
 		starSelection = new GuiTexture(Texture.newTexture(new MyFile(MyFile.RES_FOLDER, "guis", "crosshair.png")).create());
 		starSelection.getTexture().setNumberOfRows(4);
@@ -84,13 +85,13 @@ public class OverlayStatus extends GuiComponent {
 			quedMessages.remove(0);
 		}
 
-		float mainValue = mainDriver.update(FlounderEngine.getDelta());
+		float mainValue = mainDriver.update(FlounderFramework.getDelta());
 
 		if (updateText) {
-			fpsText.setText("FPS: " + Maths.roundToPlace(1.0f / FlounderEngine.getDeltaRender(), 1));
-			upsText.setText("UPS: " + Maths.roundToPlace(1.0f / FlounderEngine.getDelta(), 1));
-			positionText.setText("POSITION: [" + Maths.roundToPlace(FlounderEngine.getCamera().getPosition().x, 1) + ", " + Maths.roundToPlace(FlounderEngine.getCamera().getPosition().y, 1) + ", " + Maths.roundToPlace(FlounderEngine.getCamera().getPosition().z, 1) + "]");
-			velocityText.setText("VELOCITY: " + EbonGalaxies.getPlayerVelocity());
+			fpsText.setText("FPS: " + Maths.roundToPlace(1.0f / FlounderFramework.getDeltaRender(), 1));
+			upsText.setText("UPS: " + Maths.roundToPlace(1.0f / FlounderFramework.getDelta(), 1));
+			positionText.setText("POSITION: [" + (FlounderCamera.getCamera() == null ? "NULL" : Maths.roundToPlace(FlounderCamera.getCamera().getPosition().x, 1) + ", " + Maths.roundToPlace(FlounderCamera.getCamera().getPosition().y, 1) + ", " + Maths.roundToPlace(FlounderCamera.getCamera().getPosition().z, 1) + "]"));
+			velocityText.setText("VELOCITY: " + 0.0); //EbonGalaxies.getPlayerVelocity());
 
 			updateText = false;
 		}
@@ -102,13 +103,13 @@ public class OverlayStatus extends GuiComponent {
 		crossHair.update();
 		crossHair.setColourOffset(GuiTextButton.HOVER_COLOUR);
 
-		if (EbonGalaxies.getWaypoint() != null) {
+	/*	if (EbonGalaxies.getWaypoint() != null) {
 			float selectionScale = 1.0f;
 			float selectionX = Maths.clamp(EbonGalaxies.getWaypoint().getScreenPosition().x, 0.0f, 1.0f);
 			float selectionY = Maths.clamp(EbonGalaxies.getWaypoint().getScreenPosition().y, 0.0f, 1.0f);
 			starSelection.setPosition(selectionX - ((selectionScale * width) / 2.0f) + super.getPosition().x, selectionY - ((selectionScale * height) / 2.0f), (selectionScale * width), (selectionScale * height));
 			starSelection.update();
-		}
+		}*/
 
 		if (mainValue == -MainSlider.SLIDE_SCALAR) {
 			super.show(true);
@@ -133,9 +134,9 @@ public class OverlayStatus extends GuiComponent {
 
 	@Override
 	protected void getGuiTextures(List<GuiTexture> guiTextures) {
-		if (EbonGalaxies.getWaypoint() != null && EbonGalaxies.getWaypoint().getScreenPosition().z >= 0) {
+	/*	if (EbonGalaxies.getWaypoint() != null && EbonGalaxies.getWaypoint().getScreenPosition().z >= 0) {
 			guiTextures.add(starSelection);
-		}
+		}*/
 
 		guiTextures.add(crossHair);
 	}

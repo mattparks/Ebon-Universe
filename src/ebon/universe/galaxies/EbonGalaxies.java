@@ -3,7 +3,9 @@ package ebon.universe.galaxies;
 import ebon.*;
 import ebon.universe.celestials.*;
 import ebon.universe.stars.*;
+import flounder.camera.*;
 import flounder.framework.*;
+import flounder.guis.*;
 import flounder.helpers.*;
 import flounder.inputs.*;
 import flounder.loaders.*;
@@ -46,7 +48,7 @@ public class EbonGalaxies extends IModule {
 	 * Creates a new galaxy with a galaxy manager.
 	 */
 	public EbonGalaxies() {
-		super(ModuleUpdate.AFTER_ENTRANCE, FlounderLogger.class, FlounderProfiler.class, FlounderLoader.class, FlounderModels.class, FlounderBounding.class, FlounderShaders.class);
+		super(ModuleUpdate.UPDATE_POST, FlounderLogger.class, FlounderProfiler.class, FlounderLoader.class, FlounderModels.class, FlounderBounding.class, FlounderShaders.class);
 	}
 
 	@Override
@@ -85,12 +87,12 @@ public class EbonGalaxies extends IModule {
 			galaxy.update();
 
 			// Updates and recalculations.
-			Vector3f currentPosition = FlounderEngine.getCamera().getPosition();
+			Vector3f currentPosition = FlounderCamera.getCamera().getPosition();
 			float distanceLastCurrent = Vector3f.getDistance(currentPosition, lastPosition);
 			boolean selectingWaypoint = waypointSetButton.wasDown();
 
-			Sphere.recalculate(starView, FlounderEngine.getCamera().getPosition(), 1.0f, starView);
-			starViewRay.update(FlounderEngine.getCamera().getPosition());
+			Sphere.recalculate(starView, FlounderCamera.getCamera().getPosition(), 1.0f, starView);
+			starViewRay.update(FlounderCamera.getCamera().getPosition());
 			List<Star> selectedStars = null;
 
 			// Checks all stars if inside the star view, and updates them.
@@ -102,7 +104,7 @@ public class EbonGalaxies extends IModule {
 					inSystemStar = star;
 
 					if (!star.equals(lastInStarSystem)) {
-						((EbonGuis) FlounderEngine.getManagerGUI()).getOverlayStatus().addMessage("Entering Star " + star.getStarName());
+						((EbonGuis) FlounderGuis.getGuiMaster()).getOverlayStatus().addMessage("Entering Star " + star.getStarName());
 					}
 
 					// Loads star children if not loaded.
@@ -125,7 +127,7 @@ public class EbonGalaxies extends IModule {
 			// If the player is in no star system render bounding spheres for stars in view.
 			if (inSystemStar == null) {
 				if (lastInStarSystem != null) {
-					((EbonGuis) FlounderEngine.getManagerGUI()).getOverlayStatus().addMessage("Exiting Star " + lastInStarSystem.getStarName());
+					((EbonGuis) FlounderGuis.getGuiMaster()).getOverlayStatus().addMessage("Exiting Star " + lastInStarSystem.getStarName());
 				}
 
 				for (Star star : galaxy.getStars().queryInBounding(new ArrayList<>(), starView)) {

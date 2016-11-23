@@ -2,8 +2,8 @@ package ebon.skybox;
 
 import ebon.*;
 import ebon.cameras.*;
+import flounder.camera.*;
 import flounder.devices.*;
-import flounder.framework.entrance.*;
 import flounder.helpers.*;
 import flounder.maths.*;
 import flounder.maths.vectors.*;
@@ -55,7 +55,7 @@ public class SkyboxFBO {
 	}
 
 	public void renderScene(Vector3f centre, SkyboxRenderer sceneRender, Colour clearColour) {
-		ICamera previousCamera = FlounderEngine.getCamera();
+		ICamera previousCamera = FlounderCamera.getCamera();
 		CameraCubeMap camera = new CameraCubeMap();
 		camera.init();
 		camera.setCentre(centre);

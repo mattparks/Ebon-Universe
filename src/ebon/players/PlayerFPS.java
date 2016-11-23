@@ -3,6 +3,9 @@ package ebon.players;
 import ebon.*;
 import ebon.options.*;
 import ebon.universe.galaxies.*;
+import flounder.camera.*;
+import flounder.framework.*;
+import flounder.guis.*;
 import flounder.inputs.*;
 import flounder.maths.*;
 import flounder.maths.vectors.*;
@@ -105,26 +108,26 @@ public class PlayerFPS implements IPlayer {
 		// Update gravity inputs.
 		if (gravityInput) {
 			gravityEnabled = !gravityEnabled;
-			((EbonGuis) FlounderEngine.getManagerGUI()).getOverlayStatus().addMessage("Gravity " + (gravityEnabled ? "Enabled" : "Disabled"));
+			((EbonGuis) FlounderGuis.getGuiMaster()).getOverlayStatus().addMessage("Gravity " + (gravityEnabled ? "Enabled" : "Disabled"));
 		}
 
 		// Update roll rotations.
-		rotation.set(FlounderEngine.getCamera().getRotation());
-		rotation.z += W_SPEED * FlounderEngine.getDelta() * wInput;
+		rotation.set(FlounderCamera.getCamera().getRotation());
+		rotation.z += W_SPEED * FlounderFramework.getDelta() * wInput;
 
 		// Updates gravity effects.
 		if (gravityEnabled && rotation.z != gravityPitch) {
-			rotation.z += (W_SPEED / 15.25f) * FlounderEngine.getDelta() * (gravityPitch - rotation.z);
+			rotation.z += (W_SPEED / 15.25f) * FlounderFramework.getDelta() * (gravityPitch - rotation.z);
 			rotation.z = Maths.deadband(0.2f, rotation.z - gravityPitch) + gravityPitch;
 		}
 
 		// Update normal flying camera.
 		if (!autopilot.isEnabled()) {
 			if (slowInput) {
-				speedMagnitude -= multiplier * DECELERATION * FlounderEngine.getDelta();
+				speedMagnitude -= multiplier * DECELERATION * FlounderFramework.getDelta();
 				speedMagnitude = Math.max(0.0f, speedMagnitude);
 			} else {
-				speedMagnitude += multiplier * ACCELERATION * FlounderEngine.getDelta() * (float) Math.abs(Math.log(speedMagnitude + 0.5f)) * Math.abs(zInput);
+				speedMagnitude += multiplier * ACCELERATION * FlounderFramework.getDelta() * (float) Math.abs(Math.log(speedMagnitude + 0.5f)) * Math.abs(zInput);
 				speedMagnitude = Math.min(1.0f, Math.abs(speedMagnitude)) * (speedMagnitude < 0.0f ? -1.0f : 1.0f);
 			}
 

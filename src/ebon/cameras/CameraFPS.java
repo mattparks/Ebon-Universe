@@ -2,8 +2,9 @@ package ebon.cameras;
 
 import ebon.*;
 import ebon.options.*;
+import flounder.camera.*;
 import flounder.devices.*;
-import flounder.framework.entrance.*;
+import flounder.framework.*;
 import flounder.inputs.*;
 import flounder.maths.*;
 import flounder.maths.matrices.*;
@@ -115,7 +116,7 @@ public class CameraFPS implements ICamera {
 		if (!gamePaused) {
 			if (FlounderJoysticks.isConnected(0) && joystickRotateX != null) {
 				if (Math.abs(Maths.deadband(0.01f, joystickRotateX.getAmount())) > 0.0f) {
-					change = INFLUENCE_OF_JOYSTICKDX * FlounderEngine.getDelta() * -joystickRotateX.getAmount();
+					change = INFLUENCE_OF_JOYSTICKDX * FlounderFramework.getDelta() * -joystickRotateX.getAmount();
 				}
 			} else {
 				change = FlounderMouse.getDeltaX() * INFLUENCE_OF_MOUSEDX;
@@ -132,7 +133,7 @@ public class CameraFPS implements ICamera {
 	}
 
 	private void calculateVerticalAngle(boolean gamePaused) {
-		float delta = FlounderEngine.getDelta();
+		float delta = FlounderFramework.getDelta();
 		float change = 0.0f;
 
 		if (!gamePaused) {
@@ -165,7 +166,7 @@ public class CameraFPS implements ICamera {
 			}
 		}
 
-		float change = ROTATE_AGILITY * FlounderEngine.getDelta() * offset;
+		float change = ROTATE_AGILITY * FlounderFramework.getDelta() * offset;
 		angleAroundPlayer += change;
 
 		if (angleAroundPlayer >= Maths.DEGREES_IN_HALF_CIRCLE) {
@@ -177,7 +178,7 @@ public class CameraFPS implements ICamera {
 
 	private void updatePitchAngle() {
 		float offset = targetElevation - angleOfElevation;
-		float change = PITCH_AGILITY * FlounderEngine.getDelta() * offset;
+		float change = PITCH_AGILITY * FlounderFramework.getDelta() * offset;
 		angleOfElevation += change;
 	}
 
@@ -194,7 +195,7 @@ public class CameraFPS implements ICamera {
 		Matrix4f.rotate(viewMatrix, reusableViewVector.set(0.0f, 0.0f, 1.0f), (float) Math.toRadians(rotation.z), viewMatrix);
 		Matrix4f.translate(viewMatrix, position, viewMatrix);
 		position.negate();
-		viewFrustum.recalculateFrustum(FlounderEngine.getProjectionMatrix(), viewMatrix);
+		viewFrustum.recalculateFrustum(getProjectionMatrix(), viewMatrix);
 	}
 
 	private void updateProjectionMatrix() {
@@ -238,5 +239,10 @@ public class CameraFPS implements ICamera {
 	@Override
 	public void setRotation(Vector3f rotation) {
 		this.rotation.set(rotation);
+	}
+
+	@Override
+	public boolean isActive() {
+		return true;
 	}
 }

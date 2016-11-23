@@ -1,6 +1,5 @@
 package ebon.uis.screens;
 
-import ebon.*;
 import ebon.uis.*;
 import flounder.events.*;
 import flounder.fonts.*;
@@ -44,8 +43,8 @@ public class ScreenPlay extends GuiComponent {
 	private void createSingleplayerOption(GuiAlign guiAlign, float yPos) {
 		GuiTextButton button = MainSlider.createButton("Singleplayer", guiAlign, yPos, this);
 		button.addLeftListener(() -> {
-			Ebon.instance.generateWorlds();
-			Ebon.instance.generatePlayer();
+			//	Ebon.instance.generateWorlds();
+			//	Ebon.instance.generatePlayer();
 			mainSlider.getSuperMenu().display(false);
 			mainSlider.sliderStartMenu(false);
 			mainSlider.closeSecondaryScreen();

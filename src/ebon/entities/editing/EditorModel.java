@@ -184,7 +184,7 @@ public class EditorModel extends IEditorComponent {
 
 		EntitySaverFunction saveVertices = new EntitySaverFunction("Vertices") {
 			@Override
-			public void writeIntoSection(FlounderFileWriter entityFileWriter) throws IOException {
+			public void writeIntoSection(FileWriterHelper entityFileWriter) throws IOException {
 				if (component.getModel() != null) {
 					for (float v : component.getModel().getVertices()) {
 						String s = v + ",";
@@ -195,7 +195,7 @@ public class EditorModel extends IEditorComponent {
 		};
 		EntitySaverFunction saveTextureCoords = new EntitySaverFunction("TextureCoords") {
 			@Override
-			public void writeIntoSection(FlounderFileWriter entityFileWriter) throws IOException {
+			public void writeIntoSection(FileWriterHelper entityFileWriter) throws IOException {
 				if (component.getModel() != null) {
 					for (float v : component.getModel().getTextures()) {
 						String s = v + ",";
@@ -206,7 +206,7 @@ public class EditorModel extends IEditorComponent {
 		};
 		EntitySaverFunction saveNormals = new EntitySaverFunction("Normals") {
 			@Override
-			public void writeIntoSection(FlounderFileWriter entityFileWriter) throws IOException {
+			public void writeIntoSection(FileWriterHelper entityFileWriter) throws IOException {
 				if (component.getModel() != null) {
 					for (float v : component.getModel().getNormals()) {
 						String s = v + ",";
@@ -217,7 +217,7 @@ public class EditorModel extends IEditorComponent {
 		};
 		EntitySaverFunction saveTangents = new EntitySaverFunction("Tangents") {
 			@Override
-			public void writeIntoSection(FlounderFileWriter entityFileWriter) throws IOException {
+			public void writeIntoSection(FileWriterHelper entityFileWriter) throws IOException {
 				if (component.getModel() != null) {
 					for (float v : component.getModel().getTangents()) {
 						String s = v + ",";
@@ -228,7 +228,7 @@ public class EditorModel extends IEditorComponent {
 		};
 		EntitySaverFunction saveIndices = new EntitySaverFunction("Indices") {
 			@Override
-			public void writeIntoSection(FlounderFileWriter entityFileWriter) throws IOException {
+			public void writeIntoSection(FileWriterHelper entityFileWriter) throws IOException {
 				if (component.getModel() != null) {
 					for (int i : component.getModel().getIndices()) {
 						String s = i + ",";

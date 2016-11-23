@@ -1,7 +1,7 @@
 package ebon.cameras;
 
+import flounder.camera.*;
 import flounder.devices.*;
-import flounder.framework.entrance.*;
 import flounder.maths.matrices.*;
 import flounder.maths.vectors.*;
 import flounder.space.*;
@@ -130,5 +130,10 @@ public class CameraCubeMap implements ICamera {
 	@Override
 	public void setRotation(Vector3f rotation) {
 		this.rotation.set(rotation);
+	}
+
+	@Override
+	public boolean isActive() {
+		return true;
 	}
 }

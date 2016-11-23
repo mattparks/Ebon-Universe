@@ -1,5 +1,7 @@
 package ebon.entities.loading;
 
+import flounder.helpers.*;
+
 import java.io.*;
 
 /**
@@ -17,7 +19,7 @@ public abstract class EntitySaverFunction {
 		this.sectionName = sectionName;
 	}
 
-	public abstract void writeIntoSection(FlounderFileWriter flounderFileWriter) throws IOException;
+	public abstract void writeIntoSection(FileWriterHelper FileWriterHelper) throws IOException;
 
 	/**
 	 * Gets the sections classpath.

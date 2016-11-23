@@ -2,11 +2,12 @@ package ebon.entities;
 
 import ebon.entities.components.*;
 import ebon.world.*;
+import flounder.camera.*;
 import flounder.devices.*;
-import flounder.framework.entrance.*;
 import flounder.helpers.*;
 import flounder.maths.vectors.*;
 import flounder.profiling.*;
+import flounder.renderer.*;
 import flounder.resources.*;
 import flounder.shaders.*;
 
@@ -44,7 +45,7 @@ public class EntityRenderer extends IRenderer {
 
 		prepareRendering(clipPlane, camera);
 
-		for (Entity entity : EbonEntities.getEntities().queryInFrustum(new ArrayList<>(), FlounderEngine.getCamera().getViewFrustum())) {
+		for (Entity entity : EbonEntities.getEntities().queryInFrustum(new ArrayList<>(), FlounderCamera.getCamera().getViewFrustum())) {
 			renderEntity(entity);
 		}
 
@@ -59,7 +60,7 @@ public class EntityRenderer extends IRenderer {
 
 	private void prepareRendering(Vector4f clipPlane, ICamera camera) {
 		shader.start();
-		shader.getUniformMat4("projectionMatrix").loadMat4(FlounderEngine.getProjectionMatrix());
+		shader.getUniformMat4("projectionMatrix").loadMat4(camera.getProjectionMatrix());
 		shader.getUniformMat4("viewMatrix").loadMat4(camera.getViewMatrix());
 		shader.getUniformVec4("clipPlane").loadVec4(clipPlane);
 

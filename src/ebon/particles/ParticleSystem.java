@@ -2,6 +2,7 @@ package ebon.particles;
 
 import ebon.particles.loading.*;
 import ebon.particles.spawns.*;
+import flounder.framework.*;
 import flounder.maths.*;
 import flounder.maths.matrices.*;
 import flounder.maths.vectors.*;
@@ -149,7 +150,7 @@ public class ParticleSystem {
 			return;
 		}
 
-		float delta = FlounderEngine.getDelta();
+		float delta = FlounderFramework.getDelta();
 		float particlesToCreate = this.pps * delta;
 		int count = (int) Math.floor(particlesToCreate);
 		float partialParticle = particlesToCreate % 1.0f;

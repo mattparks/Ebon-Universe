@@ -1,8 +1,8 @@
 package ebon.uis;
 
-import ebon.*;
 import flounder.devices.*;
 import flounder.fonts.*;
+import flounder.framework.*;
 import flounder.guis.*;
 import flounder.inputs.*;
 import flounder.maths.*;
@@ -57,13 +57,13 @@ public class MainSlider extends GuiComponent {
 		addComponent(menuStart, 0.0f, MAIN_MENU_Y_POS, 1.0f, MAIN_MENU_Y_SIZE);
 		addComponent(menuPause, 0.0f, MAIN_MENU_Y_POS, 1.0f, MAIN_MENU_Y_SIZE);
 
-		if (FlounderEngine.isRunningFromJar()) {
-			this.menuActive = menuStart;
-		} else {
-			this.menuActive = menuPause;
-			Ebon.instance.generateWorlds();
-			Ebon.instance.generatePlayer();
-		}
+		//	if (FlounderFramework.isRunningFromJar()) {
+		this.menuActive = menuStart;
+		//	} else {
+		//		this.menuActive = menuPause;
+		//	Ebon.instance.generateWorlds();
+		//	Ebon.instance.generatePlayer();
+		//	}
 
 		this.menuActive.show(true);
 
@@ -90,8 +90,8 @@ public class MainSlider extends GuiComponent {
 
 	@Override
 	protected void updateSelf() {
-		float mainValue = mainDriver.update(FlounderEngine.getDelta());
-		float value = secondaryDriver.update(FlounderEngine.getDelta());
+		float mainValue = mainDriver.update(FlounderFramework.getDelta());
+		float value = secondaryDriver.update(FlounderFramework.getDelta());
 
 		menuActive.setRelativeX(value);
 		menuActive.show(Math.abs(value) <= SLIDE_SCALAR);
@@ -156,7 +156,7 @@ public class MainSlider extends GuiComponent {
 	}
 
 	public void setNewSecondaryScreen(GuiComponent secondScreen, boolean slideForwards) {
-		if (newSecondaryScreen == null && secondaryDriver.update(FlounderEngine.getDelta()) == secondaryDepth) {
+		if (newSecondaryScreen == null && secondaryDriver.update(FlounderFramework.getDelta()) == secondaryDepth) {
 			secondaryDepth += slideForwards ? SLIDE_SCALAR : -SLIDE_SCALAR;
 			slidingForwards = slideForwards;
 			newSecondaryScreen = secondScreen;

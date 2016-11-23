@@ -4,5 +4,6 @@
     <mapping directory="$PROJECT_DIR$" vcs="Git" />
     <mapping directory="$PROJECT_DIR$/Ebon-Editors" vcs="Git" />
     <mapping directory="$PROJECT_DIR$/Flounder-Engine" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/Flounder-Framework" vcs="Git" />
   </component>
 </project>

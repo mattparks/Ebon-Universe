@@ -1,6 +1,5 @@
 package ebon.uis;
 
-import ebon.*;
 import ebon.uis.screens.*;
 import flounder.guis.*;
 
@@ -53,7 +52,7 @@ public class MenuPause extends GuiComponent {
 			mainSlider.closeSecondaryScreen();
 			mainSlider.getSuperMenu().display(true);
 			mainSlider.sliderStartMenu(true);
-			Ebon.instance.destroyWorld();
+			//	Ebon.instance.destroyWorld();
 		});
 		button.addRightListener(null);
 	}

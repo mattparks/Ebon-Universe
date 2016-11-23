@@ -1,6 +1,5 @@
 package ebon.uis.screens.suboptions;
 
-import ebon.*;
 import ebon.uis.*;
 import ebon.uis.screens.*;
 import flounder.devices.*;
@@ -120,7 +119,7 @@ public class ScreenOptionsGraphics extends GuiComponent {
 	}
 
 	private void createSamplesOption(GuiAlign guiAlign, float yPos) {
-		GuiTextButton button = MainSlider.createButton("Samples: " + ((EbonRenderer) Ebon.getMasterRenderer()).getSamples(), guiAlign, yPos, this);
+	/*	GuiTextButton button = MainSlider.createButton("Samples: " + ((EbonRenderer) Ebon.getMasterRenderer()).getSamples(), guiAlign, yPos, this);
 		button.addLeftListener(() -> {
 			int newSamples = ((EbonRenderer) Ebon.getMasterRenderer()).getSamples() + 1;
 			((EbonRenderer) Ebon.getMasterRenderer()).setSamples(Math.min(32, newSamples));
@@ -145,7 +144,7 @@ public class ScreenOptionsGraphics extends GuiComponent {
 			public void onEvent() {
 				button.getText().setText("Samples: " + ((EbonRenderer) Ebon.getMasterRenderer()).getSamples());
 			}
-		});
+		});*/
 	}
 
 	private void createBackOption(float xPos, float yPos) {

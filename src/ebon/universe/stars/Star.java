@@ -3,6 +3,7 @@ package ebon.universe.stars;
 import ebon.universe.celestials.*;
 import ebon.universe.galaxies.*;
 import ebon.universe.orbits.*;
+import flounder.camera.*;
 import flounder.helpers.*;
 import flounder.logger.*;
 import flounder.maths.*;
@@ -379,11 +380,11 @@ public class Star implements Comparable<Star>, ISpatialObject {
 	public int compareTo(Star o) {
 		// return starType.compareTo(o.starType);
 
-		if (FlounderEngine.getCamera().getPosition() == null) {
+		if (FlounderCamera.getCamera().getPosition() == null) {
 			return ((Float) position.lengthSquared()).compareTo(o.position.lengthSquared());
 		}
 
-		return ((Float) Vector3f.subtract(FlounderEngine.getCamera().getPosition(), position, VECTOR_REUSABLE_1).lengthSquared()).compareTo(Vector3f.subtract(FlounderEngine.getCamera().getPosition(), o.position, VECTOR_REUSABLE_2).lengthSquared());
+		return ((Float) Vector3f.subtract(FlounderCamera.getCamera().getPosition(), position, VECTOR_REUSABLE_1).lengthSquared()).compareTo(Vector3f.subtract(FlounderCamera.getCamera().getPosition(), o.position, VECTOR_REUSABLE_2).lengthSquared());
 	}
 
 	public enum StarType {

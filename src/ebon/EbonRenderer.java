@@ -11,17 +11,19 @@ import ebon.universe.galaxies.*;
 import ebon.universe.orbits.*;
 import ebon.universe.stars.*;
 import ebon.world.*;
+import flounder.camera.*;
 import flounder.devices.*;
 import flounder.fbos.*;
 import flounder.fonts.*;
-import flounder.framework.entrance.*;
+import flounder.framework.*;
 import flounder.guis.*;
 import flounder.helpers.*;
 import flounder.maths.*;
 import flounder.maths.vectors.*;
 import flounder.physics.bounding.*;
+import flounder.renderer.*;
 
-public class EbonRenderer extends IRendererMaster {
+public class EbonRenderer extends IExtension implements IRendererMaster {
 	public static final Vector4f POSITIVE_INFINITY = new Vector4f(0.0f, 1.0f, 0.0f, Float.POSITIVE_INFINITY);
 	public static final int FBO_ATTACHMENTS = 1;
 
@@ -72,7 +74,7 @@ public class EbonRenderer extends IRendererMaster {
 		renderScene(POSITIVE_INFINITY, EbonWorld.getFog() != null ? EbonWorld.getFog().getFogColour() : MainSlider.FADE_COLOUR_STARTUP);
 
 		/* Post rendering. */
-		renderPost(FlounderEngine.isGamePaused(), FlounderEngine.getScreenBlur());
+		renderPost(FlounderCamera.isGamePaused(), FlounderGuis.getGuiMaster().getBlurFactor());
 
 		/* Scene independents. */
 		guiRenderer.render(POSITIVE_INFINITY, null);
@@ -109,7 +111,7 @@ public class EbonRenderer extends IRendererMaster {
 
 	private void renderScene(Vector4f clipPlane, Colour clearColour) {
 		/* Clear and run. */
-		ICamera camera = FlounderEngine.getCamera();
+		ICamera camera = FlounderCamera.getCamera();
 		OpenGlUtils.prepareNewRenderParse(clearColour);
 
 		/* Renders each renderer. */
@@ -175,6 +177,16 @@ public class EbonRenderer extends IRendererMaster {
 		}
 
 		output.blitToScreen();
+	}
+
+	@Override
+	public void profile() {
+
+	}
+
+	@Override
+	public boolean isActive() {
+		return true;
 	}
 
 	@Override

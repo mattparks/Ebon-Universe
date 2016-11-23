@@ -1,8 +1,9 @@
 package ebon.uis;
 
-import ebon.*;
+import flounder.framework.*;
 import flounder.guis.*;
 import flounder.visual.*;
+import tester.*;
 
 import java.util.*;
 
@@ -29,6 +30,7 @@ public class MainMenu extends GuiComponent {
 		if (displayed == display) {
 			return;
 		}
+
 		mainSlider.show(display);
 		displayed = display;
 
@@ -38,10 +40,10 @@ public class MainMenu extends GuiComponent {
 			}
 
 			slideDriver = new SlideDriver(backgroundAlpha, 1.0f, SLIDE_TIME);
-			((EbonGuis) FlounderEngine.getManagerGUI()).getOverlayStatus().show(false);
+			((ExtensionGuis) FlounderGuis.getGuiMaster()).getOverlayStatus().show(false);
 		} else {
 			slideDriver = new SlideDriver(backgroundAlpha, 0.0f, SLIDE_TIME);
-			((EbonGuis) FlounderEngine.getManagerGUI()).getOverlayStatus().show(true);
+			((ExtensionGuis) FlounderGuis.getGuiMaster()).getOverlayStatus().show(true);
 		}
 	}
 
@@ -68,7 +70,7 @@ public class MainMenu extends GuiComponent {
 
 	@Override
 	protected void updateSelf() {
-		backgroundAlpha = slideDriver.update(FlounderEngine.getDelta());
+		backgroundAlpha = slideDriver.update(FlounderFramework.getDelta());
 
 		if (!displayed && !mainSlider.isShown() && backgroundAlpha == 0.0f) {
 			show(false);

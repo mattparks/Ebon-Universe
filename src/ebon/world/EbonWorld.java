@@ -15,7 +15,7 @@ public class EbonWorld extends IModule {
 	private Fog fog;
 
 	public EbonWorld() {
-		super(ModuleUpdate.AFTER_ENTRANCE, EbonParticles.class, EbonEntities.class, EbonGalaxies.class);
+		super(ModuleUpdate.UPDATE_POST, EbonParticles.class, EbonEntities.class, EbonGalaxies.class);
 	}
 
 	@Override

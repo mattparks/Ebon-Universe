@@ -3,7 +3,7 @@
 	url = https://github.com/EquilibriumGames/Flounder-Engine
 [submodule "Flounder-Framework"]
 	path = Flounder-Framework
-	url = https://github.com/EquilibriumGames/Flounder-Framework.git
+	url = https://github.com/EquilibriumGames/Flounder-Framework
 [submodule "Ebon-Editors"]
 	path = Ebon-Editors
 	url = https://github.com/EquilibriumGames/Ebon-Editors

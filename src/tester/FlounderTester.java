@@ -20,7 +20,7 @@ public class FlounderTester extends FlounderFramework {
 	public static Config configControls;
 
 	public FlounderTester() {
-		super("FlounderTester", new ExtensionRenderer(), new ExtensionGuis(), new ExtensionCamera());
+		super("FlounderTester", -1, new ExtensionRenderer(), new ExtensionGuis(), new ExtensionCamera());
 		FlounderDisplay.setup(1080, 720, "Hello World", new MyFile[0], false, true, 4, false);
 		TextBuilder.DEFAULT_TYPE = FlounderFonts.FFF_FORWARD;
 		configMain = new Config(new MyFile(FlounderFramework.getRoamingFolder(), "configs", "settings.conf"));

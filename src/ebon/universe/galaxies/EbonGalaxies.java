@@ -63,8 +63,10 @@ public class EbonGalaxies extends IModule {
 
 		lastPosition = new Vector3f();
 		playerVelocity = "0 ly/s";
+	}
 
-		galaxy = new Galaxy(
+	public static void generate() {
+		instance.galaxy = new Galaxy(
 				FauxGenerator.getFauxSentance(1, 3, 7), new Vector3f(),
 				GALAXY_STARS / 20.0,    // Radius of the galaxy.
 				GALAXY_STARS            // Total number of stars.
@@ -79,7 +81,7 @@ public class EbonGalaxies extends IModule {
 		inSystemCelestial = null;
 
 		// Updates stars if present.
-		if (galaxy != null) {
+		if (galaxy != null && FlounderCamera.getCamera() != null) {
 			//for (AABB aabb : starsStructure.getAABBs()) {
 			//	FlounderBounding.addShapeRender(aabb);
 			//}

@@ -1,33 +1,19 @@
 package ebon;
 
-import ebon.cameras.*;
-import ebon.options.*;
 import ebon.players.*;
-import ebon.universe.galaxies.*;
-import ebon.world.*;
 import flounder.devices.*;
-import flounder.exceptions.*;
 import flounder.fonts.*;
-import flounder.framework.entrance.*;
-import flounder.guis.*;
-import flounder.helpers.*;
+import flounder.framework.*;
 import flounder.inputs.*;
-import flounder.lights.*;
-import flounder.maths.*;
-import flounder.maths.vectors.*;
 import flounder.parsing.*;
-import flounder.physics.bounding.*;
-import flounder.profiling.*;
 import flounder.resources.*;
 import flounder.sounds.*;
 
-import static org.lwjgl.glfw.GLFW.*;
-
-public class Ebon extends FlounderEntrance {
+public class Ebon {
 	public static Config configMain;
 	public static Config configPost;
 	public static Config configControls;
-	public static Ebon instance;
+	public static FlounderFramework instance;
 
 	private KeyButton screenshot;
 	private KeyButton fullscreen;
@@ -39,27 +25,12 @@ public class Ebon extends FlounderEntrance {
 	private boolean stillLoading;
 
 	public static void main(String[] args) {
-		FlounderEngine.loadEngineStatics("Ebon Universe");
-		configMain = new Config(new MyFile(FlounderEngine.getRoamingFolder(), "configs", "settings.conf"));
-		configPost = new Config(new MyFile(FlounderEngine.getRoamingFolder(), "configs", "post.conf"));
-		configControls = new Config(new MyFile(FlounderEngine.getRoamingFolder(), "configs", "controls_joystick.conf"));
+		configMain = new Config(new MyFile(FlounderFramework.getRoamingFolder(), "configs", "settings.conf"));
+		configPost = new Config(new MyFile(FlounderFramework.getRoamingFolder(), "configs", "post.conf"));
+		configControls = new Config(new MyFile(FlounderFramework.getRoamingFolder(), "configs", "controls_joystick.conf"));
 		MusicPlayer.SOUND_VOLUME = (float) configMain.getDoubleWithDefault("sound_volume", 0.75f, () -> MusicPlayer.SOUND_VOLUME);
 
-		instance = new Ebon(
-				new CameraFPS(),
-				new EbonRenderer(),
-				new EbonGuis()
-		);
-		// Element.createTemp();
-		instance.startEngine(FlounderFonts.FFF_FORWARD);
-		System.exit(0);
-	}
-
-	private Ebon(ICamera camera, IRendererMaster renderer, IGuiMaster managerGUI) {
-		super(
-				camera, renderer, managerGUI,
-				FlounderDisplay.class, FlounderFonts.class, FlounderGuis.class, EbonWorld.class
-		);
+		instance = new FlounderFramework("Ebon Universe", configMain.getIntWithDefault("fps_limit", -1, FlounderFramework::getFpsLimit), new EbonGuis(), new EbonRenderer());
 		FlounderDisplay.setup(configMain.getIntWithDefault("width", 1080, FlounderDisplay::getWindowWidth),
 				configMain.getIntWithDefault("height", 720, FlounderDisplay::getWindowHeight),
 				"Ebon Universe", new MyFile[]{new MyFile(MyFile.RES_FOLDER, "icon.png")},
@@ -68,9 +39,17 @@ public class Ebon extends FlounderEntrance {
 				0,
 				configMain.getBooleanWithDefault("fullscreen", false, FlounderDisplay::isFullscreen)
 		);
+		TextBuilder.DEFAULT_TYPE = FlounderFonts.FFF_FORWARD;
+		instance.run();
+
+		configControls.dispose();
+		configPost.dispose();
+		configMain.dispose();
+
+		System.exit(0);
 	}
 
-	@Override
+	/*@Override
 	public void init() {
 		this.screenshot = new KeyButton(GLFW_KEY_F2);
 		this.fullscreen = new KeyButton(GLFW_KEY_F11);
@@ -90,7 +69,7 @@ public class Ebon extends FlounderEntrance {
 		EbonGalaxies.generateGalaxy();
 		// EbonEntities.load("barrel").createEntity(EbonEntities.getEntities(), new Vector3f(), new Vector3f());
 
-		// EntityLoader.load("dragon").createEntity(Environment.getEntitys(), new Vector3f(30, 0, 0), new Vector3f());
+		// EntityLoader.load("dragon").createEntity(Environment.getEntitys(), new Vector3f(30, 0, 0), new Vector3f());*/
 		/*EntityLoader.load("pane").createEntity(Environment.getEntities(), new Vector3f(), new Vector3f());
 		EntityLoader.load("sphere").createEntity(Environment.getEntities(), Environment.getLights().get(0).position, new Vector3f());
 
@@ -103,7 +82,7 @@ public class Ebon extends FlounderEntrance {
 				}
 			}
 		}*/
-	}
+	/*}
 
 	public void generatePlayer() {
 		//if (FlounderEngine.getCamera() instanceof CameraFocus) {
@@ -170,7 +149,7 @@ public class Ebon extends FlounderEntrance {
 			player.update(FlounderEngine.getManagerGUI().isMenuIsOpen());
 			update(player.getPosition(), player.getRotation());
 		}
-	}
+	}*/
 
 	/*public void switchCamera() {
 		if (FlounderEngine.getCamera() instanceof CameraFocus) {
@@ -192,7 +171,7 @@ public class Ebon extends FlounderEntrance {
 			player = newPlayer;
 			FlounderEngine.setCamera(newCamera);
 		}
-	}*/
+	}*//*
 
 	@Override
 	public void profile() {
@@ -204,5 +183,5 @@ public class Ebon extends FlounderEntrance {
 		configControls.dispose();
 		configPost.dispose();
 		configMain.dispose();
-	}
+	}*/
 }

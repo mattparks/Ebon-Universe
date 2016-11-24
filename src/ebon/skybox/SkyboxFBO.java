@@ -59,7 +59,7 @@ public class SkyboxFBO {
 		CameraCubeMap camera = new CameraCubeMap();
 		camera.init();
 		camera.setCentre(centre);
-		FlounderEngine.setCamera(camera);
+		//	FlounderEngine.setCamera(camera);
 		bindFBO();
 
 		for (int face = 0; face < 6; face++) {
@@ -71,7 +71,7 @@ public class SkyboxFBO {
 
 		unbindFBO();
 		setLoaded(true);
-		FlounderEngine.setCamera(previousCamera);
+		//	FlounderEngine.setCamera(previousCamera);
 		camera = null;
 	}
 

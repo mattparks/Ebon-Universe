@@ -131,9 +131,4 @@ public class CameraCubeMap implements ICamera {
 	public void setRotation(Vector3f rotation) {
 		this.rotation.set(rotation);
 	}
-
-	@Override
-	public boolean isActive() {
-		return true;
-	}
 }

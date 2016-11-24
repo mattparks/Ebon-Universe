@@ -124,7 +124,7 @@ public class EbonRenderer extends IExtension implements IRendererMaster {
 					ICamera previousCamera = camera;
 					camera = new CameraCubeMap();
 					camera.init();
-					FlounderEngine.setCamera(camera);
+//					FlounderEngine.setCamera(camera);
 
 					if (EbonGalaxies.getInSystemStar() != null) {
 						((CameraCubeMap) camera).setCentre(EbonGalaxies.getInSystemStar().getPosition());
@@ -146,7 +146,7 @@ public class EbonRenderer extends IExtension implements IRendererMaster {
 					bindRelevantFBO();
 
 					camera = previousCamera;
-					FlounderEngine.setCamera(camera);
+//					FlounderEngine.setCamera(camera);
 				} else {
 					skyboxRenderer.render(clipPlane, camera);
 					sunRenderer.render(clipPlane, camera);

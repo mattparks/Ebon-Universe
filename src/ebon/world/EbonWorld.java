@@ -38,7 +38,6 @@ public class EbonWorld extends IModule {
 		EbonParticles.clear();
 		EbonEntities.clear();
 		EbonGalaxies.clear();
-
 	}
 
 	public static void addFog(Fog fog) {

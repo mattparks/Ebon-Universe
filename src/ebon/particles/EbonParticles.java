@@ -24,7 +24,7 @@ public class EbonParticles extends IModule {
 	private static final EbonParticles instance = new EbonParticles();
 
 	public static final MyFile PARTICLES_LOC = new MyFile(MyFile.RES_FOLDER, "particles");
-	public static final float MAX_ELAPED_TIME = 5.0f;
+	public static final float MAX_ELAPSED_TIME = 5.0f;
 
 	private Map<String, SoftReference<ParticleTemplate>> loaded;
 
@@ -75,7 +75,7 @@ public class EbonParticles extends IModule {
 			Particle particle = deadIterator.next();
 			particle.update();
 
-			if (particle.getElapsedTime() > MAX_ELAPED_TIME) {
+			if (particle.getElapsedTime() > MAX_ELAPSED_TIME) {
 				deadIterator.remove();
 			}
 		}

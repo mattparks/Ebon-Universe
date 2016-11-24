@@ -3,6 +3,7 @@ package tester;
 import flounder.camera.*;
 import flounder.devices.*;
 import flounder.framework.*;
+import flounder.guis.*;
 import flounder.inputs.*;
 import flounder.logger.*;
 import flounder.maths.*;
@@ -93,9 +94,9 @@ public class ExtensionCamera extends IExtension implements ICamera {
 	}
 
 	@Override
-	public void update(Vector3f focusPosition, Vector3f focusRotation, boolean gamePaused) {
-		calculateHorizontalAngle(gamePaused);
-		calculateVerticalAngle(gamePaused);
+	public void update(Vector3f focusPosition, Vector3f focusRotation) {
+		calculateHorizontalAngle(FlounderGuis.getGuiMaster().isGamePaused());
+		calculateVerticalAngle(FlounderGuis.getGuiMaster().isGamePaused());
 
 		this.targetPosition.set(focusPosition);
 		this.targetRotation.set(focusRotation);

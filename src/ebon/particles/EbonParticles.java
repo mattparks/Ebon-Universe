@@ -1,9 +1,9 @@
 package ebon.particles;
 
 import ebon.particles.loading.*;
-import flounder.camera.*;
 import flounder.devices.*;
 import flounder.framework.*;
+import flounder.guis.*;
 import flounder.helpers.*;
 import flounder.loaders.*;
 import flounder.logger.*;
@@ -50,7 +50,7 @@ public class EbonParticles extends IModule {
 
 	@Override
 	public void run() {
-		if (FlounderCamera.isGamePaused()) {
+		if (FlounderGuis.getGuiMaster().isGamePaused()) {
 			return;
 		}
 

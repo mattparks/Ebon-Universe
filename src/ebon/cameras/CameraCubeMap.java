@@ -48,7 +48,7 @@ public class CameraCubeMap implements ICamera {
 	}
 
 	@Override
-	public void update(Vector3f focusPosition, Vector3f focusRotation, boolean gamePaused) {
+	public void update(Vector3f focusPosition, Vector3f focusRotation) {
 		// x=pitch, y=yaw, z=roll.
 	}
 

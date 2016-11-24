@@ -5,6 +5,7 @@ import ebon.options.*;
 import flounder.camera.*;
 import flounder.devices.*;
 import flounder.framework.*;
+import flounder.guis.*;
 import flounder.inputs.*;
 import flounder.maths.*;
 import flounder.maths.matrices.*;
@@ -89,9 +90,9 @@ public class CameraFPS implements ICamera {
 	}
 
 	@Override
-	public void update(Vector3f focusPosition, Vector3f focusRotation, boolean gamePaused) {
-		calculateHorizontalAngle(gamePaused);
-		calculateVerticalAngle(gamePaused);
+	public void update(Vector3f focusPosition, Vector3f focusRotation) {
+		calculateHorizontalAngle(FlounderGuis.getGuiMaster().isGamePaused());
+		calculateVerticalAngle(FlounderGuis.getGuiMaster().isGamePaused());
 
 		this.targetPosition.set(focusPosition);
 		this.targetRotation.set(focusRotation);

@@ -21,11 +21,22 @@ public class FlounderTester extends FlounderFramework {
 
 	public FlounderTester() {
 		super("FlounderTester", -1, new ExtensionRenderer(), new ExtensionGuis(), new ExtensionCamera());
-		FlounderDisplay.setup(1080, 720, "Hello World", new MyFile[0], false, true, 4, false);
-		TextBuilder.DEFAULT_TYPE = FlounderFonts.FFF_FORWARD;
+
 		configMain = new Config(new MyFile(FlounderFramework.getRoamingFolder(), "configs", "settings.conf"));
 		configPost = new Config(new MyFile(FlounderFramework.getRoamingFolder(), "configs", "post.conf"));
 		configControls = new Config(new MyFile(FlounderFramework.getRoamingFolder(), "configs", "controls_joystick.conf"));
+
+		FlounderDisplay.setup(configMain.getIntWithDefault("width", 1080, FlounderDisplay::getWindowWidth),
+				configMain.getIntWithDefault("height", 720, FlounderDisplay::getWindowHeight),
+				"Ebon Universe", new MyFile[]{new MyFile(MyFile.RES_FOLDER, "icon.png")},
+				configMain.getBooleanWithDefault("vsync", false, FlounderDisplay::isVSync),
+				configMain.getBooleanWithDefault("antialias", true, FlounderDisplay::isAntialiasing),
+				configMain.getIntWithDefault("sampled", 0, FlounderDisplay::getSamples),
+				configMain.getBooleanWithDefault("fullscreen", false, FlounderDisplay::isFullscreen)
+		);
+		setFpsLimit(configMain.getIntWithDefault("fps_limit", -1, FlounderFramework::getFpsLimit));
+
+		TextBuilder.DEFAULT_TYPE = FlounderFonts.FFF_FORWARD;
 		MusicPlayer.SOUND_VOLUME = (float) configMain.getDoubleWithDefault("sound_volume", 0.75f, () -> MusicPlayer.SOUND_VOLUME);
 	}
 

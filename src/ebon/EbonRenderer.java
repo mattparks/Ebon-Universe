@@ -74,11 +74,11 @@ public class EbonRenderer extends IExtension implements IRendererMaster {
 		renderScene(POSITIVE_INFINITY, EbonWorld.getFog() != null ? EbonWorld.getFog().getFogColour() : MainSlider.FADE_COLOUR_STARTUP);
 
 		/* Post rendering. */
-		renderPost(FlounderCamera.isGamePaused(), FlounderGuis.getGuiMaster().getBlurFactor());
+		renderPost(FlounderGuis.getGuiMaster().isGamePaused(), FlounderGuis.getGuiMaster().getBlurFactor());
 
 		/* Scene independents. */
-		guiRenderer.render(POSITIVE_INFINITY, null);
-		fontRenderer.render(POSITIVE_INFINITY, null);
+		guiRenderer.render(POSITIVE_INFINITY, FlounderCamera.getCamera());
+		fontRenderer.render(POSITIVE_INFINITY, FlounderCamera.getCamera());
 
 		/* Unbinds the FBO. */
 		unbindRelevantFBO();

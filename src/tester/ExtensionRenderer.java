@@ -60,11 +60,11 @@ public class ExtensionRenderer extends IExtension implements IRendererMaster {
 		renderScene(POSITIVE_INFINITY, MainSlider.FADE_COLOUR_STARTUP); // EbonWorld.getFog() != null ? EbonWorld.getFog().getFogColour() :
 
 		/* Post rendering. */
-		renderPost(FlounderGuis.getGuiMaster().isMenuIsOpen(), FlounderGuis.getGuiMaster().getBlurFactor());
+		renderPost(FlounderGuis.getGuiMaster().isGamePaused(), FlounderGuis.getGuiMaster().getBlurFactor());
 
 		/* Scene independents. */
-		guiRenderer.render(POSITIVE_INFINITY, null);
-		fontRenderer.render(POSITIVE_INFINITY, null);
+		guiRenderer.render(POSITIVE_INFINITY, FlounderCamera.getCamera());
+		fontRenderer.render(POSITIVE_INFINITY, FlounderCamera.getCamera());
 
 		/* Unbinds the FBO. */
 		unbindRelevantFBO();

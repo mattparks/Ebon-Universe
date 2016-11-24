@@ -105,10 +105,10 @@ public class Ebon {
 
 	@Override
 	public void update() {
-		if (FlounderEngine.getManagerGUI().isMenuIsOpen()) {
+		if (FlounderEngine.getManagerGUI().isGamePaused()) {
 			// Pause the music for the start screen.
 			FlounderSound.getMusicPlayer().pauseTrack();
-		} else if (!FlounderEngine.getManagerGUI().isMenuIsOpen() && stillLoading) {
+		} else if (!FlounderEngine.getManagerGUI().isGamePaused() && stillLoading) {
 			// Unpause the music for the main menu.
 			stillLoading = false;
 			//	FlounderLogger.log("Starting main menu music.");
@@ -146,7 +146,7 @@ public class Ebon {
 		}
 
 		if (player != null) {
-			player.update(FlounderEngine.getManagerGUI().isMenuIsOpen());
+			player.update(FlounderEngine.getManagerGUI().isGamePaused());
 			update(player.getPosition(), player.getRotation());
 		}
 	}*/

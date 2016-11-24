@@ -57,7 +57,7 @@ public class EbonGuis extends IExtension implements IGuiMaster {
 	}
 
 	@Override
-	public boolean isMenuIsOpen() {
+	public boolean isGamePaused() {
 		return menuIsOpen;
 	}
 

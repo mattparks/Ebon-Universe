@@ -20,7 +20,7 @@ public class FlounderTester extends FlounderFramework {
 	public static Config configControls;
 
 	public FlounderTester() {
-		super("FlounderTester", -1, new ExtensionRenderer(), new ExtensionGuis(), new ExtensionCamera());
+		super("FlounderTester", -1, new ExtensionRenderer(), new ExtensionGuis(), new ExtensionCamera(), new ExtensionUpdater());
 
 		configMain = new Config(new MyFile(FlounderFramework.getRoamingFolder(), "configs", "settings.conf"));
 		configPost = new Config(new MyFile(FlounderFramework.getRoamingFolder(), "configs", "post.conf"));

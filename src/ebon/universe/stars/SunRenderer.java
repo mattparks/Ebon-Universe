@@ -34,7 +34,7 @@ public class SunRenderer extends IRenderer {
 		shader = Shader.newShader("sun").setShaderTypes(
 				new ShaderType(GL_VERTEX_SHADER, VERTEX_SHADER),
 				new ShaderType(GL_FRAGMENT_SHADER, FRAGMENT_SHADER)
-		).createInSecondThread();
+		).create();
 	}
 
 	@Override

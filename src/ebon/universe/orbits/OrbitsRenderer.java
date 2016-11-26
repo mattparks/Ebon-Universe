@@ -25,7 +25,7 @@ public class OrbitsRenderer extends IRenderer {
 		shader = Shader.newShader("orbits").setShaderTypes(
 				new ShaderType(GL_VERTEX_SHADER, VERTEX_SHADER),
 				new ShaderType(GL_FRAGMENT_SHADER, FRAGMENT_SHADER)
-		).createInSecondThread();
+		).create();
 
 		testing = new Orbit(0.0, 1.0, 1.0, 0.0, 0.0, 0.0);
 		FlounderLogger.log("Testing Orbit: " + testing.toString());

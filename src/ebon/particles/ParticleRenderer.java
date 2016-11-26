@@ -42,7 +42,7 @@ public class ParticleRenderer extends IRenderer {
 		shader = Shader.newShader("particles").setShaderTypes(
 				new ShaderType(GL_VERTEX_SHADER, VERTEX_SHADER),
 				new ShaderType(GL_FRAGMENT_SHADER, FRAGMENT_SHADER)
-		).createInSecondThread();
+		).create();
 
 		pointer = 0;
 		rendered = 0;

@@ -44,7 +44,7 @@ public class StarRenderer extends IRenderer {
 		shader = Shader.newShader("stars").setShaderTypes(
 				new ShaderType(GL_VERTEX_SHADER, VERTEX_SHADER),
 				new ShaderType(GL_FRAGMENT_SHADER, FRAGMENT_SHADER)
-		).createInSecondThread();
+		).create();
 
 		pointer = 0;
 		rendered = 0;

@@ -1,5 +1,6 @@
 package ebon.particles.spawns;
 
+import ebon.particles.loading.*;
 import flounder.maths.*;
 import flounder.maths.vectors.*;
 
@@ -16,7 +17,7 @@ public class SpawnCircle implements IParticleSpawn {
 
 	public SpawnCircle(String[] template) {
 		this.radius = Float.parseFloat(template[2]);
-		this.heading = new Vector3f().set(template[1]).normalize();
+		this.heading = ParticleTemplate.createVector3f(template[1]).normalize();
 		this.spawnPosition = new Vector3f();
 	}
 

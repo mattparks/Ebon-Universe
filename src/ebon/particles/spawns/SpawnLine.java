@@ -1,5 +1,6 @@
 package ebon.particles.spawns;
 
+import ebon.particles.loading.*;
 import flounder.maths.vectors.*;
 
 import java.util.*;
@@ -19,7 +20,7 @@ public class SpawnLine implements IParticleSpawn {
 
 	public SpawnLine(String[] template) {
 		this.length = Float.parseFloat(template[0]);
-		this.axis = new Vector3f().set(template[1]).normalize();
+		this.axis = ParticleTemplate.createVector3f(template[1]).normalize();
 		this.random = new Random();
 		this.spawnPosition = new Vector3f();
 	}

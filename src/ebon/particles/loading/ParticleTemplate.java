@@ -1,5 +1,6 @@
 package ebon.particles.loading;
 
+import flounder.maths.vectors.*;
 import flounder.textures.*;
 
 /**
@@ -24,6 +25,19 @@ public class ParticleTemplate {
 		this.texture = texture;
 		this.lifeLength = lifeLength;
 		this.scale = scale;
+	}
+
+	public static Vector3f createVector3f(String source) {
+		String reduced = source.replace("Vector3f(", "").replace(")", "").trim();
+		String[] split = reduced.split("\\|");
+		float x = Float.parseFloat(split[0].substring(2, split[0].length()));
+		float y = Float.parseFloat(split[1].substring(2, split[0].length()));
+		float z = Float.parseFloat(split[2].substring(2, split[0].length()));
+		return new Vector3f(x, y, z);
+	}
+
+	public static String saveVector3f(Vector3f source) {
+		return "Vector3f(" + "x=" + source.x + "| y=" + source.y + "| z=" + source.z + ")";
 	}
 
 	public void setName(String name) {

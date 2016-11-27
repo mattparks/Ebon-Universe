@@ -21,7 +21,7 @@ public class ParticleSystem {
 	private boolean randomRotation;
 
 	private Vector3f systemCentre;
-	private Vector3f centreVelocity;
+	private Vector3f velocityCentre;
 
 	private Vector3f direction;
 	private float directionDeviation;
@@ -49,7 +49,7 @@ public class ParticleSystem {
 		this.randomRotation = false;
 
 		this.systemCentre = new Vector3f();
-		this.centreVelocity = new Vector3f();
+		this.velocityCentre = new Vector3f();
 
 		this.paused = false;
 
@@ -76,7 +76,7 @@ public class ParticleSystem {
 		this.spawn = spawn;
 	}
 
-	public float getPps() {
+	public float getPPS() {
 		return pps;
 	}
 
@@ -112,12 +112,12 @@ public class ParticleSystem {
 		this.systemCentre = systemCentre;
 	}
 
-	public Vector3f getCentreVelocity() {
-		return centreVelocity;
+	public Vector3f getVelocityCentre() {
+		return velocityCentre;
 	}
 
-	public void setCentreVelocity(Vector3f centreVelocity) {
-		this.centreVelocity = centreVelocity;
+	public void setVelocityCentre(Vector3f velocityCentre) {
+		this.velocityCentre = velocityCentre;
 	}
 
 	public void setDirection(Vector3f direction, float deviation) {
@@ -177,7 +177,7 @@ public class ParticleSystem {
 
 		velocity.normalize();
 		velocity.scale(generateValue(averageSpeed, averageSpeed * speedError));
-		Vector3f.add(velocity, centreVelocity, velocity);
+		Vector3f.add(velocity, velocityCentre, velocity);
 		float scale = generateValue(emitType.getScale(), emitType.getScale() * scaleError);
 		float lifeLength = generateValue(emitType.getLifeLength(), emitType.getLifeLength() * lifeError);
 		Vector3f spawnPos = Vector3f.add(systemCentre, spawn.getBaseSpawnPosition(), null);

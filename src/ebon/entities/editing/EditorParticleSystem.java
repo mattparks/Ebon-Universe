@@ -49,7 +49,7 @@ public class EditorParticleSystem extends IEditorComponent {
 	public void addToPanel(JPanel panel) {
 		// PPS Slider.
 		//	panel.add(new JLabel("PPS Slider: "));
-		JSlider ppsSlider = new JSlider(JSlider.HORIZONTAL, 0, 2500, (int) component.getParticleSystem().getPps());
+		JSlider ppsSlider = new JSlider(JSlider.HORIZONTAL, 0, 2500, (int) component.getParticleSystem().getPPS());
 		ppsSlider.addChangeListener(new ChangeListener() {
 			@Override
 			public void stateChanged(ChangeEvent e) {
@@ -253,10 +253,10 @@ public class EditorParticleSystem extends IEditorComponent {
 		};
 
 		String particleSpawn = "Spawn: " + (component.getParticleSystem().getSpawn() == null ? null : component.getParticleSystem().getSpawn().getClass().getName());
-		String particlePPS = "PPS: " + component.getParticleSystem().getPps();
+		String particlePPS = "PPS: " + component.getParticleSystem().getPPS();
 		String particleSpeed = "Speed: " + component.getParticleSystem().getAverageSpeed();
 		String particleGravity = "GravityEffect: " + component.getParticleSystem().getGravityEffect();
-		String particleCentreOffset = "CentreOffset: " + component.getParticleSystem().toString();
+		String particleCentreOffset = "CentreOffset: " + ParticleTemplate.saveVector3f(component.getCentreOffset());
 
 		return new Pair<>(
 				new String[]{particleSpawn, particlePPS, particleSpeed, particleGravity, particleCentreOffset},

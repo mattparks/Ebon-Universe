@@ -1,5 +1,6 @@
 package ebon.entities.editing.particles;
 
+import ebon.particles.loading.*;
 import ebon.particles.spawns.*;
 import flounder.maths.vectors.*;
 
@@ -48,6 +49,6 @@ public class EditorParticleCircle extends IEditorParticleSpawn {
 
 	@Override
 	public String[] getSavableValues() {
-		return new String[]{"" + spawn.getRadius(), spawn.getHeading().toString()};
+		return new String[]{"" + spawn.getRadius(), ParticleTemplate.saveVector3f(spawn.getHeading())};
 	}
 }

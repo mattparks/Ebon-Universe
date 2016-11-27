@@ -43,7 +43,8 @@ public class ComponentParticleSystem extends IEntityComponent {
 		try {
 			Class componentClass = Class.forName(spawnClasspath);
 			Class[] componentTypes = new Class[]{String[].class};
-			@SuppressWarnings("unchecked") Constructor componentConstructor = componentClass.getConstructor(componentTypes);
+			@SuppressWarnings("unchecked")
+			Constructor componentConstructor = componentClass.getConstructor(componentTypes);
 			Object[] componentParameters = new Object[]{spawnValues};
 			Object object = componentConstructor.newInstance(componentParameters);
 			particleSpawn = (IParticleSpawn) object;
@@ -55,7 +56,7 @@ public class ComponentParticleSystem extends IEntityComponent {
 		particleSystem = new ParticleSystem(templateList, particleSpawn, Float.parseFloat(template.getValue(this, "PPS")), Float.parseFloat(template.getValue(this, "Speed")), Float.parseFloat(template.getValue(this, "GravityEffect")));
 		particleSystem.randomizeRotation();
 		particleSystem.setSystemCentre(new Vector3f());
-		centreOffset = new Vector3f().set(template.getValue(this, "CentreOffset"));
+		centreOffset = ParticleTemplate.createVector3f(template.getValue(this, "CentreOffset"));
 		lastPosition = new Vector3f();
 	}
 
@@ -72,11 +73,11 @@ public class ComponentParticleSystem extends IEntityComponent {
 				Vector3f.rotate(translated, super.getEntity().getRotation(), translated);
 				Vector3f.add(translated, super.getEntity().getPosition(), translated);
 
-				Vector3f diffrence = Vector3f.subtract(lastPosition, translated, null);
+				Vector3f difference = Vector3f.subtract(lastPosition, translated, null);
 				lastPosition.set(translated);
 
 				particleSystem.getSystemCentre().set(translated);
-				particleSystem.getCentreVelocity().set(diffrence);
+				particleSystem.getVelocityCentre().set(difference);
 			}
 		}
 	}

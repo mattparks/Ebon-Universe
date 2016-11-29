@@ -1,5 +1,9 @@
 package tester;
 
+import ebon.*;
+import ebon.options.*;
+import ebon.post.*;
+import ebon.uis.*;
 import flounder.camera.*;
 import flounder.devices.*;
 import flounder.fbos.*;
@@ -13,9 +17,6 @@ import flounder.maths.vectors.*;
 import flounder.physics.bounding.*;
 import flounder.profiling.*;
 import flounder.renderer.*;
-import tester.options.*;
-import tester.post.*;
-import tester.uis.*;
 
 public class ExtensionRenderer extends IExtension implements IRendererMaster {
 	public static final Vector4f POSITIVE_INFINITY = new Vector4f(0.0f, 1.0f, 0.0f, Float.POSITIVE_INFINITY);
@@ -43,7 +44,7 @@ public class ExtensionRenderer extends IExtension implements IRendererMaster {
 
 		// Diffuse, Depth, Normals
 		this.multisamplingFBO = FBO.newFBO(1.0f).attachments(FBO_ATTACHMENTS).depthBuffer(DepthBufferType.TEXTURE).antialias(
-				FlounderTester.configMain.getIntWithDefault("msaa_samples", 4, () -> multisamplingFBO.getSamples())
+				Ebon.configMain.getIntWithDefault("msaa_samples", 4, () -> multisamplingFBO.getSamples())
 		).create();
 		this.nonsampledFBO = FBO.newFBO(1.0f).attachments(FBO_ATTACHMENTS).depthBuffer(DepthBufferType.TEXTURE).create();
 

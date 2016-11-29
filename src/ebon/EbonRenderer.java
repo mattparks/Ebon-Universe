@@ -18,9 +18,12 @@ import flounder.fonts.*;
 import flounder.framework.*;
 import flounder.guis.*;
 import flounder.helpers.*;
+import flounder.logger.*;
 import flounder.maths.*;
 import flounder.maths.vectors.*;
+import flounder.models.*;
 import flounder.physics.bounding.*;
+import flounder.profiling.*;
 import flounder.renderer.*;
 
 public class EbonRenderer extends IExtension implements IRendererMaster {
@@ -42,6 +45,10 @@ public class EbonRenderer extends IExtension implements IRendererMaster {
 
 	private PipelineDemo pipelineDemo;
 	private PipelinePaused pipelinePaused;
+
+	public EbonRenderer() {
+		super(FlounderLogger.class, FlounderProfiler.class, FlounderDisplay.class, FlounderRenderer.class, FlounderModels.class); // TODO: Remove FlounderModels, add requirements to IRenderers.
+	}
 
 	@Override
 	public void init() {
@@ -115,7 +122,7 @@ public class EbonRenderer extends IExtension implements IRendererMaster {
 		OpenGlUtils.prepareNewRenderParse(clearColour);
 
 		/* Renders each renderer. */
-		if (EbonGalaxies.getStars() != null) {
+		if (EbonGalaxies.getGalaxy() != null && EbonGalaxies.getGalaxy().getStars() != null) {
 			if (EbonGalaxies.renderStars()) {
 				starRenderer.render(clipPlane, camera);
 				skyboxRenderer.getSkyboxFBO().setLoaded(false);

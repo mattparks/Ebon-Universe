@@ -4,7 +4,7 @@
     <root id="archive" name="Ebon Editors.jar">
       <element id="module-output" name="Ebon-Editors" />
       <element id="module-output" name="Flounder-Engine" />
-      <element id="module-output" name="Ebon Universe" />
+      <element id="module-output" name="Ebon-Universe" />
       <element id="extracted-dir" path="$PROJECT_DIR$/Flounder-Engine/libs/lwjgl-glfw/lwjgl-glfw.jar" path-in-jar="/" />
       <element id="extracted-dir" path="$PROJECT_DIR$/Flounder-Engine/libs/lwjgl-opengl/lwjgl-opengl.jar" path-in-jar="/" />
       <element id="extracted-dir" path="$PROJECT_DIR$/Flounder-Engine/libs/lwjgl/lwjgl.jar" path-in-jar="/" />

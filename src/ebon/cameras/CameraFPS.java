@@ -7,13 +7,14 @@ import flounder.devices.*;
 import flounder.framework.*;
 import flounder.guis.*;
 import flounder.inputs.*;
+import flounder.logger.*;
 import flounder.maths.*;
 import flounder.maths.matrices.*;
 import flounder.maths.vectors.*;
 import flounder.profiling.*;
 import flounder.space.*;
 
-public class CameraFPS implements ICamera {
+public class CameraFPS extends IExtension implements ICamera {
 	private static final float NEAR_PLANE = 0.1f;
 	private static final float FAR_PLANE = (float) (2560) * 4.0f;
 	private static final float FIELD_OF_VIEW = 72.0f;
@@ -49,6 +50,10 @@ public class CameraFPS implements ICamera {
 	private float targetElevation;
 	private float targetRotationAngle;
 
+	public CameraFPS() {
+		super(FlounderLogger.class, FlounderProfiler.class, FlounderCamera.class, FlounderJoysticks.class, FlounderKeyboard.class, FlounderMouse.class);
+	}
+
 	@Override
 	public void init() {
 		this.reusableViewVector = new Vector3f();
@@ -76,17 +81,17 @@ public class CameraFPS implements ICamera {
 
 	@Override
 	public float getNearPlane() {
-		return NEAR_PLANE;
+		return 0;
 	}
 
 	@Override
 	public float getFarPlane() {
-		return FAR_PLANE;
+		return 0;
 	}
 
 	@Override
 	public float getFOV() {
-		return FIELD_OF_VIEW;
+		return 0;
 	}
 
 	@Override
@@ -240,5 +245,10 @@ public class CameraFPS implements ICamera {
 	@Override
 	public void setRotation(Vector3f rotation) {
 		this.rotation.set(rotation);
+	}
+
+	@Override
+	public boolean isActive() {
+		return true;
 	}
 }

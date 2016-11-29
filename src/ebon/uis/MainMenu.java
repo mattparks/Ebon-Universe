@@ -1,9 +1,9 @@
 package ebon.uis;
 
+import ebon.*;
 import flounder.framework.*;
 import flounder.guis.*;
 import flounder.visual.*;
-import tester.*;
 
 import java.util.*;
 
@@ -40,10 +40,10 @@ public class MainMenu extends GuiComponent {
 			}
 
 			slideDriver = new SlideDriver(backgroundAlpha, 1.0f, SLIDE_TIME);
-			((ExtensionGuis) FlounderGuis.getGuiMaster()).getOverlayStatus().show(false);
+			((EbonGuis) FlounderGuis.getGuiMaster()).getOverlayStatus().show(false);
 		} else {
 			slideDriver = new SlideDriver(backgroundAlpha, 0.0f, SLIDE_TIME);
-			((ExtensionGuis) FlounderGuis.getGuiMaster()).getOverlayStatus().show(true);
+			((EbonGuis) FlounderGuis.getGuiMaster()).getOverlayStatus().show(true);
 		}
 	}
 

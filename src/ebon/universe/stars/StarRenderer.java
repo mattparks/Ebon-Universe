@@ -58,14 +58,14 @@ public class StarRenderer extends IRenderer {
 
 	@Override
 	public void renderObjects(Vector4f clipPlane, ICamera camera) {
-		if (!shader.isLoaded() || EbonGalaxies.getStars() == null) {
+		if (!shader.isLoaded() || EbonGalaxies.getGalaxy() == null || EbonGalaxies.getGalaxy().getStars() == null) {
 			return;
 		}
 
 		prepareRendering(clipPlane, camera);
 
 		// Creates the data to be used when rendering.
-		List<Star> stars = EbonGalaxies.getStars().queryInFrustum(new ArrayList<>(), camera.getViewFrustum());
+		List<Star> stars = EbonGalaxies.getGalaxy().getStars().queryInFrustum(new ArrayList<>(), camera.getViewFrustum());
 		stars.remove(EbonGalaxies.getInSystemStar());
 		float[] vboData = new float[Math.min(stars.size(), MAX_INSTANCES) * INSTANCE_DATA_LENGTH];
 		pointer = 0;

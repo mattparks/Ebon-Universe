@@ -244,12 +244,12 @@ public class EbonGalaxies extends IModule {
 	}
 
 	/**
-	 * Gets a list of stars in the galaxy.
+	 * Gets the current galaxy.
 	 *
-	 * @return A list of stars in the galaxy.
+	 * @return The current galaxy.
 	 */
-	public static ISpatialStructure<Star> getStars() {
-		return instance.galaxy.getStars();
+	public static Galaxy getGalaxy() {
+		return instance.galaxy;
 	}
 
 	/**

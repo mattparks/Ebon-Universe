@@ -2,7 +2,7 @@
   <artifact type="jar" name="Ebon Universe:jar">
     <output-path>$PROJECT_DIR$/out/artifacts</output-path>
     <root id="archive" name="Ebon Universe.jar">
-      <element id="module-output" name="Ebon Universe" />
+      <element id="module-output" name="Ebon-Universe" />
       <element id="module-output" name="Flounder-Engine" />
       <element id="dir-copy" path="$PROJECT_DIR$/Flounder-Engine/libs/natives" />
       <element id="extracted-dir" path="$PROJECT_DIR$/Flounder-Engine/libs/lwjgl/lwjgl.jar" path-in-jar="/" />

@@ -1,5 +1,6 @@
 package ebon.uis;
 
+import ebon.*;
 import flounder.camera.*;
 import flounder.devices.*;
 import flounder.fonts.*;
@@ -9,7 +10,6 @@ import flounder.maths.*;
 import flounder.resources.*;
 import flounder.textures.*;
 import flounder.visual.*;
-import tester.*;
 
 import java.util.*;
 import java.util.Timer;
@@ -40,7 +40,7 @@ public class OverlayStatus extends GuiComponent {
 
 		crossHair = new GuiTexture(Texture.newTexture(new MyFile(MyFile.RES_FOLDER, "guis", "crosshair.png")).create());
 		crossHair.getTexture().setNumberOfRows(4);
-		crossHair.setSelectedRow(FlounderTester.configMain.getIntWithDefault("crosshair", 1, () -> crossHair.getSelectedRow()));
+		crossHair.setSelectedRow(Ebon.configMain.getIntWithDefault("crosshair", 1, () -> crossHair.getSelectedRow()));
 
 		starSelection = new GuiTexture(Texture.newTexture(new MyFile(MyFile.RES_FOLDER, "guis", "crosshair.png")).create());
 		starSelection.getTexture().setNumberOfRows(4);

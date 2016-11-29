@@ -1,5 +1,6 @@
 package ebon;
 
+import ebon.options.*;
 import ebon.uis.*;
 import flounder.devices.*;
 import flounder.framework.*;
@@ -10,9 +11,6 @@ import flounder.profiling.*;
 
 import static org.lwjgl.glfw.GLFW.*;
 
-/**
- * Class in charge of the main GUIs in the test game.
- */
 public class EbonGuis extends IExtension implements IGuiMaster {
 	private MainMenu mainMenu;
 	private OverlayStatus overlayStatus;
@@ -22,7 +20,7 @@ public class EbonGuis extends IExtension implements IGuiMaster {
 	private boolean forceOpenGUIs;
 
 	public EbonGuis() {
-		super(FlounderLogger.class, FlounderProfiler.class, FlounderMouse.class, FlounderGuis.class);
+		super(FlounderLogger.class, FlounderProfiler.class, FlounderGuis.class);
 	}
 
 	@Override
@@ -30,13 +28,13 @@ public class EbonGuis extends IExtension implements IGuiMaster {
 		this.mainMenu = new MainMenu();
 		this.overlayStatus = new OverlayStatus();
 
-		this.openMenuKey = new CompoundButton(new KeyButton(GLFW_KEY_ESCAPE), new JoystickButton(tester.options.OptionsControls.JOYSTICK_PORT, tester.options.OptionsControls.JOYSTICK_GUI_TOGGLE));
+		this.openMenuKey = new CompoundButton(new KeyButton(GLFW_KEY_ESCAPE), new JoystickButton(OptionsControls.JOYSTICK_PORT, OptionsControls.JOYSTICK_GUI_TOGGLE));
 		this.menuIsOpen = true;
 		this.forceOpenGUIs = true;
 
 		FlounderGuis.addComponent(mainMenu, 0, 0, 1, 1);
 		FlounderGuis.addComponent(overlayStatus, 0, 0, 1, 1);
-		FlounderGuis.getSelector().initJoysticks(tester.options.OptionsControls.JOYSTICK_PORT, tester.options.OptionsControls.JOYSTICK_GUI_LEFT, tester.options.OptionsControls.JOYSTICK_GUI_RIGHT, tester.options.OptionsControls.JOYSTICK_AXIS_X, tester.options.OptionsControls.JOYSTICK_AXIS_Y);
+		FlounderGuis.getSelector().initJoysticks(OptionsControls.JOYSTICK_PORT, OptionsControls.JOYSTICK_GUI_LEFT, OptionsControls.JOYSTICK_GUI_RIGHT, OptionsControls.JOYSTICK_AXIS_X, OptionsControls.JOYSTICK_AXIS_Y);
 		FlounderMouse.setCursorHidden(false);
 	}
 

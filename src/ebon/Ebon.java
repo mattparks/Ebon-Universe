@@ -21,7 +21,7 @@ public class Ebon extends FlounderFramework {
 	public static Config configControls;
 
 	public Ebon() {
-		super("Ebon", -1, new EbonGuis(), new CameraFPS(), new EbonInterface(), new EbonRenderer());
+		super("Ebon Universe", -1, new EbonGuis(), new CameraFPS(), new EbonInterface(), new EbonRenderer());
 
 		configMain = new Config(new MyFile(FlounderFramework.getRoamingFolder(), "configs", "settings.conf"));
 		configPost = new Config(new MyFile(FlounderFramework.getRoamingFolder(), "configs", "post.conf"));

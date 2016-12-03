@@ -29,7 +29,7 @@ public class EbonWorld extends IModule {
 	}
 
 	@Override
-	public void run() {
+	public void update() {
 	}
 
 	@Override

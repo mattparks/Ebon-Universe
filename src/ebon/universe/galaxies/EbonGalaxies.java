@@ -67,7 +67,7 @@ public class EbonGalaxies extends IModule {
 	}
 
 	@Override
-	public void run() {
+	public void update() {
 		// Nulls old values.
 		Star lastInStarSystem = inSystemStar;
 		inSystemStar = null;

@@ -25,7 +25,7 @@ public abstract class ComponentRemove extends IEntityComponent {
 	}
 
 	/**
-	 * Activates this component. Calls the onActivate function, and begins calling the removeUpdate function on every run.
+	 * Activates this component. Calls the onActivate function, and begins calling the removeUpdate function on every update.
 	 */
 	public void activate() {
 		activated = true;
@@ -47,7 +47,7 @@ public abstract class ComponentRemove extends IEntityComponent {
 	}
 
 	/**
-	 * Called every run after the entity is removed.
+	 * Called every update after the entity is removed.
 	 */
 	public abstract void removeUpdate();
 }

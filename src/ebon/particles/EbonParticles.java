@@ -49,7 +49,7 @@ public class EbonParticles extends IModule {
 	}
 
 	@Override
-	public void run() {
+	public void update() {
 		if (FlounderGuis.getGuiMaster().isGamePaused()) {
 			return;
 		}
@@ -98,7 +98,7 @@ public class EbonParticles extends IModule {
 	}
 
 	/**
-	 * Adds a particle system to the run loop.
+	 * Adds a particle system to the update loop.
 	 *
 	 * @param system The new system to add.
 	 */
@@ -107,7 +107,7 @@ public class EbonParticles extends IModule {
 	}
 
 	/**
-	 * Removes a particle system from the run loop.
+	 * Removes a particle system from the update loop.
 	 *
 	 * @param system The system to remove.
 	 */
@@ -240,7 +240,7 @@ public class EbonParticles extends IModule {
 	}
 
 	/**
-	 * Adds a particle to the run loop.
+	 * Adds a particle to the update loop.
 	 *
 	 * @param particleTemplate The particle template to build from.
 	 * @param position The particles initial position.

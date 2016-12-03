@@ -40,7 +40,7 @@ public class EbonEntities extends IModule {
 	}
 
 	@Override
-	public void run() {
+	public void update() {
 		if (entityStructure != null) {
 			entityStructure.getAll(new ArrayList<>()).forEach(Entity::update);
 		}

@@ -42,7 +42,7 @@ public class Waypoint {
 	/**
 	 * Updates the waypoint.
 	 *
-	 * @param ray The cameras ray to run from.
+	 * @param ray The cameras ray to update from.
 	 */
 	public void update(Ray ray) {
 		Vector3f targetPosition = getPosition();

@@ -117,7 +117,7 @@ public class EbonRenderer extends IExtension implements IRendererMaster {
 	}
 
 	private void renderScene(Vector4f clipPlane, Colour clearColour) {
-		/* Clear and run. */
+		/* Clear and update. */
 		ICamera camera = FlounderCamera.getCamera();
 		OpenGlUtils.prepareNewRenderParse(clearColour);
 

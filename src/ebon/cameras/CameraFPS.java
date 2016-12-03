@@ -95,12 +95,14 @@ public class CameraFPS extends IExtension implements ICamera {
 	}
 
 	@Override
-	public void update(Vector3f focusPosition, Vector3f focusRotation) {
+	public void update(IPlayer player) {
 		calculateHorizontalAngle(FlounderGuis.getGuiMaster().isGamePaused());
 		calculateVerticalAngle(FlounderGuis.getGuiMaster().isGamePaused());
 
-		this.targetPosition.set(focusPosition);
-		this.targetRotation.set(focusRotation);
+		if (player != null) {
+			this.targetPosition.set(player.getPosition());
+			this.targetRotation.set(player.getRotation());
+		}
 
 		updateHorizontalAngle();
 		updatePitchAngle();

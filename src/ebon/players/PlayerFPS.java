@@ -12,7 +12,7 @@ import flounder.maths.vectors.*;
 
 import static org.lwjgl.glfw.GLFW.*;
 
-public class PlayerFPS implements IPlayer {
+public class PlayerFPS extends IExtension implements IPlayer {
 	private static final float ACCELERATION = 0.05f;
 	private static final float DECELERATION = 0.08f;
 
@@ -38,6 +38,10 @@ public class PlayerFPS implements IPlayer {
 	private Autopilot autopilot;
 	private boolean gravityEnabled;
 	private float gravityPitch;
+
+	public PlayerFPS() {
+		super(FlounderGuis.class);
+	}
 
 	@Override
 	public void init() {
@@ -66,6 +70,7 @@ public class PlayerFPS implements IPlayer {
 		this.inputAutopilot = new CompoundButton(autopilotButtons);
 		this.inputGravity = new CompoundButton(gravityButtons);
 
+		this.speedMagnitude = 0.0f;
 		this.velocity = new Vector3f();
 
 		this.position = new Vector3f();
@@ -77,7 +82,7 @@ public class PlayerFPS implements IPlayer {
 	}
 
 	@Override
-	public void update(boolean paused) {
+	public void update() {
 		float xInput = 0.0f;
 		float yInput = 0.0f;
 		float zInput = 0.0f;
@@ -86,7 +91,7 @@ public class PlayerFPS implements IPlayer {
 		boolean autopilotInput = false;
 		boolean gravityInput = false;
 
-		if (!paused) {
+		if (!FlounderGuis.getGuiMaster().isGamePaused()) {
 			xInput = Maths.deadband(0.05f, inputX.getAmount());
 			yInput = Maths.deadband(0.05f, inputY.getAmount());
 			zInput = Maths.deadband(0.05f, inputZ.getAmount());
@@ -111,6 +116,8 @@ public class PlayerFPS implements IPlayer {
 			((EbonGuis) FlounderGuis.getGuiMaster()).getOverlayStatus().addMessage("Gravity " + (gravityEnabled ? "Enabled" : "Disabled"));
 		}
 
+		Vector3f cameraRay = EbonGalaxies.getStarViewRay().getCurrentRay();
+
 		// Update roll rotations.
 		rotation.set(FlounderCamera.getCamera().getRotation());
 		rotation.z += W_SPEED * FlounderFramework.getDelta() * wInput;
@@ -120,6 +127,8 @@ public class PlayerFPS implements IPlayer {
 			rotation.z += (W_SPEED / 15.25f) * FlounderFramework.getDelta() * (gravityPitch - rotation.z);
 			rotation.z = Maths.deadband(0.2f, rotation.z - gravityPitch) + gravityPitch;
 		}
+
+		//	Vector3f.rotate(rotation, cameraRay, rotation);
 
 		// Update normal flying camera.
 		if (!autopilot.isEnabled()) {
@@ -160,6 +169,7 @@ public class PlayerFPS implements IPlayer {
 	}
 
 	@Override
-	public void dispose() {
+	public boolean isActive() {
+		return true;
 	}
 }

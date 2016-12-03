@@ -157,8 +157,8 @@ public class Galaxy {
 	}
 
 	public void reset() {
-		//	stars.clear();
-		//	generate();
+		stars.clear();
+		generate();
 	}
 
 	public String getGalaxyName() {

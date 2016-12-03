@@ -17,7 +17,6 @@ import flounder.physics.*;
 import flounder.physics.bounding.*;
 import flounder.profiling.*;
 import flounder.shaders.*;
-import flounder.space.*;
 
 import java.util.*;
 
@@ -63,14 +62,8 @@ public class EbonGalaxies extends IModule {
 
 		lastPosition = new Vector3f();
 		playerVelocity = "0 ly/s";
-	}
 
-	public static void generate() {
-		instance.galaxy = new Galaxy(
-				FauxGenerator.getFauxSentance(1, 3, 7), new Vector3f(),
-				GALAXY_STARS / 20.0,    // Radius of the galaxy.
-				GALAXY_STARS            // Total number of stars.
-		);
+		galaxy = null;
 	}
 
 	@Override
@@ -190,6 +183,14 @@ public class EbonGalaxies extends IModule {
 	 * Called when the galaxy is needed to be created.
 	 */
 	public static void generateGalaxy() {
+		if (instance.galaxy == null) {
+			instance.galaxy = new Galaxy(
+					FauxGenerator.getFauxSentance(1, 3, 7), new Vector3f(),
+					GALAXY_STARS / 20.0,    // Radius of the galaxy.
+					GALAXY_STARS            // Total number of stars.
+			);
+		}
+
 		instance.galaxy.reset();
 		instance.waypoint.setTargetStar(instance.galaxy.getStars().getAll(new ArrayList<>()).get(GALAXY_STARS - 1));
 	}

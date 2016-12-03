@@ -48,7 +48,7 @@ public class CameraCubeMap implements ICamera {
 	}
 
 	@Override
-	public void update(Vector3f focusPosition, Vector3f focusRotation) {
+	public void update(IPlayer player) {
 		// x=pitch, y=yaw, z=roll.
 	}
 

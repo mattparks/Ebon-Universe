@@ -1,18 +1,34 @@
 <component name="libraryTable">
   <library name="lwjgl">
     <CLASSES>
-      <root url="file://$PROJECT_DIR$/Flounder-Engine/libs/lwjgl" />
+      <root url="jar://$PROJECT_DIR$/Flounder-Engine/libs/lwjgl/lwjgl-glfw.jar!/" />
+      <root url="jar://$PROJECT_DIR$/Flounder-Engine/libs/lwjgl/lwjgl-opencl.jar!/" />
+      <root url="jar://$PROJECT_DIR$/Flounder-Engine/libs/lwjgl/lwjgl-opengl.jar!/" />
+      <root url="jar://$PROJECT_DIR$/Flounder-Engine/libs/lwjgl/lwjgl.jar!/" />
+      <root url="jar://$PROJECT_DIR$/Flounder-Engine/libs/lwjgl/lwjgl-glfw-natives-linux.jar!/" />
+      <root url="jar://$PROJECT_DIR$/Flounder-Engine/libs/lwjgl/lwjgl-glfw-natives-macos.jar!/" />
+      <root url="jar://$PROJECT_DIR$/Flounder-Engine/libs/lwjgl/lwjgl-glfw-natives-windows.jar!/" />
+      <root url="jar://$PROJECT_DIR$/Flounder-Engine/libs/lwjgl/lwjgl-natives-linux.jar!/" />
+      <root url="jar://$PROJECT_DIR$/Flounder-Engine/libs/lwjgl/lwjgl-natives-macos.jar!/" />
+      <root url="jar://$PROJECT_DIR$/Flounder-Engine/libs/lwjgl/lwjgl-natives-windows.jar!/" />
+      <root url="jar://$PROJECT_DIR$/Flounder-Engine/libs/lwjgl/lwjgl-openal.jar!/" />
+      <root url="jar://$PROJECT_DIR$/Flounder-Engine/libs/lwjgl/lwjgl-openal-natives-linux.jar!/" />
+      <root url="jar://$PROJECT_DIR$/Flounder-Engine/libs/lwjgl/lwjgl-openal-natives-macos.jar!/" />
+      <root url="jar://$PROJECT_DIR$/Flounder-Engine/libs/lwjgl/lwjgl-openal-natives-windows.jar!/" />
     </CLASSES>
     <JAVADOC>
       <root url="jar://$PROJECT_DIR$/Flounder-Engine/libs/lwjgl/lwjgl-glfw-javadoc.jar!/" />
       <root url="jar://$PROJECT_DIR$/Flounder-Engine/libs/lwjgl/lwjgl-javadoc.jar!/" />
-      <root url="jar://$PROJECT_DIR$/Flounder-Engine/libs/lwjgl/lwjgl-openal-javadoc.jar!/" />
       <root url="jar://$PROJECT_DIR$/Flounder-Engine/libs/lwjgl/lwjgl-opengl-javadoc.jar!/" />
+      <root url="jar://$PROJECT_DIR$/Flounder-Engine/libs/lwjgl/lwjgl-opencl-javadoc.jar!/" />
+      <root url="jar://$PROJECT_DIR$/Flounder-Engine/libs/lwjgl/lwjgl-openal-javadoc.jar!/" />
     </JAVADOC>
     <SOURCES>
-      <root url="file://$PROJECT_DIR$/Flounder-Engine/libs/lwjgl" />
+      <root url="jar://$PROJECT_DIR$/Flounder-Engine/libs/lwjgl/lwjgl-glfw-sources.jar!/" />
+      <root url="jar://$PROJECT_DIR$/Flounder-Engine/libs/lwjgl/lwjgl-opencl-sources.jar!/" />
+      <root url="jar://$PROJECT_DIR$/Flounder-Engine/libs/lwjgl/lwjgl-opengl-sources.jar!/" />
+      <root url="jar://$PROJECT_DIR$/Flounder-Engine/libs/lwjgl/lwjgl-sources.jar!/" />
+      <root url="jar://$PROJECT_DIR$/Flounder-Engine/libs/lwjgl/lwjgl-openal-sources.jar!/" />
     </SOURCES>
-    <jarDirectory url="file://$PROJECT_DIR$/Flounder-Engine/libs/lwjgl" recursive="false" />
-    <jarDirectory url="file://$PROJECT_DIR$/Flounder-Engine/libs/lwjgl" recursive="false" type="SOURCES" />
   </library>
 </component>

@@ -32,8 +32,8 @@ public class EbonGuis extends IExtension implements IGuiMaster {
 		this.menuIsOpen = true;
 		this.forceOpenGUIs = true;
 
-		FlounderGuis.addComponent(mainMenu, 0, 0, 1, 1);
-		FlounderGuis.addComponent(overlayStatus, 0, 0, 1, 1);
+		FlounderGuis.addComponent(mainMenu, 0.0f, 0.0f, 1.0f, 1.0f);
+		FlounderGuis.addComponent(overlayStatus, 0.0f, 0.0f, 1.0f, 1.0f);
 		FlounderGuis.getSelector().initJoysticks(OptionsControls.JOYSTICK_PORT, OptionsControls.JOYSTICK_GUI_LEFT, OptionsControls.JOYSTICK_GUI_RIGHT, OptionsControls.JOYSTICK_AXIS_X, OptionsControls.JOYSTICK_AXIS_Y);
 		FlounderMouse.setCursorHidden(false);
 	}
@@ -52,11 +52,6 @@ public class EbonGuis extends IExtension implements IGuiMaster {
 			mainMenu.display(!mainMenu.isDisplayed());
 			overlayStatus.show(!mainMenu.isDisplayed());
 		}
-	}
-
-	@Override
-	public boolean isGamePaused() {
-		return menuIsOpen;
 	}
 
 	@Override
@@ -85,5 +80,10 @@ public class EbonGuis extends IExtension implements IGuiMaster {
 	@Override
 	public void dispose() {
 
+	}
+
+	@Override
+	public boolean isGamePaused() {
+		return menuIsOpen;
 	}
 }

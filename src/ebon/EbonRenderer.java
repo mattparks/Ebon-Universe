@@ -192,11 +192,6 @@ public class EbonRenderer extends IExtension implements IRendererMaster {
 	}
 
 	@Override
-	public boolean isActive() {
-		return true;
-	}
-
-	@Override
 	public void dispose() {
 		skyboxRenderer.dispose();
 		entityRenderer.dispose();
@@ -213,6 +208,11 @@ public class EbonRenderer extends IExtension implements IRendererMaster {
 
 		pipelineDemo.dispose();
 		pipelinePaused.dispose();
+	}
+
+	@Override
+	public boolean isActive() {
+		return true;
 	}
 }
 

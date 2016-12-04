@@ -2,11 +2,12 @@ package ebon.cameras;
 
 import flounder.camera.*;
 import flounder.devices.*;
+import flounder.framework.*;
 import flounder.maths.matrices.*;
 import flounder.maths.vectors.*;
 import flounder.space.*;
 
-public class CameraCubeMap implements ICamera {
+public class CameraCubeMap extends IExtension implements ICamera {
 	private static final float NEAR_PLANE = 0.1f;
 	private static final float FAR_PLANE = (float) (2560) * 4.0f;
 	private static final float FIELD_OF_VIEW = 90.0f;
@@ -130,5 +131,10 @@ public class CameraCubeMap implements ICamera {
 	@Override
 	public void setRotation(Vector3f rotation) {
 		this.rotation.set(rotation);
+	}
+
+	@Override
+	public boolean isActive() {
+		return true;
 	}
 }

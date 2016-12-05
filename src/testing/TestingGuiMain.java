@@ -1,68 +1,77 @@
 package testing;
 
 import flounder.devices.*;
-import flounder.events.*;
 import flounder.fonts.*;
 import flounder.framework.*;
 import flounder.guis.*;
+import flounder.maths.*;
 import flounder.resources.*;
 import flounder.textures.*;
+import flounder.visual.*;
 import org.lwjgl.glfw.*;
 
 import java.util.*;
 
 public class TestingGuiMain extends GuiComponent {
-	private GuiTexture helloGuis;
+	//  private GuiTexture helloGuis1;
 	private Text helloTest;
-	private float rotation;
+
+	private Text info;
+
+	private Text sample;
+
+	//  private GuiTexture texture;
 
 	public TestingGuiMain() {
-		helloGuis = new GuiTexture(Texture.newTexture(new MyFile(MyFile.RES_FOLDER, "guis", "button.png")).clampEdges().create());
-		helloTest = Text.newText("Hello World").setFont(FlounderFonts.FFF_FORWARD).setFontSize(3.0f).create();
+		//	helloGuis1 = new GuiTexture(Texture.newTexture(new MyFile(MyFile.RES_FOLDER, "guis", "button.png")).clampEdges().create());
+		helloTest = Text.newText("Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.").setFont(FlounderFonts.BRUSH_SCRIPT).textAlign(TextAlign.RIGHT).setFontSize(2.0f).create();
 		helloTest.setColour(0.15f, 0.15f, 0.15f);
-		addText(helloTest, 0.5f, 0.5f, 1.0f);
-		rotation = 0.0f;
+	//	helloTest.setBorder(new SinWaveDriver(0.075f, 0.1f, 3.75f));
+	//	helloTest.setBorderColour(1.0f, 1.0f, 0.0f);
+		addText(helloTest, 0.5f, 0.6f, 1.38f);
 
-		FlounderEvents.addEvent(new IEvent() {
-			@Override
-			public boolean eventTriggered() {
-				return FlounderKeyboard.getKey(GLFW.GLFW_KEY_A);
-			}
+		info = Text.newText("FPS: 500.0, UPS: 60.0").setFont(FlounderFonts.FORTE).create();
+		info.setColour(0.15f, 0.15f, 0.15f);
+		addText(info, 0.1f, 0.02f, 1.0f);
 
-			@Override
-			public void onEvent() {
-				rotation += 50.0f * FlounderFramework.getDelta();
-			}
-		});
+		sample = Text.newText("Flounder Framework").setFont(FlounderFonts.BRUSH_SCRIPT).setFontSize(2.0f).textAlign(TextAlign.RIGHT).create();
+		sample.setColour(0.75f, 0.10f, 0.10f);
+		sample.setBorder(new SinWaveDriver(0.075f, 0.1f, 3.75f));
+		sample.setBorderColour(new Colour(0.0f, 0.0f, 0.0f, 0.5f));
+		sample.setRotation(9.11f);
+		addText(sample, 0.75f, 0.09f, 0.5f);
 
-		FlounderEvents.addEvent(new IEvent() {
-			@Override
-			public boolean eventTriggered() {
-				return FlounderKeyboard.getKey(GLFW.GLFW_KEY_D);
-			}
-
-			@Override
-			public void onEvent() {
-				rotation -= 50.0f * FlounderFramework.getDelta();
-			}
-		});
+		//  texture = new GuiTexture(Texture.newTexture(new MyFile(MyFile.RES_FOLDER, "testing.png")).create());
 	}
 
 	@Override
 	protected void updateSelf() {
-		float x = 0.5f;
-		float y = 0.5f;
-		float width = 0.5f / FlounderDisplay.getAspectRatio();
-		float height = 0.5f;
-		helloGuis.setPosition(x, y, width, height);
-		helloGuis.setRotation(rotation);
-		helloGuis.update();
+		if (isShown()) {
+			//if (!FlounderKeyboard.getKey(GLFW.GLFW_KEY_S)) {
+			//	helloTest.setRotation(helloTest.getRotation() + (FlounderFramework.getDelta() * 25.0f));
+			//}
 
-		helloTest.setRotation(rotation);
+			//	helloGuis1.setPosition(helloTest.getCurrentX(), helloTest.getCurrentY(), helloTest.getCurrentWidth(), helloTest.getCurrentHeight());
+			//	helloGuis1.setRotation(helloTest.getRotation());
+			//	helloGuis1.update();
+
+			//	texture.setPosition(texture.getScale().x / 2.0f, 0.5f, 0.5f, 0.5f); // Left align.
+
+			//	texture.setPosition((texture.getScale().x + FlounderDisplay.getAspectRatio()) * ((texture.getScale().x * 0.75f) / 2.0f), 0.5f, 0.5f, 0.5f); // Left-Centre align.
+
+			//	texture.setPosition(FlounderDisplay.getAspectRatio() / 2.0f, 0.5f, 0.5f, 0.5f); // Centre align.
+
+			//	texture.setPosition((FlounderDisplay.getAspectRatio() + (texture.getScale().x * 1.25f)) / 2.0f, 0.5f, 0.5f, 0.5f); // Centre-Right align.
+
+			//  texture.setPosition(FlounderDisplay.getAspectRatio() - (texture.getScale().x / 2.0f), 0.5f, 0.5f, 0.5f); // Right align.
+
+			//  texture.update();
+		}
 	}
 
 	@Override
 	protected void getGuiTextures(List<GuiTexture> guiTextures) {
-		guiTextures.add(helloGuis);
+		//	guiTextures.add(helloGuis1);
+		//  guiTextures.add(texture);
 	}
 }

@@ -15,9 +15,10 @@ public class TestingGui extends IExtension implements IGuiMaster {
 
 	@Override
 	public void init() {
+		FlounderMouse.setCursorHidden(false);
+
 		guiMain = new TestingGuiMain();
 		FlounderGuis.addComponent(guiMain, 0.0f, 0.0f, 1.0f, 1.0f);
-		FlounderMouse.setCursorHidden(false);
 		guiMain.show(true);
 	}
 

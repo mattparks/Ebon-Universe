@@ -35,7 +35,7 @@ public class TestingRenderer extends IExtension implements IRendererMaster {
 		this.fontRenderer = new FontRenderer();
 
 		// Diffuse, Depth, Normals
-		this.multisamplingFBO = FBO.newFBO(1.0f).attachments(FBO_ATTACHMENTS).depthBuffer(DepthBufferType.TEXTURE).antialias(8).create();
+		this.multisamplingFBO = FBO.newFBO(1.0f).attachments(FBO_ATTACHMENTS).depthBuffer(DepthBufferType.TEXTURE).antialias(16).create();
 		this.nonsampledFBO = FBO.newFBO(1.0f).attachments(FBO_ATTACHMENTS).depthBuffer(DepthBufferType.TEXTURE).create();
 	}
 

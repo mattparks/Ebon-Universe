@@ -11,6 +11,7 @@ import flounder.visual.*;
 import org.lwjgl.glfw.*;
 
 import java.util.*;
+import java.util.Timer;
 
 public class TestingGuiMain extends GuiComponent {
 	//  private GuiTexture helloGuis1;
@@ -19,6 +20,8 @@ public class TestingGuiMain extends GuiComponent {
 	private Text info;
 
 	private Text sample;
+
+	private boolean updateText;
 
 	//  private GuiTexture texture;
 
@@ -31,7 +34,7 @@ public class TestingGuiMain extends GuiComponent {
 		addText(helloTest, 0.5f, 0.6f, 1.38f);
 
 		info = Text.newText("FPS: 500.0, UPS: 60.0").setFont(FlounderFonts.FORTE).create();
-		info.setColour(0.15f, 0.15f, 0.15f);
+		info.setColour(0.10f, 0.10f, 0.75f);
 		addText(info, 0.1f, 0.02f, 1.0f);
 
 		sample = Text.newText("Flounder Framework").setFont(FlounderFonts.BRUSH_SCRIPT).setFontSize(2.0f).textAlign(TextAlign.RIGHT).create();
@@ -42,11 +45,24 @@ public class TestingGuiMain extends GuiComponent {
 		addText(sample, 0.75f, 0.09f, 0.5f);
 
 		//  texture = new GuiTexture(Texture.newTexture(new MyFile(MyFile.RES_FOLDER, "testing.png")).create());
+
+		Timer timer = new Timer();
+		timer.schedule(new TimerTask() {
+			@Override
+			public void run() {
+				updateText = true;
+			}
+		}, 0, 100);
 	}
 
 	@Override
 	protected void updateSelf() {
 		if (isShown()) {
+			if (updateText) {
+				info.setText("FPS: " + Maths.roundToPlace(1.0f / FlounderFramework.getDeltaRender(), 1) + ", UPS: " + Maths.roundToPlace(1.0f / FlounderFramework.getDelta(), 1));
+				updateText = false;
+			}
+
 			//if (!FlounderKeyboard.getKey(GLFW.GLFW_KEY_S)) {
 			//	helloTest.setRotation(helloTest.getRotation() + (FlounderFramework.getDelta() * 25.0f));
 			//}

@@ -116,7 +116,7 @@ public class EbonInterface extends IExtension implements IStandard {
 			public void onEvent() { /* TODO: Method. */ }
 		});
 
-		FlounderBounding.setRenders(Ebon.configMain.getBooleanWithDefault("boundings_render", false, FlounderBounding::renders));
+		FlounderBounding.toggle(Ebon.configMain.getBooleanWithDefault("boundings_render", false, FlounderBounding::renders));
 		FlounderProfiler.toggle(Ebon.configMain.getBooleanWithDefault("profiler_open", false, FlounderProfiler::isOpen));
 
 		pausedMusic = new Playlist();

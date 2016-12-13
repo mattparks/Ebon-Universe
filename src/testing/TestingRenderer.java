@@ -8,6 +8,7 @@ import flounder.framework.*;
 import flounder.guis.*;
 import flounder.helpers.*;
 import flounder.logger.*;
+import flounder.maths.*;
 import flounder.maths.vectors.*;
 import flounder.physics.bounding.*;
 import flounder.profiling.*;
@@ -15,7 +16,7 @@ import flounder.renderer.*;
 
 public class TestingRenderer extends IExtension implements IRendererMaster {
 	private static final Vector4f POSITIVE_INFINITY = new Vector4f(0.0f, 1.0f, 0.0f, Float.POSITIVE_INFINITY);
-	private static final int FBO_ATTACHMENTS = 1;
+	private static final Colour CLEAR_COLOUR = new Colour(1.0f, 1.0f, 1.0f);
 
 	private BoundingRenderer boundingRenderer;
 	private GuiRenderer guiRenderer;
@@ -25,7 +26,7 @@ public class TestingRenderer extends IExtension implements IRendererMaster {
 	private FBO nonsampledFBO;
 
 	public TestingRenderer() {
-		super(FlounderLogger.class, FlounderProfiler.class, FlounderRenderer.class);
+		super(FlounderLogger.class, FlounderProfiler.class, FlounderDisplay.class, FlounderRenderer.class);
 	}
 
 	@Override
@@ -35,8 +36,8 @@ public class TestingRenderer extends IExtension implements IRendererMaster {
 		this.fontRenderer = new FontRenderer();
 
 		// Diffuse, Depth, Normals
-		this.multisamplingFBO = FBO.newFBO(1.0f).attachments(FBO_ATTACHMENTS).depthBuffer(DepthBufferType.TEXTURE).antialias(16).create();
-		this.nonsampledFBO = FBO.newFBO(1.0f).attachments(FBO_ATTACHMENTS).depthBuffer(DepthBufferType.TEXTURE).create();
+		this.multisamplingFBO = FBO.newFBO(1.0f).depthBuffer(DepthBufferType.TEXTURE).antialias(4).create();
+		this.nonsampledFBO = FBO.newFBO(1.0f).depthBuffer(DepthBufferType.TEXTURE).create();
 	}
 
 	@Override
@@ -45,7 +46,10 @@ public class TestingRenderer extends IExtension implements IRendererMaster {
 		bindRelevantFBO();
 
 		/* Scene rendering. */
-		renderScene(POSITIVE_INFINITY);
+		renderScene(POSITIVE_INFINITY, CLEAR_COLOUR);
+
+		/* Post rendering. */
+		renderPost(FlounderGuis.getGuiMaster().isGamePaused(), FlounderGuis.getGuiMaster().getBlurFactor());
 
 		/* Scene independents. */
 		guiRenderer.render(POSITIVE_INFINITY, null);
@@ -53,11 +57,6 @@ public class TestingRenderer extends IExtension implements IRendererMaster {
 
 		/* Unbinds the FBO. */
 		unbindRelevantFBO();
-	}
-
-	@Override
-	public void profile() {
-
 	}
 
 	private void bindRelevantFBO() {
@@ -75,22 +74,25 @@ public class TestingRenderer extends IExtension implements IRendererMaster {
 		} else {
 			nonsampledFBO.unbindFrameBuffer();
 		}
-
-		nonsampledFBO.blitToScreen();
 	}
 
-	private void renderScene(Vector4f clipPlane) {
+	private void renderScene(Vector4f clipPlane, Colour clearColour) {
 		/* Clear and update. */
 		ICamera camera = FlounderCamera.getCamera();
-		OpenGlUtils.prepareNewRenderParse(1.0f, 1.0f, 1.0f);
+		OpenGlUtils.prepareNewRenderParse(clearColour);
 
 		/* Renders each renderer. */
 		boundingRenderer.render(clipPlane, camera);
 	}
 
+	private void renderPost(boolean isPaused, float blurFactor) {
+		FBO output = nonsampledFBO;
+		output.blitToScreen();
+	}
+
 	@Override
-	public boolean isActive() {
-		return true;
+	public void profile() {
+
 	}
 
 	@Override
@@ -101,6 +103,11 @@ public class TestingRenderer extends IExtension implements IRendererMaster {
 
 		multisamplingFBO.delete();
 		nonsampledFBO.delete();
+	}
+
+	@Override
+	public boolean isActive() {
+		return true;
 	}
 }
 

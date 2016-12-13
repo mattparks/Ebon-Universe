@@ -1,14 +1,10 @@
 package testing;
 
-import flounder.devices.*;
 import flounder.fonts.*;
 import flounder.framework.*;
 import flounder.guis.*;
 import flounder.maths.*;
-import flounder.resources.*;
-import flounder.textures.*;
 import flounder.visual.*;
-import org.lwjgl.glfw.*;
 
 import java.util.*;
 import java.util.Timer;
@@ -29,8 +25,8 @@ public class TestingGuiMain extends GuiComponent {
 		//	helloGuis1 = new GuiTexture(Texture.newTexture(new MyFile(MyFile.RES_FOLDER, "guis", "button.png")).clampEdges().create());
 		helloTest = Text.newText("Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.").setFont(FlounderFonts.BRUSH_SCRIPT).textAlign(TextAlign.RIGHT).setFontSize(2.0f).create();
 		helloTest.setColour(0.15f, 0.15f, 0.15f);
-	//	helloTest.setBorder(new SinWaveDriver(0.075f, 0.1f, 3.75f));
-	//	helloTest.setBorderColour(1.0f, 1.0f, 0.0f);
+		//	helloTest.setBorder(new SinWaveDriver(0.075f, 0.1f, 3.75f));
+		//	helloTest.setBorderColour(1.0f, 1.0f, 0.0f);
 		addText(helloTest, 0.5f, 0.6f, 1.38f);
 
 		info = Text.newText("FPS: 500.0, UPS: 60.0").setFont(FlounderFonts.FORTE).create();

@@ -108,14 +108,6 @@ public class EbonRenderer extends IExtension implements IRendererMaster {
 		}
 	}
 
-	public int getSamples() {
-		return multisamplingFBO.getSamples();
-	}
-
-	public void setSamples(int samples) {
-		multisamplingFBO.setSamples(samples);
-	}
-
 	private void renderScene(Vector4f clipPlane, Colour clearColour) {
 		/* Clear and update. */
 		ICamera camera = FlounderCamera.getCamera();
@@ -189,6 +181,14 @@ public class EbonRenderer extends IExtension implements IRendererMaster {
 	@Override
 	public void profile() {
 
+	}
+
+	public int getSamples() {
+		return multisamplingFBO.getSamples();
+	}
+
+	public void setSamples(int samples) {
+		multisamplingFBO.setSamples(samples);
 	}
 
 	@Override

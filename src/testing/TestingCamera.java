@@ -1,4 +1,4 @@
-package ebon.cameras;
+package testing;
 
 import ebon.*;
 import ebon.options.*;
@@ -13,10 +13,11 @@ import flounder.maths.matrices.*;
 import flounder.maths.vectors.*;
 import flounder.profiling.*;
 import flounder.space.*;
+import org.lwjgl.glfw.*;
 
-public class CameraFPS extends IExtension implements ICamera {
+public class TestingCamera extends IExtension implements ICamera {
 	private static final float NEAR_PLANE = 0.1f;
-	private static final float FAR_PLANE = (float) (2560) * 4.0f;
+	private static final float FAR_PLANE = 512.0f;
 	private static final float FIELD_OF_VIEW = 72.0f;
 
 	private static final float ROTATE_AGILITY = 6.0f;
@@ -50,7 +51,7 @@ public class CameraFPS extends IExtension implements ICamera {
 	private float targetElevation;
 	private float targetRotationAngle;
 
-	public CameraFPS() {
+	public TestingCamera() {
 		super(FlounderLogger.class, FlounderProfiler.class, FlounderCamera.class, FlounderJoysticks.class, FlounderKeyboard.class, FlounderMouse.class);
 	}
 
@@ -126,7 +127,7 @@ public class CameraFPS extends IExtension implements ICamera {
 				if (Math.abs(Maths.deadband(0.01f, joystickRotateX.getAmount())) > 0.0f) {
 					change = INFLUENCE_OF_JOYSTICKDX * FlounderFramework.getDelta() * -joystickRotateX.getAmount();
 				}
-			} else {
+			} else if (FlounderMouse.getMouse(GLFW.GLFW_MOUSE_BUTTON_1)) {
 				change = FlounderMouse.getDeltaX() * INFLUENCE_OF_MOUSEDX;
 			}
 		}
@@ -149,7 +150,7 @@ public class CameraFPS extends IExtension implements ICamera {
 				if (Math.abs(Maths.deadband(0.01f, joystickRotateY.getAmount())) > 0.0f) {
 					change = -joystickRotateY.getAmount() * delta * INFLUENCE_OF_JOYSTICKDY;
 				}
-			} else {
+			} else if (FlounderMouse.getMouse(GLFW.GLFW_MOUSE_BUTTON_1)) {
 				change = -FlounderMouse.getDeltaY() * INFLUENCE_OF_MOUSEDY;
 			}
 		}
@@ -192,7 +193,8 @@ public class CameraFPS extends IExtension implements ICamera {
 
 	private void calculatePosition() {
 		position.set(targetPosition);
-		rotation.set((float) Math.toDegrees(angleOfElevation), Maths.DEGREES_IN_HALF_CIRCLE + angleAroundPlayer, targetRotation.z);
+		rotation.set((float) Math.toDegrees(angleOfElevation), Maths.DEGREES_IN_HALF_CIRCLE + angleAroundPlayer, 0.0f);
+		Vector3f.add(rotation, targetRotation, rotation);
 	}
 
 	private void updateViewMatrix() {

@@ -72,7 +72,7 @@ public class ScreenOptionsDeveloper extends GuiComponent {
 	private void createAABBToggleOption(GuiAlign guiAlign, float yPos) {
 		GuiTextButton button = MainSlider.createButton("AABBs: " + (FlounderBounding.renders() ? "Enabled" : "Disabled"), guiAlign, yPos, this);
 		button.addLeftListener(() -> {
-			FlounderBounding.setRenders(!FlounderBounding.renders());
+			FlounderBounding.toggle(!FlounderBounding.renders());
 		});
 
 		FlounderEvents.addEvent(new IEvent() {

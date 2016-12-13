@@ -19,7 +19,7 @@ public class TestingGui extends IExtension implements IGuiMaster {
 
 		guiMain = new TestingGuiMain();
 		FlounderGuis.addComponent(guiMain, 0.0f, 0.0f, 1.0f, 1.0f);
-		guiMain.show(true);
+		guiMain.show(false); // TODO: True to enable the example texts.
 	}
 
 	@Override
@@ -29,7 +29,7 @@ public class TestingGui extends IExtension implements IGuiMaster {
 
 	@Override
 	public boolean isGamePaused() {
-		return true;
+		return guiMain.isShown();
 	}
 
 	@Override

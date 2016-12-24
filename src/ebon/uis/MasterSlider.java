@@ -55,13 +55,13 @@ public class MasterSlider extends GuiComponent {
 		addComponent(menuStart, 0.0f, MAIN_MENU_Y_POS, 1.0f, MAIN_MENU_Y_SIZE);
 		addComponent(menuPause, 0.0f, MAIN_MENU_Y_POS, 1.0f, MAIN_MENU_Y_SIZE);
 
-		//	if (FlounderFramework.isRunningFromJar()) {
-		this.menuActive = menuStart;
-		//	} else {
-		//		this.menuActive = menuPause;
-		//	Ebon.instance.generateWorlds();
-		//	Ebon.instance.generatePlayer();
-		//	}
+		if (FlounderFramework.isRunningFromJar()) {
+			this.menuActive = menuStart;
+		} else {
+			this.menuActive = menuPause;
+			// Ebon.instance.generateWorlds();
+			// Ebon.instance.generatePlayer();
+		}
 
 		this.menuActive.show(true);
 

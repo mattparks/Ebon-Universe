@@ -71,7 +71,7 @@ public class ComponentCollider extends IEntityComponent {
 		if (super.getEntity().hasMoved()) {
 			ComponentModel componentModel = (ComponentModel) getEntity().getComponent(ComponentModel.ID);
 
-			if (componentModel != null && componentModel.getModel() != null) {
+			if (componentModel != null && componentModel.getModel() != null && componentModel.getModel().getAABB() != null) {
 				AABB.recalculate(componentModel.getModel().getAABB(), super.getEntity().getPosition(), super.getEntity().getRotation(), componentModel.getScale(), aabb);
 				QuickHull.recalculate(componentModel.getModel().getHull(), hull, super.getEntity().getPosition(), super.getEntity().getRotation(), componentModel.getScale());
 			}

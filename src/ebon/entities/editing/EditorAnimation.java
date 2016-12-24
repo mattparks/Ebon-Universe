@@ -3,9 +3,9 @@ package ebon.entities.editing;
 import ebon.entities.*;
 import ebon.entities.components.*;
 import ebon.entities.loading.*;
+import flounder.animation.*;
 import flounder.helpers.*;
 import flounder.logger.*;
-import flounder.models.animation.*;
 import flounder.resources.*;
 
 import javax.swing.*;
@@ -62,12 +62,12 @@ public class EditorAnimation extends IEditorComponent {
 	@Override
 	public void update() {
 		if (component != null) {
-			if (pathCollada != null && (component.getAnimation() == null || !component.getAnimation().getFile().equals(pathCollada.getPath()))) {
+		/*	if (pathCollada != null && (component.getAnimation() == null || !component.getAnimation().getFile().equals(pathCollada.getPath()))) {
 				if (pathCollada.getPath().contains(".dae")) {
 					Animation animation = Animation.newAnimation(pathCollada).create();
 					component.setAnimation(animation);
 				}
-			}
+			}*/
 		}
 	}
 

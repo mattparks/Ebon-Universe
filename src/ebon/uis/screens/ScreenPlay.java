@@ -44,7 +44,7 @@ public class ScreenPlay extends GuiComponent {
 	private void createSingleplayerOption(GuiAlign guiAlign, float yPos) {
 		GuiTextButton button = MasterSlider.createButton("Singleplayer", guiAlign, yPos, this);
 		button.addLeftListener(() -> {
-			EbonWorld.generateWorlds();
+		//	EbonWorld.generateWorlds();
 			masterSlider.getSuperMenu().display(false);
 			masterSlider.sliderStartMenu(false);
 			masterSlider.closeSecondaryScreen();

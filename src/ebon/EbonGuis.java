@@ -16,7 +16,7 @@ public class EbonGuis extends IExtension implements IGuiMaster {
 	private MasterMenu masterMenu;
 	private MasterOverlay masterOverlay;
 
-	private TestingGuiMain testingGuiMain;
+//	private TestingGuiMain testingGuiMain;
 
 	private CompoundButton openMenuKey;
 	private boolean menuIsOpen;
@@ -40,8 +40,8 @@ public class EbonGuis extends IExtension implements IGuiMaster {
 		FlounderGuis.getSelector().initJoysticks(OptionsControls.JOYSTICK_PORT, OptionsControls.JOYSTICK_GUI_LEFT, OptionsControls.JOYSTICK_GUI_RIGHT, OptionsControls.JOYSTICK_AXIS_X, OptionsControls.JOYSTICK_AXIS_Y);
 		FlounderMouse.setCursorHidden(false);
 
-		testingGuiMain = new TestingGuiMain();
-		FlounderGuis.addComponent(testingGuiMain, 0.0f, 0.0f, 1.0f, 1.0f);
+//		testingGuiMain = new TestingGuiMain();
+//		FlounderGuis.addComponent(testingGuiMain, 0.0f, 0.0f, 1.0f, 1.0f);
 	}
 
 	@Override

@@ -1,0 +1,14 @@
+/**
+ * Date Generated: 24.12.2016 - 14:3
+ * Created By: null
+ */
+EntityData {
+	Name: cowboy;
+};
+
+Components {
+	ebon.entities.components.ComponentAnimation {
+
+	};
+};
+

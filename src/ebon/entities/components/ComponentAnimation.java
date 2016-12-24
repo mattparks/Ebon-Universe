@@ -2,7 +2,7 @@ package ebon.entities.components;
 
 import ebon.entities.*;
 import ebon.entities.loading.*;
-import flounder.models.animation.*;
+import flounder.animation.*;
 
 /**
  * Creates a animation used to set animation properties.
@@ -32,7 +32,7 @@ public class ComponentAnimation extends IEntityComponent {
 	public ComponentAnimation(Entity entity, EntityTemplate template) {
 		super(entity, ID);
 
-		this.animation = Animation.newAnimation(new AnimationBuilder.LoadManual() {
+		/*this.animation = Animation.newAnimation(new AnimationBuilder.LoadManual() {
 			@Override
 			public String getModelName() {
 				return template.getEntityName();
@@ -44,14 +44,14 @@ public class ComponentAnimation extends IEntityComponent {
 		//	}
 
 			// TODO: Load manually like a model.
-		}).create();
+		}).create();*/
 	}
 
 	@Override
 	public void update() {
-		if (animation != null) {
-			animation.update();
-		}
+		//if (animation != null) {
+		//	animation.update();
+		//}
 	}
 
 	public Animation getAnimation() {

@@ -1,4 +1,4 @@
-package ebon.uis.screens;
+package ebon.uis;
 
 import flounder.fonts.*;
 import flounder.framework.*;

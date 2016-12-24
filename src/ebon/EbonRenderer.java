@@ -4,6 +4,7 @@ import ebon.entities.*;
 import ebon.options.*;
 import ebon.particles.*;
 import ebon.post.*;
+import ebon.skybox.*;
 import flounder.camera.*;
 import flounder.devices.*;
 import flounder.fbos.*;
@@ -23,6 +24,7 @@ public class EbonRenderer extends IExtension implements IRendererMaster {
 	public static final Vector4f POSITIVE_INFINITY = new Vector4f(0.0f, 1.0f, 0.0f, Float.POSITIVE_INFINITY);
 	private static final Colour CLEAR_COLOUR = new Colour(0.0f, 0.0f, 0.0f);
 
+	private SkyboxRenderer skyboxRenderer;
 	private EntityRenderer entityRenderer;
 	private ParticleRenderer particleRenderer;
 
@@ -42,6 +44,7 @@ public class EbonRenderer extends IExtension implements IRendererMaster {
 
 	@Override
 	public void init() {
+		this.skyboxRenderer = new SkyboxRenderer();
 		this.entityRenderer = new EntityRenderer();
 		this.particleRenderer = new ParticleRenderer();
 
@@ -100,6 +103,7 @@ public class EbonRenderer extends IExtension implements IRendererMaster {
 		ICamera camera = FlounderCamera.getCamera();
 		OpenGlUtils.prepareNewRenderParse(clearColour);
 
+		skyboxRenderer.render(clipPlane, camera);
 		entityRenderer.render(clipPlane, camera);
 		particleRenderer.render(clipPlane, camera);
 		boundingRenderer.render(clipPlane, camera);
@@ -139,6 +143,7 @@ public class EbonRenderer extends IExtension implements IRendererMaster {
 
 	@Override
 	public void dispose() {
+		skyboxRenderer.dispose();
 		entityRenderer.dispose();
 		particleRenderer.dispose();
 

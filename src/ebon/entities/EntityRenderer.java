@@ -105,7 +105,7 @@ public class EntityRenderer extends IRenderer {
 		boolean animatedModel = componentAnimation != null && componentAnimation.getAnimation() != null;
 		Shader shader = animatedModel ? shaderAnimated : shaderNormal;
 
-		if (componentModel == null || componentModel.getModel() == null) {
+		if (!animatedModel && (componentModel == null || componentModel.getModel() == null)) {
 			return;
 		}
 

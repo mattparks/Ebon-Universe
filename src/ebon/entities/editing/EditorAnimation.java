@@ -18,7 +18,7 @@ public class EditorAnimation extends IEditorComponent {
 	private MyFile pathCollada;
 
 	public EditorAnimation(Entity entity) {
-		this.component = new ComponentAnimation(entity, (Animation) null);
+		this.component = new ComponentAnimation(entity, (AnimatedEntity) null);
 	}
 
 	public EditorAnimation(IEntityComponent component) {

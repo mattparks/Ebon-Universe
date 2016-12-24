@@ -8,7 +8,6 @@ import ebon.entities.loading.*;
 import ebon.particles.loading.*;
 import flounder.helpers.*;
 import flounder.logger.*;
-import flounder.maths.vectors.*;
 import flounder.physics.*;
 import flounder.physics.bounding.*;
 

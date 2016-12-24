@@ -46,7 +46,7 @@ public class EditorCollider extends IEditorComponent {
 
 	@Override
 	public Pair<String[], EntitySaverFunction[]> getSavableValues() {
-		String renderAABBSave = "RenderAABB: " + component.renderAABB();
+		String renderAABBSave = "RenderAABB: " + true; // component.renderAABB() // Only used as a editor feature.
 		return new Pair<>(new String[]{renderAABBSave}, new EntitySaverFunction[]{});
 	}
 }

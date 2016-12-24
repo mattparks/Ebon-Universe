@@ -10,7 +10,7 @@ import flounder.animation.*;
 public class ComponentAnimation extends IEntityComponent {
 	public static final int ID = EntityIDAssigner.getId();
 
-	private Animation animation;
+	private AnimatedEntity animation;
 
 	/**
 	 * Creates a new ComponentAnimation.
@@ -18,7 +18,7 @@ public class ComponentAnimation extends IEntityComponent {
 	 * @param entity The entity this component is attached to.
 	 * @param animation The animation that will be attached to this entity.
 	 */
-	public ComponentAnimation(Entity entity, Animation animation) {
+	public ComponentAnimation(Entity entity, AnimatedEntity animation) {
 		super(entity, ID);
 		this.animation = animation;
 	}
@@ -49,20 +49,21 @@ public class ComponentAnimation extends IEntityComponent {
 
 	@Override
 	public void update() {
-		//if (animation != null) {
-		//	animation.update();
-		//}
+		if (animation != null) {
+			animation.update();
+		}
 	}
 
-	public Animation getAnimation() {
+	public AnimatedEntity getAnimation() {
 		return animation;
 	}
 
-	public void setAnimation(Animation animation) {
+	public void setAnimation(AnimatedEntity animation) {
 		this.animation = animation;
 	}
 
 	@Override
 	public void dispose() {
+		animation.delete();
 	}
 }

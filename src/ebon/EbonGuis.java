@@ -2,7 +2,6 @@ package ebon;
 
 import ebon.options.*;
 import ebon.uis.*;
-import ebon.uis.screens.*;
 import flounder.devices.*;
 import flounder.framework.*;
 import flounder.guis.*;

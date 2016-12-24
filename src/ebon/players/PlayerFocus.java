@@ -15,7 +15,7 @@ public class PlayerFocus extends IExtension implements IPlayer {
 
 	@Override
 	public void init() {
-		this.position = new Vector3f();
+		this.position = new Vector3f(5, 8, 10);
 		this.rotation = new Vector3f();
 	}
 

@@ -5,6 +5,7 @@ import ebon.entities.loading.*;
 import flounder.framework.*;
 import flounder.helpers.*;
 import flounder.logger.*;
+import flounder.maths.vectors.*;
 import flounder.models.*;
 import flounder.physics.bounding.*;
 import flounder.profiling.*;
@@ -37,6 +38,9 @@ public class EbonEntities extends IModule {
 	public void init() {
 		this.entityStructure = new StructureBasic<>();
 		this.loaded = new HashMap<>();
+		//EbonEntities.load("dragon").createEntity(EbonEntities.getEntities(), new Vector3f(0.0f, -5.0f, 25.0f), new Vector3f());
+
+		Dragon e = new Dragon(EbonEntities.getEntities(), new Vector3f(0.0f, -5.0f, 25.0f), new Vector3f());
 	}
 
 	@Override

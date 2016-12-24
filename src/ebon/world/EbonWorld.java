@@ -7,7 +7,6 @@ import flounder.framework.*;
 import flounder.lights.*;
 import flounder.logger.*;
 import flounder.maths.*;
-import flounder.maths.vectors.*;
 import flounder.profiling.*;
 import flounder.space.*;
 
@@ -25,12 +24,12 @@ public class EbonWorld extends IModule {
 
 	@Override
 	public void init() {
-		this.fog = new Fog(new Colour(0.0f, 0.0f, 0.0f), 0.003f, 2.0f, 0.0f, 50.0f);
+		this.fog = new Fog(new Colour(1.0f, 1.0f, 1.0f), 0.003f, 2.0f, 0.0f, 50.0f);
 		this.lights = new StructureBasic<>();
 
 		if (FlounderDisplay.getTitle().equals("Ebon Universe")) {
-			this.ebonTesting = new EbonTesting();
-			EbonEntities.load("dragon").createEntity(EbonEntities.getEntities(), new Vector3f(0.0f, 0.0f, 5.0f), new Vector3f());
+			//	this.ebonTesting = new EbonTesting();
+			//	EbonEntities.load("dragon").createEntity(EbonEntities.getEntities(), new Vector3f(0.0f, 0.0f, 5.0f), new Vector3f());
 		}
 	}
 

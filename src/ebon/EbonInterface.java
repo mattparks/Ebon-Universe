@@ -9,7 +9,10 @@ import flounder.framework.*;
 import flounder.guis.*;
 import flounder.helpers.*;
 import flounder.inputs.*;
+import flounder.lights.*;
 import flounder.logger.*;
+import flounder.maths.*;
+import flounder.maths.vectors.*;
 import flounder.physics.bounding.*;
 import flounder.profiling.*;
 import flounder.resources.*;
@@ -117,6 +120,10 @@ public class EbonInterface extends IExtension implements IStandard {
 
 			}
 		});
+
+		// Sets the world to constant fog and a sun.
+		EbonWorld.addFog(new Fog(new Colour(1.0f, 1.0f, 1.0f), 0.003f, 2.0f, 0.0f, 50.0f));
+		EbonWorld.addSun(new Light(new Colour(1.0f, 1.0f, 1.0f), new Vector3f(0.0f, 2000.0f, 2000.0f)));
 
 		FlounderBounding.toggle(Ebon.configMain.getBooleanWithDefault("boundings_render", false, FlounderBounding::renders));
 		FlounderProfiler.toggle(Ebon.configMain.getBooleanWithDefault("profiler_open", false, FlounderProfiler::isOpen));

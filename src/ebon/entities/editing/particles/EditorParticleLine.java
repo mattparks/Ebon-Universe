@@ -28,6 +28,7 @@ public class EditorParticleLine extends IEditorParticleSpawn {
 	public void addToPanel(JPanel panel) {
 		// Length Slider.
 		JSlider lengthSlider = new JSlider(JSlider.HORIZONTAL, 0, 50, (int) spawn.getLength());
+		lengthSlider.setToolTipText("Spawn Length");
 		lengthSlider.addChangeListener(new ChangeListener() {
 			@Override
 			public void stateChanged(ChangeEvent e) {
@@ -39,7 +40,7 @@ public class EditorParticleLine extends IEditorParticleSpawn {
 				}
 			}
 		});
-		//Turn on labels at major tick marks.
+		// Turn on labels at major tick marks.
 		lengthSlider.setMajorTickSpacing(10);
 		lengthSlider.setMinorTickSpacing(2);
 		lengthSlider.setPaintTicks(true);

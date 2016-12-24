@@ -25,7 +25,7 @@ public class ComponentModel extends IEntityComponent {
 	 * Creates a new ComponentModel.
 	 *
 	 * @param entity The entity this component is attached to.
-	 * @param model The model that will be attached too this entity.
+	 * @param model The model that will be attached to this entity.
 	 * @param scale The scale of the entity.
 	 * @param textureIndex What texture index this entity should renderObjects from (0 default).
 	 */

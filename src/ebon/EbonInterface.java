@@ -113,7 +113,9 @@ public class EbonInterface extends IExtension implements IStandard {
 			}
 
 			@Override
-			public void onEvent() { /* TODO: Method. */ }
+			public void onEvent() {
+
+			}
 		});
 
 		FlounderBounding.toggle(Ebon.configMain.getBooleanWithDefault("boundings_render", false, FlounderBounding::renders));

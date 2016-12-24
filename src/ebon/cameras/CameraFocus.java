@@ -1,4 +1,4 @@
-package testing;
+package ebon.cameras;
 
 import ebon.*;
 import ebon.options.*;
@@ -13,11 +13,10 @@ import flounder.maths.matrices.*;
 import flounder.maths.vectors.*;
 import flounder.profiling.*;
 import flounder.space.*;
-import org.lwjgl.glfw.*;
 
-public class TestingCamera extends IExtension implements ICamera {
+public class CameraFocus extends IExtension implements ICamera {
 	private static final float NEAR_PLANE = 0.1f;
-	private static final float FAR_PLANE = 512.0f;
+	private static final float FAR_PLANE = (float) (2560) * 4.0f;
 	private static final float FIELD_OF_VIEW = 72.0f;
 
 	private static final float ROTATE_AGILITY = 6.0f;
@@ -30,8 +29,6 @@ public class TestingCamera extends IExtension implements ICamera {
 	private final static float INFLUENCE_OF_MOUSEDX = INFLUENCE_OF_MOUSEDY * 92.0f;
 	private final static float INFLUENCE_OF_JOYSTICKDY = -1.0f;
 	private final static float INFLUENCE_OF_JOYSTICKDX = 100.0f * INFLUENCE_OF_JOYSTICKDY;
-
-	private Vector3f reusableViewVector;
 
 	private Vector3f position;
 	private Vector3f rotation;
@@ -51,14 +48,12 @@ public class TestingCamera extends IExtension implements ICamera {
 	private float targetElevation;
 	private float targetRotationAngle;
 
-	public TestingCamera() {
+	public CameraFocus() {
 		super(FlounderLogger.class, FlounderProfiler.class, FlounderCamera.class, FlounderJoysticks.class, FlounderKeyboard.class, FlounderMouse.class);
 	}
 
 	@Override
 	public void init() {
-		this.reusableViewVector = new Vector3f();
-
 		this.position = new Vector3f();
 		this.rotation = new Vector3f();
 
@@ -127,7 +122,7 @@ public class TestingCamera extends IExtension implements ICamera {
 				if (Math.abs(Maths.deadband(0.01f, joystickRotateX.getAmount())) > 0.0f) {
 					change = INFLUENCE_OF_JOYSTICKDX * FlounderFramework.getDelta() * -joystickRotateX.getAmount();
 				}
-			} else if (FlounderMouse.getMouse(GLFW.GLFW_MOUSE_BUTTON_1)) {
+			} else {
 				change = FlounderMouse.getDeltaX() * INFLUENCE_OF_MOUSEDX;
 			}
 		}
@@ -150,7 +145,7 @@ public class TestingCamera extends IExtension implements ICamera {
 				if (Math.abs(Maths.deadband(0.01f, joystickRotateY.getAmount())) > 0.0f) {
 					change = -joystickRotateY.getAmount() * delta * INFLUENCE_OF_JOYSTICKDY;
 				}
-			} else if (FlounderMouse.getMouse(GLFW.GLFW_MOUSE_BUTTON_1)) {
+			} else {
 				change = -FlounderMouse.getDeltaY() * INFLUENCE_OF_MOUSEDY;
 			}
 		}
@@ -193,16 +188,15 @@ public class TestingCamera extends IExtension implements ICamera {
 
 	private void calculatePosition() {
 		position.set(targetPosition);
-		rotation.set((float) Math.toDegrees(angleOfElevation), Maths.DEGREES_IN_HALF_CIRCLE + angleAroundPlayer, 0.0f);
-		Vector3f.add(rotation, targetRotation, rotation);
+		rotation.set((float) Math.toDegrees(angleOfElevation), Maths.DEGREES_IN_HALF_CIRCLE + angleAroundPlayer, targetRotation.z);
 	}
 
 	private void updateViewMatrix() {
 		viewMatrix.setIdentity();
 		position.negate();
-		Matrix4f.rotate(viewMatrix, reusableViewVector.set(1.0f, 0.0f, 0.0f), (float) Math.toRadians(rotation.x), viewMatrix);
-		Matrix4f.rotate(viewMatrix, reusableViewVector.set(0.0f, 1.0f, 0.0f), (float) Math.toRadians(-rotation.y), viewMatrix);
-		Matrix4f.rotate(viewMatrix, reusableViewVector.set(0.0f, 0.0f, 1.0f), (float) Math.toRadians(rotation.z), viewMatrix);
+		Matrix4f.rotate(viewMatrix, new Vector3f(1.0f, 0.0f, 0.0f), (float) Math.toRadians(rotation.x), viewMatrix);
+		Matrix4f.rotate(viewMatrix, new Vector3f(0.0f, 1.0f, 0.0f), (float) Math.toRadians(-rotation.y), viewMatrix);
+		Matrix4f.rotate(viewMatrix, new Vector3f(0.0f, 0.0f, 1.0f), (float) Math.toRadians(rotation.z), viewMatrix);
 		Matrix4f.translate(viewMatrix, position, viewMatrix);
 		position.negate();
 		viewFrustum.recalculateFrustum(getProjectionMatrix(), viewMatrix);

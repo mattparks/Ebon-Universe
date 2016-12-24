@@ -26,6 +26,7 @@ public class EditorParticleSphere extends IEditorParticleSpawn {
 	public void addToPanel(JPanel panel) {
 		// Radius Slider.
 		JSlider radiusSlider = new JSlider(JSlider.HORIZONTAL, 0, 50, (int) spawn.getRadius());
+		radiusSlider.setToolTipText("Spawn Radius");
 		radiusSlider.addChangeListener(new ChangeListener() {
 			@Override
 			public void stateChanged(ChangeEvent e) {
@@ -37,7 +38,7 @@ public class EditorParticleSphere extends IEditorParticleSpawn {
 				}
 			}
 		});
-		//Turn on labels at major tick marks.
+		// Turn on labels at major tick marks.
 		radiusSlider.setMajorTickSpacing(10);
 		radiusSlider.setMinorTickSpacing(2);
 		radiusSlider.setPaintTicks(true);

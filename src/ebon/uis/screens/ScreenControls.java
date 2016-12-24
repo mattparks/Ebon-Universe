@@ -8,10 +8,10 @@ import flounder.guis.*;
 import java.util.*;
 
 public class ScreenControls extends GuiComponent {
-	private MainSlider mainSlider;
+	private MasterSlider masterSlider;
 
-	public ScreenControls(MainSlider mainSlider) {
-		this.mainSlider = mainSlider;
+	public ScreenControls(MasterSlider masterSlider) {
+		this.masterSlider = masterSlider;
 
 		createTitleText(GuiAlign.LEFT, "Controls");
 
@@ -22,23 +22,23 @@ public class ScreenControls extends GuiComponent {
 		FlounderEvents.addEvent(new IEvent() {
 			@Override
 			public boolean eventTriggered() {
-				return ScreenControls.super.isShown() && MainSlider.BACK_KEY.wasDown();
+				return ScreenControls.super.isShown() && MasterSlider.BACK_KEY.wasDown();
 			}
 
 			@Override
 			public void onEvent() {
-				mainSlider.closeSecondaryScreen();
+				masterSlider.closeSecondaryScreen();
 			}
 		});
 	}
 
 	private void createTitleText(GuiAlign guiAlign, String title) {
-		Text titleText = MainSlider.createTitleText(title, guiAlign, this);
+		Text titleText = MasterSlider.createTitleText(title, guiAlign, this);
 	}
 
 	private void createBackOption(GuiAlign guiAlign, float yPos) {
-		GuiTextButton button = MainSlider.createButton("Back", guiAlign, yPos, this);
-		button.addLeftListener(mainSlider::closeSecondaryScreen);
+		GuiTextButton button = MasterSlider.createButton("Back", guiAlign, yPos, this);
+		button.addLeftListener(masterSlider::closeSecondaryScreen);
 	}
 
 	@Override

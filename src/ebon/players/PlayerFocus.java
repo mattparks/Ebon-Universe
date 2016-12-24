@@ -1,21 +1,22 @@
-package testing;
+package ebon.players;
 
 import flounder.camera.*;
 import flounder.framework.*;
+import flounder.guis.*;
 import flounder.maths.vectors.*;
 
-public class TestingPlayer extends IExtension implements IPlayer {
+public class PlayerFocus extends IExtension implements IPlayer {
 	private Vector3f position;
 	private Vector3f rotation;
 
-	public TestingPlayer() {
-		super(FlounderCamera.class);
+	public PlayerFocus() {
+		super(FlounderGuis.class);
 	}
 
 	@Override
 	public void init() {
-		position = new Vector3f(0.0f, 5.0f, 0.0f);
-		rotation = new Vector3f(40.0f, 0.0f, 0.0f);
+		this.position = new Vector3f();
+		this.rotation = new Vector3f();
 	}
 
 	@Override
@@ -28,9 +29,17 @@ public class TestingPlayer extends IExtension implements IPlayer {
 		return position;
 	}
 
+	public void setPosition(Vector3f position) {
+		this.position.set(position);
+	}
+
 	@Override
 	public Vector3f getRotation() {
 		return rotation;
+	}
+
+	public void setRotation(Vector3f rotation) {
+		this.rotation.set(rotation);
 	}
 
 	@Override

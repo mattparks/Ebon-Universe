@@ -10,19 +10,19 @@ import flounder.guis.*;
 import java.util.*;
 
 public class ScreenOptionsEffects extends GuiComponent {
-	private MainSlider mainSlider;
+	private MasterSlider masterSlider;
 	private ScreenOptions screenOptionsGraphics;
 
-	public ScreenOptionsEffects(ScreenOptions screenOptionsGraphics, MainSlider mainSlider) {
-		this.mainSlider = mainSlider;
+	public ScreenOptionsEffects(ScreenOptions screenOptionsGraphics, MasterSlider masterSlider) {
+		this.masterSlider = masterSlider;
 		this.screenOptionsGraphics = screenOptionsGraphics;
 
 		createTitleText(GuiAlign.LEFT, "Effects");
 
 		float currentY = -0.15f;
-		createPostEnabledOption(GuiAlign.LEFT, currentY += MainSlider.BUTTONS_Y_SEPARATION);
-		createPostEffectOption(GuiAlign.LEFT, currentY += MainSlider.BUTTONS_Y_SEPARATION);
-		createFilterFXAAOption(GuiAlign.LEFT, currentY += MainSlider.BUTTONS_Y_SEPARATION);
+		createPostEnabledOption(GuiAlign.LEFT, currentY += MasterSlider.BUTTONS_Y_SEPARATION);
+		createPostEffectOption(GuiAlign.LEFT, currentY += MasterSlider.BUTTONS_Y_SEPARATION);
+		createFilterFXAAOption(GuiAlign.LEFT, currentY += MasterSlider.BUTTONS_Y_SEPARATION);
 
 		createBackOption(GuiAlign.LEFT, 1.0f);
 
@@ -31,22 +31,22 @@ public class ScreenOptionsEffects extends GuiComponent {
 		FlounderEvents.addEvent(new IEvent() {
 			@Override
 			public boolean eventTriggered() {
-				return ScreenOptionsEffects.super.isShown() && MainSlider.BACK_KEY.wasDown();
+				return ScreenOptionsEffects.super.isShown() && MasterSlider.BACK_KEY.wasDown();
 			}
 
 			@Override
 			public void onEvent() {
-				mainSlider.setNewSecondaryScreen(screenOptionsGraphics, false);
+				masterSlider.setNewSecondaryScreen(screenOptionsGraphics, false);
 			}
 		});
 	}
 
 	private void createTitleText(GuiAlign guiAlign, String title) {
-		Text titleText = MainSlider.createTitleText(title, guiAlign, this);
+		Text titleText = MasterSlider.createTitleText(title, guiAlign, this);
 	}
 
 	private void createPostEffectOption(GuiAlign guiAlign, float yPos) {
-		GuiTextButton button = MainSlider.createButton("Post Effect: " + OptionsPost.POST_EFFECT, guiAlign, yPos, this);
+		GuiTextButton button = MasterSlider.createButton("Post Effect: " + OptionsPost.POST_EFFECT, guiAlign, yPos, this);
 		button.addLeftListener(() -> {
 			OptionsPost.POST_EFFECT += 1;
 
@@ -82,7 +82,7 @@ public class ScreenOptionsEffects extends GuiComponent {
 	}
 
 	private void createPostEnabledOption(GuiAlign guiAlign, float yPos) {
-		GuiTextButton button = MainSlider.createButton("Post Enabled: " + (OptionsPost.POST_ENABLED ? "On" : "Off"), guiAlign, yPos, this);
+		GuiTextButton button = MasterSlider.createButton("Post Enabled: " + (OptionsPost.POST_ENABLED ? "On" : "Off"), guiAlign, yPos, this);
 		button.addLeftListener(() -> {
 			OptionsPost.POST_ENABLED = !OptionsPost.POST_ENABLED;
 		});
@@ -106,7 +106,7 @@ public class ScreenOptionsEffects extends GuiComponent {
 	}
 
 	private void createFilterFXAAOption(GuiAlign guiAlign, float yPos) {
-		GuiTextButton button = MainSlider.createButton("FXAA: " + (OptionsPost.FILTER_FXAA ? "Enabled" : "Disabled"), guiAlign, yPos, this);
+		GuiTextButton button = MasterSlider.createButton("FXAA: " + (OptionsPost.FILTER_FXAA ? "Enabled" : "Disabled"), guiAlign, yPos, this);
 		button.addLeftListener(() -> {
 			OptionsPost.FILTER_FXAA = !OptionsPost.FILTER_FXAA;
 		});
@@ -130,8 +130,8 @@ public class ScreenOptionsEffects extends GuiComponent {
 	}
 
 	private void createBackOption(GuiAlign guiAlign, float yPos) {
-		GuiTextButton button = MainSlider.createButton("Back", guiAlign, yPos, this);
-		button.addLeftListener(() -> mainSlider.setNewSecondaryScreen(screenOptionsGraphics, false));
+		GuiTextButton button = MasterSlider.createButton("Back", guiAlign, yPos, this);
+		button.addLeftListener(() -> masterSlider.setNewSecondaryScreen(screenOptionsGraphics, false));
 	}
 
 	@Override

@@ -58,7 +58,7 @@ public class ParticleRenderer extends IRenderer {
 
 	@Override
 	public void renderObjects(Vector4f clipPlane, ICamera camera) {
-		if (!shader.isLoaded() || EbonParticles.getParticles().size() < 1) {
+		if (!shader.isLoaded() || EbonParticles.getParticles() == null) {
 			return;
 		}
 

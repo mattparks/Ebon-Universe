@@ -8,10 +8,10 @@ import flounder.guis.*;
 import java.util.*;
 
 public class ScreenMods extends GuiComponent {
-	private MainSlider mainSlider;
+	private MasterSlider masterSlider;
 
-	public ScreenMods(MainSlider mainSlider) {
-		this.mainSlider = mainSlider;
+	public ScreenMods(MasterSlider masterSlider) {
+		this.masterSlider = masterSlider;
 
 		createTitleText("Mods");
 
@@ -22,23 +22,23 @@ public class ScreenMods extends GuiComponent {
 		FlounderEvents.addEvent(new IEvent() {
 			@Override
 			public boolean eventTriggered() {
-				return ScreenMods.super.isShown() && MainSlider.BACK_KEY.wasDown();
+				return ScreenMods.super.isShown() && MasterSlider.BACK_KEY.wasDown();
 			}
 
 			@Override
 			public void onEvent() {
-				mainSlider.closeSecondaryScreen();
+				masterSlider.closeSecondaryScreen();
 			}
 		});
 	}
 
 	private void createTitleText(String title) {
-		Text titleText = MainSlider.createTitleText(title, GuiAlign.LEFT, this);
+		Text titleText = MasterSlider.createTitleText(title, GuiAlign.LEFT, this);
 	}
 
 	private void createBackOption(GuiAlign guiAlign, float yPos) {
-		GuiTextButton button = MainSlider.createButton("Back", guiAlign, yPos, this);
-		button.addLeftListener(mainSlider::closeSecondaryScreen);
+		GuiTextButton button = MasterSlider.createButton("Back", guiAlign, yPos, this);
+		button.addLeftListener(masterSlider::closeSecondaryScreen);
 	}
 
 	@Override

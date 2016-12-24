@@ -7,23 +7,23 @@ import flounder.visual.*;
 
 import java.util.*;
 
-public class MainMenu extends GuiComponent {
+public class MasterMenu extends GuiComponent {
 	protected static final float SLIDE_TIME = 0.85f;
 
-	private MainSlider mainSlider;
+	private MasterSlider masterSlider;
 
 	private ValueDriver slideDriver;
 	private float backgroundAlpha;
 	private boolean displayed;
 
-	public MainMenu() {
-		mainSlider = new MainSlider(this);
+	public MasterMenu() {
+		masterSlider = new MasterSlider(this);
 
 		slideDriver = new ConstantDriver(0.0f);
 		backgroundAlpha = 0.0f;
 		displayed = false;
 
-		addComponent(mainSlider, 0.0f, 0.0f, 1.0f, 1.0f);
+		addComponent(masterSlider, 0.0f, 0.0f, 1.0f, 1.0f);
 	}
 
 	public void display(boolean display) {
@@ -31,8 +31,8 @@ public class MainMenu extends GuiComponent {
 			return;
 		}
 
-		mainSlider.show(display);
 		displayed = display;
+		masterSlider.show(displayed);
 
 		if (display) {
 			if (!isShown()) {
@@ -40,10 +40,10 @@ public class MainMenu extends GuiComponent {
 			}
 
 			slideDriver = new SlideDriver(backgroundAlpha, 1.0f, SLIDE_TIME);
-			((EbonGuis) FlounderGuis.getGuiMaster()).getOverlayStatus().show(false);
+			((EbonGuis) FlounderGuis.getGuiMaster()).getMasterOverlay().show(false);
 		} else {
 			slideDriver = new SlideDriver(backgroundAlpha, 0.0f, SLIDE_TIME);
-			((EbonGuis) FlounderGuis.getGuiMaster()).getOverlayStatus().show(true);
+			((EbonGuis) FlounderGuis.getGuiMaster()).getMasterOverlay().show(true);
 		}
 	}
 
@@ -59,20 +59,15 @@ public class MainMenu extends GuiComponent {
 		return slideDriver;
 	}
 
-	public MainSlider getMainSlider() {
-		return mainSlider;
-	}
-
-	@Override
-	protected void setScreenSpacePosition(float x, float y, float width, float height) {
-		super.setScreenSpacePosition(x, y, width, height);
+	public MasterSlider getMasterSlider() {
+		return masterSlider;
 	}
 
 	@Override
 	protected void updateSelf() {
 		backgroundAlpha = slideDriver.update(FlounderFramework.getDelta());
 
-		if (!displayed && !mainSlider.isShown() && backgroundAlpha == 0.0f) {
+		if (!displayed && !masterSlider.isShown() && backgroundAlpha == 0.0f) {
 			show(false);
 		}
 	}

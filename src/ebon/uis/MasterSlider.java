@@ -11,7 +11,7 @@ import org.lwjgl.glfw.*;
 
 import java.util.*;
 
-public class MainSlider extends GuiComponent {
+public class MasterSlider extends GuiComponent {
 	public static final Colour TEXT_COLOUR = new Colour(0.85f, 0.85f, 0.85f);
 	public static KeyButton BACK_KEY = new KeyButton(GLFW.GLFW_KEY_BACKSPACE);
 
@@ -27,11 +27,9 @@ public class MainSlider extends GuiComponent {
 	public static final float MAIN_MENU_Y_POS = 0.25f;
 	public static final float MAIN_MENU_Y_SIZE = 0.575f;
 
-	public static final Colour FADE_COLOUR_STARTUP = new Colour(0.2f, 0.2f, 0.2f);
-
 	public static final int SLIDE_SCALAR = 5;
 
-	private MainMenu superMenu;
+	private MasterMenu superMenu;
 
 	private MenuStart menuStart;
 	private MenuPause menuPause;
@@ -48,7 +46,7 @@ public class MainSlider extends GuiComponent {
 	private boolean slidingForwards;
 	private boolean closeSecondary;
 
-	protected MainSlider(MainMenu superMenu) {
+	protected MasterSlider(MasterMenu superMenu) {
 		this.superMenu = superMenu;
 
 		this.menuStart = new MenuStart(superMenu, this);
@@ -81,7 +79,7 @@ public class MainSlider extends GuiComponent {
 		FlounderMouse.setCursorHidden(!visible);
 
 		displayed = visible;
-		mainDriver = new SlideDriver(getRelativeX(), visible ? 0.0f : SLIDE_SCALAR, MainMenu.SLIDE_TIME);
+		mainDriver = new SlideDriver(getRelativeX(), visible ? 0.0f : SLIDE_SCALAR, MasterMenu.SLIDE_TIME);
 	}
 
 	public boolean isDisplayed() {
@@ -145,6 +143,9 @@ public class MainSlider extends GuiComponent {
 
 	@Override
 	protected void getGuiTextures(List<GuiTexture> guiTextures) {
+		if (isShown()) {
+
+		}
 	}
 
 	private void removeSecondaryScreen() {
@@ -162,13 +163,13 @@ public class MainSlider extends GuiComponent {
 			newSecondaryScreen = secondScreen;
 			newSecondaryScreen.show(true);
 			addComponent(secondScreen, (secondaryDepth * menuActive.getRelativeX()) - (slideForwards ? SLIDE_SCALAR : -SLIDE_SCALAR), MAIN_MENU_Y_POS, 1.0f, MAIN_MENU_Y_SIZE);
-			secondaryDriver = new SlideDriver(menuActive.getRelativeX(), secondaryDepth, MainMenu.SLIDE_TIME);
+			secondaryDriver = new SlideDriver(menuActive.getRelativeX(), secondaryDepth, MasterMenu.SLIDE_TIME);
 		}
 	}
 
 	public void closeSecondaryScreen() {
 		if (newSecondaryScreen == null && secondaryScreen != null) {
-			secondaryDriver = new SlideDriver(menuActive.getRelativeX(), 0.0f, MainMenu.SLIDE_TIME);
+			secondaryDriver = new SlideDriver(menuActive.getRelativeX(), 0.0f, MasterMenu.SLIDE_TIME);
 			closeSecondary = true;
 		}
 	}
@@ -186,11 +187,11 @@ public class MainSlider extends GuiComponent {
 	}
 
 	public static Text createTitleText(String title, GuiAlign guiAlign, GuiComponent component) {
-		Text titleText = Text.newText(title).setFontSize(MainSlider.MAIN_TITLE_FONT_SIZE).create();
+		Text titleText = Text.newText(title).setFontSize(MasterSlider.MAIN_TITLE_FONT_SIZE).textAlign(guiAlign).create();
 		titleText.setColour(0.15f, 0.15f, 0.15f);
-		titleText.setBorderColour(MainSlider.TEXT_COLOUR);
+		titleText.setBorderColour(MasterSlider.TEXT_COLOUR);
 		titleText.setBorder(new ConstantDriver(0.04f));
-		component.addText(titleText, MainSlider.BUTTONS_X_MAGIN_LEFT, -0.30f, 1.0f);
+		component.addText(titleText, MasterSlider.BUTTONS_X_MAGIN_LEFT, -0.30f, 1.0f);
 		return titleText;
 	}
 
@@ -201,15 +202,15 @@ public class MainSlider extends GuiComponent {
 		switch (guiAlign) {
 			case LEFT:
 				xPosition = 0.0f;
-				xMargin = MainSlider.BUTTONS_X_MAGIN_LEFT;
+				xMargin = MasterSlider.BUTTONS_X_MAGIN_LEFT;
 				break;
 			case CENTRE:
 				xPosition = 0.0f;
-				xMargin = MainSlider.BUTTONS_X_MAGIN_LEFT;
+				xMargin = MasterSlider.BUTTONS_X_MAGIN_LEFT;
 				break;
 			case RIGHT:
 				xPosition = 0.5f;
-				xMargin = MainSlider.BUTTONS_X_MARGIN_RIGHT;
+				xMargin = MasterSlider.BUTTONS_X_MARGIN_RIGHT;
 				break;
 			default:
 				xPosition = 0.0f;
@@ -217,12 +218,12 @@ public class MainSlider extends GuiComponent {
 				break;
 		}
 
-		Text text = Text.newText(textString).setFontSize(MainSlider.FONT_SIZE).create();
-		text.setColour(MainSlider.TEXT_COLOUR);
+		Text text = Text.newText(textString).setFontSize(MasterSlider.FONT_SIZE).create();
+		text.setColour(MasterSlider.TEXT_COLOUR);
 		text.setBorderColour(0.15f, 0.15f, 0.15f);
 		text.setBorder(new ConstantDriver(0.04f));
 		GuiTextButton button = new GuiTextButton(text, guiAlign, xMargin);
-		component.addComponent(button, xPosition, yPos, MainSlider.BUTTONS_X_WIDTH, MainSlider.BUTTONS_Y_SIZE);
+		component.addComponent(button, xPosition, yPos, MasterSlider.BUTTONS_X_WIDTH, MasterSlider.BUTTONS_Y_SIZE);
 		return button;
 	}
 
@@ -230,7 +231,7 @@ public class MainSlider extends GuiComponent {
 		return menuActive instanceof MenuStart;
 	}
 
-	public MainMenu getSuperMenu() {
+	public MasterMenu getSuperMenu() {
 		return superMenu;
 	}
 }

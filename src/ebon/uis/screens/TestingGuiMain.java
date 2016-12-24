@@ -1,9 +1,11 @@
-package testing;
+package ebon.uis.screens;
 
 import flounder.fonts.*;
 import flounder.framework.*;
 import flounder.guis.*;
 import flounder.maths.*;
+import flounder.resources.*;
+import flounder.textures.*;
 import flounder.visual.*;
 
 import java.util.*;
@@ -19,11 +21,11 @@ public class TestingGuiMain extends GuiComponent {
 
 	private boolean updateText;
 
-	//  private GuiTexture texture;
+	private GuiTexture texture;
 
 	public TestingGuiMain() {
 		//	helloGuis1 = new GuiTexture(Texture.newTexture(new MyFile(MyFile.RES_FOLDER, "guis", "button.png")).clampEdges().create());
-		helloTest = Text.newText("Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.").setFont(FlounderFonts.BRUSH_SCRIPT).textAlign(TextAlign.RIGHT).setFontSize(2.0f).create();
+		helloTest = Text.newText("Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.").setFont(FlounderFonts.BRUSH_SCRIPT).textAlign(GuiAlign.RIGHT).setFontSize(2.0f).create();
 		helloTest.setColour(0.15f, 0.15f, 0.15f);
 		//	helloTest.setBorder(new SinWaveDriver(0.075f, 0.1f, 3.75f));
 		//	helloTest.setBorderColour(1.0f, 1.0f, 0.0f);
@@ -33,14 +35,14 @@ public class TestingGuiMain extends GuiComponent {
 		info.setColour(0.10f, 0.10f, 0.75f);
 		addText(info, 0.1f, 0.02f, 1.0f);
 
-		sample = Text.newText("Flounder Framework").setFont(FlounderFonts.BRUSH_SCRIPT).setFontSize(2.0f).textAlign(TextAlign.RIGHT).create();
+		sample = Text.newText("Flounder Framework").setFont(FlounderFonts.BRUSH_SCRIPT).setFontSize(2.0f).textAlign(GuiAlign.RIGHT).create();
 		sample.setColour(0.75f, 0.10f, 0.10f);
 		sample.setBorder(new SinWaveDriver(0.075f, 0.1f, 3.75f));
 		sample.setBorderColour(new Colour(0.0f, 0.0f, 0.0f, 0.5f));
 		sample.setRotation(9.11f);
 		addText(sample, 0.75f, 0.09f, 0.5f);
 
-		//  texture = new GuiTexture(Texture.newTexture(new MyFile(MyFile.RES_FOLDER, "testing.png")).create());
+		texture = new GuiTexture(Texture.newTexture(new MyFile(MyFile.RES_FOLDER, "testing.png")).create());
 
 		Timer timer = new Timer();
 		timer.schedule(new TimerTask() {
@@ -77,13 +79,13 @@ public class TestingGuiMain extends GuiComponent {
 
 			//  texture.setPosition(FlounderDisplay.getAspectRatio() - (texture.getScale().x / 2.0f), 0.5f, 0.5f, 0.5f); // Right align.
 
-			//  texture.update();
+			texture.update();
 		}
 	}
 
 	@Override
 	protected void getGuiTextures(List<GuiTexture> guiTextures) {
 		//	guiTextures.add(helloGuis1);
-		//  guiTextures.add(texture);
+		guiTextures.add(texture);
 	}
 }

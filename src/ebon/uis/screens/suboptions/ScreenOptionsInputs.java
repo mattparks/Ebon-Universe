@@ -10,40 +10,40 @@ import java.util.*;
 
 public class ScreenOptionsInputs extends GuiComponent {
 	private ScreenOptions screenOptions;
-	private MainSlider mainSlider;
+	private MasterSlider masterSlider;
 
-	public ScreenOptionsInputs(ScreenOptions screenOptions, MainSlider mainSlider) {
-		this.mainSlider = mainSlider;
+	public ScreenOptionsInputs(ScreenOptions screenOptions, MasterSlider masterSlider) {
+		this.masterSlider = masterSlider;
 		this.screenOptions = screenOptions;
 
 		createTitleText(GuiAlign.LEFT, "Inputs");
 
 		float currentY = -0.15f;
 
-		createBackOption(MainSlider.BUTTONS_X_MAGIN_LEFT, 1.0f);
+		createBackOption(GuiAlign.LEFT, 1.0f);
 
 		super.show(false);
 
 		FlounderEvents.addEvent(new IEvent() {
 			@Override
 			public boolean eventTriggered() {
-				return ScreenOptionsInputs.super.isShown() && MainSlider.BACK_KEY.wasDown();
+				return ScreenOptionsInputs.super.isShown() && MasterSlider.BACK_KEY.wasDown();
 			}
 
 			@Override
 			public void onEvent() {
-				mainSlider.setNewSecondaryScreen(screenOptions, false);
+				masterSlider.setNewSecondaryScreen(screenOptions, false);
 			}
 		});
 	}
 
 	private void createTitleText(GuiAlign guiAlign, String title) {
-		Text titleText = MainSlider.createTitleText(title, guiAlign, this);
+		Text titleText = MasterSlider.createTitleText(title, guiAlign, this);
 	}
 
-	private void createBackOption(float xPos, float yPos) {
-		GuiTextButton button = MainSlider.createButton("Back", GuiAlign.LEFT, yPos, this);
-		button.addLeftListener(() -> mainSlider.setNewSecondaryScreen(screenOptions, false));
+	private void createBackOption(GuiAlign guiAlign, float yPos) {
+		GuiTextButton button = MasterSlider.createButton("Back", guiAlign, yPos, this);
+		button.addLeftListener(() -> masterSlider.setNewSecondaryScreen(screenOptions, false));
 	}
 
 	@Override

@@ -40,6 +40,7 @@ public class EditorRemoveFade extends IEditorComponent {
 		// Time Slider.
 		//	panel.add(new JLabel("Time Slider: "));
 		JSlider timeSlider = new JSlider(JSlider.HORIZONTAL, 0, 50, (int) (component.getDuration() * 5.0f));
+		timeSlider.setToolTipText("Remove Time Length");
 		timeSlider.addChangeListener(new ChangeListener() {
 			@Override
 			public void stateChanged(ChangeEvent e) {
@@ -52,7 +53,7 @@ public class EditorRemoveFade extends IEditorComponent {
 			}
 		});
 
-		//Turn on labels at major tick marks.
+		// Turn on labels at major tick marks.
 		timeSlider.setMajorTickSpacing(10);
 		timeSlider.setMinorTickSpacing(5);
 		timeSlider.setPaintTicks(true);

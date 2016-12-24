@@ -1,18 +1,13 @@
-package testing;
+package ebon.world;
 
 import flounder.framework.*;
 import flounder.inputs.*;
-import flounder.logger.*;
-import flounder.maths.*;
 import flounder.maths.vectors.*;
 import flounder.physics.*;
 import flounder.physics.bounding.*;
-import flounder.profiling.*;
 import org.lwjgl.glfw.*;
 
-public class TestingBoundings extends IModule {
-	private static final TestingBoundings instance = new TestingBoundings();
-
+public class EbonTesting {
 	private ButtonAxis xAxis;
 	private ButtonAxis yAxis;
 	private ButtonAxis zAxis;
@@ -24,12 +19,7 @@ public class TestingBoundings extends IModule {
 	private Vector3f positionDelta;
 	private Vector3f rotationDelta;
 
-	public TestingBoundings() {
-		super(ModuleUpdate.UPDATE_POST, FlounderBounding.class);
-	}
-
-	@Override
-	public void init() {
+	public EbonTesting() {
 		xAxis = new ButtonAxis(new KeyButton(GLFW.GLFW_KEY_D), new KeyButton(GLFW.GLFW_KEY_A));
 		yAxis = new ButtonAxis(new KeyButton(GLFW.GLFW_KEY_LEFT_CONTROL), new KeyButton(GLFW.GLFW_KEY_LEFT_SHIFT));
 		zAxis = new ButtonAxis(new KeyButton(GLFW.GLFW_KEY_S), new KeyButton(GLFW.GLFW_KEY_W));
@@ -41,7 +31,6 @@ public class TestingBoundings extends IModule {
 		rotationDelta = new Vector3f();
 	}
 
-	@Override
 	public void update() {
 		testAABB0.update();
 
@@ -67,20 +56,6 @@ public class TestingBoundings extends IModule {
 		// TODO: Resolve collisions between: AABB-AABB, AABB-Sphere, Sphere-Sphere, Hull-AABB, Hull-Sphere.
 	}
 
-	@Override
-	public void profile() {
-	}
-
-	@Override
-	public IModule getInstance() {
-		return instance;
-	}
-
-	@Override
-	public void dispose() {
-
-	}
-
 	private static class TestAABB {
 		AABB original;
 		AABB bounding;
@@ -104,73 +79,6 @@ public class TestingBoundings extends IModule {
 			//	Sphere.recalculate(this.original, this.position, this.scale, this.bounding);
 			AABB.recalculate(this.original, this.position, this.rotation, this.scale, this.bounding);
 			FlounderBounding.addShapeRender(this.bounding);
-		}
-
-
-		static double resolveCollisionX(AABB thisAABB, AABB other, float moveAmountX) {
-			float newAmtX;
-
-		//	if (moveAmountX == 0.0) {
-		//		return moveAmountX;
-		//	}
-
-			if (moveAmountX > 0.0) { // This max == other min
-				newAmtX = other.getMinExtents().getX() - thisAABB.getMaxExtents().getX();
-			} else { // This min == other max
-				newAmtX = other.getMaxExtents().getX() - thisAABB.getMinExtents().getX();
-			}
-
-			if (Math.abs(newAmtX) < Math.abs(moveAmountX)) {
-				moveAmountX = newAmtX;
-			}
-
-			FlounderProfiler.add("Testing", "X-Depth", Maths.roundToPlace(newAmtX, 3));
-
-			return moveAmountX;
-		}
-
-		static double resolveCollisionY(AABB thisAABB, AABB other, float moveAmountY) {
-			float newAmtY;
-
-		//	if (moveAmountY == 0.0) {
-		//		return moveAmountY;
-		//	}
-
-			if (moveAmountY > 0.0) { // This max == other min.
-				newAmtY = other.getMinExtents().getY() - thisAABB.getMaxExtents().getY();
-			} else { // This min == other max.
-				newAmtY = other.getMaxExtents().getY() - thisAABB.getMinExtents().getY();
-			}
-
-			if (Math.abs(newAmtY) < Math.abs(moveAmountY)) {
-				moveAmountY = newAmtY;
-			}
-
-			FlounderProfiler.add("Testing", "Y-Depth", Maths.roundToPlace(newAmtY, 3));
-
-			return moveAmountY;
-		}
-
-		static double resolveCollisionZ(AABB thisAABB, AABB other, float moveAmountZ) {
-			float newAmtZ;
-
-		//	if (moveAmountZ == 0.0) {
-		//		return moveAmountZ;
-		//	}
-
-			if (moveAmountZ > 0.0) { // This max == other min.
-				newAmtZ = other.getMinExtents().getZ() - thisAABB.getMaxExtents().getZ();
-			} else { // This min == other max.
-				newAmtZ = other.getMaxExtents().getZ() - thisAABB.getMinExtents().getZ();
-			}
-
-			if (Math.abs(newAmtZ) < Math.abs(moveAmountZ)) {
-				moveAmountZ = newAmtZ;
-			}
-
-			FlounderProfiler.add("Testing", "Z-Depth", Maths.roundToPlace(newAmtZ, 3));
-
-			return moveAmountZ;
 		}
 	}
 }

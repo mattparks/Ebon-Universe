@@ -50,6 +50,7 @@ public class EditorParticleSystem extends IEditorComponent {
 		// PPS Slider.
 		//	panel.add(new JLabel("PPS Slider: "));
 		JSlider ppsSlider = new JSlider(JSlider.HORIZONTAL, 0, 2500, (int) component.getParticleSystem().getPPS());
+		ppsSlider.setToolTipText("Particles Per Second");
 		ppsSlider.addChangeListener(new ChangeListener() {
 			@Override
 			public void stateChanged(ChangeEvent e) {
@@ -59,7 +60,7 @@ public class EditorParticleSystem extends IEditorComponent {
 			}
 		});
 
-		//Turn on labels at major tick marks.
+		// Turn on labels at major tick marks.
 		ppsSlider.setMajorTickSpacing(500);
 		ppsSlider.setMinorTickSpacing(100);
 		ppsSlider.setPaintTicks(true);
@@ -69,6 +70,7 @@ public class EditorParticleSystem extends IEditorComponent {
 		// Gravity Effect Slider.
 		//	panel.add(new JLabel("Gravity Slider: "));
 		JSlider gravityEffectSlider = new JSlider(JSlider.HORIZONTAL, -150, 150, (int) (component.getParticleSystem().getGravityEffect() * 100.0f));
+		gravityEffectSlider.setToolTipText("Gravity Effect");
 		gravityEffectSlider.addChangeListener(new ChangeListener() {
 			@Override
 			public void stateChanged(ChangeEvent e) {
@@ -78,7 +80,7 @@ public class EditorParticleSystem extends IEditorComponent {
 			}
 		});
 
-		//Turn on labels at major tick marks.
+		// Turn on labels at major tick marks.
 		gravityEffectSlider.setMajorTickSpacing(50);
 		gravityEffectSlider.setMinorTickSpacing(10);
 		gravityEffectSlider.setPaintTicks(true);
@@ -88,6 +90,7 @@ public class EditorParticleSystem extends IEditorComponent {
 		// Speed Slider.
 		//	panel.add(new JLabel("Speed Slider: "));
 		JSlider speedSlider = new JSlider(JSlider.HORIZONTAL, 0, 150, (int) (component.getParticleSystem().getAverageSpeed() * 10.0f));
+		speedSlider.setToolTipText("Speed Slider");
 		speedSlider.addChangeListener(new ChangeListener() {
 			@Override
 			public void stateChanged(ChangeEvent e) {
@@ -97,7 +100,7 @@ public class EditorParticleSystem extends IEditorComponent {
 			}
 		});
 
-		//Turn on labels at major tick marks.
+		// Turn on labels at major tick marks.
 		speedSlider.setMajorTickSpacing(30);
 		speedSlider.setMinorTickSpacing(5);
 		speedSlider.setPaintTicks(true);
@@ -222,6 +225,8 @@ public class EditorParticleSystem extends IEditorComponent {
 			}
 		});
 		panel.add(componentAdd);
+
+		// TODO: Add selection list for particle templates to be used in the types list.
 	}
 
 	@Override

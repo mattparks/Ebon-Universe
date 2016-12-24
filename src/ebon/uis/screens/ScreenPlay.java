@@ -9,16 +9,16 @@ import flounder.guis.*;
 import java.util.*;
 
 public class ScreenPlay extends GuiComponent {
-	private MainSlider mainSlider;
+	private MasterSlider masterSlider;
 
-	public ScreenPlay(MainSlider mainSlider) {
-		this.mainSlider = mainSlider;
+	public ScreenPlay(MasterSlider masterSlider) {
+		this.masterSlider = masterSlider;
 
 		createTitleText(GuiAlign.LEFT, "Play");
 
 		float currentY = -0.15f;
-		createSingleplayerOption(GuiAlign.LEFT, currentY += MainSlider.BUTTONS_Y_SEPARATION);
-		createMultiplayerOption(GuiAlign.LEFT, currentY += MainSlider.BUTTONS_Y_SEPARATION);
+		createSingleplayerOption(GuiAlign.LEFT, currentY += MasterSlider.BUTTONS_Y_SEPARATION);
+		createMultiplayerOption(GuiAlign.LEFT, currentY += MasterSlider.BUTTONS_Y_SEPARATION);
 
 		createBackOption(GuiAlign.LEFT, 1.0f);
 
@@ -27,38 +27,38 @@ public class ScreenPlay extends GuiComponent {
 		FlounderEvents.addEvent(new IEvent() {
 			@Override
 			public boolean eventTriggered() {
-				return ScreenPlay.super.isShown() && MainSlider.BACK_KEY.wasDown();
+				return ScreenPlay.super.isShown() && MasterSlider.BACK_KEY.wasDown();
 			}
 
 			@Override
 			public void onEvent() {
-				mainSlider.closeSecondaryScreen();
+				masterSlider.closeSecondaryScreen();
 			}
 		});
 	}
 
 	private void createTitleText(GuiAlign guiAlign, String title) {
-		Text titleText = MainSlider.createTitleText(title, guiAlign, this);
+		Text titleText = MasterSlider.createTitleText(title, guiAlign, this);
 	}
 
 	private void createSingleplayerOption(GuiAlign guiAlign, float yPos) {
-		GuiTextButton button = MainSlider.createButton("Singleplayer", guiAlign, yPos, this);
+		GuiTextButton button = MasterSlider.createButton("Singleplayer", guiAlign, yPos, this);
 		button.addLeftListener(() -> {
 			EbonWorld.generateWorlds();
-			mainSlider.getSuperMenu().display(false);
-			mainSlider.sliderStartMenu(false);
-			mainSlider.closeSecondaryScreen();
+			masterSlider.getSuperMenu().display(false);
+			masterSlider.sliderStartMenu(false);
+			masterSlider.closeSecondaryScreen();
 		});
 	}
 
 	private void createMultiplayerOption(GuiAlign guiAlign, float yPos) {
-		GuiTextButton button = MainSlider.createButton("Multiplayer", guiAlign, yPos, this);
-		//button.addLeftListener(() -> mainSlider.getMenuStart().getSuperMenu().display(false));
+		GuiTextButton button = MasterSlider.createButton("Multiplayer", guiAlign, yPos, this);
+		//button.addLeftListener(() -> masterSlider.getMenuStart().getSuperMenu().display(false));
 	}
 
 	private void createBackOption(GuiAlign guiAlign, float yPos) {
-		GuiTextButton button = MainSlider.createButton("Back", guiAlign, yPos, this);
-		button.addLeftListener(mainSlider::closeSecondaryScreen);
+		GuiTextButton button = MasterSlider.createButton("Back", guiAlign, yPos, this);
+		button.addLeftListener(masterSlider::closeSecondaryScreen);
 	}
 
 	@Override

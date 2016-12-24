@@ -22,7 +22,7 @@ public class Ebon extends FlounderFramework {
 	public static Config configControls;
 
 	public Ebon() {
-		super("Ebon Universe", -1, new EbonGuis(), new CameraFPS(), new PlayerFPS(), new EbonInterface(), new EbonRenderer());
+		super("Ebon Universe", -1, new EbonGuis(), new CameraFocus(), new PlayerFocus(), new EbonInterface(), new EbonRenderer());
 
 		configMain = new Config(new MyFile(FlounderFramework.getRoamingFolder(), "configs", "settings.conf"));
 		configPost = new Config(new MyFile(FlounderFramework.getRoamingFolder(), "configs", "post.conf"));
@@ -34,7 +34,8 @@ public class Ebon extends FlounderFramework {
 				configMain.getBooleanWithDefault("vsync", false, FlounderDisplay::isVSync),
 				configMain.getBooleanWithDefault("antialias", true, FlounderDisplay::isAntialiasing),
 				configMain.getIntWithDefault("sampled", 0, FlounderDisplay::getSamples),
-				configMain.getBooleanWithDefault("fullscreen", false, FlounderDisplay::isFullscreen)
+				configMain.getBooleanWithDefault("fullscreen", false, FlounderDisplay::isFullscreen),
+				false
 		);
 		setFpsLimit(configMain.getIntWithDefault("fps_limit", -1, FlounderFramework::getFpsLimit));
 

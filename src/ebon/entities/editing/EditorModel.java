@@ -20,9 +20,9 @@ public class EditorModel extends IEditorComponent {
 	private String overrideTextureName;
 	private String overrideNormalsName;
 
-	private MyFile pathModel = null;
-	private MyFile pathTexture = null;
-	private MyFile pathNormalMap = null;
+	private MyFile pathModel;
+	private MyFile pathTexture;
+	private MyFile pathNormalMap;
 
 	public EditorModel(Entity entity) {
 		this.component = new ComponentModel(entity, null, Texture.newTexture(new MyFile(MyFile.RES_FOLDER, "undefined.png")).create(), null, 1.0f, 0);
@@ -44,7 +44,7 @@ public class EditorModel extends IEditorComponent {
 
 	@Override
 	public void addToPanel(JPanel panel) {
-		// Load Texture.
+		// Load Model.
 		JButton loadModel = new JButton("Select Model");
 		loadModel.addActionListener((ActionEvent ae) -> {
 			JFileChooser fileChooser = new JFileChooser();
@@ -59,7 +59,7 @@ public class EditorModel extends IEditorComponent {
 					String[] filepath = selectedFile.split("/");
 					EditorModel.this.pathModel = new MyFile(MyFile.RES_FOLDER, "entities", filepath[filepath.length - 1].replace(".obj", ""), filepath[filepath.length - 1]);
 				} else {
-					FlounderLogger.error("The selected texture path is not inside the res/entities folder!");
+					FlounderLogger.error("The selected model path is not inside the res/entities folder!");
 				}
 			}
 		});
@@ -67,7 +67,7 @@ public class EditorModel extends IEditorComponent {
 
 		// Load Texture.
 		JButton loadTexture = new JButton("Select Texture");
-		loadModel.addActionListener((ActionEvent ae) -> {
+		loadTexture.addActionListener((ActionEvent ae) -> {
 			JFileChooser fileChooser = new JFileChooser();
 			File workingDirectory = new File(System.getProperty("user.dir"));
 			fileChooser.setCurrentDirectory(workingDirectory);
@@ -110,6 +110,7 @@ public class EditorModel extends IEditorComponent {
 		// Scale Slider.
 		//	panel.add(new JLabel("Scale Slider: "));
 		JSlider scaleSlider = new JSlider(JSlider.HORIZONTAL, 0, 150, (int) (component.getScale() * 25.0f));
+		scaleSlider.setToolTipText("Model Scale");
 		scaleSlider.addChangeListener((ChangeEvent e) -> {
 			JSlider source = (JSlider) e.getSource();
 			int reading = source.getValue();

@@ -12,8 +12,8 @@ import flounder.visual.*;
 import java.util.*;
 
 public class MenuStart extends GuiComponent {
-	private MainMenu superMenu;
-	private MainSlider mainSlider;
+	private MasterMenu superMenu;
+	private MasterSlider masterSlider;
 
 	private GuiTexture[] slideshow;
 	private GuiTexture slideoverlay;
@@ -28,66 +28,62 @@ public class MenuStart extends GuiComponent {
 	private ScreenAbout screenAbout;
 	private ScreenMods screenMods;
 
-	protected MenuStart(MainMenu superMenu, MainSlider mainSlider) {
+	protected MenuStart(MasterMenu superMenu, MasterSlider masterSlider) {
 		this.superMenu = superMenu;
-		this.mainSlider = mainSlider;
+		this.masterSlider = masterSlider;
 
-		this.screenPlay = new ScreenPlay(mainSlider);
-		this.screenOptions = new ScreenOptions(mainSlider);
-		this.screenAbout = new ScreenAbout(mainSlider);
-		this.screenMods = new ScreenMods(mainSlider);
+		this.screenPlay = new ScreenPlay(masterSlider);
+		this.screenOptions = new ScreenOptions(masterSlider);
+		this.screenAbout = new ScreenAbout(masterSlider);
+		this.screenMods = new ScreenMods(masterSlider);
 
-		titleText = Text.newText(FlounderDisplay.getTitle()).setFontSize(MainSlider.MAIN_TITLE_FONT_SIZE).create();
-		titleText.setColour(MainSlider.TEXT_COLOUR);
-		titleText.setBorderColour(MainSlider.TEXT_COLOUR.r, MainSlider.TEXT_COLOUR.g, MainSlider.TEXT_COLOUR.b);
+		titleText = Text.newText(FlounderDisplay.getTitle()).setFontSize(MasterSlider.MAIN_TITLE_FONT_SIZE).create();
+		titleText.setColour(MasterSlider.TEXT_COLOUR);
+		titleText.setBorderColour(MasterSlider.TEXT_COLOUR.r, MasterSlider.TEXT_COLOUR.g, MasterSlider.TEXT_COLOUR.b);
 		titleText.setGlowing(new SinWaveDriver(0.075f, 0.100f, 2.320f));
-		addText(titleText, MainSlider.BUTTONS_X_MAGIN_LEFT, -0.23f, 1.0f);
+		addText(titleText, MasterSlider.BUTTONS_X_MAGIN_LEFT, -0.23f, 1.0f);
 
-		float currentY = 1.0f + MainSlider.BUTTONS_Y_SEPARATION;
-		createQuitButton(GuiAlign.LEFT, currentY -= MainSlider.BUTTONS_Y_SEPARATION);
-		currentY -= MainSlider.BUTTONS_Y_SEPARATION * MainSlider.BUTTONS_Y_SEPARATION;
+		float currentY = 1.0f + MasterSlider.BUTTONS_Y_SEPARATION;
+		createQuitButton(GuiAlign.LEFT, currentY -= MasterSlider.BUTTONS_Y_SEPARATION);
+		currentY -= MasterSlider.BUTTONS_Y_SEPARATION * MasterSlider.BUTTONS_Y_SEPARATION;
 
-		createModsButton(GuiAlign.LEFT, currentY -= MainSlider.BUTTONS_Y_SEPARATION);
-		createAboutButton(GuiAlign.LEFT, currentY -= MainSlider.BUTTONS_Y_SEPARATION);
-		createOptionsButton(GuiAlign.LEFT, currentY -= MainSlider.BUTTONS_Y_SEPARATION);
-		createPlayButton(GuiAlign.LEFT, currentY -= MainSlider.BUTTONS_Y_SEPARATION);
+		createModsButton(GuiAlign.LEFT, currentY -= MasterSlider.BUTTONS_Y_SEPARATION);
+		createAboutButton(GuiAlign.LEFT, currentY -= MasterSlider.BUTTONS_Y_SEPARATION);
+		createOptionsButton(GuiAlign.LEFT, currentY -= MasterSlider.BUTTONS_Y_SEPARATION);
+		createPlayButton(GuiAlign.LEFT, currentY -= MasterSlider.BUTTONS_Y_SEPARATION);
 
 		super.show(false);
 	}
 
 	private void createPlayButton(GuiAlign guiAlign, float yPos) {
-		//	GuiCheckbox checkbox = MainSlider.createCheckbox("Testing", guiAlign.LEFT, yPos - MainSlider.BUTTONS_Y_SEPARATION, false, this);
-		GuiTextButton button = MainSlider.createButton("Play", guiAlign, yPos, this);
-		button.addLeftListener(() -> mainSlider.setNewSecondaryScreen(screenPlay, true));
+		//	GuiCheckbox checkbox = MasterSlider.createCheckbox("Testing", GuiAlign.LEFT, yPos - MasterSlider.BUTTONS_Y_SEPARATION, false, this);
+		GuiTextButton button = MasterSlider.createButton("Play", guiAlign, yPos, this);
+		button.addLeftListener(() -> masterSlider.setNewSecondaryScreen(screenPlay, true));
 		button.addRightListener(null);
 	}
 
 	private void createOptionsButton(GuiAlign guiAlign, float yPos) {
-		GuiTextButton button = MainSlider.createButton("Options", guiAlign, yPos, this);
-		button.addLeftListener(() -> mainSlider.setNewSecondaryScreen(screenOptions, true));
+		GuiTextButton button = MasterSlider.createButton("Options", guiAlign, yPos, this);
+		button.addLeftListener(() -> masterSlider.setNewSecondaryScreen(screenOptions, true));
 		button.addRightListener(null);
 	}
 
 	private void createAboutButton(GuiAlign guiAlign, float yPos) {
-		GuiTextButton button = MainSlider.createButton("About", guiAlign, yPos, this);
-		button.addLeftListener(() -> mainSlider.setNewSecondaryScreen(screenAbout, true));
+		GuiTextButton button = MasterSlider.createButton("About", guiAlign, yPos, this);
+		button.addLeftListener(() -> masterSlider.setNewSecondaryScreen(screenAbout, true));
 		button.addRightListener(null);
 	}
 
 	private void createModsButton(GuiAlign guiAlign, float yPos) {
-		GuiTextButton button = MainSlider.createButton("Mods", guiAlign, yPos, this);
-		button.addLeftListener(() -> mainSlider.setNewSecondaryScreen(screenMods, true));
+		GuiTextButton button = MasterSlider.createButton("Mods", guiAlign, yPos, this);
+		button.addLeftListener(() -> masterSlider.setNewSecondaryScreen(screenMods, true));
 		button.addRightListener(null);
 	}
 
 	private void createQuitButton(GuiAlign guiAlign, float yPos) {
-		GuiTextButton button = MainSlider.createButton("Quit", guiAlign, yPos, this);
+		GuiTextButton button = MasterSlider.createButton("Quit", guiAlign, yPos, this);
 		button.addLeftListener(FlounderFramework::requestClose);
 		button.addRightListener(null);
-	}
-
-	public MainMenu getSuperMenu() {
-		return superMenu;
 	}
 
 	@Override
@@ -107,10 +103,7 @@ public class MenuStart extends GuiComponent {
 			slideshowDriver = new SlideDriver(slideshow.length - 1.0f, 0.0f, slideshow.length * SLIDE_SPEED);
 		}
 
-		// TODO: Use aspect ratio to create image width.
-		float aspectRatio = FlounderDisplay.getAspectRatio();
 		float progression = slideshowDriver.update(FlounderFramework.getDelta());
-		float imageWidth = SLIDESHOW_ASPECT / aspectRatio;
 
 		if (progression >= slideshow.length - 1.0f) {
 			slideshowDriver = new SlideDriver(slideshow.length - 1.0f, 0.0f, slideshow.length * SLIDE_SPEED);
@@ -121,24 +114,29 @@ public class MenuStart extends GuiComponent {
 		float currentTextureX = progression;
 
 		if (isShown()) {
-			for (int i = 0; i < slideshow.length; i++) {
-				slideshow[i].setPosition(currentTextureX, 0.0f, imageWidth, 1.0f);
-				slideshow[i].update();
-				currentTextureX -= imageWidth;
+			for (GuiTexture slide : slideshow) {
+				slide.setPosition(currentTextureX, 0.5f, SLIDESHOW_ASPECT, 1.0f);
+				slide.update();
+				currentTextureX -= SLIDESHOW_ASPECT;
 			}
 		}
 
-		// slideoverlay.getColourOffset().set(titleText.getColour());
-		slideoverlay.setPosition(0.0f, 0.0f, 1.0f, 1.0f);
+		slideoverlay.setPosition(FlounderDisplay.getAspectRatio() / 2.0f, 0.5f, FlounderDisplay.getAspectRatio(), 1.0f);
 		slideoverlay.update();
+	}
+
+	public MasterMenu getSuperMenu() {
+		return superMenu;
 	}
 
 	@Override
 	protected void getGuiTextures(List<GuiTexture> guiTextures) {
-		for (int i = 0; i < slideshow.length; i++) {
-			guiTextures.add(slideshow[i]);
-		}
+		if (isShown()) {
+			for (int i = 0; i < slideshow.length; i++) {
+				guiTextures.add(slideshow[i]);
+			}
 
-		guiTextures.add(slideoverlay);
+			guiTextures.add(slideoverlay);
+		}
 	}
 }

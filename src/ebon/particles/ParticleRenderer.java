@@ -97,11 +97,6 @@ public class ParticleRenderer extends IRenderer {
 		endRendering();
 	}
 
-	@Override
-	public void profile() {
-		FlounderProfiler.add("Particles", "Render Time", super.getRenderTimeMs());
-	}
-
 	private void prepareRendering(Vector4f clipPlane, ICamera camera) {
 		shader.start();
 		shader.getUniformMat4("projectionMatrix").loadMat4(camera.getProjectionMatrix());
@@ -183,6 +178,11 @@ public class ParticleRenderer extends IRenderer {
 	private void endRendering() {
 		unbindTexturedModel();
 		shader.stop();
+	}
+
+	@Override
+	public void profile() {
+		FlounderProfiler.add("Particles", "Render Time", super.getRenderTimeMs());
 	}
 
 	@Override

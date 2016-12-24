@@ -43,8 +43,8 @@ public abstract class IEditorComponent {
 	 * @return The new text panel.
 	 */
 	public static JPanel makeTextPanel() {
-		JPanel panel = new JPanel(false);
-		panel.setLayout(new FlowLayout());
+		JPanel panel = new JPanel();
+		panel.setLayout(new WrapLayout());
 		return panel;
 	}
 }

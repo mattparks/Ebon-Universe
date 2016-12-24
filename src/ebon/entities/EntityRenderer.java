@@ -22,43 +22,47 @@ import static org.lwjgl.opengl.GL20.*;
 public class EntityRenderer extends IRenderer {
 	private static final int NUMBER_LIGHTS = 4;
 
-	private static final MyFile VERTEX_SHADER = new MyFile(Shader.SHADERS_LOC, "entities", "entityVertex.glsl");
+	private static final MyFile ANIMATED_VERTEX_SHADER = new MyFile(Shader.SHADERS_LOC, "entities", "animatedVertex.glsl");
+	private static final MyFile NORMAL_VERTEX_SHADER = new MyFile(Shader.SHADERS_LOC, "entities", "entityVertex.glsl");
 	private static final MyFile FRAGMENT_SHADER = new MyFile(Shader.SHADERS_LOC, "entities", "entityFragment.glsl");
 
-	private Shader shader;
+	private Shader shaderAnimated;
+	private Shader shaderNormal;
+
+	private int renderedAnimated;
+	private int renderedNormal;
 
 	/**
 	 * Creates a new entity renderer.
 	 */
 	public EntityRenderer() {
-		shader = Shader.newShader("entities").setShaderTypes(
-				new ShaderType(GL_VERTEX_SHADER, VERTEX_SHADER),
+		shaderAnimated = Shader.newShader("entities").setShaderTypes(
+				new ShaderType(GL_VERTEX_SHADER, ANIMATED_VERTEX_SHADER),
+				new ShaderType(GL_FRAGMENT_SHADER, FRAGMENT_SHADER)
+		).create();
+		shaderNormal = Shader.newShader("entities").setShaderTypes(
+				new ShaderType(GL_VERTEX_SHADER, NORMAL_VERTEX_SHADER),
 				new ShaderType(GL_FRAGMENT_SHADER, FRAGMENT_SHADER)
 		).create();
 	}
 
 	@Override
 	public void renderObjects(Vector4f clipPlane, ICamera camera) {
-		if (!shader.isLoaded() || EbonEntities.getEntities() == null) {
+		if (!shaderAnimated.isLoaded() || !shaderNormal.isLoaded() || EbonEntities.getEntities() == null) {
 			return;
 		}
 
-		prepareRendering(clipPlane, camera);
+		// Prepares both shaders.
+		prepareRendering(clipPlane, camera, shaderAnimated);
+		prepareRendering(clipPlane, camera, shaderNormal);
 
+		// Attempts to render each entity.
 		for (Entity entity : EbonEntities.getEntities().queryInFrustum(new ArrayList<>(), FlounderCamera.getCamera().getViewFrustum())) {
 			renderEntity(entity);
 		}
-
-		endRendering();
 	}
 
-	@Override
-	public void profile() {
-		FlounderProfiler.add("Entities", "Render Time", super.getRenderTimeMs());
-		//	FlounderProfiler.add("Entities", "Objects", Environment.getEntities().size());
-	}
-
-	private void prepareRendering(Vector4f clipPlane, ICamera camera) {
+	private void prepareRendering(Vector4f clipPlane, ICamera camera, Shader shader) {
 		shader.start();
 		shader.getUniformMat4("projectionMatrix").loadMat4(camera.getProjectionMatrix());
 		shader.getUniformMat4("viewMatrix").loadMat4(camera.getViewMatrix());
@@ -89,48 +93,76 @@ public class EntityRenderer extends IRenderer {
 		OpenGlUtils.antialias(FlounderDisplay.isAntialiasing());
 		OpenGlUtils.enableDepthTesting();
 		OpenGlUtils.enableAlphaBlending();
+		shader.stop();
+
+		renderedAnimated = 0;
+		renderedNormal = 0;
 	}
 
 	private void renderEntity(Entity entity) {
-		ComponentModel modelComponent = (ComponentModel) entity.getComponent(ComponentModel.ID);
+		ComponentModel componentModel = (ComponentModel) entity.getComponent(ComponentModel.ID);
+		ComponentAnimation componentAnimation = (ComponentAnimation) entity.getComponent(ComponentAnimation.ID);
+		boolean animatedModel = componentAnimation != null && componentAnimation.getAnimation() != null;
+		Shader shader = animatedModel ? shaderAnimated : shaderNormal;
 
-		if (modelComponent == null || modelComponent.getModel() == null) {
+		if (componentModel == null || componentModel.getModel() == null) {
 			return;
 		}
 
-		OpenGlUtils.bindVAO(modelComponent.getModel().getVaoID(), 0, 1, 2, 3);
-		OpenGlUtils.cullBackFaces(true); // Enable face culling if the object does not have transparency.
+		shader.start();
 
-		if (modelComponent.getTexture() != null) {
-			OpenGlUtils.bindTextureToBank(modelComponent.getTexture().getTextureID(), 0);
-			shader.getUniformFloat("atlasRows").loadFloat(modelComponent.getTexture().getNumberOfRows());
-			shader.getUniformVec2("atlasOffset").loadVec2(modelComponent.getTextureOffset());
-
-			if (modelComponent.getTransparency() != 1.0 || modelComponent.getTexture().hasTransparency()) {
-				OpenGlUtils.cullBackFaces(false); // Disable face culling if the object has transparency.
-			}
+		if (animatedModel) {
+			// TODO: Bind animated VAO.
+		} else {
+			OpenGlUtils.bindVAO(componentModel.getModel().getVaoID(), 0, 1, 2, 3);
 		}
 
-		if (modelComponent.getNormalMap() != null) {
-			OpenGlUtils.bindTextureToBank(modelComponent.getNormalMap().getTextureID(), 1);
+		if (componentModel.getTexture() != null) {
+			OpenGlUtils.bindTextureToBank(componentModel.getTexture().getTextureID(), 0);
+			shader.getUniformFloat("atlasRows").loadFloat(componentModel.getTexture().getNumberOfRows());
+			shader.getUniformVec2("atlasOffset").loadVec2(componentModel.getTextureOffset());
+
+			// Face culling if the object has transparency.
+			OpenGlUtils.cullBackFaces(componentModel.getTransparency() == 1.0 || !componentModel.getTexture().hasTransparency());
+		}
+
+		if (componentModel.getNormalMap() != null) {
+			OpenGlUtils.bindTextureToBank(componentModel.getNormalMap().getTextureID(), 1);
 			shader.getUniformBool("useNormalMap").loadBoolean(true);
 		} else {
-			shader.getUniformBool("useNormalMap").loadBoolean(false);
+			shaderNormal.getUniformBool("useNormalMap").loadBoolean(false);
 		}
 
 		shader.getUniformMat4("modelMatrix").loadMat4(entity.getModelMatrix());
-		shader.getUniformFloat("transparency").loadFloat(modelComponent.getTransparency());
+		shader.getUniformFloat("transparency").loadFloat(componentModel.getTransparency());
 
-		glDrawElements(GL_TRIANGLES, modelComponent.getModel().getVaoLength(), GL_UNSIGNED_INT, 0);
-		OpenGlUtils.unbindVAO(0, 1, 2, 3);
-	}
+		if (animatedModel) {
+			// TODO: Pass animated uniforms.
+		}
 
-	private void endRendering() {
+		glDrawElements(GL_TRIANGLES, componentModel.getModel().getVaoLength(), GL_UNSIGNED_INT, 0);
+
+		if (animatedModel) {
+			// TODO: Unbind animated VAO.
+			renderedAnimated++;
+		} else {
+			OpenGlUtils.unbindVAO(0, 1, 2, 3);
+			renderedNormal++;
+		}
+
 		shader.stop();
 	}
 
 	@Override
+	public void profile() {
+		FlounderProfiler.add("Entities", "Render Time", super.getRenderTimeMs());
+		FlounderProfiler.add("Entities", "Animated", renderedAnimated);
+		FlounderProfiler.add("Entities", "Normal", renderedNormal);
+	}
+
+	@Override
 	public void dispose() {
-		shader.dispose();
+		shaderAnimated.dispose();
+		shaderNormal.dispose();
 	}
 }

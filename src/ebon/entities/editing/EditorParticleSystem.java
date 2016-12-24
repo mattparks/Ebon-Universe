@@ -8,6 +8,9 @@ import ebon.entities.loading.*;
 import ebon.particles.loading.*;
 import flounder.helpers.*;
 import flounder.logger.*;
+import flounder.maths.vectors.*;
+import flounder.physics.*;
+import flounder.physics.bounding.*;
 
 import javax.swing.*;
 import javax.swing.event.*;
@@ -26,13 +29,19 @@ public class EditorParticleSystem extends IEditorComponent {
 
 	public ComponentParticleSystem component;
 	public IEditorParticleSpawn systemSpawn;
+	public Sphere spawnCentre;
+	public boolean renderCentre;
 
 	public EditorParticleSystem(Entity entity) {
 		this.component = new ComponentParticleSystem(entity, new ArrayList<>(), null, 100.0f, 1.0f, 1.0f);
+		this.spawnCentre = new Sphere(0.5f);
+		this.renderCentre = true;
 	}
 
 	public EditorParticleSystem(IEntityComponent component) {
 		this.component = (ComponentParticleSystem) component;
+		this.spawnCentre = new Sphere(0.5f);
+		this.renderCentre = true;
 	}
 
 	@Override
@@ -108,73 +117,34 @@ public class EditorParticleSystem extends IEditorComponent {
 		panel.add(speedSlider);
 
 		// X Offset Field.
-		JTextField xOffsetField = new JTextField("" + component.getCentreOffset().x);
-		xOffsetField.getDocument().addDocumentListener(new DocumentListener() {
+		JSpinner xOffsetField = new JSpinner(new SpinnerNumberModel((double) component.getCentreOffset().x, Double.NEGATIVE_INFINITY + 1.0, Double.POSITIVE_INFINITY - 1.0, 0.1));
+		xOffsetField.setToolTipText("Particle System X Offset");
+		xOffsetField.addChangeListener(new ChangeListener() {
 			@Override
-			public void insertUpdate(DocumentEvent e) {
-				textUpdate();
-			}
-
-			@Override
-			public void removeUpdate(DocumentEvent e) {
-				textUpdate();
-			}
-
-			@Override
-			public void changedUpdate(DocumentEvent e) {
-				textUpdate();
-			}
-
-			private void textUpdate() {
-				component.getCentreOffset().x = Float.parseFloat(xOffsetField.getText());
+			public void stateChanged(ChangeEvent e) {
+				component.getCentreOffset().x = (float) (double) ((JSpinner) e.getSource()).getValue();
 			}
 		});
 		panel.add(xOffsetField);
 
 		// Y Offset Field.
-		JTextField yOffsetField = new JTextField("" + component.getCentreOffset().y);
-		yOffsetField.getDocument().addDocumentListener(new DocumentListener() {
+		JSpinner yOffsetField = new JSpinner(new SpinnerNumberModel((double) component.getCentreOffset().x, Double.NEGATIVE_INFINITY + 1.0, Double.POSITIVE_INFINITY - 1.0, 0.1));
+		yOffsetField.setToolTipText("Particle System Y Offset");
+		yOffsetField.addChangeListener(new ChangeListener() {
 			@Override
-			public void insertUpdate(DocumentEvent e) {
-				textUpdate();
-			}
-
-			@Override
-			public void removeUpdate(DocumentEvent e) {
-				textUpdate();
-			}
-
-			@Override
-			public void changedUpdate(DocumentEvent e) {
-				textUpdate();
-			}
-
-			private void textUpdate() {
-				component.getCentreOffset().y = Float.parseFloat(yOffsetField.getText());
+			public void stateChanged(ChangeEvent e) {
+				component.getCentreOffset().y = (float) (double) ((JSpinner) e.getSource()).getValue();
 			}
 		});
 		panel.add(yOffsetField);
 
 		// Z Offset Field.
-		JTextField zOffsetField = new JTextField("" + component.getCentreOffset().z);
-		zOffsetField.getDocument().addDocumentListener(new DocumentListener() {
+		JSpinner zOffsetField = new JSpinner(new SpinnerNumberModel((double) component.getCentreOffset().x, Double.NEGATIVE_INFINITY + 1.0, Double.POSITIVE_INFINITY - 1.0, 0.1));
+		yOffsetField.setToolTipText("Particle System Z Offset");
+		zOffsetField.addChangeListener(new ChangeListener() {
 			@Override
-			public void insertUpdate(DocumentEvent e) {
-				textUpdate();
-			}
-
-			@Override
-			public void removeUpdate(DocumentEvent e) {
-				textUpdate();
-			}
-
-			@Override
-			public void changedUpdate(DocumentEvent e) {
-				textUpdate();
-			}
-
-			private void textUpdate() {
-				component.getCentreOffset().z = Float.parseFloat(zOffsetField.getText());
+			public void stateChanged(ChangeEvent e) {
+				component.getCentreOffset().z = (float) (double) ((JSpinner) e.getSource()).getValue();
 			}
 		});
 		panel.add(zOffsetField);
@@ -231,6 +201,10 @@ public class EditorParticleSystem extends IEditorComponent {
 
 	@Override
 	public void update() {
+		if (renderCentre) {
+			Sphere.recalculate(new Sphere(0.5f), component.getCentreOffset(), 1.0f, spawnCentre); // TODO: Fix offset!
+			FlounderBounding.addShapeRender(spawnCentre);
+		}
 	}
 
 	@Override

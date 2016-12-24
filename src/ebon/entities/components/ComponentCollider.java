@@ -69,11 +69,11 @@ public class ComponentCollider extends IEntityComponent {
 	@Override
 	public void update() {
 		if (super.getEntity().hasMoved()) {
-			ComponentModel modelComponent = (ComponentModel) getEntity().getComponent(ComponentModel.ID);
+			ComponentModel componentModel = (ComponentModel) getEntity().getComponent(ComponentModel.ID);
 
-			if (modelComponent != null && modelComponent.getModel() != null) {
-				AABB.recalculate(modelComponent.getModel().getAABB(), super.getEntity().getPosition(), super.getEntity().getRotation(), modelComponent.getScale(), aabb);
-				QuickHull.recalculate(modelComponent.getModel().getHull(), hull, super.getEntity().getPosition(), super.getEntity().getRotation(), modelComponent.getScale());
+			if (componentModel != null && componentModel.getModel() != null) {
+				AABB.recalculate(componentModel.getModel().getAABB(), super.getEntity().getPosition(), super.getEntity().getRotation(), componentModel.getScale(), aabb);
+				QuickHull.recalculate(componentModel.getModel().getHull(), hull, super.getEntity().getPosition(), super.getEntity().getRotation(), componentModel.getScale());
 			}
 		}
 

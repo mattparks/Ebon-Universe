@@ -17,6 +17,8 @@ uniform mat4 viewMatrix;
 uniform vec4 clipPlane;
 uniform mat4 jointTransforms[MAX_JOINTS];
 uniform mat4 modelMatrix;
+uniform float atlasRows;
+uniform vec2 atlasOffset;
 
 //---------OUT------------
 out vec4 pass_positionRelativeToCam;
@@ -43,6 +45,6 @@ void main(void) {
 	gl_ClipDistance[0] = dot(worldPosition, clipPlane);
 	gl_Position = projectionMatrix * pass_positionRelativeToCam;
 
-	pass_textureCoords = in_textureCoords;
+	pass_textureCoords = (in_textureCoords / atlasRows) + atlasOffset;
 	pass_surfaceNormal = totalNormal.xyz;
 }

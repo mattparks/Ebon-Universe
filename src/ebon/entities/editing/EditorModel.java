@@ -198,7 +198,7 @@ public class EditorModel extends IEditorComponent {
 			@Override
 			public void writeIntoSection(FileWriterHelper entityFileWriter) throws IOException {
 				if (component.getModel() != null) {
-					for (float v : component.getModel().getTextureCoords()) {
+					for (float v : component.getModel().getTextures()) {
 						String s = v + ",";
 						entityFileWriter.writeSegmentData(s);
 					}

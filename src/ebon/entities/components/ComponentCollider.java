@@ -75,6 +75,14 @@ public class ComponentCollider extends IEntityComponent {
 				AABB.recalculate(componentModel.getModel().getAABB(), super.getEntity().getPosition(), super.getEntity().getRotation(), componentModel.getScale(), aabb);
 				QuickHull.recalculate(componentModel.getModel().getHull(), hull, super.getEntity().getPosition(), super.getEntity().getRotation(), componentModel.getScale());
 			}
+
+			// TODO: Calculate the AABBs and Hulls from animated models.
+			/*ComponentAnimation componentAnimation = (ComponentAnimation) getEntity().getComponent(ComponentAnimation.ID);
+
+			if (componentAnimation != null && componentAnimation.getModel() != null && componentAnimation.getModel().getAABB() != null) {
+				AABB.recalculate(componentAnimation.getModel().getAABB(), super.getEntity().getPosition(), super.getEntity().getRotation(), componentAnimation.getScale(), aabb);
+				QuickHull.recalculate(componentAnimation.getModel().getHull(), hull, super.getEntity().getPosition(), super.getEntity().getRotation(), componentAnimation.getScale());
+			}*/
 		}
 
 		if (renderAABB) {

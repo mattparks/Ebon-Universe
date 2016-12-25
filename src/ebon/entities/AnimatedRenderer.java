@@ -85,6 +85,8 @@ public class AnimatedRenderer extends IRenderer {
 
 		if (componentAnimation.getTexture() != null) {
 			OpenGlUtils.bindTextureToBank(componentAnimation.getTexture().getTextureID(), 0);
+			shader.getUniformFloat("atlasRows").loadFloat(componentAnimation.getTexture().getNumberOfRows());
+			shader.getUniformVec2("atlasOffset").loadVec2(componentAnimation.getTextureOffset());
 		}
 
 		for (int i = 0; i < componentAnimation.getJointTransforms().length; i++) {
@@ -93,7 +95,7 @@ public class AnimatedRenderer extends IRenderer {
 
 		shader.getUniformMat4("modelMatrix").loadMat4(entity.getModelMatrix());
 
-		glDrawElements(GL_TRIANGLES, componentAnimation.getIndexCount(), GL_UNSIGNED_INT, 0);
+		glDrawElements(GL_TRIANGLES, componentAnimation.getVaoLength(), GL_UNSIGNED_INT, 0);
 		OpenGlUtils.unbindVAO(0, 1, 2, 3, 4);
 	}
 

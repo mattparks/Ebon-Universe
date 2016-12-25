@@ -13,39 +13,43 @@ import flounder.textures.*;
 public class ComponentAnimation extends IEntityComponent {
 	public static final int ID = EntityIDAssigner.getId();
 
-	private int modelVao;
-	private int indexCount;
-	private Texture texture;
+	private int vaoId;
+	private int vaoLength;
 
 	private Joint rootJoint;
 	private int jointCount;
 
-	private Animator animator;
+	private Texture texture;
 	private float scale;
+	private int textureIndex;
+
+	private Animator animator;
 
 	/**
 	 * Creates a new ComponentAnimation.
 	 *
 	 * @param entity The entity this component is attached to.
-	 * @param modelVao The VAO containing the mesh data for this entity. This
-	 * includes vertex positions, normals, texture coords, IDs of
-	 * joints that affect each vertex, and their corresponding
-	 * weights.
-	 * @param texture The diffuse texture for the entity.
+	 * @param vaoId The VAO containing the mesh data for this entity. This includes vertex positions, normals, texture coords, IDs of joints that affect each vertex, and their corresponding weights.
 	 * @param rootJoint The root joint of the joint hierarchy which makes up the
-	 * "skeleton" of the entity.
 	 * @param jointCount The number of joints in the joint hierarchy for this entity.
+	 * @param texture The diffuse texture for the entity.
+	 * @param scale The scale of the entity.
+	 * @param textureIndex What texture index this entity should renderObjects from (0 default).
 	 */
-	public ComponentAnimation(Entity entity, int modelVao, int indexCount, Texture texture, Joint rootJoint, int jointCount, float scale) {
+	public ComponentAnimation(Entity entity, int vaoId, int vaoLength, Joint rootJoint, int jointCount, Texture texture, float scale, int textureIndex) {
 		super(entity, ID);
-		this.modelVao = modelVao;
-		this.indexCount = indexCount;
-		this.texture = texture;
+		this.vaoId = vaoId;
+		this.vaoLength = vaoLength;
+
 		this.rootJoint = rootJoint;
-		rootJoint.calculateInverseBindTransform(Matrix4f.rotate(new Matrix4f(), new Vector3f(1.0f, 0.0f, 0.0f), (float) Math.toRadians(-90.0f), null));
 		this.jointCount = jointCount;
-		this.animator = new Animator(rootJoint);
+
+		this.texture = texture;
 		this.scale = scale;
+		this.textureIndex = textureIndex;
+
+		rootJoint.calculateInverseBindTransform(Matrix4f.rotate(new Matrix4f(), new Vector3f(1.0f, 0.0f, 0.0f), (float) Math.toRadians(-90.0f), null));
+		this.animator = new Animator(rootJoint);
 	}
 
 	/**
@@ -101,9 +105,8 @@ public class ComponentAnimation extends IEntityComponent {
 	}
 
 	/**
-	 * This adds the current model-space transform of a joint (and all of its
-	 * descendants) into an array of transforms. The joint's transform is added
-	 * into the array at the position equal to the joint's index.
+	 * This adds the current model-space transform of a joint (and all of its descendants) into an array of transforms.
+	 * The joint's transform is added into the array at the position equal to the joint's index.
 	 *
 	 * @param headJoint
 	 * @param jointMatrices
@@ -120,11 +123,11 @@ public class ComponentAnimation extends IEntityComponent {
 	 * @return The VAO containing all the mesh data for this entity.
 	 */
 	public int getModel() {
-		return modelVao;
+		return vaoId;
 	}
 
-	public int getIndexCount() {
-		return indexCount;
+	public int getVaoLength() {
+		return vaoLength;
 	}
 
 	/**
@@ -149,6 +152,17 @@ public class ComponentAnimation extends IEntityComponent {
 
 	public void setScale(float scale) {
 		this.scale = scale;
+	}
+
+	/**
+	 * Gets the textures coordinate offset that is used in rendering the model.
+	 *
+	 * @return The coordinate offset used in rendering.
+	 */
+	public Vector2f getTextureOffset() {
+		int column = textureIndex % texture.getNumberOfRows();
+		int row = textureIndex / texture.getNumberOfRows();
+		return new Vector2f((float) row / (float) texture.getNumberOfRows(), (float) column / (float) texture.getNumberOfRows());
 	}
 
 	@Override

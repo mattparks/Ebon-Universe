@@ -14,10 +14,12 @@ layout(location = 4) in vec3 in_weights;
 //---------UNIFORM------------
 uniform mat4 projectionMatrix;
 uniform mat4 viewMatrix;
-
+uniform vec4 clipPlane;
 uniform mat4 jointTransforms[MAX_JOINTS];
+uniform mat4 modelMatrix;
 
 //---------OUT------------
+out vec4 pass_positionRelativeToCam;
 out vec2 pass_textureCoords;
 out vec3 pass_surfaceNormal;
 
@@ -25,7 +27,8 @@ out vec3 pass_surfaceNormal;
 void main(void) {
 	vec4 totalLocalPos = vec4(0.0);
 	vec4 totalNormal = vec4(0.0);
-	for(int i=0;i<MAX_WEIGHTS;i++){
+
+	for (int i = 0; i < MAX_WEIGHTS; i++){
 		vec4 localPosition = jointTransforms[in_jointIndices[i]] * vec4(in_position, 1.0);
 		totalLocalPos += localPosition * in_weights[i];
 
@@ -33,7 +36,13 @@ void main(void) {
 		totalNormal += worldNormal * in_weights[i];
 	}
 
-	gl_Position = projectionMatrix * viewMatrix * totalLocalPos;
+    vec4 worldPosition = modelMatrix * totalLocalPos;
+	mat4 modelViewMatrix = viewMatrix * modelMatrix;
+	pass_positionRelativeToCam = modelViewMatrix * totalLocalPos;
+
+	gl_ClipDistance[0] = dot(worldPosition, clipPlane);
+	gl_Position = projectionMatrix * pass_positionRelativeToCam;
+
 	pass_textureCoords = in_textureCoords;
 	pass_surfaceNormal = totalNormal.xyz;
 }

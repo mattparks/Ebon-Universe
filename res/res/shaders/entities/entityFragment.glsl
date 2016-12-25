@@ -9,8 +9,8 @@ in vec3 pass_positionEyeSpace[4];
 in vec3 pass_toLightVector[4];
 
 //---------UNIFORM------------
-layout(binding = 0) uniform sampler2D colourTexture;
-layout(binding = 1) uniform sampler2D normalMapTexture;
+layout(binding = 0) uniform sampler2D diffuseMap;
+layout(binding = 1) uniform sampler2D normalMap;
 uniform bool useNormalMap;
 uniform float transparency;
 uniform vec3 lightColour[4];
@@ -56,20 +56,20 @@ float visibility(void) {
 
 //---------MAIN------------
 void main(void) {
-	vec4 textureColour = texture(colourTexture, pass_textureCoords);
+	vec4 diffuseColour = texture(diffuseMap, pass_textureCoords);
 	vec3 unitNormal = normalize(pass_surfaceNormal);
 
-	if (textureColour.a < 0.4){
+	if (diffuseColour.a < 0.4){
 	    out_colour = vec4(0.0);
 		discard;
 	}
 
 	if (useNormalMap) {
-    	vec4 normalMapValue = 2.0 * texture(normalMapTexture, pass_textureCoords, -1.0) - 1.0;
+    	vec4 normalMapValue = 2.0 * texture(normalMap, pass_textureCoords, -1.0) - 1.0;
     	unitNormal = normalize(normalMapValue.xyz);
     }
 
-    out_colour = textureColour;
+    out_colour = diffuseColour;
     out_colour = lighting(out_colour, unitNormal);
     out_colour = mix(vec4(fogColour, 1.0), out_colour, visibility());
     out_colour.a = min(out_colour.a, transparency);

@@ -2,6 +2,7 @@ package ebon.entities;
 
 import ebon.entities.editing.*;
 import ebon.entities.loading.*;
+import flounder.animation.*;
 import flounder.framework.*;
 import flounder.helpers.*;
 import flounder.logger.*;
@@ -40,7 +41,7 @@ public class EbonEntities extends IModule {
 		this.loaded = new HashMap<>();
 		//EbonEntities.load("dragon").createEntity(EbonEntities.getEntities(), new Vector3f(0.0f, -5.0f, 25.0f), new Vector3f());
 
-		Dragon e = new Dragon(EbonEntities.getEntities(), new Vector3f(0.0f, -5.0f, 25.0f), new Vector3f());
+		InstanceCowboy e = new InstanceCowboy(EbonEntities.getEntities(), new Vector3f(0.0f, -5.0f, 10.0f), new Vector3f(0, 180, 0));
 	}
 
 	@Override

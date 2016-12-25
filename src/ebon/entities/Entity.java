@@ -172,7 +172,9 @@ public class Entity implements ISpatialObject {
 	 */
 	public Matrix4f getModelMatrix() {
 		modelMatrix.setIdentity();
-		float scale = (getComponent(ComponentModel.ID) != null) ? ((ComponentModel) getComponent(ComponentModel.ID)).getScale() : 1.0f;
+		float scale = 1.0f;
+		scale = (getComponent(ComponentAnimation.ID) != null) ? ((ComponentAnimation) getComponent(ComponentAnimation.ID)).getScale() : scale;
+		scale = (getComponent(ComponentModel.ID) != null) ? ((ComponentModel) getComponent(ComponentModel.ID)).getScale() : scale;
 		Matrix4f.transformationMatrix(position, rotation, scale, modelMatrix);
 		return modelMatrix;
 	}

@@ -16,7 +16,9 @@ layout(location = 5) in vec3 in_weights;
 uniform mat4 projectionMatrix;
 uniform mat4 viewMatrix;
 uniform vec4 clipPlane;
+
 uniform mat4 jointTransforms[MAX_JOINTS];
+
 uniform mat4 modelMatrix;
 uniform float atlasRows;
 uniform vec2 atlasOffset;
@@ -39,7 +41,7 @@ void main(void) {
 		totalNormal += worldNormal * in_weights[i];
 	}
 
-    vec4 worldPosition = modelMatrix * totalLocalPos;
+	vec4 worldPosition = modelMatrix * totalLocalPos;
 	mat4 modelViewMatrix = viewMatrix * modelMatrix;
 	pass_positionRelativeToCam = modelViewMatrix * totalLocalPos;
 

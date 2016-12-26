@@ -20,7 +20,7 @@ const vec2 lightBias = vec2(0.7, 0.6);
 
 //---------VISIBILITY------------
 float visibility(void) {
-    return clamp(exp(-pow((length(pass_positionRelativeToCam.xyz) * fogDensity), fogGradient)), 0.0, 1.0);
+	return clamp(exp(-pow((length(pass_positionRelativeToCam.xyz) * fogDensity), fogGradient)), 0.0, 1.0);
 }
 
 //---------MAIN------------
@@ -29,6 +29,7 @@ void main(void) {
 	vec3 unitNormal = normalize(pass_surfaceNormal);
 
 	float diffuseLight = max(dot(-lightDirection, unitNormal), 0.0) * lightBias.x + lightBias.y;
-	out_colour = diffuseColour * diffuseLight;
-    out_colour = mix(vec4(fogColour, 1.0), out_colour, visibility());
+
+	out_colour = vec4(diffuseColour.rgb * diffuseLight, diffuseColour.a);
+	out_colour = mix(vec4(fogColour, 1.0), out_colour, visibility());
 }

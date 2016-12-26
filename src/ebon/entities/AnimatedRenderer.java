@@ -74,7 +74,7 @@ public class AnimatedRenderer extends IRenderer {
 
 		OpenGlUtils.antialias(FlounderDisplay.isAntialiasing());
 		OpenGlUtils.enableDepthTesting();
-		OpenGlUtils.disableBlending();
+		OpenGlUtils.enableAlphaBlending();
 	}
 
 	private void renderEntity(Entity entity) {

@@ -100,6 +100,8 @@ public class ComponentModel extends IEntityComponent {
 			}
 		}).create();
 
+		this.scale = Float.parseFloat(template.getValue(this, "Scale"));
+
 		if (!template.getValue(this, "Texture").equals("null")) {
 			this.texture = Texture.newTexture(new MyFile(template.getValue(this, "Texture"))).create();
 			this.texture.setNumberOfRows(Integer.parseInt(template.getValue(this, "TextureNumRows")));
@@ -111,7 +113,6 @@ public class ComponentModel extends IEntityComponent {
 		}
 
 		this.transparency = 1.0f;
-		this.scale = Float.parseFloat(template.getValue(this, "Scale"));
 	}
 
 	public Model getModel() {

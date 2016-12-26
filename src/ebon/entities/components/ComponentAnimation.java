@@ -4,9 +4,15 @@ import ebon.entities.*;
 import ebon.entities.loading.*;
 import flounder.animation.*;
 import flounder.collada.*;
+import flounder.collada.geometry.*;
+import flounder.collada.joints.*;
+import flounder.helpers.*;
 import flounder.maths.matrices.*;
 import flounder.maths.vectors.*;
+import flounder.resources.*;
 import flounder.textures.*;
+
+import java.util.*;
 
 /**
  * Creates a animation used to set animation properties.
@@ -54,19 +60,183 @@ public class ComponentAnimation extends IEntityComponent {
 	public ComponentAnimation(Entity entity, EntityTemplate template) {
 		super(entity, ID);
 
-		/*this.animation = Animation.newAnimation(new AnimationBuilder.LoadManual() {
-			@Override
-			public String getModelName() {
-				return template.getEntityName();
+		{
+			String[] jointsData = template.getSectionData(ComponentAnimation.this, "Joints");
+			List<Pair<Joint, List<String>>> allJoints = new ArrayList<>();
+
+			int index = 0;
+			String name = "";
+			float[] localBindTransform = new float[16];
+			List<String> children = new ArrayList<>();
+
+			int id = 0;
+
+			for (int i = 0; i < jointsData.length; i++) {
+				switch (id) {
+					case 0:
+						index = Integer.parseInt(jointsData[i]);
+						break;
+					case 1:
+						name = jointsData[i];
+						break;
+					case 2:
+					case 3:
+					case 4:
+					case 5:
+					case 6:
+					case 7:
+					case 8:
+					case 9:
+					case 10:
+					case 11:
+					case 12:
+					case 13:
+					case 14:
+					case 15:
+					case 16:
+					case 17:
+						localBindTransform[id - 2] = Float.parseFloat(jointsData[i]);
+						break;
+					case 18:
+						Collections.addAll(children, jointsData[i].split("|"));
+						allJoints.add(new Pair<>(new Joint(index, name, new Matrix4f(localBindTransform)), new ArrayList<>(children)));
+						index = 0;
+						name = "";
+						localBindTransform = new float[16];
+						children = new ArrayList<>();
+						id = 0;
+						break;
+				}
+
+				id++;
 			}
 
-		//	@Override
-		//	public float[] getAnimations() {
-		//		return EntityTemplate.toFloatArray(template.getSectionData(ComponentAnimation.this, "Animations"));
-		//	}
+			List<JointData> jointDatas = new ArrayList<>();
 
-			// TODO: Load manually like a model.
-		}).create();*/
+			for (Pair<Joint, List<String>> value : allJoints) {
+				JointData data = new JointData(value.getFirst().getIndex(), value.getFirst().getName(), value.getFirst().getLocalBindTransform());
+				jointDatas.add(data);
+			}
+
+			int dataId = 0;
+
+			for (JointData data : jointDatas) {
+				Pair<Joint, List<String>> allData = allJoints.get(dataId);
+				List<String> childrenName = allData.getSecond();
+
+				for (JointData potentialChild : jointDatas) {
+					for (String pn : childrenName) {
+						if (!potentialChild.nameId.equals(data.nameId) && potentialChild.nameId.equals(pn)) {
+							data.addChild(potentialChild);
+						}
+					}
+				}
+
+				dataId++;
+			}
+
+			this.modelAnimated = new ModelAnimated(
+					new MeshData(
+							EntityTemplate.toFloatArray(template.getSectionData(ComponentAnimation.this, "Vertices")),
+							EntityTemplate.toFloatArray(template.getSectionData(ComponentAnimation.this, "TextureCoords")),
+							EntityTemplate.toFloatArray(template.getSectionData(ComponentAnimation.this, "Normals")),
+							EntityTemplate.toFloatArray(template.getSectionData(ComponentAnimation.this, "Tangents")),
+							EntityTemplate.toIntArray(template.getSectionData(ComponentAnimation.this, "Indices")),
+							EntityTemplate.toIntArray(template.getSectionData(ComponentAnimation.this, "VertexWeights")),
+							EntityTemplate.toFloatArray(template.getSectionData(ComponentAnimation.this, "VertexWeights")),
+							Float.parseFloat(template.getValue(this, "FurthestPoint"))
+					),
+					new JointsData(
+							Integer.parseInt(template.getValue(this, "JointCount")),
+							jointDatas.get(0)
+					)
+			);
+		}
+
+		{
+			float animationLength = Float.parseFloat(template.getValue(this, "AnimationLength"));
+			String[] animationData = template.getSectionData(ComponentAnimation.this, "Animation");
+
+			List<KeyFrame> keyFrames = new ArrayList<>();
+
+			float timeStamp = 0.0f;
+			String name = "";
+			Vector3f position = new Vector3f();
+			Quaternion rotation = new Quaternion();
+
+			int id = 0;
+
+			for (int i = 0; i < animationData.length; i++) {
+				switch (id) {
+					case 0:
+						timeStamp = Float.parseFloat(animationData[i]);
+						break;
+					case 1:
+						name = animationData[i];
+						break;
+					case 2:
+						position.x = Float.parseFloat(animationData[i]);
+						break;
+					case 3:
+						position.y = Float.parseFloat(animationData[i]);
+						break;
+					case 4:
+						position.z = Float.parseFloat(animationData[i]);
+						break;
+					case 5:
+						rotation.x = Float.parseFloat(animationData[i]);
+						break;
+					case 6:
+						rotation.y = Float.parseFloat(animationData[i]);
+						break;
+					case 7:
+						rotation.z = Float.parseFloat(animationData[i]);
+						break;
+					case 8:
+						rotation.w = Float.parseFloat(animationData[i]);
+						boolean set = false;
+
+						for (KeyFrame frame : keyFrames) {
+							if (frame.getTimeStamp() == timeStamp) {
+								frame.getJointKeyFrames().put(name, new JointTransform(new Vector3f(position), new Quaternion(rotation)));
+								set = true;
+							}
+						}
+
+						if (!set) {
+							KeyFrame newFrame = new KeyFrame(timeStamp, new HashMap<>());
+							newFrame.getJointKeyFrames().put(name, new JointTransform(new Vector3f(position), new Quaternion(rotation)));
+							keyFrames.add(newFrame);
+						}
+
+						timeStamp = 0.0f;
+						name = "";
+						position = new Vector3f();
+						rotation = new Quaternion();
+						id = 0;
+						break;
+				}
+
+				id++;
+			}
+
+			keyFrames.sort((KeyFrame p1, KeyFrame p2) -> (int) (p1.getTimeStamp() - p2.getTimeStamp()));
+			KeyFrame[] frames = new KeyFrame[keyFrames.size()];
+
+			for (int i = 0; i < frames.length; i++) {
+				frames[i] = keyFrames.get(i);
+			}
+
+			Animation animation = new Animation(animationLength, frames);
+			doAnimation(animation);
+		}
+
+		this.scale = Float.parseFloat(template.getValue(this, "Scale"));
+
+		if (!template.getValue(this, "Texture").equals("null")) {
+			this.texture = Texture.newTexture(new MyFile(template.getValue(this, "Texture"))).create();
+			this.texture.setNumberOfRows(Integer.parseInt(template.getValue(this, "TextureNumRows")));
+		}
 	}
 
 	@Override
@@ -141,9 +311,9 @@ public class ComponentAnimation extends IEntityComponent {
 	 * @param jointMatrices The matrices transformation to add with.
 	 */
 	private void addJointsToArray(Joint headJoint, Matrix4f[] jointMatrices) {
-		jointMatrices[headJoint.index] = headJoint.getAnimatedTransform();
+		jointMatrices[headJoint.getIndex()] = headJoint.getAnimatedTransform();
 
-		for (Joint childJoint : headJoint.children) {
+		for (Joint childJoint : headJoint.getChildren()) {
 			addJointsToArray(childJoint, jointMatrices);
 		}
 	}
@@ -182,6 +352,10 @@ public class ComponentAnimation extends IEntityComponent {
 		int column = textureIndex % texture.getNumberOfRows();
 		int row = textureIndex / texture.getNumberOfRows();
 		return new Vector2f((float) row / (float) texture.getNumberOfRows(), (float) column / (float) texture.getNumberOfRows());
+	}
+
+	public Animator getAnimator() {
+		return animator;
 	}
 
 	@Override

@@ -5,6 +5,7 @@ import ebon.entities.loading.*;
 import flounder.framework.*;
 import flounder.helpers.*;
 import flounder.logger.*;
+import flounder.maths.vectors.*;
 import flounder.models.*;
 import flounder.physics.bounding.*;
 import flounder.profiling.*;

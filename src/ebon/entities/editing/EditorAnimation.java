@@ -7,6 +7,8 @@ import flounder.animation.*;
 import flounder.collada.*;
 import flounder.helpers.*;
 import flounder.logger.*;
+import flounder.maths.matrices.*;
+import flounder.maths.vectors.*;
 import flounder.resources.*;
 import flounder.textures.*;
 
@@ -14,6 +16,7 @@ import javax.swing.*;
 import javax.swing.event.*;
 import java.awt.event.*;
 import java.io.*;
+import java.util.*;
 
 public class EditorAnimation extends IEditorComponent {
 	public ComponentAnimation component;
@@ -123,7 +126,7 @@ public class EditorAnimation extends IEditorComponent {
 	public Pair<String[], EntitySaverFunction[]> getSavableValues(String entityName) {
 		if (component.getTexture() != null) {
 			try {
-				File file = new File("entities/" + entityName + "/" + entityName + ".png");
+				File file = new File("entities/" + entityName + "/" + entityName + "DiffuseMap.png");
 
 				if (file.exists()) {
 					file.delete();
@@ -224,17 +227,67 @@ public class EditorAnimation extends IEditorComponent {
 				}
 			}
 		};
+		EntitySaverFunction saveJoints = new EntitySaverFunction("Joints") {
+			@Override
+			public void writeIntoSection(FileWriterHelper entityFileWriter) throws IOException {
+				if (component.getModelAnimated() != null && component.getModelAnimated().getJointsData() != null) {
+					Joint headJoint = component.getModelAnimated().getHeadJoint();
+					List<Joint> joints = new ArrayList<>();
+					headJoint.addSelfAndChildren(joints);
+
+					for (Joint joint : joints) {
+						String s = joint.getIndex() + "," + joint.getName() + ",";
+
+						for (float v : Matrix4f.toArray(joint.getLocalBindTransform())) {
+							s += v + ",";
+						}
+
+						for (Joint c : joint.getChildren()) {
+							s += c.getName() + "|";
+						}
+
+						entityFileWriter.writeSegmentData(s + ",");
+					}
+
+					//public final int index;
+					//public final String name;
+					//public final List<Joint> children;
+					//private final Matrix4f localBindTransform;
+				}
+			}
+		};
+		EntitySaverFunction saveAnimation = new EntitySaverFunction("Animation") {
+			@Override
+			public void writeIntoSection(FileWriterHelper entityFileWriter) throws IOException {
+				if (component.getAnimator() != null && component.getAnimator().getCurrentAnimation() != null) {
+					Animation animation = component.getAnimator().getCurrentAnimation();
+
+					for (KeyFrame frame : animation.getKeyFrames()) {
+						for (String name : frame.getJointKeyFrames().keySet()) {
+							JointTransform joint = frame.getJointKeyFrames().get(name);
+							Vector3f position = joint.getPosition();
+							Quaternion rotation = joint.getRotation();
+							String s = frame.getTimeStamp() + "," + name + "," + position.x + "," + position.y + "," + position.z + "," + rotation.x + "," + rotation.y + "," + rotation.z + "," + rotation.w + ",";
+							entityFileWriter.writeSegmentData(s);
+						}
+					}
+				}
+			}
+		};
 		// TODO: Save AABB and Hull.
 
 		String saveScale = "Scale: " + component.getScale();
 		String saveFurthestPoint = "FurthestPoint: " + component.getModelAnimated().getMeshData().getFurthestPoint();
 
-		String saveTexture = "Texture: " + (component.getTexture() == null ? null : component.getTexture().getFile().getPath().substring(1, component.getTexture().getFile().getPath().length()));
+		String saveTexture = "Texture: " + (component.getTexture() == null ? null : "res/entities/" + entityName + "/" + entityName + "DiffuseMap.png");
 		String saveTextureNumRows = "TextureNumRows: " + (component.getTexture() == null ? 1 : component.getTexture().getNumberOfRows());
 
+		String saveAnimationLength = "AnimationLength: " + (component.getAnimator() != null && component.getAnimator().getCurrentAnimation() != null ? component.getAnimator().getCurrentAnimation().getLength() : null);
+		String saveJointCount = "JointCount: " + (component.getModelAnimated() != null && component.getModelAnimated().getJointsData() != null ? component.getModelAnimated().getJointsData().jointCount : null);
+
 		return new Pair<>(
-				new String[]{saveScale, saveFurthestPoint, saveTexture, saveTextureNumRows},
-				new EntitySaverFunction[]{saveVertices, saveTextureCoords, saveNormals, saveTangents, saveIndices, saveJointIds, saveVertexWeights}
+				new String[]{saveScale, saveFurthestPoint, saveTexture, saveTextureNumRows, saveAnimationLength, saveJointCount},
+				new EntitySaverFunction[]{saveVertices, saveTextureCoords, saveNormals, saveTangents, saveIndices, saveJointIds, saveVertexWeights, saveJoints, saveAnimation}
 		);
 	}
 }

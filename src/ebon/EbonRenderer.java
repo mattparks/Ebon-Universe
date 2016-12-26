@@ -17,6 +17,7 @@ import flounder.maths.*;
 import flounder.maths.vectors.*;
 import flounder.models.*;
 import flounder.physics.bounding.*;
+import flounder.post.filters.*;
 import flounder.profiling.*;
 import flounder.renderer.*;
 
@@ -38,6 +39,7 @@ public class EbonRenderer extends IExtension implements IRendererMaster {
 
 	private PipelineDemo pipelineDemo;
 	private PipelinePaused pipelinePaused;
+	private FilterTiltShift filterTiltShift;
 
 	public EbonRenderer() {
 		super(FlounderLogger.class, FlounderProfiler.class, FlounderDisplay.class, FlounderRenderer.class, FlounderModels.class);
@@ -62,6 +64,7 @@ public class EbonRenderer extends IExtension implements IRendererMaster {
 
 		this.pipelineDemo = new PipelineDemo();
 		this.pipelinePaused = new PipelinePaused();
+		this.filterTiltShift = new FilterTiltShift(0.75f, 1.1f, 0.004f, 3.0f);
 	}
 
 	@Override
@@ -116,6 +119,9 @@ public class EbonRenderer extends IExtension implements IRendererMaster {
 		FBO output = nonsampledFBO;
 
 		if (OptionsPost.POST_ENABLED) {
+			filterTiltShift.applyFilter(output.getColourTexture(0));
+			output = filterTiltShift.fbo;
+
 			if (pipelineDemo.willRunDemo()) {
 				pipelineDemo.renderPipeline(output);
 				output = pipelineDemo.getOutput();

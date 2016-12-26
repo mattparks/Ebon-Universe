@@ -147,7 +147,7 @@ public class EditorModel extends IEditorComponent {
 	public Pair<String[], EntitySaverFunction[]> getSavableValues(String entityName) {
 		if (component.getTexture() != null) {
 			try {
-				File file = new File("entities/" + entityName + "/" + entityName + ".png");
+				File file = new File("entities/" + entityName + "/" + entityName + "DiffuseMap.png");
 
 				if (file.exists()) {
 					file.delete();
@@ -173,7 +173,7 @@ public class EditorModel extends IEditorComponent {
 
 		if (component.getNormalMap() != null) {
 			try {
-				File file = new File("entities/" + entityName + "/" + entityName + "Normals.png");
+				File file = new File("entities/" + entityName + "/" + entityName + "NormalMap.png");
 
 				if (file.exists()) {
 					file.delete();
@@ -277,10 +277,10 @@ public class EditorModel extends IEditorComponent {
 
 		String saveScale = "Scale: " + component.getScale();
 
-		String saveTexture = "Texture: " + (component.getTexture() == null ? null : "res/entities/" + entityName + "/" + entityName + ".png");
+		String saveTexture = "Texture: " + (component.getTexture() == null ? null : "res/entities/" + entityName + "/" + entityName + "DiffuseMap.png");
 		String saveTextureNumRows = "TextureNumRows: " + (component.getTexture() == null ? 1 : component.getTexture().getNumberOfRows());
 
-		String saveNormalMap = "NormalMap: " + (component.getNormalMap() == null ? null : "res/entities/" + entityName + "/" + entityName + "Normals.png");
+		String saveNormalMap = "NormalMap: " + (component.getNormalMap() == null ? null : "res/entities/" + entityName + "/" + entityName + "NormalMap.png");
 		String saveNormalMapNumRows = "NormalMapNumRows: " + (component.getNormalMap() == null ? 1 : component.getNormalMap().getNumberOfRows());
 
 		return new Pair<>(

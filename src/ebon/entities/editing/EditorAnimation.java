@@ -236,7 +236,7 @@ public class EditorAnimation extends IEditorComponent {
 					headJoint.addSelfAndChildren(joints);
 
 					for (Joint joint : joints) {
-						String s = joint.getIndex() + "," + joint.getName() + ",";
+						String s = (joint == headJoint ? "true," : "false,") + joint.getIndex() + "," + joint.getName() + ",";
 
 						for (float v : Matrix4f.toArray(joint.getLocalBindTransform())) {
 							s += v + ",";

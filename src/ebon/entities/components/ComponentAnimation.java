@@ -62,8 +62,10 @@ public class ComponentAnimation extends IEntityComponent {
 
 		{
 			String[] jointsData = template.getSectionData(ComponentAnimation.this, "Joints");
-			List<Pair<Joint, List<String>>> allJoints = new ArrayList<>();
+			Pair<JointData, List<String>> headJoint = null;
+			Map<JointData, List<String>> allJoints = new HashMap<>();
 
+			boolean isHeadJoint = false;
 			int index = 0;
 			String name = "";
 			float[] localBindTransform = new float[16];
@@ -71,15 +73,17 @@ public class ComponentAnimation extends IEntityComponent {
 
 			int id = 0;
 
-			for (int i = 0; i < jointsData.length; i++) {
+			for (int i = 0; i <= jointsData.length; i++) {
 				switch (id) {
 					case 0:
-						index = Integer.parseInt(jointsData[i]);
+						isHeadJoint = Boolean.parseBoolean(jointsData[i]);
 						break;
 					case 1:
-						name = jointsData[i];
+						index = Integer.parseInt(jointsData[i]);
 						break;
 					case 2:
+						name = jointsData[i];
+						break;
 					case 3:
 					case 4:
 					case 5:
@@ -95,45 +99,33 @@ public class ComponentAnimation extends IEntityComponent {
 					case 15:
 					case 16:
 					case 17:
-						localBindTransform[id - 2] = Float.parseFloat(jointsData[i]);
-						break;
 					case 18:
-						Collections.addAll(children, jointsData[i].split("|"));
-						allJoints.add(new Pair<>(new Joint(index, name, new Matrix4f(localBindTransform)), new ArrayList<>(children)));
+						localBindTransform[id - 3] = Float.parseFloat(jointsData[i]);
+						break;
+					case 19:
+						if (i < jointsData.length) {
+							Collections.addAll(children, jointsData[i].split("\\|"));
+						}
+
+						if (isHeadJoint) {
+							headJoint = new Pair<>(new JointData(index, name, new Matrix4f(localBindTransform)), new ArrayList<>(children));
+						} else {
+							allJoints.put(new JointData(index, name, new Matrix4f(localBindTransform)), new ArrayList<>(children));
+						}
+
+						isHeadJoint = false;
 						index = 0;
 						name = "";
 						localBindTransform = new float[16];
 						children = new ArrayList<>();
-						id = 0;
+						id = -1;
 						break;
 				}
 
 				id++;
 			}
 
-			List<JointData> jointDatas = new ArrayList<>();
-
-			for (Pair<Joint, List<String>> value : allJoints) {
-				JointData data = new JointData(value.getFirst().getIndex(), value.getFirst().getName(), value.getFirst().getLocalBindTransform());
-				jointDatas.add(data);
-			}
-
-			int dataId = 0;
-
-			for (JointData data : jointDatas) {
-				Pair<Joint, List<String>> allData = allJoints.get(dataId);
-				List<String> childrenName = allData.getSecond();
-
-				for (JointData potentialChild : jointDatas) {
-					for (String pn : childrenName) {
-						if (!potentialChild.nameId.equals(data.nameId) && potentialChild.nameId.equals(pn)) {
-							data.addChild(potentialChild);
-						}
-					}
-				}
-
-				dataId++;
-			}
+			addChildren(headJoint.getFirst(), headJoint.getSecond(), allJoints);
 
 			this.modelAnimated = new ModelAnimated(
 					new MeshData(
@@ -142,13 +134,13 @@ public class ComponentAnimation extends IEntityComponent {
 							EntityTemplate.toFloatArray(template.getSectionData(ComponentAnimation.this, "Normals")),
 							EntityTemplate.toFloatArray(template.getSectionData(ComponentAnimation.this, "Tangents")),
 							EntityTemplate.toIntArray(template.getSectionData(ComponentAnimation.this, "Indices")),
-							EntityTemplate.toIntArray(template.getSectionData(ComponentAnimation.this, "VertexWeights")),
+							EntityTemplate.toIntArray(template.getSectionData(ComponentAnimation.this, "JointIds")),
 							EntityTemplate.toFloatArray(template.getSectionData(ComponentAnimation.this, "VertexWeights")),
 							Float.parseFloat(template.getValue(this, "FurthestPoint"))
 					),
 					new JointsData(
 							Integer.parseInt(template.getValue(this, "JointCount")),
-							jointDatas.get(0)
+							headJoint.getFirst()
 					)
 			);
 		}
@@ -213,7 +205,7 @@ public class ComponentAnimation extends IEntityComponent {
 						name = "";
 						position = new Vector3f();
 						rotation = new Quaternion();
-						id = 0;
+						id = -1;
 						break;
 				}
 
@@ -227,6 +219,9 @@ public class ComponentAnimation extends IEntityComponent {
 				frames[i] = keyFrames.get(i);
 			}
 
+			modelAnimated.getHeadJoint().calculateInverseBindTransform(Matrix4f.rotate(new Matrix4f(), new Vector3f(1.0f, 0.0f, 0.0f), (float) Math.toRadians(-90.0f), null));
+			this.animator = new Animator(modelAnimated.getHeadJoint());
+
 			Animation animation = new Animation(animationLength, frames);
 			doAnimation(animation);
 		}
@@ -236,6 +231,25 @@ public class ComponentAnimation extends IEntityComponent {
 		if (!template.getValue(this, "Texture").equals("null")) {
 			this.texture = Texture.newTexture(new MyFile(template.getValue(this, "Texture"))).create();
 			this.texture.setNumberOfRows(Integer.parseInt(template.getValue(this, "TextureNumRows")));
+		}
+	}
+
+	/**
+	 * Adds children from a JointData/Children map.
+	 *
+	 * @param datasJoint The joint to add children too.
+	 * @param dataChild The children to be searching for.
+	 * @param allJoints The joint map to match the child's name with, and to get the JointData from.
+	 */
+	private void addChildren(JointData datasJoint, List<String> dataChild, Map<JointData, List<String>> allJoints) {
+		for (JointData data : allJoints.keySet()) {
+			if (dataChild.contains(data.nameId)) {
+				datasJoint.addChild(data);
+			}
+		}
+
+		for (JointData child : datasJoint.children) {
+			addChildren(child, allJoints.get(child), allJoints);
 		}
 	}
 

@@ -10,6 +10,7 @@ import flounder.profiling.*;
 import flounder.renderer.*;
 import flounder.resources.*;
 import flounder.shaders.*;
+import flounder.textures.*;
 
 import java.util.*;
 
@@ -26,6 +27,7 @@ public class EntityRenderer extends IRenderer {
 	private static final MyFile FRAGMENT_SHADER = new MyFile(Shader.SHADERS_LOC, "entities", "entityFragment.glsl");
 
 	private Shader shader;
+	private Texture textureUndefined;
 
 	/**
 	 * Creates a new entity renderer.
@@ -35,6 +37,7 @@ public class EntityRenderer extends IRenderer {
 				new ShaderType(GL_VERTEX_SHADER, VERTEX_SHADER),
 				new ShaderType(GL_FRAGMENT_SHADER, FRAGMENT_SHADER)
 		).create();
+		textureUndefined = Texture.newTexture(new MyFile(MyFile.RES_FOLDER, "undefined.png")).create();
 	}
 
 	@Override
@@ -101,6 +104,11 @@ public class EntityRenderer extends IRenderer {
 
 			// Face culling if the object has transparency.
 			OpenGlUtils.cullBackFaces(componentModel.getTransparency() == 1.0 || !componentModel.getTexture().hasTransparency());
+		} else {
+			OpenGlUtils.bindTextureToBank(textureUndefined.getTextureID(), 0);
+			shader.getUniformFloat("atlasRows").loadFloat(textureUndefined.getNumberOfRows());
+			shader.getUniformVec2("atlasOffset").loadVec2(0, 0);
+			OpenGlUtils.cullBackFaces(false);
 		}
 
 		if (componentModel.getNormalMap() != null) {

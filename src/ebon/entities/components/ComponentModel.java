@@ -5,6 +5,7 @@ import ebon.entities.loading.*;
 import flounder.materials.*;
 import flounder.maths.vectors.*;
 import flounder.models.*;
+import flounder.physics.*;
 import flounder.resources.*;
 import flounder.textures.*;
 
@@ -15,10 +16,11 @@ public class ComponentModel extends IEntityComponent {
 	public static final int ID = EntityIDAssigner.getId();
 
 	private Model model;
+	private float scale;
+
 	private Texture texture;
 	private Texture normalMap;
 	private float transparency;
-	private float scale;
 	private int textureIndex;
 
 	/**
@@ -27,15 +29,18 @@ public class ComponentModel extends IEntityComponent {
 	 * @param entity The entity this component is attached to.
 	 * @param model The model that will be attached to this entity.
 	 * @param scale The scale of the entity.
+	 * @param texture The diffuse texture for the entity.
+	 * @param normalMap The normalmap texture for the entity.
 	 * @param textureIndex What texture index this entity should renderObjects from (0 default).
 	 */
-	public ComponentModel(Entity entity, Model model, Texture texture, Texture normalMap, float scale, int textureIndex) {
+	public ComponentModel(Entity entity, Model model, float scale, Texture texture, Texture normalMap, int textureIndex) {
 		super(entity, ID);
 		this.model = model;
+		this.scale = scale;
+
 		this.texture = texture;
 		this.normalMap = normalMap;
 		this.transparency = 1.0f;
-		this.scale = scale;
 		this.textureIndex = textureIndex;
 	}
 
@@ -83,6 +88,16 @@ public class ComponentModel extends IEntityComponent {
 			public Material[] getMaterials() {
 				return new Material[]{}; // TODO: Save and load materials!
 			}
+
+			@Override
+			public AABB getAABB() {
+				return null; // TODO: Load AABB.
+			}
+
+			@Override
+			public QuickHull getHull() {
+				return null; // TODO: Load hull.
+			}
 		}).create();
 
 		if (!template.getValue(this, "Texture").equals("null")) {
@@ -99,17 +114,6 @@ public class ComponentModel extends IEntityComponent {
 		this.scale = Float.parseFloat(template.getValue(this, "Scale"));
 	}
 
-	/**
-	 * Gets the textures coordinate offset that is used in rendering the model.
-	 *
-	 * @return The coordinate offset used in rendering.
-	 */
-	public Vector2f getTextureOffset() {
-		int column = textureIndex % texture.getNumberOfRows();
-		int row = textureIndex / texture.getNumberOfRows();
-		return new Vector2f((float) row / (float) texture.getNumberOfRows(), (float) column / (float) texture.getNumberOfRows());
-	}
-
 	public Model getModel() {
 		return model;
 	}
@@ -124,6 +128,17 @@ public class ComponentModel extends IEntityComponent {
 
 	public void setTexture(Texture texture) {
 		this.texture = texture;
+	}
+
+	/**
+	 * Gets the textures coordinate offset that is used in rendering the model.
+	 *
+	 * @return The coordinate offset used in rendering.
+	 */
+	public Vector2f getTextureOffset() {
+		int column = textureIndex % texture.getNumberOfRows();
+		int row = textureIndex / texture.getNumberOfRows();
+		return new Vector2f((float) row / (float) texture.getNumberOfRows(), (float) column / (float) texture.getNumberOfRows());
 	}
 
 	public Texture getNormalMap() {

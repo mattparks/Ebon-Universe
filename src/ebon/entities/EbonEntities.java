@@ -2,7 +2,6 @@ package ebon.entities;
 
 import ebon.entities.editing.*;
 import ebon.entities.loading.*;
-import flounder.animation.*;
 import flounder.framework.*;
 import flounder.helpers.*;
 import flounder.logger.*;

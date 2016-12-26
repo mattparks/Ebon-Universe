@@ -25,7 +25,7 @@ public class EditorModel extends IEditorComponent {
 	private MyFile pathNormalMap;
 
 	public EditorModel(Entity entity) {
-		this.component = new ComponentModel(entity, null, Texture.newTexture(new MyFile(MyFile.RES_FOLDER, "undefined.png")).create(), null, 1.0f, 0);
+		this.component = new ComponentModel(entity, null, 1.0f, Texture.newTexture(new MyFile(MyFile.RES_FOLDER, "undefined.png")).create(), null, 0);
 	}
 
 	public EditorModel(IEntityComponent component) {
@@ -187,7 +187,7 @@ public class EditorModel extends IEditorComponent {
 			@Override
 			public void writeIntoSection(FileWriterHelper entityFileWriter) throws IOException {
 				if (component.getModel() != null) {
-					for (float v : component.getModel().getVertices()) {
+					for (float v : component.getModel().getMeshData().getVertices()) {
 						String s = v + ",";
 						entityFileWriter.writeSegmentData(s);
 					}
@@ -198,7 +198,7 @@ public class EditorModel extends IEditorComponent {
 			@Override
 			public void writeIntoSection(FileWriterHelper entityFileWriter) throws IOException {
 				if (component.getModel() != null) {
-					for (float v : component.getModel().getTextures()) {
+					for (float v : component.getModel().getMeshData().getTextures()) {
 						String s = v + ",";
 						entityFileWriter.writeSegmentData(s);
 					}
@@ -209,7 +209,7 @@ public class EditorModel extends IEditorComponent {
 			@Override
 			public void writeIntoSection(FileWriterHelper entityFileWriter) throws IOException {
 				if (component.getModel() != null) {
-					for (float v : component.getModel().getNormals()) {
+					for (float v : component.getModel().getMeshData().getNormals()) {
 						String s = v + ",";
 						entityFileWriter.writeSegmentData(s);
 					}
@@ -220,7 +220,7 @@ public class EditorModel extends IEditorComponent {
 			@Override
 			public void writeIntoSection(FileWriterHelper entityFileWriter) throws IOException {
 				if (component.getModel() != null) {
-					for (float v : component.getModel().getTangents()) {
+					for (float v : component.getModel().getMeshData().getTangents()) {
 						String s = v + ",";
 						entityFileWriter.writeSegmentData(s);
 					}
@@ -231,13 +231,14 @@ public class EditorModel extends IEditorComponent {
 			@Override
 			public void writeIntoSection(FileWriterHelper entityFileWriter) throws IOException {
 				if (component.getModel() != null) {
-					for (int i : component.getModel().getIndices()) {
+					for (int i : component.getModel().getMeshData().getIndices()) {
 						String s = i + ",";
 						entityFileWriter.writeSegmentData(s);
 					}
 				}
 			}
 		};
+		// TODO: Save AABB and Hull.
 
 		String textureSave;
 		String textureNumRowsSave;

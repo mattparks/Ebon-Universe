@@ -81,7 +81,7 @@ public class AnimatedRenderer extends IRenderer {
 			return;
 		}
 
-		OpenGlUtils.bindVAO(componentAnimation.getModel(), 0, 1, 2, 3, 4);
+		OpenGlUtils.bindVAO(componentAnimation.getModelAnimated().getVaoID(), 0, 1, 2, 3, 4, 5);
 
 		if (componentAnimation.getTexture() != null) {
 			OpenGlUtils.bindTextureToBank(componentAnimation.getTexture().getTextureID(), 0);
@@ -95,8 +95,8 @@ public class AnimatedRenderer extends IRenderer {
 
 		shader.getUniformMat4("modelMatrix").loadMat4(entity.getModelMatrix());
 
-		glDrawElements(GL_TRIANGLES, componentAnimation.getVaoLength(), GL_UNSIGNED_INT, 0);
-		OpenGlUtils.unbindVAO(0, 1, 2, 3, 4);
+		glDrawElements(GL_TRIANGLES, componentAnimation.getModelAnimated().getVaoLength(), GL_UNSIGNED_INT, 0);
+		OpenGlUtils.unbindVAO(0, 1, 2, 3, 4, 5);
 	}
 
 	private void endRendering() {

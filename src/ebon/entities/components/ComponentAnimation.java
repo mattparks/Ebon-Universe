@@ -3,6 +3,7 @@ package ebon.entities.components;
 import ebon.entities.*;
 import ebon.entities.loading.*;
 import flounder.animation.*;
+import flounder.collada.*;
 import flounder.maths.matrices.*;
 import flounder.maths.vectors.*;
 import flounder.textures.*;
@@ -13,14 +14,10 @@ import flounder.textures.*;
 public class ComponentAnimation extends IEntityComponent {
 	public static final int ID = EntityIDAssigner.getId();
 
-	private int vaoId;
-	private int vaoLength;
-
-	private Joint rootJoint;
-	private int jointCount;
+	private ModelAnimated modelAnimated;
+	private float scale;
 
 	private Texture texture;
-	private float scale;
 	private int textureIndex;
 
 	private Animator animator;
@@ -29,27 +26,21 @@ public class ComponentAnimation extends IEntityComponent {
 	 * Creates a new ComponentAnimation.
 	 *
 	 * @param entity The entity this component is attached to.
-	 * @param vaoId The VAO containing the mesh data for this entity. This includes vertex positions, normals, texture coords, IDs of joints that affect each vertex, and their corresponding weights.
-	 * @param rootJoint The root joint of the joint hierarchy which makes up the
-	 * @param jointCount The number of joints in the joint hierarchy for this entity.
-	 * @param texture The diffuse texture for the entity.
+	 * @param modelAnimated The animated model to use when animating and rendering.
 	 * @param scale The scale of the entity.
+	 * @param texture The diffuse texture for the entity.
 	 * @param textureIndex What texture index this entity should renderObjects from (0 default).
 	 */
-	public ComponentAnimation(Entity entity, int vaoId, int vaoLength, Joint rootJoint, int jointCount, Texture texture, float scale, int textureIndex) {
+	public ComponentAnimation(Entity entity, ModelAnimated modelAnimated, float scale, Texture texture, int textureIndex) {
 		super(entity, ID);
-		this.vaoId = vaoId;
-		this.vaoLength = vaoLength;
-
-		this.rootJoint = rootJoint;
-		this.jointCount = jointCount;
+		this.modelAnimated = modelAnimated;
+		this.scale = scale;
 
 		this.texture = texture;
-		this.scale = scale;
 		this.textureIndex = textureIndex;
 
-		rootJoint.calculateInverseBindTransform(Matrix4f.rotate(new Matrix4f(), new Vector3f(1.0f, 0.0f, 0.0f), (float) Math.toRadians(-90.0f), null));
-		this.animator = new Animator(rootJoint);
+		modelAnimated.getHeadJoint().calculateInverseBindTransform(Matrix4f.rotate(new Matrix4f(), new Vector3f(1.0f, 0.0f, 0.0f), (float) Math.toRadians(-90.0f), null));
+		this.animator = new Animator(modelAnimated.getHeadJoint());
 	}
 
 	/**
@@ -99,8 +90,8 @@ public class ComponentAnimation extends IEntityComponent {
 	 * @return The array of model-space transforms of the joints in the current animation pose.
 	 */
 	public Matrix4f[] getJointTransforms() {
-		Matrix4f[] jointMatrices = new Matrix4f[jointCount];
-		addJointsToArray(rootJoint, jointMatrices);
+		Matrix4f[] jointMatrices = new Matrix4f[modelAnimated.getJointsData().jointCount];
+		addJointsToArray(modelAnimated.getHeadJoint(), jointMatrices);
 		return jointMatrices;
 	}
 
@@ -120,38 +111,21 @@ public class ComponentAnimation extends IEntityComponent {
 	}
 
 	/**
-	 * @return The VAO containing all the mesh data for this entity.
+	 * Gets the animated model for this entity.
+	 *
+	 * @return The animated model for this entity.
 	 */
-	public int getModel() {
-		return vaoId;
-	}
-
-	public int getVaoLength() {
-		return vaoLength;
+	public ModelAnimated getModelAnimated() {
+		return modelAnimated;
 	}
 
 	/**
+	 * Gets the diffuse texture for this entity.
+	 *
 	 * @return The diffuse texture for this entity.
 	 */
 	public Texture getTexture() {
 		return texture;
-	}
-
-	/**
-	 * @return The root joint of the joint hierarchy. This joint has no parent,
-	 * and every other joint in the skeleton is a descendant of this
-	 * joint.
-	 */
-	public Joint getRootJoint() {
-		return rootJoint;
-	}
-
-	public float getScale() {
-		return scale;
-	}
-
-	public void setScale(float scale) {
-		this.scale = scale;
 	}
 
 	/**
@@ -165,9 +139,27 @@ public class ComponentAnimation extends IEntityComponent {
 		return new Vector2f((float) row / (float) texture.getNumberOfRows(), (float) column / (float) texture.getNumberOfRows());
 	}
 
+	/**
+	 * Gets the scale for this model.
+	 *
+	 * @return The scale for this model.
+	 */
+	public float getScale() {
+		return scale;
+	}
+
+	/**
+	 * Sets the scale for this model.
+	 *
+	 * @param scale The new scale.
+	 */
+	public void setScale(float scale) {
+		this.scale = scale;
+	}
+
 	@Override
 	public void dispose() {
-		//	model.delete();
+		modelAnimated.delete();
 		texture.delete();
 	}
 }

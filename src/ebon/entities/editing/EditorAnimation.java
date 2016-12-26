@@ -3,7 +3,6 @@ package ebon.entities.editing;
 import ebon.entities.*;
 import ebon.entities.components.*;
 import ebon.entities.loading.*;
-import flounder.animation.*;
 import flounder.helpers.*;
 import flounder.logger.*;
 import flounder.resources.*;
@@ -18,7 +17,7 @@ public class EditorAnimation extends IEditorComponent {
 	private MyFile pathCollada;
 
 	public EditorAnimation(Entity entity) {
-		this.component = new ComponentAnimation(entity, 0, 0, null, 0, null, 1.0f, 1);
+		this.component = new ComponentAnimation(entity, null, 1.0f, null, 1);
 	}
 
 	public EditorAnimation(IEntityComponent component) {

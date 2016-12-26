@@ -8,8 +8,9 @@ const int MAX_WEIGHTS = 3;
 layout(location = 0) in vec3 in_position;
 layout(location = 1) in vec2 in_textureCoords;
 layout(location = 2) in vec3 in_normal;
-layout(location = 3) in ivec3 in_jointIndices;
-layout(location = 4) in vec3 in_weights;
+layout(location = 3) in vec3 in_tangent;
+layout(location = 4) in ivec3 in_jointIndices;
+layout(location = 5) in vec3 in_weights;
 
 //---------UNIFORM------------
 uniform mat4 projectionMatrix;

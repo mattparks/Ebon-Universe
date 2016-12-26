@@ -11,6 +11,7 @@ import flounder.profiling.*;
 import flounder.renderer.*;
 import flounder.resources.*;
 import flounder.shaders.*;
+import flounder.textures.*;
 
 import java.util.*;
 
@@ -25,6 +26,7 @@ public class AnimatedRenderer extends IRenderer {
 	private static final MyFile FRAGMENT_SHADER = new MyFile(Shader.SHADERS_LOC, "entities", "animatedFragment.glsl");
 
 	private Shader shader;
+	private Texture textureUndefined;
 
 	/**
 	 * Creates a new entity renderer.
@@ -34,6 +36,7 @@ public class AnimatedRenderer extends IRenderer {
 				new ShaderType(GL_VERTEX_SHADER, VERTEX_SHADER),
 				new ShaderType(GL_FRAGMENT_SHADER, FRAGMENT_SHADER)
 		).create();
+		textureUndefined = Texture.newTexture(new MyFile(MyFile.RES_FOLDER, "undefined.png")).create();
 	}
 
 	@Override
@@ -77,7 +80,7 @@ public class AnimatedRenderer extends IRenderer {
 	private void renderEntity(Entity entity) {
 		ComponentAnimation componentAnimation = (ComponentAnimation) entity.getComponent(ComponentAnimation.ID);
 
-		if (componentAnimation == null) {
+		if (componentAnimation == null || componentAnimation.getModelAnimated() == null) {
 			return;
 		}
 
@@ -87,6 +90,11 @@ public class AnimatedRenderer extends IRenderer {
 			OpenGlUtils.bindTextureToBank(componentAnimation.getTexture().getTextureID(), 0);
 			shader.getUniformFloat("atlasRows").loadFloat(componentAnimation.getTexture().getNumberOfRows());
 			shader.getUniformVec2("atlasOffset").loadVec2(componentAnimation.getTextureOffset());
+		} else {
+			OpenGlUtils.bindTextureToBank(textureUndefined.getTextureID(), 0);
+			shader.getUniformFloat("atlasRows").loadFloat(textureUndefined.getNumberOfRows());
+			shader.getUniformVec2("atlasOffset").loadVec2(0, 0);
+			OpenGlUtils.cullBackFaces(false);
 		}
 
 		for (int i = 0; i < componentAnimation.getJointTransforms().length; i++) {

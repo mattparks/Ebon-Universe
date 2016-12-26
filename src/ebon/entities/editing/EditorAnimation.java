@@ -18,8 +18,6 @@ import java.io.*;
 public class EditorAnimation extends IEditorComponent {
 	public ComponentAnimation component;
 
-	private String overrideTextureName;
-
 	private MyFile pathCollada;
 	private MyFile pathTexture;
 
@@ -44,8 +42,8 @@ public class EditorAnimation extends IEditorComponent {
 	@Override
 	public void addToPanel(JPanel panel) {
 		// Load Collada.
-		JButton loadModel = new JButton("Select Collada");
-		loadModel.addActionListener((ActionEvent ae) -> {
+		JButton loadCollada = new JButton("Select Collada");
+		loadCollada.addActionListener((ActionEvent ae) -> {
 			JFileChooser fileChooser = new JFileChooser();
 			File workingDirectory = new File(System.getProperty("user.dir"));
 			fileChooser.setCurrentDirectory(workingDirectory);
@@ -62,7 +60,7 @@ public class EditorAnimation extends IEditorComponent {
 				}
 			}
 		});
-		panel.add(loadModel);
+		panel.add(loadCollada);
 
 		// Load Texture.
 		JButton loadTexture = new JButton("Select Texture");
@@ -122,11 +120,19 @@ public class EditorAnimation extends IEditorComponent {
 	}
 
 	@Override
-	public Pair<String[], EntitySaverFunction[]> getSavableValues() {
+	public Pair<String[], EntitySaverFunction[]> getSavableValues(String entityName) {
 		if (component.getTexture() != null) {
 			try {
+				File file = new File("entities/" + entityName + "/" + entityName + ".png");
+
+				if (file.exists()) {
+					file.delete();
+				}
+
+				file.createNewFile();
+
 				InputStream input = component.getTexture().getFile().getInputStream();
-				OutputStream output = new FileOutputStream(new File("entities/" + component.getTexture().getFile().getName()));
+				OutputStream output = new FileOutputStream(file);
 				byte[] buf = new byte[1024];
 				int bytesRead;
 
@@ -223,17 +229,8 @@ public class EditorAnimation extends IEditorComponent {
 		String saveScale = "Scale: " + component.getScale();
 		String saveFurthestPoint = "FurthestPoint: " + component.getModelAnimated().getMeshData().getFurthestPoint();
 
-		String saveTexture;
-		String saveTextureNumRows;
-
-		if (overrideTextureName != null) {
-			MyFile tempFile = new MyFile(MyFile.RES_FOLDER, "entities", overrideTextureName.replace(".png", ""), overrideTextureName);
-			saveTexture = "Texture: " + tempFile.getPath().substring(1, tempFile.getPath().length());
-			saveTextureNumRows = "TextureNumRows: " + 1;
-		} else {
-			saveTexture = "Texture: " + (component.getTexture() == null ? null : component.getTexture().getFile().getPath().substring(1, component.getTexture().getFile().getPath().length()));
-			saveTextureNumRows = "TextureNumRows: " + (component.getTexture() == null ? 1 : component.getTexture().getNumberOfRows());
-		}
+		String saveTexture = "Texture: " + (component.getTexture() == null ? null : component.getTexture().getFile().getPath().substring(1, component.getTexture().getFile().getPath().length()));
+		String saveTextureNumRows = "TextureNumRows: " + (component.getTexture() == null ? 1 : component.getTexture().getNumberOfRows());
 
 		return new Pair<>(
 				new String[]{saveScale, saveFurthestPoint, saveTexture, saveTextureNumRows},

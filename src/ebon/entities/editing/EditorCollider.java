@@ -45,7 +45,7 @@ public class EditorCollider extends IEditorComponent {
 	}
 
 	@Override
-	public Pair<String[], EntitySaverFunction[]> getSavableValues() {
+	public Pair<String[], EntitySaverFunction[]> getSavableValues(String entityName) {
 		return new Pair<>(new String[]{}, new EntitySaverFunction[]{});
 	}
 }

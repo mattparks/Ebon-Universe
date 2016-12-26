@@ -38,9 +38,9 @@ public class EbonEntities extends IModule {
 	public void init() {
 		this.entityStructure = new StructureBasic<>();
 		this.loaded = new HashMap<>();
-		//EbonEntities.load("dragon").createEntity(EbonEntities.getEntities(), new Vector3f(0.0f, -5.0f, 25.0f), new Vector3f());
 
-		InstanceCowboy e = new InstanceCowboy(EbonEntities.getEntities(), new Vector3f(0.0f, -5.0f, 10.0f), new Vector3f(0, 180, 0));
+		// EbonEntities.load("dragon").createEntity(EbonEntities.getEntities(), new Vector3f(0.0f, -5.0f, 25.0f), new Vector3f());
+		// InstanceCowboy e = new InstanceCowboy(EbonEntities.getEntities(), new Vector3f(0.0f, -5.0f, 10.0f), new Vector3f(0, 180, 0));
 	}
 
 	@Override
@@ -184,10 +184,13 @@ public class EbonEntities extends IModule {
 		try {
 			// Creates the save folder
 			File saveFolder = new File("entities");
+
 			if (!saveFolder.exists()) {
 				saveFolder.mkdir();
 			}
+
 			saveFolder = new File("entities/" + name);
+
 			if (!saveFolder.exists()) {
 				saveFolder.mkdir();
 			}
@@ -216,7 +219,7 @@ public class EbonEntities extends IModule {
 				for (int i = 0; i < editorComponents.size(); i++) {
 					FileWriterHelper.beginNewSegment(entity.getComponents().get(i).getClass().getName());
 
-					Pair<String[], EntitySaverFunction[]> saveableValues = editorComponents.get(i).getSavableValues();
+					Pair<String[], EntitySaverFunction[]> saveableValues = editorComponents.get(i).getSavableValues(name);
 
 					// Individual data components.
 					for (String s : saveableValues.getFirst()) {

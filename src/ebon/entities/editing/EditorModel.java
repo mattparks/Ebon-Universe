@@ -18,9 +18,6 @@ import java.io.*;
 public class EditorModel extends IEditorComponent {
 	public ComponentModel component;
 
-	private String overrideTextureName;
-	private String overrideNormalsName;
-
 	private MyFile pathModel;
 	private MyFile pathTexture;
 	private MyFile pathNormalMap;
@@ -147,11 +144,19 @@ public class EditorModel extends IEditorComponent {
 	}
 
 	@Override
-	public Pair<String[], EntitySaverFunction[]> getSavableValues() {
+	public Pair<String[], EntitySaverFunction[]> getSavableValues(String entityName) {
 		if (component.getTexture() != null) {
 			try {
+				File file = new File("entities/" + entityName + "/" + entityName + ".png");
+
+				if (file.exists()) {
+					file.delete();
+				}
+
+				file.createNewFile();
+
 				InputStream input = component.getTexture().getFile().getInputStream();
-				OutputStream output = new FileOutputStream(new File("entities/" + component.getTexture().getFile().getName()));
+				OutputStream output = new FileOutputStream(file);
 				byte[] buf = new byte[1024];
 				int bytesRead;
 
@@ -168,8 +173,16 @@ public class EditorModel extends IEditorComponent {
 
 		if (component.getNormalMap() != null) {
 			try {
+				File file = new File("entities/" + entityName + "/" + entityName + "Normals.png");
+
+				if (file.exists()) {
+					file.delete();
+				}
+
+				file.createNewFile();
+
 				InputStream input = component.getNormalMap().getFile().getInputStream();
-				OutputStream output = new FileOutputStream(new File("entities/" + component.getNormalMap().getFile().getName()));
+				OutputStream output = new FileOutputStream(file);
 				byte[] buf = new byte[1024];
 				int bytesRead;
 
@@ -242,7 +255,7 @@ public class EditorModel extends IEditorComponent {
 		EntitySaverFunction saveAABB = new EntitySaverFunction("AABB") {
 			@Override
 			public void writeIntoSection(FileWriterHelper entityFileWriter) throws IOException {
-				if (component.getModel() != null && component.getModel().getMeshData().getAABB() != null) {
+				if (component.getModel() != null && component.getModel().getMeshData() != null && component.getModel().getMeshData().getAABB() != null) {
 					Vector3f min = component.getModel().getMeshData().getAABB().getMinExtents();
 					Vector3f max = component.getModel().getMeshData().getAABB().getMaxExtents();
 					String s = min.x + "," + min.y + "," + min.z + "," + max.x + "," + max.y + "," + max.z + ",";
@@ -253,7 +266,7 @@ public class EditorModel extends IEditorComponent {
 		EntitySaverFunction saveQuickHull = new EntitySaverFunction("QuickHull") {
 			@Override
 			public void writeIntoSection(FileWriterHelper entityFileWriter) throws IOException {
-				if (component.getModel() != null) {
+				if (component.getModel() != null && component.getModel().getMeshData() != null && component.getModel().getMeshData().getHull() != null && component.getModel().getMeshData().getHull().getHullPoints() != null) {
 					for (Vector3f v : component.getModel().getMeshData().getHull().getHullPoints()) {
 						String s = v.x + "," + v.y + "," + v.z + ",";
 						entityFileWriter.writeSegmentData(s);
@@ -264,41 +277,15 @@ public class EditorModel extends IEditorComponent {
 
 		String saveScale = "Scale: " + component.getScale();
 
-		String saveTexture;
-		String saveTextureNumRows;
+		String saveTexture = "Texture: " + (component.getTexture() == null ? null : "res/entities/" + entityName + "/" + entityName + ".png");
+		String saveTextureNumRows = "TextureNumRows: " + (component.getTexture() == null ? 1 : component.getTexture().getNumberOfRows());
 
-		if (overrideTextureName != null) {
-			MyFile tempFile = new MyFile(MyFile.RES_FOLDER, "entities", overrideTextureName.replace(".png", ""), overrideTextureName);
-			saveTexture = "Texture: " + tempFile.getPath().substring(1, tempFile.getPath().length());
-			saveTextureNumRows = "TextureNumRows: " + 1;
-		} else {
-			saveTexture = "Texture: " + (component.getTexture() == null ? null : component.getTexture().getFile().getPath().substring(1, component.getTexture().getFile().getPath().length()));
-			saveTextureNumRows = "TextureNumRows: " + (component.getTexture() == null ? 1 : component.getTexture().getNumberOfRows());
-		}
-
-		String saveNormalMap;
-		String saveNormalMapNumRows;
-
-		if (overrideNormalsName != null) {
-			MyFile tempFile = new MyFile(MyFile.RES_FOLDER, "entities", overrideTextureName.replace("Normals.png", ""), overrideNormalsName);
-			saveNormalMap = "NormalMap: " + tempFile.getPath().substring(1, tempFile.getPath().length());
-			saveNormalMapNumRows = "NormalMapNumRows: " + 1;
-		} else {
-			saveNormalMap = "NormalMap: " + (component.getNormalMap() == null ? null : component.getNormalMap().getFile().getPath().substring(1, component.getNormalMap().getFile().getPath().length()));
-			saveNormalMapNumRows = "NormalMapNumRows: " + (component.getNormalMap() == null ? 1 : component.getNormalMap().getNumberOfRows());
-		}
+		String saveNormalMap = "NormalMap: " + (component.getNormalMap() == null ? null : "res/entities/" + entityName + "/" + entityName + "Normals.png");
+		String saveNormalMapNumRows = "NormalMapNumRows: " + (component.getNormalMap() == null ? 1 : component.getNormalMap().getNumberOfRows());
 
 		return new Pair<>(
 				new String[]{saveScale, saveTexture, saveTextureNumRows, saveNormalMap, saveNormalMapNumRows},
 				new EntitySaverFunction[]{saveVertices, saveTextureCoords, saveNormals, saveTangents, saveIndices, saveAABB, saveQuickHull}
 		);
-	}
-
-	public void setOverrideTexture(String overrideTextureName) {
-		this.overrideTextureName = overrideTextureName;
-	}
-
-	public void setOverrideNormals(String overrideNormalsName) {
-		this.overrideNormalsName = overrideNormalsName;
 	}
 }

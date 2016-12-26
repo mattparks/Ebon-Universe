@@ -207,7 +207,7 @@ public class EditorParticleSystem extends IEditorComponent {
 	}
 
 	@Override
-	public Pair<String[], EntitySaverFunction[]> getSavableValues() {
+	public Pair<String[], EntitySaverFunction[]> getSavableValues(String entityName) {
 		EntitySaverFunction saveTemplates = new EntitySaverFunction("Templates") {
 			@Override
 			public void writeIntoSection(FileWriterHelper entityFileWriter) throws IOException {

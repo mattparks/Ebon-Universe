@@ -81,7 +81,7 @@ public class EditorRemoveFade extends IEditorComponent {
 	}
 
 	@Override
-	public Pair<String[], EntitySaverFunction[]> getSavableValues() {
+	public Pair<String[], EntitySaverFunction[]> getSavableValues(String entityName) {
 		String saveRemoveAfter = "RemovesAfterDuration: " + component.removesAfterDuration();
 		String saveDuration = "Duration: " + component.getDuration();
 		return new Pair<>(new String[]{saveRemoveAfter, saveDuration}, new EntitySaverFunction[]{});

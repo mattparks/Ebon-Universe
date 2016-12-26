@@ -13,7 +13,7 @@ public class EditorCollider extends IEditorComponent {
 	public ComponentCollider component;
 
 	public EditorCollider(Entity entity) {
-		this.component = new ComponentCollider(entity, true);
+		this.component = new ComponentCollider(entity);
 	}
 
 	public EditorCollider(IEntityComponent component) {
@@ -46,7 +46,6 @@ public class EditorCollider extends IEditorComponent {
 
 	@Override
 	public Pair<String[], EntitySaverFunction[]> getSavableValues() {
-		String renderAABBSave = "RenderAABB: " + true; // component.renderAABB() // Only used as a editor feature.
-		return new Pair<>(new String[]{renderAABBSave}, new EntitySaverFunction[]{});
+		return new Pair<>(new String[]{}, new EntitySaverFunction[]{});
 	}
 }

@@ -82,64 +82,6 @@ public class ComponentAnimation extends IEntityComponent {
 	}
 
 	/**
-	 * Gets an array of the model-space transforms of all the joints (with the
-	 * current animation pose applied) in the entity. The joints are ordered in
-	 * the array based on their joint index. The position of each joint's
-	 * transform in the array is equal to the joint's index.
-	 *
-	 * @return The array of model-space transforms of the joints in the current animation pose.
-	 */
-	public Matrix4f[] getJointTransforms() {
-		Matrix4f[] jointMatrices = new Matrix4f[modelAnimated.getJointsData().jointCount];
-		addJointsToArray(modelAnimated.getHeadJoint(), jointMatrices);
-		return jointMatrices;
-	}
-
-	/**
-	 * This adds the current model-space transform of a joint (and all of its descendants) into an array of transforms.
-	 * The joint's transform is added into the array at the position equal to the joint's index.
-	 *
-	 * @param headJoint
-	 * @param jointMatrices
-	 */
-	private void addJointsToArray(Joint headJoint, Matrix4f[] jointMatrices) {
-		jointMatrices[headJoint.index] = headJoint.getAnimatedTransform();
-
-		for (Joint childJoint : headJoint.children) {
-			addJointsToArray(childJoint, jointMatrices);
-		}
-	}
-
-	/**
-	 * Gets the animated model for this entity.
-	 *
-	 * @return The animated model for this entity.
-	 */
-	public ModelAnimated getModelAnimated() {
-		return modelAnimated;
-	}
-
-	/**
-	 * Gets the diffuse texture for this entity.
-	 *
-	 * @return The diffuse texture for this entity.
-	 */
-	public Texture getTexture() {
-		return texture;
-	}
-
-	/**
-	 * Gets the textures coordinate offset that is used in rendering the model.
-	 *
-	 * @return The coordinate offset used in rendering.
-	 */
-	public Vector2f getTextureOffset() {
-		int column = textureIndex % texture.getNumberOfRows();
-		int row = textureIndex / texture.getNumberOfRows();
-		return new Vector2f((float) row / (float) texture.getNumberOfRows(), (float) column / (float) texture.getNumberOfRows());
-	}
-
-	/**
 	 * Gets the scale for this model.
 	 *
 	 * @return The scale for this model.
@@ -155,6 +97,83 @@ public class ComponentAnimation extends IEntityComponent {
 	 */
 	public void setScale(float scale) {
 		this.scale = scale;
+	}
+
+	/**
+	 * Gets the animated model for this entity.
+	 *
+	 * @return The animated model for this entity.
+	 */
+	public ModelAnimated getModelAnimated() {
+		return modelAnimated;
+	}
+
+	public void setModelAnimated(ModelAnimated modelAnimated) {
+		this.modelAnimated = modelAnimated;
+	}
+
+	/**
+	 * Gets an array of the model-space transforms of all the joints (with the current animation pose applied) in the entity.
+	 * The joints are ordered in the array based on their joint index.
+	 * The position of each joint's transform in the array is equal to the joint's index.
+	 *
+	 * @return The array of model-space transforms of the joints in the current animation pose.
+	 */
+	public Matrix4f[] getJointTransforms() {
+		Matrix4f[] jointMatrices = new Matrix4f[modelAnimated.getJointsData().jointCount];
+		addJointsToArray(modelAnimated.getHeadJoint(), jointMatrices);
+		return jointMatrices;
+	}
+
+	/**
+	 * This adds the current model-space transform of a joint (and all of its descendants) into an array of transforms.
+	 * The joint's transform is added into the array at the position equal to the joint's index.
+	 *
+	 * @param headJoint The head joint to add children to.
+	 * @param jointMatrices The matrices transformation to add with.
+	 */
+	private void addJointsToArray(Joint headJoint, Matrix4f[] jointMatrices) {
+		jointMatrices[headJoint.index] = headJoint.getAnimatedTransform();
+
+		for (Joint childJoint : headJoint.children) {
+			addJointsToArray(childJoint, jointMatrices);
+		}
+	}
+
+	/**
+	 * Gets the diffuse texture for this entity.
+	 *
+	 * @return The diffuse texture for this entity.
+	 */
+	public Texture getTexture() {
+		return texture;
+	}
+
+	public void setTexture(Texture texture) {
+		this.texture = texture;
+	}
+
+	public void setAnimator(Animator animator) {
+		this.animator = animator;
+	}
+
+	public int getTextureIndex() {
+		return textureIndex;
+	}
+
+	public void setTextureIndex(int textureIndex) {
+		this.textureIndex = textureIndex;
+	}
+
+	/**
+	 * Gets the textures coordinate offset that is used in rendering the model.
+	 *
+	 * @return The coordinate offset used in rendering.
+	 */
+	public Vector2f getTextureOffset() {
+		int column = textureIndex % texture.getNumberOfRows();
+		int row = textureIndex / texture.getNumberOfRows();
+		return new Vector2f((float) row / (float) texture.getNumberOfRows(), (float) column / (float) texture.getNumberOfRows());
 	}
 
 	@Override

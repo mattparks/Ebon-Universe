@@ -5,6 +5,7 @@ import ebon.entities.components.*;
 import ebon.entities.loading.*;
 import flounder.helpers.*;
 import flounder.logger.*;
+import flounder.maths.vectors.*;
 import flounder.models.*;
 import flounder.resources.*;
 import flounder.textures.*;
@@ -238,38 +239,58 @@ public class EditorModel extends IEditorComponent {
 				}
 			}
 		};
-		// TODO: Save AABB and Hull.
+		EntitySaverFunction saveAABB = new EntitySaverFunction("AABB") {
+			@Override
+			public void writeIntoSection(FileWriterHelper entityFileWriter) throws IOException {
+				if (component.getModel() != null && component.getModel().getMeshData().getAABB() != null) {
+					Vector3f min = component.getModel().getMeshData().getAABB().getMinExtents();
+					Vector3f max = component.getModel().getMeshData().getAABB().getMaxExtents();
+					String s = min.x + "," + min.y + "," + min.z + "," + max.x + "," + max.y + "," + max.z + ",";
+					entityFileWriter.writeSegmentData(s);
+				}
+			}
+		};
+		EntitySaverFunction saveQuickHull = new EntitySaverFunction("QuickHull") {
+			@Override
+			public void writeIntoSection(FileWriterHelper entityFileWriter) throws IOException {
+				if (component.getModel() != null) {
+					for (Vector3f v : component.getModel().getMeshData().getHull().getHullPoints()) {
+						String s = v.x + "," + v.y + "," + v.z + ",";
+						entityFileWriter.writeSegmentData(s);
+					}
+				}
+			}
+		};
 
-		String textureSave;
-		String textureNumRowsSave;
+		String saveScale = "Scale: " + component.getScale();
+
+		String saveTexture;
+		String saveTextureNumRows;
 
 		if (overrideTextureName != null) {
 			MyFile tempFile = new MyFile(MyFile.RES_FOLDER, "entities", overrideTextureName.replace(".png", ""), overrideTextureName);
-			textureSave = "Texture: " + tempFile.getPath().substring(1, tempFile.getPath().length());
-			textureNumRowsSave = "TextureNumRows: " + 1;
+			saveTexture = "Texture: " + tempFile.getPath().substring(1, tempFile.getPath().length());
+			saveTextureNumRows = "TextureNumRows: " + 1;
 		} else {
-			textureSave = "Texture: " + (component.getTexture() == null ? null : component.getTexture().getFile().getPath().substring(1, component.getTexture().getFile().getPath().length()));
-			textureNumRowsSave = "TextureNumRows: " + (component.getTexture() == null ? 1 : component.getTexture().getNumberOfRows());
+			saveTexture = "Texture: " + (component.getTexture() == null ? null : component.getTexture().getFile().getPath().substring(1, component.getTexture().getFile().getPath().length()));
+			saveTextureNumRows = "TextureNumRows: " + (component.getTexture() == null ? 1 : component.getTexture().getNumberOfRows());
 		}
 
-		String normalMapSave;
-		String normalMapNumRowsSave;
+		String saveNormalMap;
+		String saveNormalMapNumRows;
 
 		if (overrideNormalsName != null) {
 			MyFile tempFile = new MyFile(MyFile.RES_FOLDER, "entities", overrideTextureName.replace("Normals.png", ""), overrideNormalsName);
-			normalMapSave = "NormalMap: " + tempFile.getPath().substring(1, tempFile.getPath().length());
-			normalMapNumRowsSave = "NormalMapNumRows: " + 1;
+			saveNormalMap = "NormalMap: " + tempFile.getPath().substring(1, tempFile.getPath().length());
+			saveNormalMapNumRows = "NormalMapNumRows: " + 1;
 		} else {
-			normalMapSave = "NormalMap: " + (component.getNormalMap() == null ? null : component.getNormalMap().getFile().getPath().substring(1, component.getNormalMap().getFile().getPath().length()));
-			normalMapNumRowsSave = "NormalMapNumRows: " + (component.getNormalMap() == null ? 1 : component.getNormalMap().getNumberOfRows());
+			saveNormalMap = "NormalMap: " + (component.getNormalMap() == null ? null : component.getNormalMap().getFile().getPath().substring(1, component.getNormalMap().getFile().getPath().length()));
+			saveNormalMapNumRows = "NormalMapNumRows: " + (component.getNormalMap() == null ? 1 : component.getNormalMap().getNumberOfRows());
 		}
 
-		String scaleSave = "Scale: " + component.getScale();
-
-
 		return new Pair<>(
-				new String[]{textureSave, textureNumRowsSave, normalMapSave, normalMapNumRowsSave, scaleSave},
-				new EntitySaverFunction[]{saveVertices, saveTextureCoords, saveNormals, saveTangents, saveIndices}
+				new String[]{saveScale, saveTexture, saveTextureNumRows, saveNormalMap, saveNormalMapNumRows},
+				new EntitySaverFunction[]{saveVertices, saveTextureCoords, saveNormals, saveTangents, saveIndices, saveAABB, saveQuickHull}
 		);
 	}
 

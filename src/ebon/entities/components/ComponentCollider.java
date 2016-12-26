@@ -22,11 +22,11 @@ public class ComponentCollider extends IEntityComponent {
 	 *
 	 * @param entity The entity this component is attached to.
 	 */
-	public ComponentCollider(Entity entity, boolean renderAABB) {
+	public ComponentCollider(Entity entity) {
 		super(entity, ID);
 		this.aabb = new AABB();
 		this.hull = new QuickHull();
-		this.renderAABB = renderAABB;
+		this.renderAABB = true;
 	}
 
 	/**
@@ -39,7 +39,7 @@ public class ComponentCollider extends IEntityComponent {
 		super(entity, ID);
 		this.aabb = new AABB();
 		this.hull = new QuickHull();
-		this.renderAABB = Boolean.parseBoolean(template.getValue(this, "RenderAABB"));
+		this.renderAABB = true;
 	}
 
 	/**
@@ -58,10 +58,20 @@ public class ComponentCollider extends IEntityComponent {
 		return hull;
 	}
 
+	/**
+	 * Gets if the AABB should be rendered.
+	 *
+	 * @return If the AABB should be rendered.
+	 */
 	public boolean renderAABB() {
 		return renderAABB;
 	}
 
+	/**
+	 * Sets if the AABB should be rendered.
+	 *
+	 * @param renderAABB If the AABB should be rendered.
+	 */
 	public void setRenderAABB(boolean renderAABB) {
 		this.renderAABB = renderAABB;
 	}

@@ -14,15 +14,15 @@ public class InstanceCowboy extends Entity {
 
 		MyFile colladaFile = new MyFile(MyFile.RES_FOLDER, "entities", "cowboy", "cowboy.dae");
 
-		ModelAnimated entityData = ColladaLoader.loadColladaModel(colladaFile);
+		ModelAnimated modelAnimated = ColladaLoader.loadColladaModel(colladaFile);
 
 		Texture texture = Texture.newTexture(new MyFile(MyFile.RES_FOLDER, "entities", "cowboy", "cowboy.png")).create();
 
 		Animation animation = AnimationCreator.loadAnimation(colladaFile);
 
 		new ComponentCollision(this);
-		new ComponentCollider(this, true);
-		ComponentAnimation componentAnimation = new ComponentAnimation(this, entityData, 1.0f, texture, 1);
+		new ComponentCollider(this);
+		ComponentAnimation componentAnimation = new ComponentAnimation(this, modelAnimated, 1.0f, texture, 1);
 		componentAnimation.doAnimation(animation);
 	}
 }

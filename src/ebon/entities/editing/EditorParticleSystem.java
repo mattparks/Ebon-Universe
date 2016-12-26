@@ -230,14 +230,14 @@ public class EditorParticleSystem extends IEditorComponent {
 			}
 		};
 
-		String particleSpawn = "Spawn: " + (component.getParticleSystem().getSpawn() == null ? null : component.getParticleSystem().getSpawn().getClass().getName());
-		String particlePPS = "PPS: " + component.getParticleSystem().getPPS();
-		String particleSpeed = "Speed: " + component.getParticleSystem().getAverageSpeed();
-		String particleGravity = "GravityEffect: " + component.getParticleSystem().getGravityEffect();
-		String particleCentreOffset = "CentreOffset: " + ParticleTemplate.saveVector3f(component.getCentreOffset());
+		String saveParticleSpawn = "Spawn: " + (component.getParticleSystem().getSpawn() == null ? null : component.getParticleSystem().getSpawn().getClass().getName());
+		String saveParticlePPS = "PPS: " + component.getParticleSystem().getPPS();
+		String saveParticleSpeed = "Speed: " + component.getParticleSystem().getAverageSpeed();
+		String saveParticleGravity = "GravityEffect: " + component.getParticleSystem().getGravityEffect();
+		String scaleParticleCentreOffset = "CentreOffset: " + ParticleTemplate.saveVector3f(component.getCentreOffset());
 
 		return new Pair<>(
-				new String[]{particleSpawn, particlePPS, particleSpeed, particleGravity, particleCentreOffset},
+				new String[]{saveParticleSpawn, saveParticlePPS, saveParticleSpeed, saveParticleGravity, scaleParticleCentreOffset},
 				new EntitySaverFunction[]{saveTemplates, saveSpawnValues}
 		);
 	}

@@ -5,7 +5,6 @@ import ebon.entities.loading.*;
 import flounder.framework.*;
 import flounder.helpers.*;
 import flounder.logger.*;
-import flounder.maths.vectors.*;
 import flounder.models.*;
 import flounder.physics.bounding.*;
 import flounder.profiling.*;
@@ -38,10 +37,6 @@ public class EbonEntities extends IModule {
 	public void init() {
 		this.entityStructure = new StructureBasic<>();
 		this.loaded = new HashMap<>();
-
-		// EbonEntities.load("dragon").createEntity(EbonEntities.getEntities(), new Vector3f(0.0f, -5.0f, 10.0f), new Vector3f());
-		// InstanceCowboy e = new InstanceCowboy(EbonEntities.getEntities(), new Vector3f(0.0f, -5.0f, 10.0f), new Vector3f(0, 180, 0));
-		EbonEntities.load("cowboy").createEntity(EbonEntities.getEntities(), new Vector3f(0.0f, -5.0f, 10.0f), new Vector3f(0, 180, 0));
 	}
 
 	@Override
@@ -203,9 +198,9 @@ public class EbonEntities extends IModule {
 			FileWriterHelper FileWriterHelper = new FileWriterHelper(fileWriter);
 
 			// Date and save info.
-			String savedDate = Calendar.getInstance().get(Calendar.DAY_OF_MONTH) + "." + (Calendar.getInstance().get(Calendar.MONTH) + 1) + "." + Calendar.getInstance().get(Calendar.YEAR) + " - " + Calendar.getInstance().get(Calendar.HOUR) + ":" + Calendar.getInstance().get(Calendar.MINUTE);
+			String savedDate = Calendar.getInstance().get(Calendar.DAY_OF_MONTH) + "." + (Calendar.getInstance().get(Calendar.MONTH) + 1) + "." + Calendar.getInstance().get(Calendar.YEAR) + " - " + Calendar.getInstance().get(Calendar.HOUR_OF_DAY) + ":" + Calendar.getInstance().get(Calendar.MINUTE);
 			FlounderLogger.log("Entity " + name + " is being saved at: " + savedDate);
-			FileWriterHelper.addComment("Date Generated: " + savedDate, "Created By: " + System.getProperty("user.classpath"));
+			FileWriterHelper.addComment("Date Generated: " + savedDate, "Created By: " + System.getProperty("user.name"));
 
 			// Entity General Data.
 			FileWriterHelper.beginNewSegment("EntityData");

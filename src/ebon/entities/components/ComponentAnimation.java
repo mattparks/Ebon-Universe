@@ -299,8 +299,8 @@ public class ComponentAnimation extends IEntityComponent {
 	public void setModelAnimated(ModelAnimated modelAnimated) {
 		if (this.modelAnimated != modelAnimated) {
 			this.modelAnimated = modelAnimated;
-			modelAnimated.getHeadJoint().calculateInverseBindTransform(Matrix4f.rotate(new Matrix4f(), new Vector3f(1.0f, 0.0f, 0.0f), (float) Math.toRadians(-90.0f), null));
-			this.animator = new Animator(modelAnimated.getHeadJoint());
+			this.modelAnimated.getHeadJoint().calculateInverseBindTransform(Matrix4f.rotate(new Matrix4f(), new Vector3f(1.0f, 0.0f, 0.0f), (float) Math.toRadians(-90.0f), null));
+			this.animator = new Animator(this.modelAnimated.getHeadJoint());
 		}
 	}
 

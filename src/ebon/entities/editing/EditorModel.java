@@ -51,14 +51,8 @@ public class EditorModel extends IEditorComponent {
 			int returnValue = fileChooser.showOpenDialog(null);
 
 			if (returnValue == JFileChooser.APPROVE_OPTION) {
-				String selectedFile = fileChooser.getSelectedFile().getPath().replace("\\", "/");
-
-				if (selectedFile.contains("res/entities")) {
-					String[] filepath = selectedFile.split("/");
-					EditorModel.this.pathModel = new MyFile(MyFile.RES_FOLDER, "entities", filepath[filepath.length - 1].replace(".obj", ""), filepath[filepath.length - 1]);
-				} else {
-					FlounderLogger.error("The selected model path is not inside the res/entities folder!");
-				}
+				String selectedFile = fileChooser.getSelectedFile().getAbsolutePath().replace("\\", "/");
+				EditorModel.this.pathModel = new MyFile(selectedFile.split("/"));
 			}
 		});
 		panel.add(loadModel);
@@ -72,14 +66,8 @@ public class EditorModel extends IEditorComponent {
 			int returnValue = fileChooser.showOpenDialog(null);
 
 			if (returnValue == JFileChooser.APPROVE_OPTION) {
-				String selectedFile = fileChooser.getSelectedFile().getPath().replace("\\", "/");
-
-				if (selectedFile.contains("res/entities")) {
-					String[] filepath = selectedFile.split("/");
-					EditorModel.this.pathTexture = new MyFile(MyFile.RES_FOLDER, "entities", filepath[filepath.length - 1].replace(".png", ""), filepath[filepath.length - 1]);
-				} else {
-					FlounderLogger.error("The selected texture path is not inside the res/entities folder!");
-				}
+				String selectedFile = fileChooser.getSelectedFile().getAbsolutePath().replace("\\", "/");
+				EditorModel.this.pathTexture = new MyFile(selectedFile.split("/"));
 			}
 		});
 		panel.add(loadTexture);
@@ -93,14 +81,8 @@ public class EditorModel extends IEditorComponent {
 			int returnValue = fileChooser.showOpenDialog(null);
 
 			if (returnValue == JFileChooser.APPROVE_OPTION) {
-				String selectedFile = fileChooser.getSelectedFile().getPath().replace("\\", "/");
-
-				if (selectedFile.contains("res/entities")) {
-					String[] filepath = selectedFile.split("/");
-					EditorModel.this.pathNormalMap = new MyFile(MyFile.RES_FOLDER, "entities", filepath[filepath.length - 1].replace("Normals.png", ""), filepath[filepath.length - 1]);
-				} else {
-					FlounderLogger.error("The selected texture path is not inside the res/entities folder!");
-				}
+				String selectedFile = fileChooser.getSelectedFile().getAbsolutePath().replace("\\", "/");
+				EditorModel.this.pathNormalMap = new MyFile(selectedFile.split("/"));
 			}
 		});
 		panel.add(loadNormalMap);
@@ -129,16 +111,26 @@ public class EditorModel extends IEditorComponent {
 					Model model = Model.newModel(pathModel).create();
 					component.setModel(model);
 				}
+
+				pathModel = null;
 			}
 
 			if (pathTexture != null && (component.getTexture() == null || !component.getTexture().getFile().getPath().equals(pathTexture.getPath()))) {
-				Texture texture = Texture.newTexture(pathTexture).create();
-				component.setTexture(texture);
+				if (pathTexture.getPath().contains(".png")) {
+					Texture texture = Texture.newTexture(pathTexture).create();
+					component.setTexture(texture);
+				}
+
+				pathTexture = null;
 			}
 
 			if (pathNormalMap != null && (component.getNormalMap() == null || !component.getNormalMap().getFile().getPath().equals(pathNormalMap.getPath()))) {
-				Texture normalTexture = Texture.newTexture(pathNormalMap).create();
-				component.setNormalMap(normalTexture);
+				if (pathNormalMap.getPath().contains(".png")) {
+					Texture normalTexture = Texture.newTexture(pathNormalMap).create();
+					component.setNormalMap(normalTexture);
+				}
+
+				pathNormalMap = null;
 			}
 		}
 	}
@@ -147,7 +139,7 @@ public class EditorModel extends IEditorComponent {
 	public Pair<String[], EntitySaverFunction[]> getSavableValues(String entityName) {
 		if (component.getTexture() != null) {
 			try {
-				File file = new File("entities/" + entityName + "/" + entityName + "DiffuseMap.png");
+				File file = new File("entities/" + entityName + "/" + entityName + "Diffuse.png");
 
 				if (file.exists()) {
 					file.delete();
@@ -173,7 +165,7 @@ public class EditorModel extends IEditorComponent {
 
 		if (component.getNormalMap() != null) {
 			try {
-				File file = new File("entities/" + entityName + "/" + entityName + "NormalMap.png");
+				File file = new File("entities/" + entityName + "/" + entityName + "Normal.png");
 
 				if (file.exists()) {
 					file.delete();
@@ -277,10 +269,10 @@ public class EditorModel extends IEditorComponent {
 
 		String saveScale = "Scale: " + component.getScale();
 
-		String saveTexture = "Texture: " + (component.getTexture() == null ? null : "res/entities/" + entityName + "/" + entityName + "DiffuseMap.png");
+		String saveTexture = "Texture: " + (component.getTexture() == null ? null : "res/entities/" + entityName + "/" + entityName + "Diffuse.png");
 		String saveTextureNumRows = "TextureNumRows: " + (component.getTexture() == null ? 1 : component.getTexture().getNumberOfRows());
 
-		String saveNormalMap = "NormalMap: " + (component.getNormalMap() == null ? null : "res/entities/" + entityName + "/" + entityName + "NormalMap.png");
+		String saveNormalMap = "NormalMap: " + (component.getNormalMap() == null ? null : "res/entities/" + entityName + "/" + entityName + "Normal.png");
 		String saveNormalMapNumRows = "NormalMapNumRows: " + (component.getNormalMap() == null ? 1 : component.getNormalMap().getNumberOfRows());
 
 		return new Pair<>(

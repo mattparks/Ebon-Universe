@@ -53,14 +53,8 @@ public class EditorAnimation extends IEditorComponent {
 			int returnValue = fileChooser.showOpenDialog(null);
 
 			if (returnValue == JFileChooser.APPROVE_OPTION) {
-				String selectedFile = fileChooser.getSelectedFile().getPath().replace("\\", "/");
-
-				if (selectedFile.contains("res/entities")) {
-					String[] filepath = selectedFile.split("/");
-					EditorAnimation.this.pathCollada = new MyFile(MyFile.RES_FOLDER, "entities", filepath[filepath.length - 1].replace(".dae", ""), filepath[filepath.length - 1]);
-				} else {
-					FlounderLogger.error("The selected collada path is not inside the res/entities folder!");
-				}
+				String selectedFile = fileChooser.getSelectedFile().getAbsolutePath().replace("\\", "/");
+				EditorAnimation.this.pathCollada = new MyFile(selectedFile.split("/"));
 			}
 		});
 		panel.add(loadCollada);
@@ -74,14 +68,8 @@ public class EditorAnimation extends IEditorComponent {
 			int returnValue = fileChooser.showOpenDialog(null);
 
 			if (returnValue == JFileChooser.APPROVE_OPTION) {
-				String selectedFile = fileChooser.getSelectedFile().getPath().replace("\\", "/");
-
-				if (selectedFile.contains("res/entities")) {
-					String[] filepath = selectedFile.split("/");
-					EditorAnimation.this.pathTexture = new MyFile(MyFile.RES_FOLDER, "entities", filepath[filepath.length - 1].replace(".png", ""), filepath[filepath.length - 1]);
-				} else {
-					FlounderLogger.error("The selected texture path is not inside the res/entities folder!");
-				}
+				String selectedFile = fileChooser.getSelectedFile().getAbsolutePath().replace("\\", "/");
+				EditorAnimation.this.pathTexture = new MyFile(selectedFile.split("/"));
 			}
 		});
 		panel.add(loadTexture);
@@ -105,19 +93,24 @@ public class EditorAnimation extends IEditorComponent {
 	@Override
 	public void update() {
 		if (component != null) {
-			if (pathCollada != null && (component.getModelAnimated() == null/* || !component.getModelAnimated().getFile().equals(pathCollada.getPath())*/)) {
+			if (pathCollada != null/*  && (component.getModelAnimated() == null|| !component.getModelAnimated().getFile().equals(pathCollada.getPath()))*/) {
 				if (pathCollada.getPath().contains(".dae")) {
-					MyFile colladaFile = new MyFile(MyFile.RES_FOLDER, "entities", "cowboy", "cowboy.dae");
-					ModelAnimated modelAnimated = ColladaLoader.loadColladaModel(colladaFile);
-					Animation animation = AnimationCreator.loadAnimation(colladaFile);
+					ModelAnimated modelAnimated = ColladaLoader.loadColladaModel(pathCollada);
+					Animation animation = AnimationCreator.loadAnimation(pathCollada);
 					component.setModelAnimated(modelAnimated);
 					component.doAnimation(animation);
 				}
+
+				pathCollada = null;
 			}
 
 			if (pathTexture != null && (component.getTexture() == null || !component.getTexture().getFile().getPath().equals(pathTexture.getPath()))) {
-				Texture texture = Texture.newTexture(pathTexture).create();
-				component.setTexture(texture);
+				if (pathTexture.getPath().contains(".png")) {
+					Texture texture = Texture.newTexture(pathTexture).create();
+					component.setTexture(texture);
+				}
+
+				pathTexture = null;
 			}
 		}
 	}
@@ -126,7 +119,7 @@ public class EditorAnimation extends IEditorComponent {
 	public Pair<String[], EntitySaverFunction[]> getSavableValues(String entityName) {
 		if (component.getTexture() != null) {
 			try {
-				File file = new File("entities/" + entityName + "/" + entityName + "DiffuseMap.png");
+				File file = new File("entities/" + entityName + "/" + entityName + "Diffuse.png");
 
 				if (file.exists()) {
 					file.delete();
@@ -279,7 +272,7 @@ public class EditorAnimation extends IEditorComponent {
 		String saveScale = "Scale: " + component.getScale();
 		String saveFurthestPoint = "FurthestPoint: " + component.getModelAnimated().getMeshData().getFurthestPoint();
 
-		String saveTexture = "Texture: " + (component.getTexture() == null ? null : "res/entities/" + entityName + "/" + entityName + "DiffuseMap.png");
+		String saveTexture = "Texture: " + (component.getTexture() == null ? null : "res/entities/" + entityName + "/" + entityName + "Diffuse.png");
 		String saveTextureNumRows = "TextureNumRows: " + (component.getTexture() == null ? 1 : component.getTexture().getNumberOfRows());
 
 		String saveAnimationLength = "AnimationLength: " + (component.getAnimator() != null && component.getAnimator().getCurrentAnimation() != null ? component.getAnimator().getCurrentAnimation().getLength() : null);

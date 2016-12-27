@@ -87,11 +87,11 @@ public class AnimatedRenderer extends IRenderer {
 		OpenGlUtils.bindVAO(componentAnimation.getModelAnimated().getVaoID(), 0, 1, 2, 3, 4, 5);
 
 		if (componentAnimation.getTexture() != null) {
-			OpenGlUtils.bindTextureToBank(componentAnimation.getTexture().getTextureID(), 0);
+			OpenGlUtils.bindTexture(componentAnimation.getTexture(), 0);
 			shader.getUniformFloat("atlasRows").loadFloat(componentAnimation.getTexture().getNumberOfRows());
 			shader.getUniformVec2("atlasOffset").loadVec2(componentAnimation.getTextureOffset());
 		} else {
-			OpenGlUtils.bindTextureToBank(textureUndefined.getTextureID(), 0);
+			OpenGlUtils.bindTexture(textureUndefined, 0);
 			shader.getUniformFloat("atlasRows").loadFloat(textureUndefined.getNumberOfRows());
 			shader.getUniformVec2("atlasOffset").loadVec2(0, 0);
 			OpenGlUtils.cullBackFaces(false);

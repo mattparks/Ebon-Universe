@@ -89,21 +89,21 @@ public class EntityRenderer extends IRenderer {
 		OpenGlUtils.bindVAO(componentModel.getModel().getVaoID(), 0, 1, 2, 3);
 
 		if (componentModel.getTexture() != null) {
-			OpenGlUtils.bindTextureToBank(componentModel.getTexture().getTextureID(), 0);
+			OpenGlUtils.bindTexture(componentModel.getTexture(), 0);
 			shader.getUniformFloat("atlasRows").loadFloat(componentModel.getTexture().getNumberOfRows());
 			shader.getUniformVec2("atlasOffset").loadVec2(componentModel.getTextureOffset());
 
 			// Face culling if the object has transparency.
 			OpenGlUtils.cullBackFaces(componentModel.getTransparency() == 1.0 || !componentModel.getTexture().hasTransparency());
 		} else {
-			OpenGlUtils.bindTextureToBank(textureUndefined.getTextureID(), 0);
+			OpenGlUtils.bindTexture(textureUndefined, 0);
 			shader.getUniformFloat("atlasRows").loadFloat(textureUndefined.getNumberOfRows());
 			shader.getUniformVec2("atlasOffset").loadVec2(0, 0);
 			OpenGlUtils.cullBackFaces(false);
 		}
 
 		if (componentModel.getNormalMap() != null) {
-			OpenGlUtils.bindTextureToBank(componentModel.getNormalMap().getTextureID(), 1);
+			OpenGlUtils.bindTexture(componentModel.getNormalMap(), 1);
 			shader.getUniformBool("useNormalMap").loadBoolean(true);
 		} else {
 			shader.getUniformBool("useNormalMap").loadBoolean(false);

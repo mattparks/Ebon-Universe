@@ -118,7 +118,7 @@ public class ParticleRenderer extends IRenderer {
 
 		if (particleTemplate.getTexture() != null) {
 			shader.getUniformFloat("numberOfRows").loadFloat(particleTemplate.getTexture().getNumberOfRows());
-			OpenGlUtils.bindTextureToBank(particleTemplate.getTexture().getTextureID(), 0);
+			OpenGlUtils.bindTexture(particleTemplate.getTexture(), 0);
 		}
 	}
 

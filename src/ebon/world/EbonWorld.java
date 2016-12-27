@@ -31,8 +31,8 @@ public class EbonWorld extends IModule {
 		if (FlounderDisplay.getTitle().equals("Ebon Universe")) {
 			//	this.ebonTesting = new EbonTesting();
 			// EbonEntities.load("dragon").createEntity(EbonEntities.getEntities(), new Vector3f(0.0f, -5.0f, 10.0f), new Vector3f());
-			// InstanceCowboy e = new InstanceCowboy(EbonEntities.getEntities(), new Vector3f(0.0f, -5.0f, 10.0f), new Vector3f(0, 180, 0));
-			EbonEntities.load("cowboy").createEntity(EbonEntities.getEntities(), new Vector3f(0.0f, -5.0f, 10.0f), new Vector3f(0, 180, 0));
+			InstanceCowboy e = new InstanceCowboy(EbonEntities.getEntities(), new Vector3f(0.0f, -5.0f, 10.0f), new Vector3f(0, 180, 0));
+			// EbonEntities.load("cowboy").createEntity(EbonEntities.getEntities(), new Vector3f(0.0f, -5.0f, 10.0f), new Vector3f(0, 180, 0));
 		}
 	}
 

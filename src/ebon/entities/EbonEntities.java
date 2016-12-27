@@ -2,6 +2,7 @@ package ebon.entities;
 
 import ebon.entities.editing.*;
 import ebon.entities.loading.*;
+import flounder.animation.*;
 import flounder.framework.*;
 import flounder.helpers.*;
 import flounder.logger.*;
@@ -30,7 +31,7 @@ public class EbonEntities extends IModule {
 	 * Creates a new game manager for entities.
 	 */
 	public EbonEntities() {
-		super(ModuleUpdate.UPDATE_PRE, FlounderLogger.class, FlounderProfiler.class, FlounderModels.class, FlounderBounding.class, FlounderShaders.class, FlounderTextures.class);
+		super(ModuleUpdate.UPDATE_PRE, FlounderLogger.class, FlounderProfiler.class, FlounderAnimation.class, FlounderModels.class, FlounderBounding.class, FlounderShaders.class, FlounderTextures.class);
 	}
 
 	@Override

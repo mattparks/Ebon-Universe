@@ -243,12 +243,12 @@ public class ComponentAnimation extends IEntityComponent {
 	 */
 	private void addChildren(JointData datasJoint, List<String> dataChild, Map<JointData, List<String>> allJoints) {
 		for (JointData data : allJoints.keySet()) {
-			if (dataChild.contains(data.nameId)) {
+			if (dataChild.contains(data.getNameId())) {
 				datasJoint.addChild(data);
 			}
 		}
 
-		for (JointData child : datasJoint.children) {
+		for (JointData child : datasJoint.getChildren()) {
 			addChildren(child, allJoints.get(child), allJoints);
 		}
 	}
@@ -312,7 +312,7 @@ public class ComponentAnimation extends IEntityComponent {
 	 * @return The array of model-space transforms of the joints in the current animation pose.
 	 */
 	public Matrix4f[] getJointTransforms() {
-		Matrix4f[] jointMatrices = new Matrix4f[modelAnimated.getJointsData().jointCount];
+		Matrix4f[] jointMatrices = new Matrix4f[modelAnimated.getJointsData().getJointCount()];
 		addJointsToArray(modelAnimated.getHeadJoint(), jointMatrices);
 		return jointMatrices;
 	}

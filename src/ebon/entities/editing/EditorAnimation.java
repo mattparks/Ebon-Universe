@@ -5,6 +5,7 @@ import ebon.entities.components.*;
 import ebon.entities.loading.*;
 import flounder.animation.*;
 import flounder.collada.*;
+import flounder.collada.animation.*;
 import flounder.helpers.*;
 import flounder.logger.*;
 import flounder.maths.matrices.*;
@@ -95,8 +96,9 @@ public class EditorAnimation extends IEditorComponent {
 		if (component != null) {
 			if (pathCollada != null/*  && (component.getModelAnimated() == null|| !component.getModelAnimated().getFile().equals(pathCollada.getPath()))*/) {
 				if (pathCollada.getPath().contains(".dae")) {
-					ModelAnimated modelAnimated = ColladaLoader.loadColladaModel(pathCollada);
-					Animation animation = AnimationCreator.loadAnimation(pathCollada);
+					ModelAnimated modelAnimated = FlounderCollada.loadCollada(pathCollada);
+					AnimationData animationData = FlounderCollada.loadAnimation(pathCollada);
+					Animation animation = FlounderAnimation.loadAnimation(animationData);
 					component.setModelAnimated(modelAnimated);
 					component.doAnimation(animation);
 				}
@@ -276,7 +278,7 @@ public class EditorAnimation extends IEditorComponent {
 		String saveTextureNumRows = "TextureNumRows: " + (component.getTexture() == null ? 1 : component.getTexture().getNumberOfRows());
 
 		String saveAnimationLength = "AnimationLength: " + (component.getAnimator() != null && component.getAnimator().getCurrentAnimation() != null ? component.getAnimator().getCurrentAnimation().getLength() : null);
-		String saveJointCount = "JointCount: " + (component.getModelAnimated() != null && component.getModelAnimated().getJointsData() != null ? component.getModelAnimated().getJointsData().jointCount : null);
+		String saveJointCount = "JointCount: " + (component.getModelAnimated() != null && component.getModelAnimated().getJointsData() != null ? component.getModelAnimated().getJointsData().getJointCount() : null);
 
 		return new Pair<>(
 				new String[]{saveScale, saveFurthestPoint, saveTexture, saveTextureNumRows, saveAnimationLength, saveJointCount},

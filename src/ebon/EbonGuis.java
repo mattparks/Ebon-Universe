@@ -3,7 +3,6 @@ package ebon;
 import ebon.options.*;
 import ebon.uis.*;
 import flounder.devices.*;
-import flounder.framework.*;
 import flounder.guis.*;
 import flounder.inputs.*;
 import flounder.logger.*;
@@ -11,7 +10,7 @@ import flounder.profiling.*;
 
 import static org.lwjgl.glfw.GLFW.*;
 
-public class EbonGuis extends IExtension implements IGuiMaster {
+public class EbonGuis extends IGuiMaster {
 	private MasterMenu masterMenu;
 	private MasterOverlay masterOverlay;
 
@@ -22,7 +21,7 @@ public class EbonGuis extends IExtension implements IGuiMaster {
 	private boolean forceOpenGUIs;
 
 	public EbonGuis() {
-		super(FlounderLogger.class, FlounderProfiler.class, FlounderGuis.class);
+		super(FlounderLogger.class, FlounderProfiler.class);
 	}
 
 	@Override
@@ -57,6 +56,10 @@ public class EbonGuis extends IExtension implements IGuiMaster {
 			masterMenu.display(!masterMenu.isDisplayed());
 			masterOverlay.show(!masterMenu.isDisplayed());
 		}
+	}
+
+	@Override
+	public void profile() {
 	}
 
 	@Override

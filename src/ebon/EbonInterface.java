@@ -5,7 +5,6 @@ import ebon.options.*;
 import ebon.world.*;
 import flounder.devices.*;
 import flounder.events.*;
-import flounder.framework.*;
 import flounder.guis.*;
 import flounder.helpers.*;
 import flounder.inputs.*;
@@ -21,7 +20,7 @@ import flounder.standard.*;
 
 import static org.lwjgl.glfw.GLFW.*;
 
-public class EbonInterface extends IExtension implements IStandard {
+public class EbonInterface extends IStandard {
 	private KeyButton screenshot;
 	private KeyButton fullscreen;
 	private KeyButton polygons;
@@ -32,7 +31,7 @@ public class EbonInterface extends IExtension implements IStandard {
 	private Playlist pausedMusic;
 
 	public EbonInterface() {
-		super(FlounderLogger.class, FlounderStandard.class, FlounderEvents.class, FlounderDisplay.class, FlounderGuis.class, FlounderSound.class, EbonWorld.class);
+		super(FlounderLogger.class, FlounderEvents.class, FlounderDisplay.class, FlounderGuis.class, FlounderSound.class, EbonWorld.class);
 	}
 
 	@Override
@@ -156,12 +155,17 @@ public class EbonInterface extends IExtension implements IStandard {
 	}
 
 	@Override
-	public boolean isActive() {
-		return true;
+	public void profile() {
+
 	}
 
 	@Override
 	public void dispose() {
 		SteamAPI.shutdown();
+	}
+
+	@Override
+	public boolean isActive() {
+		return true;
 	}
 }

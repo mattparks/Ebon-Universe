@@ -1,16 +1,14 @@
 package ebon.players;
 
 import flounder.camera.*;
-import flounder.framework.*;
-import flounder.guis.*;
 import flounder.maths.vectors.*;
 
-public class PlayerFocus extends IExtension implements IPlayer {
+public class PlayerFocus extends IPlayer {
 	private Vector3f position;
 	private Vector3f rotation;
 
 	public PlayerFocus() {
-		super(FlounderGuis.class);
+		super();
 	}
 
 	@Override

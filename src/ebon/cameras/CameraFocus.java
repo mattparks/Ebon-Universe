@@ -14,7 +14,7 @@ import flounder.maths.vectors.*;
 import flounder.profiling.*;
 import flounder.space.*;
 
-public class CameraFocus extends IExtension implements ICamera {
+public class CameraFocus extends ICamera {
 	private static final float NEAR_PLANE = 0.1f;
 	private static final float FAR_PLANE = (float) (2560) * 4.0f;
 	private static final float FIELD_OF_VIEW = 72.0f;
@@ -49,7 +49,7 @@ public class CameraFocus extends IExtension implements ICamera {
 	private float targetRotationAngle;
 
 	public CameraFocus() {
-		super(FlounderLogger.class, FlounderProfiler.class, FlounderCamera.class, FlounderJoysticks.class, FlounderKeyboard.class, FlounderMouse.class);
+		super(FlounderLogger.class, FlounderProfiler.class, FlounderJoysticks.class, FlounderKeyboard.class, FlounderMouse.class);
 	}
 
 	@Override

@@ -9,19 +9,17 @@ import flounder.camera.*;
 import flounder.devices.*;
 import flounder.fbos.*;
 import flounder.fonts.*;
-import flounder.framework.*;
 import flounder.guis.*;
 import flounder.helpers.*;
 import flounder.logger.*;
 import flounder.maths.*;
 import flounder.maths.vectors.*;
-import flounder.models.*;
 import flounder.physics.bounding.*;
 import flounder.post.filters.*;
 import flounder.profiling.*;
 import flounder.renderer.*;
 
-public class EbonRenderer extends IExtension implements IRendererMaster {
+public class EbonRenderer extends IRendererMaster {
 	public static final Vector4f POSITIVE_INFINITY = new Vector4f(0.0f, 1.0f, 0.0f, Float.POSITIVE_INFINITY);
 	private static final Colour CLEAR_COLOUR = new Colour(0.0f, 0.0f, 0.0f);
 
@@ -42,7 +40,7 @@ public class EbonRenderer extends IExtension implements IRendererMaster {
 	private FilterTiltShift filterTiltShift;
 
 	public EbonRenderer() {
-		super(FlounderLogger.class, FlounderProfiler.class, FlounderDisplay.class, FlounderRenderer.class, FlounderModels.class);
+		super(FlounderLogger.class, FlounderProfiler.class, FlounderDisplay.class);
 	}
 
 	@Override

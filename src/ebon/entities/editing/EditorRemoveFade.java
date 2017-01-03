@@ -60,8 +60,8 @@ public class EditorRemoveFade extends IEditorComponent {
 		timeSlider.setPaintLabels(true);
 		panel.add(timeSlider);
 
-		// ModelObject Button.
-		JButton testButton = new JButton("ModelObject Remove");
+		// Test Button.
+		JButton testButton = new JButton("Test Remove");
 		testButton.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {

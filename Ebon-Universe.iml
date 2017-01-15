@@ -8,6 +8,8 @@
       <excludeFolder url="file://$MODULE_DIR$/.idea" />
       <excludeFolder url="file://$MODULE_DIR$/Editor-Entity" />
       <excludeFolder url="file://$MODULE_DIR$/Editor-Particle" />
+      <excludeFolder url="file://$MODULE_DIR$/Flounder-Animation" />
+      <excludeFolder url="file://$MODULE_DIR$/Flounder-Engine" />
       <excludeFolder url="file://$MODULE_DIR$/configs" />
       <excludeFolder url="file://$MODULE_DIR$/entities" />
       <excludeFolder url="file://$MODULE_DIR$/logs" />

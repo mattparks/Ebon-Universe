@@ -20,7 +20,5 @@
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="module" module-name="Flounder-Engine" exported="" />
-    <orderEntry type="module" module-name="Flounder-Animation" exported="" />
-    <orderEntry type="module" module-name="Flounder-Entities" exported="" />
   </component>
 </module>

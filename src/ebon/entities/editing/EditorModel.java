@@ -1,8 +1,9 @@
 package ebon.entities.editing;
 
-import ebon.entities.*;
 import ebon.entities.components.*;
-import ebon.entities.loading.*;
+import flounder.entities.*;
+import flounder.entities.components.*;
+import flounder.entities.template.*;
 import flounder.helpers.*;
 import flounder.logger.*;
 import flounder.maths.vectors.*;
@@ -15,7 +16,7 @@ import javax.swing.event.*;
 import java.awt.event.*;
 import java.io.*;
 
-public class EditorModel extends IEditorComponent {
+public class EditorModel extends IComponentEditor {
 	public ComponentModel component;
 
 	private MyFile pathModel;
@@ -26,7 +27,7 @@ public class EditorModel extends IEditorComponent {
 		this.component = new ComponentModel(entity, null, 1.0f, Texture.newTexture(new MyFile(MyFile.RES_FOLDER, "undefined.png")).create(), null, 0);
 	}
 
-	public EditorModel(IEntityComponent component) {
+	public EditorModel(IComponentEntity component) {
 		this.component = (ComponentModel) component;
 	}
 

@@ -1,17 +1,19 @@
 package ebon.entities.components;
 
-import ebon.entities.*;
-import ebon.entities.loading.*;
 import ebon.particles.*;
 import ebon.particles.loading.*;
 import ebon.particles.spawns.*;
+import flounder.entities.*;
+import flounder.entities.components.*;
+import flounder.entities.template.*;
 import flounder.logger.*;
 import flounder.maths.vectors.*;
+import flounder.physics.*;
 
 import java.lang.reflect.*;
 import java.util.*;
 
-public class ComponentParticleSystem extends IEntityComponent {
+public class ComponentParticleSystem extends IComponentEntity {
 	public static final int ID = EntityIDAssigner.getId();
 
 	private ParticleSystem particleSystem;
@@ -88,6 +90,11 @@ public class ComponentParticleSystem extends IEntityComponent {
 
 	public Vector3f getCentreOffset() {
 		return centreOffset;
+	}
+
+	@Override
+	public IBounding getBounding() {
+		return null;
 	}
 
 	@Override

@@ -1,11 +1,13 @@
 package ebon.entities.components;
 
-import ebon.entities.*;
+import flounder.entities.*;
+import flounder.entities.components.*;
+import flounder.physics.*;
 
 /**
  * Performs some function when an entity is removed.
  */
-public abstract class ComponentRemove extends IEntityComponent {
+public abstract class ComponentRemove extends IComponentEntity {
 	public static final int ID = EntityIDAssigner.getId();
 
 	private boolean activated;
@@ -25,9 +27,10 @@ public abstract class ComponentRemove extends IEntityComponent {
 	}
 
 	/**
-	 * Activates this component. Calls the onActivate function, and begins calling the removeUpdate function on every update.
+	 * Activates this component, then removes the entity. Calls the onActivate function, and begins calling the removeUpdate function on every update.
 	 */
 	public void activate() {
+		super.getEntity().setRemoved(true);
 		activated = true;
 		onActivate();
 	}
@@ -44,6 +47,11 @@ public abstract class ComponentRemove extends IEntityComponent {
 		}
 
 		removeUpdate();
+	}
+
+	@Override
+	public IBounding getBounding() {
+		return null;
 	}
 
 	/**

@@ -5,6 +5,7 @@ import ebon.world.*;
 import flounder.animation.*;
 import flounder.camera.*;
 import flounder.devices.*;
+import flounder.entities.*;
 import flounder.helpers.*;
 import flounder.maths.vectors.*;
 import flounder.profiling.*;
@@ -41,13 +42,13 @@ public class AnimatedRenderer extends IRenderer {
 
 	@Override
 	public void renderObjects(Vector4f clipPlane, ICamera camera) {
-		if (!shader.isLoaded() || EbonEntities.getEntities() == null) {
+		if (!shader.isLoaded() || FlounderEntities.getEntities() == null) {
 			return;
 		}
 
 		prepareRendering(clipPlane, camera);
 
-		for (Entity entity : EbonEntities.getEntities().getAll(new ArrayList<>())) { // .queryInFrustum(new ArrayList<>(), FlounderCamera.getCamera().getViewFrustum())
+		for (Entity entity : FlounderEntities.getEntities().getAll(new ArrayList<>())) { // .queryInFrustum(new ArrayList<>(), FlounderCamera.getCamera().getViewFrustum())
 			renderEntity(entity);
 		}
 
@@ -80,11 +81,11 @@ public class AnimatedRenderer extends IRenderer {
 	private void renderEntity(Entity entity) {
 		ComponentAnimation componentAnimation = (ComponentAnimation) entity.getComponent(ComponentAnimation.ID);
 
-		if (componentAnimation == null || componentAnimation.getModelAnimated() == null) {
+		if (componentAnimation == null || componentAnimation.getModel() == null) {
 			return;
 		}
 
-		OpenGlUtils.bindVAO(componentAnimation.getModelAnimated().getVaoID(), 0, 1, 2, 3, 4, 5);
+		OpenGlUtils.bindVAO(componentAnimation.getModel().getVaoID(), 0, 1, 2, 3, 4, 5);
 
 		if (componentAnimation.getTexture() != null) {
 			OpenGlUtils.bindTexture(componentAnimation.getTexture(), 0);
@@ -101,9 +102,9 @@ public class AnimatedRenderer extends IRenderer {
 			shader.getUniformMat4("jointTransforms[" + i + "]").loadMat4(componentAnimation.getJointTransforms()[i]);
 		}
 
-		shader.getUniformMat4("modelMatrix").loadMat4(entity.getModelMatrix());
+		shader.getUniformMat4("modelMatrix").loadMat4(componentAnimation.getModelMatrix());
 
-		glDrawElements(GL_TRIANGLES, componentAnimation.getModelAnimated().getVaoLength(), GL_UNSIGNED_INT, 0);
+		glDrawElements(GL_TRIANGLES, componentAnimation.getModel().getVaoLength(), GL_UNSIGNED_INT, 0);
 		OpenGlUtils.unbindVAO(0, 1, 2, 3, 4, 5);
 	}
 

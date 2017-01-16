@@ -5,6 +5,7 @@ import ebon.world.*;
 import flounder.animation.*;
 import flounder.camera.*;
 import flounder.devices.*;
+import flounder.entities.*;
 import flounder.helpers.*;
 import flounder.maths.vectors.*;
 import flounder.profiling.*;
@@ -21,7 +22,7 @@ import static org.lwjgl.opengl.GL20.*;
 /**
  * A renderer that is used to render entity's.
  */
-public class EntityRenderer extends IRenderer {
+public class EntitiesRenderer extends IRenderer {
 	private static final int NUMBER_LIGHTS = 4;
 
 	private static final MyFile VERTEX_SHADER = new MyFile(Shader.SHADERS_LOC, "entities", "entityVertex.glsl");
@@ -33,7 +34,7 @@ public class EntityRenderer extends IRenderer {
 	/**
 	 * Creates a new entity renderer.
 	 */
-	public EntityRenderer() {
+	public EntitiesRenderer() {
 		shader = Shader.newShader("entities").setShaderTypes(
 				new ShaderType(GL_VERTEX_SHADER, VERTEX_SHADER),
 				new ShaderType(GL_FRAGMENT_SHADER, FRAGMENT_SHADER)
@@ -43,13 +44,13 @@ public class EntityRenderer extends IRenderer {
 
 	@Override
 	public void renderObjects(Vector4f clipPlane, ICamera camera) {
-		if (!shader.isLoaded() || EbonEntities.getEntities() == null) {
+		if (!shader.isLoaded() || FlounderEntities.getEntities() == null) {
 			return;
 		}
 
 		prepareRendering(clipPlane, camera);
 
-		for (Entity entity : EbonEntities.getEntities().getAll(new ArrayList<>())) { // .queryInFrustum(new ArrayList<>(), FlounderCamera.getCamera().getViewFrustum())
+		for (Entity entity : FlounderEntities.getEntities().getAll(new ArrayList<>())) { // .queryInFrustum(new ArrayList<>(), FlounderCamera.getCamera().getViewFrustum())
 			renderEntity(entity);
 		}
 
@@ -109,7 +110,7 @@ public class EntityRenderer extends IRenderer {
 			shader.getUniformBool("useNormalMap").loadBoolean(false);
 		}
 
-		shader.getUniformMat4("modelMatrix").loadMat4(entity.getModelMatrix());
+		shader.getUniformMat4("modelMatrix").loadMat4(componentModel.getModelMatrix());
 		shader.getUniformFloat("transparency").loadFloat(componentModel.getTransparency());
 
 		glDrawElements(GL_TRIANGLES, componentModel.getModel().getVaoLength(), GL_UNSIGNED_INT, 0);

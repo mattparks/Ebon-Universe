@@ -1,7 +1,8 @@
 package ebon.entities.components;
 
-import ebon.entities.*;
-import ebon.entities.loading.*;
+import flounder.entities.*;
+import flounder.entities.components.*;
+import flounder.entities.template.*;
 import flounder.maths.vectors.*;
 import flounder.physics.*;
 
@@ -10,7 +11,7 @@ import flounder.physics.*;
  * <p>
  * Note: this component requires that both engine.entities have a ComponentCollider. Should one entity not have a ComponentCollider, then no collisions will be detected, because there is no collider to detect collisions against.
  */
-public class ComponentCollision extends IEntityComponent {
+public class ComponentCollision extends IComponentEntity implements IComponentMove {
 	public static final int ID = EntityIDAssigner.getId();
 
 	/**
@@ -32,6 +33,10 @@ public class ComponentCollision extends IEntityComponent {
 		super(entity, ID);
 	}
 
+	@Override
+	public void update() {
+	}
+
 	/**
 	 * Resolves AABB collisions with any other CollisionComponents encountered.
 	 *
@@ -51,7 +56,7 @@ public class ComponentCollision extends IEntityComponent {
 		QuickHull hull1 = collider1.getHull();
 		final AABB collisionRange = AABB.stretch(aabb1, null, amount); // The range in where there can be collisions!
 
-		getEntity().visitInRange(ComponentCollision.ID, collisionRange, (Entity entity, IEntityComponent component) -> {
+		getEntity().visitInRange(ComponentCollision.ID, collisionRange, (Entity entity, IComponentEntity component) -> {
 			if (entity.equals(getEntity())) {
 				return;
 			}
@@ -137,7 +142,16 @@ public class ComponentCollision extends IEntityComponent {
 	}
 
 	@Override
-	public void update() {
+	public IBounding getBounding() {
+		return null;
+	}
+
+	@Override
+	public void move(Entity entity, Vector3f moveAmount, Vector3f rotateAmount) {
+		Vector3f move = resolveAABBCollisions(moveAmount);
+		Vector3f rotate = rotateAmount; // TODO: Stop some rotations?
+		entity.getPosition().set(entity.getPosition().x + move.x, entity.getPosition().y + move.y, entity.getPosition().z + move.z);
+		entity.getRotation().set(entity.getRotation().x + rotate.x, entity.getRotation().y + rotate.y, entity.getRotation().z + rotate.z);
 	}
 
 	@Override

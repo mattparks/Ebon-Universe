@@ -3,6 +3,7 @@ package ebon.world;
 import ebon.entities.*;
 import ebon.particles.*;
 import flounder.devices.*;
+import flounder.entities.*;
 import flounder.framework.*;
 import flounder.lights.*;
 import flounder.logger.*;
@@ -20,7 +21,7 @@ public class EbonWorld extends IModule {
 	private EbonTesting ebonTesting;
 
 	public EbonWorld() {
-		super(ModuleUpdate.UPDATE_POST, FlounderLogger.class, FlounderProfiler.class, EbonEntities.class, EbonParticles.class);
+		super(ModuleUpdate.UPDATE_POST, FlounderLogger.class, FlounderProfiler.class, FlounderEntities.class, EbonParticles.class);
 	}
 
 	@Override
@@ -31,7 +32,7 @@ public class EbonWorld extends IModule {
 		if (FlounderDisplay.getTitle().equals("Ebon Universe")) {
 			//	this.ebonTesting = new EbonTesting();
 			// EbonEntities.load("dragon").createEntity(EbonEntities.getEntities(), new Vector3f(0.0f, -5.0f, 10.0f), new Vector3f());
-			InstanceCowboy e = new InstanceCowboy(EbonEntities.getEntities(), new Vector3f(0.0f, -5.0f, 10.0f), new Vector3f(0, 180, 0));
+			InstanceCowboy e = new InstanceCowboy(FlounderEntities.getEntities(), new Vector3f(0.0f, -5.0f, 10.0f), new Vector3f(0, 180, 0));
 			// EbonEntities.load("cowboy").createEntity(EbonEntities.getEntities(), new Vector3f(0.0f, -5.0f, 10.0f), new Vector3f(0, 180, 0));
 		}
 	}

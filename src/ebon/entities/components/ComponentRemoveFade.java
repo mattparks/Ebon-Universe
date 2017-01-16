@@ -1,7 +1,7 @@
 package ebon.entities.components;
 
-import ebon.entities.*;
-import ebon.entities.loading.*;
+import flounder.entities.*;
+import flounder.entities.template.*;
 import flounder.framework.*;
 
 /**

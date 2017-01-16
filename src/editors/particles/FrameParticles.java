@@ -3,7 +3,6 @@ package editors.particles;
 import ebon.particles.*;
 import ebon.particles.loading.*;
 import editors.editor.*;
-import editors.particles.*;
 import flounder.devices.*;
 import flounder.events.*;
 import flounder.framework.*;

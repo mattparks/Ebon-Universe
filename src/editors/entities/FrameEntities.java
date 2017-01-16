@@ -1,9 +1,9 @@
 package editors.entities;
 
-import ebon.entities.*;
-import ebon.entities.editing.*;
 import editors.editor.*;
 import flounder.devices.*;
+import flounder.entities.*;
+import flounder.entities.components.*;
 import flounder.framework.*;
 import flounder.helpers.*;
 import flounder.logger.*;
@@ -37,7 +37,7 @@ public class FrameEntities extends IStandard {
 	public static JButton resetButton;
 	public static JButton saveButton;
 
-	public static List<IEditorComponent> editorComponents;
+	public static List<IComponentEditor> editorComponents;
 
 	private static List<String> addedTabs = new ArrayList<>();
 
@@ -125,8 +125,8 @@ public class FrameEntities extends IStandard {
 		// Component Dropdown.
 		componentDropdown = new JComboBox();
 
-		for (int i = 0; i < IEditorComponent.EDITOR_COMPONENTS.length; i++) {
-			componentDropdown.addItem(IEditorComponent.EDITOR_COMPONENTS[i].getTabName());
+		for (int i = 0; i < IComponentEditor.EDITOR_COMPONENTS.length; i++) {
+			componentDropdown.addItem(IComponentEditor.EDITOR_COMPONENTS[i].getTabName());
 		}
 
 		mainPanel.add(componentDropdown);
@@ -137,24 +137,24 @@ public class FrameEntities extends IStandard {
 		componentAdd.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				String component = (String) componentDropdown.getSelectedItem();
-				IEditorComponent editorComponent = null;
+				IComponentEditor editorComponent = null;
 
-				for (int i = 0; i < IEditorComponent.EDITOR_COMPONENTS.length; i++) {
-					if (IEditorComponent.EDITOR_COMPONENTS[i].getTabName().equals(component)) {
-						if (((ExtensionEntities) FlounderEditor.getEditorType()).focusEntity != null && ((ExtensionEntities) FlounderEditor.getEditorType()).focusEntity.getComponent(IEditorComponent.EDITOR_COMPONENTS[i].getComponent().getId()) == null) {
+				for (int i = 0; i < IComponentEditor.EDITOR_COMPONENTS.length; i++) {
+					if (IComponentEditor.EDITOR_COMPONENTS[i].getTabName().equals(component)) {
+						if (((ExtensionEntities) FlounderEditor.getEditorType()).focusEntity != null && ((ExtensionEntities) FlounderEditor.getEditorType()).focusEntity.getComponent(IComponentEditor.EDITOR_COMPONENTS[i].getComponent().getId()) == null) {
 							try {
 								FlounderLogger.log("Adding component: " + component);
-								Class componentClass = Class.forName(IEditorComponent.EDITOR_COMPONENTS[i].getClass().getName());
+								Class componentClass = Class.forName(IComponentEditor.EDITOR_COMPONENTS[i].getClass().getName());
 								Class[] componentTypes = new Class[]{Entity.class};
 								@SuppressWarnings("unchecked") Constructor componentConstructor = componentClass.getConstructor(componentTypes);
 								Object[] componentParameters = new Object[]{((ExtensionEntities) FlounderEditor.getEditorType()).focusEntity};
-								editorComponent = (IEditorComponent) componentConstructor.newInstance(componentParameters);
+								editorComponent = (IComponentEditor) componentConstructor.newInstance(componentParameters);
 							} catch (ClassNotFoundException | IllegalAccessException | InstantiationException | InvocationTargetException | NoSuchMethodException ex) {
-								FlounderLogger.error("While loading component" + IEditorComponent.EDITOR_COMPONENTS[i] + "'s constructor could not be found!");
+								FlounderLogger.error("While loading component" + IComponentEditor.EDITOR_COMPONENTS[i] + "'s constructor could not be found!");
 								FlounderLogger.exception(ex);
 							}
 						} else {
-							FlounderLogger.error("Entity already has instance of " + IEditorComponent.EDITOR_COMPONENTS[i]);
+							FlounderLogger.error("Entity already has instance of " + IComponentEditor.EDITOR_COMPONENTS[i]);
 						}
 					}
 				}
@@ -164,7 +164,7 @@ public class FrameEntities extends IStandard {
 				if (editorComponent != null) {
 					editorComponents.add(editorComponent);
 
-					JPanel panel = IEditorComponent.makeTextPanel();
+					JPanel panel = IComponentEditor.makeTextPanel();
 					editorComponent.addToPanel(panel);
 					componentAddRemove(panel, editorComponent);
 					addSideTab(component, panel);
@@ -297,7 +297,7 @@ public class FrameEntities extends IStandard {
 		mainPanel.add(resetButton);
 	}
 
-	public static void componentAddRemove(JPanel panel, IEditorComponent editorComponent) {
+	public static void componentAddRemove(JPanel panel, IComponentEditor editorComponent) {
 		JButton removeButton = new JButton("Remove");
 		removeButton.addActionListener(new ActionListener() {
 			@Override
@@ -317,18 +317,18 @@ public class FrameEntities extends IStandard {
 
 	@Override
 	public void update() {
-		editorComponents.forEach(IEditorComponent::update);
+		editorComponents.forEach(IComponentEditor::update);
 
-		for (Pair<String, JPanel> p : IEditorComponent.ADD_SIDE_TAB) {
+		for (Pair<String, JPanel> p : IComponentEditor.ADD_SIDE_TAB) {
 			addSideTab(p.getFirst(), p.getSecond());
 		}
 
-		for (String s : IEditorComponent.REMOVE_SIDE_TAB) {
+		for (String s : IComponentEditor.REMOVE_SIDE_TAB) {
 			removeSideTab(s);
 		}
 
-		IEditorComponent.ADD_SIDE_TAB.clear();
-		IEditorComponent.REMOVE_SIDE_TAB.clear();
+		IComponentEditor.ADD_SIDE_TAB.clear();
+		IComponentEditor.REMOVE_SIDE_TAB.clear();
 	}
 
 	@Override
@@ -341,7 +341,7 @@ public class FrameEntities extends IStandard {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				if (((ExtensionEntities) FlounderEditor.getEditorType()).focusEntity != null) {
-					EbonEntities.save(((ExtensionEntities) FlounderEditor.getEditorType()).focusEntity, editorComponents, ((ExtensionEntities) FlounderEditor.getEditorType()).entityName);
+					FlounderEntities.save(((ExtensionEntities) FlounderEditor.getEditorType()).focusEntity, editorComponents, ((ExtensionEntities) FlounderEditor.getEditorType()).entityName);
 				}
 			}
 		});

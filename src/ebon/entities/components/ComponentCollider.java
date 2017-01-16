@@ -1,7 +1,8 @@
 package ebon.entities.components;
 
-import ebon.entities.*;
-import ebon.entities.loading.*;
+import flounder.entities.*;
+import flounder.entities.components.*;
+import flounder.entities.template.*;
 import flounder.physics.*;
 import flounder.physics.bounding.*;
 
@@ -10,7 +11,7 @@ import flounder.physics.bounding.*;
  * <p>
  * For example, a checkpoint can use a ComponentCollider to detect when the player has reached it.
  */
-public class ComponentCollider extends IEntityComponent {
+public class ComponentCollider extends IComponentEntity {
 	public static final int ID = EntityIDAssigner.getId();
 
 	private AABB aabb;
@@ -98,6 +99,11 @@ public class ComponentCollider extends IEntityComponent {
 		if (renderAABB) {
 			FlounderBounding.addShapeRender(aabb);
 		}
+	}
+
+	@Override
+	public IBounding getBounding() {
+		return aabb;
 	}
 
 	@Override

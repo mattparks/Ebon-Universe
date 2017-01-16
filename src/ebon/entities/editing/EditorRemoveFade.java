@@ -1,15 +1,16 @@
 package ebon.entities.editing;
 
-import ebon.entities.*;
 import ebon.entities.components.*;
-import ebon.entities.loading.*;
+import flounder.entities.*;
+import flounder.entities.components.*;
+import flounder.entities.template.*;
 import flounder.helpers.*;
 
 import javax.swing.*;
 import javax.swing.event.*;
 import java.awt.event.*;
 
-public class EditorRemoveFade extends IEditorComponent {
+public class EditorRemoveFade extends IComponentEditor {
 	public ComponentRemoveFade component;
 	private boolean testRemove;
 
@@ -19,7 +20,7 @@ public class EditorRemoveFade extends IEditorComponent {
 		this.testRemove = false;
 	}
 
-	public EditorRemoveFade(IEntityComponent component) {
+	public EditorRemoveFade(IComponentEntity component) {
 		this.component = (ComponentRemoveFade) component;
 		this.component.setTestMode(true);
 		this.testRemove = false;
@@ -74,7 +75,6 @@ public class EditorRemoveFade extends IEditorComponent {
 	@Override
 	public void update() {
 		if (component.getEntity() != null) {
-			component.getEntity().remove();
 			component.activate();
 			testRemove = false;
 		}

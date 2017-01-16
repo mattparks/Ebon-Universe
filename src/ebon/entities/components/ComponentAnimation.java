@@ -1,14 +1,16 @@
 package ebon.entities.components;
 
-import ebon.entities.*;
-import ebon.entities.loading.*;
 import flounder.animation.*;
 import flounder.collada.*;
 import flounder.collada.geometry.*;
 import flounder.collada.joints.*;
+import flounder.entities.*;
+import flounder.entities.components.*;
+import flounder.entities.template.*;
 import flounder.helpers.*;
 import flounder.maths.matrices.*;
 import flounder.maths.vectors.*;
+import flounder.physics.*;
 import flounder.resources.*;
 import flounder.textures.*;
 
@@ -17,11 +19,12 @@ import java.util.*;
 /**
  * Creates a animation used to set animation properties.
  */
-public class ComponentAnimation extends IEntityComponent {
+public class ComponentAnimation extends IComponentEntity {
 	public static final int ID = EntityIDAssigner.getId();
 
-	private ModelAnimated modelAnimated;
+	private ModelAnimated model;
 	private float scale;
+	private Matrix4f modelMatrix;
 
 	private Texture texture;
 	private int textureIndex;
@@ -32,22 +35,23 @@ public class ComponentAnimation extends IEntityComponent {
 	 * Creates a new ComponentAnimation.
 	 *
 	 * @param entity The entity this component is attached to.
-	 * @param modelAnimated The animated model to use when animating and rendering.
+	 * @param model The animated model to use when animating and rendering.
 	 * @param scale The scale of the entity.
 	 * @param texture The diffuse texture for the entity.
 	 * @param textureIndex What texture index this entity should renderObjects from (0 default).
 	 */
-	public ComponentAnimation(Entity entity, ModelAnimated modelAnimated, float scale, Texture texture, int textureIndex) {
+	public ComponentAnimation(Entity entity, ModelAnimated model, float scale, Texture texture, int textureIndex) {
 		super(entity, ID);
-		this.modelAnimated = modelAnimated;
+		this.model = model;
 		this.scale = scale;
+		this.modelMatrix = new Matrix4f();
 
 		this.texture = texture;
 		this.textureIndex = textureIndex;
 
-		if (modelAnimated != null) {
-			modelAnimated.getHeadJoint().calculateInverseBindTransform(Matrix4f.rotate(new Matrix4f(), new Vector3f(1.0f, 0.0f, 0.0f), (float) Math.toRadians(-90.0f), null));
-			this.animator = new Animator(modelAnimated.getHeadJoint());
+		if (model != null) {
+			model.getHeadJoint().calculateInverseBindTransform(Matrix4f.rotate(new Matrix4f(), new Vector3f(1.0f, 0.0f, 0.0f), (float) Math.toRadians(-90.0f), null));
+			this.animator = new Animator(model.getHeadJoint());
 		}
 	}
 
@@ -127,7 +131,7 @@ public class ComponentAnimation extends IEntityComponent {
 
 			addChildren(headJoint.getFirst(), headJoint.getSecond(), allJoints);
 
-			this.modelAnimated = new ModelAnimated(
+			this.model = new ModelAnimated(
 					new MeshData(
 							EntityTemplate.toFloatArray(template.getSectionData(ComponentAnimation.this, "Vertices")),
 							EntityTemplate.toFloatArray(template.getSectionData(ComponentAnimation.this, "TextureCoords")),
@@ -219,8 +223,8 @@ public class ComponentAnimation extends IEntityComponent {
 				frames[i] = keyFrames.get(i);
 			}
 
-			modelAnimated.getHeadJoint().calculateInverseBindTransform(Matrix4f.rotate(new Matrix4f(), new Vector3f(1.0f, 0.0f, 0.0f), (float) Math.toRadians(-90.0f), null));
-			this.animator = new Animator(modelAnimated.getHeadJoint());
+			model.getHeadJoint().calculateInverseBindTransform(Matrix4f.rotate(new Matrix4f(), new Vector3f(1.0f, 0.0f, 0.0f), (float) Math.toRadians(-90.0f), null));
+			this.animator = new Animator(model.getHeadJoint());
 
 			Animation animation = new Animation(animationLength, frames);
 			doAnimation(animation);
@@ -288,19 +292,32 @@ public class ComponentAnimation extends IEntityComponent {
 	}
 
 	/**
+	 * Gets the entitys model matrix.
+	 *
+	 * @return The entitys model matrix.
+	 */
+	public Matrix4f getModelMatrix() {
+		modelMatrix.setIdentity();
+		float scale = 1.0f;
+		scale = (super.getEntity().getComponent(ComponentAnimation.ID) != null) ? ((ComponentAnimation) super.getEntity().getComponent(ComponentAnimation.ID)).getScale() : scale;
+		Matrix4f.transformationMatrix(super.getEntity().getPosition(), super.getEntity().getRotation(), scale, modelMatrix);
+		return modelMatrix;
+	}
+
+	/**
 	 * Gets the animated model for this entity.
 	 *
 	 * @return The animated model for this entity.
 	 */
-	public ModelAnimated getModelAnimated() {
-		return modelAnimated;
+	public ModelAnimated getModel() {
+		return model;
 	}
 
-	public void setModelAnimated(ModelAnimated modelAnimated) {
-		if (this.modelAnimated != modelAnimated) {
-			this.modelAnimated = modelAnimated;
-			this.modelAnimated.getHeadJoint().calculateInverseBindTransform(Matrix4f.rotate(new Matrix4f(), new Vector3f(1.0f, 0.0f, 0.0f), (float) Math.toRadians(-90.0f), null));
-			this.animator = new Animator(this.modelAnimated.getHeadJoint());
+	public void setModel(ModelAnimated model) {
+		if (this.model != model) {
+			this.model = model;
+			this.model.getHeadJoint().calculateInverseBindTransform(Matrix4f.rotate(new Matrix4f(), new Vector3f(1.0f, 0.0f, 0.0f), (float) Math.toRadians(-90.0f), null));
+			this.animator = new Animator(this.model.getHeadJoint());
 		}
 	}
 
@@ -312,8 +329,8 @@ public class ComponentAnimation extends IEntityComponent {
 	 * @return The array of model-space transforms of the joints in the current animation pose.
 	 */
 	public Matrix4f[] getJointTransforms() {
-		Matrix4f[] jointMatrices = new Matrix4f[modelAnimated.getJointsData().getJointCount()];
-		addJointsToArray(modelAnimated.getHeadJoint(), jointMatrices);
+		Matrix4f[] jointMatrices = new Matrix4f[model.getJointsData().getJointCount()];
+		addJointsToArray(model.getHeadJoint(), jointMatrices);
 		return jointMatrices;
 	}
 
@@ -370,6 +387,11 @@ public class ComponentAnimation extends IEntityComponent {
 
 	public Animator getAnimator() {
 		return animator;
+	}
+
+	@Override
+	public IBounding getBounding() {
+		return null;
 	}
 
 	@Override

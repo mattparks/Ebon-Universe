@@ -1,11 +1,11 @@
 package ebon.entities.editing;
 
-
-import ebon.entities.*;
 import ebon.entities.components.*;
 import ebon.entities.editing.particles.*;
-import ebon.entities.loading.*;
 import ebon.particles.loading.*;
+import flounder.entities.*;
+import flounder.entities.components.*;
+import flounder.entities.template.*;
 import flounder.helpers.*;
 import flounder.logger.*;
 import flounder.physics.*;
@@ -18,7 +18,7 @@ import java.io.*;
 import java.lang.reflect.*;
 import java.util.*;
 
-public class EditorParticleSystem extends IEditorComponent {
+public class EditorParticleSystem extends IComponentEditor {
 	private IEditorParticleSpawn[] spawns = new IEditorParticleSpawn[]{
 			new EditorParticleCircle(),
 			new EditorParticleLine(),
@@ -37,7 +37,7 @@ public class EditorParticleSystem extends IEditorComponent {
 		this.renderCentre = true;
 	}
 
-	public EditorParticleSystem(IEntityComponent component) {
+	public EditorParticleSystem(IComponentEntity component) {
 		this.component = (ComponentParticleSystem) component;
 		this.spawnCentre = new Sphere(0.5f);
 		this.renderCentre = true;
@@ -180,16 +180,16 @@ public class EditorParticleSystem extends IEditorComponent {
 
 				if (component.getParticleSystem().getSpawn() != null) {
 					String classname = component.getParticleSystem().getSpawn().getClass().getName();
-					IEditorComponent.REMOVE_SIDE_TAB.add(getTabName() + " (" + classname.split("\\.")[ByteWork.getCharCount(classname, '.')].replace("Spawn", "") + ")");
+					IComponentEditor.REMOVE_SIDE_TAB.add(getTabName() + " (" + classname.split("\\.")[ByteWork.getCharCount(classname, '.')].replace("Spawn", "") + ")");
 				}
 
 				if (particleSpawn != null) {
 					component.getParticleSystem().setSpawn(particleSpawn.getComponent());
 					systemSpawn = particleSpawn;
 
-					JPanel panel = IEditorComponent.makeTextPanel();
+					JPanel panel = IComponentEditor.makeTextPanel();
 					particleSpawn.addToPanel(panel);
-					IEditorComponent.ADD_SIDE_TAB.add(new Pair<>(getTabName() + " (" + particleSpawn.getTabName() + ")", panel));
+					IComponentEditor.ADD_SIDE_TAB.add(new Pair<>(getTabName() + " (" + particleSpawn.getTabName() + ")", panel));
 				}
 			}
 		});

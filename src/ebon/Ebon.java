@@ -11,9 +11,9 @@ import flounder.sounds.*;
 
 public class Ebon extends FlounderFramework {
 	public static void main(String[] args) {
-		Ebon founderTester = new Ebon();
-		founderTester.run();
-		founderTester.closeConfigs();
+		Ebon ebon = new Ebon();
+		ebon.run();
+		ebon.closeConfigs();
 		System.exit(0);
 	}
 

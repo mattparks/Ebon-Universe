@@ -1,13 +1,13 @@
 package editors.entities;
 
-import ebon.entities.*;
 import ebon.entities.components.*;
-import ebon.entities.editing.*;
 import ebon.particles.*;
 import ebon.world.*;
 import editors.editor.*;
 import flounder.camera.*;
 import flounder.devices.*;
+import flounder.entities.*;
+import flounder.entities.components.*;
 import flounder.framework.*;
 import flounder.helpers.*;
 import flounder.lights.*;
@@ -58,8 +58,8 @@ public class ExtensionEntities extends IEditorType {
 			focusEntity.forceRemove();
 		}
 
-		focusEntity = new Entity(EbonEntities.getEntities(), new Vector3f(), new Vector3f());
-		//focusEntity = EbonEntities.load("dragon").createEntity(EbonEntities.getEntities(), new Vector3f(), new Vector3f());
+		focusEntity = new Entity(FlounderEntities.getEntities(), new Vector3f(), new Vector3f());
+		//focusEntity = FlounderEntities.load("dragon").createEntity(FlounderEntities.getEntities(), new Vector3f(), new Vector3f());
 	}
 
 	@Override
@@ -73,22 +73,22 @@ public class ExtensionEntities extends IEditorType {
 				focusEntity.forceRemove();
 			}
 
-			focusEntity = EbonEntities.load(loadFromEntity).createEntity(EbonEntities.getEntities(), new Vector3f(), new Vector3f());
+			focusEntity = FlounderEntities.load(loadFromEntity).createEntity(FlounderEntities.getEntities(), new Vector3f(), new Vector3f());
 
-			for (IEntityComponent component : focusEntity.getComponents()) {
-				IEditorComponent editorComponent = null;
+			for (IComponentEntity component : focusEntity.getComponents()) {
+				IComponentEditor editorComponent = null;
 
-				for (int i = 0; i < IEditorComponent.EDITOR_COMPONENTS.length; i++) {
-					if (IEditorComponent.EDITOR_COMPONENTS[i].getComponent().getId() == component.getId()) {
+				for (int i = 0; i < IComponentEditor.EDITOR_COMPONENTS.length; i++) {
+					if (IComponentEditor.EDITOR_COMPONENTS[i].getComponent().getId() == component.getId()) {
 						try {
 							FlounderLogger.log("Adding component: " + component);
-							Class componentClass = Class.forName(IEditorComponent.EDITOR_COMPONENTS[i].getClass().getName());
-							Class[] componentTypes = new Class[]{IEntityComponent.class};
+							Class componentClass = Class.forName(IComponentEditor.EDITOR_COMPONENTS[i].getClass().getName());
+							Class[] componentTypes = new Class[]{IComponentEntity.class};
 							@SuppressWarnings("unchecked") Constructor componentConstructor = componentClass.getConstructor(componentTypes);
 							Object[] componentParameters = new Object[]{component};
-							editorComponent = (IEditorComponent) componentConstructor.newInstance(componentParameters);
+							editorComponent = (IComponentEditor) componentConstructor.newInstance(componentParameters);
 						} catch (ClassNotFoundException | IllegalAccessException | InstantiationException | InvocationTargetException | NoSuchMethodException ex) {
-							FlounderLogger.error("While loading component" + IEditorComponent.EDITOR_COMPONENTS[i] + "'s constructor could not be found!");
+							FlounderLogger.error("While loading component" + IComponentEditor.EDITOR_COMPONENTS[i] + "'s constructor could not be found!");
 							FlounderLogger.exception(ex);
 						}
 
@@ -99,7 +99,7 @@ public class ExtensionEntities extends IEditorType {
 				FrameEntities.editorComponents.add(editorComponent);
 
 				if (editorComponent != null) {
-					JPanel panel = IEditorComponent.makeTextPanel();
+					JPanel panel = IComponentEditor.makeTextPanel();
 					editorComponent.addToPanel(panel);
 					FrameEntities.componentAddRemove(panel, editorComponent);
 					FrameEntities.addSideTab(editorComponent.getTabName(), panel);

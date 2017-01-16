@@ -1,11 +1,12 @@
 package ebon.entities.editing;
 
-import ebon.entities.*;
 import ebon.entities.components.*;
-import ebon.entities.loading.*;
 import flounder.animation.*;
 import flounder.collada.*;
 import flounder.collada.animation.*;
+import flounder.entities.*;
+import flounder.entities.components.*;
+import flounder.entities.template.*;
 import flounder.helpers.*;
 import flounder.logger.*;
 import flounder.maths.matrices.*;
@@ -19,7 +20,7 @@ import java.awt.event.*;
 import java.io.*;
 import java.util.*;
 
-public class EditorAnimation extends IEditorComponent {
+public class EditorAnimation extends IComponentEditor {
 	public ComponentAnimation component;
 
 	private MyFile pathCollada;
@@ -29,7 +30,7 @@ public class EditorAnimation extends IEditorComponent {
 		this.component = new ComponentAnimation(entity, null, 1.0f, null, 1);
 	}
 
-	public EditorAnimation(IEntityComponent component) {
+	public EditorAnimation(IComponentEntity component) {
 		this.component = (ComponentAnimation) component;
 	}
 
@@ -39,7 +40,7 @@ public class EditorAnimation extends IEditorComponent {
 	}
 
 	@Override
-	public IEntityComponent getComponent() {
+	public IComponentEntity getComponent() {
 		return component;
 	}
 
@@ -94,12 +95,12 @@ public class EditorAnimation extends IEditorComponent {
 	@Override
 	public void update() {
 		if (component != null) {
-			if (pathCollada != null/*  && (component.getModelAnimated() == null|| !component.getModelAnimated().getFile().equals(pathCollada.getPath()))*/) {
+			if (pathCollada != null/*  && (component.getModel() == null|| !component.getModel().getFile().equals(pathCollada.getPath()))*/) {
 				if (pathCollada.getPath().contains(".dae")) {
 					ModelAnimated modelAnimated = FlounderCollada.loadCollada(pathCollada);
 					AnimationData animationData = FlounderCollada.loadAnimation(pathCollada);
 					Animation animation = FlounderAnimation.loadAnimation(animationData);
-					component.setModelAnimated(modelAnimated);
+					component.setModel(modelAnimated);
 					component.doAnimation(animation);
 				}
 
@@ -148,8 +149,8 @@ public class EditorAnimation extends IEditorComponent {
 		EntitySaverFunction saveVertices = new EntitySaverFunction("Vertices") {
 			@Override
 			public void writeIntoSection(FileWriterHelper entityFileWriter) throws IOException {
-				if (component.getModelAnimated() != null) {
-					for (float v : component.getModelAnimated().getMeshData().getVertices()) {
+				if (component.getModel() != null) {
+					for (float v : component.getModel().getMeshData().getVertices()) {
 						String s = v + ",";
 						entityFileWriter.writeSegmentData(s);
 					}
@@ -159,8 +160,8 @@ public class EditorAnimation extends IEditorComponent {
 		EntitySaverFunction saveTextureCoords = new EntitySaverFunction("TextureCoords") {
 			@Override
 			public void writeIntoSection(FileWriterHelper entityFileWriter) throws IOException {
-				if (component.getModelAnimated() != null) {
-					for (float v : component.getModelAnimated().getMeshData().getTextures()) {
+				if (component.getModel() != null) {
+					for (float v : component.getModel().getMeshData().getTextures()) {
 						String s = v + ",";
 						entityFileWriter.writeSegmentData(s);
 					}
@@ -170,8 +171,8 @@ public class EditorAnimation extends IEditorComponent {
 		EntitySaverFunction saveNormals = new EntitySaverFunction("Normals") {
 			@Override
 			public void writeIntoSection(FileWriterHelper entityFileWriter) throws IOException {
-				if (component.getModelAnimated() != null) {
-					for (float v : component.getModelAnimated().getMeshData().getNormals()) {
+				if (component.getModel() != null) {
+					for (float v : component.getModel().getMeshData().getNormals()) {
 						String s = v + ",";
 						entityFileWriter.writeSegmentData(s);
 					}
@@ -181,8 +182,8 @@ public class EditorAnimation extends IEditorComponent {
 		EntitySaverFunction saveTangents = new EntitySaverFunction("Tangents") {
 			@Override
 			public void writeIntoSection(FileWriterHelper entityFileWriter) throws IOException {
-				if (component.getModelAnimated() != null) {
-					for (float v : component.getModelAnimated().getMeshData().getTangents()) {
+				if (component.getModel() != null) {
+					for (float v : component.getModel().getMeshData().getTangents()) {
 						String s = v + ",";
 						entityFileWriter.writeSegmentData(s);
 					}
@@ -192,8 +193,8 @@ public class EditorAnimation extends IEditorComponent {
 		EntitySaverFunction saveIndices = new EntitySaverFunction("Indices") {
 			@Override
 			public void writeIntoSection(FileWriterHelper entityFileWriter) throws IOException {
-				if (component.getModelAnimated() != null) {
-					for (int i : component.getModelAnimated().getMeshData().getIndices()) {
+				if (component.getModel() != null) {
+					for (int i : component.getModel().getMeshData().getIndices()) {
 						String s = i + ",";
 						entityFileWriter.writeSegmentData(s);
 					}
@@ -203,8 +204,8 @@ public class EditorAnimation extends IEditorComponent {
 		EntitySaverFunction saveJointIds = new EntitySaverFunction("JointIds") {
 			@Override
 			public void writeIntoSection(FileWriterHelper entityFileWriter) throws IOException {
-				if (component.getModelAnimated() != null) {
-					for (int i : component.getModelAnimated().getMeshData().getJointIds()) {
+				if (component.getModel() != null) {
+					for (int i : component.getModel().getMeshData().getJointIds()) {
 						String s = i + ",";
 						entityFileWriter.writeSegmentData(s);
 					}
@@ -214,8 +215,8 @@ public class EditorAnimation extends IEditorComponent {
 		EntitySaverFunction saveVertexWeights = new EntitySaverFunction("VertexWeights") {
 			@Override
 			public void writeIntoSection(FileWriterHelper entityFileWriter) throws IOException {
-				if (component.getModelAnimated() != null) {
-					for (float v : component.getModelAnimated().getMeshData().getVertexWeights()) {
+				if (component.getModel() != null) {
+					for (float v : component.getModel().getMeshData().getVertexWeights()) {
 						String s = v + ",";
 						entityFileWriter.writeSegmentData(s);
 					}
@@ -225,8 +226,8 @@ public class EditorAnimation extends IEditorComponent {
 		EntitySaverFunction saveJoints = new EntitySaverFunction("Joints") {
 			@Override
 			public void writeIntoSection(FileWriterHelper entityFileWriter) throws IOException {
-				if (component.getModelAnimated() != null && component.getModelAnimated().getJointsData() != null) {
-					Joint headJoint = component.getModelAnimated().getHeadJoint();
+				if (component.getModel() != null && component.getModel().getJointsData() != null) {
+					Joint headJoint = component.getModel().getHeadJoint();
 					List<Joint> joints = new ArrayList<>();
 					headJoint.addSelfAndChildren(joints);
 
@@ -272,13 +273,13 @@ public class EditorAnimation extends IEditorComponent {
 		// TODO: Save AABB and Hull.
 
 		String saveScale = "Scale: " + component.getScale();
-		String saveFurthestPoint = "FurthestPoint: " + component.getModelAnimated().getMeshData().getFurthestPoint();
+		String saveFurthestPoint = "FurthestPoint: " + component.getModel().getMeshData().getFurthestPoint();
 
 		String saveTexture = "Texture: " + (component.getTexture() == null ? null : "res/entities/" + entityName + "/" + entityName + "Diffuse.png");
 		String saveTextureNumRows = "TextureNumRows: " + (component.getTexture() == null ? 1 : component.getTexture().getNumberOfRows());
 
 		String saveAnimationLength = "AnimationLength: " + (component.getAnimator() != null && component.getAnimator().getCurrentAnimation() != null ? component.getAnimator().getCurrentAnimation().getLength() : null);
-		String saveJointCount = "JointCount: " + (component.getModelAnimated() != null && component.getModelAnimated().getJointsData() != null ? component.getModelAnimated().getJointsData().getJointCount() : null);
+		String saveJointCount = "JointCount: " + (component.getModel() != null && component.getModel().getJointsData() != null ? component.getModel().getJointsData().getJointCount() : null);
 
 		return new Pair<>(
 				new String[]{saveScale, saveFurthestPoint, saveTexture, saveTextureNumRows, saveAnimationLength, saveJointCount},

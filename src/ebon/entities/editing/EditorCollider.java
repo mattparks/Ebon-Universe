@@ -1,22 +1,23 @@
 package ebon.entities.editing;
 
-import ebon.entities.*;
 import ebon.entities.components.*;
-import ebon.entities.loading.*;
+import flounder.entities.*;
+import flounder.entities.components.*;
+import flounder.entities.template.*;
 import flounder.helpers.*;
 import flounder.physics.bounding.*;
 
 import javax.swing.*;
 import java.awt.event.*;
 
-public class EditorCollider extends IEditorComponent {
+public class EditorCollider extends IComponentEditor {
 	public ComponentCollider component;
 
 	public EditorCollider(Entity entity) {
 		this.component = new ComponentCollider(entity);
 	}
 
-	public EditorCollider(IEntityComponent component) {
+	public EditorCollider(IComponentEntity component) {
 		this.component = (ComponentCollider) component;
 	}
 

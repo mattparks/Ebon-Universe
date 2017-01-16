@@ -4,3 +4,6 @@
 [submodule "Flounder-Animation"]
 	path = Flounder-Animation
 	url = https://github.com/mattparks/Flounder-Animation
+[submodule "Flounder-Entities"]
+	path = Flounder-Entities
+	url = https://github.com/mattparks/Flounder-Entities

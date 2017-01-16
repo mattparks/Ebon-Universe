@@ -20,7 +20,7 @@ public class EditorRenderer extends IRendererMaster {
 
 	private SkyboxRenderer skyboxRenderer;
 	private AnimatedRenderer animatedRenderer;
-	private EntityRenderer entityRenderer;
+	private EntitiesRenderer entitiesRenderer;
 	private ParticleRenderer particleRenderer;
 	private BoundingRenderer boundingRenderer;
 	private GuiRenderer guiRenderer;
@@ -37,7 +37,7 @@ public class EditorRenderer extends IRendererMaster {
 	public void init() {
 		this.skyboxRenderer = new SkyboxRenderer();
 		this.animatedRenderer = new AnimatedRenderer();
-		this.entityRenderer = new EntityRenderer();
+		this.entitiesRenderer = new EntitiesRenderer();
 		this.particleRenderer = new ParticleRenderer();
 		this.boundingRenderer = new BoundingRenderer();
 		this.guiRenderer = new GuiRenderer();
@@ -95,7 +95,7 @@ public class EditorRenderer extends IRendererMaster {
 		/* Renders each renderer. */
 		skyboxRenderer.render(clipPlane, camera);
 		animatedRenderer.render(clipPlane, camera);
-		entityRenderer.render(clipPlane, camera);
+		entitiesRenderer.render(clipPlane, camera);
 		particleRenderer.render(clipPlane, camera);
 		boundingRenderer.render(clipPlane, camera);
 	}
@@ -104,7 +104,7 @@ public class EditorRenderer extends IRendererMaster {
 	public void dispose() {
 		skyboxRenderer.dispose();
 		animatedRenderer.dispose();
-		entityRenderer.dispose();
+		entitiesRenderer.dispose();
 		particleRenderer.dispose();
 		boundingRenderer.dispose();
 		guiRenderer.dispose();

@@ -1,8 +1,10 @@
 package ebon.entities.components;
 
-import ebon.entities.*;
-import ebon.entities.loading.*;
+import flounder.entities.*;
+import flounder.entities.components.*;
+import flounder.entities.template.*;
 import flounder.materials.*;
+import flounder.maths.matrices.*;
 import flounder.maths.vectors.*;
 import flounder.models.*;
 import flounder.physics.*;
@@ -12,11 +14,12 @@ import flounder.textures.*;
 /**
  * Creates a model with a texture that can be rendered into the world.
  */
-public class ComponentModel extends IEntityComponent {
+public class ComponentModel extends IComponentEntity {
 	public static final int ID = EntityIDAssigner.getId();
 
 	private Model model;
 	private float scale;
+	private Matrix4f modelMatrix;
 
 	private Texture texture;
 	private Texture normalMap;
@@ -37,6 +40,7 @@ public class ComponentModel extends IEntityComponent {
 		super(entity, ID);
 		this.model = model;
 		this.scale = scale;
+		this.modelMatrix = new Matrix4f();
 
 		this.texture = texture;
 		this.normalMap = normalMap;
@@ -115,12 +119,37 @@ public class ComponentModel extends IEntityComponent {
 		this.transparency = 1.0f;
 	}
 
+	@Override
+	public void update() {
+	}
+
 	public Model getModel() {
 		return model;
 	}
 
 	public void setModel(Model model) {
 		this.model = model;
+	}
+
+	public float getScale() {
+		return scale;
+	}
+
+	public void setScale(float scale) {
+		this.scale = scale;
+	}
+
+	/**
+	 * Gets the entitys model matrix.
+	 *
+	 * @return The entitys model matrix.
+	 */
+	public Matrix4f getModelMatrix() {
+		modelMatrix.setIdentity();
+		float scale = 1.0f;
+		scale = (super.getEntity().getComponent(ComponentModel.ID) != null) ? ((ComponentModel) super.getEntity().getComponent(ComponentModel.ID)).getScale() : scale;
+		Matrix4f.transformationMatrix(super.getEntity().getPosition(), super.getEntity().getRotation(), scale, modelMatrix);
+		return modelMatrix;
 	}
 
 	public Texture getTexture() {
@@ -158,20 +187,13 @@ public class ComponentModel extends IEntityComponent {
 		this.transparency = transparency;
 	}
 
-	public float getScale() {
-		return scale;
-	}
-
-	public void setScale(float scale) {
-		this.scale = scale;
-	}
-
 	public void setTextureIndex(int index) {
 		this.textureIndex = index;
 	}
 
 	@Override
-	public void update() {
+	public IBounding getBounding() {
+		return null;
 	}
 
 	@Override

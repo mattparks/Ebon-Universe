@@ -21,7 +21,7 @@ public class FlounderEditor extends IModule {
 	@Override
 	public void update() {
 		// Gets a new editor, if available.
-		IEditorType newManager = (IEditorType) FlounderModules.getExtensionMatch(getInstance(), editorType, IEditorType.class, true);
+		IEditorType newManager = (IEditorType) getExtensionMatch(editorType, IEditorType.class, true);
 
 		// If there is a editor, disable the old one and start to use the new one.
 		if (newManager != null) {

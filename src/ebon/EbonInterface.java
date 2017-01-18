@@ -162,6 +162,7 @@ public class EbonInterface extends IStandard {
 	@Override
 	public void dispose() {
 		SteamAPI.shutdown();
+		Ebon.closeConfigs();
 	}
 
 	@Override

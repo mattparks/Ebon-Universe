@@ -59,7 +59,7 @@ public class SkyboxRenderer extends IRenderer {
 
 	@Override
 	public void profile() {
-		FlounderProfiler.add("Skybox", "Render Time", super.getRenderTimeMs());
+		FlounderProfiler.add("Skybox", "Render Time", super.getRenderTime());
 	}
 
 	@Override

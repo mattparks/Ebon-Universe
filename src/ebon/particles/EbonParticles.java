@@ -21,7 +21,8 @@ import java.util.*;
  * A manager that manages particles.
  */
 public class EbonParticles extends IModule {
-	private static final EbonParticles instance = new EbonParticles();
+	private static final EbonParticles INSTANCE = new EbonParticles();
+	public static final String PROFILE_TAB_NAME = "Ebon Particles";
 
 	public static final MyFile PARTICLES_LOC = new MyFile(MyFile.RES_FOLDER, "particles");
 	public static final float MAX_ELAPSED_TIME = 5.0f;
@@ -36,7 +37,7 @@ public class EbonParticles extends IModule {
 	 * Creates a new particle systems manager.
 	 */
 	public EbonParticles() {
-		super(ModuleUpdate.UPDATE_POST, FlounderLogger.class, FlounderProfiler.class, FlounderDisplay.class, FlounderLoader.class, FlounderTextures.class);
+		super(ModuleUpdate.UPDATE_POST, PROFILE_TAB_NAME, FlounderLogger.class, FlounderProfiler.class, FlounderDisplay.class, FlounderLoader.class, FlounderTextures.class);
 	}
 
 	@Override
@@ -85,16 +86,16 @@ public class EbonParticles extends IModule {
 
 	@Override
 	public void profile() {
-		FlounderProfiler.add("Particles", "Systems", particleSystems.size());
-		FlounderProfiler.add("Particles", "Types", particles.size());
-		FlounderProfiler.add("Particles", "Dead Particles", deadParticles.size());
+		FlounderProfiler.add(PROFILE_TAB_NAME, "Systems", particleSystems.size());
+		FlounderProfiler.add(PROFILE_TAB_NAME, "Types", particles.size());
+		FlounderProfiler.add(PROFILE_TAB_NAME, "Dead Particles", deadParticles.size());
 	}
 
 	/**
 	 * Clears all particles from the scene.
 	 */
 	public static void clear() {
-		instance.particles.clear();
+		INSTANCE.particles.clear();
 	}
 
 	/**
@@ -103,7 +104,7 @@ public class EbonParticles extends IModule {
 	 * @param system The new system to add.
 	 */
 	public static void addSystem(ParticleSystem system) {
-		instance.particleSystems.add(system);
+		INSTANCE.particleSystems.add(system);
 	}
 
 	/**
@@ -112,7 +113,7 @@ public class EbonParticles extends IModule {
 	 * @param system The system to remove.
 	 */
 	public static void removeSystem(ParticleSystem system) {
-		instance.particleSystems.remove(system);
+		INSTANCE.particleSystems.remove(system);
 	}
 
 	/**
@@ -121,7 +122,7 @@ public class EbonParticles extends IModule {
 	 * @return All particles.
 	 */
 	protected static List<StructureBasic<Particle>> getParticles() {
-		return instance.particles;
+		return INSTANCE.particles;
 	}
 
 	/**
@@ -132,12 +133,12 @@ public class EbonParticles extends IModule {
 	 * @return The loaded template.
 	 */
 	public static ParticleTemplate load(String name) {
-		SoftReference<ParticleTemplate> ref = instance.loaded.get(name);
+		SoftReference<ParticleTemplate> ref = INSTANCE.loaded.get(name);
 		ParticleTemplate data = ref == null ? null : ref.get();
 
 		if (data == null) {
 			FlounderLogger.log(name + " is being loaded into a particle type right now!");
-			instance.loaded.remove(name);
+			INSTANCE.loaded.remove(name);
 
 			// Creates the file reader.
 			MyFile saveFile = new MyFile(EbonParticles.PARTICLES_LOC, name + ".particle");
@@ -189,7 +190,7 @@ public class EbonParticles extends IModule {
 				return null;
 			}
 
-			instance.loaded.put(name, new SoftReference<>(data));
+			INSTANCE.loaded.put(name, new SoftReference<>(data));
 		}
 
 		return data;
@@ -253,14 +254,14 @@ public class EbonParticles extends IModule {
 	public static void addParticle(ParticleTemplate particleTemplate, Vector3f position, Vector3f velocity, float lifeLength, float rotation, float scale, float gravityEffect) {
 		Particle particle;
 
-		if (instance.deadParticles.size() > 0) {
-			particle = instance.deadParticles.get(0).set(particleTemplate, position, velocity, lifeLength, rotation, scale, gravityEffect);
-			instance.deadParticles.remove(0);
+		if (INSTANCE.deadParticles.size() > 0) {
+			particle = INSTANCE.deadParticles.get(0).set(particleTemplate, position, velocity, lifeLength, rotation, scale, gravityEffect);
+			INSTANCE.deadParticles.remove(0);
 		} else {
 			particle = new Particle(particleTemplate, position, velocity, lifeLength, rotation, scale, gravityEffect);
 		}
 
-		for (StructureBasic<Particle> list : instance.particles) {
+		for (StructureBasic<Particle> list : INSTANCE.particles) {
 			if (list.getSize() > 0 && list.get(0).getParticleTemplate().equals(particle.getParticleTemplate())) {
 				list.add(particle);
 				return;
@@ -269,12 +270,12 @@ public class EbonParticles extends IModule {
 
 		StructureBasic<Particle> list = new StructureBasic<>();
 		list.add(particle);
-		instance.particles.add(list);
+		INSTANCE.particles.add(list);
 	}
 
 	@Override
 	public IModule getInstance() {
-		return instance;
+		return INSTANCE;
 	}
 
 	@Override

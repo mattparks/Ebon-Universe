@@ -123,7 +123,7 @@ public class EntitiesRenderer extends IRenderer {
 
 	@Override
 	public void profile() {
-		FlounderProfiler.add("Entities", "Render Time", super.getRenderTimeMs());
+		FlounderProfiler.add(FlounderEntities.PROFILE_TAB_NAME,"Render Time", super.getRenderTime());
 	}
 
 	@Override

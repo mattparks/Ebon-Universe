@@ -5,12 +5,13 @@ import flounder.logger.*;
 import flounder.profiling.*;
 
 public class FlounderEditor extends IModule {
-	private static final FlounderEditor instance = new FlounderEditor();
+	private static final FlounderEditor INSTANCE = new FlounderEditor();
+	public static final String PROFILE_TAB_NAME = "Ebon Editor";
 
 	private IEditorType editorType;
 
 	public FlounderEditor() {
-		super(ModuleUpdate.UPDATE_POST, FlounderLogger.class, FlounderProfiler.class);
+		super(ModuleUpdate.UPDATE_POST, PROFILE_TAB_NAME, FlounderLogger.class, FlounderProfiler.class);
 	}
 
 	@Override
@@ -50,7 +51,7 @@ public class FlounderEditor extends IModule {
 			editorType.profile();
 		}
 
-		FlounderProfiler.add("Editor", "Selected", editorType == null ? "NULL" : editorType.getClass());
+		FlounderProfiler.add(PROFILE_TAB_NAME, "Selected", editorType == null ? "NULL" : editorType.getClass());
 	}
 
 	/**
@@ -59,12 +60,12 @@ public class FlounderEditor extends IModule {
 	 * @return The current editor.
 	 */
 	public static IEditorType getEditorType() {
-		return instance.editorType;
+		return INSTANCE.editorType;
 	}
 
 	@Override
 	public IModule getInstance() {
-		return instance;
+		return INSTANCE;
 	}
 
 	@Override

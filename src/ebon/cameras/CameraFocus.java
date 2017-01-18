@@ -105,12 +105,12 @@ public class CameraFocus extends ICamera {
 		calculatePosition();
 
 		if (FlounderProfiler.isOpen()) {
-			FlounderProfiler.add("MainCamera", "Angle Of Elevation", angleOfElevation);
-			FlounderProfiler.add("MainCamera", "Rotation", rotation);
-			FlounderProfiler.add("MainCamera", "Position", position);
-			FlounderProfiler.add("MainCamera", "Angle Around MainPlayer", angleAroundPlayer);
-			FlounderProfiler.add("MainCamera", "Target Elevation", targetElevation);
-			FlounderProfiler.add("MainCamera", "Target Rotation Angle", targetRotationAngle);
+			FlounderProfiler.add(FlounderCamera.PROFILE_TAB_NAME, "Camera Angle Of Elevation", angleOfElevation);
+			FlounderProfiler.add(FlounderCamera.PROFILE_TAB_NAME, "Camera Rotation", rotation);
+			FlounderProfiler.add(FlounderCamera.PROFILE_TAB_NAME, "Camera Position", position);
+			FlounderProfiler.add(FlounderCamera.PROFILE_TAB_NAME, "Camera Angle Around MainPlayer", angleAroundPlayer);
+			FlounderProfiler.add(FlounderCamera.PROFILE_TAB_NAME, "Camera Target Elevation", targetElevation);
+			FlounderProfiler.add(FlounderCamera.PROFILE_TAB_NAME, "Camera Target Rotation Angle", targetRotationAngle);
 		}
 	}
 

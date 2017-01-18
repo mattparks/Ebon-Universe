@@ -13,7 +13,6 @@ public class Ebon extends FlounderFramework {
 	public static void main(String[] args) {
 		Ebon ebon = new Ebon();
 		ebon.run();
-		ebon.closeConfigs();
 		System.exit(0);
 	}
 
@@ -43,7 +42,7 @@ public class Ebon extends FlounderFramework {
 		MusicPlayer.SOUND_VOLUME = (float) configMain.getDoubleWithDefault("sound_volume", 0.75f, () -> MusicPlayer.SOUND_VOLUME);
 	}
 
-	public void closeConfigs() {
+	protected static void closeConfigs() {
 		configMain.dispose();
 		configPost.dispose();
 		configControls.dispose();

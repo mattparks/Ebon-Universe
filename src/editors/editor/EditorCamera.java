@@ -121,13 +121,13 @@ public class EditorCamera extends ICamera {
 		calculatePosition();
 
 		if (FlounderProfiler.isOpen()) {
-			FlounderProfiler.add("MainCamera", "Angle Of Elevation", angleOfElevation);
-			FlounderProfiler.add("MainCamera", "Rotation", rotation);
-			FlounderProfiler.add("MainCamera", "Angle Around MainPlayer", angleAroundPlayer);
-			FlounderProfiler.add("MainCamera", "Actual Distance From Point", actualDistanceFromPoint);
-			FlounderProfiler.add("MainCamera", "Target Zoom", targetZoom);
-			FlounderProfiler.add("MainCamera", "Target Elevation", targetElevation);
-			FlounderProfiler.add("MainCamera", "Target Rotation Angle", targetRotationAngle);
+			FlounderProfiler.add(FlounderCamera.PROFILE_TAB_NAME, "Camera Angle Of Elevation", angleOfElevation);
+			FlounderProfiler.add(FlounderCamera.PROFILE_TAB_NAME, "Camera Rotation", rotation);
+			FlounderProfiler.add(FlounderCamera.PROFILE_TAB_NAME, "Camera Angle Around MainPlayer", angleAroundPlayer);
+			FlounderProfiler.add(FlounderCamera.PROFILE_TAB_NAME, "Camera Actual Distance From Point", actualDistanceFromPoint);
+			FlounderProfiler.add(FlounderCamera.PROFILE_TAB_NAME, "Camera Target Zoom", targetZoom);
+			FlounderProfiler.add(FlounderCamera.PROFILE_TAB_NAME, "Camera Target Elevation", targetElevation);
+			FlounderProfiler.add(FlounderCamera.PROFILE_TAB_NAME, "Camera Target Rotation Angle", targetRotationAngle);
 		}
 	}
 
@@ -248,9 +248,9 @@ public class EditorCamera extends ICamera {
 	private void updateViewMatrix() {
 		viewMatrix.setIdentity();
 		position.negate();
-		Matrix4f.rotate(viewMatrix, new Vector3f(1, 0, 0), (float) Math.toRadians(rotation.x), viewMatrix);
-		Matrix4f.rotate(viewMatrix, new Vector3f(0, 1, 0), (float) Math.toRadians(-rotation.y), viewMatrix);
-		Matrix4f.rotate(viewMatrix, new Vector3f(0, 0, 1), (float) Math.toRadians(rotation.z), viewMatrix);
+		Matrix4f.rotate(viewMatrix, new Vector3f(1.0f, 0.0f, 0.0f), (float) Math.toRadians(rotation.x), viewMatrix);
+		Matrix4f.rotate(viewMatrix, new Vector3f(0.0f, 1.0f, 0.0f), (float) Math.toRadians(-rotation.y), viewMatrix);
+		Matrix4f.rotate(viewMatrix, new Vector3f(0.0f, 0.0f, 1.0f), (float) Math.toRadians(rotation.z), viewMatrix);
 		Matrix4f.translate(viewMatrix, position, viewMatrix);
 		position.negate();
 		viewFrustum.recalculateFrustum(getProjectionMatrix(), viewMatrix);

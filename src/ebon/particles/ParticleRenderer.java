@@ -182,7 +182,7 @@ public class ParticleRenderer extends IRenderer {
 
 	@Override
 	public void profile() {
-		FlounderProfiler.add("Particles", "Render Time", super.getRenderTimeMs());
+		FlounderProfiler.add(EbonParticles.PROFILE_TAB_NAME, "Render Time", super.getRenderTime());
 	}
 
 	@Override

@@ -19,7 +19,6 @@ public class EditorRenderer extends IRendererMaster {
 	private static final Vector4f POSITIVE_INFINITY = new Vector4f(0.0f, 1.0f, 0.0f, Float.POSITIVE_INFINITY);
 
 	private SkyboxRenderer skyboxRenderer;
-	private AnimatedRenderer animatedRenderer;
 	private EntitiesRenderer entitiesRenderer;
 	private ParticleRenderer particleRenderer;
 	private BoundingRenderer boundingRenderer;
@@ -36,7 +35,6 @@ public class EditorRenderer extends IRendererMaster {
 	@Override
 	public void init() {
 		this.skyboxRenderer = new SkyboxRenderer();
-		this.animatedRenderer = new AnimatedRenderer();
 		this.entitiesRenderer = new EntitiesRenderer();
 		this.particleRenderer = new ParticleRenderer();
 		this.boundingRenderer = new BoundingRenderer();
@@ -94,7 +92,6 @@ public class EditorRenderer extends IRendererMaster {
 
 		/* Renders each renderer. */
 		skyboxRenderer.render(clipPlane, camera);
-		animatedRenderer.render(clipPlane, camera);
 		entitiesRenderer.render(clipPlane, camera);
 		particleRenderer.render(clipPlane, camera);
 		boundingRenderer.render(clipPlane, camera);
@@ -103,7 +100,6 @@ public class EditorRenderer extends IRendererMaster {
 	@Override
 	public void dispose() {
 		skyboxRenderer.dispose();
-		animatedRenderer.dispose();
 		entitiesRenderer.dispose();
 		particleRenderer.dispose();
 		boundingRenderer.dispose();

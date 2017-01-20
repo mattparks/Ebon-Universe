@@ -3,6 +3,7 @@ package ebon.entities.components;
 import flounder.entities.*;
 import flounder.entities.components.*;
 import flounder.entities.template.*;
+import flounder.logger.*;
 import flounder.materials.*;
 import flounder.maths.matrices.*;
 import flounder.maths.vectors.*;
@@ -105,6 +106,7 @@ public class ComponentModel extends IComponentEntity {
 		}).create();
 
 		this.scale = Float.parseFloat(template.getValue(this, "Scale"));
+		this.modelMatrix = new Matrix4f();
 
 		if (!template.getValue(this, "Texture").equals("null")) {
 			this.texture = Texture.newTexture(new MyFile(template.getValue(this, "Texture"))).create();

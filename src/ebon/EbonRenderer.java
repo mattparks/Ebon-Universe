@@ -24,7 +24,6 @@ public class EbonRenderer extends IRendererMaster {
 	private static final Colour CLEAR_COLOUR = new Colour(0.0f, 0.0f, 0.0f);
 
 	private SkyboxRenderer skyboxRenderer;
-	private AnimatedRenderer animatedRenderer;
 	private EntitiesRenderer entitiesRenderer;
 	private ParticleRenderer particleRenderer;
 
@@ -46,7 +45,6 @@ public class EbonRenderer extends IRendererMaster {
 	@Override
 	public void init() {
 		this.skyboxRenderer = new SkyboxRenderer();
-		this.animatedRenderer = new AnimatedRenderer();
 		this.entitiesRenderer = new EntitiesRenderer();
 		this.particleRenderer = new ParticleRenderer();
 
@@ -107,7 +105,6 @@ public class EbonRenderer extends IRendererMaster {
 		OpenGlUtils.prepareNewRenderParse(clearColour);
 
 		skyboxRenderer.render(clipPlane, camera);
-		animatedRenderer.render(clipPlane, camera);
 		entitiesRenderer.render(clipPlane, camera);
 		particleRenderer.render(clipPlane, camera);
 		boundingRenderer.render(clipPlane, camera);
@@ -151,7 +148,6 @@ public class EbonRenderer extends IRendererMaster {
 	@Override
 	public void dispose() {
 		skyboxRenderer.dispose();
-		animatedRenderer.dispose();
 		entitiesRenderer.dispose();
 		particleRenderer.dispose();
 

@@ -7,6 +7,7 @@ import flounder.camera.*;
 import flounder.devices.*;
 import flounder.entities.*;
 import flounder.helpers.*;
+import flounder.logger.*;
 import flounder.maths.vectors.*;
 import flounder.profiling.*;
 import flounder.renderer.*;
@@ -51,7 +52,11 @@ public class EntitiesRenderer extends IRenderer {
 		prepareRendering(clipPlane, camera);
 
 		for (Entity entity : FlounderEntities.getEntities().getAll(new ArrayList<>())) { // .queryInFrustum(new ArrayList<>(), FlounderCamera.getCamera().getViewFrustum())
-			renderEntity(entity);
+			if (entity.getComponent(ComponentModel.ID) != null) {
+				renderEntity(entity);
+			} else if (entity.getComponent(ComponentAnimation.ID) != null) {
+				renderEntityAnimated(entity);
+			}
 		}
 
 		endRendering();
@@ -112,9 +117,42 @@ public class EntitiesRenderer extends IRenderer {
 
 		shader.getUniformMat4("modelMatrix").loadMat4(componentModel.getModelMatrix());
 		shader.getUniformFloat("transparency").loadFloat(componentModel.getTransparency());
+		shader.getUniformBool("animated").loadBoolean(false);
 
 		glDrawElements(GL_TRIANGLES, componentModel.getModel().getVaoLength(), GL_UNSIGNED_INT, 0);
 		OpenGlUtils.unbindVAO(0, 1, 2, 3);
+	}
+
+	private void renderEntityAnimated(Entity entity) {
+		ComponentAnimation componentAnimation = (ComponentAnimation) entity.getComponent(ComponentAnimation.ID);
+
+		if (componentAnimation == null || componentAnimation.getModel() == null) {
+			return;
+		}
+
+		OpenGlUtils.bindVAO(componentAnimation.getModel().getVaoID(), 0, 1, 2, 3, 4, 5);
+
+		if (componentAnimation.getTexture() != null) {
+			OpenGlUtils.bindTexture(componentAnimation.getTexture(), 0);
+			shader.getUniformFloat("atlasRows").loadFloat(componentAnimation.getTexture().getNumberOfRows());
+			shader.getUniformVec2("atlasOffset").loadVec2(componentAnimation.getTextureOffset());
+		} else {
+			OpenGlUtils.bindTexture(textureUndefined, 0);
+			shader.getUniformFloat("atlasRows").loadFloat(textureUndefined.getNumberOfRows());
+			shader.getUniformVec2("atlasOffset").loadVec2(0, 0);
+			OpenGlUtils.cullBackFaces(false);
+		}
+
+		for (int i = 0; i < componentAnimation.getJointTransforms().length; i++) {
+			shader.getUniformMat4("jointTransforms[" + i + "]").loadMat4(componentAnimation.getJointTransforms()[i]);
+		}
+
+		shader.getUniformMat4("modelMatrix").loadMat4(componentAnimation.getModelMatrix());
+		shader.getUniformFloat("transparency").loadFloat(1.0f);
+		shader.getUniformBool("animated").loadBoolean(true);
+
+		glDrawElements(GL_TRIANGLES, componentAnimation.getModel().getVaoLength(), GL_UNSIGNED_INT, 0);
+		OpenGlUtils.unbindVAO(0, 1, 2, 3, 4, 5);
 	}
 
 	private void endRendering() {

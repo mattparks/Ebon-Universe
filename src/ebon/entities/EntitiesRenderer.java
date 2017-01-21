@@ -7,7 +7,6 @@ import flounder.camera.*;
 import flounder.devices.*;
 import flounder.entities.*;
 import flounder.helpers.*;
-import flounder.logger.*;
 import flounder.maths.vectors.*;
 import flounder.profiling.*;
 import flounder.renderer.*;
@@ -161,7 +160,7 @@ public class EntitiesRenderer extends IRenderer {
 
 	@Override
 	public void profile() {
-		FlounderProfiler.add(FlounderEntities.PROFILE_TAB_NAME,"Render Time", super.getRenderTime());
+		FlounderProfiler.add(FlounderEntities.PROFILE_TAB_NAME, "Render Time", super.getRenderTime());
 	}
 
 	@Override

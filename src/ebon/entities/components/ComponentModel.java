@@ -3,7 +3,6 @@ package ebon.entities.components;
 import flounder.entities.*;
 import flounder.entities.components.*;
 import flounder.entities.template.*;
-import flounder.logger.*;
 import flounder.materials.*;
 import flounder.maths.matrices.*;
 import flounder.maths.vectors.*;

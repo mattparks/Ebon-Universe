@@ -51,7 +51,7 @@ public class MasterOverlay extends GuiComponent {
 		text.setColour(MasterSlider.TEXT_COLOUR);
 		text.setBorderColour(0.15f, 0.15f, 0.15f);
 		text.setBorder(new ConstantDriver(0.04f));
-		super.addText(text, 0.1f, yPos, 0.5f);
+		super.addText(text, 0.01f, 0.01f + yPos, 0.5f);
 		return text;
 	}
 

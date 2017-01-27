@@ -52,7 +52,6 @@ public class EbonRenderer extends IRendererMaster {
 		this.guiRenderer = new GuiRenderer();
 		this.fontRenderer = new FontRenderer();
 
-		// Diffuse, Depth, Normals
 		this.multisamplingFBO = FBO.newFBO(1.0f).depthBuffer(DepthBufferType.TEXTURE).antialias(
 				Ebon.configMain.getIntWithDefault("msaa_samples", 4, () -> multisamplingFBO.getSamples())
 		).create();

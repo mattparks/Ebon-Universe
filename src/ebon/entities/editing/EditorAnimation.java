@@ -258,7 +258,7 @@ public class EditorAnimation extends IComponentEditor {
 				if (component.getAnimator() != null && component.getAnimator().getCurrentAnimation() != null) {
 					Animation animation = component.getAnimator().getCurrentAnimation();
 
-					for (KeyFrame frame : animation.getKeyFrames()) {
+					for (KeyFrameJoints frame : animation.getKeyFrameJointss()) {
 						for (String name : frame.getJointKeyFrames().keySet()) {
 							JointTransform joint = frame.getJointKeyFrames().get(name);
 							Vector3f position = joint.getPosition();

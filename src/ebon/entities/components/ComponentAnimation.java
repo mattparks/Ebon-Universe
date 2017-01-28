@@ -153,7 +153,7 @@ public class ComponentAnimation extends IComponentEntity {
 			float animationLength = Float.parseFloat(template.getValue(this, "AnimationLength"));
 			String[] animationData = template.getSectionData(ComponentAnimation.this, "Animation");
 
-			List<KeyFrame> keyFrames = new ArrayList<>();
+			List<KeyFrameJoints> keyFrameJointss = new ArrayList<>();
 
 			float timeStamp = 0.0f;
 			String name = "";
@@ -192,7 +192,7 @@ public class ComponentAnimation extends IComponentEntity {
 						rotation.w = Float.parseFloat(animationData[i]);
 						boolean set = false;
 
-						for (KeyFrame frame : keyFrames) {
+						for (KeyFrameJoints frame : keyFrameJointss) {
 							if (frame.getTimeStamp() == timeStamp) {
 								frame.getJointKeyFrames().put(name, new JointTransform(new Vector3f(position), new Quaternion(rotation)));
 								set = true;
@@ -200,9 +200,9 @@ public class ComponentAnimation extends IComponentEntity {
 						}
 
 						if (!set) {
-							KeyFrame newFrame = new KeyFrame(timeStamp, new HashMap<>());
+							KeyFrameJoints newFrame = new KeyFrameJoints(timeStamp, new HashMap<>());
 							newFrame.getJointKeyFrames().put(name, new JointTransform(new Vector3f(position), new Quaternion(rotation)));
-							keyFrames.add(newFrame);
+							keyFrameJointss.add(newFrame);
 						}
 
 						timeStamp = 0.0f;
@@ -216,11 +216,11 @@ public class ComponentAnimation extends IComponentEntity {
 				id++;
 			}
 
-			keyFrames.sort((KeyFrame p1, KeyFrame p2) -> (int) (p1.getTimeStamp() - p2.getTimeStamp()));
-			KeyFrame[] frames = new KeyFrame[keyFrames.size()];
+			keyFrameJointss.sort((KeyFrameJoints p1, KeyFrameJoints p2) -> (int) (p1.getTimeStamp() - p2.getTimeStamp()));
+			KeyFrameJoints[] frames = new KeyFrameJoints[keyFrameJointss.size()];
 
 			for (int i = 0; i < frames.length; i++) {
-				frames[i] = keyFrames.get(i);
+				frames[i] = keyFrameJointss.get(i);
 			}
 
 			model.getHeadJoint().calculateInverseBindTransform(Matrix4f.rotate(new Matrix4f(), new Vector3f(1.0f, 0.0f, 0.0f), (float) Math.toRadians(-90.0f), null));

@@ -9,7 +9,7 @@ public class PipelineDemo extends PostPipeline {
 	public static final int TOTAL_EFFECTS = 7;
 
 	private FilterEmboss filterEmboss;
-	private FilterGray filterGray;
+	private FilterGrey filterGrey;
 	private FilterNegative filterNegative;
 	private FilterPixel filterPixel;
 	private FilterSepia filterSepia;
@@ -20,7 +20,7 @@ public class PipelineDemo extends PostPipeline {
 
 	public PipelineDemo() {
 		filterEmboss = new FilterEmboss();
-		filterGray = new FilterGray();
+		filterGrey = new FilterGrey();
 		filterNegative = new FilterNegative();
 		filterPixel = new FilterPixel();
 		filterSepia = new FilterSepia();
@@ -43,8 +43,8 @@ public class PipelineDemo extends PostPipeline {
 				filterEmboss.fbo.resolveFBO(0, 0, filterOutput);
 				break;
 			case 2:
-				filterGray.applyFilter(startFBO.getColourTexture(0));
-				filterGray.fbo.resolveFBO(0, 0, filterOutput);
+				filterGrey.applyFilter(startFBO.getColourTexture(0));
+				filterGrey.fbo.resolveFBO(0, 0, filterOutput);
 				break;
 			case 3:
 				filterNegative.applyFilter(startFBO.getColourTexture(0));
@@ -85,7 +85,7 @@ public class PipelineDemo extends PostPipeline {
 	@Override
 	public void dispose() {
 		filterEmboss.dispose();
-		filterGray.dispose();
+		filterGrey.dispose();
 		filterNegative.dispose();
 		filterPixel.dispose();
 		filterSepia.dispose();

@@ -22,7 +22,7 @@ public class EditorRenderer extends IRendererMaster {
 	private EntitiesRenderer entitiesRenderer;
 	private ParticleRenderer particleRenderer;
 	private BoundingRenderer boundingRenderer;
-	private GuiRenderer guiRenderer;
+	private GuisRenderer guisRenderer;
 	private FontRenderer fontRenderer;
 
 	private FBO multisamplingFBO;
@@ -38,7 +38,7 @@ public class EditorRenderer extends IRendererMaster {
 		this.entitiesRenderer = new EntitiesRenderer();
 		this.particleRenderer = new ParticleRenderer();
 		this.boundingRenderer = new BoundingRenderer();
-		this.guiRenderer = new GuiRenderer();
+		this.guisRenderer = new GuisRenderer();
 		this.fontRenderer = new FontRenderer();
 
 		this.multisamplingFBO = FBO.newFBO(1.0f).depthBuffer(DepthBufferType.TEXTURE).antialias(FlounderDisplay.getSamples()).create();
@@ -54,7 +54,7 @@ public class EditorRenderer extends IRendererMaster {
 		renderScene(POSITIVE_INFINITY);
 
 		/* Scene independents. */
-		guiRenderer.render(POSITIVE_INFINITY, null);
+		guisRenderer.render(POSITIVE_INFINITY, null);
 		fontRenderer.render(POSITIVE_INFINITY, null);
 
 		/* Unbinds the FBO. */
@@ -103,7 +103,7 @@ public class EditorRenderer extends IRendererMaster {
 		entitiesRenderer.dispose();
 		particleRenderer.dispose();
 		boundingRenderer.dispose();
-		guiRenderer.dispose();
+		guisRenderer.dispose();
 		fontRenderer.dispose();
 
 		multisamplingFBO.delete();

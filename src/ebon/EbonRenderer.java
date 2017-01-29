@@ -28,7 +28,7 @@ public class EbonRenderer extends IRendererMaster {
 	private ParticleRenderer particleRenderer;
 
 	private BoundingRenderer boundingRenderer;
-	private GuiRenderer guiRenderer;
+	private GuisRenderer guisRenderer;
 	private FontRenderer fontRenderer;
 
 	private FBO multisamplingFBO;
@@ -49,7 +49,7 @@ public class EbonRenderer extends IRendererMaster {
 		this.particleRenderer = new ParticleRenderer();
 
 		this.boundingRenderer = new BoundingRenderer();
-		this.guiRenderer = new GuiRenderer();
+		this.guisRenderer = new GuisRenderer();
 		this.fontRenderer = new FontRenderer();
 
 		this.multisamplingFBO = FBO.newFBO(1.0f).depthBuffer(DepthBufferType.TEXTURE).antialias(
@@ -74,7 +74,7 @@ public class EbonRenderer extends IRendererMaster {
 		renderPost(FlounderGuis.getGuiMaster().isGamePaused(), FlounderGuis.getGuiMaster().getBlurFactor());
 
 		/* Scene independents. */
-		guiRenderer.render(POSITIVE_INFINITY, FlounderCamera.getCamera());
+		guisRenderer.render(POSITIVE_INFINITY, FlounderCamera.getCamera());
 		fontRenderer.render(POSITIVE_INFINITY, FlounderCamera.getCamera());
 
 		/* Unbinds the FBO. */
@@ -151,7 +151,7 @@ public class EbonRenderer extends IRendererMaster {
 		particleRenderer.dispose();
 
 		boundingRenderer.dispose();
-		guiRenderer.dispose();
+		guisRenderer.dispose();
 		fontRenderer.dispose();
 
 		multisamplingFBO.delete();
